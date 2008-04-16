@@ -3,8 +3,8 @@ indexing
 	description: "Test HTTP client by connecting to an HTTP server."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/03/02 $"
-	revision: "$Revision: #7 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #9 $"
 
 	notes: "Need VE 4.0 with patched STRING, or a higher version."
 

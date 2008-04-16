@@ -3,8 +3,8 @@ indexing
 	description: "Test resolving using examples from RFC2396, appendix C"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 deferred class
 

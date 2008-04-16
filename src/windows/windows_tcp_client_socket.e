@@ -3,8 +3,8 @@ indexing
 	description: "Windows TCP client side socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/03/20 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class

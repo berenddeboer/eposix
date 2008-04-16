@@ -14,6 +14,9 @@ C layer to Posix semaphore routines in semaphore.h.
 
 #include <semaphore.h>
 #include <unistd.h>
+#ifdef HAVE_LIMITS_H
+#include <limits.h>
+#endif
 #include "../supportc/eiffel.h"
 
 

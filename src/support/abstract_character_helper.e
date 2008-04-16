@@ -3,8 +3,8 @@ indexing
 	description: "Character utilities such as converting integers to%
 	%characters and vice versa."
 
-	date: "$Date: 2006/06/01 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 class
 

@@ -3,8 +3,8 @@ indexing
 	description: "Class that covers Posix file descriptor routines."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/02/06 $"
-	revision: "$Revision: #8 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #10 $"
 
 
 class

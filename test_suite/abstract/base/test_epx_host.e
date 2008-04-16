@@ -3,8 +3,8 @@ indexing
 	description: "Test abstract host class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/11/29 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 
 deferred class

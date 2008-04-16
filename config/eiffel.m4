@@ -75,25 +75,25 @@ m4_define([AC_LANG_SOURCE(Eiffel)],
 AC_DEFUN([AC_PROG_EC],
 [AC_LANG_PUSH(Eiffel)dnl
 AC_ARG_WITH(compiler,
- [  --with-compiler=compiler What compiler do you use? ise, se, ve or ge (lowercase!)],
+ [  --with-compiler=compiler What compiler do you use? ise, se or ge (lowercase!)],
  GOBO_EIFFEL=$withval)
 AC_ARG_VAR([EC],     [Eiffel compiler command])dnl
-AC_ARG_VAR([GOBO_EIFFEL],     [Eiffel vendor (se, ise, ve, ge), default is se])dnl
+AC_ARG_VAR([GOBO_EIFFEL],     [Eiffel vendor (se, ise, ge), default is se])dnl
 
 AC_CHECK_TOOLS(EC,
-      [m4_default([$1],
-                  [se-compile compile ec vec ge])])
+			[m4_default([$1],
+									[se-compile compile ec gec vec])])
 
 # Provide some information about the compiler.
 echo "$as_me:__oline__:" \
-     "checking for _AC_LANG compiler version" >&AS_MESSAGE_LOG_FD
+		 "checking for _AC_LANG compiler version" >&AS_MESSAGE_LOG_FD
 ac_compiler=`set X $ac_compile; echo $[2]`
 _AC_EVAL([$ac_compiler --version </dev/null >&AS_MESSAGE_LOG_FD])
 _AC_EVAL([$ac_compiler -v </dev/null >&AS_MESSAGE_LOG_FD])
 _AC_EVAL([$ac_compiler -V </dev/null >&AS_MESSAGE_LOG_FD])
 
 if test x$EC = x; then
-  AC_MSG_ERROR(No recognized Eiffel compiler in your path or no Eiffel compiler installed)
+	AC_MSG_ERROR(No recognized Eiffel compiler in your path or no Eiffel compiler installed)
 fi
 
 # We set GOBO_EIFFEL regardless of Gobo is installed or not.
@@ -104,22 +104,22 @@ AC_SUBST(GOBO_EIFFEL)
 # Only use the auto-determined Eiffel compiler when GOBO_EIFFEL is not set.
 if test x$GOBO_EIFFEL = x
 then
-  if test x$EC = xcompile
-  then
-    GOBO_EIFFEL=se
-  elif test x$EC = xse-compile
-  then
-    GOBO_EIFFEL=se
-  elif test x$EC = xec
-  then
-    GOBO_EIFFEL=ise
-  elif test x$EC = xvec
-  then
-    GOBO_EIFFEL=ve
-  elif test x$EC = xge
-  then
-    GOBO_EIFFEL=ge
-  fi
+	if test x$EC = xcompile
+	then
+		GOBO_EIFFEL=se
+	elif test x$EC = xse-compile
+	then
+		GOBO_EIFFEL=se
+	elif test x$EC = xec
+	then
+		GOBO_EIFFEL=ise
+	elif test x$EC = xvec
+	then
+		GOBO_EIFFEL=ve
+	elif test x$EC = xge
+	then
+		GOBO_EIFFEL=ge
+	fi
 fi
 
 # Depending on GOBO_EIFFEL, we set conditionals that can be used
@@ -135,44 +135,44 @@ AM_CONDITIONAL(GE, test "x$GOBO_EIFFEL" = "xge")
 AC_SUBST(EIFFEL_COMPILER_HEADER_DIR)
 if test "x$GOBO_EIFFEL" = "xse"
 then
-  # Try SEDIR if set, more safe then hacking the SmaRTEiffel environment variable
-  if test ! "x"$SEDIR = "x"; then
-    EIFFEL_COMPILER_HEADER_DIR=$SEDIR
-  else
-    if test ! "x"$SmartEiffel = "x"; then
-      EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
-    else
-      if test ! "x"$SmallEiffel = "x"; then
-        EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
-      else
-        AC_MSG_ERROR(The SmartEiffel environment variable is not set)
-      fi
-    fi
-  fi
+	# Try SEDIR if set, more safe then hacking the SmaRTEiffel environment variable
+	if test ! "x"$SEDIR = "x"; then
+		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
+	else
+		if test ! "x"$SmartEiffel = "x"; then
+			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+		else
+			if test ! "x"$SmallEiffel = "x"; then
+				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+			else
+				AC_MSG_ERROR(The SmartEiffel environment variable is not set)
+			fi
+		fi
+	fi
 
-  # With SE 1.1 the location of base.h has changed
-  # To be able to support earlier and newer versions, we have to find
-  # out where it is.
-  if test -r $EIFFEL_COMPILER_HEADER_DIR/sys/runtime/c/base.h; then
-    AC_DEFINE(HAVE_C_BASE_H, 1, [Define to 1 if SmartEiffel header file in sys/runtime/c/base.])
-  else
-    if test -r $EIFFEL_COMPILER_HEADER_DIR/sys/runtime/base.h; then
-      AC_DEFINE(HAVE_BASE_H, 1, [Define to 1 if SmartEiffel header file in sys/runtime/base.])
-    else
-        AC_MSG_ERROR(SmartEiffel base.h header file not found in $EIFFEL_COMPILER_HEADER_DIR. Make sure your SmartEiffel environment variable is set correctly)
-    fi
-  fi
+	# With SE 1.1 the location of base.h has changed
+	# To be able to support earlier and newer versions, we have to find
+	# out where it is.
+	if test -r $EIFFEL_COMPILER_HEADER_DIR/sys/runtime/c/base.h; then
+		AC_DEFINE(HAVE_C_BASE_H, 1, [Define to 1 if SmartEiffel header file in sys/runtime/c/base.])
+	else
+		if test -r $EIFFEL_COMPILER_HEADER_DIR/sys/runtime/base.h; then
+			AC_DEFINE(HAVE_BASE_H, 1, [Define to 1 if SmartEiffel header file in sys/runtime/base.])
+		else
+				AC_MSG_ERROR(SmartEiffel base.h header file not found in $EIFFEL_COMPILER_HEADER_DIR. Make sure your SmartEiffel environment variable is set correctly)
+		fi
+	fi
 elif test "x$GOBO_EIFFEL" = "xise"
 then
-  EIFFEL_COMPILER_HEADER_DIR=$ISE_EIFFEL/studio/spec/$ISE_PLATFORM/include
+	EIFFEL_COMPILER_HEADER_DIR=$ISE_EIFFEL/studio/spec/$ISE_PLATFORM/include
 elif test "x$GOBO_EIFFEL" = "xve"
 then
-  EIFFEL_COMPILER_HEADER_DIR=$VE_Bin
+	EIFFEL_COMPILER_HEADER_DIR=$VE_Bin
 elif test "x$GOBO_EIFFEL" = "xge"
 then
-  EIFFEL_COMPILER_HEADER_DIR=$GOBO/tool/gec/runtime/c
+	EIFFEL_COMPILER_HEADER_DIR=$GOBO/tool/gec/runtime/c
 else
-  AC_MSG_ERROR(Eiffel compiler $GOBO_EIFFEL not recognized)
+	AC_MSG_ERROR(Eiffel compiler $GOBO_EIFFEL not recognized)
 fi
 
 AC_LANG_POP(Eiffel)dnl
@@ -188,25 +188,24 @@ AC_DEFUN([AC_PROG_GOBO],
 # check for Eiffel compiler
 if test "x$GOBO_EIFFEL" = "x"
 then
-  AC_PROG_EC
+	AC_PROG_EC
 else
-  if test "x$GOBO_EIFFEL" = "xise"
-  then
-    AC_PROG_EC(ec)
-  fi
-  if test "x$GOBO_EIFFEL" = "xse"
-  then
-    AC_PROG_EC([m4_default([$1],
-                  [se-compile compile])])
-  fi
-  if test "x$GOBO_EIFFEL" = "xve"
-  then
-    AC_PROG_EC(vec)
-  fi
-  if test "x$GOBO_EIFFEL" = "xge"
-  then
-    AC_PROG_EC(ge)
-  fi
+	if test "x$GOBO_EIFFEL" = "xise"
+	then
+		AC_PROG_EC(ec)
+	fi
+	if test "x$GOBO_EIFFEL" = "xse"
+	then
+		AC_PROG_EC([m4_default([$1], [se-compile compile])])
+	fi
+	if test "x$GOBO_EIFFEL" = "xve"
+	then
+		AC_PROG_EC(vec)
+	fi
+	if test "x$GOBO_EIFFEL" = "xge"
+	then
+		AC_PROG_EC(ge)
+	fi
 fi
 
 # check for Gobo tools
@@ -217,7 +216,7 @@ AC_CHECK_PROG(GOBO_YACC,geyacc,yes,no)
 AC_CHECK_PROG(GOBO_LEX,gelex,yes,no)
 
 if test x$GOBO_GEANT = xno; then
-  AC_MSG_ERROR(Gobo "geant" not in your path or not installed)
+	AC_MSG_ERROR(Gobo "geant" not in your path or not installed)
 fi
 
 ])# AC_PROG_GOBO
@@ -237,11 +236,11 @@ AC_DEFUN([AC_CHECK_RQRD_CLUSTER],
 AC_MSG_CHECKING([for Eiffel cluster $1])
 
 if test x$$1 = x; then
-  AC_MSG_ERROR(The environment variable for cluster $1 is undefined)
+	AC_MSG_ERROR(The environment variable for cluster $1 is undefined)
 fi
 
 if test ! -d $$1; then
-  AC_MSG_ERROR(The directory for cluster $1 given as $$1 does not exist)
+	AC_MSG_ERROR(The directory for cluster $1 given as $$1 does not exist)
 fi
 
 AC_MSG_RESULT([yes])
@@ -255,12 +254,12 @@ AC_DEFUN([AC_CHECK_RQRD_XACE],
 [AC_CHECK_RQRD_CLUSTER($1)
 
 if test x$2 = x; then
-  AC_MSG_CHECKING([for library.xace])
+	AC_MSG_CHECKING([for library.xace])
 else
-  AC_MSG_CHECKING([for library.xace in $2])
+	AC_MSG_CHECKING([for library.xace in $2])
 fi
 if test ! -r $$1/$2/library.xace; then
-  AC_MSG_ERROR($$1/$2/library.xace does not exist)
+	AC_MSG_ERROR($$1/$2/library.xace does not exist)
 fi
 AC_MSG_RESULT([yes])
 ])# AC_CHECK_XACE

@@ -3,8 +3,8 @@ indexing
 	description: "Test various Eiffel structure to pointer and vice versa routines."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/06/01 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 deferred class

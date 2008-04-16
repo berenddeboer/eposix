@@ -3,8 +3,8 @@ indexing
 	description: "Converts strings to pointers and vice versa."
 	thanks: "The mico/E team for the idea."
 
-	date: "$Date: 2007/05/18 $"
-	revision: "$Revision: #8 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #9 $"
 
 class
 
@@ -22,7 +22,7 @@ inherit
 feature -- SmartEiffel specific conversions
 
 	pointer_to_string (p: POINTER): STRING is
-			-- Create a new string from `p'.
+			-- New string created from `p'
 		do
 			if p = default_pointer then
 				create Result.make (0)
@@ -95,8 +95,8 @@ feature -- SmartEiffel specific conversions
 feature {NONE} -- Implementation
 
 	do_string_to_pointer (s: STRING): POINTER is
-			-- Return a pointer to a linear area containing all the data
-			-- in `s'. The area is zero-terminated.
+			-- Ppointer to a linear area containing all the data
+			-- in `s'. The area is zero-terminated;
 			-- 's'.count should be equal to `s'.byte_count.
 		do
 			Result := s.to_external
@@ -120,7 +120,7 @@ feature {NONE} -- Implementation
 
 	saved_strings: ARRAY [STRING] is
 			-- List of strings created by `uc_string_to_pointer' that
-			-- must be kept alive.
+			-- must be kept alive
 		once
 			create Result.make (0, -1)
 		ensure

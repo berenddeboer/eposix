@@ -3,8 +3,8 @@ indexing
 	description: "Class that covers a single Standard C signal."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/01/02 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 

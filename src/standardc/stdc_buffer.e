@@ -5,8 +5,8 @@ indexing
 
 	note: "If you treat this as an array, it is zero based."
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #11 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #12 $"
 
 
 class

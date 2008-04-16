@@ -2,8 +2,8 @@ indexing
 
 	description: "Converts arrays to pointers."
 
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class

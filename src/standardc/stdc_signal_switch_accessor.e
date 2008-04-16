@@ -5,15 +5,15 @@ indexing
 	usage: "Inherit from this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/11/29 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 
 	STDC_SIGNAL_SWITCH_ACCESSOR
 
 
-feature -- the singleton
+feature -- Access
 
 	signal_switch: STDC_SIGNAL_SWITCH is
 			-- singleton entry point for all catched signals
@@ -24,7 +24,7 @@ feature -- the singleton
 		end
 
 
-feature {NONE} -- private test
+feature {NONE} -- Implementation
 
 	signal_switch_is_real_singleton: BOOLEAN is
 			-- Do multiple calls to `singleton' return the same result?
@@ -35,6 +35,7 @@ feature {NONE} -- private test
 
 invariant
 
-	accessing_real_singleton: signal_switch_is_real_singleton
+		--accessing_real_singleton: signal_switch_is_real_singleton
+	-- Gives crash with ISE Eiffel
 
 end

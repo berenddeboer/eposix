@@ -3,8 +3,8 @@ indexing
 	description: "Class that covers POSIX child process."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/02/10 $"
-	revision: "$Revision: #8 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #9 $"
 
 
 deferred class

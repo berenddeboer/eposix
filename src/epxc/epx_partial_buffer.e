@@ -3,8 +3,8 @@ indexing
 	description: "Extension to STDC_BUFFER that has the ability to set the `count'. Only up to `count' bytes can be read."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class

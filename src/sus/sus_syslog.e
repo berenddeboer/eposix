@@ -5,8 +5,8 @@ indexing
 	usage: "Inherit from SUS_SYSLOG_ACCESSOR to access this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/05/21 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 class
 
@@ -51,10 +51,11 @@ feature -- open and close
 			closed: not is_open
 		do
 			identification := a_identification
+			create identification_buffer.allocate_and_clear (identification.count + 1)
+			identification_buffer.put_string (identification, 0, identification.capacity - 1)
 			format := a_format
 			facility := a_facility
-			posix_openlog (sh.string_to_pointer (identification), format, facility)
-			sh.unfreeze_all
+			posix_openlog (identification_buffer.ptr, format, facility)
 			is_open := True
 		ensure
 			opened: is_open
@@ -141,7 +142,7 @@ feature -- Write log messages, will auto-open if not is_open
 		end
 
 
-feature -- state
+feature -- Access
 
 	identification: STRING
 
@@ -152,6 +153,8 @@ feature -- state
 
 
 feature {NONE} -- Implementation
+
+	identification_buffer: STDC_BUFFER
 
 	frozen singleton: EPX_SINGLETON is
 		once

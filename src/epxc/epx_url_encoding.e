@@ -5,8 +5,8 @@ indexing
 	thanks: "Dustin Sallings for the decoding routines."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 class
 
@@ -57,7 +57,7 @@ feature -- Encode/decode field name/value pairs
 			keyvalue: STRING
 			i: INTEGER
 			kv: EPX_KEY_VALUE
-			temporary_file: STDC_FILE
+			temporary_file: EPX_CHARACTER_IO_STREAM
 			ct: EPX_MIME_FIELD_CONTENT_DISPOSITION
 			equality_tester: UC_STRING_EQUALITY_TESTER
 		do

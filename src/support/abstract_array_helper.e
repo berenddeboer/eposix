@@ -2,8 +2,8 @@ indexing
 
 	description: "Base class to converts arrays to pointers."
 
-	date: "$Date: 2005/02/10 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 
 deferred class

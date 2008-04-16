@@ -7,8 +7,8 @@ indexing
 	bugs: "Should return IMAP4_ATOM in more cases. Introduce more state for keywords that are only keywords in specific cases perhaps?"
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 
 class

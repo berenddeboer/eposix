@@ -4,8 +4,8 @@ indexing
 	%SmartEiffel has way to much stuff in its GENERAL class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/01/09 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 

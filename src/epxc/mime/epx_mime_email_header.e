@@ -5,8 +5,8 @@ indexing
 	standards: "RFC 2822"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/18 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 class
@@ -46,6 +46,16 @@ feature {NONE} -- Initialization
 		end
 
 
+feature -- Status
+
+	is_valid_email_address (an_email_address: STRING): BOOLEAN is
+			-- Is `an_email_address' a valid email address?
+		do
+			-- TODO: not complete
+			Result := an_email_address /= Void and then not an_email_address.is_empty
+		end
+
+
 feature -- Access
 
 	date: STRING is
@@ -69,6 +79,8 @@ feature -- Access
 			-- Contents of Reply-to field;
 			-- Contains the mailbox(es) to which the author of the
 			-- message suggests that replies be sent.
+		require
+			has_reply_to_field: reply_to_field /= Void
 		do
 			Result := reply_to_field.value
 		ensure
@@ -80,6 +92,8 @@ feature -- Access
 			-- Contains the author(s) of the message, that is, the
 			-- mailbox(es) of the person(s) or system(s) responsible for
 			-- the writing of the message.
+		require
+			has_from_field: from_field /= Void
 		do
 			Result := from_field.value
 		ensure
@@ -88,6 +102,8 @@ feature -- Access
 
 	subject: STRING is
 			-- Contents of Subject field
+		require
+			has_subject_field: subject_field /= Void
 		do
 			Result := subject_field.value
 		ensure
@@ -98,6 +114,8 @@ feature -- Access
 			-- Contents of To field;
 			-- Contains the address(es) of the primary recipient(s) of
 			-- the message.
+		require
+			has_to_field: to_field /= Void
 		do
 			Result := to_field.value
 		ensure
@@ -106,6 +124,30 @@ feature -- Access
 
 
 feature -- Access to well-known fields
+
+	bcc_field: EPX_MIME_UNSTRUCTURED_FIELD is
+			-- Field "Bcc" if it exists, else Void.
+		do
+			fields.search (field_name_bcc)
+			if fields.found then
+				-- Oops, this may fail if user tricks us...
+				Result ?= fields.found_item
+			end
+		ensure
+			definition: fields.has (field_name_bcc) = (Result /= Void)
+		end
+
+	cc_field: EPX_MIME_UNSTRUCTURED_FIELD is
+			-- Field "Cc" if it exists, else Void.
+		do
+			fields.search (field_name_cc)
+			if fields.found then
+				-- Oops, this may fail if user tricks us...
+				Result ?= fields.found_item
+			end
+		ensure
+			definition: fields.has (field_name_cc) = (Result /= Void)
+		end
 
 	date_field: EPX_MIME_FIELD_DATE
 			-- Field "Date"
@@ -164,10 +206,16 @@ feature -- Access to well-known fields
 
 feature -- Change
 
+	set_bcc (a_name, an_email: STRING) is
+			-- Set blind carbon copy recipient of email.
+		require
+			email_not_empty: an_email /= Void and then not an_email.is_empty
+		do
+			set_email_field (Void, field_name_bcc, a_name, an_email)
+		end
+
 	set_cc (a_name, an_email: STRING) is
-			-- Set author responsible for writing the message.
-			-- Should be set only to a mailbox that belongs to the
-			-- author(s) of the message.
+			-- Set carbon copy recipient of email.
 		require
 			email_not_empty: an_email /= Void and then not an_email.is_empty
 		do
@@ -238,7 +286,7 @@ feature {NONE} -- Implementation
 	set_email_field (a_field: EPX_MIME_UNSTRUCTURED_FIELD; a_field_name, a_name, an_email: STRING) is
 			-- Set field which takes an email address.
 		require
-			email_not_empty: an_email /= Void and then not an_email.is_empty
+			valid_email_address: is_valid_email_address (an_email)
 		local
 			field: EPX_MIME_UNSTRUCTURED_FIELD
 			value: STRING
@@ -246,7 +294,7 @@ feature {NONE} -- Implementation
 			if a_name = Void or else a_name.is_empty then
 				value := an_email
 			else
-				value := a_name + "<" + an_email + ">"
+				value := a_name + once " <" + an_email + once ">"
 			end
 			field := a_field
 			if field = Void then

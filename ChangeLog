@@ -1,12 +1,118 @@
-2008-01-02  Berend de Boer  <berend@pobox.com>
+2008-04-08  Berend de Boer  <berend@pobox.com>
 
-	* release 3.0.1.
+	* STDC_SYSTEM.time_zone_seconds: new feature to return the number
+	of seconds between UTC and the local time zone.
+
+
+2008-03-24  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_EMAIL_HEADER.set_bcc: new method
+
+
+2008-03-07  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER: when a & is followed by a # it is assumed a
+	character reference follows, so the & is not replaced by &amp;
+	Previously character references were made invalid.
+
+
+2008-01-30  Berend de Boer  <berend@pobox.com>
+
+	* NET_LOGGER_FIELD.is_valid: allow other characters than 7bit, so
+	you can write UTF8 characters, saw no good reason to forbid that.
+
+
+2008-01-24  Berend de Boer  <berend@pobox.com>
+
+	* EPX_STRING_INPUT_STREAM.read_string: didn't work, fix by Colin
+	Paul Adams.
+
+
+2008-01-23  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI.if_match and if_none_match: new feature to return value of
+	If-Match and If-None-Match header.
+
+
+2007-12-25  Berend de Boer  <berend@pobox.com>
+
+	* SUS_SYSLOG: identification passed to syslog should be a pointer
+	that remains valid. On ISE Eiffel the pointer was only temporary,
+	leading to garbage in the log.
+
+	* !EPX_LOG_HANDLER: now based on the NetLogger classes. Breaking
+	change!
+
+
+2007-12-24  Berend de Boer  <berend@pobox.com>
+
+	* !New NetLogger API classes for logging which replace the ULM
+	classes (plug compatible).
+
+	* !ULM logging classes are obsolete, and no longer included by
+	default in the library.xace.
 
 
 2007-12-20  Berend de Boer  <berend@pobox.com>
 
 	* !Segment violation on Windows when using STDC_TIME.to_utc. Due
 	to bug in posix_gmtime (Jocelyn).
+
+
+2007-12-11  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_MIME_HTTP_HEADER.set_vary: set contents of Vary field.
+
+
+2007-12-07  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_HTTP_10_CLIENT: now encodes spaces to + characters if a
+	passed uri fragment contains them.
+
+
+2007-11-12  Berend de Boer  <berend@pobox.com>
+
+	* !src/spec/ge/EPX_STRING_HELPER: fixed compile issues for gec.
+
+	* src/supportc/eiffel.h: gec fix: define EIF_INTEGER and such to
+	the default values as gec doesn't define them.
+
+
+2007-08-10  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_CGI: Exception if no data was passed in a POST
+	request. Probably a corner case, but I decided to accept such a
+	request, basically there will be non key/value pairs, so clients
+	can check for any required values if they consider this to be an
+	error.
+
+
+2007-06-09  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_CGI: if body data was present for a request, any parameters
+	in the query part of a URL were ignored. That's incorrect, they're
+	just part of the data as well as the body data is. The body data
+	takes preference though, it overrides any values for the same keys
+	present in the query part of the URL.
+
+
+2007-05-26  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_SYSTEM.file_content_as_string: crash if size of
+	given file was 0.
+
+
+2007-05-24  Berend de Boer  <berend@pobox.com>
+
+	* !!!STDC_SIGNAL_SWITCH_ACCESSOR: removed invariant, gave strange
+	crash on ISE. If set to global once, it works however (Patrick
+	Ruckstuhl).
+
+
+2007-05-21  Berend de Boer  <berend@pobox.com>
+
+	* !eposix.ecf: works now out of the box when multithreading is
+	enabled (Patrick Ruckstuhl).
 
 
 2007-05-18  Berend de Boer  <berend@pobox.com>

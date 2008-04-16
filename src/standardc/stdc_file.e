@@ -9,8 +9,8 @@ indexing
 	%destruction of the object. But you may close it earlier."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #18 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #19 $"
 
 
 deferred class

@@ -3,8 +3,8 @@ indexing
 	description: "Class that covers Standard C time.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/03/02 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class
@@ -28,7 +28,11 @@ feature -- Standard C binding
 
 	posix_difftime (time_end, time_start: INTEGER): DOUBLE is
 			-- Computes the difference between two times in seconds.
+#ifdef GE
+		external "C [macro (EIF_INTEGER, EIF_INTEGER): EIF_DOUBLE"
+#else
 		external "C"
+#endif
 		end
 
 	posix_gmtime (time: INTEGER): POINTER is

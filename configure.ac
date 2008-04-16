@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script
-AC_INIT(eposix, 3.0)
+AC_INIT(eposix-alpha, 3.1.1)
 AC_CONFIG_SRCDIR(src/supportc/c_support.c)
 AC_CONFIG_AUX_DIR(config)
 AC_DISABLE_SHARED
@@ -39,9 +39,9 @@ AM_CONDITIONAL(LINUX, test "x$EPOSIX_OS" = "xlinux")
 # Optional multi-threaded flag
 # --enable-multi-thread
 AC_ARG_ENABLE(threads,
-        AC_HELP_STRING([--enable-threads],[enable multi-threading
-        (default=no)]),
-        [ multithread="${enableval}" ], [ multithread=no ] )
+	AC_HELP_STRING([--enable-threads],[enable multi-threading
+	(default=no)]),
+	[ multithread="${enableval}" ], [ multithread=no ] )
 AC_SUBST(OPTIONAL_MULTITHREAD_FLAG)
 if test "x$multithread" = "xyes"
 then

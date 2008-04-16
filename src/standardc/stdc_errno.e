@@ -3,8 +3,8 @@ indexing
 	description: "Standard C last error number."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 class
 

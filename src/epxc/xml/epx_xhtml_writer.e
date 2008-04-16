@@ -6,8 +6,8 @@ indexing
 		"1. should use binary search allowed_new_line_tag"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #12 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #13 $"
 
 class
 
@@ -987,6 +987,15 @@ feature -- JavaScript support
 			end
 		end
 
+	b_script is
+			-- Start JavaScript.
+		do
+			start_tag (once_script)
+			-- According to Douglas Crockford, you should leave this out,
+			-- but according to the spec, it should be specified.
+			add_attribute (once_type, mime_type_text_javascript);
+		end
+	
 	e_script is
 		require
 			script_started: is_started (once_script)

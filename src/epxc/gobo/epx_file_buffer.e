@@ -3,8 +3,8 @@ indexing
 	description: "Lexical analyzer input file buffers for STDC_FILE."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/03/02 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 class

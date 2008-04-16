@@ -17,9 +17,7 @@ feature
 			message.header.set_from ("Berend de Boer", "berend@pobox.com")
 			message.header.set_to ("Berend de Boer", "berend@pobox.com")
 			message.header.set_subject ("EX_SMTP2")
-			message.header.set_content_type (
-				type_names.mime_type_text, type_names.mime_subtype_html,
-				"us-ascii")
+			message.header.set_content_type_text_html_utf8
 			message.create_singlepart_body
 			message.text_body.append_string (html)
 			create mail.make (sender_mailbox, recipient_mailbox, message)

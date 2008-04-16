@@ -3,8 +3,8 @@ indexing
 	description: "Windows symbolic constants"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #7 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #8 $"
 
 
 class

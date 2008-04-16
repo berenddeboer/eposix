@@ -3,8 +3,8 @@ indexing
 	description: "IMAP4rev1 client state and state changes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/07/10 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class

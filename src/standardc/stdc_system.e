@@ -6,8 +6,8 @@ indexing
 	usage: "Just inherit from this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/02/06 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 
@@ -37,16 +37,31 @@ feature -- run-time determined queries
 		end
 
 
-feature -- compile time determined queries
+feature -- Compile time determined queries
 
 	clocks_per_second: INTEGER is
-			-- number per second of the value returned by the `clock' function
+			-- Number per second of the value returned by the `clock' function
 		external "C"
 		alias "const_clocks_per_sec"
 		end
 
 
-feature -- endianess
+feature -- Time zone
+
+	time_zone_seconds: INTEGER is
+			-- Number of seconds to add to UTC to arrive at the time for
+			-- the current time zone
+		local
+			t1, t2: STDC_TIME
+		once
+			create t1.make_from_now
+			t1.to_local
+			create t2.make_utc_date_time (t1.year, t1.month, t1.day, t1.hour, t1.minute, t1.second)
+			Result := t2.value - t1.value
+		end
+
+
+feature -- Endianess
 
 	is_big_endian: BOOLEAN is
 			-- True if this is a big endian architecture

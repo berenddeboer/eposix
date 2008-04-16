@@ -1,10 +1,10 @@
 indexing
 
-	description: "Class that implements ULM logging on top of syslog."
+	description: "Class that implements NetLogger logging on top of syslog."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/01/09 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class
@@ -13,7 +13,7 @@ class
 
 inherit
 
-	ULM_LOG_HANDLER
+	NET_LOGGER_LOG_HANDLER
 
 	SUS_SYSLOG_ACCESSOR
 
@@ -48,16 +48,11 @@ feature -- Logging
 			-- events are to be logged.
 		do
 			inspect level
-			when Emergency then syslog.emergency (line)
-			when Alert then syslog.alert (line)
-			when Error then syslog.alert (line)
-			when Warning then syslog.warning (line)
-			when Authentication then syslog.info (line)
-			when Security then syslog.info (line)
-			when Usage then syslog.info (line)
-			when System_usage then syslog.info (line)
-			when Important then syslog.notice (line)
-			when Debugging then syslog.debug_dump (line)
+			when fatal then syslog.emergency (line)
+			when error then syslog.error (line)
+			when warning then syslog.warning (line)
+			when info then syslog.info (line)
+			when debug0..trace then syslog.debug_dump (line)
 			end
 		end
 

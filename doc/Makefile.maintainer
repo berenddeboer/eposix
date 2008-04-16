@@ -1,0 +1,38 @@
+# gmake Makefile to generate static parts for the automake Makefile
+
+BUILT_SOURCES = \
+	Makefile.e_sources Makefile.short Makefile.flat
+
+
+all: build
+
+clean:
+	rm -f $(BUILT_SOURCES)
+
+build: $(BUILT_SOURCES)
+
+
+Makefile.e_sources: *.e
+	rm -f $@ Makefile.temp
+	echo EXSRC = $^ > Makefile.temp
+	echo >> Makefile.temp
+	for i in $^; do echo `basename $$i .e`.bin: $$i '$$(ESRC)' >> Makefile.temp; echo >> Makefile.temp; done
+	mv Makefile.temp $@
+
+Makefile.short: short-classes
+	rm -f $@ Makefile.temp
+	echo "# Generated Makefile, see Makefile.maintainer" > Makefile.temp
+	echo -n -e SHORTTEX = >> Makefile.temp
+	for i in `cat $<`; do echo -n -e ' \\\n\t'`echo $$i.tex | tr '[:upper:]' '[:lower:]'` >> Makefile.temp; done
+	echo -e '\n\n' >> Makefile.temp
+	for i in `cat $<`; do echo `echo $$i.tex | tr '[:upper:]' '[:lower:]'`: 'compile_short.ace $$(ESRC)' >> Makefile.temp; echo -e '\tshort -short -no_style_warning compile_short.ace '$$i' > temp.tex\n\tmv temp.tex $$@\n' >> Makefile.temp; done
+	mv Makefile.temp $@
+
+Makefile.flat: flat-classes
+	rm -f $@ Makefile.temp
+	echo "# Generated Makefile, see Makefile.maintainer" > Makefile.temp
+	echo -n -e FLATTEX = >> Makefile.temp
+	for i in `cat $<`; do echo -n -e ' \\\n\t'`echo $$i.tex | tr '[:upper:]' '[:lower:]'` >> Makefile.temp; done
+	echo -e '\n\n' >> Makefile.temp
+	for i in `cat $<`; do echo `echo $$i.tex | tr '[:upper:]' '[:lower:]'`: 'compile_short.ace $$(ESRC)' >> Makefile.temp; echo -e '\tshort -no_style_warning compile_short.ace '$$i' > temp.tex\n\tmv temp.tex $$@\n' >> Makefile.temp; done
+	mv Makefile.temp $@

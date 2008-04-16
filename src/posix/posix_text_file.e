@@ -5,8 +5,8 @@ indexing
 	%other platforms likes it (Cygwin)."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 

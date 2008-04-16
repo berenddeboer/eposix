@@ -6,18 +6,31 @@ indexing
 	%last signal."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $";
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $";
+	revision: "$Revision: #2 $"
 
 class
 
 	LAST_SIGNAL
 
+inherit
+	
+	EXCEPTIONS
+		rename
+			raise as exceptions_raise
+		export
+			{NONE} all
+		end
+	
 feature
 
 	signal: INTEGER is
+			-- Last signal
+		local
+			us: UNIX_SIGNALS
 		do
-			-- TO BE implemented
+			create us
+			Result := us.signal
 		end
 
 end

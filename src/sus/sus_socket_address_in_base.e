@@ -3,8 +3,8 @@ indexing
 	description: "Base class for classes that describe sockaddr_in and sockaddr_in6. Basically this is a struct with an address family, an IP address, and a port."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/03/20 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 deferred class

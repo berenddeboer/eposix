@@ -5,8 +5,8 @@ indexing
 	usage: "A shared memory object basically is a FILE_DESCRIPTOR."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/26 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 class
 

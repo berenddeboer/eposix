@@ -249,22 +249,22 @@
 #define LSTAT_FOLLOWS_SLASHED_SYMLINK 1
 
 /* Name of package */
-#define PACKAGE "eposix"
+#define PACKAGE "eposix-alpha"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "eposix"
+#define PACKAGE_NAME "eposix-alpha"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "eposix 3.0"
+#define PACKAGE_STRING "eposix-alpha 3.1.1"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "eposix"
+#define PACKAGE_TARNAME "eposix-alpha"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.0"
+#define PACKAGE_VERSION "3.1.1"
 
 /* Define to 1 if the C compiler supports function prototypes. */
 #define PROTOTYPES 1
@@ -287,7 +287,7 @@
 /* #undef TM_IN_SYS_TIME */
 
 /* Version number of package */
-#define VERSION "3.0"
+#define VERSION "3.1.1"
 
 /* Define like PROTOTYPES; this can be used by system headers. */
 #define __PROTOTYPES 1

@@ -3,8 +3,8 @@ indexing
 	description: "ISE conversion of strings to pointers and vice versa."
 	thanks: "The mico/E team for the idea."
 
-	date: "$Date: 2007/05/18 $"
-	revision: "$Revision: #10 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #11 $"
 
 class
 

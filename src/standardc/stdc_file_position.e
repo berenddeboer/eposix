@@ -5,8 +5,8 @@ indexing
 	usage: "Only through STDC_FILE.get_position and set_position."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/01/06 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 

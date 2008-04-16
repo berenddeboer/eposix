@@ -2,6 +2,6 @@
 
 EXTRA_DIST =  \
 	Makefile.c_sources \
-	$(libwapi_la_SOURCES)
+	$(wapi_SRC)
 
 include Makefile.c_sources

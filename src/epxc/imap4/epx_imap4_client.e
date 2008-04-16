@@ -7,8 +7,8 @@ indexing
 	problems: "Does not readily handle responses for multiple messages, i.e. 2:4 sequences and such."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #8 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #9 $"
 
 
 class

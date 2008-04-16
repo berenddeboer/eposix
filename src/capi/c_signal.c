@@ -37,26 +37,26 @@ EIF_INTEGER const_sigabrt()
 }
 
 EIF_INTEGER const_sigfpe()
-{ 
+{
   return SIGFPE;
 }
 
 EIF_INTEGER const_sigill()
-{ 
+{
   return SIGILL;
 }
 
 EIF_INTEGER const_sigint()
-{ 
+{
   return SIGINT;
 }
 
 EIF_INTEGER const_sigsegv()
-{ 
+{
   return SIGSEGV;
 }
 
 EIF_INTEGER const_sigterm()
-{ 
+{
   return SIGTERM;
 }

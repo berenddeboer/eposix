@@ -11,8 +11,8 @@ indexing
 	known_bugs: "Don't enable postconditions for this class if you have multiple clients writing to shared memory without locking mechanisms."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 class
 

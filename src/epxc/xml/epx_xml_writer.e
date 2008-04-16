@@ -7,8 +7,8 @@ indexing
 	known_bugs: "Does not output correct XML for mixed content nodes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #16 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #17 $"
 
 
 class
@@ -782,7 +782,11 @@ feature {NONE} -- The only methods that operate directly on `my_xml'
 				when Less_than_code then
 					my_xml.append_string (QuoteLt)
 				when Ampersand_code then
-					my_xml.append_string (QuoteAmp)
+					if i = data.count or else data.item (i+1) /= '#' then
+						my_xml.append_string (QuoteAmp)
+					else
+						my_xml.append_item_code (c)
+					end
 				when Greater_than_code then
 						-- Replace ]]> by ]]&gt;
 					if
@@ -830,8 +834,12 @@ feature -- Quote unsafe characters
 					s.insert_string (PartQuoteLt, i+1)
 					i := i + QuoteLt.count
 				when Ampersand_code then
-					s.insert_string (PartQuoteAmp, i+1)
-					i := i + QuoteAmp.count
+					if i = s.count or else s.item (i+1) /= '#' then
+						s.insert_string (PartQuoteAmp, i+1)
+						i := i + QuoteAmp.count
+					else
+						i := i + 3
+					end
 				when Greater_than_code then
 						-- Replace ]]> by ]]&gt;
 					if

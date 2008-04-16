@@ -29,7 +29,7 @@ time. If some kind soul can help me with this??
 
 EIF_POINTER posix_asctime(EIF_POINTER timeptr);
 EIF_INTEGER posix_clock();
-EIF_DOUBLE  posix_difftime(time_t time1, time_t time0);
+EIF_DOUBLE posix_difftime(EIF_INTEGER time1, EIF_INTEGER time0);
 EIF_POINTER posix_gmtime(EIF_INTEGER timer);
 EIF_POINTER posix_localtime(EIF_INTEGER timer);
 EIF_INTEGER posix_mktime(EIF_POINTER timeptr);

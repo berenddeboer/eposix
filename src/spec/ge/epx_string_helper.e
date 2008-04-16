@@ -2,8 +2,8 @@ indexing
 
 	description: "GEC conversion of strings to pointers and vice versa."
 
-	date: "$Date: 2007/05/18 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 class
 
@@ -84,7 +84,7 @@ feature -- GE specific conversions
 
 	unfreeze_all is
 		do
-			unfreeze_objects
+			-- Nothing to do
 		end
 
 
@@ -95,6 +95,7 @@ feature {NONE} -- Implementation
 			-- in `s'. The area is zero-terminated.
 		local
 			a: ANY
+			buf: STDC_BUFFER
 		do
 			a := s.to_c
 			if a /= Void then

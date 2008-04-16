@@ -3,8 +3,8 @@ indexing
 	description: "Reader for STDC_TEXT_FILE class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/07/10 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 

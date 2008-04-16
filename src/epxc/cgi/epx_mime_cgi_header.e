@@ -8,8 +8,8 @@ indexing
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 
 class
@@ -96,36 +96,6 @@ feature -- Access to well-known fields
 
 feature -- Change
 
-	set_content_type_text_html_utf8 is
-			-- Set Content-Type to text/html. Character set is set to
-			-- UTF-8.
-		do
-			set_content_type (mime_type_text, mime_subtype_html, charset_utf8)
-		ensure
-			content_type_set: content_type /= Void
-			content_type_is_text_html:
-				STRING_.same_string (content_type.type, mime_type_text) and then
-				STRING_.same_string (content_type.subtype, mime_subtype_html)
-			charset_is_utf8:
-				content_type.parameters.has (parameter_name_charset) and then
-				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
-		end
-
-	set_content_type_text_plain is
-			-- Set Content-Type to text/plain. Character set is set to
-			-- UTF-8.
-		do
-			set_content_type (mime_type_text, mime_subtype_plain, charset_utf8)
-		ensure
-			content_type_set: content_type /= Void
-			content_type_is_text_plain:
-				STRING_.same_string (content_type.type, mime_type_text) and then
-				STRING_.same_string (content_type.subtype, mime_subtype_plain)
-			charset_is_utf8:
-				content_type.parameters.has (parameter_name_charset) and then
-				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
-		end
-
 	set_content_type_text_xml is
 			-- Set Content-Type to text/html. Character set is set to
 			-- UTF-8.
@@ -174,6 +144,7 @@ feature -- Change
 		local
 			field: EPX_MIME_UNSTRUCTURED_FIELD
 		do
+			field := location_field
 			if field = Void then
 				create field.make (field_name_location, a_url)
 				add_field (field)
@@ -197,6 +168,7 @@ feature -- Change
 		local
 			field: EPX_MIME_FIELD_STATUS
 		do
+			field := status_field
 			if field = Void then
 				create field.make (a_status_code, a_reason)
 				add_field (field)

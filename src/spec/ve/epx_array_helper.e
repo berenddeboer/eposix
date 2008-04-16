@@ -3,8 +3,8 @@ indexing
 	description: "Converts arrays to pointers."
 	thanks: "The mico/E team for the idea."
 
-	date: "$Date: 2003/10/02 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class

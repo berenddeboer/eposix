@@ -3,8 +3,8 @@ indexing
 	description: "Body that is stored in a STRING."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/05/08 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 class
 

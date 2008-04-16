@@ -3,8 +3,8 @@ indexing
 	description: "Field Content-Transfer-Encoding"
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 
 class

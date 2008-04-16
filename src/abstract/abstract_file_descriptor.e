@@ -7,8 +7,8 @@ indexing
 	%stream, because Windows doesn't support that."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/26 $"
-	revision: "$Revision: #16 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #17 $"
 
 
 deferred class

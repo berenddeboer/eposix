@@ -1,0 +1,53 @@
+#!/bin/sh
+# generate include Makefiles
+
+# C source includes
+cd src/supportc
+echo libsupportc_la_SOURCES =  `for i in *.[ch] ; do echo -n $i "" ; done` > Makefile.c_sources
+cd ../..
+cd src/capi
+echo libcapi_la_SOURCES =  `for i in *.[ch] ; do echo -n $i "" ; done` > Makefile.c_sources
+cd ../..
+cd src/papi
+echo libpapi_la_SOURCES =  `for i in *.[ch] ; do echo -n $i "" ; done` > Makefile.c_sources
+cd ../..
+cd src/sapi
+echo libsapi_la_SOURCES =  `for i in *.[ch] ; do echo -n $i "" ; done` > Makefile.c_sources
+cd ../..
+cd src/wapi
+echo wapi_SRC =  `for i in *.[ch] ; do echo -n $i "" ; done` > Makefile.c_sources
+cd ../..
+
+# Eiffel source includes
+cd test_suite
+geant clean
+cd ..
+cd src
+geant clobber
+geant install
+echo ESRC = \\ > Makefile.e_sources
+find . -regex ".*\.[g]?e$" -exec echo -e "\t"{} "\\" >> Makefile.e_sources \;
+echo -e "\t./abstract/abstract_child_process.e" >> Makefile.e_sources
+cd ..
+
+# Eiffel test_suite includes
+cd test_suite
+echo TEST_SRC =  `find . -name "*.e" -exec echo -n {} " " \;` > Makefile.sources
+echo TEST_ANT =  `find . -name build.eant -exec echo -n {} " " \;` >> Makefile.sources
+echo TEST_XACE =  `find . -name system.xace -exec echo -n {} " " \;` >> Makefile.sources
+echo TEST_GETEST =  `find . -name getest.cfg -exec echo -n {} " " \;` >> Makefile.sources
+echo TEST_DIR_STRUCT = `find abstract/file_system -name "dir*" -or -name "file*" -exec echo -n {} " " \;` >> Makefile.sources
+cd ..
+
+# Eiffel doc includes
+cd doc
+make -f Makefile.maintainer
+cd ..
+
+# run when configure.in or Makefile.am changes or so
+# if ltmain.sh does not exist:
+# libtoolize and move ltmain.sh, remove config.sub and config.guess
+aclocal -I config
+autoheader
+automake --foreign --add-missing --copy
+autoconf

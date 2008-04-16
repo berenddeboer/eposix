@@ -3,8 +3,8 @@ indexing
 	description: "Lexical analyzer input buffer which can detect return end_of_input when end of request has been read, so not more than necessary is read to prevent blocking."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 

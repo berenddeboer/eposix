@@ -3,8 +3,8 @@ indexing
 	description: "Class with once strings for well-known MIME types."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/18 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 
 class

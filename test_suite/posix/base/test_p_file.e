@@ -5,8 +5,8 @@ indexing
 	Bugs: "1. Assumes 8 bit characters."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 deferred class
 
@@ -100,7 +100,7 @@ feature -- Tests
 			from
 				fd.read_buffer (buf, 0, chunk_size)
 			until
-				fd.eof
+				fd.end_of_input
 			loop
 				bytes_read := bytes_read + fd.last_read
 				fd.read_buffer (buf, 0, chunk_size)

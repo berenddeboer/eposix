@@ -4,8 +4,8 @@ indexing
 	%able to loop through a single directory."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $";
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $";
+	revision: "$Revision: #6 $"
 
 class
 

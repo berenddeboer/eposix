@@ -3,8 +3,8 @@ indexing
 	description: "Stream that returns the contents of a string."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/03/03 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 
 class
@@ -60,9 +60,16 @@ feature -- Input
 		do
 			if value.is_empty then
 				last_string := ""
+				position := 1
 			else
-				end_pos := nb.min (value.count)
-				last_string := value.substring (1, end_pos)
+				position := position + 1
+				if position > value.count then
+					last_string := ""
+				else
+					end_pos := nb.min (value.count - position + 1)
+					last_string := value.substring (position, end_pos)
+					position := end_pos
+				end
 			end
 		end
 

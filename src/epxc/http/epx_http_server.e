@@ -17,8 +17,8 @@ indexing
 		%I guess."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #10 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #11 $"
 
 
 class

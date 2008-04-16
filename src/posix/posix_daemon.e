@@ -5,8 +5,8 @@ indexing
 	usage: "Inherit from this class, implement `execute' and call `detach' in your creation routine."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/05/21 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 
 deferred class

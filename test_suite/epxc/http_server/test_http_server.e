@@ -3,8 +3,8 @@ indexing
 	description: "Test HTTP client by connecting to an HTTP server."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/02/06 $"
-	revision: "$Revision: #7 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #8 $"
 
 
 deferred class

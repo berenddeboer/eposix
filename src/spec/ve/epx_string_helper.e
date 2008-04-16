@@ -3,8 +3,8 @@ indexing
 	description: "Converts strings to pointers and vice versa. VisualEiffel 4.1 specification"
 	thanks: "The mico/E team for the idea."
 
-	date: "$Date: 2007/05/18 $"
-	revision: "$Revision: #8 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #9 $"
 
 class
 

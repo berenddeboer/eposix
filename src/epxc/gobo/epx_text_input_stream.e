@@ -3,8 +3,8 @@ indexing
 	description: "Certain eposix classes can read lines. They will inherit from this class as well as from EPX_CHARACTER_INPUT_STREAM"
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 
 deferred class

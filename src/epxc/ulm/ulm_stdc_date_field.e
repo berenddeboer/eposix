@@ -3,8 +3,8 @@ indexing
 	description: "Class that implements the ULM DATE field for Standard C."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 class
 

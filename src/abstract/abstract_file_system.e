@@ -3,8 +3,8 @@ indexing
 	description: "Abstract file system that should work on POSIX and Windows platforms."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #14 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #15 $"
 
 
 deferred class
@@ -311,16 +311,20 @@ feature -- File and string
 			valid_path: a_file_name /= Void and then not a_file_name.is_empty
 			readable: is_readable (a_file_name)
 		local
+			stat: ABSTRACT_STATUS_PATH
 			file: EPX_FILE_DESCRIPTOR
 			buffer: STDC_BUFFER
 		do
 			-- One big slurp...
-			create buffer.allocate (status (a_file_name).size)
-			create file.open_read (a_file_name)
-			file.read_buffer (buffer, 0, buffer.capacity)
-			Result := buffer.substring (0, file.last_read - 1)
-			file.close
-			buffer.deallocate
+			stat := status (a_file_name)
+			if stat.size > 0 then
+				create buffer.allocate (stat.size)
+				create file.open_read (a_file_name)
+				file.read_buffer (buffer, 0, buffer.capacity)
+				Result := buffer.substring (0, file.last_read - 1)
+				file.close
+				buffer.deallocate
+			end
 		ensure
 			file_to_string_void: Result /= Void
 		end

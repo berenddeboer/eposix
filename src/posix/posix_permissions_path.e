@@ -4,8 +4,8 @@ indexing
 	usage: "You can set the permissions, call apply to make them permanent."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/03/20 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 

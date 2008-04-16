@@ -6,8 +6,8 @@
 		description: "Eiffel Ant file for eposix Eiffel tests"
 		copyright: "Copyright (c) 2002, Berend de Boer"
 		license: "Eiffel Forum License v2 (see forum.txt)"
-		date: "$Date: 2007/02/06 $"
-		revision: "$Revision: #7 $"
+		date: "$Date: 2007/11/22 $"
+		revision: "$Revision: #8 $"
 	</description>
 
 	<target name="help">
@@ -18,6 +18,7 @@
 		<echo message="   geant test_se"/>
 		<echo message="   geant test_ve"/>
 		<echo message="   geant test_debug"/>
+		<echo message="   geant test_debug_ge"/>
 		<echo message="   geant test_debug_ise"/>
 		<echo message="   geant test_debug_se"/>
 		<echo message="   geant test_debug_ve"/>
@@ -42,6 +43,16 @@
 		</description>
 
 		<set name="target" value="test"/>
+		<set name="do_clean" value="true"/>
+		<geant target="do_all"/>
+	</target>
+
+	<target name="test_ge" depend="init">
+		<description>
+			Run eposix tests with Gobo Eiffel.
+		</description>
+
+		<set name="target" value="test_ge"/>
 		<set name="do_clean" value="true"/>
 		<geant target="do_all"/>
 	</target>
@@ -84,6 +95,16 @@
 		</description>
 
 		<set name="target" value="test_debug"/>
+		<set name="do_clean" value="true"/>
+		<geant target="do_all"/>
+	</target>
+
+	<target name="test_debug_ge" depend="init">
+		<description>
+			Run eposix tests with Gobo Eiffel in debug mode.
+		</description>
+
+		<set name="target" value="test_debug_ge"/>
 		<set name="do_clean" value="true"/>
 		<geant target="do_all"/>
 	</target>

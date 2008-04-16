@@ -1,19 +1,23 @@
 indexing
 
 	description: "Class that implements ULM logging, see url."
+
 	url: "http://www.hsc.fr/gul/draft-abela-ulm-05.txt"
 
-	known_bug: "Doesn't check format of fields, i.e. is it an integer %
-	%when it should be."
+	known_bug: "Doesn't check format of fields, i.e. is it an integer when it should be."
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 
 class
 
   ULM_LOGGING
+
+obsolete
+
+	"2007-12-24: Please use the new NET_LOGGER classes"
 
 inherit
 
@@ -280,7 +284,7 @@ feature {NONE} -- Correct field list generation
 				if subsystem = Void or else subsystem.is_empty then
 					the_prog_field := my_prog
 				else
-					my_qualified_prog.set_value (my_prog.value + "." + subsystem)
+					my_qualified_prog.set_value (my_prog.value + once "." + subsystem)
 					the_prog_field := my_qualified_prog
 				end
 			end
@@ -391,7 +395,7 @@ feature {NONE} -- Correct field list generation
 		end
 
 	is_alphaext (value: STRING): BOOLEAN is
-			-- Return True if value is an ALPHAEXT according to the ULM spec.
+			-- Is `value' an ALPHAEXT according to the ULM spec?
 		require
 			value_not_void: value /= Void
 		local
@@ -444,19 +448,32 @@ feature {NONE} -- Correct field list generation
 			result_not_void: Result /= Void
 		end
 
+
 feature -- Standard field names
 
-	LVL: STRING is "LVL"
+	LVL: STRING is
 			-- Importance and category of the ULM.
+		do
+			Result :=  "LVL"
+		end
 
-	HOST: STRING is "HOST"
-			-- Name of software component which issues the ULM.
+	HOST: STRING is
+			-- Name of software component which issues the ULM
+		do
+			Result := "HOST"
+		end
 
-	PROG: STRING is "PROG"
-			-- Name of the software component which issued the ULM.
+	PROG: STRING is
+			-- Name of the software component which issued the ULM
+		do
+			Result := "PROG"
+		end
 
-	DATE: STRING is "DATE"
-			-- Instantaneous date of the event.
+	DATE: STRING is
+			-- Instantaneous date of the event
+		do
+			Result := "DATE"
+		end
 
 	LANG: STRING is "LANG"
 			-- Language used for text fields. Default is english (EN).
@@ -567,8 +584,11 @@ feature -- Standard field names
 	CMD: STRING is "CMD"
 			-- Issued command.
 
-	MSG: STRING is "MSG"
-			-- The only field which should contain arbitrary data.
+	MSG: STRING is
+			-- The only field which should contain arbitrary data
+		do
+			Result := "MSG"
+		end
 
 
 feature -- Public state

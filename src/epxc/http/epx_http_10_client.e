@@ -3,8 +3,8 @@ indexing
 	description: "Class that implements whatever an HTTP 1.0 client can do."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #10 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #12 $"
 
 
 class
@@ -359,13 +359,13 @@ feature {NONE} -- Request implementation
 		do
 			assert_closed
 			open
-			last_uri := clone (a_request_uri)
+			last_uri := escape_spaces (a_request_uri)
 			if is_open then
 				response_code := reply_code_ok
 				create request.make (512)
 				request.append_string (a_request)
 				request.append_character (' ')
-				request.append_string (a_request_uri)
+				request.append_string (last_uri)
 				request.append_character (' ')
 				request.append_string (client_version)
 				request.append_string (once_new_line)
@@ -393,7 +393,7 @@ feature {NONE} -- Request implementation
 				response_phrase := error_message
 			end
 		ensure
-			last_uri_set: STRING_.same_string (last_uri, a_request_uri)
+			last_uri_set: STRING_.same_string (last_uri, escape_spaces (a_request_uri))
 			last_verb_set: response_code = reply_code_ok implies STRING_.same_string (a_request, last_verb)
 			last_data_set: response_code = reply_code_ok implies a_request_data = last_data
 		end
@@ -513,7 +513,7 @@ feature -- Response
 		end
 
 	read_response_with_redirect is
-			-- As `read_response', but if a redirect responsen code is
+			-- As `read_response', but if a redirect response code is
 			-- received, request is automatically redirected.
 			-- It assumes `last_verb' contains the verb of the last
 			-- request send.
@@ -618,6 +618,27 @@ feature {NONE} -- Implementation
 
 
 feature {NONE} -- MIME parser
+
+	escape_spaces (s: STRING): STRING is
+		require
+			s_not_void: s /= Void
+		local
+			i: INTEGER
+		do
+			Result := s.twin
+			from
+				i := 1
+			until
+				i > Result.count
+			loop
+				if Result.item (i) = ' ' then
+					Result.put ('+', i)
+				end
+				i := i + 1
+			end
+		ensure
+			not_void: Result /= Void
+		end
 
 	parser: EPX_MIME_PARSER
 			-- Parse response from HTTP server

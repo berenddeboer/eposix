@@ -7,8 +7,8 @@ indexing
 	exceptions: "You get an exception if you create a user that does not exist."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 class
 

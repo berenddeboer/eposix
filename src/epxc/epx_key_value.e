@@ -3,8 +3,8 @@ indexing
 	description: "key=value pairs as used in HTML forms. Used for CGI programs and the HTTP server."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/01/02 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 
@@ -43,7 +43,7 @@ feature -- Access
 			-- If input type is file, this is the filename as seen by the
 			-- user.
 
-	file: STDC_FILE
+	file: EPX_CHARACTER_IO_STREAM
 			-- Optional, valid for input type file, gives access to file
 			-- as saved on server disk.
 			-- File is temporary, and removed when `file' is closed or when
@@ -52,7 +52,7 @@ feature -- Access
 
 feature -- Change state
 
-	set_file (a_file: STDC_FILE) is
+	set_file (a_file: EPX_CHARACTER_IO_STREAM) is
 			-- Set `file'.
 		require
 			filename_known: not value.is_empty

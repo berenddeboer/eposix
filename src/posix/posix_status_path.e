@@ -3,8 +3,8 @@ indexing
 	description: "Class that gets POSIX stat structure through stat call."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/10/02 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 

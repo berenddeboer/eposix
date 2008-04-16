@@ -1065,7 +1065,7 @@ feature -- Parsing
 			-- Read input and build `part'.
 			-- Check `syntax_error' for parsing errors.
 		do
-			create part.make_empty
+			part := new_part
 			parsing_errors := 0
 			inner_parse
 		end
@@ -1202,7 +1202,7 @@ feature -- Parsing
 			if buf /= Void then
 				buf.set_end_of_file_on_end_of_header (True)
 			end
-			create part.make_empty
+			part := new_part
 			reset_parsing_errors
 			set_start_condition (INITIAL)
 			do_parse
@@ -1270,7 +1270,7 @@ feature {NONE} -- Error reporting
 		end
 
 
-feature -- State
+feature -- Access
 
 	part: EPX_MIME_PART
 			-- Structure we're building
@@ -1303,7 +1303,7 @@ feature {NONE} -- State used during parsing
 	current_parameter_field: EPX_MIME_FIELD_WITH_PARAMETERS
 
 
-feature {NONE} -- Reading mime bodies
+feature {NONE} -- Reading MIME bodies
 
 	boundary: STRING
 			-- For multipart MIME messages, it designates the end of a body.
@@ -1383,7 +1383,7 @@ feature {NONE} -- Reading mime bodies
 		end
 
 	is_text_body: BOOLEAN is
-			-- Contains part.body text?
+			-- Does part.body contain text?
 		local
 			text_body: EPX_MIME_BODY_TEXT
 		do
@@ -1392,10 +1392,18 @@ feature {NONE} -- Reading mime bodies
 		end
 
 	last_line: STRING
-			-- We store last read line here when reading multipart bodies
+			-- Last read line while reading multipart bodies
 
 	Max_rfc_2046_boundary_length: INTEGER is 70
 			-- Max length of a boundary according to RFC 2046
+
+	new_part: EPX_MIME_PART is
+			-- A new MIME part
+		do
+			create Result.make_empty
+		ensure
+			not_void: Result /= Void
+		end
 
 	read_singlepart_body (encoding: EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING) is
 			-- Read from input until end of file is reached or a line

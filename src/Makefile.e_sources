@@ -41,19 +41,23 @@ ESRC = \
 	./abstract/epx_socket_multiplexer_singleton.e \
 	./capi/spec/ge/capi_stdio.e \
 	./capi/spec/ge/capi_stdlib.e \
+	./capi/spec/ge/capi_time.e \
 	./capi/spec/ise/capi_stdio.e \
 	./capi/spec/ise/capi_stdlib.e \
+	./capi/spec/ise/capi_time.e \
 	./capi/spec/se/capi_stdio.e \
 	./capi/spec/se/capi_stdlib.e \
+	./capi/spec/se/capi_time.e \
 	./capi/spec/ve/capi_stdio.e \
 	./capi/spec/ve/capi_stdlib.e \
+	./capi/spec/ve/capi_time.e \
 	./capi/capi_stdlib.ge \
 	./capi/capi_stdio.ge \
+	./capi/capi_time.ge \
 	./capi/capi_errno.e \
 	./capi/capi_locale.e \
 	./capi/capi_signal.e \
 	./capi/capi_string.e \
-	./capi/capi_time.e \
 	./epxc/cgi/epx_cgi.e \
 	./epxc/cgi/epx_mime_cgi_header.e \
 	./epxc/cgi/epx_mime_field_status.e \
@@ -170,6 +174,7 @@ ESRC = \
 	./epxc/mime/epx_mime_encoded_word_scanner.e \
 	./epxc/mime/epx_mime_field_last_modified.e \
 	./epxc/mime/epx_mime_field_a_date.e \
+	./epxc/mime/epx_mime_field_etag.e \
 	./epxc/smtp/epx_smtp_client.e \
 	./epxc/smtp/epx_smtp_commands.e \
 	./epxc/smtp/epx_smtp_mail.e \
@@ -197,10 +202,17 @@ ESRC = \
 	./epxc/epx_base64_input_stream.e \
 	./epxc/epx_base64_encoding.e \
 	./epxc/epx_key_value.e \
+	./epxc/netlogger/net_logger.e \
+	./epxc/netlogger/net_logger_log_handler.e \
+	./epxc/netlogger/net_logger_field.e \
+	./epxc/netlogger/net_logger_reserved_names.e \
+	./epxc/netlogger/net_logger_ts_base.e \
+	./epxc/netlogger/net_logger_level_field.e \
+	./epxc/netlogger/net_logger_levels.e \
+	./epxc/netlogger/net_logger_routines.e \
 	./epxc/epx_extension_filter.e \
 	./epxc/epx_file_reader.e \
 	./epxc/epx_file_writer.e \
-	./epxc/epx_keyvalue.e \
 	./epxc/epx_octet_encoding.e \
 	./epxc/epx_partial_buffer.e \
 	./epxc/epx_reader.e \
@@ -214,6 +226,7 @@ ESRC = \
 	./epxc/extension_filter.e \
 	./epxp/epx_sendmail.e \
 	./epxs/epx_log_handler.e \
+	./epxs/net_logger_ts_field.e \
 	./epxw/epx_log_handler.e \
 	./papi/spec/ge/papi_aio.e \
 	./papi/spec/ge/papi_dirent.e \

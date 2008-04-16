@@ -5,7 +5,7 @@ indexing
 
 	author: "Berend de Boer"
 	date: "$Date";
-	revision: "$Revision: #2 $"
+	revision: "$Revision: #3 $"
 
 class
 

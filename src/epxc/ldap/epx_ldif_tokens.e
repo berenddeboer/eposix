@@ -1,7 +1,7 @@
 indexing
 
 	description: "Parser token codes"
-	generator: "geyacc version 3.3"
+	generator: "geyacc version 3.7"
 
 class EPX_LDIF_TOKENS
 

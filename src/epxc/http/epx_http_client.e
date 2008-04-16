@@ -6,8 +6,8 @@ indexing
 		"1. raise exception when Content-Length and number of octects in message body do not match (RFC2616, section 4.4.)."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 
 deferred class
@@ -202,12 +202,6 @@ feature {NONE} -- Implementation
 			end
 		ensure
 			http_closed: http = Void
-		end
-
-	assert_http_closed is
-		obsolete	"20040-12-16 use assert_closed"
-		do
-			assert_closed
 		end
 
 	is_authenticated: BOOLEAN

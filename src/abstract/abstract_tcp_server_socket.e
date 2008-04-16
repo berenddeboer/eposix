@@ -3,8 +3,8 @@ indexing
 	description: "Platform independent base class for TCP/SOCK_STREAM sockets, server side."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/03/02 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 
 deferred class

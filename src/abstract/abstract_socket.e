@@ -5,8 +5,8 @@ indexing
 	known_bugs: "Should inherit from ABSTRACT_DESCRIPTOPR, not from ABSTRACT_FILE_DESCRIPTOR."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/26 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 
 deferred class

@@ -6,8 +6,8 @@ indexing
    usage: "Inherit from STDC_SECURITY_ACCESSOR."
    
    author: "Berend de Boer"
-   date: "$Date: 2003/01/09 $"
-   revision: "$Revision: #2 $"
+   date: "$Date: 2007/11/22 $"
+   revision: "$Revision: #3 $"
 
 class 
 

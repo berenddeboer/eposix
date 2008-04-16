@@ -3,8 +3,8 @@ indexing
 	description: "Makes an STDC_TEXT_FILE available as a KI_CHARACTER_INPUT_STREAM."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/05/15 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 
 class

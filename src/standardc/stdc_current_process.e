@@ -4,8 +4,8 @@ indexing
 	usage: "Just inherit from this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/03/14 $"
-	revision: "$Revision: #9 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #10 $"
 
 class
 

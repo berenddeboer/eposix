@@ -5,8 +5,8 @@ indexing
 	usage: "Models one (possibly existing) variable."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/07/10 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 

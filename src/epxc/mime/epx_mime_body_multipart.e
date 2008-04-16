@@ -3,8 +3,8 @@ indexing
 	description: "Stores multi-part MIME body."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 class
 
@@ -164,7 +164,7 @@ feature -- Access
 feature -- New parts
 
 	new_part: EPX_MIME_PART is
-			-- Append a new part to `parts'.
+			-- New part which is also appended to `parts'
 		do
 			create Result.make_empty
 			Result.set_auto_insert_content_length (False)

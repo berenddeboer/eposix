@@ -9,8 +9,8 @@ indexing
 		%`make'. You can use the supplied messages.dll."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/02/10 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 
 class

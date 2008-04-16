@@ -3,8 +3,8 @@ indexing
 	description: "Test Single Unix Specification environment class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/02/10 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 deferred class
 

@@ -5,8 +5,8 @@ indexing
 	how_to: "http://support.microsoft.com/default.aspx?scid=http://support.microsoft.com:80/support/kb/articles/q190/3/51.asp&NoWebContent=1&NoWebContent=1"
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/04/14 $"
-	revision: "$Revision: #10 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #11 $"
 
 
 class

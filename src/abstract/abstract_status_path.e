@@ -3,8 +3,8 @@ indexing
 	description: "Class that gets stat structure through stat call."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 deferred class
 

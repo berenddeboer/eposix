@@ -69,6 +69,7 @@
       <cluster name="irc"/>
       <cluster name="ldap"/>
       <cluster name="mime"/>
+      <cluster name="netlogger"/>
       <cluster name="smtp"/>
       <cluster name="ssl"/>
       <cluster name="tcp"/>

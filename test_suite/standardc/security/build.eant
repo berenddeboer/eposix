@@ -6,8 +6,8 @@
 		system: "Security test"
 		copyright: "Copyright (c) 2002 by Berend de Boer"
 		license: "Eiffel Forum License v1 (see forum.txt)"
-		date: "$Date: 2003/11/29 $"
-		revision: "$Revision: #2 $"
+		date: "$Date: 2007/11/22 $"
+		revision: "$Revision: #3 $"
 	</description>
 
 	<inherit>

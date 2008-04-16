@@ -5,8 +5,8 @@ indexing
 	standards: "Follows RFC 3501"
 
 	author: "Berend de Boer"
-	date: "$Date: 2006/05/30 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 
 class
@@ -68,7 +68,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -81,7 +81,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -95,7 +95,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 6
 	yyvsp := yyvsp - 5
 	yyvs.put (yyval, yyvsp)
@@ -109,7 +109,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -122,7 +122,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -135,7 +135,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -148,7 +148,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -161,7 +161,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -174,7 +174,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -187,7 +187,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -200,7 +200,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -213,7 +213,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -226,7 +226,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -239,7 +239,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -252,7 +252,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -265,7 +265,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -278,7 +278,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -291,7 +291,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -304,7 +304,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -317,7 +317,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -330,7 +330,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -343,7 +343,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -356,7 +356,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -369,7 +369,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -382,7 +382,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -395,7 +395,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -408,7 +408,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -421,7 +421,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -434,7 +434,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -447,7 +447,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -460,7 +460,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -473,7 +473,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -486,7 +486,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -499,7 +499,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -512,7 +512,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -525,7 +525,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -538,7 +538,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -551,7 +551,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -565,7 +565,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -579,7 +579,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -592,7 +592,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -606,7 +606,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -619,7 +619,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -633,7 +633,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -646,7 +646,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -659,7 +659,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -673,7 +673,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -695,7 +695,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -708,7 +708,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -721,7 +721,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -735,7 +735,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -749,7 +749,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -763,7 +763,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -785,7 +785,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -798,7 +798,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -811,7 +811,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -825,7 +825,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -839,7 +839,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 5
 	yyvsp := yyvsp - 4
 	yyvs.put (yyval, yyvsp)
@@ -853,7 +853,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -866,7 +866,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -880,7 +880,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -893,7 +893,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -906,7 +906,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -919,7 +919,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -932,7 +932,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -946,7 +946,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -959,7 +959,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -972,7 +972,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -985,7 +985,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -999,7 +999,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1012,7 +1012,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1025,7 +1025,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1039,7 +1039,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1053,7 +1053,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1067,7 +1067,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1081,7 +1081,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1095,7 +1095,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1109,7 +1109,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1123,7 +1123,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 5
 	yyvsp := yyvsp - 4
 	yyvs.put (yyval, yyvsp)
@@ -1137,7 +1137,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1151,7 +1151,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1165,7 +1165,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 9
 	yyvsp := yyvsp - 8
 	yyvs.put (yyval, yyvsp)
@@ -1179,7 +1179,7 @@ end
 			yyval := yyval_default;
 yyval := yytype3 (yyvs.item (yyvsp)) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1192,7 +1192,7 @@ end
 			yyval := yyval_default;
 yyval := yytype3 (yyvs.item (yyvsp)) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1205,7 +1205,7 @@ end
 			yyval := yyval_default;
 yyval := yytype3 (yyvs.item (yyvsp)) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1218,7 +1218,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 12
 	yyvsp := yyvsp - 11
 	yyvs.put (yyval, yyvsp)
@@ -1232,7 +1232,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1246,7 +1246,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1259,7 +1259,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1273,7 +1273,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1286,7 +1286,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1299,7 +1299,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1313,7 +1313,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1326,7 +1326,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1339,7 +1339,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1352,7 +1352,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1365,7 +1365,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1379,7 +1379,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1392,7 +1392,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1406,7 +1406,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1419,7 +1419,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1433,7 +1433,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1446,7 +1446,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1459,7 +1459,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1472,7 +1472,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1485,7 +1485,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1498,7 +1498,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1511,7 +1511,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1524,7 +1524,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1537,7 +1537,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1550,7 +1550,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1563,7 +1563,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1577,7 +1577,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1590,7 +1590,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1603,7 +1603,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1616,7 +1616,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1629,7 +1629,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -1651,7 +1651,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1664,7 +1664,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1677,7 +1677,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1691,7 +1691,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1705,7 +1705,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1718,7 +1718,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1732,7 +1732,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1745,7 +1745,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -1759,7 +1759,7 @@ end
 
 read_literal (yytype3 (yyvs.item (yyvsp - 2)).item); yyval2 := last_string 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -1773,7 +1773,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1786,7 +1786,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1799,7 +1799,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1813,7 +1813,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1827,7 +1827,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1844,7 +1844,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1861,7 +1861,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1875,7 +1875,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1888,7 +1888,7 @@ end
 
 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1905,7 +1905,7 @@ end
 			-- @@BdB: here add mailbox to response.mailboxes
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 5
 	yyvsp := yyvsp - 4
 	yyvs.put (yyval, yyvsp)
@@ -1919,7 +1919,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -1941,7 +1941,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1954,7 +1954,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1967,7 +1967,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -1981,7 +1981,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -1994,7 +1994,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2007,7 +2007,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2020,7 +2020,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2034,7 +2034,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2048,7 +2048,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2062,7 +2062,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2075,7 +2075,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2088,7 +2088,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2101,7 +2101,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2114,7 +2114,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2128,7 +2128,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2141,7 +2141,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2155,7 +2155,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2169,7 +2169,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2183,7 +2183,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2197,7 +2197,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2210,7 +2210,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2224,7 +2224,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2238,7 +2238,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 5
 	yyvsp := yyvsp - 4
 	yyvs.put (yyval, yyvsp)
@@ -2255,7 +2255,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2277,7 +2277,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2291,7 +2291,7 @@ end
 			yyval := yyval_default;
 expect_date_time 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2316,7 +2316,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2333,7 +2333,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2350,7 +2350,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2367,7 +2367,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2381,7 +2381,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2395,7 +2395,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2409,7 +2409,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2423,7 +2423,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -2437,7 +2437,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2451,7 +2451,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2473,7 +2473,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2489,7 +2489,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2505,7 +2505,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2519,7 +2519,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2532,7 +2532,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2545,7 +2545,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2559,7 +2559,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2572,7 +2572,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2585,7 +2585,7 @@ end
 
 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2598,7 +2598,7 @@ end
 
 yyval3 := yytype3 (yyvs.item (yyvsp)) 
 			yyval := yyval3
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2611,7 +2611,7 @@ end
 
 yyval3 := yytype3 (yyvs.item (yyvsp)) 
 			yyval := yyval3
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2624,7 +2624,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2637,7 +2637,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2650,7 +2650,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2663,7 +2663,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2676,7 +2676,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2689,7 +2689,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2702,7 +2702,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2716,7 +2716,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2729,7 +2729,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2742,7 +2742,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -2756,7 +2756,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2769,7 +2769,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2782,7 +2782,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2796,7 +2796,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2810,7 +2810,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -2824,7 +2824,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2837,7 +2837,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -2850,7 +2850,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 7
 	yyvsp := yyvsp - 6
 	yyvs.put (yyval, yyvsp)
@@ -2868,7 +2868,7 @@ end
 			scan_resp_text
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2890,7 +2890,7 @@ end
 			yyval := yyval_default;
 response.set_bye_response_text (yytype2 (yyvs.item (yyvsp - 1))) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2912,7 +2912,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2934,7 +2934,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 7
 	yyvsp := yyvsp - 6
 	yyvs.put (yyval, yyvsp)
@@ -2948,7 +2948,7 @@ end
 			yyval := yyval_default;
 end_of_file_after_end_of_line := True 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2970,7 +2970,7 @@ end
 			yyval := yyval_default;
 response.set_ok; scan_resp_text 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -2992,7 +2992,7 @@ end
 			yyval := yyval_default;
 response.set_response_text (yytype2 (yyvs.item (yyvsp))) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3014,7 +3014,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -3028,7 +3028,7 @@ end
 			yyval := yyval_default;
 end_of_file_after_end_of_line := True 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3050,7 +3050,7 @@ end
 			yyval := yyval_default;
 response.set_response_text (yytype2 (yyvs.item (yyvsp))) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3064,7 +3064,7 @@ end
 			yyval := yyval_default;
 response.set_ok; scan_resp_text 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3086,7 +3086,7 @@ end
 			yyval := yyval_default;
 response.set_response_text (yytype2 (yyvs.item (yyvsp))) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3100,7 +3100,7 @@ end
 			yyval := yyval_default;
 response.set_no; scan_resp_text 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3122,7 +3122,7 @@ end
 			yyval := yyval_default;
 response.set_response_text (yytype2 (yyvs.item (yyvsp))) 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3136,7 +3136,7 @@ end
 			yyval := yyval_default;
 response.set_bad; scan_resp_text 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3158,7 +3158,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3172,7 +3172,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3186,7 +3186,7 @@ end
 
 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3199,7 +3199,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3221,7 +3221,7 @@ end
 			yyval := yyval_default;
 expect_resp_text 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3235,7 +3235,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3248,7 +3248,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3261,7 +3261,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -3278,7 +3278,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3294,7 +3294,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3307,7 +3307,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3324,7 +3324,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3341,7 +3341,7 @@ end
 			end
 		
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3355,7 +3355,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3369,7 +3369,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3391,7 +3391,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3404,7 +3404,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3417,7 +3417,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3431,7 +3431,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3445,7 +3445,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3459,7 +3459,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 4
 	yyvsp := yyvsp - 3
 	yyvs.put (yyval, yyvsp)
@@ -3473,7 +3473,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyvsp := yyvsp + 1
 	if yyvsp >= yyvsc then
 		yyvsc := yyvsc + yyInitial_stack_size
@@ -3495,7 +3495,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3508,7 +3508,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3522,7 +3522,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3536,7 +3536,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3549,7 +3549,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3563,7 +3563,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 3
 	yyvsp := yyvsp - 2
 	yyvs.put (yyval, yyvsp)
@@ -3577,7 +3577,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3590,7 +3590,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3603,7 +3603,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3616,7 +3616,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3629,7 +3629,7 @@ end
 
 yyval2 := yytype2 (yyvs.item (yyvsp)) 
 			yyval := yyval2
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3642,7 +3642,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 5
 	yyvsp := yyvsp - 4
 	yyvs.put (yyval, yyvsp)
@@ -3656,7 +3656,7 @@ end
 			yyval := yyval_default;
 
 
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3669,7 +3669,7 @@ end
 
 yyval3 := yytype3 (yyvs.item (yyvsp)) 
 			yyval := yyval3
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 1
 	yyvs.put (yyval, yyvsp)
 end
@@ -3682,7 +3682,7 @@ end
 
 yyval3 := yytype3 (yyvs.item (yyvsp)); yyval3.set_item (-1 * yyval3.item) 
 			yyval := yyval3
-if yy_parsing_status = yyContinue then
+if yy_parsing_status >= yyContinue then
 	yyssp := yyssp - 2
 	yyvsp := yyvsp - 1
 	yyvs.put (yyval, yyvsp)
@@ -3713,6 +3713,7 @@ end
 feature {NONE} -- Table templates
 
 	yytranslate_template: SPECIAL [INTEGER] is
+			-- Template for `yytranslate'
 		once
 			Result := yyfixed_array (<<
 			    0,    2,    2,    2,    2,    2,    2,    2,    2,    2,
@@ -3753,6 +3754,7 @@ feature {NONE} -- Table templates
 		end
 
 	yyr1_template: SPECIAL [INTEGER] is
+			-- Template for `yyr1'
 		once
 			Result := yyfixed_array (<<
 			    0,   96,   96,   97,   99,  101,  100,   98,   78,   78,
@@ -3786,6 +3788,7 @@ feature {NONE} -- Table templates
 		end
 
 	yytypes1_template: SPECIAL [INTEGER] is
+			-- Template for `yytypes1'
 		once
 			Result := yyfixed_array (<<
 			    1,    1,    1,    2,    1,    1,    1,    1,    1,    1,
@@ -3834,6 +3837,7 @@ feature {NONE} -- Table templates
 		end
 
 	yytypes2_template: SPECIAL [INTEGER] is
+			-- Template for `yytypes2'
 		once
 			Result := yyfixed_array (<<
 			    1,    1,    1,    2,    2,    2,    2,    2,    3,    2,
@@ -3847,6 +3851,7 @@ feature {NONE} -- Table templates
 		end
 
 	yydefact_template: SPECIAL [INTEGER] is
+			-- Template for `yydefact'
 		once
 			Result := yyfixed_array (<<
 			    0,    0,  221,  211,  195,    0,  192,  193,  196,  200,
@@ -3895,6 +3900,7 @@ feature {NONE} -- Table templates
 		end
 
 	yydefgoto_template: SPECIAL [INTEGER] is
+			-- Template for `yydefgoto'
 		once
 			Result := yyfixed_array (<<
 			  284,  107,  141,  109,  110,  186,  153,  261,  160,  332,
@@ -3914,6 +3920,7 @@ feature {NONE} -- Table templates
 		end
 
 	yypact_template: SPECIAL [INTEGER] is
+			-- Template for `yypact'
 		once
 			Result := yyfixed_array (<<
 			   21,  153,   72, -32768, -32768,   21, -32768, -32768, -32768, -32768,
@@ -3962,6 +3969,7 @@ feature {NONE} -- Table templates
 		end
 
 	yypgoto_template: SPECIAL [INTEGER] is
+			-- Template for `yypgoto'
 		once
 			Result := yyfixed_array (<<
 			  203, -142,  -27,   -2, -32768, -32768, -32768,   61,  190, -124,
@@ -3981,6 +3989,7 @@ feature {NONE} -- Table templates
 		end
 
 	yytable_template: SPECIAL [INTEGER] is
+			-- Template for `yytable'
 		once
 			Result := yyfixed_array (<<
 			   19,   62,   63,   64,   65,  161,  155,  166,  167,  322,
@@ -4068,6 +4077,7 @@ feature {NONE} -- Table templates
 		end
 
 	yycheck_template: SPECIAL [INTEGER] is
+			-- Template for `yycheck'
 		once
 			Result := yyfixed_array (<<
 			    1,   30,   31,   32,   33,  129,  124,  131,  132,  298,

@@ -5,8 +5,8 @@ indexing
 	usage: "Inherit from this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #7 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #8 $"
 
 
 class
@@ -85,6 +85,8 @@ feature -- List of well-known field names
 	field_name_transfer_encoding: STRING is "Transfer-Encoding"
 
 	field_name_user_agent: STRING is "User-Agent"
+
+	field_name_vary: STRING is "Vary"
 
 	field_name_www_authenticate: STRING is "WWW-Authenticate"
 

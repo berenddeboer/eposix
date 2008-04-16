@@ -3,8 +3,8 @@ indexing
 	description: "IPv4 address at the ABSTRACT_XXXX level."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/03/03 $"
-	revision: "$Revision: #6 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #7 $"
 
 
 class

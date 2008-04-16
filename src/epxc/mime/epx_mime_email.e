@@ -3,8 +3,8 @@ indexing
 	description: "Email message in MIME format. Make creating MIME email slightly easier than using a plain EPX_MIME_PART."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 
 class

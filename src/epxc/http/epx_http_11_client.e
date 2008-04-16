@@ -3,8 +3,8 @@ indexing
 	description: "Class that implements whatever an HTTP 1.1 client can do."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 class

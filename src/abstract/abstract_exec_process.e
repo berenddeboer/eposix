@@ -4,8 +4,8 @@ indexing
 	%available to their parents."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #10 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #11 $"
 
 
 deferred class
@@ -239,7 +239,6 @@ feature -- i/o capturing
 		ensure
 			definition: capture_error = on
 		end
-
 
 	fd_stdin: ABSTRACT_FILE_DESCRIPTOR
 			-- Input read by process

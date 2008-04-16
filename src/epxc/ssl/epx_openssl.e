@@ -3,8 +3,8 @@ indexing
 	description: "Class that uses the openssl command-line tool to open a generic SSL/TLS connection to a server. It also implements the EPX_TEXT_IO_STREAM, so it can be used as a bidirectional socket instead of a network socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 

@@ -3,8 +3,8 @@ indexing
 	description: "Factory to return appropriate classes when compiling a WINDOWS application."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 

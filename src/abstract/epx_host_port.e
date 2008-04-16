@@ -3,8 +3,8 @@ indexing
 	description: "Combination of a resolved EPX_HOST and EPX_SERVICE. Depending on the addres_family, makes a sockaddr_in or sockaddr_in6 available in `socket_address'."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/05/08 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 
 class

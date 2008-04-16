@@ -10,8 +10,8 @@ indexing
 	bugs: "Basic calls raise exception, should be done by higher level calls."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/03/02 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 class
 

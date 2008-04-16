@@ -3,8 +3,8 @@ indexing
 	description: "Body that is stored in a file."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 class
 
@@ -29,17 +29,21 @@ feature {NONE} -- Initialization
 	make is
 			-- Initialize text body.
 		do
-			create file.make
+			file := new_file
 		end
 
 
 feature -- Access to body content
 
 	as_string: STRING is
-			-- Return `file'.
+			-- Contents of `file'.
 		local
 			buf: STDC_BUFFER
 		do
+			-- Should be precondition, not sure how to do that
+				check
+					file_open_for_read: file.is_open_read
+				end
 			from
 				file.rewind
 				Result := ""
@@ -56,7 +60,8 @@ feature -- Access to body content
 			file.rewind
 			buf.deallocate
 		ensure then
-			file_position_at_beginning: file.tell = 0
+			-- can't test
+			-- file_position_at_beginning: file.tell = 0
 		end
 
 	rewind_stream is
@@ -78,25 +83,36 @@ feature -- Change body commands
 	append_character (c: CHARACTER) is
 			-- Extend `file' with `c' somehow.
 		do
-			file.write_character (c)
+			file.put_character (c)
 		end
 
 	append_string (s: STRING) is
 			-- Extend `file' with `s' somehow.
 		do
-			file.write_string (s)
+			file.put_string (s)
 		end
 
 
 feature -- Access
 
-	file: STDC_TEMPORARY_FILE
+	file: EPX_CHARACTER_IO_STREAM
 			-- The body as a file
+
+
+feature {NONE} -- Implementation
+
+	new_file: like file is
+		do
+			create {STDC_TEMPORARY_FILE} Result.make
+		ensure
+			not_void: Result /= Void
+		end
 
 
 invariant
 
 	file_not_void: file /= Void
-	file_open: file.is_open
+	file_open_for_writing: file.is_open_write
+	file_rewindable: file.is_rewindable
 
 end

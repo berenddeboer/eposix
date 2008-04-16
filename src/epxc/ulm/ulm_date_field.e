@@ -4,8 +4,8 @@ indexing
 	usage: "Implement refresh to set value to current date."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/03/20 $"
-	revision: "$Revision: #2 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
 deferred class
 
@@ -23,18 +23,18 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make  is
+	make is
 			-- Make sure date field has a value.
 		do
 			create value.make (expected_length)
 			refresh
-			inherited_make ("DATE", value)
+			inherited_make (once "DATE", value)
 		end
 
 feature -- Query
 
 	expected_length: INTEGER is
-			-- Length expected for a date field.
+			-- Length expected for a date field
 		deferred
 		ensure
 			valid_length: Result > 0

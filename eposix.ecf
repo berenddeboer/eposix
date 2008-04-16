@@ -12,7 +12,18 @@
 				<platform excluded_value="windows"/>
 			</condition>
 		</external_object>
-		<setting name="platform" value="unix"/>
+		<external_object location="-lpthread">
+			<condition>
+				<platform excluded_value="windows"/>
+				<multithreaded value="true"/>
+			</condition>
+		</external_object>
+		<external_object location="-lrt">
+			<condition>
+				<platform excluded_value="windows"/>
+				<multithreaded value="true"/>
+			</condition>
+		</external_object>
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
 		<library name="gobo" location="$ISE_LIBRARY\library\gobo\gobo.ecf"/>
 		<cluster name="unix" location=".\src\" recursive="true">

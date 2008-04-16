@@ -3,8 +3,8 @@ indexing
 	description: "AF_UNIX (AF_LOCAL) SOCK_STREAM/SOCK_DGRAM sockets, server side."
 
 	author: "Berend de Boer"
-	date: "$Date: 2004/12/18 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 class

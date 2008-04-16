@@ -6,8 +6,8 @@ indexing
    %last signal."
 
    author: "Berend de Boer"
-   date: "$Date: 2002/02/06 $";
-   revision: "$Revision: #1 $"
+   date: "$Date: 2007/11/22 $";
+   revision: "$Revision: #2 $"
 
 class 
 

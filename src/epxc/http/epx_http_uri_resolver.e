@@ -5,8 +5,8 @@ indexing
 		"External URI resolver for the http protocol"
 
 	library: "eposix"
-	author: "Berend de Boer <berend@pobox.com>"
-	copyright: "Copyright (c) 2004, Berend de Boer"
+	author: "Berend de Boer <berend@pobox.com> and Colin Paul Adams"
+	copyright: "Copyright (c) 2004-2007, Berend de Boer"
 	license: "Eiffel Forum License v2 (see forum.txt)"
 	date: "$Date: "
 	revision: "$Revision: "
@@ -69,37 +69,44 @@ feature -- Operation(s)
 				end
 				if not has_local_error then
 					client := new_client (a_uri_to_use)
+					if a_uri.has_user_info then
+						set_basic_authentication_from_user_info (a_uri.user_info)
+					elseif user_name /= Void then
+						client.set_basic_authentication (user_name, password)
+					end
 					debug ("XML http resolver")
 						std.error.put_string ("Host is ")
 						std.error.put_string (a_uri_to_use.host)
 						std.error.put_new_line
 					end
-					create a_path.make_from_string (a_uri_to_use.path)
-					if a_uri_to_use.has_query then
-						a_path.append_character ('?')
-						a_path.append_string (a_uri_to_use.query)
-					end
-					if a_uri_to_use.has_fragment then
-						a_path.append_character ('#')
-						a_path.append_string (a_uri_to_use.fragment)
-					end
-					client.get (a_uri_to_use.path)
-					a_response_code := client.response_code
-					if a_response_code = Sc_ok then
-						client.read_response
-						if client.is_response_ok then
-							handle_success (a_uri_to_use)
-						else
-							a_response_code := client.response_code
+					if not has_local_error then
+						create a_path.make_from_string (a_uri_to_use.path)
+						if a_uri_to_use.has_query then
+							a_path.append_character ('?')
+							a_path.append_string (a_uri_to_use.query)
 						end
-					end
-					if is_redirect (a_response_code) then
-						if client.fields.has (Location) then
-							create a_uri_to_use.make_resolve (a_uri_to_use, client.fields.item (Location).value)
-							uri_stack.replace (a_uri_to_use)
-						else
-							a_response_code := 500
-							set_local_error ("Could not find Location field after Found response.")
+						if a_uri_to_use.has_fragment then
+							a_path.append_character ('#')
+							a_path.append_string (a_uri_to_use.fragment)
+						end
+						client.get (a_uri_to_use.path)
+						a_response_code := client.response_code
+						if a_response_code = Sc_ok then
+							client.read_response
+							if client.is_response_ok then
+								handle_success (a_uri_to_use)
+							else
+								a_response_code := client.response_code
+							end
+						end
+						if is_redirect (a_response_code) then
+							if client.fields.has (Location) then
+								create a_uri_to_use.make_resolve (a_uri_to_use, client.fields.item (Location).value)
+								uri_stack.replace (a_uri_to_use)
+							else
+								a_response_code := 500
+								set_local_error ("Could not find Location field after Found response.")
+							end
 						end
 					end
 				end
@@ -151,6 +158,28 @@ feature -- Result
 
 	last_media_type: UT_MEDIA_TYPE
 			-- Media type, if available.
+
+feature -- Authentication setup
+
+	user_name: STRING
+			-- User name for HTTP Basic authentication
+
+	password: STRING
+			-- Password for HTTP Basic authentication
+
+	set_basic_authentication (a_user_name, a_password: STRING) is
+			-- Make sure the Authorization header is included in the
+			-- request.
+		require
+			user_name_not_empty: a_user_name /= Void and then not a_user_name.is_empty
+			password_not_empty: a_password /= Void and then not a_password.is_empty
+		do
+			user_name := a_user_name
+			password := a_password
+		ensure
+			user_name_set: user_name = a_user_name
+			password_set: password = a_password
+		end
 
 feature {NONE} -- Implementation
 
@@ -258,7 +287,7 @@ feature {NONE} -- Implementation
 			a_splitter.set_separators ("/")
 			some_components := a_splitter.split (a_media_type)
 			if some_components.count /= 2 then
-				set_local_error ("Content-type must contain exactly one /")
+				set_local_error ("Content-type must contain exactly one '/'")
 			else
 				has_media_type := True
 				create last_media_type.make (some_components.item (1), some_components.item (2))
@@ -285,6 +314,25 @@ feature {NONE} -- Implementation
 			end
 		ensure
 			error_or_media_type_set: not has_error implies has_media_type = True and then last_media_type /= Void
+		end
+
+	set_basic_authentication_from_user_info (a_user_info: STRING) is
+			-- Set basic authentication on `client' from `a_user_info'.
+		require
+			a_user_info_not_void: a_user_info /= Void
+			client_not_void: client /= Void
+		local
+			l_splitter: ST_SPLITTER
+			l_parts: DS_LIST [STRING]
+		do
+			create l_splitter.make_with_separators (":")
+			l_parts := l_splitter.split (a_user_info)
+			if l_parts.count = 2 then
+				client.set_basic_authentication (l_parts.item (1), l_parts.item (2))
+			else
+				-- Is this correct?
+				set_local_error ("Authentication must contain exactly one ':'")
+			end
 		end
 
 invariant

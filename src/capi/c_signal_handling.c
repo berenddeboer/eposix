@@ -8,8 +8,9 @@
 EIF_OBJECT signal_switch = NULL;
 #ifdef EIFFEL_VENDOR_ISE
 EIF_REFERENCE frozen_signal_switch = NULL;
+EIF_PROCEDURE signal_callback = NULL;
 #endif
-#ifndef EIFFEL_VENDOR_SE
+#ifdef EIFFEL_VENDOR_VE
 EIF_PROCEDURE signal_callback = NULL;
 #endif
 
@@ -17,7 +18,10 @@ EIF_PROCEDURE signal_callback = NULL;
 void epx_clear_signal_switch()
 {
   signal_switch = NULL;
-#ifndef EIFFEL_VENDOR_SE
+#ifdef EIFFEL_VENDOR_ISE
+  signal_callback = NULL;
+#endif
+#ifdef EIFFEL_VENDOR_VE
   signal_callback = NULL;
 #endif
 }
@@ -63,10 +67,18 @@ void epx_set_signal_switch (EIF_OBJECT a_switch)
 #ifdef EIFFEL_VENDOR_SE
   signal_switch = a_switch;
 #endif
+#ifdef EIFFEL_VENDOR_GE
+  signal_switch = a_switch;
+#endif
 }
 
 
 #ifdef EIFFEL_VENDOR_SE
+/* prototype callback function */
+void stdc_signal_switch_switcher(EIF_OBJECT obj, EIF_INTEGER sig);
+#endif
+
+#ifdef EIFFEL_VENDOR_GE
 /* prototype callback function */
 void stdc_signal_switch_switcher(EIF_OBJECT obj, EIF_INTEGER sig);
 #endif
@@ -82,6 +94,9 @@ void epx_the_signal_handler (EIF_INTEGER sig)
     (signal_callback) (eif_access(signal_switch), sig);
 #endif
 #ifdef EIFFEL_VENDOR_SE
+    stdc_signal_switch_switcher(signal_switch, sig);
+#endif
+#ifdef EIFFEL_VENDOR_GE
     stdc_signal_switch_switcher(signal_switch, sig);
 #endif
   }

@@ -5,8 +5,8 @@ indexing
 		"Lexical analyzer input buffer which can detect separation between header and body of request, and not read more than necessary to prevent blocking. It also supports reading just Content-Length bytes from the input stream and it supports Transfer-Encoding: chunked. Especially supporting the latter made this class quite unreadable. My humble apologies."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 class
 

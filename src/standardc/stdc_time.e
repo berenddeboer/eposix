@@ -7,8 +7,8 @@ indexing
 	%Time resolutation is one second."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #14 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #15 $"
 
 class
 
@@ -283,22 +283,6 @@ feature -- Make individual time fields valid
 		ensure
 			utc_time: is_utc_time
 			time_zone_known: is_time_zone_known
-		end
-
-
-feature -- Basic operations
-
-	infix "+" (other: like Current): like Current is
-			-- Sum with `other'
-		do
-			create Result.make_from_unix_time (value + other.value)
-			if is_utc_time then
-				Result.to_utc
-			elseif is_local_time then
-				Result.to_local
-			end
-		ensure
-			time_zone_same: my_time_zone = Result.my_time_zone
 		end
 
 
@@ -582,7 +566,7 @@ feature -- Time as string
 		require
 			time_zone_known: is_time_zone_known
 		do
-			Result := format ("%%X")
+			Result := format (once "%%X")
 		ensure
 			local_time_string_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
@@ -614,6 +598,19 @@ feature -- Date calculations
 	is_equal (other: like Current): BOOLEAN is
 		do
 			Result := other.value = value
+		end
+
+	infix "+" (other: like Current): like Current is
+			-- Sum with `other'
+		do
+			create Result.make_from_unix_time (value + other.value)
+			if is_utc_time then
+				Result.to_utc
+			elseif is_local_time then
+				Result.to_local
+			end
+		ensure
+			time_zone_same: my_time_zone = Result.my_time_zone
 		end
 
 	infix "-" (other: like Current): like Current is

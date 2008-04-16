@@ -3,8 +3,8 @@ indexing
 	description: "Class that covers (ahem) the POSIX group database (/etc/group)."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/01/18 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 class

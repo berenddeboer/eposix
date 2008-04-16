@@ -4,8 +4,8 @@ indexing
 		"Can be an entire MIME message, or a part of a multipart message."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #5 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #6 $"
 
 
 class
@@ -212,12 +212,12 @@ feature -- Body creation/removal
 		do
 			cd := header.content_disposition
 			if cd = Void then
-				create {EPX_MIME_BODY_STRING} text_body.make
+				text_body := new_string_body
 			else
 				if cd.parameters.has (parameter_name_filename) then
-					create {EPX_MIME_BODY_FILE} text_body.make
+					text_body := new_file_body
 				else
-					create {EPX_MIME_BODY_STRING} text_body.make
+					text_body := new_string_body
 				end
 			end
 			body := text_body
@@ -237,6 +237,25 @@ feature -- Change
 			auto_insert_content_length := a_value
 		ensure
 			definition: auto_insert_content_length = a_value
+		end
+
+
+feature {NONE} -- Implementation
+
+	new_file_body: EPX_MIME_BODY_TEXT is
+			-- New body where data is hold on disk
+		do
+			create {EPX_MIME_BODY_FILE} Result.make
+		ensure
+			not_void: Result /= Void
+		end
+
+	new_string_body: EPX_MIME_BODY_TEXT is
+			-- New body where data is hold in a string
+		do
+			create {EPX_MIME_BODY_STRING} Result.make
+		ensure
+			not_void: Result /= Void
 		end
 
 

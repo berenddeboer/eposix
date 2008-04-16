@@ -4,8 +4,8 @@ indexing
 	%able to loop (recursively) through a directory."
 
 	author: "Berend de Boer, Marcio Marchini"
-	date: "$Date: 2006/04/14 $";
-	revision: "$Revision: #7 $"
+	date: "$Date: 2007/11/22 $";
+	revision: "$Revision: #8 $"
 
 
 class

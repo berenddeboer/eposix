@@ -3,8 +3,8 @@ indexing
 	description: "Base class for STDC_PATH. As inheriting from STRING is non-portable, this base class is compiler specific"
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/07/10 $"
-	revision: "$Revision: #1 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #2 $"
 
 class
 

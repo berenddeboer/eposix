@@ -3,8 +3,8 @@ indexing
 	description: "Windows portable implementation of a service name."
 
 	author: "Berend de Boer"
-	date: "$Date: 2005/03/03 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 
 class

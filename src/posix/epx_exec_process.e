@@ -3,8 +3,8 @@ indexing
 	description: "Portable child processes for POSIX."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/01/25 $"
-	revision: "$Revision: #9 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #10 $"
 
 
 class
@@ -198,6 +198,11 @@ feature -- Execution
 feature -- Actions that parent may execute
 
 	wait_for (suspend: BOOLEAN) is
+			-- Wait for this process to terminate. If `suspend' then we
+			-- wait until the information about this process is available,
+			-- else we return immediately.
+			-- If `suspend' is False, check `is_terminated' to see
+			-- if this child is really terminated.
 		do
 			-- Close stdin if it is not closed. This will signal an
 			-- end-of-input to the child process.

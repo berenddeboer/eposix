@@ -1,11 +1,6 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
-New in 3.0.1 - 2008-01-02
-
-* STDC_TIME.to_utc: segement violation on Windows.
-
-
 New in 3.0 - 2007-05-18
 
 * Security, if you use this functionality you are urged to upgrade:
@@ -63,7 +58,7 @@ New in 3.0 - 2007-05-18
   - Added all POSIX error codes.
 * EPX_URI: obsolete, use Gobo's UT_URI.
 * EPX_HTTP_10_CLIENT
-  - read_response_wit_redirect: new method to read a response and
+  - read_response_with_redirect: new method to read a response and
     follow up on redirects until the redirects end (or 20 redirects
     have been processed).
   - set_basic_authentication: new feature to include the authorization

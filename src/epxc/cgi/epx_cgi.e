@@ -12,8 +12,8 @@ indexing
 		"1. should use binary search allowed_new_line_tag"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/05/17 $"
-	revision: "$Revision: #4 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -110,7 +110,7 @@ feature -- Output
 	execute is
 			-- Execute the CGI action by emiting a valid MIME header and
 			-- an optional body.
-			-- Heander and/or body text can be accumulated in
+			-- Header and/or body text can be accumulated in
 			-- `as_uc_string' and will be send to the client when this
 			-- feature returns.
 			-- In case of binary output it is advised to write the header
@@ -128,7 +128,13 @@ feature -- Error handling
 	error_unauthorized is
 			-- Signal authorization error to client.
 		do
-			header.set_status (401, Void)
+			-- Sometimes parameter checking takes place in
+			-- `is_authorized', for example when the parameters are
+			-- needed to check authorization. So only set 401 if no
+			-- previous status code has been set.
+			if header.status_code = 0 then
+				header.set_status (401, Void)
+			end
 			finish_header
 		ensure
 			header_written: is_http_header_written
@@ -137,7 +143,7 @@ feature -- Error handling
 	error_invalid_method is
 			-- Signal invalid method to client.
 		do
-			status (405, "Method '" + request_method + "' Not Allowed")
+			status (405, "Method " + request_method + " Not Allowed")
 			finish_header
 		ensure
 			header_written: is_http_header_written
@@ -212,7 +218,9 @@ feature -- Status
 	is_delete_method: BOOLEAN is
 			-- Is `request_method' equal to "DELETE"?
 		do
-			Result := request_method.is_equal (http_method_DELETE)
+			Result :=
+				request_method.is_equal (http_method_DELETE) or else
+				has_key (once_remapped_delete_method)
 		end
 
 	is_get_method: BOOLEAN is
@@ -232,7 +240,7 @@ feature -- Status
 		do
 			Result :=
 				request_method.is_equal (http_method_POST) and then
-				not has_key (once_remapped_put_method)
+				not (has_key (once_remapped_put_method) or else has_key (once_remapped_delete_method))
 		end
 
 	is_put_method: BOOLEAN is
@@ -378,10 +386,26 @@ feature -- Standard CGI variables
 		end
 
 	request_method: STRING is
-			-- Name of the method used to invoke the CGI
-			-- application. Valid values are GET and POST
+			-- Name of the method used to invoke the CGI application
 		do
 			Result := env_request_method.value
+		end
+
+	remapped_request_method: STRING is
+			-- As `request_method' but if method remapping is enabled,
+			-- return the remapped method
+		do
+			if is_get_method then
+				Result := request_method
+			elseif is_post_method then
+				Result := request_method
+			elseif is_put_method then
+				Result := once "PUT"
+			elseif is_delete_method then
+				Result := once "DELETE"
+			else
+				Result := request_method
+			end
 		end
 
 	script_name: STRING is
@@ -538,9 +562,37 @@ feature {NONE} -- CGI environment variables
 
 feature -- HTTP headers
 
-	if_modified_since: STDC_TIME is
-			-- The If-Modified-Header if set or if made available by the
-			-- server;
+	if_match: STRING is
+			-- The contents of the If-Match header if set or if
+			-- made available by the server;
+			-- Void otherwise
+			-- Bugs: If-Match: '*' not handled, has to be done manually.
+		local
+			env: STDC_ENV_VAR
+		do
+			create env.make (once "HTTP_IF_MATCH")
+			if not env.value.is_empty then
+				Result := env.value
+			end
+		end
+
+	if_none_match: STRING is
+			-- The contents of the If-None-Match header if set or if
+			-- made available by the server;
+			-- Void otherwise
+			-- Bugs: If-None-Match: '*' not handled, has to be done manually.
+		local
+			env: STDC_ENV_VAR
+		do
+			create env.make (once "HTTP_IF_NONE_MATCH")
+			if not env.value.is_empty then
+				Result := env.value
+			end
+		end
+
+		if_modified_since: STDC_TIME is
+			-- The contents of the If-Modified-Since header if set or if
+			-- made available by the server;
 			-- Void otherwise
 		local
 			env: STDC_ENV_VAR
@@ -548,7 +600,7 @@ feature -- HTTP headers
 			parser: EPX_MIME_PARSER
 			date_field: EPX_MIME_FIELD_IF_MODIFIED_SINCE
 		do
-			create env.make ("HTTP_IF_MODIFIED_SINCE")
+			create env.make (once "HTTP_IF_MODIFIED_SINCE")
 			v := env.value
 			if not v.is_empty then
 				-- parse Tue, 13 Mar 2007 09:12:09 GMT
@@ -569,7 +621,7 @@ feature -- CGI headers
 			-- Clients will guess the charset, so it's better to use the
 			-- explicit `context_text_html_utf8' function.
 		do
-			stdout.put_string ("Content-Type: text/html%N")
+			stdout.put_string (once "Content-Type: text/html%N")
 			finish_header
 		ensure
 			header_written: is_http_header_written
@@ -967,7 +1019,13 @@ feature {NONE} -- Cached key/value
 				from
 					len := content_length
 					i := 0
-					create cgi_input.make (len)
+					create cgi_input.make (query_string.count + 1 + len)
+					if not query_string.is_empty then
+						-- Start with query string, data in body can
+						-- override the key/value pairs from the query.
+						cgi_input.append_string (query_string)
+						cgi_input.append_character ('&')
+					end
 					input := stdin
 					--create {STDC_TEXT_FILE} input.open_read ("test.form")
 					input.read_character
@@ -1000,14 +1058,32 @@ feature {NONE} -- Standard or multipart key/value filling
 		local
 			parser: EPX_MIME_PARSER
 			input: STDC_TEXT_FILE
+			additional: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 		do
 			input := stdin
-			--create input.open_read ("test.form")
-			create parser.make_from_file (input)
+			--create input.open_read ("test-input")
+			parser := new_parser (input)
 			parser.set_header (mime_header)
 			parser.parse
 			if not parser.syntax_error then
-				cgi_data := url_encoder.mime_encoded_to_field_name_value_pair (Void, parser.part.body)
+				if parser.part.body.is_multipart then
+					cgi_data := url_encoder.mime_encoded_to_field_name_value_pair (Void, parser.part.body)
+				else
+					create cgi_data.make (0)
+				end
+				-- Add those key/value pairs from query string that do not
+				-- yet exist.
+				additional := url_encoder.url_encoded_to_field_name_value_pair (query_string)
+				from
+					additional.start
+				until
+					additional.after
+				loop
+					if not cgi_data.has (additional.key_for_iteration) then
+						cgi_data.force (additional.item_for_iteration, additional.key_for_iteration)
+					end
+					additional.forth
+				end
 			else
 				exceptions.raise ("Syntax error detected during parsing of POSTed data.")
 			end
@@ -1027,7 +1103,7 @@ feature {NONE} -- Standard or multipart key/value filling
 		end
 
 	mime_header: STRING is
-			-- Suitable MIME header for POST data.
+			-- Suitable MIME header for POST data
 		local
 			fixed_content_type: STRING
 			i: INTEGER
@@ -1076,6 +1152,17 @@ feature {NONE} -- Standard or multipart key/value filling
 			result_not_empty: Result /= Void and then not Result.is_empty
 		end
 
+	new_parser (an_input: STDC_TEXT_FILE): EPX_MIME_PARSER is
+			-- A new MIME parser
+		require
+			input_not_void: an_input /= Void
+			input_open: an_input.is_open
+		do
+			create Result.make_from_file (an_input)
+		ensure
+			not_void: Result /= Void
+		end
+
 
 feature {NONE} -- Implementation
 
@@ -1092,6 +1179,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
+	once_remapped_delete_method: STRING is "http-method:DELETE"
 	once_remapped_put_method: STRING is "http-method:PUT"
 
 

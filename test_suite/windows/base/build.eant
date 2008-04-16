@@ -6,8 +6,8 @@
 		system: "eposix Windows tests"
 		copyright: "Copyright (c) 2007 by Berend de Boer"
 		license: "Eiffel Forum License v2 (see forum.txt)"
-		date: "$Date: 2007/05/18 $"
-		revision: "$Revision: #1 $"
+		date: "$Date: 2007/11/22 $"
+		revision: "$Revision: #2 $"
 	</description>
 
 	<inherit>

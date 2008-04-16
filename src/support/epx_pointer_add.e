@@ -7,8 +7,8 @@ indexing
 	I_trust_myself: "Should be yes..."
 
 	author: "Berend de Boer"
-	date: "$Date: 2003/03/20 $"
-	revision: "$Revision: #3 $"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #4 $"
 
 class
 
