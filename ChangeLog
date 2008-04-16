@@ -1,3 +1,14 @@
+2008-01-02  Berend de Boer  <berend@pobox.com>
+
+	* release 3.0.1.
+
+
+2007-12-20  Berend de Boer  <berend@pobox.com>
+
+	* !Segment violation on Windows when using STDC_TIME.to_utc. Due
+	to bug in posix_gmtime (Jocelyn).
+
+
 2007-05-18  Berend de Boer  <berend@pobox.com>
 
 	* release 3.0.

@@ -1,6 +1,11 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
+New in 3.0.1 - 2008-01-02
+
+* STDC_TIME.to_utc: segement violation on Windows.
+
+
 New in 3.0 - 2007-05-18
 
 * Security, if you use this functionality you are urged to upgrade:

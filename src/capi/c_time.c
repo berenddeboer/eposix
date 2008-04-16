@@ -27,7 +27,8 @@ EIF_DOUBLE  posix_difftime(time_t time1, time_t time0)
 
 EIF_POINTER posix_gmtime(EIF_INTEGER timer)
 {
-  return ((EIF_POINTER) gmtime((time_t *) &timer));
+  time_t time = timer;
+  return ((EIF_POINTER) gmtime((time_t *) &time));
 }
 
 
