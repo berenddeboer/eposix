@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<project name="eposix_example" default="help">
+
+	<description>
+		system:      "Example for eposix"
+		author:      "Berend de Boer [berend@pobox.com]"
+		copyright:   "Copyright (c) 2002, Berend de Boer"
+		license:     "Eiffel Forum Freeware License v1 (see forum.txt)"
+		date:        "$Date: $"
+		revision:    "$Revision: $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/eiffel.eant">
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system_dir" value="${EPOSIX}/doc"/>
+	</target>
+
+</project>
