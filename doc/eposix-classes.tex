@@ -1,0 +1,347 @@
+% short-flat listing of classes.
+
+\input eposix-format.tex
+\catcode`\_=12
+
+%% \def\Eclass#1%
+%%   {\color[blue]{{\it #1\/}}
+%%   }
+\def\Eclass#1{#1}
+
+% put class on own page
+\setuphead
+  [section]
+  [page=yes]
+
+% section should define bookmark as well
+\def\Eshort#1{\section[#1]{Short form of  #1}}
+
+\starttext
+
+% front page
+\start
+\startstandardmakeup
+
+\startfiguretext
+  [left]
+  {none}
+  %{\externalfigure[eposix-bw.png]}
+  {\externalfigure[eposix.jpg]}
+\start
+\ss
+{\switchtobodyfont[48pt] \eposix\par}
+\blank[big]
+\bfb
+\rightaligned{eposix short-flat}
+\rightaligned{listing of classes}
+
+\blank[6.4cm]
+
+\leftaligned{{\it written by Berend de Boer}}
+\stop
+\stopfiguretext
+
+\stopstandardmakeup
+\stop
+
+
+\startfrontmatter
+
+\completecontent
+
+\stopfrontmatter
+
+
+\startappendices
+
+\chapter{Short (flat) listing of Standard C classes}
+
+\Eshort{STDC_BASE}
+\typeEIFFELfile{stdc_base.tex}
+
+\Eshort{STDC_BUFFER}
+\typeEIFFELfile{stdc_buffer.tex}
+
+\Eshort{STDC_CONSTANTS}
+\typeEIFFELfile{stdc_constants.tex}
+
+\Eshort{STDC_CURRENT_PROCESS}
+\typeEIFFELfile{stdc_current_process.tex}
+
+\Eshort{STDC_ENV_VAR}
+\typeEIFFELfile{stdc_env_var.tex}
+
+\Eshort{STDC_FILE}
+\Eclass{STDC_FILE} is a deferred class. Use \Eclass{STDC_TEXT_FILE}
+for accessing and creating text files, or \Eclass{STDC_BINARY_FILE}
+for binary files.
+
+\typeEIFFELfile{stdc_file.tex}
+
+\Eshort{STDC_FILE_SYSTEM}
+\typeEIFFELfile{stdc_file_system.tex}
+
+\Eshort{STDC_SECURITY}
+\typeEIFFELfile{stdc_security.tex}
+
+\Eshort{STDC_SIGNAL}
+\typeEIFFELfile{stdc_signal.tex}
+
+\Eshort{STDC_SIGNAL_HANDLER}
+\typeEIFFELfile{stdc_signal_handler.tex}
+
+\Eshort{STDC_SYSTEM}
+\typeEIFFELfile{stdc_system.tex}
+
+\Eshort{STDC_TIME}
+\typeEIFFELfile{stdc_time.tex}
+
+
+
+\chapter[appendix:abstract]{Short listing of abstract classes}
+
+An abstract class is somewhat above the Standard C classes, and
+between the features you get when you use a \cap{posix} or Windows
+class. It is mainly aimed at users who want to write software usable
+on Unix and Windows, and who do not want to use a \cap{posix}
+emulator.
+
+You never use an abstract class directly, always use the corresponding
+effective EPX_XXXX, for which there is a variant in the
+\filename{src/posix} or \filename{src/windows} directory.
+
+\Eshort{ABSTRACT_CURRENT_PROCESS}
+\typeEIFFELfile{abstract_current_process.tex}
+
+\Eshort{ABSTRACT_EXEC_PROCESS}
+\typeEIFFELfile{abstract_exec_process.tex}
+
+\Eshort{ABSTRACT_FILE_DESCRIPTOR}
+\typeEIFFELfile{abstract_file_descriptor.tex}
+
+\Eshort{ABSTRACT_FILE_SYSTEM}
+\typeEIFFELfile{abstract_file_system.tex}
+
+\Eshort{ABSTRACT_HOST}
+\typeEIFFELfile{abstract_host.tex}
+
+\Eshort{ABSTRACT_IP4_ADDRESS}
+\typeEIFFELfile{abstract_ip4_address.tex}
+
+\Eshort{ABSTRACT_IP6_ADDRESS}
+\typeEIFFELfile{abstract_ip6_address.tex}
+
+\Eshort{ABSTRACT_PIPE}
+\typeEIFFELfile{abstract_pipe.tex}
+
+\Eshort{ABSTRACT_SERVICE}
+\typeEIFFELfile{abstract_service.tex}
+
+\Eshort{ABSTRACT_STATUS}
+\typeEIFFELfile{abstract_status.tex}
+
+\Eshort{ABSTRACT_TCP_CLIENT_SOCKET}
+\typeEIFFELfile{abstract_tcp_client_socket.tex}
+
+\Eshort{ABSTRACT_TCP_SERVER_SOCKET}
+\typeEIFFELfile{abstract_tcp_server_socket.tex}
+
+
+
+\chapter{Short (flat) listing of \POSIX\ classes}
+
+\Eshort{POSIX_ASYNC_IO_REQUEST}
+\typeEIFFELfile{posix_async_io_request.tex}
+
+
+\Eshort{POSIX_BASE}
+\typeEIFFELfile{posix_base.tex}
+
+
+\Eshort{POSIX_CHILD_PROCESS}
+\typeEIFFELfile{posix_child_process.tex}
+
+
+\Eshort{POSIX_CONSTANTS}
+\typeEIFFELfile{posix_constants.tex}
+
+
+\Eshort{POSIX_CURRENT_PROCESS}
+\typeEIFFELfile{posix_current_process.tex}
+
+
+\Eshort{POSIX_DAEMON}
+\typeEIFFELfile{posix_daemon.tex}
+
+
+\Eshort{POSIX_DIRECTORY}
+\typeEIFFELfile{posix_directory.tex}
+
+
+\Eshort{POSIX_EXEC_PROCESS}
+\typeEIFFELfile{posix_exec_process.tex}
+
+
+\Eshort{POSIX_FILE}
+\typeEIFFELfile{posix_file.tex}
+
+
+\Eshort{POSIX_FILE_DESCRIPTOR}
+\typeEIFFELfile{posix_file_descriptor.tex}
+
+
+\Eshort{POSIX_FILE_SYSTEM}
+\typeEIFFELfile{posix_file_system.tex}
+
+
+\Eshort{POSIX_FORK_ROOT}
+\typeEIFFELfile{posix_fork_root.tex}
+
+
+\Eshort{POSIX_GROUP}
+\typeEIFFELfile{posix_group.tex}
+
+
+\Eshort{POSIX_LOCK}
+\typeEIFFELfile{posix_lock.tex}
+
+
+\Eshort{POSIX_MEMORY_MAP}
+\typeEIFFELfile{posix_memory_map.tex}
+
+
+\Eshort{POSIX_PERMISSIONS}
+\typeEIFFELfile{posix_permissions.tex}
+
+
+\Eshort{POSIX_PIPE}
+\typeEIFFELfile{posix_pipe.tex}
+
+
+\Eshort{POSIX_SEMAPHORE}
+\typeEIFFELfile{posix_semaphore.tex}
+
+
+\Eshort{POSIX_SIGNAL}
+\typeEIFFELfile{posix_signal.tex}
+
+
+\Eshort{POSIX_SIGNAL_SET}
+\typeEIFFELfile{posix_signal_set.tex}
+
+
+\Eshort{POSIX_STATUS}
+\typeEIFFELfile{posix_status.tex}
+
+
+\Eshort{POSIX_SYSTEM}
+\typeEIFFELfile{posix_system.tex}
+
+
+\Eshort{POSIX_TERMIOS}
+\typeEIFFELfile{posix_termios.tex}
+
+
+\Eshort{POSIX_TIMED_COMMAND}
+\typeEIFFELfile{posix_timed_command.tex}
+
+
+\Eshort{POSIX_USER}
+\typeEIFFELfile{posix_user.tex}
+
+
+\Eshort{POSIX_USER_DATABASE}
+\typeEIFFELfile{posix_user_database.tex}
+
+
+
+
+\chapter{Short (flat) listing of Single Unix Specification classes}
+
+Classes in this appendix are based on the Single Unix
+Specification. They inherit from the \POSIX\ classes. Inherited
+features are not shown.
+
+\Eshort{SUS_CONSTANTS}
+\typeEIFFELfile{sus_constants.tex}
+
+\Eshort{SUS_ENV_VAR}
+\typeEIFFELfile{sus_env_var.tex}
+
+\Eshort{SUS_FILE_SYSTEM}
+\typeEIFFELfile{sus_file_system.tex}
+
+\Eshort{SUS_HOST}
+\typeEIFFELfile{sus_host.tex}
+
+\Eshort{SUS_SERVICE}
+\typeEIFFELfile{sus_service.tex}
+
+\Eshort{SUS_SOCKET_ADDRESS}
+\typeEIFFELfile{sus_socket_address.tex}
+
+\Eshort{SUS_SYSLOG}
+\typeEIFFELfile{sus_syslog.tex}
+
+\Eshort{SUS_TCP_SOCKET}
+\typeEIFFELfile{sus_tcp_socket.tex}
+
+
+
+
+\chapter{Short (flat) listing of Standard C bonus classes}
+
+Classes in this appendix are based on Standard C only.
+
+\Eshort{EPX_CGI}
+\typeEIFFELfile{epx_cgi.tex}
+
+\Eshort{EPX_MIME_PARSER}
+\typeEIFFELfile{epx_mime_parser.tex}
+
+\Eshort{EPX_MIME_PART}
+\typeEIFFELfile{epx_mime_part.tex}
+
+\Eshort{EPX_SOAP_WRITER}
+\typeEIFFELfile{epx_soap_writer.tex}
+
+\Eshort{EPX_XML_WRITER}
+\typeEIFFELfile{epx_xml_writer.tex}
+
+\Eshort{EPX_XHTML_WRITER}
+\typeEIFFELfile{epx_xhtml_writer.tex}
+
+
+
+
+% \chapter{Short (flat) listing of \cap{posix} bonus classes}
+
+% Classes in this appendix are based on \cap{posix}.
+
+\chapter{Short (flat) listing of network protocol bonus classes}
+
+Classes in this appendix build upon the abstract layer and generally
+need network access.
+
+\Eshort{EPX_HOST_PORT}
+\typeEIFFELfile{epx_host_port.tex}
+
+\Eshort{EPX_HTTP_10_CLIENT}
+\typeEIFFELfile{epx_http_10_client.tex}
+
+\Eshort{EPX_IMAP4_CLIENT}
+\typeEIFFELfile{epx_imap4_client.tex}
+
+\Eshort{ULM_LOGGING}
+
+This class depends on Standard C only. It is the
+\Eclass{EPX_LOG_HANDLER} that is platform specific. \eposix\ provides
+implementations of this class for Unix through syslog and for Windows
+through the NT event log.
+
+\typeEIFFELfile{ulm_logging.tex}
+
+\stopappendices
+
+
+\stoptext

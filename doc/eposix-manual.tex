@@ -1,0 +1,3211 @@
+% interface=en
+
+% - have to write test for set/retrieve send/receive socket buffers.
+% - echo client/server examples: only udp missing
+% - select example.
+% - describe new classes such as EPX_IRC_CLIENT.
+% - mention that daemon closes all handles, initialize in execute.
+% - move the shared errno object to an EPX_SHARED_ERRNO class.
+% - when windows socket stuff has an error, it sets errno, but error
+%   message is incorrect because it uses posix_strerror.
+% - Can support transparent host = ip address instead of name by
+%   calling inet_addr (or ipv6 one). If fails, assume it's a host
+%   name.
+% - add L4E_LOGGER, wrapper class?
+% - EPX_CGI: discuss new header feature.
+% - EPX_CGI: discuss debugging: setenv REQUEST_METHOD/QUERY_STRING/CONTENT_LENGTH
+% - EPX_CGI: dump input should be env var???
+% - show new table/row iterator example
+% - Create EPX_RESOURCE: new class that describes a resource, can be base
+%   class for EPX_CGI and EPX_SERVLET, so can unify them more.
+% - implement socket timeout, see rant in posix.comments inbox.
+% - ABSTRACT_DESCRIPTOR.put_string: wrong, won't write strings with %U
+%   which doesn't work for real UC_STRINGs.
+
+% - support for secure memory: not written to vm, clearable, more?
+% - security: mime field contents may not include CR/LF? Or only
+%   cookies may not have them? I.e. make sure you cannot generate an
+%   invalid header with content that has a CR/LF. Can you check for that?
+% - implement inet_aton in ABSTRACT_IP4_ADDRESS
+% - have a section that covers the 5 different I/O models in Unix? See
+%   section 6.2 in Stevens book.
+% - EPX_MIME_FIELD_WITH_PARAMETERS: parameter streaming ok??
+% - EPX_MIME_PARAMETER: doesn't fully check if name is valid. And what if
+%   value contains a double quote???
+% - more explanation about EPX_HOST, creating service object.
+% - see mail of Uwe about nonblocking file descriptors and three way
+%   capture of stdxxx of child process.
+%   Does not seem possible.
+% - my wait child on signal is not correct, see implementation on p129
+% - timed_command doesn't work with cygwin, waits indefinitively?
+% - security to check for number of open files happens after
+%   open. Better to do it before.
+% - is_file, is_link, etc. should be constants.
+% - posix_signal_sets
+% - FHS classes
+% - do something with umask
+
+% secure programming for linux and unix:
+%   http://www.dwheeler.com/secure-programs/
+% - raw socket support?
+% - add stream reader/writer, based on gobo, but path is URL.
+% - system call not ok for suid, see man page on linux
+% - erase env var and many other things: http://developers.slashdot.org/article.pl?sid=03/12/30/1852236&mode=nested&tid=126&tid=156&tid=172
+% what to do with things like SIGPIPE, i.e. broken pipe when writing??
+% suid scripts: p72, sysadmin sept 2001, mail from David Korn
+% permission constants of windows_file_descriptor are not ok
+% abstract_exec_process: ability to redirect output to /dev/null or so
+% - RFC 822 time is strftime("%a, %d %b %G %T %Z");
+
+% Perhaps list improvements of eposix over i/o of compilers
+% - detects EOF when writing strings (other compilers silently ignore it)
+% - can raise exception on errors
+% - can write UC_STRING correctly.
+
+\input eposix-format.tex
+
+
+\usemodule[bib]
+
+\setupbibtex
+  [database=berend,
+   sort=author]
+
+\setuppublications
+  [numbering=yes,
+   sort=author]
+
+
+% directory
+%\defineexternalfigure[directory][directory.png][scale=600]
+\useexternalfigure[directory][directory.png][scale=600]
+
+% BON diagrams
+\useexternalfigure[exfileone][inherit.5]
+\useexternalfigure[exforkone][inherit.6]
+\useexternalfigure[constants][inherit.7]
+\useexternalfigure[exmodem][inherit.8]
+\useexternalfigure[exfilethree][inherit.9]
+\useexternalfigure[exfdfour][inherit.10]
+\useexternalfigure[exdirfive][inherit.11]
+%\useexternalfigure[winbase][inherit.12]
+%\useexternalfigure[factory][inherit.13]
+\useexternalfigure[cgi][inherit.14]
+\useexternalfigure[epxclass][inherit.15]
+\useexternalfigure[epxhttpserver][inherit.16]
+\useexternalfigure[test][inherit.3][height=4cm]
+
+% class references
+\useexternaldocument[classes][eposix-classes][``eposix classes'']
+
+% _ should be normal character, something resets it, so must be last
+\catcode`\_=12
+%\defineactivecharacter _ {\mathortext{_}{\_}}
+
+% URL's
+
+\useURL
+  [eposixsupport]
+  [mailto:eposix@yahoogroups.com]
+  []
+  [eposix@yahoogroups.com]
+
+\useURL
+  [eposixsupportpage]
+  [http://groups.yahoo.com/group/eposix/]
+
+\useURL
+  [ufdhc]
+  [http://www.eiffel-forum.org/archive/dominicu/fdh.htm]
+  []
+  [Unix File/Directory Handling Cluster]
+
+\useURL
+  [context]
+  [http://www.pragma-ade.com]
+
+\useURL
+  [berend]
+  [mailto:berend@pobox.com]
+  []
+  [berend@pobox.com]
+
+\useURL
+  [eugene]
+  [mailto:eugene_melekhov@object-tools.com]
+  []
+  [Eugene Melekhov $<$eugene_melekhov@object-tools.com$>$]
+
+\useURL
+  [ida]
+  [mailto:ida@gameren.nl]
+  []
+  [Ida de Boer $<$ida@gameren.nl$>$]
+
+\useURL
+  [steve]
+  [mailto:scharris@worldnet.att.net]
+  []
+  [Steve Harris $<$scharris@worldnet.att.net$>$]
+
+\useURL
+  [jurgen]
+  [mailto:teg@post.netlink.se]
+  []
+  [J\"orgen Tegn\'er <teg@post.netlink.se>]
+
+\useURL
+  [marcio]
+  [mailto:mqm@magma.ca]
+  []
+  [Marcio Marchini <mqm@magma.ca>]
+
+\useURL
+  [xplain2sql]
+  [http://www.pobox.com/~berend/xplain/]
+  []
+  [xplain2sql]
+
+\useURL
+  [redhat]
+  [http://www.redhat.com/]
+
+\useURL
+  [cygwin]
+  [http://sources.redhat.com/cygwin]
+
+\useURL
+  [cygwindownload]
+  [http://sources.redhat.com/cygwin]
+
+\useURL
+  [cygwinfuncs]
+  [http://sources.redhat.com/cygwin/faq/faq_3.html#SEC17]
+
+\useURL
+  [cygwincrlf]
+  [http://sources.redhat.com/cygwin/faq/faq_toc.html#TOC62]
+
+\useURL
+  [formatter]
+  [http://www.pobox.com/~berend/eiffel/]
+
+%  [http://www.eiffel-forum.org/archive/dominicu/format.htm]
+
+\useURL
+  [unixapitowin32api]
+  [http://support.microsoft.com/default.aspx?scid=kb;EN-US;q99456]
+
+\useURL
+  [unixtimetowin32time]
+  [http://support.microsoft.com/default.aspx?scid=kb;EN-US;q167296]
+
+\useURL
+  [micoe]
+  [http://www.math.uni-goettingen.de/micoe/]
+  []
+  [mico/E team]
+
+\useURL
+  [gobo]
+  [http://www.gobosoft.com/]
+
+\useURL
+  [eric]
+  [mailto:ericb@gobosoft.com]
+  []
+  [Eric Bezault]
+
+\useURL
+  [andreass]
+  [mailto:ascholz@math.uni-goettingen.de]
+  []
+  [Andreas Schulz]
+
+\useURL
+  [andreasl]
+  [mailto:nozone@sbox.tugraz.at]
+  []
+  [Andreas Leitner]
+
+\useURL
+  [sve]
+  [mailto:sven.ehrke@web.de]
+  []
+  [Sven Ehrke]
+
+\useURL
+  [vestring]
+  [http://groups.yahoo.com/group/visual-eiffel/message/673]
+
+\useURL
+  [ulm]
+  [http://www.hsc.fr/gul/draft-abela-ulm-05.txt]
+
+\useURL
+  [netlogger]
+  [http://www-didc.lbl.gov/NetLogger/]
+
+\useURL
+  [sus]
+  [http://www.unix-systems.org/single_unix_specification/]
+
+\starttext
+
+% front page
+\start
+\startstandardmakeup
+
+\startfiguretext
+  [left]
+  {none}
+  %{\externalfigure[eposix-bw.png]}
+  {\externalfigure[eposix.jpg]}
+\start
+\ss
+{\switchtobodyfont[48pt] \eposix\par}
+\blank[big]
+\bfb
+\rightaligned{The definitive and complete}
+\rightaligned{Eiffel to Standard C and}
+\rightaligned{POSIX 1003.1 binding}
+
+\blank[6.4cm]
+
+\leftaligned{{\it written by Berend de Boer}}
+\stop
+\stopfiguretext
+
+\stopstandardmakeup
+\stop
+
+
+\startfrontmatter
+\setuppagenumbering[conversion=romannumerals]
+
+\completecontent
+
+\title{Introduction}
+
+It has been a great pleasure for me when I could announce the first
+public alpha release of this manual. And then came the betas and the
+first release. Writing libraries like this is boring stuff. Every
+Eiffel programmer should have had access to all those Standard C and
+\cap{posix} routines long ago. Anyway, now you and me have. Whatever a
+C programmer can do, you can. And even more safe as this library
+protects you of inadvertently calling routines that are not portable
+(because they're simply not there :-) ).
+
+Writing libraries like this also seems to be a never ending story, as
+we now are at version 3.0. And my to do list hasn't shrinked, so stay
+tuned!
+
+I actively support this library, so bug reports and wishes are gladly
+accepted. Planned extensions are 64 bit integer support in every
+place, so you won't be limited to files of 2GB in size. And of course,
+more and more support for the remaining functions in the Single Unix
+Specification not yet covered, such as \posix{poll}. On the protocol
+side I like to have NNTP server support. And perhaps one day we'll
+have native SSL!
+
+Have fun using this library and I like to hear about applications!
+
+
+\subject{Licensing}
+
+This software is licensed under the \index{Eiffel Forum Freeware
+License}Eiffel Forum Freeware License, version 2. This
+\index{license}license can be found in the \MYfilename{forum.txt}
+file. Basically this license allows you to do anything with it,
+i.e. use it for commercial or \index{Open Source}Open Source software
+without restrictions. But don't sue me if something goes wrong. And
+give me some credits.
+
+Also explicitly allowed is copying parts of this library to your own,
+for example copying certain Standard C or POSIX header wrappings. I
+prefer linking, but you don't have to retype everything if you don't
+want to link.
+
+
+\subject{Support}
+
+\eposix\ is a fully supported program. You can send requests for help
+directly to me. But to help others profit from the discussion, and
+perhaps to get feedback when I'm short on time, it is suggested that
+support messages are sent to \from[eposixsupport].
+
+Latest versions and announcements are available from
+\from[eposixsupportpage].
+
+
+\subject{Commercial support}
+
+I'm available to give companies or organisations a one or two day
+\index{support+commercial}course using \cap{posix} and in particularly
+this library. Prices are \$1000 NZD a day, excluding VAT, travel and
+hotel expenses. Contact me at \from[berend].
+
+
+\subject{Acknowledgements}
+
+I like to thank people who, one way or another, have helped me in
+creating this library. They're listed in order they have been involved
+with this library or manual:
+\startitemize
+\item \from[eugene]: compiled it with \index{Visual Eiffel}Visual
+  Eiffel. As Visual Eiffel is the most strict compiler, he found a great
+  many oversights that \index{SmallEiffel}SmallEiffel didn't catch.
+\item \from[micoe]: I got many ideas for my C interface from the mico/E
+  project. Sometime ago \from[andreass] wrote me that the micoe team
+  wanted to use \eposix\ in mico/E. Andreas also reportexd problems and
+  suggested improvements, especially in the \Eclass{EPX_CGI}
+  class. Andreas and Robert Switzer, thanks for the bug reports!
+\item \from[ida]: it was she who provided you with the \cap{posix} to
+  Eiffel mapping table in \in{appendix}[sec:mapping].
+\item \from[steve]: suggested improvements, found a CAT call problem
+  and we had an interesting discussion about forking.
+\item \from[jurgen] reported a problem with an
+  example, and a bug in \Eclass{POSIX_EXEC_PROCESS}.
+\item \from[marcio] contributed a lot to \eposix. He gave very useful
+  advice, submitted code, and supplied patches to compile \eposix\
+  better on Windows. I think it is fair to say that you thank the
+  Windows support in \eposix\ to Marcio.
+\item \from[eric]: I've had some insightful discussions with Eric
+  regarding architecture of libraries such as \eposix. I think we
+  never agreed :-), but the alternative error handling is due to his
+  comments!\par
+\item \from[andreasl]: Discussions about using \eposix\ which will lead
+  to even closer integration with Gobo in subsequent releases.
+\item \from[sven]: various comments and suggestions.
+\item Colin Paul Adams: contributed classes such as the resolvers and
+  fixes.
+\item Till G. Bay: contributed multiplexing support for \eposix's
+  socket class.
+\stopitemize
+
+
+\subject{Colophon}
+
+The text of this manual was entered with GNU Emacs 21.4.2 on BLinux.
+It was typeset with \pdfTeX\ using the \ConTeXt\ macro package, see
+\from[context]. BON diagrams were created with \MetaPost.
+
+\stopfrontmatter
+
+
+\startbodymatter
+
+\setuppagenumbering[conversion=numbers]
+\setuppagenumber[number=1]
+
+
+
+
+\chapter{Requirements and installation}
+
+\section{Requirements}
+
+\eposix\ has three requirements:
+\startitemize[n]
+\item \eposix\ requires Gobo release 3.4 or higher. You can download
+  Gobo at \from[gobo]. Gobo must be installed.
+\item \eposix\ requires that the environment variable
+  \index{environment variable+EPOSIX}\type{EPOSIX} is set to the root
+  directory where the \eposix\ are unpacked.
+\item On Windows, \eposix\ requires that the environment variable
+  \index{environment variable+GOBO_CC}\type{GOBO_CC} is set to the name
+  of the C compiler you are using. Failure to do so will result in
+  link errors. Perhaps in a future \MYfilename{geant} release this
+  will be set automatically.
+\stopitemize
+
+
+\section[sec:libeposix]{Compiling the C code}
+
+Before \eposix\ can be used, a few C files need to be compiled into a
+library. The steps differ if you are using a Unix derivative, or a
+Windows based system.
+
+
+\subsection{Compiling on Unix}
+
+Before the C files can be compiled, \eposix\ must be configured. If
+you have just one Eiffel compiler on your system, this should be
+sufficient:
+
+\starttyping
+./configure --prefix=$EPOSIX
+make
+\stoptyping
+%$
+
+If you have multiple Eiffel compilers, you can specify the compiler
+with:
+
+\starttyping
+./configure --with-compiler=ve --prefix=$EPOSIX
+\stoptyping
+%$
+
+The \type{--prefix} switch is a trick to make sure that you can type:
+
+\starttyping
+make install
+\stoptyping
+
+after the make was successful. With this step the library is installed
+into the \type{\$EPOSIX/lib} directory. This is the location where
+\eposix's \MYfilename{src/library.xace} expects it. Without the
+\type{--prefix} switch the library will usually be installed in
+\filename{/usr/local/lib}.
+
+More information about \MYfilename{configure} options can be displayed
+with:
+
+\starttyping
+./configure --help
+\stoptyping
+
+
+\subsection{Compiling on Windows}
+
+For Windows system, I've supplied a tool |<|build with \eposix|>| that
+can build the necessary \eposix\ library for your Eiffel and C compiler.
+
+Type:
+
+\starttyping
+makelib
+\stoptyping
+
+to get help. Type:
+
+\starttyping
+makelib -ise -msc
+\stoptyping
+
+to compile the C code with \index{C compiler+Microsoft}Microsoft's
+Visual C compiler targeting the \index{ISE Eiffel}ISE Eiffel compiler.
+
+Only the Microsoft supplied library did work, i.e. link, with
+\index{VisualEiffel}VisualEiffel:
+
+\starttyping
+makelib -ve -msc
+\stoptyping
+
+Type:
+
+\starttyping
+makelib -se -bcb
+\stoptyping
+
+to compile the C code with \index{C compiler+Borland}Borland's C
+compiler targeting \index{SmartEiffel}SmartEiffel. It was tested with
+the free Borland C version 5.5 compiler.
+
+Type:
+
+\starttyping
+makelib -se -lcc
+\stoptyping
+
+to compile the C code with \index{elj-win32}elj-win32's
+\index{C compiler+lcc}lcc C compiler.
+
+If you have both the Borland C compiler and lcc installed, make sure
+the \MYfilename{make.exe} in your path is the correct one!
+
+The generated library will have the name of the C compiler in its
+path. Make sure \index{environment variable+GOBO_CC}\type{GOBO_CC} has
+the correct value when compiling an \eposix\ program, see
+\in{table}[table:gobocc].
+
+\placetable
+  []
+  [table:gobocc]
+  {Possible values for the \type{GOBO_CC} environment variable}
+\starttable[|l|l|]
+\HL
+\NC \type{bcb} \NC Borland C compiler. \NC\SR
+\NC \type{msc} \NC Microsoft C compiler. \NC\SR
+\NC \type{lcc} \NC lcc-win32 compiler. \NC\SR
+\HL
+\stoptable
+
+If you want to compile the \eposix\ library for use in a
+\index{multi-threaded programming}multi-threaded application, pass the
+\type{-mt} switch to \MYfilename{makelib.exe}:
+
+\starttyping
+makelib -ise -msc -mt
+\stoptyping
+
+You must pass the \type{-mt} flag for ISE Eiffel 5.6 if you are using
+the Microsoft Visual C compiler. You also will have to copy the
+\index{libmteposix_ise_msc.lib}multi-threaded library to the
+\index{libeposix_ise_msc.lib}single-threaded library:
+
+\starttyping
+cd lib
+copy libmteposix_ise_msc.lib libeposix_ise_msc.lib
+\stoptyping
+
+This is only supported for the ISE Eiffel compiler. \eposix\ is not
+specifically written for use in multi-threaded programs nor tested
+much in such environments. There are certain areas (exit handling,
+signal handling) that are not multi-thread safe.
+
+
+\subsection{Library naming conventions}
+
+The name of this library starts with {\tt libeposix}. On Unix the name
+of the Eiffel vendor is appended, so \MYfilename{libeposix_se.a} is
+the library for SmartEiffel. On Windows systems the name of the Eiffel
+vendor and the C compiler are appended. On Windows different C
+compilers have incompatible libraries, so they need to be
+distinguished. On Windows the \eposix\ library for ISE Eiffel compiled
+with the Microsoft Visual C compiler is called
+\MYfilename{libeposix_ise_msc.lib}.
+
+The vendor names are derived from the names the Gobo Eiffel package
+uses, i.e. the \index{environment variable+GOBO_EIFFEL}\type{GOBO_EIFFEL} environment variable.
+
+The C compiler is derived from the \index{environment
+variable+GOBO_CC}\type{GOBO_CC} environment variable.
+
+
+
+
+\chapter{Using \eposix}
+
+\section{Using {\tt library.xace}}
+
+Since Gobo 3.0 Eiffel library writes have a new great tool at their
+dispose: \MYfilename{gexace}. Eiffel library writers have to write and
+maintain just a single file, \MYfilename{library.xace}. You can this
+file file in the \eposix\ \type{src} subdirectory.
+
+Typically, a \MYfilename{library.xace} is included in a
+\MYfilename{system.xace}. A typical example, including all required
+Gobo files, is:
+
+\typeXMLfile{system.xace}
+
+
+\section{Vendor specific notes}
+
+\subsection{ISE Eiffel}
+
+\eposix\ supports \index{ISE Eiffel 5.6}ISE Eiffel 5.6 and higher.
+\eposix\ has been tested under the following conditions:
+\startitemize[n]
+\item I used Microsoft Windows 2000, Service Pack 2.
+\item I used the \index{C compiler+Borland}Borland C 5.5 and \index{C
+  compiler+Microsoft Visual C++}Microsoft Visual C++ 6.0 compiler.
+\stopitemize
+
+Note that you need the multithreaded version of the C binding library
+if you use ISE Eiffel 5.6 and the Microsoft Visual C compiler. Else
+you will get a linker message complaining about the unresolved
+external symbol \external{_errno}.
+
+If you use \index{ISE Eiffel 5.7}ISE Eiffel 5.7, you can use the
+supplied \MYfilename{eposix.ecf} which will make inclusion of eposix
+in your projects much easier. However, the library path when you use
+the \MYfilename{eposix.ecf} is slightly different.
+
+After generation of \MYfilename{libeposix}, see
+\in{section}[sec:libeposix], do this on Unix:
+
+\starttyping
+cp lib/libeposix_ise.a ${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a
+\stoptyping
+
+And on Windows:
+
+\starttyping
+copy lib\libeposix_ise.a ${ISE_LIBRARY}\lib\${ISE_PLATFORM}\${ISE_C_COMPILER}\libeposix.lib
+\stoptyping
+%$
+
+\subsection{SmartEiffel}
+
+\eposix\ was tested with SmartEiffel 1.2r7 on FreeBSD, Linux, QNX,
+Solaris and Windows.
+
+Because SmartEiffel has a tendency to provide lots of non-ELKS
+routines in its kernel classes |<|a bad thing in my opinion|>| I had to
+write a new \Eclass{ANY}. My \Eclass{ANY} renames
+\Efeature[GENERAL]{remove_file}, so I wouldn't get a conflict with
+\Efeature[POSIX_FILE_SYSTEM]{remove_file}.
+
+There is no reason for the presence of
+\Efeature[GENERAL]{remove_file}, I expect this to be removed
+soon\footnote{I wrote that two years ago\dots}, so my \Eclass{ANY} can
+be deleted when this has happened.
+
+If you use lcc-win32 as your C compiler, note that for the Gobo
+\Eclass{XM_UNICODE_CHARACTER_CLASSES} class SmartEiffel generates code
+that does not compile with lcc-win32 due to some line length
+limit. This problem was still present with the latest lcc-win32
+compiler, version 3.8, compiled on December 23.
+
+If you use SmartEiffel and if you don't use Gobo's gexace tool to
+generate SmartEiffel's Ace file, you might see a complaint about a
+routine \posix{stdc_signal_switch_switcher} not being found when
+linking. In that case you will need to put a \MYfilename{cecil.se}
+file in your directory. The contents of this file should be:
+
+\starttyping
+-- The name of our include C file:
+cecil.h
+-- The features called from C:
+stdc_signal_switch_switcher STDC_SIGNAL_SWITCH switcher
+stdc_exit_switch_at_exit STDC_EXIT_SWITCH at_exit
+\stoptyping
+
+But I strongly suggest to make the switch to Gobo's gexace tool as
+this tool makes compilation for different Eiffel compilers a lot
+easier.
+
+
+\subsection{Visual Eiffel}
+
+\eposix\ has been tested with ObjectTool's free
+\index{VisualEiffel}VisualEiffel 5.0b for Linux. VisualEiffel 4.1
+might still work but is no longer tested.
+
+Follow these steps to compile with VisualEiffel 5 on Windows:
+\startitemize[n]
+\item Make sure the \index{VE_BIN}VE_BIN environment variable is set
+  to the Bin directory in the VisualEiffel subdirectory. On my system it
+  is set to \filename{M:/Program Files/ObjectTools/VisualEiffel/Bin}.
+\item Create the \MYfilename{libeposix_ve_msc.lib} library using the
+  Microsoft Visual C compiler:
+ \starttyping
+makelib -ve -msc
+ \stoptyping
+\item Use \type{gexace} to generate an {\tt .esd} file.
+\item Make sure to set the linker supplier option to Microsoft in your
+  \MYfilename{system.xace} file! So an option like this should be present:
+\starttyping
+<option name="linker" value="microsoft" if="\${GOBO_EIFFEL}=ve"/>
+\stoptyping
+\stopitemize
+
+
+\section{Platform specific notes}
+
+Although \eposix\ should, in principle, run on every platform that
+supports Standard C or \cap{posix}, it cannot be tested on every
+platform by me alone. This section gives details about the platforms
+I've used. The main thing you might need to do is to edit \eposix's
+\MYfilename{src/library.xace} to the proper libraries for your
+platform are linked. The default \MYfilename{src/library.xace} is
+suited for Windows and Linux only. If you use any other platform, you
+will have to edit \MYfilename{src/library.xace}.
+
+\subsection{Linux}
+
+The latest version of \eposix\ was tested with kernel 2.6.20.1 and
+\index{glibc}glibc 2.4.
+
+\subsection{FreeBSD}
+
+The latest version of \eposix\ was tested with FreeBSD 6.2-STABLE.
+FreeBSD doesn't support \posix{fdatasync}, so we do a \posix{fsync}
+there. Cases like that are automatically detected by the
+\MYfilename{configure} script.
+
+You have to edit \MYfilename{/src/library.xace} to link the proper
+library for \index{FreeBSD}FreeBSD. Look at the comments.
+
+After a \type{make clean} you have to use gmake instead of make.
+
+
+\subsection{Cygwin}
+
+The latest version of \eposix\ was tested with \index{cygwin}Cygwin
+1.3.x. Some remarks:
+\startitemize[n]
+\item Locking doesn't seem to be supported.
+\item fifo's (\posix{mkfifo}) are not supported.
+\item No support for \posix{fdatasync}, so we do a \posix{fsync}
+  there.
+\stopitemize
+
+\subsection{BeOS}
+
+The latest version of \eposix\ was tested with \index{BeOS}BeOS
+5.03. BeOS has a nice \cap{posix} compatibility layer. Some remarks:
+\startitemize[n]
+\item Locking doesn't seem to be supported.
+\item fifo's (\posix{mkfifo}) are not supported.
+\item Hard links are not supported, only symbolic links.
+\item No support for \posix{fdatasync}, so we do a \posix{fsync}
+  there.
+\item Sockets work in BeOS, but they are not file descriptors. Stick
+  to the \Eclass{EPX_SOCKET} classes like
+  \Eclass{EPX_TCP_CLIENT_SOCKET}. Never pass a socket to an
+  \Eclass{ABSTRACT_FILE_DESCRIPTOR} as that will not work.\par
+  The trick is that \Efeature{read} and \Efeature{write} in
+  \Eclass{EPX_SOCKET} call \posix{recv} and \posix{sendmsg}. If you
+  pass a socket to an \Eclass{ABSTRACT_FILE_DESCRIPTOR}, the POSIX
+  \posix{read} and \posix{write} routines will be called.
+\item \index{BeOS}BeOS does not support
+  \index{BeOS+non-blocking i/o}non-blocking i/o on file descriptors or
+  sockets. \eposix\ says it does if you ask
+  \Efeature[ABSTRACT_FILE_DESCRIPTOR]{supports_nonblocking_io}, but it
+  doesn't.\par
+  BeOS has some options for non-blocking sockets, but they're very
+  primitive and it seems you can't turn blocking off once it has been
+  turned on for example.
+\stopitemize
+
+
+\subsection{QNX}
+
+The latest version of \eposix\ was tested with \index{QNX}QNX 6.2.1.
+
+You have to edit \MYfilename{/src/library.xace} to link the proper
+library for QNX. Look at the comments.
+
+
+\subsection{Solaris}
+
+\eposix\ was tested against \index{Solaris}Solaris 10 for Intel. Make
+sure to add the \type{-std=c99} option to \index{environment
+  variable+CFLAGS}\type{CFLAGS}. Solaris seems to require this if the
+POSIX-1.2001 define is set.
+
+You have to edit \MYfilename{/src/library.xace} to link the proper
+library for Solaris. Look at the comments.
+
+
+\subsection{Win32}
+
+The latest version of \eposix\ was tested with
+\index{Windows 2000}Windows 2000, Service Pack 2.  On Win32,
+Standard C is fully supported. With \eposix's abstract layer, parts
+of \POSIX\ and the Single Unix Specification are also
+supported. Support isn't as extensive as using the
+\index{Cygwin}Cygwin tools.
+
+
+
+
+\chapter{Design notes}
+
+\section{Why an entire reimplementation?}
+
+One might wonder why I reimplemented the entire Standard C and
+\cap{posix} library when most vendors also have classes that deal with
+files, the file system, signals and such. Unfortunately, these classes
+are nor complete nor very portable between vendors. For someone who
+wants to compile against all the major vendors |<|and there are good
+reasons to do this|>| there is currently no portable solution. That's
+why many portable Eiffel programs more or less contain the same code
+again and again. There are some attempts to write more portable
+libraries, for example the \from[ufdhc] by Friedrich Dominicus, but
+they also are not complete nor is the implementation satisfactory. For
+example they usually have much logic at the C level. I wanted only C
+glue code: all intelligence should be in the Eiffel code.
+
+Another attempt is done by the Gobo cluster: it attempts to provide
+users with a set of classes that work accross all Eiffel vendors by
+using only the native facilities offered by each implementation. This
+approach has the advantage that no C compilation is necessary. The
+disadvantages are:
+\startitemize[n]
+\item The contract for these classes is probably not specifiable: for
+  which platforms and which assumptions are the contracts valid? Are
+  these contracts the same in all implementations?
+\item It is incomplete, i.e. it doesn't cover most of the
+  \cap{posix} routines.
+\stopitemize
+
+That's why I started to make the entire Standard C and \cap{posix}
+routines available to Eiffel programmers. All these routines are
+nicely wrapped in classes. I spend a lot of time designing and
+refactoring these, comments and improvements about its structure are
+very appreciated.
+
+The advantage of making \cap{posix} available to Eiffel programmers is
+that someone doesn't need to think about creating a set of portable
+file and directory classes that work on every known operating
+system. \cap{posix} is available on many platforms and for other
+systems there either is an emulation or a \cap{posix} mapping
+available. It's better to reuse that, instead of reinventing work that
+took years to complete.
+
+
+\section{Goals and guidelines}
+The goals and guidelines for this library were:
+\startitemize[n]
+\item A complete Standard C implementation for those who didn't have
+  access to \cap{posix} routines.
+\item A complete \cap{posix} implementation.
+\item Do the job in such a way that it will become the official Eiffel
+  \cap{POSIX} mapping.
+\item All classes should satisfy the demands posed by the
+  query||command separation principle.
+\item The native Standard C and \cap{posix} routines should be
+  available to those who don't want to go through a certain class
+  layer.
+\item The names in use in the \cap{posix} world like file descriptor
+  or memory map are used as class names. This should make it easy to
+  find a class if one knows the \cap{posix} name.
+\item If a command fails, an exception code is raised. This differs
+  from the \cap{posix} routines where one is expected to test for
+  error and query the \posix{errno} variable. The only exception is
+  \posix{unlink}: when the file does not exist, no exception is
+  raised.
+\item \cap{posix} assumptions should be made explicit. For Eiffel this
+  means specifying explicit pre|| and postconditions.
+\item Use of constants to influence the way a method should
+  be avoided by providing clearly named methods. So instead of passing
+  a constants to the \Efeature[POSIX_FILE]{open} function to open a file
+  read||only, one can also call \Efeature{open_read}.
+\item Attempt to create non-deferred class that refer to an entity that exists
+  in the \cap{posix} world. Creation of an object is binding to that
+  entity, or creation of that entity.
+\item Names should be clear, and Eiffel||like. They should not differ
+  in just one character. \cap{posix} names are also made available to
+  ease use of this library for programmers that know \cap{posix} well.
+\stopitemize
+
+
+\section{Class structure}
+
+\eposix\ makes available all the Standard C and \cap{posix} headers in
+classes like \Eclass{CAPI_STDIO} and \Eclass{PAPI_UNISTD}. More
+details about the header translation are in \in{chapter}[sec:cheader].
+
+However, making the plain C API available is not a very interesting
+addition to an Eiffel programmer's toolkit. Therefore, this library's
+second attempt was to make an effective OO||wrapper, while making
+a careful distinction between what is available in the Standard C and
+what is available in \cap{posix}. This distinction is reflected in
+\eposix's directory structure, see \in{figure}[fig:directory].
+
+\placefigure
+  []
+  [fig:directory]
+  {\eposix\ directory structure}
+  {\externalfigure[directory]}
+
+The raw Standard C API is available in \filename{src/capi}, the
+OO||wrapper is available in \filename{src/standardc}. The raw
+\cap{posix} API is available in \filename{src/papi}, the OO||wrapper
+is available in \filename{src/posix}.
+
+Every Standard C and \cap{posix} wrapper is derived from a common
+root, see also \in{figure}[fig:inheritance]:
+\startitemize[n]
+\item If a class builds upon facilities available on Standard C, its
+  name starts with the prefix STDC_ and it inherits from
+  \Eclass{STDC_BASE}.
+\item If a class builds upon facilities available in \POSIX, its
+  name starts with the prefix POSIX_ and it inherits from
+  \Eclass{POSIX_BASE}.
+\item If a class builds upon facilities available in the Single Unix
+  Specification, its name starts with the prefix SUS_ and it inherits from
+  \Eclass{SUS_BASE}. The support for the Single Unix Specification is
+  not yet complete, but is continually enhanced.
+\item Because we live in a world dominated by Microsoft Windows, and
+  Microsoft Windows does not do \POSIX, this would mean that many
+  users only could use \eposix's Standard C facilities. These
+  facilities are extremely limiting, for example there is no change
+  directory command in Standard C. Therefore \eposix\ makes available
+  an abstraction layer that covers routines that have an equivalent in
+  \POSIX\ and the Single Unix Specification. These classes start with
+  the name EPX_. They always inherit from classes starting with
+  ABSTRACT_. These abstract classes implement the common code. See
+  \in{chapter}[sec:nativewindows] for more details.\par
+  Note that by using \index{cygwin}Cygwin you have a full
+  \POSIX\ emulation layer on Windows. In that specific environment you
+  can use \eposix's entire \POSIX\ and Single Unix Specification layer.
+\stopitemize
+
+\placefigure
+  []
+  [fig:inheritance]
+  {Inheritance structure}
+{\startcombination[4]
+  {\externalfigure[abcdef]}
+  {}
+  {\externalfigure[inherit.1]}
+  {}
+  {\externalfigure[inherit.2]}
+  {}
+  {\externalfigure[inherit.4]}
+  {}
+\stopcombination}
+
+The wrapper classes should be fully command||query separated and use
+clear names. Often the \cap{posix} name, if applicable, is also made
+available as an alias. If this is a good thing, I'm not sure. I hope
+it facilitates working with the wrapper classes if you already know
+\cap{posix}.
+
+Besides these directories, \eposix\ provides a number of extensions to
+the pure Standard C or \cap{posix} routines. These can be found in the
+subdirectories that start with \filename{src/epx}. A single letter
+indicates if the classes only built upon routines available in
+Standard C or \cap{posix}:
+\startitemize[n]
+\item \MYfilename{epxc}: Standard C based extensions like
+  \index{URI}URI resolving, a \index{MIME}MIME parser and \cap{XML}
+  generation.
+\item \MYfilename{epxs}: Single Unix Specification based extension
+  like an \index{HTTP} HTTP client.
+\stopitemize
+
+
+\section{Clients of this library}
+
+For client classes, two important classes are \Eclass{STDC_CONSTANTS}
+and \Eclass{POSIX_CONSTANTS}, see \in{figure}[bon:constants]. The
+wrapper classes tend to avoid having routines whose behavior
+drastically depends on passed constants. But if you need to use
+constants, your client class can just inherit from these classes and
+every Standard C and \cap{posix} constant is available.
+
+\placefigure
+  []
+  [bon:constants]
+  {Standard C and \cap{posix} constants}
+  {\externalfigure[constants]}
+
+
+\section{Forking}
+
+Implementing forking posed some interesting challenges. I started with
+the basic idea that every process has a pid:
+
+\startEIFFEL
+class PROCESS
+
+feature
+
+   pid: INTEGER
+
+end
+\stopEIFFEL
+
+I wanted to be able to write two kinds of forking. The first one is
+forking a child as in:
+
+\startEIFFEL
+class PARENT
+
+inherit
+
+   POSIX_CURRENT_PROCESS
+
+feature
+
+   make is
+      local
+         child: POSIX_CHILD_PROCESS
+      do
+         print ("My pid: ")
+         print (pid)
+         print ("%N")
+         fork (child)
+         print ("child's pid: ")
+         print (child.pid)
+         print ("%N")
+         child.wait_for (True)
+      end
+
+end
+\stopEIFFEL
+
+However, I also wanted to fork myself, because that basically is what
+forking is!
+
+\startEIFFEL
+class PARENT
+
+inherit
+
+   POSIX_CURRENT_PROCESS
+
+   POSIX_CHILD_PROCESS
+
+feature
+
+   make is
+      do
+         fork (Current)
+         wait
+      end
+
+   execute is
+      do
+         -- forked code
+      end
+
+end
+\stopEIFFEL
+
+The above code gives a name clash, because
+\Efeature[POSIX_CURRENT_PROCESS]{pid} is a call to the \cap{posix}
+routine \posix{getpid}, while the child's pid is a variable, which
+gets a variable after forking. You can solve this name clash yourself,
+but it is most easy to inherit from \Eclass{POSIX_FORK_ROOT}, a clash
+which has solved this clash already.
+
+If you fork a child, you must wait for it. For a child process, you
+can use \Efeature[POSIX_CHILD]{wait_for}, if you fork yourself, you
+must use \Efeature[POSIX_CURRENT_PROCESS]{wait}. The variable
+\Efeature{waited_child_pid} will be set with the pid of the child
+process that \Efeature{wait} waited for.
+
+
+\section{Books}
+
+Books that have been helpful during the development of \eposix\ where
+\cite[POSIX1003.1], \cite[Plauger1991] and \cite[Lewine1994], see the
+biography section at \at{page}[sec:biography].
+
+
+
+
+\chapter{Layers}
+
+\section{Layers architecture}
+
+\eposix\ is written in such a way that it is possible to write a pure
+Standard C based application (ANSI/ISO IS 9899: 1990), a pure
+\cap{posix} application (Standard ISO/IEC-9945-1: 1990), or a pure
+Single Unix Specification version 3 application (\from[sus]). Although
+\cap{posix} and the Single Unix Specification merged there
+specifications, they are still kept separate in \eposix, because the
+merge happened relatively recently and the pure \cap{posix} functions
+are more very widely supported.
+
+Based on these standards \eposix\ offers a compatibility layer. This
+layer offers a common framework for people that want to write code
+that works on both Unix and Windows systems. The compatibility layer
+uses all features that an operating system offers. If you use the
+network compatibility layer for example, you need a system that
+supports the Single Unix Specification.
+
+
+\section{Standard C}
+
+All Standard C classes start with \cap{stdc_}. They are:
+\startitemize[n]
+\item \Eclass{STDC_TEXT_FILE}: access text files.
+\item \Eclass{STDC_BINARY_FILE}: access binary files.
+\item \Eclass{STC_TEMPORARY_FILE}: create a \index{temporary
+  file}temporary file, a file that is removed when it is closed or
+  when the program terminates.
+\item \Eclass{STDC_CONSTANTS}: access Standard C constants like error
+  codes and such.
+\item \Eclass{STDC_BUFFER}: allocate dynamic memory.
+\item \Eclass{STDC_ENV_VAR}: access environment variables.
+\item \Eclass{STDC_FILE_SYSTEM}: delete and rename files.
+\item \Eclass{STDC_SHELL_COMMAND}: pass an arbitrary command to the
+  native shell.
+\item \Eclass{STDC_SYSTEM}: access information about the system the
+  program is running on.
+\item \Eclass{STDC_CURRENT_PROCESS}: access to current process related
+  information like its standard input, output and error streams.
+\item \Eclass{STDC_TIME}: access current time. Also can format a given
+  time in various formats.
+\stopitemize
+
+
+\section[sec:windows]{Windows}
+
+\subsection{Writing portable programs}
+
+\eposix\ offers three alternatives to writing programs that run on
+both Unix and Windows platforms:
+\startitemize[n]
+\item Write programs that only rely on Standard C. If you use only
+  Standard C classes your program is probably quite portable. Standard C
+  doesn't offer that much however.
+\item Write programs that are based on \POSIX. You use a \cap{posix}
+  emulator to compile and run your program unchanged on Windows. The
+  only thing you have to be aware of is the distinction between binary
+  and text files.
+\item Write programs that are based upon \eposix's EPX_XXXX
+  layer. This layer is based on \eposix's ABSTRACT_XXXX classes, that
+  covers code that is common between Windows and a
+  \POSIX\ platform.\par
+  Previous versions of \eposix\ used a factory class approach to
+  access this common code. This is no longer needed. The ABSTRACT_XXXX
+  are maded effective through EPX_XXXX classes when compiling for
+  Windows or for \POSIX.
+\stopitemize
+
+The following sections offer more details about the last two approaches.
+
+
+\subsection{Compiling POSIX programs in Windows}
+
+You can also use a very large subset of \cap{posix} under Windows with
+a \cap{posix} emulator. I've tested this using SmartEiffel and Cygwin's freely
+available emulator. Here the steps:
+\startitemize[n]
+\item Download the Cygwin toolkit from \from[cygwindownload].
+\item Set the compiler in \MYfilename{compiler.se} to
+  \type{gcc}. Leave the system in \MYfilename{system.se} to Windows.
+\item Configure \eposix\ as described in \in[sec:libeposix] and create
+  \MYfilename{libeposix_se.a}
+\stopitemize
+
+A few things are not available under Cygnus' \cap{posix} emulation:
+\startitemize[n]
+\item \Efeature[POSIX_FILE_SYSTEM]{create_fifo} is not supported. Any
+  attempt to use it will return \cdefine{ENOSYS}. I'm not sure if
+  returning an error is the correct solution for applications that
+  require \cap{posix} compatibility, because you are only warned at
+  run||time. Another solution would be to include a call to
+  \posix{mkfifo} and if you use it, let the linker complain.
+  \item There is no locking, so calls to
+  \Efeature[POSIX_FILE_DESCRIPTOR]{get_lock} and such will fail.
+\item Certain \cap{posix} tests assume that a more Unix like
+  environment is available, so not all tests will run. For example the
+  standard Cygwin distribution doesn't have a \filename{more}
+  utility. If you make a symbolic link from \filename{less} to
+  \filename{more} the child process test will run.
+\item The current list of implemented functions is available from
+  \from[cygwinfuncs].
+\stopitemize
+
+
+\subsection[sec:nativewindows]{Native Windows}
+
+Previous versions of \eposix\ used a factory class approach to access
+Windows or \POSIX\ specific code. This is obsolete.
+
+If you want to write code that is portable between Windows and \POSIX\
+use the EPX_XXXX class layer. For example you can use the
+\Eclass{EPX_FILE_DESCRIPTOR} to use file descriptors that are
+completely portable between these two OSes. Use
+\Eclass{EPX_FILE_SYSTEM} to have access to file system specific code
+to change directories or get the temporary directory.
+
+In general you can replace the POSIX_ prefix with EPX_ to compile most
+of the examples presented in the previous \POSIX\ specific
+chapters. The classes currently available in the EPX_XXXX layer are:
+
+\startitemize
+\item \Eclass{EPX_CURRENT_PROCESS}.
+\item \Eclass{EPX_EXEC_PROCESS}.
+\item \Eclass{EPX_FILE_DESCRIPTOR}.
+\item \Eclass{EPX_FILE_SYSTEM}.
+\item \Eclass{EPX_PIPE}.
+\stopitemize
+
+Figure one shows hoe the \Eclass{EPX_FILE_DESCRIPTOR} class is derived
+from \Eclass{ABSTRACT_FILE_DESCRIPTOR}. Both Windows and \POSIX\ have
+an effective \Eclass{EPX_FILE_DESCRIPTOR} class. Classes as
+\Eclass{POSIX_FILE_DESCRIPTOR} implement \POSIX\ specific
+functionality for a file descriptor.
+
+\placefigure
+  []
+  [bon:epxclass]
+  {How EPX_XXXX classes are related to the \POSIX\ and Windows classes}
+  {\externalfigure[epxclass]}
+
+An example of using the \Eclass{EPX_FILE_SYSTEM} class is shown below:
+
+\typeEIFFELfile{ex_epx1.e}
+
+In \in{appendix}[classess::appendix:abstract] all abstract classes are
+listed. There deferred features are made effective in the \cap{EPX}
+class for the operating system you're compiling for.
+
+% With \eposix's factory classes you can write programs that have
+% features between Standard C and POSIX. Windows offers many services
+% that are more or less equal to POSIX programs. Windows specific
+% classes inherit from \Eclass{WINDOWS_BASE}, see
+% \in{figure}[bon:windowsinheritance].
+
+% \placefigure
+%   []
+%   [bon:windowsinheritance]
+%   {Windows inheritance structure}
+%   {\winbase}
+
+% \eposix\ has abstracted features available in both Windows and
+% \cap{posix} in its `ABSTRACT_XXXX' classes. In your program you don't
+% use the Windows classes directly, but you use a factory. If you
+% compile against a \cap{posix} platform, a \cap{posix} specific class
+% is returned. If you compile against a Windows platform, a Windows
+% specific class is returned. In \in{figure}[bon:factory] a BON diagram
+% of the classes involved in this process are shown.
+
+% \placefigure
+%   []
+%   [bon:factory]
+%   {Using abstract classes through a factory}
+%   {\factory}
+
+% The class \Eclass{EPX_FACTORY} is either Windows or \cap{posix}
+% specific. There is such a class in the \filename{src/windows}
+% directory and one in the \filename{src/posix} directory. By including
+% one of these directories in your \MYfilename{loadpath.se}, it can be
+% found. Make sure to include only one of these directories.
+
+% First an example to make it more clear:
+
+% \typeEIFFELfile{ex_factory1.e}
+
+% If you want to access the factory, it is easiest to inherit from
+% \Eclass{EPX_FACTORY}. To access the file system, this class offers the
+% \Efeature{fs} feature. \Efeature{fs} is an
+% \Eclass{ABSTRACT_FILE_SYSTEM}. In your program you use only features
+% available in \Eclass{ABSTRACT_FILE_SYSTEM}. At run||time you either
+% get a \Eclass{WINDOWS_FILE_SYSTEM} or a \Eclass{POSIX_FILE_SYSTEM}.
+
+% You can also access file descriptors through
+% \Eclass{ABSTRACT_FILE_SYSTEM}. This class has features as
+% \Efeature{create_read_write} and \Efeature{open_read_write} which
+% return an instantiated file descriptor class.
+
+
+\section{Introduction to the next chapters}
+
+The following chapters are topic based: they discuss how to work with
+files for example and show examples for all layers and give hints what
+is and what isn't supported in each layer.
+
+Instead of describing every class and every feature, I decided to show
+short and simple examples of common ways to use the various \eposix\
+classes. Most examples assume a \cap{posix} or Single Unix
+Specification environment. If you don't have \cap{posix} available,
+you can try to replace the \type{POSIX_} prefix by \type{STDC_}. Most
+of the time the \cap{posix} classes are based on the Standard C
+classes.
+
+If you are looking for more examples, you might take a look at the
+classes in the \filename{test_suite}
+\index{directory+test_suite}directory. These classes should
+demonstrate and test almost every feature available in the \cap{posix}
+classes.
+
+
+
+
+\chapter{Working with memory}
+
+\section{Introduction}
+
+\eposix\ has several classes that allocate memory. The main class is
+\Eclass{STDC_BUFFER} (or the equivalent \Eclass{POSIX_BUFFER}). This
+class allocates a memory block that isn't moved by the garbage
+collector. This is very useful for an Eiffel compiler that has a
+moving garbage collector.
+
+You can also get access to shared memory using
+\Eclass{POSIX_SHARED_MEMORY}.
+
+
+\section[standardc:dynamic_memory]{Allocating memory}
+
+You can dynamically allocate memory with \Eclass{STDC_BUFFER}
+which works just like \Eclass{POSIX_BUFFER}.
+
+\typeEIFFELfile{ex_mem2.e}
+
+With the feature \Efeature[STDC_BUFFER]{allocate_and_clear}
+memory is allocated and cleared to all zeros.
+
+\Eclass{STDC_BUFFER} contains many routines to read bytes and
+strings from the memory it manages like \Efeature{peek_int16},
+\Efeature{peek_uint16}, or \Efeature{peek_int32}. It supports reading
+and writing 16 and 32 bit integers in \index{little endian}little and
+\index{big endian}big endian order with routines as
+\Efeature{peek_int16_big_endian}, \Efeature{peek_int16_little_endian},
+and \Efeature{poke_int32_big_endian}.
+
+
+\section{Allocating memory}
+
+Allocating dynamic memory is very useful, but not portably available
+for Eiffel programmers. With \Eclass{POSIX_BUFFER} memory can
+be allocated, read and written to.
+
+\typeEIFFELfile{ex_mem.e}
+
+For more information about the dynamic memory class, see
+\in{section}[standardc:dynamic_memory].
+
+
+\section{Using shared memory}
+
+You can use shared memory to exchange data between different
+processes. It's dependent on your \POSIX\ version if this is
+supported, so check for this capability explicitly!
+
+\typeEIFFELfile{ex_shared_mem1.e}
+
+Make sure you always start a shared memory object with a slash. Else
+the behaviour is undefined or processes might not be able to find your
+shared memory.
+
+There is not yet an abstract layer implementing shared memory, but you
+can use \Eclass{WINDOWS_PAGING_FILE_SHARED_MEMORY} on Windows to get a
+similar effect.
+
+
+\section{Memory maps}
+
+You can map a file to memory using \Eclass{POSIX_MEMORY_MAP}.
+
+\typeEIFFELfile{ex_memory_map1.e}
+
+There is no equivalent abstract layer class for memory mapping to
+support Windows yet.
+
+
+
+
+\chapter{Working with files}
+
+
+\section{Introduction}
+
+\eposix\ offers two different file classes: Standard C stream based
+and \cap{posix} file descriptor classes. The main difference between
+stream and descriptor based classes is that the stream classes offer
+read and write caching. Output is not immediately written to disk or
+network for example.
+
+
+\section{Standard C notes}
+
+If you don't have access to a \cap{posix} compatible system, you can
+use the underlying Standard C classes. Standard C is quite restricted
+in certain respects: you cannot change directories for example. On the
+other hand, this library gives you access to all Standard C routines,
+so you can use what's there and write an extremely portable program.
+
+
+\section[sec:gobo]{Compatibility with Gobo}
+
+Since version 2.0 \eposix\ is built upon foundations laid in
+\index{Gobo}Gobo. \eposix\'s \Eclass{STDC_FILE}/\Eclass{POSIX_FILE}
+and \Eclass{ABSTRACT_FILE_DESCRIPTOR} are implementations of
+\Eclass{KI_CHARACTER_INPUT_STREAM} and
+\Eclass{KI_CHARACTER_OUTPUT_STREAM}.
+
+The \eposix\ class \Eclass{ABSTRACT_FILE_DESCRIPTOR} has support for
+\index{non-blocking i/o}non-blocking i/o, see
+\in{section}[sec:nonblockingio]. Gobo's
+\Eclass{KI_CHARACTER_INPUT_STREAM} expects blocking i/o however. If
+you call \Efeature[ABSTRACT_FILE_DESCRIPTOR]{read_string} you will
+call the routine that has support for non-blocking i/o. Due to
+Eiffel's renaming mechanism, \Eclass{ABSTRACT_FILE_DESCRIPTOR} will
+behave blocking when it is called as if it was a
+\Eclass{KI_CHARACTER_INPUT_STREAM}.
+
+% YY_FILE_BUFFER implementations
+
+
+\section{Working with streams}
+
+The basic class for working with files, or streams as they are also
+called, is \Eclass{POSIX_FILE}. There are two kinds of files:
+\Eclass{POSIX_TEXT_FILE} and \Eclass{POSIX_BINARY_FILE}. According to
+the \POSIX\ standard, there is no distinction between binary and text
+files. But on certain systems you must use \POSIX\ programs through an
+emulation layer. For example, on Windows Cygwin is a well||known
+\POSIX\ emulator. To maintain compatibility with other Windows
+programs, Cygwin distinguishes between text and binary files. If you
+use Cygwin to compile your \POSIX\ programs, this distinction is
+therefore still important.
+
+The first example shows how to open a text file, see also the
+corresponding BON diagram in \in{figure}[bon:exfileone].
+
+\placefigure
+  []
+  [bon:exfileone]
+  {BON diagram of opening a text file.}
+  {\externalfigure[exfileone]}
+
+\typeEIFFELfile{ex_file1.e}
+
+It simply opens a file for reading and prints \index{file+read
+entire}every line in it. Note that the line read does {\em not}
+include the end-of-line character. This is a change in behaviour from
+pre 2.0 \eposix\ versions.
+
+\Eclass[POSIX_FILE] has two functions that read strings. These are
+\Efeature{read_line} and \Efeature{read_string}. \Efeature{read_line}
+only returns when it has read an end-of-line character. It it has to
+read a 2GB characters to reach that, it will return a 2GB
+string. \Efeature{read_string} returns a string with the given number
+of characters, or less if the end of the file is reached. These two
+functions have one other difference as well: \Efeature{read_line}
+removes the end-of-line character(s), while \Efeature{read_string}
+returns the raw string, including end-of-line characters and such.
+
+At the end of the example, the file is closed. You don't need to
+explicitly close a file as it will be closed when your object is
+garbaged collected. But I think it's a good thing not to rely or
+depend on this, but to close your external resources as soon as you're
+done using them. For example many systems have easily reached limits
+on the number of files a process can have open.
+
+Reading binary files is almost the same \index{file+read entire}loop,
+only you read it in chunks:
+
+\typeEIFFELfile{ex_file2.e}
+
+This example uses a more safe version of buffer reading,
+\Efeature[POSIX_FILE]{read_buffer}. There is an untyped variant
+\Efeature[POSIX_FILE]{read} which accepts a pure pointer. There is no
+need to mention that you need to watch buffer overflows carefully with
+this last one!
+
+Correctly looping through files, takes care. For example the following
+loop is wrong:
+
+\typeEIFFELfile{ex_wrong1.e}
+
+After \Efeature[POSIX_TEXT_FILE]{read_string}, \Efeature{end_of_input} might be
+True. But the precondition for \Efeature{last_string} is that
+\Efeature{end_of_input} is false. You will make an unnecessary extra loop. The
+correctly coded variant is:
+
+\typeEIFFELfile{ex_wrong2.e}
+
+I myself prefer the first example, as the check is only in the
+\Ekeyword{until} part, and not repeated in the loop.
+
+The following examples shows how a \index{binary file}binary file is
+created and a string is written to it.
+
+\typeEIFFELfile{ex_file3.e}
+
+Depending on the platform you are running a \index{backslash}backslash
+is turned into a \index{slash}slash or vice versa.
+
+This example also demonstrates how \index{path name}path names |<|file
+and directory names|>| can be expanded: if you call
+\Efeature[POSIX_FILE_SYSTEM]{expand_path}, any
+\index{environment variable}environment variables in the path are
+expanded. Backslashes and slashes are always translated, but
+\index{Environment variable+expansion}environment variable expansion
+has to be done explicitly.
+
+You can \index{seek}move the \index{file pointer}file pointer with two
+different methods: \Efeature[POSIX_FILE]{seek} and
+\Efeature{set_position}. The \Efeature{seek} works with files up to 2
+GB, \Efeature{set_position} has no such limits. Use \Efeature{tell} to
+get a position that can be passed to \Efeature{seek}. Use
+\Efeature{get_position} to get a position that can be passed to
+\Efeature{set_position}.
+
+\typeEIFFELfile{ex_file5.e}
+
+
+\section{Working with streams using Standard C only}
+
+Working with text files is equal to the \cap{posix} classes, only you
+use the \cap{stdc} prefix.
+
+\typeEIFFELfile{ex_file4.e}
+
+Its BON diagram, see \in{figure}[bon:exfilethree] is therefore quite equal
+to the \cap{posix} one, see \in{figure}[bon:exfileone].
+
+\placefigure
+  []
+  [bon:exfilethree]
+  {BON diagram of opening a Standard C text file.}
+  {\externalfigure[exfilethree]}
+
+
+\section{Working with file descriptors}
+
+The file descriptors classes are quite equal to the file classes. The
+following example opens a file using \Eclass{POSIX_FILE_DESCRIPTOR}
+and reads the first 64 bytes.
+
+\typeEIFFELfile{ex_fd1.e}
+
+Unlike \Eclass{POSIX_TEXT_FILE}, there is no easy way to detect end of
+line and end of file conditions. However, a file descriptor can easily
+be turned into a file as the following example demonstrates.
+
+\typeEIFFELfile{ex_fd2.e}
+
+A file descriptor can also be used to \index{lock}lock, unlock or test
+for locks on a given file as the following example demonstrates. See
+also the accompanying BON diagram in \in{figure}[bon:exfdfour].
+
+\typeEIFFELfile{ex_fd4.e}
+
+\Efeature[POSIX_FILE_DESCRIPTOR]{get_lock} is command||query
+separated, that is why it returns a new lock when queried and there is
+a lock. If there is no lock \Efeature{get_lock} returns Void. The
+passed lock is not modified.
+
+\placefigure
+  []
+  [bon:exfdfour]
+  {BON diagram of locking a portion of a file.}
+  {\externalfigure[exfdfour]}
+
+A file descriptor also gives you access to the attached
+\index{terminal}terminal, if any. The following example demonstrates
+how to read a \index{terminal+password}password without the password appearing
+on the screen.
+
+\typeEIFFELfile{ex_fd3.e}
+
+
+\section{Windows systems: binary mode versus text mode}
+
+If you are using Unix exclusively, you can skip this section.
+
+Independent of what layer you use to write Windows programs, you have
+to deal with \index{binary mode}binary and \index{text mode}text
+modes. And if you usually write Unix programs and want them to work on
+Windows too, you have to bother with it too.
+
+On Windows, each line of a text files ends with a carriage return
+character followed by a line feed character. If you use a C text
+stream to read a file on Windows, a trick is employed: every
+occurrence of \type{"%R%N"} is replaced by a single \type{"%N"}. If
+%R%you are actually a binary file, you might get unexpected results!
+The same happens when writing to a text stream: you just have to write
+a single \type{"%N"} and the C run-time code replaces this by
+%\type{"%R%N"}.
+
+So make sure you are using the proper classes if you use streams. Use
+\Eclass{STDC_TEXT_FILE} if you want to read and write text files and
+use \Eclass{STDC_BINARY_FILE} to read and write binary files.
+
+File descriptors are binary only. So any descendant from
+\Eclass{ABSTRACT_FILE_DESCRIPTOR} treats input and output as binary
+and does no translation whatsoever. If you use
+\Efeature[ABSTRACT_FILE_DESCRIPTOR]{read_line} to read lines, the
+end-of-line character may either be a \type{"%R%N"} or just a
+%R%\type{"%N"}. \Efeature{read_line} strips either of these
+end-of-line characters regardless of the platform. So reading a file
+with Windows end-of-line characters on Windows or Unix will work
+exactly the same.
+
+There is no explicit support for creating text files using file
+descriptors with the proper Windows end of file characters. Use either
+\Eclass{STDC_TEXT_FILE} to create platform dependent end-of-lines or
+write the proper end-of-line characters yourself.
+
+This discussion also applies to standard input and output. If you want
+to use \index{binary stdin}binary \index{stdin+binary}standard input
+or \index{binary stdout}binary \index{stdout+binary}standard output,
+use the file descriptors available in \Eclass{EPX_CURRENT_PROCESS} as
+\Efeature{fd_stdin} and \Efeature{fd_stdout}. If you use
+\Efeature{stdin} and \Efeature{stdout} you can handle text files only
+on Windows. On Unix it does not matter.
+
+For Cygwin users the story is somewhat more difficult it seems. File
+descriptors can be text or binary. The default is binary however. The
+following information can be helpful to get the binary versus text
+file distinction correct:
+\startitemize
+\item Mount the volume in binary mode.
+\item Set the \index{environment variable+CYGWIN}environment variable
+  \index{CYGWIN}CYGWIN to `binary'.
+\stopitemize
+
+More information about Cygwin and CR/LF handling can be found at
+\from[cygwincrlf].
+
+
+
+\chapter{Working with files: advanced topics}
+
+
+\section{Redirecting stderr to stdout}
+
+If you want to \index{redirect standard error}redirect all output
+written by your program or any child you spawn to
+\index{stdout}stdout, you can use the
+\Efeature[POSIX_FILE_DESCRIPTOR]{make_as_duplicate} call:
+
+\typeEIFFELfile{ex_redirect1.e}
+
+It's a good idea to call this at the beginning of your program, before
+you have written anything to \index{stderr}stderr or stdout. If you do
+that, you don't have to \index{flush}flush the
+\index{stream buffer}stream buffers.
+
+
+\section{Talking to your modem}
+
+With \eposix\ you can talk to your \index{modem}modem. The
+implementation contains not all the details to write a full||featured
+program as \index{minicom}minicom, but they will be added upon
+request.
+
+The following example tries to talk to your modem |<|which is expected
+to be at \filename{/dev/modem}|>| and queries its manufacturer.
+
+\typeEIFFELfile{ex_modem.e}
+
+\placefigure
+  []
+  [bon:exmodem]
+  {BON diagram of talking to a modem.}
+  {\externalfigure[exmodem]}
+
+
+\section[sec:nonblockingio]{Non-blocking I/O}
+
+\eposix\ supports \index{non-blocking i/o}non-blocking i/o on its file
+descriptor classes, i.e. the descendants of
+\Eclass{ABSTRACT_FILE_DESCRIPTOR}. Use \Efeature{is_blocking_io} to
+query if the descriptor blocks on \Efeature{read} or \Efeature{write}
+if there is no data. Use \Efeature{set_blocking_io} to change the
+behavior.
+
+Use \Efeature{supports_nonblocking_io} to query if the behavior with
+respect to blocking i/o can be changed. On Windows file i/o must be
+blocking. Only sockets on Windows can be non-blocking. On Unix all
+descriptors support non-blocking i/o.
+
+See \index{Gobo}also \in{section}[sec:gobo] for non-blocking i/o when
+\eposix\ is used as a plugin for classes that expect a
+\Eclass{KI_CHARACTER_INPUT_STREAM}. In such cases \eposix\ reverts to
+blocking i/o, even when non-blocking i/o has been enabled.
+
+
+\section[sec:asynchronousio]{Asynchronous I/O}
+
+\eposix\ supports the asynchronous i/o features of \cap{posix}. Not
+all Free Unices seem to support this feature, nor does their support
+seems to be error free.
+
+Take a look at the following example:
+
+\typeEIFFELfile{ex_async1.e}
+
+The basic idea is that each asynchronous request is a separate object,
+modeled by \Eclass{POSIX_ASYNC_IO_REQUEST}. You prepare it
+through calls like \Efeature{set_buffer}, \Efeature{set_count} and
+\Efeature{set_offset}. You execute the request by calling
+\Efeature{read} or \Efeature{write}.
+
+You can wait for the request to be complete by calling
+\Efeature{wait_for}. It should be possible to force open requests to
+be synchronized to the disk with \Efeature{synchronize}, but this does
+give strange results on Linux. So far I haven't got access to a
+machine that also implements asynchronous i/o to test if my code is
+correct.
+
+
+
+
+\chapter{Working with the file system}
+
+\section{Portability}
+
+Use the \type{EPX_} classes to write code that is portable between
+\cap{posix} systems and Windows.
+
+
+\section{Standard C}
+
+Standard C doesn't offer much for file systems. You can only delete
+and rename files.
+
+\typeEIFFELfile{ex_dir5.e}
+
+The BON diagram is shown in \in{figure}[bon:exdirfive].
+
+\placefigure
+  []
+  [bon:exdirfive]
+  {BON diagram of deleting and renaming files with Standard C.}
+  {\externalfigure[exdirfive]}
+
+But you can \index{filename manipulation}manipulate filenames
+including directories, although technically they're not part of
+Standard C. The following example shows how filenames can be
+manipulated with \Eclass{STDC_PATH}:
+
+\typeEIFFELfile{ex_filename1.e}
+
+The \Efeature{parse} feature is used to parse a path into its
+components. Give it a suffix list to remove any matching suffices.
+Suffix matching is case-insensitive. If the suffix list is empty, no
+suffix matching will be done. This follows standard unix behaviour: if
+a filename has a dot in it, it does not necessarily mean that what
+follows after that dot is a suffix.
+
+Create a path with \Efeature{make_expand} to expand any environment
+variables in the given string to their values.
+
+
+\section{POSIX}
+
+\cap{posix} defines many commands to navigate a file system. They're
+made available by the \Eclass{POSIX_FILE_SYSTEM}. The following
+example \index{directory+change}navigates to the user's home
+directory, \index{directory+create}create a directory and
+\index{directory+remove}removes it.
+
+\typeEIFFELfile{ex_dir1.e}
+
+To get access to the file system, inheriting from the
+\Eclass{POSIX_FILE_SYSTEM} class is easiest.
+
+There are also lots of functions to test for existence, readability or
+writability of files. Use \Efeature{is_modifiable} to test if a file
+is readable and writable.
+
+\typeEIFFELfile{ex_dir2.e}
+
+Be aware that \Efeature[POSIX_FILE_SYSTEM]{is_readable} uses the real
+user and group IDs instead of the effective ones.
+
+As can be seen in the above example, one can test for the permissions
+of a file using the \Eclass{POSIX_PERMISSIONS} class. A new
+permissions class is created for every
+\Efeature[POSIX_FILE_SYSTEM]{permissions} call, so it is best to cache
+this object. If the permissions change on the file system, this class
+does not reflect reality anymore, because it caches the
+permissions. Use \Efeature[POSIX_PERMISSIONS]{refresh} to update the
+contents. Use \Efeature{set_allow_group_write},
+\Efeature{set_allow_anyone_read} and such to set permissions.
+
+\eposix\ also gives you access to the \posix{stat} function using the
+\Eclass{POSIX_STATUS} class.
+
+\typeEIFFELfile{ex_dir4.e}
+
+The \Eclass{POSIX_STAT}, and through it \Eclass{POSIX_PERMISSIONS},
+are also returned by \Efeature[POSIX_FILE_DESCRIPTOR]{status}.
+
+
+\index{directory+browse}Browsing a directory can be done by
+allocated a \Eclass{POSIX_DIRECTORY} class through the
+\Efeature[POSIX_FILE_SYSTEM]{browse_directory} feature:
+
+\typeEIFFELfile{ex_dir3.e}
+
+As can be seen, \Eclass{POSIX_DIRECTORY} follows EiffelBase
+conventions.
+
+When browsing a directory, all entries in that directory are
+returned. You might want to be interested only in certain
+files. \eposix\ has the ability to define arbitrary filters. Standard
+\eposix\ comes with an extension filter that only shows files with a
+certain extension:
+
+\typeEIFFELfile{ex_dir6.e}
+
+
+
+
+\chapter{Working with processes}
+
+\section{Introduction}
+
+This chapter discusses starting processes, either by executing new
+ones or forking the current one. It also describes support for process
+communication using signals.
+
+
+\section{Executing a child command}
+
+Any command line can be executed by using the
+\Eclass{POSIX_SHELL_COMMAND} class. Just pass a command line and
+\Efeature{execute} it.
+
+\typeEIFFELfile{ex_cmd.e}
+
+
+\section{Reading stdout of a child process}
+
+It is possible to read the standard output of a child process or write
+to its standard input. This is one of the easiest ways to communicate
+with child processes. The \Eclass{EPX_EXEC_PROCESS} class makes this
+possible both under Windows and Unix. For example the creation feature
+\Efeature{make_capture_output} makes the standard output of the child
+available, while \Efeature{make_capture_input} makes the standard
+input available.
+
+\typeEIFFELfile{ex_exec1.e}
+
+The three features that give access to the child's standard input,
+standard output and standard error pipes are named
+\Efeature{fd_stdin}, \Efeature{fd_stdout} and \Efeature{fd_stderr}.
+
+It is important to wait for the child that has been executed at some
+point in time, just like any \POSIX\ aplication would have to do. If
+you do not wait for a child process, memory in the kernel is not
+released and eventually you would run out of processes. Also only
+after the \Efeature[EPX_EXEC_PROCESS]{wait_for} command is the exit
+code of the process available.
+
+It is possible to write to standard input and read standard output and
+standard error at the same time, but this requires extreme care. It
+usually leads to code that deadlocks, because the parent process is
+reading the standard output of the child and the child is waiting for
+the parent to write to its standard input. Or the child is blocked
+while writing to its standard output, because its output buffer is
+full. But the parent process isn't reading the child's standard
+output, because it is trying to write to the child's standard input.
+
+Under \POSIX\ it is possible to use the buffered features
+\Efeature{stdin}, \Efeature{stdout} and \Efeature{stderr}. The
+following example is the same as the previous example, but uses the
+\Eclass{POSIX_EXEC_PROCESS} class:
+
+\typeEIFFELfile{ex_exec2.e}
+
+It is possible to check if a child process has terminated or not. Pass
+False to the suspend parameter of the
+\Efeature[EPX_EXEC_PROCESS]{wait_for} feature and check
+\Efeature{is_terminated} to see if the child process has stopped or
+not.
+
+
+\section{Catching a signal with Standard C}
+
+You can catch signals with Standard C. The following example
+demonstrates a program that can be safely interrupted by pressing
+\index{Ctrl+C}Ctrl+C:
+
+\typeEIFFELfile{ex_signal3.e}
+
+As Standard C doesn't have a sleep command, this program uses
+\Eclass{EPX_CURRENT_PROCESS} to get either the \Efeature{sleep} from
+\POSIX\ or from Windows.
+
+More explanation about the program itself can be found in
+\in{section}[sec:catchsignal].
+
+
+\section[sec:catchsignal]{Catching a signal with \cap{posix}}
+
+Every class can become a \index{signal handler}signal handler by
+inheriting from \Eclass{POSIX_SIGNAL_HANDLER}. Implement the
+\Efeature{signalled} method as that is the function that is called
+when the signal occurs. Use \Efeature[POSIX_SIGNAL]{set_handler} to
+make your class a signal handler and call \Efeature{apply} to start
+receiving signals when they occur.
+
+The following examples demonstrates a program that can be safely
+interrupted by pressing \index{Ctrl+C}Ctrl+C:
+
+\typeEIFFELfile{ex_signal1.e}
+
+All precautions and warnings when handling signals in C apply equally
+well in Eiffel of course. While in a signal handler, the signal will
+not be delivered again. Call
+\Efeature[STDC_SIGNAL_HANDLER]{reestablish} to make your signal
+handler interruptable.
+
+You can write a single signal handler, that handles multiple
+signals. This makes it possible to have signal handling code in just
+one place. Create a class that inherits from
+\Eclass{POSIX_SIGNAL_HANDLER}. Pass this class to the
+\Efeature[POSIX_SIGNAL]{set_handler} for every signal you want to
+catch. The signal value is passed as parameter to
+\Efeature[POSIX_SIGNAL_HANDLER]{signalled}, so you can write an
+\Ekeyword{inspect} statement based on the value.
+
+
+\section{General wait for child handler}
+
+If you do not want to wait for every child process explicitly, you can
+write a simple \index{SIGCHLD}SIGCHLD handler that just does a
+wait (I found this idea in \cite[unixnetwork1]):
+
+\typeEIFFELfile{ex_signal2.e}
+
+In Unix 98 you should be able to set the ignore handler for this
+signal. In pure \POSIX\ systems the behaviour of the ignore handler is
+unspecified.
+
+
+\section{Forking a child process}
+
+Forking is very easy with this Eiffel \cap{posix} implementation. The
+steps:
+\startitemize[n]
+\item Write a child by inheriting from \Eclass{POSIX_FORK_ROOT} and
+  implementing its \Efeature{execute} method.
+\item The class that will do the forking, should inherit from
+  \Eclass{POSIX_CURRENT_PROCESS}.
+\item Pass the child to the inherited feature
+  \Efeature[POSIX_CURRENT_PROCESS]{fork} and the forking has begun.
+\stopitemize
+
+\placefigure
+  []
+  [bon:exforkone]
+  {BON diagram of forking a child process.}
+  {\externalfigure[exforkone]}
+
+The following class shows the process that forks the child.
+
+\typeEIFFELfile{ex_fork1.e}
+
+This class just displays anything that the writer, the child class,
+writes to the \cap{FIFO}. When it recognizes stop, the reader stops
+after waiting for the child it has spawned. Note that this is very
+important! Wait for any child you have spawned else you might get
+spurious errors if the process exits and a child has not yet finished.
+
+The following class shows the forked child.
+
+\typeEIFFELfile{fork_child.e}
+
+
+
+
+\chapter{Querying the operating system}
+
+\section{Current time}
+
+\eposix has a very complete class to work with times. A time can be
+set from the current time by using
+\Efeature[POSIX_TIME]{make_from_now}. Before a time can be printed, it
+needs to be converted to either local time or \cap{utc}. Do this by
+calling \Efeature{to_local} or \Efeature{to_utc}. Date and
+times can be printed using features as \Efeature{default_format},
+\Efeature{local_date_string}, \Efeature{local_time_string} or a custom
+format through \Efeature{format}.
+
+\typeEIFFELfile{ex_time1.e}
+
+
+\section{Accessing environment variables}
+
+Standard C supports reading environment variables with
+\Eclass{STDC_ENV_VAR}.
+
+\typeEIFFELfile{ex_env2.e}
+
+The \cap{posix} doesn't add any functionality here:
+
+\typeEIFFELfile{ex_env1.e}
+
+It is not possible in \cap{posix} to set an environment variable. This
+is possible with the Single Unix Specification classes.  Using
+\Efeature{SUS_ENV_VAR}{set_value} it is possible to set
+\index{environment variable+set}environment variables.
+
+
+\section{Capabilities}
+
+Use the portable \Eclass{EPX_SYSTEM} class to query for various system
+dependent constants like \Eclass{max_open_files}. There are operating
+system dependent queries in \Eclass{POSIX_SYSTEM} and
+\Eclass{WINDOWS_SYSTEM}.
+
+
+
+
+\chapter{Working with the network}
+
+\section{MIME parsing}
+
+Many of the Internet's protocols send data in MIME format. \eposix\
+offers a MIME parser in \Eclass{EPX_MIME_PARSER} to parse such data
+and MIME message creation in \Eclass{EPX_MIME_PART}.
+
+MIME messages consist of two parts: a header and a body. The body
+itself can consist of another header and body. Some examples of using
+this class are shown in \in{section}[sec:smtp].
+
+
+\section{Sockets}
+
+\eposix\ currently has fairly complete socket support. Not every
+option offered by the Single Unix Specification is supported yet, but
+as always we will attempt in every release to reach full support for
+every function offered.
+
+As usual the EPX_XXXX classes are available on both Unix and Windows
+platform. The SUS_XXXX classes are available only on Single Unix
+Specification (\posix) systems and extend the EPX_XXXX classes with
+Unix specific functionality.
+
+TCP functionality is available for both Windows and Unix. UDP is only
+available on Unix, as well as Unix streams.
+
+
+\section{Echo client}
+
+The following example demonstrates a simple echo client for TCP. An
+echo server must be running on your machine:
+
+\typeEIFFELfile{ex_echo_client_tcp.e}
+
+The following example demonstrates a simple echo client for UDP. An
+echo server must be running on your machine:
+
+\typeEIFFELfile{ex_echo_client_udp.e}
+
+
+\section{Echo client and server}
+
+The following class demonstrates an echo server and client in a single
+class. It uses unix sockets (a fast interprocess communication) to
+achieve that.
+
+\typeEIFFELfile{ex_echo_unix.e}
+
+The following class is similar, but uses TCP.
+
+\typeEIFFELfile{ex_echo_tcp.e}
+
+
+
+
+\chapter[sec:sus]{Working with the network: advanced topics}
+
+
+\section{Introduction}
+
+In version 2.0 \eposix\ has introduced the first of a series of
+classes for writing common Internet clients and servers.
+
+Many of these classes are a work in progress, and might not have the
+robustness desired for critical applications.
+
+\section{FTP client}
+
+The \eposix\ FTP client supports almost all FTP operations, but
+currently has a fairly basic interface. Read and write operations
+return a stream for example. Reading and writing files to the file
+system is left as an exercise for the reader.
+
+The following example demonstrates reading a directory from an FTP
+server and receiving a file:
+
+\typeEIFFELfile{ex_ftp1.e}
+
+\Eclass{EXP_FTP_CLIENT} also supports creating
+(\Efeature{make_directory}) or deleting directories
+(\Efeature{remove_directory}), deleting (\Efeature{remove_file}),
+renaming (\Efeature{rename_to}), and uploading files (\Efeature{store}).
+
+
+\section{HTTP client}
+
+The following example demonstrates retrieval of a file through HTTP
+using the \Eclass{EPX_HTTP_10_CLIENT} class:
+
+\typeEIFFELfile{ex_http1.e}
+
+It also demonstrates the use of the \Eclass{UT_URI} class to parse an
+\index{URI}URI into its components.
+
+
+\section{HTTP server}
+
+\eposix\ offers a basic HTTP server in \Eclass{EPX_HTTP_SERVER}. The
+followng example demonstrates starting such a server and let it listen
+on the local interface.
+
+\typeEIFFELfile{ex_http_server1.e}
+
+\Eclass{EPX_HTTP_SERVER} will say to clients that it serves XHTML
+instead of HTML. Or in MIME types: \type{application/xhtml+xml}
+instead of \type{text/html}. In case that the HTML pages which are
+served are not actually XHTML, you will need to turn this option off
+with a call to \Efeature{set_serve_xhtml_if_supported}.
+
+In the main loop all available requests are served after which a brief
+sleep follows. Without the sleep the process would use 100\%
+CPU.
+
+The server will return the files under \filename{/var/www/html} from
+the file system to the browser. It's also possible to create and
+register \index{servlet}servlets which can respond to requests. A
+servlet is like a built-in CGI program. A servlet allows maximum
+control over the response send to the browser, not only the response
+header, but also the response code send to the client.
+
+A servlet is built after \index{REST}REST principles. A servlet is
+designed to behave like a resource. You can bind it to a URL and after
+that it can handle any of the HTTP commands as GET, POST, or
+\index{PUT request}PUT that are send to it. By default a servlet will
+return error code 405, meaning ``Method not allowed''. The simplest
+servlet, which always returns 405 is therefore the following:
+
+\typeEIFFELfile{ex_http_servlet1.e}
+
+This servlet has to be registered with the HTTP server. The following
+example shows a virtual HTTP server, one that doesn't have a document
+root and therefore will never read the file system. It attaches the
+servlet to the url \filename{/customers}.
+
+\typeEIFFELfile{ex_http_server2.e}
+
+You might have noticed it attached servlet
+\Eclass{EX_HTTP_SERVLET2}. This servlet is shown below:
+
+\typeEIFFELfile{ex_http_servlet2.e}
+
+Only the \Efeature[EX_HTTP_SERVLET]{get_header} method needs to be
+overwritten. The format is usually to write the body first and write
+the header last. This might seem counter-intuitive, but for persistent
+connections you need to supply a \index{Content-Length}Content-Length
+if you write a body. Another solution would be to use the chunked
+transfer encoding, but that isn't explicitly supported yet, so you
+have to do the work yourself here.
+
+So for dynamically created content, you usually write the body in the
+header, so you can setup the header. There is also a
+\Efeature[EX_HTTP_SERVLET]{get_body}, but it is usually not overriden
+for dynamic content.
+
+The \Eclass{EPX_HTTP_SERVER} class is responsible for sending the
+header and the body and to guard against any errors.
+
+In the same manner you can write code to react to PUT, POST or
+\index{DELETE request}DELETE requests. As browsers usually do not
+support PUT or DELETE requests, \Eclass{EPX_HTTP_CONNECTION} will turn
+a POST request into a PUT or DELETE when it finds a special value. The
+implementation is in \Efeature{remap_http_method}. This happens under
+the following circumstances:
+
+\startitemize[n]
+\item The request is a POST request.
+\item The POST request is a submit of form fields (regardless of the
+  chosen encoding).
+\item There is a form field that starts with the name ``http-method:''.
+\stopitemize
+
+In these cases the substring after ``http-method:'' is taken to
+override the POST request into whatever is present as substring.
+
+\in{Figure}[bon:httpserver] shows the BON diagram of the
+\Eclass{EPX_HTTP_SERVER}. A server can have zero or more registered
+servlets and zero or more open connections.
+
+\placefigure
+  []
+  [bon:httpserver]
+  {BON diagram of \simpleEclass{EPX_HTTP_SERVER}.}
+  {\externalfigure[epxhttpserver]}
+
+The server supports persistent connections. In HTTP/1.1 connections
+are persistent by default. If not requested otherwise, the server will
+keep the connection open and monitor it to see if any data is coming
+in. If no data has been send in the last 15 seconds, the connection is
+forcibly closed.
+
+The server can have zero or more servlets registered. A single servlet
+can be connected to multiple URLs by calling
+\Efeature[EPX_HTTP_SERVER]{register_fixed_resource} with the same
+servlet.
+
+There is also a \Efeature{register_dynamic_resource} call to register
+servlets where part of the data is present in the URL. For example the
+URL \filename{/customer/1} looks much better than
+\filename{/customer?id=1}. Register a servlet that takes part of the
+URL as input as follows:
+
+\startEIFFEL
+server.register_dynamic_resource ("/customer/(id)", servlet)
+\stopEIFFEL
+
+Every name present between parentheses in such a path is appended to
+\Efeature[EPX_HTTP_CONNECTION]{request_form_fields}. To a servlet it
+does therefore not matter if a query is used to input the data, if it
+is part of a POST or if it was part of the URL. It all becomes input
+data.
+
+
+\section{IMAP4 client}
+
+\eposix\ implements an IMAP4 client that supports IMAP4 access.
+The following example connects to an IMAP4 server and performs various
+operations:
+
+\typeEIFFELfile{ex_imap41.e}
+
+The first operation is reading the list of available folders.. Next it
+examines the standard INBOX folder, i.e. open it for reading only. It
+reads message 4 and prints it. And finally it closes the mailbox.
+
+The \eposix\ IMAP4 is fairly full featured, it can read and write
+messages and receive various pieces of information about the email
+such as just its header ot its size.
+
+
+\section{IRC client}
+
+\eposix\ also has an IRC client implementation,
+\Eclass{EPX_IRC_CLIENT}. The following example demonstrates logging on
+to the \type{#eiffel} channel on \filename{irc.freenode.net} and
+printing all the messages.
+
+\typeEIFFELfile{ex_irc1.e}
+
+The printing is done by calling
+\Efeature[EPX_IRC_CLIENT]{set_print_response}. Not something you
+probably will use except when debugging. Also we set
+\Efeature{set_blocking_io} to True, but real IRC clients will be
+non-blocking.
+
+Look at the test class \Eclass{TEST_IRC_CLIENT} for more examples, or
+download the Eiffel Bot from the \eposix\ page.
+
+
+\section[sec:smtp]{SMTP client}
+
+\Eclass{EPX_SMTP_CLIENT} implements support for sending email to an
+SMTP server. It only supports servers that can receive 8 bit messages.
+This class cannot convert 8 bit data to 7 bit data.
+
+\section{Sending plain text email}
+
+The following example demonstrates sending a plain text email with
+this class:
+
+\typeEIFFELfile{ex_smtp1.e}
+
+There are three steps in creating an email:
+\startitemize[n]
+\item Create the message using \Eclass{EPX_MIME_EMAIL}, which
+  basically is an \Eclass{EPX_MIME_PART}. It has and has several
+  convenience routines to quickly create such a message.
+\item Create the mail using \Eclass{EX_SMTP_MAIL}. This class is a
+  container for the sender, the recipients and the actual message that
+  is to be sent.
+\item Create an instance of the \Eclass{EPX_SMTP_CLIENT} class. The
+  \Efeature[EPX_SMTP_CLIENT]{ehlo} command identifies the client with
+  the server. Pass as argument the local domain, or if this is not
+  available, the ip address of the client. The actual message is send
+  after calling the \Efeature{mail} command. It's argument is the
+  Eclass{EPX_SMTP_MAIL} instance created in the previous step.\par
+\stopitemize
+
+After the message has been sent, \Efeature[EPX_SMTP_CLIENT]{quit} is
+called to end the session and \Efeature{close} is called to close the
+connection with the SMPT server.
+
+The creation routine of \Eclass[EPX_SMTP_CLIENT] takes as argument the
+SMTP server. Correctly finding the SMTP server for a given recipient
+involves querying a DNS server for MX records. \eposix\ does not
+support this at the moment. However, passing the local SMTP server is
+usually sufficient as this server knows how to figure this out.
+
+\section{Sending \cap{html} email}
+
+The following example demonstrates sending an \HTML\ text email with
+this class:
+
+\typeEIFFELfile{ex_smtp2.e}
+
+The main difference is setting the content type to be ``text/hmtl''.
+And the body must be \HTML\ of course.
+
+
+\section{Sending both text and \cap{html} email}
+
+As not all email clients can display \HTML, most mailers send both a
+text and an \HTML\ version. The following example demonstrates how
+this can be done in \eposix:
+
+\typeEIFFELfile{ex_smtp3.e}
+
+We set the content type to be ``multipart/alternative'', and
+create two parts. The first part is content type ``text/plain'' and
+the second is the content type ``text/html''.
+
+
+\section{LDIF parser}
+
+\eposix\ contains an \index{LDIF}LDIF (\index{LDAP}LDAP Data
+Interchange Format) parser, see RFC 2849.
+
+
+
+
+\chapter{Writing daemons}
+
+\section{Introduction}
+
+\eposix\ has several classes that help with writing daemons or
+services. First of all there is the \Eclass{POSIX_DAEMON} ancestor
+class. But as daemons have no user interface, there are also classes
+for error and information logging.
+
+
+\section{Windows}
+
+On Windows NT (and derivatives) the equivalent of unix daemons are
+called services. They are a lot harder to write and require an Eiffel
+compiler with multi-threading. It is not yet possible to write an NT
+service with \eposix.
+
+The logging functionality described in this chapter does work on
+Windows NT though.
+
+
+\section{Creating a daemon}
+
+Creating a simple daemon is easy if you inherit from
+\Eclass{POSIX_DAEMON}. Implement the \Efeature{execute} method, and
+you're done. At run||time, call \Efeature{detach} to fork off a
+child. You can call \Efeature{detach} as many times as you want to
+spawn daemons.
+
+\typeEIFFELfile{ex_daemon.e}
+
+
+\section[sec:syslog]{Logging messages and errors}
+
+Although \cap{posix} doesn't have logging facilities, the Single Unix
+Specification does. This specification requires the presence of the
+\filename{syslogd} daemon for centralizes logging facilities. The
+following example shows you to write messages to this daemon
+
+\typeEIFFELfile{ex_syslog.e}
+
+Always use the \Eclass{SUS_SYSLOG_ACCESSOR} to access the syslog
+wrapper class \Eclass{SUS_SYSLOG}. \Eclass{SUS_SYSLOG} is a singleton,
+it makes no sense to open a connection to the syslog daemon twice.
+
+
+\section[sec:ulm]{ULM based logging}
+
+\eposix\ has portable routines for logging in Windows NT and
+Unix. This is build using the ULM (\infull{ULM}) specification. The
+specification itself can be found at \from[ulm]. It is a fixed format
+for logging that makes it easier to extract data with other tools.
+
+On Unix \eposix\ outputs messages to the syslog daemon, see
+\in{section}[sec:syslog]. On Windows \eposix\ logs to the event
+log. This makes this kind of logging specific to Windows NT based
+systems. It will not work on Windows 9x based systems.
+
+Below a short example of using ULM. The first step is to create a
+handler that does the actual logging. The class
+\Eclass{EPX_LOG_HANDLER} is operating system specific. If you compile
+on Windows it gives NT event log logging, on Unix it gives syslog
+logging. There is no logging mechanism for Windows 9x, but it should
+not be hard to write one. Just implement \Eclass{ULM_LOG_HANDLER} and
+implement the deferred routines.
+
+The second step is connecting that handler to the class that does ULM
+logging, the \Eclass{ULM_LOGGING} class. Logging is now set up.
+
+\typeEIFFELfile{ex_ulm.e}
+
+Two messages are written. Below the slightly formatted output Unix:
+
+\starttyping
+Jul 21 21:12:34 dellius example: DATE=20030721091234 \
+  HOST=dellius.nederware.nl PROG="ex_ulm.none" LVL=Alert \
+  MSG="Hello World."
+Jul 21 21:12:34 dellius example: DATE=20030721091234 \
+  HOST=dellius.nederware.nl PROG="ex_ulm" LVL=Usage \
+  SRC.IP=127.0.0.1
+\stoptyping
+
+The first message is in the default format. This will always log the
+date, the host where the message originated and the program. The
+program field, \cap{prog}, consists of a system and subsystem name,
+separated by dots. This subsystem name is the second parameter to
+\Efeature[ULM_LOGGING]{log_message}. It may be Void, in which case no
+subsystem is added to the system name. The level field, \cap{lvl},
+contains the importance of the message. It is the first parameter to
+\Efeature[ULM_LOGGING]{log_message}. The class \Eclass{ULM_LOG_LEVELS}
+has the complete list of levels. And in most cases the log ends with a
+simple message, \cap{msg}, that contains the message itself.
+
+Feature \Efeature[ULM_LOGGING]{log_event} allows more control over the
+fields that are logged. That is demonstrated in the second
+message. You can pass the fields that are logged. You can use the
+fields listed in \from[ulm], or any other field. There is no \cap{MSG}
+field if you don't specify one.
+
+An interesting application of the \cap{ulm} specification is the
+NetLogger library, see \from[netlogger]. It is a protocol to measure
+response times for a distributed application.
+
+On Windows NT you can use the supplied \filename{messages.dll} file to
+avoid this message in the event log:
+
+\starttyping
+The description for Event ID ( some_number4 ) in Source
+( some_name ) cannot be found. The local computer may not have
+the necessary registry information or message DLL files to
+display messages from a remote computer.
+\stoptyping
+
+Register this DLL under the
+\filename{HKLM/SYSTEM/CurrentControlSet/Services/Eventlog/Application}
+key. Add a new key which should have the name you have supplied to the
+\Efeature[EPX_LOG_HANDLER]{make} routine. This key should have two
+values:
+\startitemize[n]
+\item EventMessageFile, type REG_SZ. Its value is the full path to this
+  messages.dll file.
+\item TypesSupported, type DWORD. Its value should be 7.
+\stopitemize
+
+
+
+
+\chapter[sec:internet]{Writing \CGI\ programs}
+
+Although writing a \index{cgi}\cap{cgi} program doesn't really belong
+to \cap{posix}, they still are very common, so I decided to include a
+few classes to make this easier. And of course, they build upon the
+Standard C classes.
+
+\placefigure
+  []
+  [bon:cgi]
+  {BON diagram of \simpleEclass{EPX_CGI}.}
+  {\externalfigure[cgi]}
+
+You inherit from \Eclass{EPX_CGI} and implement \Efeature{execute}. As
+\Eclass{EPX_CGI} itself inherits from \Eclass{EPX_XHTML_WRITER} you
+can call use the features of that class to generate XHTML.
+
+\typeEIFFELfile{ex_cgi1.e}
+
+Output is accumulated in a string and written to stdout after your
+\Efeature[EPX_CGI]{execute} method has finished. The partially built
+string is accessible with
+\Efeature[EPX_XML_WRITER]{unfinished_xml}. Generated output is
+\cap{xhtml}, which usually displays fine with older browsers. If
+strict \cap{xhtml} is problematic, you can call
+\Efeature{doctype_transitional} instead of \Efeature{doctype}.
+
+It is important not to write to stdout as the output is only written
+after your \Efeature[EPX_CGI]{execute} has finished. If you want to
+write something to standard output, use the
+\Efeature[EPX_CGI]{add_data} feature or its shortcut alias
+\Efeature{puts}. If you want to write real tags, use
+\Efeature{add_raw}. This last feature allows you to write anything,
+while \Efeature{puts} escapes reserved characters like '>'.
+
+If you use provided features like \Efeature{b_a}, \Efeature{b_p} and
+such, an attempt is made to produce good looking source. Also your
+input is somewhat validated against \cap{xhtml} standards.
+
+It is also easy to write a \cap{cgi} program that displays a form and
+accepts submitted values. Even \index{cgi+file upload}file upload is
+supported. The following example uses the GET method to submit
+data:
+
+\typeEIFFELfile{ex_cgi2.e}
+
+You can use \Efeature[EPX_CGI]{b_input} to start an input element as
+shown for the input of a name. Or you can use \Efeature{input_text} to
+start a simple text input as shown for the input of a city. Below the
+line you see the value a user has submitted, if any. Use
+\Efeature{value} to get values with certain meta||characters
+removed. The output is still not save to be passed straight to a Unix
+Shell though! You can use \Efeature{raw_value} to get the contents as
+submitted by the user.
+
+In the above example it doesn't matter much if you use
+\Efeature{b_form_get} or \Efeature{b_form_post}. But with the GET
+method, you cannot upload files. The following example demonstrates
+how files can be uploaded:
+
+\typeEIFFELfile{ex_cgi3.e}
+
+It is important to set the encoding type. This example accepts a file
+and writes it to \filename{/tmp}. Because multiple files can be
+present, this example just loops over all key value pairs and checks
+if a file is present. This example isn't fool||proof with
+multiple users submitting the same file, but you should get the idea.
+
+Note that the first line is \Efeature[EPX_CGI]{content_text_html}: in case
+an exception occurs, the web server is still able to output something
+back to the user.
+
+After that we make sure that the key value pairs are created with
+\Efeature{assert_key_value_pairs_created}. They are automatically
+created if you call \Efeature{value}, but in this case we want the key
+value pairs themselves. In \Efeature[EX_CGI3]{save_uploaded_files} we
+use the \Efeature[EPX_KEYVALUE]{file} feature to check if that key
+value pair is an uploaded file: if it is not Void, it points to a
+\index{temporary file}temporary file. As this file will be deleted
+when it is closed or when your program exits, we have to copy it to a
+new file. The filename is just the value part of this key value pair.
+The filename is guaranteed to be free of directory parts.
+
+In the last example we just \index{cgi+enumerating all values}print all
+key/value pairs to the file \filename{list.txt} in the temporary
+directory. We \index{cgi+redirect}redirect the user to another file.
+
+\typeEIFFELfile{ex_cgi4.e}
+
+
+
+
+\chapter[sec:errorhandling]{Error handling}
+
+This chapter describes the \index{error handling}error handling
+strategies that are possible with \eposix. Basically there are two
+strategies: using the Eiffel exception mechanism or doing the error
+handling all yourself.
+
+\section{Error handling with exceptions}
+
+The opinion of the author of \eposix\ is that Eiffel's exception
+mechanism is very well suited to deal with things like files that
+cannot be opened or directories that do not exist. Others disagree,
+see \in{section}[sec:manualerrorhandling]. \eposix\ is designed such
+that when a \cap{posix} routine returns an error code, an exception is
+thrown. Here my arguments why I favor this style of error handling:
+\startitemize[n]
+\item We all know that exceptions are to be used for breach of
+  contract. This idea is formulated in \cite[OOSC2] and is the best
+  expressed opinion of exception handling I know.\par
+  So if you ask an \eposix\ method to open a file, it will do that for
+  you. If it cannot open the file, for whatever reason, it will raise
+  an exception. The same argument hold if you ask it to go to a
+  directory, to start a program, or to open a connection to another
+  machine.\par
+  This approach is also reflected in the names of \eposix's
+  features. The name is \Efeature[POSIX_TEXT_FILE]{open_read} and not
+  \Efeature[POSIX_TEXT_FILE]{attempt_open_read}.
+\item It is usually not wise to trust clients with error handling. The
+  larger a distance between a software failure and the error report,
+  the more difficult it is to make a correct diagnosis of what went
+  wrong (see \cite[Hatton2001a]). \eposix\ uses the fail early, fail
+  hard approach.
+\item Error handling is often forgotten or left to some global general
+  error handling mechanism. In an interesting article
+  (see \cite[Whittaker2001a]) James Whittaker describes how he
+  modified certain system calls to return legitimate, but unexpected
+  return codes. Memory allocation failed for example, or opening a
+  file returned with no more file handles. Applications failed within
+  seconds, but it was usually completely unclear why.
+\item It's a lot easier for programmer's. You don't have to write any
+  error handling. If your program completed, you know that there wasn't
+  a single system call that failed, that you didn't continue despite
+  some error. This will make it possible to write programs that do their
+  work correctly if no errors occur, or else do nothing.
+\stopitemize
+
+First an example. Let's take a look at the code you have to write in
+case you want to handle failure of opening a file:
+
+\typeEIFFELfile{ex_error1.e}
+
+In this example we try to create a file exclusively. The create will
+fail if the file already exists. In case this happens, we retry 3
+times. Before retrying we wait 1 second. Note that if the error is not
+\cdefine{EEXIST}, we fail directly, without retrying.
+
+In my opinion above's code is just the code you want to write usually:
+do not worry about errors, if something goes wrong, your application
+will fail.
+
+My preferred way of error handling is (or sometimes should be) also
+reflected in the preconditions. For example the
+\Efeature[POSIX_FILE_SYSTEM]{browse_directory} has the precondition
+that the given path should exist and should be a directory. Quite
+reasonable I think. The argument against such preconditions is that
+it is somewhat strange: if a client has honoured the precondition by
+checking that the directory exists, it should be able to assume that
+it safely can call the routine. But between its own check and the
+actual call, the directory can be removed by another process.
+
+This is the concurrent precondition paradox (see \cite[OOSC2]). In my
+opinion it would not be wise to remove this precondition. It is true
+that honouring it, will not make sure the contract is not broken. But
+it still serves a very usefull purpose: documentation.
+
+For example the routine \Efeature[POSIX_FILE_SYSTEM]{remove_file} does
+not have the precondition that the file should exist. That isn't an
+oversight. This routine does not fail if the file no longer exists for
+good reason: it honours its postcondition after all. So when you call
+this routine, the file may or may not exist. The routine doesn't care.
+
+
+% ? example of rescue resource protection: closing a file
+
+
+\section[sec:manualerrorhandling]{Manual error handling}
+
+In spite of the arguments listed in the previous section, automatic
+error handling is perhaps tedious to use when you expect a lot of
+errors. And some programmers just do not like Eiffel's exception
+mechanism. Therefore \eposix\ implements a completely different style
+of error handling. In this case, \eposix\ continues when an error
+occurs, but it safes the errorcode, and you can check the errorcode of
+the first error when you wish. This first errorcode has to be reset by
+the programmer. An example:
+
+\typeEIFFELfile{ex_error2.e}
+
+Exception handling is turned off by a call to
+\Efeature[STDC_SECURITY_ACCESSOR]{security.error_handling.disable_exceptions}.
+It can be enabled again by calling
+\Efeature{security.error_handling.enable_exceptions}. In between,
+you're on your own, just like a C programmer. If \filename{myfile}
+cannot be opened, nothing happens, and the
+\Efeature[POSIX_FILE_DESCRIPTOR]{put_string} feature is
+called. Depending if you have enabled precondition checking or not,
+\Efeature{put_string} will fail. The precondition if
+\Efeature{put_string} is that the file has to be open. Therefore, at
+certain points, you're still forced to deal with errors. Every object
+has an \Efeature{errno} variable. This variable points to the global
+\Efeature{STDC_ERRNO} object (its a once routine). So there basically
+is just one \Efeature{first_value} error value. Whatever object caused
+the error, you can check the \Efeature{errno.first_value} of any
+\eposix\ object. The last error is still available in
+\Efeature{errno.value}.
+
+If there is no error, the program continues writing. If
+\Efeature[POSIX_FILE_DESCRIPTOR]{put_string} failed, the next one is
+still executed. If there is an error, we reset it with
+\Efeature[STDC_ERRNO]{clear_first}. This gives us the chance to catch
+another error value if an error occurs. If this method is not called,
+\Efeature{first_value} will keep its original value.
+
+The following example is the same as \Eclass{EX_ERROR1}. It shows how
+to open a file exclusively with manual error handling.
+
+\typeEIFFELfile{ex_error3.e}
+
+As you can see, manual error handling does not necessarily translate
+into less code.
+
+The summary of this section is that you chould check each distinctive
+step when using manual error handling. You don't have to check
+intermediate steps.
+
+
+
+
+\chapter[sec:security]{Security}
+
+\eposix\ is well||suited to write server applications like \cap{cgi}
+scripts and daemons. As these applications can be hosted on servers
+that are attached to the Internet, they could be prone to
+attack. Applications written with \eposix\ could be misused in a
+denial of service attack or to gain root access. \eposix\ offers
+certain protection mechanisms that enable your applications to
+fend off such penetrations.
+
+This chapter shows you how applications can be misused and what
+mechanisms \eposix\ offers for certain attacks.
+
+\startquotation
+Programmers typically focus on "positive" aspects of programs, that is,
+what is the functionality required for the task to be accomplished.
+Programmers rarely focus on the negative aspects of programs, that is,
+what functionality is not required for the program to accomplish its
+task.  Attackers take advantage of proggrammers failure to consider
+negative functionality.  Perhaps a reason that programmers avoid
+negative functionality is that there is no good way to specify what a
+program should not be permitted to do.
+\stopquotation
+
+% quote here? Programmers usually focus more on what is needed that
+% what is not needed.
+
+
+\section{Denial of service attacks}
+
+In a denial of service attack, crackers attempt to deplete one or more
+finite resources. Resources can be software related like database
+connections or \cap{tcp/ip} connections, but ultimately resources are
+finite because of hardware limitations. This manual distinguishes the
+following hardware resources:
+\startitemize
+\item Memory.
+\item CPU.
+\item Disk space.
+\item Network bandwidth.
+\stopitemize
+
+A denial of service attack succeeds if a cracker depletes these
+resources in such a way that the server cannot handle request anymore,
+or handles them very slowly. For example, Linux 2.2 is easy to bring
+to its knees if you keep on allocating memory. In normal situations
+your application runs fine, and allocates only a limited amount of
+memory. But an attacker might have found a way to make your
+application allocate much more memory. Even if you are sure that the
+code you have written is not prone to such an attack, you might use a
+library based on \eposix\ that does have code that is exploitable.
+
+\eposix\ has some limited support to set limits on memory, file handle
+(a memory issue) and cpu usage. When a set limit has been exceeded, an
+exception is raised.
+
+To limit the amount of memory that can be allocated by the
+\Eclass{STDC_BUFFER} class, inherit from
+\Eclass{STDC_SECURITY_ACCESSOR} and call
+\Efeature{security.memory.set_max_allocation}. Currently this limits
+the amount of memory that can be allocated with
+\Eclass{STDC_BUFFER}. It does not limit the amount of memory that is
+allocated by \Eclass{STRING} or other classes. You can also limit the
+amount of memory that can be allocated with a single call by calling
+\Efeature{security.memory.set_max_single_allocation}.
+
+You can limit the number of file handles a program can open by calling
+\Efeature{security.files.set_max_open_files}. This works only with
+files and sockets opened by \eposix\ classes as \Eclass{STDC_FILE} and
+\Eclass{POSIX_FILE_DESCRIPTOR}, not with files opened through other
+means. In this case you cannot rely on the garbage collection to close
+your file. Certain garbage collectors do not allow calling other
+classes in the \Efeature[MEMORY]{dispose} method. \eposix\ needs to do
+this to decrement its idea of the number of open handles. Only when
+you explicitly call \Efeature[STDC_FILE]{close} will the \eposix\
+decrease its open file handles.
+
+You can limit the amount of CPU time by calling
+\Efeature{security.cpu.set_max_process_time}. It is not possible to
+automatically halt your application when this time has exceeded. You
+have to call \Efeature{security.cpu.check_process_time} to actually
+check the processor time used.
+
+Currently \eposix\ cannot check disk space or network bandwidth
+limitations.
+
+{\tt Discuss here that decrementing only works for manual
+deallocations, I'm very sorry about that, but this is a problem of
+ISE. I'm thinking about ways to work around this.}
+
+
+\section{Authorization bypass attacks}
+
+A hacker can bypass authorization if he or she, through your program,
+can gain the following access:
+\startitemize
+\item Access to more information than your program is written to
+  provide. Security is not breached here, but your program is used in
+  an `innovative' way. Note that if your program runs within the root
+  security context (suid root), security can be breached!
+\item Security is breached when your program is used to get more
+  access rights than your program is written to provide. Especially
+  suid root programs are an attractive target here.
+\stopitemize
+
+Usually Eiffel programs do not allocate buffers on the stack, so they
+are not prone to the so called `buffer overflow' attack. As certain
+vendors might provide some `native' class that allocate things on the
+stack, leave precondition checking always on in suid root programs.
+
+Currently \eposix\ doesn't offer much protection for suid root
+programs. Much better security will be the topic of a next release.
+
+%Or:
+% reading more than allowed.
+% writing more than allowed.
+% executing other than allowed programs.
+% other exploitable attacks?
+
+% discuss common attachs:
+% - buffer overflow
+% - stack overflow
+
+% - test for poison nul, what happens if I get a /etc/passwd%0test file?
+%   does eiffel see this as /etc/passwd%0test? If passed to C you get /etc/passwd...
+% how to protect against this? Filter out %0 in CGI?
+% or better yet, refuse to open such a filename... i.e. one with
+% strange characters: good stuff for my STDC_PATH thing
+
+
+
+
+\chapter[sec:cheader]{Accessing C headers}
+
+This chapter explains the conventions that \eposix\ uses to access the
+C||headers.
+
+\section{Making C Headers available to Eiffel}
+
+The most portable and safest header translation comes when a C
+function is not called verbatim, but instead a translation function is
+used. For example to make the Standard C function \posix{fopen}
+available within Eiffel a new header file is created which lists an
+Eiffel compatible way to call this routine:
+
+\starttyping
+#include "eiffel.h"
+#include <stdio.h>
+
+EIF_POINTER posix_fopen(EIF_POINTER filename, EIF_POINTER mode);
+\stoptyping
+
+Instead of using C types, we use Eiffel types here, which are made
+available by including \myheader{eiffel.h}.
+
+The corresponding C file contains the following implementation:
+
+\starttyping
+#include "my_new_header.h"
+
+EIF_POINTER posix_fopen(EIF_POINTER filename, EIF_POINTER mode)
+{
+  return ( (EIF_POINTER) fopen (filename, mode));
+}
+\stoptyping
+
+It simply calls the original function, returning the result. Type
+conversion between Eiffel and C types shouldn't pose problems this
+way.
+
+To be able to call this function from Eiffel, an
+\Ekeyword{external} feature needs to be written. For example:
+
+\startEIFFEL
+class HEADER_STDIO
+
+feature {NONE} -- C binding for stream functions
+
+   posix_fopen (path, a_mode: POINTER): POINTER is
+         -- Opens a stream
+      require
+         valid_mode: a_mode /= default_pointer
+      external "C"
+      end
+
+end
+\stopEIFFEL
+
+Of course, the Eiffel function can have all Design By Contract
+features Eiffel programmers are accustomed too.
+
+To recapitulate: every header that is to be translated, needs:
+\startitemize[n]
+\item a new header file, and
+\item a corresponding C file, and
+\item an Eiffel class.
+\stopitemize
+
+For example to translate \header{stdio.h} a header file like
+\filename{eiffel_stdio.h} and a C file \filename{eiffel_stdio.c} is
+needed. The Eiffel class could be in \filename{header_stdio.e}.
+
+
+\section{Distinction between Standard C and \cap{posix} headers}
+
+However, \cap{posix} sometimes defines extensions to existing Standard
+C headers. Simply using a translation header file like
+\filename{eiffel_stdio.h} will not work for pure Standard C Eiffel
+programs, as it can include \cap{posix} specific extensions that might
+simply not be available on a given platform.
+
+Therefore, \eposix\ divides the C headers in several groups:
+\startitemize[n]
+\item The Standard C headers.
+\item The \cap{posix} headers.
+\item The Single Unix Specification headers.
+\item Microsoft Windows headers (as far as they define \cap{posix}
+  functions, this library does not translate Microsoft Windows
+  specific functions).
+\stopitemize
+
+Every group gets its own translation header with its own prefix. A
+translated header has a prefix, an underscore and next the original
+header name. The Standard C translation of \header{stdio.h} is done in
+\myheader{c_stdio.h} and \myheader{c_stdio.c}. The \cap{posix}
+extensions to this header are available in \myheader{p_stdio.h} and
+\myheader{p_stdio.c}.
+
+The corresponding Eiffel class follows similar conventions. It has the
+group's prefix, next the string `API', an underscore and next the name
+of the header. So all \header{stdio.h} functions are made available in
+\Eclass{CAPI_STDIO}.
+
+In \in{table}[table:prefixconventions] all the groups with there
+translation header prefix and Eiffel class prefix are listed. See also
+the directory structure in \in{figure}[fig:directory2].
+
+\placefigure
+  [top]
+  [fig:directory2]
+  {\eposix\ directory structure}
+  {\externalfigure[directory]}
+
+
+\placetable
+  []
+  [table:prefixconventions]
+  {\eposix\ prefix conventions}
+\starttable[|l|l|l|l|]
+\HL
+\VL Group \VL directory \VL header prefix \VL class prefix \VL\SR
+\HL
+\VL Standard C \VL \filename{src/capi} \VL c \VL CAPI \VL\SR
+\VL \cap{posix} \VL \filename{src/[api} \VL p \VL PAPI \VL\SR
+\VL Single Unix Specification \VL \filename{src/sapi} \VL s \VL SAPI \VL\SR
+\VL Windows \VL \filename{src/wapi} \VL w \VL WAPI \VL\SR
+\HL
+\stoptable
+
+
+\section{C translation details}
+
+This translation wants to do as less as possible at the C level. It
+attempts to just make available the C constants and C functions and do
+the actual work in Eiffel.
+
+A few details:
+\startitemize[n]
+\item Constants, C macro definitions, are exported in the header file with the
+  prefix `const_' and next the macro name. The Eiffel API class
+  exports these constants with the original, uppercased name.
+\item Struct members are exported with getter and setter
+  functions. The get function has the prefix `posix', an underscore,
+  the struct name, an underscore and as last the member name. The set
+  function has the prefix `posix', an underscore, `set', an
+  underscore, the struct name, an underscore and as last the member
+  name.
+\stopitemize
+
+\stopbodymatter
+
+
+
+
+\startappendices
+
+\chapter[sec:mapping]{Posix function to Eiffel class mapping list}
+
+The following table defines exactly where a given Posix function is
+used in a Eiffel class mapping. The table is sorted in alphabetic
+order. Note that when a STDC_ class is listed, the feature is also
+available in the corresponding POSIX_ class. The same is true for the
+EPX_ classes. The EPX_ classes provide functionality portable between
+Unix and Windows. The corresponding POSIX_ or SUS_ classes extend that
+functionality for \posix\ or the Single Unix Specification.
+
+\start\switchtobodyfont[8pt]
+
+\starttabulate[|l|l|l|p(3cm)|]
+\HL
+\NC Function \NC Header \NC Class \NC Comment \NC\NR
+\HL
+\input fmapping.tex
+\HL
+\stoptabulate
+
+\stop
+
+This tabel does not contain the following category of functions:
+\startitemize[n]
+\item Math functions.
+\item String functions, including wide character/multibyte string.
+  routines. The memory move/copy functions are included, some of them
+  even supported.
+\item No type conversion functions.
+\item No functions from \header{ctype.h}.
+\item No functions from \header{setjmp.h}.
+\item No functions from \header{stdarg.h}.
+\item No string formatting functions like \posix{sscanf}. I suggest
+  you use the Formatter library for that. You can download
+  this library at \from[formatter].
+\stopitemize
+
+Functions in above categories are either not applicable, already
+present in Eiffel or are better off in a different library.
+
+\stopappendices
+
+
+\startbackmatter
+
+\chapter{To do}
+
+\section{\simpleEclass{ABSTRACT_DIRECTORY}}
+
+\startitemize[n]
+\item \Efeature[ABSTRACT_DIRECTORY]{forth_recursive} raises an
+  exception when it encounters a symbolic link that does no longer
+  point to a file. Because it tries to retrieve the statistics, and
+  that call fails.
+\stopitemize
+
+
+\section{\simpleEclass{EPX_FILE_SYSTEM}}
+
+\startitemize[n]
+\item Make \Eclass{EPX_DIRECTORY}.
+\stopitemize
+
+
+\section{\simpleEclass{STDC_FILE}}
+\startitemize[n]
+\item read_integer, read_double, read_boolean should perhaps be
+  different for the binary or text files. Now they're satisfy the
+  mico/e definition, so useful for text files only.
+\stopitemize
+
+
+\section{\simpleEclass{STDC_LOCALE_NUMERIC}}
+\startitemize[n]
+\item Complete the list of properties
+\stopitemize
+
+
+\section{\simpleEclass{STDC_PATH}}
+\startitemize[n]
+\item make some escape char functionality with `\%' or so.
+\stopitemize
+
+
+\section{\simpleEclass{STDC_TIME}}
+\startitemize[n]
+\item Add elapsed seconds
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_DAEMON}}
+\startitemize[n]
+\item Closing the first three file descriptors is not likened by
+  SmartEiffel. So leaves them open. Have to fix this some how.
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_EXEC_PROCESS}}
+\startitemize[n]
+\item Turn off Eiffel exception handling after the final execvp, else
+    you get back signals not captured by child process as your
+    signals, or so it seems (or perhaps you're killing the Eiffel
+    process, but not the subprocess it generated??)\par
+    Killing subprocesses works sometimes, but not always.\par
+    Remove exception handling just before execvp?\par
+\item how about capture to /dev/null?
+\item can we capture i/o for every forked process? If so, move this code
+    to POSIX_FORK_ROOT.
+\item Perhaps option to influence environment variables to pass to
+  subprocess?
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_FILE_DESCRIPTOR}}
+\startitemize[n]
+\item possible to open exclusively and so?
+\item complete support for nonblocking i/o.
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_MEMORY_MAP}}
+\startitemize[n]
+\item Cannot change protection.
+\item No locking.
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_SEMAPHORE}}
+\startitemize[n]
+\item not valid for named semaphore I think.
+\item have to add various close/unlink functions.
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_SIGNAL}}
+\startitemize[n]
+\item Add synchronous waiting for signals like \posix{sigwait}.
+\item (Re)enable sending Eiffel exception on signal?
+  i.e. set_exception_handler or so.
+\item Resend signal as Eiffel exception in signal handler.
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_STATUS}}
+\startitemize[n]
+\item return STDC_TIME instead of unix time
+\item Not all stat member fields are currently available.
+\stopitemize
+
+
+\section{\simpleEclass{POSIX_MQUEUE}}
+\startitemize[n]
+\item Solaris x86 says it supports it, so have to work on that.
+\stopitemize
+
+
+\section{Security}
+Add base security class that specifies programs intent. Default is to
+allow anything, but security can be tightened:
+\startitemize[n]
+\item Call to \posix{open} or \posix{creat} (used?), use real user id,
+  not effective user id.
+\item Assume we're free from buffer attacks if preconditions are
+  enabled.
+\item exec/system call only allowed when effective user is not root,
+  unless otherwise specified. Or exec only allowed for specific files.
+\item Protect against writing specific files/directories. Perhaps
+  substitute vulnerable filenames for other ones.
+\item Emulate atomic calls. Or add atomic \posix{access} and
+  \posix{open} call. Shouldn't be done by setting su??
+\item When appending/writing to files, check if symbolic link.
+\item \Efeature[ABSTRACT_FILE_SYSTEM]{force_remove_directory} is
+  potentially unsafe because it follows links so it can be used to
+  destroy things not under that directory.
+\item remove tmpnam function.
+\item Make sure the once functions in STDC_BASE are called from within
+  the security initialization, so they're allocated and do not
+  generate an out-of-memory exception themselves.
+\stopitemize
+
+Idea from \quote{Remediation of Application Specific Security
+Vulnerabilities at Runtime} article in IEEE Computer sep/oct 2000.
+
+
+\section{Windows code}
+
+\startitemize[n]
+\item chmod also available on Windows.
+\item Add permissions to status: read/write.
+\item set_binary_mode should do something for the posix factory, i.e.,
+  when compiling with cygwin. Perhaps separate \Eclass{CYGWIN_API} or
+  so in \cap{posix} dir with the window specific stuff.\par
+  Currently cygwin uses text mode for file descriptors, the windows
+  variant uses binary.
+\item utime can be supported by using SetFileTime.
+\stopitemize
+
+\section{Other}
+\startitemize[n]
+\item remove ugly const_ prefix from constants. Uppercase should be good
+  enough.\par
+  Almost done, only const_EOF remains, not easy to replace perhaps.
+\item Compare POSIX_SIGNAL with ISE UNIX_SIGNAL: They have an
+  is_caught function, useful? Means this signal generates an exception.
+\stopitemize
+
+
+\section{Known bugs}
+\startitemize
+\item The error code is perhaps not always set for every
+  \Efeature[STDC_BASE]{raise_posix_error}.
+\item does STRING_HELPER leak memory in to_external? How is memory used
+  for these conversions being freed? Is memory used there?
+\item If a child process is signalled (terminated), the function
+  \Efeature[POSIX_FORK_ROOT]{is_terminated_normally} sometimes returns
+  True.
+\stopitemize
+
+
+\chapter[sec:biography]{Bibliography}
+
+\placepublications
+
+
+\completeindex
+
+\stopbackmatter
+
+\stoptext
+% LocalWords:  writability {Colophon} pid {posix} {posix} BON VisualEiffel Gobo
+% LocalWords:  redhat Cygwin plugin

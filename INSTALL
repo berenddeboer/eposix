@@ -1,0 +1,50 @@
+See the Installation chapter in the manual in doc/eposix-manual.pdf.
+This document is in Adobe PDF format, see http://www.adobe.com/acrobat.
+
+1. Make sure you have the EPOSIX environment variable set to the eposix
+   root directory.
+
+2. The only thing that needs to be built is the Eiffel/C glue library.
+   It resides in the lib subdirectory.
+
+On Unix type:
+
+  ./configure --with-compiler=se|ise|ve --prefix=$EPOSIX
+  make
+
+to build it. On older systems try to use 'gmake' instead of 'make'.
+
+Install the libraries in $EPOSIX/lib with:
+
+  make install
+
+If you have not specified the prefix, the libraries will go in
+/usr/local/lib or /usr/lib.
+
+If you want to use the eposix.ecf file the library file should be
+copied to a different destination:
+
+  cp lib/libeposix_ise.a ${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a
+
+
+On Windows type:
+
+  makelib
+
+to get help about makelib. To build for ISE Eiffel and Microsoft Visual C,
+type:
+
+  makelib -ise -msc
+
+Again, if you want to use the eposix.ecf file you will need to copy
+the .lib file:
+
+  copy lib\libeposix_ise.a ${ISE_LIBRARY}\lib\${ISE_PLATFORM}\${ISE_C_COMPILER}\libeposix.lib
+
+
+If you are on a different platform than Linux or Windows you will have
+to edit src/library.xace or eposix.ecf might to be able to link your
+application properly. Read the comments in the file to see what must
+be changed.
+
+The defaults are correct for Linux and Windows (but not cygwin).

@@ -1,0 +1,7 @@
+${EPOSIX}/src/support/
+${EPOSIX}/src/spec/se/
+${EPOSIX}/src/capi/
+${EPOSIX}/src/standardc/
+${EPOSIX}/src/epxc/
+${EPOSIX}/src/epxc/mime
+${EPOSIX}/src/epxc/xml

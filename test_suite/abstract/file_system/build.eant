@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<project name="eposix_test" default="help">
+
+	<description>
+		system: "POSIX_SYSTEM test"
+		copyright: "Copyright (c) 2002 by Berend de Boer"
+		license: "Eiffel Forum License v1 (see forum.txt)"
+		date: "$Date: 2003/11/29 $"
+		revision: "$Revision: #2 $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/test.eant">
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system" value="eposix_test"/>
+		<set name="library" value="abstract/file_system"/>
+		<set name="system_dir" value="${EPOSIX}/test_suite/${library}"/>
+	</target>
+
+</project>

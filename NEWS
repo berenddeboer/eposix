@@ -1,0 +1,326 @@
+NEWS - list of user-visible changes between releases of eposix
+
+
+New in 3.0 - 2007-05-18
+
+* Security, if you use this functionality you are urged to upgrade:
+  - EPX_MIME_PARSER: filename parameter of Content-Dispose field is
+    now stripped of directory components.
+  - SUS_SYSLOG: format string vulnerability fixed.
+
+* ABSTRACT_DESCRIPTOR
+  - new class with most functionality from ABSTRACT_FILE_DESCRIPTOR,
+  	but contains only descriptor specific functionality, not file
+	  descriptor functionality.
+  - eof: obsolete, use end_of_input
+* ABSTRACT_FILE_DESCRIPTOR
+  - generic descriptor code moved to new class EPX_DESCRIPTOR.
+  - path: obsolete, use name instead.
+* POSIX_FILE_DESCRIPTOR
+  - close_on_execute did nothing.
+* ABSTRACT_SOCKET/EPX_SOCKET
+  - now inherit from ABSTRACT_DESCRIPTORand no longer contain file
+    specific features.
+  - socket multiplexing patch from Till G. Bay merged. This makes
+	  eposix usuable for Goanna without patches.
+* ABSTRACT_TCP_SERVER_SOCKET
+  - don't set the SO_REUSEADDR option on Windows as it does something
+    completely different. it screws up your system
+  - set_reuse_address: value was always set as parameter was ignored.
+* EPX_HTTP_CLIENT
+  - default now raises an exception when a connection to a server can't
+  	be opened (previously it returned not is_open), this is more
+  	consistent with how eposix works. Set continue_on_error to get the
+  	previous behaviour.
+  - make_secure to create an https connection to the server. Needs the
+    openssl binary to create such connections.
+* STDC_BASE
+  - new feature inherit_error_handling to inherit error handling like
+  	raising an exception from another class.
+* STDC_FILE
+  - put_string: now supports writing of strings wtih %U
+  	characters. Strings are also used as buffers in Eiffel, it was a
+  	bit surprising that only C like strings could be written. This
+  	could have an impact on performance.
+  - filename: obsolete, use name instead.
+  - eof: obsolete, use end_of_input
+* SUS_TEMPORARY_FILE: new class, creates temporary file based on
+ 	mkstemp(), so filename is available.
+* STDC_TEMPORARY_FILE
+  - name: no longer exported as not applicable.
+* STDC_FILE_SYSTEM
+  - write_string_to_file: new feature to write contents of a string to
+  	a file.
+* STDC_TIME:
+   - make_from_dt_date_time: creation from Gobo DT_DATE_TIME object.
+   - as_dt_date_time: feature returns a	Gobo DT_DATE_TIME object.
+* POSIX_CONSTANT
+  - Added all POSIX error codes.
+* EPX_URI: obsolete, use Gobo's UT_URI.
+* EPX_HTTP_10_CLIENT
+  - read_response_wit_redirect: new method to read a response and
+    follow up on redirects until the redirects end (or 20 redirects
+    have been processed).
+  - set_basic_authentication: new feature to include the authorization
+  	header in case the server uses basic authentication.
+  - new features is_authentication_required, authentication_scheme and
+    authentication_realm.
+* EPX_MIME_PARSER
+   - Handle WWW-Authenticate as Apache sends it, which is in violation
+     of RFC 2617 I believe.
+   - rudimentary cookie parsing added.
+   - Content-Disposition parsing had a security flaw: the filename
+     parameter was not stripped from its directory component (it is now).
+   - More robust in case erroneous Content-Length was present.
+* EPX_MIME_HEADER
+  - set_content_type: new method.
+* EPX_MIME_EMAIL_HEADER: new class
+* EPX_XML_WRITER
+  - now uses the stricter routines from XM_UNICODE_CHARACTERS for name
+  	and content validation. The corresponding routines in
+  	EPX_XML_ROUTINES have been made obsolete.
+* EPX_XHTML_WRITER
+  - set_onclick: new feature
+  - script: new feature
+* EPX_CGI:
+  - support for PUT method.
+  - is_valid_request_method: new feature which can return false in
+  	case the request method is not recognised. The EPX_CGI will return
+	  405 in that case.
+  - status: did not emit new line after header, so the next header
+   	effectively became part of the status reason.
+  - better mechanism to detect if data is available in the
+    QUERY_STRING environment variable or via stdin.
+  - if_modified_since: new feature, returns date.
+  - don't write body when request method is HEAD.
+* FreeBSD
+  - Fixed a nasty bug in FreeBSD socket handling. It seems sockets set
+  	EWOULDBLOCK even when data is returned for FreeBSD 5 and higher. So
+  	errno is now explictly reset when data is returned, so routines
+	  expecting errno to be set only on errors behave like expected.
+* proper multi-threading support for ISE Eiffel: all C calls which are
+  potentially blocking are now marked as "C blocking". This required
+  some heavy restructuring of the directory hierarchy and the
+  introduction of #ifdef.
+* Documentation: examples to create HTML email and connect to an IRC server.
+
+
+
+New in 2.4 - 2006-05-30
+* ./configure changes
+  - Gobo Eiffel Compiler support added. Use --with-compiler=gec.
+  - multi-threading support: Use --enable-threads.
+* makelib.exe:
+  - now generates multi-threaded libraries for ISE when the Microsoft
+    C compiler is used.
+* EPX_HTTP_SERVER
+  - now supports persistent connections.
+  - make: does not start listening anymore! Call listen_locally or
+    listen_globally.
+  - send_file: when serving a file it now includes an ETag
+  - add_file_expires_date: new feature that adds an Expires header for
+  	image files in order to improve performance with IE. Without this
+  	IE will retrieve reused images on a page multiple times.
+* EPX_HTTP_10_CLIENT:
+  - removed precondition post_data_content_type_recognized as this is
+    not necessarily true.
+* EPX_CGI:
+  - new feature status to signal to server which status code, response
+    code, to return to the client.
+  - has_key didn't initialise the key/value pair data structure which
+    `value' and `raw_value' did.
+* EPX_SMTP_CLIENT:
+  - When reading capabilities should have used force_last
+* EPX_IMAP4_CLIENT:
+  - New feature fetch_header_and_flags.
+* EPX_MIME_PARSER
+  - now parses most of the fields which contain a list of email
+    addresses such as the from, to, cc and bcc fields.
+  - support for chunked Transfer-Encoding.
+  - parse_body: does not take an argument anymore. Determining length
+    of message body is now entirely based on the previously parsed
+    header.
+  - didn't correctly validate dates.
+* ABSTRACT_FILE_DESCRIPTOR:
+  - seek_XXXX features didn't reset eof, should always be False after
+    a seek.
+* EPX_EXTENSION_FILTER:
+  - now accepts all directories and will recursive to any
+    depth. Filenames must still match the filter though.
+* ABSTRACT_DIRECTORY:
+  - forth: when an extension filter was set, and recursive browsing
+  	was specified, directories were not recursived because they did
+  	not match the extension filter. Introduced the option
+  	validate_directory in ABSTRACT_PATH_FILTER to give a filter the
+  	option to accept directories, and not include them in the filter.
+* POSIX_FILE_DESCRIPTOR
+  - is_closed_on_execute: new feature.
+* EPX_FILE_SYSTEM
+  - browse_directory: now returns an EPX_DIRECTORY.
+* EPX_DIRECTORY:
+  - class equal to ABSTRACT_DIRECTORY. Use this instead of
+    ABSTRACT_DIRECTORY as ABSTRACT_XXXX classes should not be used
+    directly by the client.
+* EPX_CHARACTER_HELPER
+  - class has become obsolete.
+* EPX_CURRENT_PROCESS:
+  - new feature effective_user_name.
+* EPX_HTTPS_URI_RESOLVER: new class.
+* WINDOWS_BASE:
+  - raise_posix_error is redefined to get the error
+	message from the Windows API GetErrorMessage() instead of the
+	posix strmessage. The posix strerror() doesn't return anything for
+	Windows specific error numbers.
+	This is a bit annoying if you combine classes that don't
+	descend from WINDOWS_BASE with ones that do. In that case make
+	sure to undefine raise_posix_error on the classes that do not
+	inherit from WINDOWS_BASE.
+* WINDOWS_CURRENT_PROCESS:
+  - user_name: returns name of user associated with current thread.
+* WINDOWS_SYSTEM:
+  - performance_frequency: value of the high-resolution performance counter.
+  - performance_counter: frequency of the high-resolution performance counter,
+* EPX_DSML_V1_WRITER
+  - new class to write LDIF file in XML format, i.e. DSML v1.
+* EPX_LDIF_PARSER
+  - class to parse LDIF files.
+* STDC_ERRNO
+  - clear_all: now clears both value and first_value.
+  - first_value wasn't shared among all STDC_ERRNO objects.
+* ABSTRACT_STRING_HELPER
+  - incorrect postcondition in case the STRING contained a NULL character.
+* EPX_XML_WRITER
+  - add_comment: didn't quote meta data properly.
+  - add_attribute, add_ns_attribute, add_a_name_space: greatly
+    increased speed when serializing XML and you don't want to change the
+    value of the attribute at a later stage.
+* EPX_XHTML_WRITER
+  - new feature img, adds an image.
+
+
+New in 2.2 - 2005-03-03
+
+* Socket handles on Windows are no longer inherited by child processes
+  (this was a Windows default).
+* EPX_HTTP_CLIENT.make_from_port: renamed to make_with_port.
+* EPX_SMTP_CLIENT: new class for sending mail through an SMTP server.
+* EPX_FTP_CLIENT: new class that implements a basic FTP client.
+* EPX_IRC_CLIENT: new class. Still under development. Support for
+  NickServ, DCC chat and user tracking per channel.
+* EPX_OPENSSL: new class which uses the openssl program to
+	connect to a server using a SSL/TLS session.
+* EPX_MIME_BODY_MULTIPART.append_to_string: in case of more than
+	one part, parts were not properly separated by a header.
+* EPX_MIME_PART.append_to_string didn't append the boundary in a
+	proper manner.
+* EPX_MIME_FORM: new class inheriting from EPX_MIME_PART. Contains
+	the make_form_data feature moved from EPX_MIME_PART. Use this
+	class to create the result of HTML form submission to an HTTP
+	server.
+* EPX_MIME_PART: new creation feature make_form_data that makes it
+  possible to	create a form data MIME message (RFC 2388).
+* EPX_SELECT: Support for the select() call on Unix and Windows. Allows
+	synchronous i/o multiplexing.
+* STDC_BUFFER.put_string: new feature.
+* ABSTRACT_FILE_DESCRIPTOR.read_line: now does blocking i/o if it
+	has read the first character. Else you could end up reading
+	partial lines. If you want truly non-blocking i/o string reading,
+	use read_string instead of line reading.
+* EPX_STRING_HELPER.string_to_pointer now returns a read-only
+	pointer to the string. Writing to that pointer no longer affects the
+  STRING. True for all XXXX_to_pointer routines.
+* ABSTRACT_IP4_ADDRESS.make_from_components: didn't handle IP
+  addresses that were in the 128-255.0.0.0 range due to integer overflow.
+* ABSTRACT_IP_ADDRESS redefines is_equal so IP addresses can be
+	compared for equality.
+* POSIX_CURRENT_PROCESS.login_name: new definition, now returns a
+  reliable login name.
+* POSIX_CURRENT_PROCESS.real_user: returns user based on effective user id.
+* EPX_PARTIAL_BUFFER: extends STDC_BUFFER with count feature. Count can be less
+  than capacity. Use for partially filed buffers.
+* EPX_CURRENT_PROCESS: new feature environment_variables.
+* EPX_CURRENT_PROCESS: new feature millisleep.
+* SUS_CURRENT_PROCESS: new feature nanosleep.
+* SUS_SYSTEM: new feature
+  have_realtime_clock,real_time_clock_resolution and real_time_clock.
+* EPX_INCREMENTAL_XML_WRITER: new class.
+* EPX_XML_WRITER: new method tag_depth.
+* STDC_CURRENT_PROCESS now inherits from ARGUMENTS as well.
+* SUS_TIME: based on STDC_TIME, adds nano-second resolution for
+  systems that support it.
+* EPX_SOAP_WRITER.message: returned a ASCII string, but should
+	have returned a UC_STRING instead
+* ABSTRACT_SERVICE: new creation feature make_from_name_with_default:
+  create a service, but provide a default port in case port name not
+  found in services.
+* STDC_FILE.put_character accepts a CHARACTER now instead of an
+	INTEGER.
+* SUS_ENV_VAR.set_value: implementation was wrong.
+* ISE Eiffel: we no longer use eif_freeze/eif_unfreeze but copy
+  strings in case. So there is a certain performance
+  hit. eif_freeze/eif_unfreeze seems to be unstable with 5.5
+
+
+New in 2.0 - 2004-01-07
+* license changed to Eiffel Forum Version 2, see
+	forum.txt. License is now FSF (GPL) and OSI (Open Software
+	Initiative) compatible.
+* Full socket (tcp/udp/unix) support on Unix.
+* Windows TCP support.
+* non-blocking accept in the socket classes.
+* STDC_FILE.read_string and ABSTRACT_FILE_DESCRIPTOR.read_string
+  definition changed. It now follows Gobo's KI_CHARACTER_INPUT_STREAM
+  in reading just a bunch of characters, without regard for new line
+  characters.
+* Use STDC_TEXT_FILE.read_line and ABSTRACT_FILE_DESCRIPTOR.read_line
+  for line reading.
+* Added builtin HTTP server EPX_HTTP_SERVER. Useful to embed in
+  applications. Very primitive compared to a full-blown server.
+* MIME parser extended and rewritten somewhat. Header stuff from
+  EPX_MIME_PART is now in EPX_MIME_HEADER.
+* STDC_FILE and ABSTRACT_FILE_DESCRIPTOR now inherit from the Gobo
+  KI_CHARACTER_INPUT_STREAM and KI_CHARACTER_OUTPUT_STREAM
+  classes. This makes sockets, file descriptors and streams
+  plug-compatible with Gobo.
+* Separate manual with short/flat forms of classes.
+* Manual rewritten in more topical style.
+* Truly Unicode safe now.
+* GOBO_CC variable must now be bcb instead of bcc.
+
+
+New in 1.6.2 - 2003-02-10
+* lcc-win32 didn't like w_windows.c. Now uses data type
+  PWIN32_FIND_DATAA instead of PWIN32_FIND_DATA
+
+
+New in 1.6.1 - 2003-02-05
+* Release less tested as 1.6.0. If 1.6.0 works fine for you, there is
+  no reason to download this one.
+* As I could not get SmartEiffel 1.1 beta to compile on Windows, that
+  version is not supported.
+* Release targeted at ISE Eiffel 5.2, VisualEiffel 4.1 and SmartEiffel
+  1.1 beta.
+* For ISE Eiffel 5.2 there were basically no changes needed.
+* For VisualEiffel 4.1 a small change was made so string allocation
+  should perform slightly better.
+* Due to reorganization in SmartEiffel, this release does not work
+  with earlier versions of Smarteiffel (base.h was moved).
+
+
+New in 1.6.0 - 2003-01-21
+* adapted to SmartEiffel (should still work with SmallEiffel).
+* now needs Gobo to compile.
+* tests partially converted to Gobo.
+* src/library.xace file complete.
+* ULM based logging through ULM_LOGGING and EPX_LOG_HANDLER classes.
+* MIME parser.
+* HTTP client in EPX_HTTP_10_CLIENT.
+* class XML_GENERATOR renamed to EPX_XML_WRITER.
+* class XHTML_GENERATOR renamed to EPX_XHTML_WRITER.
+* new class EPX_URI for URI parsing.
+* Windows specific shared memory class: WINDOWS_PAGING_FILE_SHARED_MEMORY.
+* POSIX_MEMORY_MAP inherits from STDC_BUFFER. Breaks code.
+
+
+New in 1.1.0 - 2002-06-25
+* eposix is now build with autoconf. See INSTALL for instructions.

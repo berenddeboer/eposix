@@ -1,0 +1,8 @@
+${EPOSIX}/src/windows/
+${EPOSIX}/src/wapi/
+${EPOSIX}/src/abstract/
+${EPOSIX}/src/epxc/
+${EPOSIX}/src/standardc/
+${EPOSIX}/src/capi/
+${EPOSIX}/src/spec/se/
+${EPOSIX}/src/support/

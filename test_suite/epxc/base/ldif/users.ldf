@@ -1,0 +1,695 @@
+dn: CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Users
+description: Default container for upgraded user accounts
+distinguishedName: CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4304
+uSNChanged: 4304
+showInAdvancedViewOnly: FALSE
+name: Users
+objectGUID:: NjRpKT18UUerArSkDygzRw==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: Administrator
+description: Built-in account for administering the computer/domain
+distinguishedName: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055320.0Z
+whenChanged: 20050622062327.0Z
+uSNCreated: 8194
+memberOf: 
+ CN=Group Policy Creator Owners,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Schema Admins,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 16401
+name: Administrator
+objectGUID:: j2Mj89rv7USFwIYuuqwYsg==
+userAccountControl: 66048
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 127680137085389136
+lastLogoff: 0
+lastLogon: 127680137110625424
+pwdLastSet: 127639311271190720
+primaryGroupID: 513
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu9AEAAA==
+adminCount: 1
+accountExpires: 9223372036854775807
+logonCount: 19
+sAMAccountName: Administrator
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Guest,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: Guest
+description: Built-in account for guest access to the computer/domain
+distinguishedName: CN=Guest,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055320.0Z
+whenChanged: 20050622055320.0Z
+uSNCreated: 8195
+memberOf: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 8195
+name: Guest
+objectGUID:: fEAaI28fB0ikNcYAeSlFNg==
+userAccountControl: 66082
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+pwdLastSet: 0
+primaryGroupID: 514
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu9QEAAA==
+accountExpires: 9223372036854775807
+logonCount: 0
+sAMAccountName: Guest
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=SUPPORT_388945a0,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: SUPPORT_388945a0
+description: This is a vendor's account for the Help and Support Service
+distinguishedName: CN=SUPPORT_388945a0,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+displayName: CN=Microsoft Corporation,L=Redmond,S=Washington,C=US
+uSNCreated: 8196
+memberOf: CN=HelpServicesGroup,CN=Users,DC=ACMETradingLimited,DC=local
+uSNChanged: 8196
+name: SUPPORT_388945a0
+objectGUID:: VsekIxLNuEaIqgsTx2gCMA==
+userAccountControl: 66050
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+pwdLastSet: 127638893365151776
+primaryGroupID: 513
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6QMAAA==
+accountExpires: 0
+logonCount: 0
+sAMAccountName: SUPPORT_388945a0
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=HelpServicesGroup,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: HelpServicesGroup
+description: Group for the Help and Support Center
+member: CN=SUPPORT_388945a0,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=HelpServicesGroup,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8197
+uSNChanged: 8198
+name: HelpServicesGroup
+objectGUID:: OMLpktAs8kebBC3gIL/wUw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6AMAAA==
+sAMAccountName: HelpServicesGroup
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=TelnetClients,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: TelnetClients
+description: 
+ Members of this group have access to Telnet Server on this system.
+distinguishedName: CN=TelnetClients,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8199
+uSNChanged: 8199
+name: TelnetClients
+objectGUID:: lYwewLUBsUO88BMHpoPoaw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6gMAAA==
+sAMAccountName: TelnetClients
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DHCP Users,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DHCP Users
+description: Members who have view-only access to the DHCP service
+distinguishedName: CN=DHCP Users,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8200
+uSNChanged: 8200
+name: DHCP Users
+objectGUID:: 369GwZtS6UunRy7kpjMU4w==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6wMAAA==
+sAMAccountName: DHCP Users
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DHCP Administrators,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DHCP Administrators
+description: Members who have administrative access to DHCP service
+distinguishedName: 
+ CN=DHCP Administrators,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8201
+uSNChanged: 8201
+name: DHCP Administrators
+objectGUID:: D/Uj1hQWckGDul3hkKaQXg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu7AMAAA==
+sAMAccountName: DHCP Administrators
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=krbtgt,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: krbtgt
+description: Key Distribution Center Service Account
+distinguishedName: CN=krbtgt,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12320
+uSNChanged: 16410
+showInAdvancedViewOnly: TRUE
+name: krbtgt
+objectGUID:: 1djVhJtfKk6Fv78Nc1Mhkw==
+userAccountControl: 514
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+pwdLastSet: 127638933937593936
+primaryGroupID: 513
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu9gEAAA==
+adminCount: 1
+accountExpires: 9223372036854775807
+logonCount: 0
+sAMAccountName: krbtgt
+sAMAccountType: 805306368
+servicePrincipalName: kadmin/changepw
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Computers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Computers
+description: All workstations and servers joined to the domain
+distinguishedName: CN=Domain Computers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622055633.0Z
+uSNCreated: 12326
+uSNChanged: 12328
+name: Domain Computers
+objectGUID:: iOBEiIakikmyi4Q6BdtqGQ==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAwIAAA==
+sAMAccountName: Domain Computers
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Controllers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Controllers
+description: All domain controllers in the domain
+distinguishedName: 
+ CN=Domain Controllers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12329
+uSNChanged: 16411
+name: Domain Controllers
+objectGUID:: rbVmumPHwkW3G9M25pGrKA==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBAIAAA==
+adminCount: 1
+sAMAccountName: Domain Controllers
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Schema Admins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Schema Admins
+description: Designated administrators of the schema
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Schema Admins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062327.0Z
+uSNCreated: 12332
+uSNChanged: 16402
+name: Schema Admins
+objectGUID:: l68d/S1NHUGQiFlQwprJwQ==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBgIAAA==
+adminCount: 1
+sAMAccountName: Schema Admins
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Enterprise Admins
+description: Designated administrators of the enterprise
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062327.0Z
+uSNCreated: 12335
+memberOf: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 16400
+name: Enterprise Admins
+objectGUID:: aUyr6rSatUOrn1k6ghGz1A==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBwIAAA==
+adminCount: 1
+sAMAccountName: Enterprise Admins
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Cert Publishers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Cert Publishers
+description: 
+ Members of this group are permitted to publish certificates to the Active Dire
+ ctory
+distinguishedName: CN=Cert Publishers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622055633.0Z
+uSNCreated: 12338
+uSNChanged: 12340
+name: Cert Publishers
+objectGUID:: cT6KVUUcSEG9ohciH5VKlA==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBQIAAA==
+sAMAccountName: Cert Publishers
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Admins
+description: Designated administrators of the domain
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12341
+memberOf: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 16403
+name: Domain Admins
+objectGUID:: y5L570awukmssZAep6bHdg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAAIAAA==
+adminCount: 1
+sAMAccountName: Domain Admins
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Users,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Users
+description: All domain users
+distinguishedName: CN=Domain Users,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12344
+memberOf: CN=Remote Desktop Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+memberOf: CN=Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 12346
+name: Domain Users
+objectGUID:: 9Zy156hEKEWzpYdBSJ/AtQ==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAQIAAA==
+sAMAccountName: Domain Users
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Guests,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Guests
+description: All domain guests
+distinguishedName: CN=Domain Guests,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12347
+memberOf: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 12349
+name: Domain Guests
+objectGUID:: yctUqPjPrU+2QT1khUhwHA==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAgIAAA==
+sAMAccountName: Domain Guests
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Group Policy Creator Owners,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Group Policy Creator Owners
+description: Members in this group can modify group policy for the domain
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Group Policy Creator Owners,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12350
+uSNChanged: 12380
+name: Group Policy Creator Owners
+objectGUID:: 0aGm3R/CRUGyneUQWCuuTw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuCAIAAA==
+sAMAccountName: Group Policy Creator Owners
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=RAS and IAS Servers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: RAS and IAS Servers
+description: 
+ Servers in this group can access remote access properties of users
+distinguishedName: 
+ CN=RAS and IAS Servers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12353
+uSNChanged: 12355
+name: RAS and IAS Servers
+objectGUID:: CB+Q7FwzBEewdIKkoAcZcg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuKQIAAA==
+sAMAccountName: RAS and IAS Servers
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=DnsAdmins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DnsAdmins
+description: DNS Administrators Group
+distinguishedName: CN=DnsAdmins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055712.0Z
+whenChanged: 20050622055712.0Z
+uSNCreated: 12399
+uSNChanged: 12401
+name: DnsAdmins
+objectGUID:: QX5DkLB+tkGb9Fsgn/SNSw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuUgQAAA==
+sAMAccountName: DnsAdmins
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DnsUpdateProxy,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DnsUpdateProxy
+description: 
+ DNS clients who are permitted to perform dynamic updates on behalf of some oth
+ er clients (such as DHCP servers).
+distinguishedName: CN=DnsUpdateProxy,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055712.0Z
+whenChanged: 20050622055712.0Z
+uSNCreated: 12404
+uSNChanged: 12404
+name: DnsUpdateProxy
+objectGUID:: OWLTEKk/ZkysHN/kyrzY+Q==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuUwQAAA==
+sAMAccountName: DnsUpdateProxy
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Bill Gates,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: Bill Gates
+sn: Gates
+description: Domain User
+givenName: Bill
+distinguishedName: CN=Bill Gates,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622060453.0Z
+whenChanged: 20050622063553.0Z
+displayName: Bill Gates
+uSNCreated: 13937
+uSNChanged: 16453
+name: Bill Gates
+objectGUID:: OaErA55qV0G2RjtOwlp0fw==
+userAccountControl: 66048
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 127638972194373632
+pwdLastSet: 127638938934074544
+primaryGroupID: 513
+userParameters:: 
+ ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUAUaCAFDdHhDZm
+ dQcmVzZW5045S15pSx5oiw44GiGAgBQ3R4Q2ZnRmxhZ3Mx44Cw44Gm44Cy44C5EggBQ3R4U2hhZG93
+ 44Sw44Cw44Cw44CwKgIBQ3R4TWluRW5jcnlwdGlvbkxldmVs44SwGBQBQ3R4V0ZIb21lRGly44y05o
+ Sz5oy145C144y144i15pi25pi245C344Cw
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuVgQAAA==
+accountExpires: 9223372036854775807
+logonCount: 4
+sAMAccountName: Bill
+sAMAccountType: 805306368
+userPrincipalName: Bill@ACMETradingLimited.local
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+msNPAllowDialin: FALSE
+
+dn: CN=IUSR_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: IUSR_ACME-SERVER
+description: 
+ Built-in account for anonymous access to Internet Information Services
+distinguishedName: CN=IUSR_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050803014815.0Z
+whenChanged: 20050803014842.0Z
+displayName: Internet Guest Account
+uSNCreated: 20508
+memberOf: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 20534
+name: IUSR_ACME-SERVER
+objectGUID:: lBtyiLgq5k6vSax6OUo2lg==
+userAccountControl: 66080
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+logonHours:: ////////////////////////////
+pwdLastSet: 127675073001694624
+primaryGroupID: 513
+userParameters:: 
+ bTogICAgICAgICAgICAgICAgICAgIGQBICAgICAgICAgICAgICAgICAgICAgICAgUAQaCAFDdHhDZm
+ dQcmVzZW5045S15pSx5oiw44GiGAgBQ3R4Q2ZnRmxhZ3Mx44Cw44Gm44Sy44C5EggBQ3R4U2hhZG93
+ 44Sw44Cw44Cw44CwKgIBQ3R4TWluRW5jcnlwdGlvbkxldmVs44Sw
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuWAQAAA==
+comment: 
+ Built-in account for anonymous access to Internet Information Services
+accountExpires: 0
+logonCount: 0
+sAMAccountName: IUSR_ACME-SERVER
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+msNPAllowDialin: FALSE
+
+dn: CN=IWAM_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: IWAM_ACME-SERVER
+description: 
+ Built-in account for Internet Information Services to start out of process app
+ lications
+distinguishedName: CN=IWAM_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050803014820.0Z
+whenChanged: 20050803014843.0Z
+displayName: Launch IIS Process Account
+uSNCreated: 20518
+memberOf: CN=IIS_WPG,CN=Users,DC=ACMETradingLimited,DC=local
+uSNChanged: 20536
+name: IWAM_ACME-SERVER
+objectGUID:: tq8qMWuhi0yPr98d3rWWAQ==
+userAccountControl: 66080
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 127679298686938752
+logonHours:: ////////////////////////////
+pwdLastSet: 127675073003196784
+primaryGroupID: 513
+userParameters:: 
+ bTogICAgICAgICAgICAgICAgICAgIGQBICAgICAgICAgICAgICAgICAgICAgICAgUAQaCAFDdHhDZm
+ dQcmVzZW5045S15pSx5oiw44GiGAgBQ3R4Q2ZnRmxhZ3Mx44Cw44Gm44Sy44C5EggBQ3R4U2hhZG93
+ 44Sw44Cw44Cw44CwKgIBQ3R4TWluRW5jcnlwdGlvbkxldmVs44Sw
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuWQQAAA==
+comment: 
+ Built-in account for Internet Information Services to start out of process app
+ lications
+accountExpires: 0
+logonCount: 2
+sAMAccountName: IWAM_ACME-SERVER
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+msNPAllowDialin: FALSE
+
+dn: CN=IIS_WPG,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: IIS_WPG
+description: IIS Worker Process Group
+member: CN=IWAM_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=IIS_WPG,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050803014822.0Z
+whenChanged: 20050803014823.0Z
+uSNCreated: 20526
+uSNChanged: 20529
+name: IIS_WPG
+objectGUID:: lTFkbXWKHUKNttfnC6jnFg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuWgQAAA==
+sAMAccountName: IIS_WPG
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+

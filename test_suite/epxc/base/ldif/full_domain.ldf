@@ -1,0 +1,4394 @@
+dn: DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: domain
+objectClass: domainDNS
+distinguishedName: DC=ACMETradingLimited,DC=local
+instanceType: 5
+whenCreated: 20050622055310.0Z
+whenChanged: 20050622060449.0Z
+subRefs: DC=TAPI3Directory,DC=ACMETradingLimited,DC=local
+subRefs: DC=ForestDnsZones,DC=ACMETradingLimited,DC=local
+subRefs: DC=DomainDnsZones,DC=ACMETradingLimited,DC=local
+subRefs: CN=Configuration,DC=ACMETradingLimited,DC=local
+uSNCreated: 4098
+uSNChanged: 13935
+name: ACMETradingLimited
+objectGUID:: 5ethnuGbdE+59xXooWbYzw==
+creationTime: 127638933926678240
+forceLogoff: -9223372036854775808
+lockoutDuration: -18000000000
+lockOutObservationWindow: -18000000000
+lockoutThreshold: 0
+maxPwdAge: -37108517437440
+minPwdAge: -864000000000
+minPwdLength: 7
+modifiedCountAtLastProm: 0
+nextRid: 1005
+pwdProperties: 0
+pwdHistoryLength: 24
+objectSid:: AQQAAAAAAAUVAAAAABP+0d3rEMVxO2Lu
+serverState: 1
+uASCompat: 1
+modifiedCount: 103
+auditingPolicy:: AAE=
+nTMixedDomain: 1
+rIDManagerReference: CN=RID Manager$,CN=System,DC=ACMETradingLimited,DC=local
+fSMORoleOwner: 
+ CN=NTDS Settings,CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=C
+ onfiguration,DC=ACMETradingLimited,DC=local
+systemFlags: -1946157056
+wellKnownObjects: 
+ B:32:6227F0AF1FC2410D8E3BB10615BB5B0F:CN=NTDS Quotas,DC=ACMETradingLimited,DC=
+ local
+wellKnownObjects: 
+ B:32:F4BE92A4C777485E878E9421D53087DB:CN=Microsoft,CN=Program Data,DC=ACMETrad
+ ingLimited,DC=local
+wellKnownObjects: 
+ B:32:09460C08AE1E4A4EA0F64AEE7DAA1E5A:CN=Program Data,DC=ACMETradingLimited,DC
+ =local
+wellKnownObjects: 
+ B:32:22B70C67D56E4EFB91E9300FCA3DC1AA:CN=ForeignSecurityPrincipals,DC=ACMETrad
+ ingLimited,DC=local
+wellKnownObjects: 
+ B:32:18E2EA80684F11D2B9AA00C04F79F805:CN=Deleted Objects,DC=ACMETradingLimited
+ ,DC=local
+wellKnownObjects: 
+ B:32:2FBAC1870ADE11D297C400C04FD8D5CD:CN=Infrastructure,DC=ACMETradingLimited,
+ DC=local
+wellKnownObjects: 
+ B:32:AB8153B7768811D1ADED00C04FD8D5CD:CN=LostAndFound,DC=ACMETradingLimited,DC
+ =local
+wellKnownObjects: 
+ B:32:AB1D30F3768811D1ADED00C04FD8D5CD:CN=System,DC=ACMETradingLimited,DC=local
+wellKnownObjects: 
+ B:32:A361B2FFFFD211D1AA4B00C04FD7D83A:OU=Domain Controllers,DC=ACMETradingLimi
+ ted,DC=local
+wellKnownObjects: 
+ B:32:AA312825768811D1ADED00C04FD8D5CD:CN=Computers,DC=ACMETradingLimited,DC=lo
+ cal
+wellKnownObjects: 
+ B:32:A9D1CA15768811D1ADED00C04FD8D5CD:CN=Users,DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Domain-DNS,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+gPLink: 
+ [LDAP://CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=ACM
+ ETradingLimited,DC=local;0]
+masteredBy: 
+ CN=NTDS Settings,CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=C
+ onfiguration,DC=ACMETradingLimited,DC=local
+ms-DS-MachineAccountQuota: 10
+msDS-Behavior-Version: 0
+msDS-PerUserTrustQuota: 1
+msDS-AllUsersTrustQuota: 1000
+msDS-PerUserTrustTombstonesQuota: 10
+msDs-masteredBy: 
+ CN=NTDS Settings,CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=C
+ onfiguration,DC=ACMETradingLimited,DC=local
+dc: ACMETradingLimited
+
+dn: CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Users
+description: Default container for upgraded user accounts
+distinguishedName: CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4304
+uSNChanged: 4304
+showInAdvancedViewOnly: FALSE
+name: Users
+objectGUID:: NjRpKT18UUerArSkDygzRw==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Computers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Computers
+description: Default container for upgraded computer accounts
+distinguishedName: CN=Computers,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4305
+uSNChanged: 4305
+showInAdvancedViewOnly: FALSE
+name: Computers
+objectGUID:: FE8OHNstnUeuKSvO6XvQlw==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: organizationalUnit
+ou: Domain Controllers
+description: Default container for domain controllers
+distinguishedName: OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4411
+uSNChanged: 4411
+showInAdvancedViewOnly: FALSE
+name: Domain Controllers
+objectGUID:: WfXUP0+Ks06Kut+SC1rb/Q==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Organizational-Unit,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=loc
+ al
+isCriticalSystemObject: TRUE
+gPLink: 
+ [LDAP://CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=ACM
+ ETradingLimited,DC=local;0]
+
+dn: CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: System
+description: Builtin system settings
+distinguishedName: CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4306
+uSNChanged: 4306
+showInAdvancedViewOnly: TRUE
+name: System
+objectGUID:: WPOK4tDqbEegoENzksC9aQ==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=LostAndFound,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: lostAndFound
+cn: LostAndFound
+description: Default container for orphaned objects
+distinguishedName: CN=LostAndFound,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4302
+uSNChanged: 4302
+showInAdvancedViewOnly: TRUE
+name: LostAndFound
+objectGUID:: sr/U1yRTq0qiJoKQ62KnnA==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Lost-And-Found,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Infrastructure,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: infrastructureUpdate
+cn: Infrastructure
+distinguishedName: CN=Infrastructure,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4412
+uSNChanged: 4412
+showInAdvancedViewOnly: TRUE
+name: Infrastructure
+objectGUID:: porQ7f4ZR0qwTxNKfq0ctA==
+fSMORoleOwner: 
+ CN=NTDS Settings,CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=C
+ onfiguration,DC=ACMETradingLimited,DC=local
+systemFlags: -1946157056
+objectCategory: 
+ CN=Infrastructure-Update,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=l
+ ocal
+isCriticalSystemObject: TRUE
+
+dn: CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: ForeignSecurityPrincipals
+description: 
+ Default container for security identifiers (SIDs) associated with objects from
+  external, trusted domains
+distinguishedName: CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4413
+uSNChanged: 4413
+showInAdvancedViewOnly: FALSE
+name: ForeignSecurityPrincipals
+objectGUID:: xz3D7znPHEC920qzxZPWcQ==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Program Data,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Program Data
+description: Default location for storage of application data.
+distinguishedName: CN=Program Data,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4414
+uSNChanged: 4414
+showInAdvancedViewOnly: TRUE
+name: Program Data
+objectGUID:: lRBBpUDzX020chNdtDJxFw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Microsoft,CN=Program Data,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Microsoft
+description: Default location for storage of Microsoft application data.
+distinguishedName: CN=Microsoft,CN=Program Data,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4415
+uSNChanged: 4415
+showInAdvancedViewOnly: TRUE
+name: Microsoft
+objectGUID:: RYWTF25oV020rBOrqye/CQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=NTDS Quotas,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: msDS-QuotaContainer
+cn: NTDS Quotas
+description: Quota specifications container
+distinguishedName: CN=NTDS Quotas,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4416
+uSNChanged: 4416
+showInAdvancedViewOnly: TRUE
+name: NTDS Quotas
+objectGUID:: BLYjL6XMpEyIcKoHdIVIOQ==
+systemFlags: -2147483648
+objectCategory: 
+ CN=ms-DS-Quota-Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=l
+ ocal
+isCriticalSystemObject: TRUE
+msDS-TombstoneQuotaFactor: 100
+
+dn: CN=WinsockServices,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: WinsockServices
+distinguishedName: CN=WinsockServices,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4307
+uSNChanged: 4307
+showInAdvancedViewOnly: TRUE
+name: WinsockServices
+objectGUID:: laRZOcF/iEezRHmkjRkKBA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=RpcServices,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+objectClass: rpcContainer
+cn: RpcServices
+distinguishedName: CN=RpcServices,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4308
+uSNChanged: 4308
+showInAdvancedViewOnly: TRUE
+name: RpcServices
+objectGUID:: FT6FOhjGaE6NOGSzFbURkw==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Rpc-Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=FileLinks,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: fileLinkTracking
+cn: FileLinks
+distinguishedName: CN=FileLinks,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4309
+uSNChanged: 4309
+showInAdvancedViewOnly: TRUE
+name: FileLinks
+objectGUID:: 8FLCYwjqpk2pmRfA96s9xg==
+systemFlags: -1946157056
+objectCategory: 
+ CN=File-Link-Tracking,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=loca
+ l
+isCriticalSystemObject: TRUE
+
+dn: CN=VolumeTable,CN=FileLinks,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: fileLinkTracking
+objectClass: linkTrackVolumeTable
+cn: VolumeTable
+distinguishedName: 
+ CN=VolumeTable,CN=FileLinks,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4310
+uSNChanged: 4310
+showInAdvancedViewOnly: TRUE
+name: VolumeTable
+objectGUID:: MN+G2y9+e0KZHrEJSWffng==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Link-Track-Volume-Table,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC
+ =local
+isCriticalSystemObject: TRUE
+
+dn: CN=ObjectMoveTable,CN=FileLinks,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: fileLinkTracking
+objectClass: linkTrackObjectMoveTable
+cn: ObjectMoveTable
+distinguishedName: 
+ CN=ObjectMoveTable,CN=FileLinks,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4311
+uSNChanged: 4311
+showInAdvancedViewOnly: TRUE
+name: ObjectMoveTable
+objectGUID:: yqg1d9lF90igPWbpjUradg==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Link-Track-Object-Move-Table,CN=Schema,CN=Configuration,DC=ACMETradingLimit
+ ed,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Default Domain Policy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: domainPolicy
+cn: Default Domain Policy
+distinguishedName: 
+ CN=Default Domain Policy,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4312
+uSNChanged: 4312
+showInAdvancedViewOnly: TRUE
+name: Default Domain Policy
+objectGUID:: IdMdsEheN0epmGkin1j0ew==
+objectCategory: 
+ CN=Domain-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=AppCategories,CN=Default Domain Policy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: classStore
+cn: AppCategories
+distinguishedName: 
+ CN=AppCategories,CN=Default Domain Policy,CN=System,DC=ACMETradingLimited,DC=l
+ ocal
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4313
+uSNChanged: 4313
+showInAdvancedViewOnly: TRUE
+name: AppCategories
+objectGUID:: HiQxxhAsT0S97saR2k0QqA==
+objectCategory: 
+ CN=Class-Store,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Meetings,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Meetings
+distinguishedName: CN=Meetings,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4314
+uSNChanged: 4314
+showInAdvancedViewOnly: TRUE
+name: Meetings
+objectGUID:: GGTIsRr2Tka9Dzn/78D9/w==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Policies
+distinguishedName: CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4315
+uSNChanged: 4315
+showInAdvancedViewOnly: TRUE
+name: Policies
+objectGUID:: wqGf7fImuE21CUwEs1kg2A==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+objectClass: groupPolicyContainer
+cn: {31B2F340-016D-11D2-945F-00C04FB984F9}
+distinguishedName: 
+ CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=ACMETrading
+ Limited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622060221.0Z
+displayName: Default Domain Policy
+uSNCreated: 4316
+uSNChanged: 13929
+showInAdvancedViewOnly: TRUE
+name: {31B2F340-016D-11D2-945F-00C04FB984F9}
+objectGUID:: FYdI5tPjlkmxxPnUnnxLPQ==
+flags: 0
+versionNumber: 65541
+systemFlags: -1946157056
+objectCategory: 
+ CN=Group-Policy-Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=
+ local
+isCriticalSystemObject: TRUE
+gPCFunctionalityVersion: 2
+gPCFileSysPath: 
+ \\ACMETradingLimited.local\sysvol\ACMETradingLimited.local\Policies\{31B2F340-
+ 016D-11D2-945F-00C04FB984F9}
+gPCMachineExtensionNames: 
+ [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{53D6AB1B-2488-11D1-A28C-00C04FB94F17}]
+ [{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
+ [{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}{53D6AB1B-2488-11D1-A28C-00C04FB94F17}]
+gPCUserExtensionNames: 
+ [{3060E8D0-7020-11D2-842D-00C04FA372D4}{3060E8CE-7020-11D2-842D-00C04FA372D4}]
+
+dn: CN=User,CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: User
+distinguishedName: 
+ CN=User,CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=ACM
+ ETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4317
+uSNChanged: 4317
+showInAdvancedViewOnly: TRUE
+name: User
+objectGUID:: 4YZ9czuVQkST6Ox9BbP3eQ==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Machine,CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Machine
+distinguishedName: 
+ CN=Machine,CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4318
+uSNChanged: 4318
+showInAdvancedViewOnly: TRUE
+name: Machine
+objectGUID:: 0s+3seRPtEKD9h6LB8O8OA==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+objectClass: groupPolicyContainer
+cn: {6AC1786C-016F-11D2-945F-00C04fB984F9}
+distinguishedName: 
+ CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=ACMETrading
+ Limited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050807231108.0Z
+displayName: Default Domain Controllers Policy
+uSNCreated: 4319
+uSNChanged: 24582
+showInAdvancedViewOnly: TRUE
+name: {6AC1786C-016F-11D2-945F-00C04fB984F9}
+objectGUID:: r8pr5SAsmEKNyfQ4qDH6fA==
+flags: 0
+versionNumber: 6
+systemFlags: -1946157056
+objectCategory: 
+ CN=Group-Policy-Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=
+ local
+isCriticalSystemObject: TRUE
+gPCFunctionalityVersion: 2
+gPCFileSysPath: 
+ \\ACMETradingLimited.local\sysvol\ACMETradingLimited.local\Policies\{6AC1786C-
+ 016F-11D2-945F-00C04fB984F9}
+gPCMachineExtensionNames: 
+ [{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
+
+dn: CN=User,CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: User
+distinguishedName: 
+ CN=User,CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=ACM
+ ETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4320
+uSNChanged: 4320
+showInAdvancedViewOnly: TRUE
+name: User
+objectGUID:: V9EB9nKkwU2pPNe6j4xZrg==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Machine,CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Machine
+distinguishedName: 
+ CN=Machine,CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4321
+uSNChanged: 4321
+showInAdvancedViewOnly: TRUE
+name: Machine
+objectGUID:: OCILPwnJKEGz2UlArBRj1w==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=RAS and IAS Servers Access Check,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: RAS and IAS Servers Access Check
+distinguishedName: 
+ CN=RAS and IAS Servers Access Check,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4322
+uSNChanged: 4322
+showInAdvancedViewOnly: TRUE
+name: RAS and IAS Servers Access Check
+objectGUID:: 3vf3PqvnDUWWyXQobOxBdQ==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=File Replication Service,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: applicationSettings
+objectClass: nTFRSSettings
+cn: File Replication Service
+distinguishedName: 
+ CN=File Replication Service,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4323
+uSNChanged: 4323
+showInAdvancedViewOnly: TRUE
+name: File Replication Service
+objectGUID:: rlIQpzw6BEe52SnlPsiI+A==
+systemFlags: -1946157056
+objectCategory: 
+ CN=NTFRS-Settings,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Dfs-Configuration,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: dfsConfiguration
+cn: Dfs-Configuration
+distinguishedName: 
+ CN=Dfs-Configuration,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4324
+uSNChanged: 4324
+showInAdvancedViewOnly: FALSE
+name: Dfs-Configuration
+objectGUID:: EX2s39RFuEqT+hEZ6gBboQ==
+objectCategory: 
+ CN=Dfs-Configuration,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: IP Security
+distinguishedName: CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4325
+uSNChanged: 4325
+showInAdvancedViewOnly: TRUE
+name: IP Security
+objectGUID:: +FfEQf3fFECz7SIm/XIfDA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecPolicy{72385230-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecPolicy
+cn: ipsecPolicy{72385230-70FA-11D1-864C-14A300000000}
+description: 
+ For all IP traffic, always request security using Kerberos trust. Allow unsecu
+ red communication with clients that do not respond to request.
+distinguishedName: 
+ CN=ipsecPolicy{72385230-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4326
+uSNChanged: 4326
+showInAdvancedViewOnly: TRUE
+name: ipsecPolicy{72385230-70FA-11D1-864C-14A300000000}
+objectGUID:: GSfwN0Bku0q26/TU3riKhg==
+ipsecName: Server (Request Security)
+ipsecID: {72385230-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: YyEgIkxP0RGGOwCgJI0wIQQAAAAwKgAAAA==
+ipsecISAKMPReference: 
+ CN=ipsecISAKMPPolicy{72385231-70FA-11D1-864C-14A300000000},CN=IP Security,CN=S
+ ystem,DC=ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{59319BE2-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{72385232-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecISAKMPPolicy{72385231-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecISAKMPPolicy
+cn: ipsecISAKMPPolicy{72385231-70FA-11D1-864C-14A300000000}
+distinguishedName: 
+ CN=ipsecISAKMPPolicy{72385231-70FA-11D1-864C-14A300000000},CN=IP Security,CN=S
+ ystem,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4327
+uSNChanged: 4327
+showInAdvancedViewOnly: TRUE
+name: ipsecISAKMPPolicy{72385231-70FA-11D1-864C-14A300000000}
+objectGUID:: JtiHsTnPnUWinW4YpZy7ZA==
+ipsecID: {72385231-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ uCDcgMgu0RGongCgJI0wIUABAABo0hlRHQfTEa0iAGCw7MoXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAADNzQMAAABAAAAACAAAAAIAAABAAAAAAAAAAAAAAAAA
+ AAAAAAAAAADNzc0CAAAAAAAAAAAAAACAcAAAzc3NzQAAzc0DAAAAQAAAAAgAAAABAAAAQAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAzc3NAgAAAAAAAAAAAAAAgHAAAM3Nzc0AAM3NAQAAAEAAAAAIAAAAAgAAAEAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAM3NzQEAAAAAAAAAAAAAAIBwAADNzc3NAADNzQEAAABAAAAACAAAAA
+ EAAABAAAAAAAAAAAAAAAAAAAAAAAAAAADNzc0BAAAAAAAAAAAAAACAcAAAzc3NzQA=
+ipsecOwnersReference: 
+ CN=ipsecPolicy{72385230-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-ISAKMP-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=loc
+ al
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{72385232-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{72385232-70FA-11D1-864C-14A300000000}
+description: 
+ For all IP traffic, always request security using Kerberos trust. Allow unsecu
+ red communication with clients that do not respond to request.
+distinguishedName: 
+ CN=ipsecNFA{72385232-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4328
+uSNChanged: 4328
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{72385232-70FA-11D1-864C-14A300000000}
+objectGUID:: j8dRWl8pIEyE0RFsoGN6ng==
+ipsecName: Request Security (Optional) Rule
+ipsecID: {72385232-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{72385230-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{72385233-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+ipsecFilterReference: 
+ CN=ipsecFilter{7238523A-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{59319BE2-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{59319BE2-5EE3-11D2-ACE8-0060B0ECCA17}
+distinguishedName: 
+ CN=ipsecNFA{59319BE2-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4329
+uSNChanged: 4329
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{59319BE2-5EE3-11D2-ACE8-0060B0ECCA17}
+objectGUID:: 9xLRSbaJ5Uy56Kbj8ytqZA==
+ipsecID: {59319BE2-5EE3-11D2-ACE8-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{72385230-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{59319BDF-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17}
+description: Permit unsecure ICMP packets to pass through.
+distinguishedName: 
+ CN=ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4330
+uSNChanged: 4330
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17}
+objectGUID:: al7jiEQpskqKemanZg4b3Q==
+ipsecName: Permit unsecure ICMP packets to pass through.
+ipsecID: {594272E2-071D-11D3-AD22-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{72385230-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{7238523B-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+ipsecFilterReference: 
+ CN=ipsecFilter{72385235-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNegotiationPolicy{72385233-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNegotiationPolicy
+cn: ipsecNegotiationPolicy{72385233-70FA-11D1-864C-14A300000000}
+description: 
+ Accepts unsecured communication, but requests clients to establish trust and s
+ ecurity methods.  Will communicate insecurely to untrusted clients if they do 
+ not respond to request.
+distinguishedName: 
+ CN=ipsecNegotiationPolicy{72385233-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4343
+uSNChanged: 4343
+showInAdvancedViewOnly: TRUE
+name: ipsecNegotiationPolicy{72385233-70FA-11D1-864C-14A300000000}
+objectGUID:: jt8wtMETgE+T0GTyRZQ0cg==
+ipsecName: Request Security (Optional)
+ipsecID: {72385233-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ uSDcgMgu0RGongCgJI0wIZQBAAAFAAAAhAMAAKCGAQAAAAAAAAAAAAEAAAADAAAAAgAAAAIAAABAAA
+ AACAAAAFwAUwBlAHIAdgBpAGMAZQBzAFwAUABvAGwAaQBjAHkAQQBnAGUAbgCEAwAAoIYBAAAAAAAA
+ AAAAAQAAAAEAAAACAAAAAgAAAEAAAAAIAAAAAAAAAFX0sjdcAEwAbwBjABUADwABAAgAIAJlACACZQ
+ BYxHYF+M54BSwBAACghgEAAAAAAAAAAAABAAAAAgAAAAAAAAABAAAAQAAAAAgAAAAtADkAQQBDADEA
+ LQA0AEQANgBEAC0AQQAxAEIAMAAtADEANQA4ADcALAEAAKCGAQAAAAAAAAAAAAEAAAABAAAAAAAAAA
+ EAAABAAAAACAAAAGUAdABcAFMAZQByAHYAaQBjAGUAcwBcAFAAbwBsAGkAYwB5AEEAZwAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAEAAAABAAAAAgAAAEAAAAAIAAAANgBDAC0AMwBCADkANwAtADQANQA1ADIALQ
+ A4AEUANAA1AC0AOQA5AAA=
+ipsecOwnersReference: 
+ CN=ipsecNFA{72385232-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Negotiation-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+isCriticalSystemObject: TRUE
+iPSECNegotiationPolicyType: {62F49E10-6C37-11D1-864C-14A300000000}
+iPSECNegotiationPolicyAction: {3F91A81A-7647-11D1-864D-D46A00000000}
+
+dn: CN=ipsecFilter{7238523A-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecFilter
+cn: ipsecFilter{7238523A-70FA-11D1-864C-14A300000000}
+description: 
+ Matches all IP packets from this computer to any other computer, except broadc
+ ast, multicast, Kerberos, RSVP and ISAKMP (IKE).
+distinguishedName: 
+ CN=ipsecFilter{7238523A-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4346
+uSNChanged: 4346
+showInAdvancedViewOnly: TRUE
+name: ipsecFilter{7238523A-70FA-11D1-864C-14A300000000}
+objectGUID:: 6yUcHA6n9UubAN3Xm0OrxQ==
+ipsecName: All IP Traffic
+ipsecID: {7238523A-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ tSDcgMgu0RGongCgJI0wIUoAAAABAAAAAgAAAAAAAgAAAAAAAgAAAAAA3ZsxWeNe0hGs6ABgsOzKFw
+ EAAAAAAAAA/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+ipsecOwnersReference: 
+ CN=ipsecNFA{72385232-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecOwnersReference: 
+ CN=ipsecNFA{7238523E-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Filter,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNegotiationPolicy{59319BDF-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNegotiationPolicy
+cn: ipsecNegotiationPolicy{59319BDF-5EE3-11D2-ACE8-0060B0ECCA17}
+distinguishedName: 
+ CN=ipsecNegotiationPolicy{59319BDF-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4340
+uSNChanged: 4340
+showInAdvancedViewOnly: TRUE
+name: ipsecNegotiationPolicy{59319BDF-5EE3-11D2-ACE8-0060B0ECCA17}
+objectGUID:: JjQrKmhzQE624K25rTTNQw==
+ipsecID: {59319BDF-5EE3-11D2-ACE8-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ uSDcgMgu0RGongCgJI0wIeQBAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAADAAAAAgAAAAIAAABAAA
+ AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAQAAAAMAAAABAAAAAgAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAIAAAACAAAAQAAAAAgAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAQAAAA
+ IAAABAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAQAAAAIAAAAAAAAAAQAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAABAAAAQAAAAAgAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+ipsecOwnersReference: 
+ CN=ipsecNFA{59319BE2-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Negotiation-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+isCriticalSystemObject: TRUE
+iPSECNegotiationPolicyType: {62F49E13-6C37-11D1-864C-14A300000000}
+iPSECNegotiationPolicyAction: {8A171DD3-77E3-11D1-8659-A04F00000000}
+
+dn: CN=ipsecNegotiationPolicy{7238523B-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNegotiationPolicy
+cn: ipsecNegotiationPolicy{7238523B-70FA-11D1-864C-14A300000000}
+description: Permit unsecured IP packets to pass through.
+distinguishedName: 
+ CN=ipsecNegotiationPolicy{7238523B-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4345
+uSNChanged: 4345
+showInAdvancedViewOnly: TRUE
+name: ipsecNegotiationPolicy{7238523B-70FA-11D1-864C-14A300000000}
+objectGUID:: ypNlp1lx10iLDPXlLFdtSQ==
+ipsecName: Permit
+ipsecID: {7238523B-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: uSDcgMgu0RGongCgJI0wIQQAAAAAAAAAAA==
+ipsecOwnersReference: 
+ CN=ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecOwnersReference: 
+ CN=ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Negotiation-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+isCriticalSystemObject: TRUE
+iPSECNegotiationPolicyType: {62F49E10-6C37-11D1-864C-14A300000000}
+iPSECNegotiationPolicyAction: {8A171DD2-77E3-11D1-8659-A04F00000000}
+
+dn: CN=ipsecFilter{72385235-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecFilter
+cn: ipsecFilter{72385235-70FA-11D1-864C-14A300000000}
+description: 
+ Matches all ICMP packets between this computer and any other computer.
+distinguishedName: 
+ CN=ipsecFilter{72385235-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4347
+uSNChanged: 4347
+showInAdvancedViewOnly: TRUE
+name: ipsecFilter{72385235-70FA-11D1-864C-14A300000000}
+objectGUID:: SrQlILNC9U22iik8AvywoA==
+ipsecName: All ICMP Traffic
+ipsecID: {72385235-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ tSDcgMgu0RGongCgJI0wIVIAAAABAAAAAgAAAAAAAgAAAAAACgAAAEkAQwBNAFAAAABj0hlRHQfTEa
+ 0iAGCw7MoXAQAAAAAAAAD/////AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA==
+ipsecOwnersReference: 
+ CN=ipsecNFA{594272E2-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecOwnersReference: 
+ CN=ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Filter,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecPolicy{72385236-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecPolicy
+cn: ipsecPolicy{72385236-70FA-11D1-864C-14A300000000}
+description: 
+ Communicate normally (unsecured). Use the default response rule to negotiate w
+ ith servers that request security. Only the requested protocol and port traffi
+ c with that server is secured.
+distinguishedName: 
+ CN=ipsecPolicy{72385236-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4331
+uSNChanged: 4331
+showInAdvancedViewOnly: TRUE
+name: ipsecPolicy{72385236-70FA-11D1-864C-14A300000000}
+objectGUID:: Z4xJgleebUiSPAAHrp2VAw==
+ipsecName: Client (Respond Only)
+ipsecID: {72385236-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: YyEgIkxP0RGGOwCgJI0wIQQAAAAwKgAAAA==
+ipsecISAKMPReference: 
+ CN=ipsecISAKMPPolicy{72385237-70FA-11D1-864C-14A300000000},CN=IP Security,CN=S
+ ystem,DC=ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{59319C04-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecISAKMPPolicy{72385237-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecISAKMPPolicy
+cn: ipsecISAKMPPolicy{72385237-70FA-11D1-864C-14A300000000}
+distinguishedName: 
+ CN=ipsecISAKMPPolicy{72385237-70FA-11D1-864C-14A300000000},CN=IP Security,CN=S
+ ystem,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055317.0Z
+whenChanged: 20050622055317.0Z
+uSNCreated: 4332
+uSNChanged: 4332
+showInAdvancedViewOnly: TRUE
+name: ipsecISAKMPPolicy{72385237-70FA-11D1-864C-14A300000000}
+objectGUID:: isWm90xMI0yOjebi06MydQ==
+ipsecID: {72385237-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ uCDcgMgu0RGongCgJI0wIUABAABz7EFfHQfTEa0iAGCw7MoXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAADNzQMAAABAAAAACAAAAAIAAABAAAAAAAAAAAAAAAAA
+ AAAAAAAAAADNzc0CAAAAAAAAAAAAAACAcAAAzc3NzQAAzc0DAAAAQAAAAAgAAAABAAAAQAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAzc3NAgAAAAAAAAAAAAAAgHAAAM3Nzc0AAM3NAQAAAEAAAAAIAAAAAgAAAEAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAM3NzQEAAAAAAAAAAAAAAIBwAADNzc3NAADNzQEAAABAAAAACAAAAA
+ EAAABAAAAAAAAAAAAAAAAAAAAAAAAAAADNzc0BAAAAAAAAAAAAAACAcAAAzc3NzQA=
+ipsecOwnersReference: 
+ CN=ipsecPolicy{72385236-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-ISAKMP-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=loc
+ al
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{59319C04-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{59319C04-5EE3-11D2-ACE8-0060B0ECCA17}
+distinguishedName: 
+ CN=ipsecNFA{59319C04-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4333
+uSNChanged: 4333
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{59319C04-5EE3-11D2-ACE8-0060B0ECCA17}
+objectGUID:: LYhyaJy4yk2gScw6oT4zJQ==
+ipsecID: {59319C04-5EE3-11D2-ACE8-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{72385236-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{59319C01-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNegotiationPolicy{59319C01-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNegotiationPolicy
+cn: ipsecNegotiationPolicy{59319C01-5EE3-11D2-ACE8-0060B0ECCA17}
+distinguishedName: 
+ CN=ipsecNegotiationPolicy{59319C01-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4342
+uSNChanged: 4342
+showInAdvancedViewOnly: TRUE
+name: ipsecNegotiationPolicy{59319C01-5EE3-11D2-ACE8-0060B0ECCA17}
+objectGUID:: KOg/o/DPQ0izqJ7b9I8Hwg==
+ipsecID: {59319C01-5EE3-11D2-ACE8-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ uSDcgMgu0RGongCgJI0wIeQBAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAADAAAAAgAAAAIAAABAAA
+ AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAQAAAAMAAAABAAAAAgAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAIAAAACAAAAQAAAAAgAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAQAAAA
+ IAAABAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAQAAAAIAAAAAAAAAAQAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAABAAAAQAAAAAgAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+ipsecOwnersReference: 
+ CN=ipsecNFA{59319C04-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Negotiation-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+isCriticalSystemObject: TRUE
+iPSECNegotiationPolicyType: {62F49E13-6C37-11D1-864C-14A300000000}
+iPSECNegotiationPolicyAction: {8A171DD3-77E3-11D1-8659-A04F00000000}
+
+dn: CN=ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecPolicy
+cn: ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000}
+description: 
+ For all IP traffic, always require security using Kerberos trust. Do NOT allow
+  unsecured communication with untrusted clients.
+distinguishedName: 
+ CN=ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4334
+uSNChanged: 4334
+showInAdvancedViewOnly: TRUE
+name: ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000}
+objectGUID:: 3MB3VDjuqE+6cvXG/F5L2Q==
+ipsecName: Secure Server (Require Security)
+ipsecID: {7238523C-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: YyEgIkxP0RGGOwCgJI0wIQQAAAAwKgAAAA==
+ipsecISAKMPReference: 
+ CN=ipsecISAKMPPolicy{7238523D-70FA-11D1-864C-14A300000000},CN=IP Security,CN=S
+ ystem,DC=ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{59319BF3-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+ipsecNFAReference: 
+ CN=ipsecNFA{7238523E-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecISAKMPPolicy{7238523D-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecISAKMPPolicy
+cn: ipsecISAKMPPolicy{7238523D-70FA-11D1-864C-14A300000000}
+distinguishedName: 
+ CN=ipsecISAKMPPolicy{7238523D-70FA-11D1-864C-14A300000000},CN=IP Security,CN=S
+ ystem,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4335
+uSNChanged: 4335
+showInAdvancedViewOnly: TRUE
+name: ipsecISAKMPPolicy{7238523D-70FA-11D1-864C-14A300000000}
+objectGUID:: NegTvWcaqEa7MBDyz8VzxA==
+ipsecID: {7238523D-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ uCDcgMgu0RGongCgJI0wIUABAAD5ckJZHQfTEa0iAGCw7MoXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAADNzQMAAABAAAAACAAAAAIAAABAAAAAAAAAAAAAAAAA
+ AAAAAAAAAADNzc0CAAAAAAAAAAAAAACAcAAAzc3NzQAAzc0DAAAAQAAAAAgAAAABAAAAQAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAzc3NAgAAAAAAAAAAAAAAgHAAAM3Nzc0AAM3NAQAAAEAAAAAIAAAAAgAAAEAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAM3NzQEAAAAAAAAAAAAAAIBwAADNzc3NAADNzQEAAABAAAAACAAAAA
+ EAAABAAAAAAAAAAAAAAAAAAAAAAAAAAADNzc0BAAAAAAAAAAAAAACAcAAAzc3NzQA=
+ipsecOwnersReference: 
+ CN=ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-ISAKMP-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=loc
+ al
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{7238523E-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{7238523E-70FA-11D1-864C-14A300000000}
+description: 
+ Accepts unsecured communication, but always requires clients to establish trus
+ t and security methods.  Will NOT communicate with untrusted clients.
+distinguishedName: 
+ CN=ipsecNFA{7238523E-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4336
+uSNChanged: 4336
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{7238523E-70FA-11D1-864C-14A300000000}
+objectGUID:: V0a+lUUGRkCApLNE7iaWGw==
+ipsecName: Require Security
+ipsecID: {7238523E-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{7238523F-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+ipsecFilterReference: 
+ CN=ipsecFilter{7238523A-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{59319BF3-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{59319BF3-5EE3-11D2-ACE8-0060B0ECCA17}
+distinguishedName: 
+ CN=ipsecNFA{59319BF3-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4337
+uSNChanged: 4337
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{59319BF3-5EE3-11D2-ACE8-0060B0ECCA17}
+objectGUID:: 3e6I3HMqIECCQplrlkDBew==
+ipsecID: {59319BF3-5EE3-11D2-ACE8-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{59319BF0-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17}
+description: Permit unsecure ICMP packets to pass through.
+distinguishedName: 
+ CN=ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4339
+uSNChanged: 4339
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{594272FD-071D-11D3-AD22-0060B0ECCA17}
+objectGUID:: tK5j3D+NLEGftgWIfLs6xA==
+ipsecName: Permit unsecure ICMP packets to pass through.
+ipsecID: {594272FD-071D-11D3-AD22-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ AKy7EY1J0RGGOQCgJI0wISoAAAABAAAABQAAAAIAAAAAAP3///8CAAAAAAAAAAAAAAAAAAEAAAACAA
+ AAAAAA
+ipsecOwnersReference: 
+ CN=ipsecPolicy{7238523C-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+ipsecNegotiationPolicyReference: 
+ CN=ipsecNegotiationPolicy{7238523B-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+ipsecFilterReference: 
+ CN=ipsecFilter{72385235-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,
+ DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ipsecNegotiationPolicy{7238523F-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNegotiationPolicy
+cn: ipsecNegotiationPolicy{7238523F-70FA-11D1-864C-14A300000000}
+description: 
+ Accepts unsecured communication, but always requires clients to establish trus
+ t and security methods.  Will NOT communicate with untrusted clients.
+distinguishedName: 
+ CN=ipsecNegotiationPolicy{7238523F-70FA-11D1-864C-14A300000000},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4344
+uSNChanged: 4344
+showInAdvancedViewOnly: TRUE
+name: ipsecNegotiationPolicy{7238523F-70FA-11D1-864C-14A300000000}
+objectGUID:: vDWyug8Osk2k6EsOC/vS9A==
+ipsecName: Require Security
+ipsecID: {7238523F-70FA-11D1-864C-14A300000000}
+ipsecDataType: 598
+ipsecData:: 
+ uSDcgMgu0RGongCgJI0wIUQBAAAEAAAAhAMAAKCGAQAAAAAAAAAAAAEAAAADAAAAAgAAAAIAAABAAA
+ AACAAAAHUAcgByAGUAbgB0AEMAbwBuAHQAcgBvAGwAUwBlAHQAXABTAGUAcgCEAwAAoIYBAAAAAAAA
+ AAAAAQAAAAMAAAABAAAAAgAAAEAAAAAIAAAAcABzAGUAYwBOAEYAQQB7ADcAMgAzADgANQAyADMARQ
+ AtADcAMABGAIQDAACghgEAAAAAAAAAAAABAAAAAQAAAAIAAAACAAAAQAAAAAgAAABsAGkAYwB5AFwA
+ TABvAGMAYQBsAFwAaQBwAHMAZQBjAE4ARgBBAHsAhAMAAKCGAQAAAAAAAAAAAAEAAAABAAAAAQAAAA
+ IAAABAAAAACAAAAGUAYwBOAEYAQQB7AEIARgBDADcAQwAzADUAQQAtAEIANQA5ADIALQAA
+ipsecOwnersReference: 
+ CN=ipsecNFA{7238523E-70FA-11D1-864C-14A300000000},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Negotiation-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+isCriticalSystemObject: TRUE
+iPSECNegotiationPolicyType: {62F49E10-6C37-11D1-864C-14A300000000}
+iPSECNegotiationPolicyAction: {3F91A81A-7647-11D1-864D-D46A00000000}
+
+dn: CN=ipsecNegotiationPolicy{59319BF0-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNegotiationPolicy
+cn: ipsecNegotiationPolicy{59319BF0-5EE3-11D2-ACE8-0060B0ECCA17}
+distinguishedName: 
+ CN=ipsecNegotiationPolicy{59319BF0-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security
+ ,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4341
+uSNChanged: 4341
+showInAdvancedViewOnly: TRUE
+name: ipsecNegotiationPolicy{59319BF0-5EE3-11D2-ACE8-0060B0ECCA17}
+objectGUID:: u246Vz+6XkazEJ4GvXtplg==
+ipsecID: {59319BF0-5EE3-11D2-ACE8-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ uSDcgMgu0RGongCgJI0wIeQBAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAADAAAAAgAAAAIAAABAAA
+ AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAQAAAAMAAAABAAAAAgAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAIAAAACAAAAQAAAAAgAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAQAAAA
+ IAAABAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAQAAAAIAAAAAAAAAAQAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAABAAAAQAAAAAgAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+ipsecOwnersReference: 
+ CN=ipsecNFA{59319BF3-5EE3-11D2-ACE8-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+objectCategory: 
+ CN=Ipsec-Negotiation-Policy,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+isCriticalSystemObject: TRUE
+iPSECNegotiationPolicyType: {62F49E13-6C37-11D1-864C-14A300000000}
+iPSECNegotiationPolicyAction: {8A171DD3-77E3-11D1-8659-A04F00000000}
+
+dn: CN=ipsecNFA{6A1F5C6F-72B7-11D2-ACF0-0060B0ECCA17},CN=IP Security,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: ipsecBase
+objectClass: ipsecNFA
+cn: ipsecNFA{6A1F5C6F-72B7-11D2-ACF0-0060B0ECCA17}
+description: Version Information Object
+distinguishedName: 
+ CN=ipsecNFA{6A1F5C6F-72B7-11D2-ACF0-0060B0ECCA17},CN=IP Security,CN=System,DC=
+ ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4338
+uSNChanged: 4338
+showInAdvancedViewOnly: TRUE
+name: ipsecNFA{6A1F5C6F-72B7-11D2-ACF0-0060B0ECCA17}
+objectGUID:: pNSgT4IxpUOYHNOAibc6jw==
+ipsecName: Version Information Object
+ipsecID: {6A1F5C6F-72B7-11D2-ACF0-0060B0ECCA17}
+ipsecDataType: 598
+ipsecData:: 
+ b1wfardy0hGs8ABgsOzKF1AAAAAAAAEApmamNhoAAABXAGkAbgBkAG8AdwBzACAAMgAwADAAMAAAAB
+ wAAABBAGQAbQBpAG4AaQBzAHQAcgBhAHQAbwByAAAABgAAAA0ACgAAAACsuxGNSdERhjkAoCSNMCEq
+ AAAAAQAAAAUAAAACAAAAAAD9////AgAAAAAAAAAAAAAAAAABAAAAAgAAAAAAAA==
+objectCategory: 
+ CN=Ipsec-NFA,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=AdminSDHolder,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: AdminSDHolder
+distinguishedName: CN=AdminSDHolder,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4348
+uSNChanged: 4348
+showInAdvancedViewOnly: TRUE
+name: AdminSDHolder
+objectGUID:: JkbZcZ9W0ESpnoXIeTtpBw==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ComPartitions,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: ComPartitions
+distinguishedName: CN=ComPartitions,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4349
+uSNChanged: 4349
+showInAdvancedViewOnly: TRUE
+name: ComPartitions
+objectGUID:: rKobA/GtL0Wr6hql+ZSP3g==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ComPartitionSets,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: ComPartitionSets
+distinguishedName: 
+ CN=ComPartitionSets,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4350
+uSNChanged: 4350
+showInAdvancedViewOnly: TRUE
+name: ComPartitionSets
+objectGUID:: 95siUzT450S4NSNEiWG5Fg==
+systemFlags: -1946157056
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: WMIPolicy
+distinguishedName: CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4351
+uSNChanged: 4351
+showInAdvancedViewOnly: TRUE
+name: WMIPolicy
+objectGUID:: qmJlhSwiyUmo7EHOq13FbA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=PolicyTemplate,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: PolicyTemplate
+distinguishedName: 
+ CN=PolicyTemplate,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4352
+uSNChanged: 4352
+showInAdvancedViewOnly: TRUE
+name: PolicyTemplate
+objectGUID:: mXXmU+TqIEeJxSjECvwfvw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=SOM,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: SOM
+distinguishedName: 
+ CN=SOM,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4353
+uSNChanged: 4353
+showInAdvancedViewOnly: TRUE
+name: SOM
+objectGUID:: mRvdSHp7EkmAcv/1Zws6Jg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=PolicyType,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: PolicyType
+distinguishedName: 
+ CN=PolicyType,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4354
+uSNChanged: 4354
+showInAdvancedViewOnly: TRUE
+name: PolicyType
+objectGUID:: 8PeIMdGXl0CFTON30Ss7/g==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=WMIGPO,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: WMIGPO
+distinguishedName: 
+ CN=WMIGPO,CN=WMIPolicy,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4355
+uSNChanged: 4355
+showInAdvancedViewOnly: TRUE
+name: WMIGPO
+objectGUID:: IrsWbpHs6kWkLE1URvuwkg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: DomainUpdates
+distinguishedName: CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4356
+uSNChanged: 4356
+showInAdvancedViewOnly: TRUE
+name: DomainUpdates
+objectGUID:: OiVCoiIrB0WEL3sZB50ZUg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Operations
+distinguishedName: 
+ CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4357
+uSNChanged: 4357
+showInAdvancedViewOnly: TRUE
+name: Operations
+objectGUID:: qIeYbkdUJkWKvNCkT4ioFg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=ab402345-d3c3-455d-9ff7-40268a1099b6,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: ab402345-d3c3-455d-9ff7-40268a1099b6
+distinguishedName: 
+ CN=ab402345-d3c3-455d-9ff7-40268a1099b6,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4358
+uSNChanged: 4358
+showInAdvancedViewOnly: TRUE
+name: ab402345-d3c3-455d-9ff7-40268a1099b6
+objectGUID:: WER4ilfIqkOHq5h70osBcw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=bab5f54d-06c8-48de-9b87-d78b796564e4,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: bab5f54d-06c8-48de-9b87-d78b796564e4
+distinguishedName: 
+ CN=bab5f54d-06c8-48de-9b87-d78b796564e4,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4359
+uSNChanged: 4359
+showInAdvancedViewOnly: TRUE
+name: bab5f54d-06c8-48de-9b87-d78b796564e4
+objectGUID:: boQbkzb7FESknuhBWDiGow==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=f3dd09dd-25e8-4f9c-85df-12d6d2f2f2f5,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: f3dd09dd-25e8-4f9c-85df-12d6d2f2f2f5
+distinguishedName: 
+ CN=f3dd09dd-25e8-4f9c-85df-12d6d2f2f2f5,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4360
+uSNChanged: 4360
+showInAdvancedViewOnly: TRUE
+name: f3dd09dd-25e8-4f9c-85df-12d6d2f2f2f5
+objectGUID:: eJMa6MZntk+aH4vw0ddSuQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=2416c60a-fe15-4d7a-a61e-dffd5df864d3,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 2416c60a-fe15-4d7a-a61e-dffd5df864d3
+distinguishedName: 
+ CN=2416c60a-fe15-4d7a-a61e-dffd5df864d3,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4361
+uSNChanged: 4361
+showInAdvancedViewOnly: TRUE
+name: 2416c60a-fe15-4d7a-a61e-dffd5df864d3
+objectGUID:: 3Il9qVZs/ESWj2rKr2Qx2w==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=7868d4c8-ac41-4e05-b401-776280e8e9f1,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 7868d4c8-ac41-4e05-b401-776280e8e9f1
+distinguishedName: 
+ CN=7868d4c8-ac41-4e05-b401-776280e8e9f1,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4362
+uSNChanged: 4362
+showInAdvancedViewOnly: TRUE
+name: 7868d4c8-ac41-4e05-b401-776280e8e9f1
+objectGUID:: h4HGGLcmA0isfTZ5A0fyug==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=860c36ed-5241-4c62-a18b-cf6ff9994173,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 860c36ed-5241-4c62-a18b-cf6ff9994173
+distinguishedName: 
+ CN=860c36ed-5241-4c62-a18b-cf6ff9994173,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4363
+uSNChanged: 4363
+showInAdvancedViewOnly: TRUE
+name: 860c36ed-5241-4c62-a18b-cf6ff9994173
+objectGUID:: 5N0X9hLZKU+AZri2p0MXOA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=0e660ea3-8a5e-4495-9ad7-ca1bd4638f9e,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 0e660ea3-8a5e-4495-9ad7-ca1bd4638f9e
+distinguishedName: 
+ CN=0e660ea3-8a5e-4495-9ad7-ca1bd4638f9e,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4364
+uSNChanged: 4364
+showInAdvancedViewOnly: TRUE
+name: 0e660ea3-8a5e-4495-9ad7-ca1bd4638f9e
+objectGUID:: 4P2BMYxrOUWF6+XUgwj7Sw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=a86fe12a-0f62-4e2a-b271-d27f601f8182,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: a86fe12a-0f62-4e2a-b271-d27f601f8182
+distinguishedName: 
+ CN=a86fe12a-0f62-4e2a-b271-d27f601f8182,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4365
+uSNChanged: 4365
+showInAdvancedViewOnly: TRUE
+name: a86fe12a-0f62-4e2a-b271-d27f601f8182
+objectGUID:: HyAr5Uo8f0+hsEhxo+i3iA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=d85c0bfd-094f-4cad-a2b5-82ac9268475d,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: d85c0bfd-094f-4cad-a2b5-82ac9268475d
+distinguishedName: 
+ CN=d85c0bfd-094f-4cad-a2b5-82ac9268475d,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4366
+uSNChanged: 4366
+showInAdvancedViewOnly: TRUE
+name: d85c0bfd-094f-4cad-a2b5-82ac9268475d
+objectGUID:: 2222OdmfakysaHEtDeXQNA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6ada9ff7-c9df-45c1-908e-9fef2fab008a,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6ada9ff7-c9df-45c1-908e-9fef2fab008a
+distinguishedName: 
+ CN=6ada9ff7-c9df-45c1-908e-9fef2fab008a,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4367
+uSNChanged: 4367
+showInAdvancedViewOnly: TRUE
+name: 6ada9ff7-c9df-45c1-908e-9fef2fab008a
+objectGUID:: IMR+8dCJKECGipfZAXctdw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=10b3ad2a-6883-4fa7-90fc-6377cbdc1b26,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 10b3ad2a-6883-4fa7-90fc-6377cbdc1b26
+distinguishedName: 
+ CN=10b3ad2a-6883-4fa7-90fc-6377cbdc1b26,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4368
+uSNChanged: 4368
+showInAdvancedViewOnly: TRUE
+name: 10b3ad2a-6883-4fa7-90fc-6377cbdc1b26
+objectGUID:: Qf69VgTdv0ai9ySz0jwrCw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=98de1d3e-6611-443b-8b4e-f4337f1ded0b,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 98de1d3e-6611-443b-8b4e-f4337f1ded0b
+distinguishedName: 
+ CN=98de1d3e-6611-443b-8b4e-f4337f1ded0b,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4369
+uSNChanged: 4369
+showInAdvancedViewOnly: TRUE
+name: 98de1d3e-6611-443b-8b4e-f4337f1ded0b
+objectGUID:: Wd3AapNKO0WqgYXrqulVLw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=f607fd87-80cf-45e2-890b-6cf97ec0e284,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: f607fd87-80cf-45e2-890b-6cf97ec0e284
+distinguishedName: 
+ CN=f607fd87-80cf-45e2-890b-6cf97ec0e284,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4370
+uSNChanged: 4370
+showInAdvancedViewOnly: TRUE
+name: f607fd87-80cf-45e2-890b-6cf97ec0e284
+objectGUID:: StQ4pEaO6U217UK2ehADAg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=9cac1f66-2167-47ad-a472-2a13251310e4,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 9cac1f66-2167-47ad-a472-2a13251310e4
+distinguishedName: 
+ CN=9cac1f66-2167-47ad-a472-2a13251310e4,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4371
+uSNChanged: 4371
+showInAdvancedViewOnly: TRUE
+name: 9cac1f66-2167-47ad-a472-2a13251310e4
+objectGUID:: 6JxpPr/nQUKq7FgiTycfNg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6ff880d6-11e7-4ed1-a20f-aac45da48650,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6ff880d6-11e7-4ed1-a20f-aac45da48650
+distinguishedName: 
+ CN=6ff880d6-11e7-4ed1-a20f-aac45da48650,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4372
+uSNChanged: 4372
+showInAdvancedViewOnly: TRUE
+name: 6ff880d6-11e7-4ed1-a20f-aac45da48650
+objectGUID:: gUvng+7+AUOzijh6HW04ew==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=446f24ea-cfd5-4c52-8346-96e170bcb912,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 446f24ea-cfd5-4c52-8346-96e170bcb912
+distinguishedName: 
+ CN=446f24ea-cfd5-4c52-8346-96e170bcb912,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4373
+uSNChanged: 4373
+showInAdvancedViewOnly: TRUE
+name: 446f24ea-cfd5-4c52-8346-96e170bcb912
+objectGUID:: g8hpvgKno0mfYOdrK365vg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=293f0798-ea5c-4455-9f5d-45f33a30703b,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 293f0798-ea5c-4455-9f5d-45f33a30703b
+distinguishedName: 
+ CN=293f0798-ea5c-4455-9f5d-45f33a30703b,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4374
+uSNChanged: 4374
+showInAdvancedViewOnly: TRUE
+name: 293f0798-ea5c-4455-9f5d-45f33a30703b
+objectGUID:: HEjRuhBA2EiK0ddzYDJwNA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=5c82b233-75fc-41b3-ac71-c69592e6bf15,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 5c82b233-75fc-41b3-ac71-c69592e6bf15
+distinguishedName: 
+ CN=5c82b233-75fc-41b3-ac71-c69592e6bf15,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4375
+uSNChanged: 4375
+showInAdvancedViewOnly: TRUE
+name: 5c82b233-75fc-41b3-ac71-c69592e6bf15
+objectGUID:: 2EKkuVylUUOhJDqFAVRNZg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=7ffef925-405b-440a-8d58-35e8cd6e98c3,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 7ffef925-405b-440a-8d58-35e8cd6e98c3
+distinguishedName: 
+ CN=7ffef925-405b-440a-8d58-35e8cd6e98c3,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4376
+uSNChanged: 4376
+showInAdvancedViewOnly: TRUE
+name: 7ffef925-405b-440a-8d58-35e8cd6e98c3
+objectGUID:: w2vJ+kvvzEOZN1Ures/WaQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=4dfbb973-8a62-4310-a90c-776e00f83222,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 4dfbb973-8a62-4310-a90c-776e00f83222
+distinguishedName: 
+ CN=4dfbb973-8a62-4310-a90c-776e00f83222,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4377
+uSNChanged: 4377
+showInAdvancedViewOnly: TRUE
+name: 4dfbb973-8a62-4310-a90c-776e00f83222
+objectGUID:: ETeEenRvJke9qiw0EWN7vA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=8437C3D8-7689-4200-BF38-79E4AC33DFA0,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 8437C3D8-7689-4200-BF38-79E4AC33DFA0
+distinguishedName: 
+ CN=8437C3D8-7689-4200-BF38-79E4AC33DFA0,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4378
+uSNChanged: 4378
+showInAdvancedViewOnly: TRUE
+name: 8437C3D8-7689-4200-BF38-79E4AC33DFA0
+objectGUID:: mpg+sdU+JUOfV7btYquUwA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=7cfb016c-4f87-4406-8166-bd9df943947f,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 7cfb016c-4f87-4406-8166-bd9df943947f
+distinguishedName: 
+ CN=7cfb016c-4f87-4406-8166-bd9df943947f,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4379
+uSNChanged: 4379
+showInAdvancedViewOnly: TRUE
+name: 7cfb016c-4f87-4406-8166-bd9df943947f
+objectGUID:: OcxLrBbBfkmZuIekbsEiqg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=f7ed4553-d82b-49ef-a839-2f38a36bb069,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: f7ed4553-d82b-49ef-a839-2f38a36bb069
+distinguishedName: 
+ CN=f7ed4553-d82b-49ef-a839-2f38a36bb069,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4380
+uSNChanged: 4380
+showInAdvancedViewOnly: TRUE
+name: f7ed4553-d82b-49ef-a839-2f38a36bb069
+objectGUID:: eJqTFuCE3kqsM3V3ClGCxA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=8ca38317-13a4-4bd4-806f-ebed6acb5d0c,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 8ca38317-13a4-4bd4-806f-ebed6acb5d0c
+distinguishedName: 
+ CN=8ca38317-13a4-4bd4-806f-ebed6acb5d0c,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4381
+uSNChanged: 4381
+showInAdvancedViewOnly: TRUE
+name: 8ca38317-13a4-4bd4-806f-ebed6acb5d0c
+objectGUID:: TmE7Cmw6L0iuBLSCCZ3ajA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=3c784009-1f57-4e2a-9b04-6915c9e71961,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 3c784009-1f57-4e2a-9b04-6915c9e71961
+distinguishedName: 
+ CN=3c784009-1f57-4e2a-9b04-6915c9e71961,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4382
+uSNChanged: 4382
+showInAdvancedViewOnly: TRUE
+name: 3c784009-1f57-4e2a-9b04-6915c9e71961
+objectGUID:: 0SO7/FlRa02xegttKmq05A==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5678-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5678-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5678-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4383
+uSNChanged: 4383
+showInAdvancedViewOnly: TRUE
+name: 6bcd5678-8314-11d6-977b-00c04f613221
+objectGUID:: 8CTKHxtybEO045seSUIdbA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5679-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5679-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5679-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4384
+uSNChanged: 4384
+showInAdvancedViewOnly: TRUE
+name: 6bcd5679-8314-11d6-977b-00c04f613221
+objectGUID:: IFrZzdPdC0uMGhMAXG9fVw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd567a-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd567a-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd567a-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4385
+uSNChanged: 4385
+showInAdvancedViewOnly: TRUE
+name: 6bcd567a-8314-11d6-977b-00c04f613221
+objectGUID:: WY6ywiT7nk+3HsozBLhjGQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd567b-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd567b-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd567b-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4386
+uSNChanged: 4386
+showInAdvancedViewOnly: TRUE
+name: 6bcd567b-8314-11d6-977b-00c04f613221
+objectGUID:: RLn+FXw2dEef0KuLrE2UsQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd567c-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd567c-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd567c-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4387
+uSNChanged: 4387
+showInAdvancedViewOnly: TRUE
+name: 6bcd567c-8314-11d6-977b-00c04f613221
+objectGUID:: gA21/aN79E+VVgXdtSZ5kA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd567d-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd567d-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd567d-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4388
+uSNChanged: 4388
+showInAdvancedViewOnly: TRUE
+name: 6bcd567d-8314-11d6-977b-00c04f613221
+objectGUID:: xDp6/bso3EOUWQ/HN08gLQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd567e-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd567e-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd567e-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4389
+uSNChanged: 4389
+showInAdvancedViewOnly: TRUE
+name: 6bcd567e-8314-11d6-977b-00c04f613221
+objectGUID:: jUYF+aOOFUqUAnGOlxUrUg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd567f-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd567f-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd567f-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4390
+uSNChanged: 4390
+showInAdvancedViewOnly: TRUE
+name: 6bcd567f-8314-11d6-977b-00c04f613221
+objectGUID:: sof7pQCM2E6kEPCb6zgXlQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5680-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5680-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5680-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4391
+uSNChanged: 4391
+showInAdvancedViewOnly: TRUE
+name: 6bcd5680-8314-11d6-977b-00c04f613221
+objectGUID:: jLff/LGiLEOw6uRqoEcC3Q==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5681-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5681-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5681-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4392
+uSNChanged: 4392
+showInAdvancedViewOnly: TRUE
+name: 6bcd5681-8314-11d6-977b-00c04f613221
+objectGUID:: NMLH+VsTakqiq15myuk80w==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5682-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5682-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5682-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4393
+uSNChanged: 4393
+showInAdvancedViewOnly: TRUE
+name: 6bcd5682-8314-11d6-977b-00c04f613221
+objectGUID:: Ppm+l1QA8kCNn0PMDj18hg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5683-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5683-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5683-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4394
+uSNChanged: 4394
+showInAdvancedViewOnly: TRUE
+name: 6bcd5683-8314-11d6-977b-00c04f613221
+objectGUID:: PG1tO6MFSU6KtO+ejNIrjg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5684-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5684-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5684-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4395
+uSNChanged: 4395
+showInAdvancedViewOnly: TRUE
+name: 6bcd5684-8314-11d6-977b-00c04f613221
+objectGUID:: i130W0WIQ06nPLuQCMR5bw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5685-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5685-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5685-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4396
+uSNChanged: 4396
+showInAdvancedViewOnly: TRUE
+name: 6bcd5685-8314-11d6-977b-00c04f613221
+objectGUID:: jRXoUVY8Z0aplF5R9d67kA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5686-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5686-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5686-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4397
+uSNChanged: 4397
+showInAdvancedViewOnly: TRUE
+name: 6bcd5686-8314-11d6-977b-00c04f613221
+objectGUID:: 21ppdpjjI0mSvGAkr0jH/Q==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5687-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5687-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5687-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4398
+uSNChanged: 4398
+showInAdvancedViewOnly: TRUE
+name: 6bcd5687-8314-11d6-977b-00c04f613221
+objectGUID:: XnBif6yqJk24Hkhzo2FUYg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5688-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5688-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5688-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4399
+uSNChanged: 4399
+showInAdvancedViewOnly: TRUE
+name: 6bcd5688-8314-11d6-977b-00c04f613221
+objectGUID:: Ay94W/0YBEW6FSsha4jssQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd5689-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd5689-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd5689-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4400
+uSNChanged: 4400
+showInAdvancedViewOnly: TRUE
+name: 6bcd5689-8314-11d6-977b-00c04f613221
+objectGUID:: 9j/sW8gCWkmh8/IFhR4i3w==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd568a-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd568a-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd568a-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055318.0Z
+whenChanged: 20050622055318.0Z
+uSNCreated: 4401
+uSNChanged: 4401
+showInAdvancedViewOnly: TRUE
+name: 6bcd568a-8314-11d6-977b-00c04f613221
+objectGUID:: XkaciaGWVEGr50gG591DKA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd568b-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd568b-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd568b-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4402
+uSNChanged: 4402
+showInAdvancedViewOnly: TRUE
+name: 6bcd568b-8314-11d6-977b-00c04f613221
+objectGUID:: 3TDtWhakrUWCGwdhKTa+lg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd568c-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd568c-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd568c-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4403
+uSNChanged: 4403
+showInAdvancedViewOnly: TRUE
+name: 6bcd568c-8314-11d6-977b-00c04f613221
+objectGUID:: iDTXNyuXyUiIjECowbEmIQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=6bcd568d-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6bcd568d-8314-11d6-977b-00c04f613221
+distinguishedName: 
+ CN=6bcd568d-8314-11d6-977b-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4404
+uSNChanged: 4404
+showInAdvancedViewOnly: TRUE
+name: 6bcd568d-8314-11d6-977b-00c04f613221
+objectGUID:: LvK4K7U6LUSaruhW5ZLQOA==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=3051c66f-b332-4a73-9a20-2d6a7d6e6a1c,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 3051c66f-b332-4a73-9a20-2d6a7d6e6a1c
+distinguishedName: 
+ CN=3051c66f-b332-4a73-9a20-2d6a7d6e6a1c,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4405
+uSNChanged: 4405
+showInAdvancedViewOnly: TRUE
+name: 3051c66f-b332-4a73-9a20-2d6a7d6e6a1c
+objectGUID:: dtNwkYKjIk+yBTYRToJ6Ig==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=3e4f4182-ac5d-4378-b760-0eab2de593e2,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 3e4f4182-ac5d-4378-b760-0eab2de593e2
+distinguishedName: 
+ CN=3e4f4182-ac5d-4378-b760-0eab2de593e2,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4406
+uSNChanged: 4406
+showInAdvancedViewOnly: TRUE
+name: 3e4f4182-ac5d-4378-b760-0eab2de593e2
+objectGUID:: qVq8srmKJkCBc6fUoLv3FQ==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=c4f17608-e611-11d6-9793-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: c4f17608-e611-11d6-9793-00c04f613221
+distinguishedName: 
+ CN=c4f17608-e611-11d6-9793-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4407
+uSNChanged: 4407
+showInAdvancedViewOnly: TRUE
+name: c4f17608-e611-11d6-9793-00c04f613221
+objectGUID:: GwYCOK8JI0OdDalfmYdq7g==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=13d15cf0-e6c8-11d6-9793-00c04f613221,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 13d15cf0-e6c8-11d6-9793-00c04f613221
+distinguishedName: 
+ CN=13d15cf0-e6c8-11d6-9793-00c04f613221,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4408
+uSNChanged: 4408
+showInAdvancedViewOnly: TRUE
+name: 13d15cf0-e6c8-11d6-9793-00c04f613221
+objectGUID:: y/r/NCfgXkqfLK4qzTR67Q==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=8ddf6913-1c7b-4c59-a5af-b9ca3b3d2c4c,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 8ddf6913-1c7b-4c59-a5af-b9ca3b3d2c4c
+distinguishedName: 
+ CN=8ddf6913-1c7b-4c59-a5af-b9ca3b3d2c4c,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4409
+uSNChanged: 4409
+showInAdvancedViewOnly: TRUE
+name: 8ddf6913-1c7b-4c59-a5af-b9ca3b3d2c4c
+objectGUID:: lVvuY1HRpUGKZ6B/UZ0klg==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Windows2003Update,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: Windows2003Update
+distinguishedName: 
+ CN=Windows2003Update,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055319.0Z
+whenChanged: 20050622055319.0Z
+uSNCreated: 4410
+uSNChanged: 4410
+showInAdvancedViewOnly: TRUE
+name: Windows2003Update
+objectGUID:: xOio8aB7f0CBcpYNfg1uEg==
+revision: 8
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: Administrator
+description: Built-in account for administering the computer/domain
+distinguishedName: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055320.0Z
+whenChanged: 20050622062327.0Z
+uSNCreated: 8194
+memberOf: 
+ CN=Group Policy Creator Owners,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Schema Admins,CN=Users,DC=ACMETradingLimited,DC=local
+memberOf: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 16401
+name: Administrator
+objectGUID:: j2Mj89rv7USFwIYuuqwYsg==
+userAccountControl: 66048
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 127680137085389136
+lastLogoff: 0
+lastLogon: 127680151261873920
+pwdLastSet: 127639311271190720
+primaryGroupID: 513
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu9AEAAA==
+adminCount: 1
+accountExpires: 9223372036854775807
+logonCount: 20
+sAMAccountName: Administrator
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Guest,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: Guest
+description: Built-in account for guest access to the computer/domain
+distinguishedName: CN=Guest,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055320.0Z
+whenChanged: 20050622055320.0Z
+uSNCreated: 8195
+memberOf: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 8195
+name: Guest
+objectGUID:: fEAaI28fB0ikNcYAeSlFNg==
+userAccountControl: 66082
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+pwdLastSet: 0
+primaryGroupID: 514
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu9QEAAA==
+accountExpires: 9223372036854775807
+logonCount: 0
+sAMAccountName: Guest
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=SUPPORT_388945a0,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: SUPPORT_388945a0
+description: This is a vendor's account for the Help and Support Service
+distinguishedName: CN=SUPPORT_388945a0,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+displayName: CN=Microsoft Corporation,L=Redmond,S=Washington,C=US
+uSNCreated: 8196
+memberOf: CN=HelpServicesGroup,CN=Users,DC=ACMETradingLimited,DC=local
+uSNChanged: 8196
+name: SUPPORT_388945a0
+objectGUID:: VsekIxLNuEaIqgsTx2gCMA==
+userAccountControl: 66050
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+pwdLastSet: 127638893365151776
+primaryGroupID: 513
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6QMAAA==
+accountExpires: 0
+logonCount: 0
+sAMAccountName: SUPPORT_388945a0
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=HelpServicesGroup,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: HelpServicesGroup
+description: Group for the Help and Support Center
+member: CN=SUPPORT_388945a0,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=HelpServicesGroup,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8197
+uSNChanged: 8198
+name: HelpServicesGroup
+objectGUID:: OMLpktAs8kebBC3gIL/wUw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6AMAAA==
+sAMAccountName: HelpServicesGroup
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=TelnetClients,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: TelnetClients
+description: 
+ Members of this group have access to Telnet Server on this system.
+distinguishedName: CN=TelnetClients,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8199
+uSNChanged: 8199
+name: TelnetClients
+objectGUID:: lYwewLUBsUO88BMHpoPoaw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6gMAAA==
+sAMAccountName: TelnetClients
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DHCP Users,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DHCP Users
+description: Members who have view-only access to the DHCP service
+distinguishedName: CN=DHCP Users,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8200
+uSNChanged: 8200
+name: DHCP Users
+objectGUID:: 369GwZtS6UunRy7kpjMU4w==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu6wMAAA==
+sAMAccountName: DHCP Users
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DHCP Administrators,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DHCP Administrators
+description: Members who have administrative access to DHCP service
+distinguishedName: 
+ CN=DHCP Administrators,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8201
+uSNChanged: 8201
+name: DHCP Administrators
+objectGUID:: D/Uj1hQWckGDul3hkKaQXg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu7AMAAA==
+sAMAccountName: DHCP Administrators
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: builtinDomain
+cn: Builtin
+distinguishedName: CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8202
+uSNChanged: 8202
+showInAdvancedViewOnly: FALSE
+name: Builtin
+objectGUID:: QT0Py+sVjE21wPRhAhVtkw==
+creationTime: 127639305853099888
+forceLogoff: -9223372036854775808
+lockoutDuration: -18000000000
+lockOutObservationWindow: -18000000000
+lockoutThreshold: 0
+maxPwdAge: -37108517437440
+minPwdAge: 0
+minPwdLength: 0
+modifiedCountAtLastProm: 0
+nextRid: 1000
+pwdProperties: 0
+pwdHistoryLength: 0
+objectSid:: AQEAAAAAAAUgAAAA
+serverState: 1
+uASCompat: 1
+modifiedCount: 46
+systemFlags: -1946157056
+objectCategory: 
+ CN=Builtin-Domain,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Administrators
+description: 
+ Administrators have complete and unrestricted access to the computer/domain
+member: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+member: CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 8203
+uSNChanged: 16409
+name: Administrators
+objectGUID:: 5liJLZQRXkKnZd1e9s3WSQ==
+objectSid:: AQIAAAAAAAUgAAAAIAIAAA==
+adminCount: 1
+sAMAccountName: Administrators
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Users
+description: 
+ Users are prevented from making accidental or intentional system-wide changes.
+   Thus, Users can run certified applications, but not most legacy applications
+member: CN=Domain Users,CN=Users,DC=ACMETradingLimited,DC=local
+member: 
+ CN=S-1-5-11,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+member: CN=S-1-5-4,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 8205
+uSNChanged: 12375
+name: Users
+objectGUID:: CLFgKul6XEW822R7v4BZpQ==
+objectSid:: AQIAAAAAAAUgAAAAIQIAAA==
+sAMAccountName: Users
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=S-1-5-4,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: foreignSecurityPrincipal
+cn: S-1-5-4
+distinguishedName: 
+ CN=S-1-5-4,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8206
+memberOf: CN=Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 8206
+showInAdvancedViewOnly: TRUE
+name: S-1-5-4
+objectGUID:: wGBO/HKo4EGDZLG8Z3od2A==
+objectSid:: AQEAAAAAAAUEAAAA
+objectCategory: 
+ CN=Foreign-Security-Principal,CN=Schema,CN=Configuration,DC=ACMETradingLimited
+ ,DC=local
+
+dn: CN=S-1-5-11,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: foreignSecurityPrincipal
+cn: S-1-5-11
+distinguishedName: 
+ CN=S-1-5-11,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8207
+memberOf: 
+ CN=Pre-Windows 2000 Compatible Access,CN=Builtin,DC=ACMETradingLimited,DC=loca
+ l
+memberOf: CN=Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 8207
+showInAdvancedViewOnly: TRUE
+name: S-1-5-11
+objectGUID:: c0j3Yl64UkCujuyCL1XXnQ==
+objectSid:: AQEAAAAAAAULAAAA
+objectCategory: 
+ CN=Foreign-Security-Principal,CN=Schema,CN=Configuration,DC=ACMETradingLimited
+ ,DC=local
+
+dn: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Guests
+description: 
+ Guests have the same access as members of the Users group by default, except f
+ or the Guest account which is further restricted
+member: CN=IUSR_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+member: CN=Domain Guests,CN=Users,DC=ACMETradingLimited,DC=local
+member: CN=Guest,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050803014815.0Z
+uSNCreated: 8209
+uSNChanged: 20513
+name: Guests
+objectGUID:: tX3YF2BRJ0mLqI/ENR+tjg==
+objectSid:: AQIAAAAAAAUgAAAAIgIAAA==
+sAMAccountName: Guests
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Print Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Print Operators
+description: Members can administer domain printers
+distinguishedName: 
+ CN=Print Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 8211
+uSNChanged: 16406
+name: Print Operators
+objectGUID:: dZjrdFDrrUueYZNjPIwDEQ==
+objectSid:: AQIAAAAAAAUgAAAAJgIAAA==
+adminCount: 1
+sAMAccountName: Print Operators
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Backup Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Backup Operators
+description: 
+ Backup Operators can override security restrictions for the sole purpose of ba
+ cking up or restoring files
+distinguishedName: 
+ CN=Backup Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 8212
+uSNChanged: 16404
+name: Backup Operators
+objectGUID:: L9mdP+W5IECij6oWx5Umfw==
+objectSid:: AQIAAAAAAAUgAAAAJwIAAA==
+adminCount: 1
+sAMAccountName: Backup Operators
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Replicator,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Replicator
+description: Supports file replication in a domain
+distinguishedName: CN=Replicator,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 8213
+uSNChanged: 16407
+name: Replicator
+objectGUID:: gA+1dtXyp0KI9KE8NLJlGw==
+objectSid:: AQIAAAAAAAUgAAAAKAIAAA==
+adminCount: 1
+sAMAccountName: Replicator
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Remote Desktop Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Remote Desktop Users
+description: Members in this group are granted the right to logon remotely
+member: CN=Domain Users,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Remote Desktop Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622064259.0Z
+uSNCreated: 8214
+uSNChanged: 16463
+name: Remote Desktop Users
+objectGUID:: MuKnZrKNgUqqInTgYMaxuQ==
+objectSid:: AQIAAAAAAAUgAAAAKwIAAA==
+sAMAccountName: Remote Desktop Users
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Network Configuration Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Network Configuration Operators
+description: 
+ Members in this group can have some administrative privileges to manage config
+ uration of networking features
+distinguishedName: 
+ CN=Network Configuration Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8215
+uSNChanged: 8215
+name: Network Configuration Operators
+objectGUID:: JTtfGyayF0eC633mDpa60A==
+objectSid:: AQIAAAAAAAUgAAAALAIAAA==
+sAMAccountName: Network Configuration Operators
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Performance Monitor Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Performance Monitor Users
+description: Members of this group have remote access to monitor this computer
+distinguishedName: 
+ CN=Performance Monitor Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8216
+uSNChanged: 8216
+name: Performance Monitor Users
+objectGUID:: pEfeD2vi2EOtZbb5m2SBKQ==
+objectSid:: AQIAAAAAAAUgAAAALgIAAA==
+sAMAccountName: Performance Monitor Users
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Performance Log Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Performance Log Users
+description: 
+ Members of this group have remote access to schedule logging of performance co
+ unters on this computer
+member: 
+ CN=S-1-5-20,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Performance Log Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8217
+uSNChanged: 8219
+name: Performance Log Users
+objectGUID:: 26nEVO939UmLwpe3F4xc9Q==
+objectSid:: AQIAAAAAAAUgAAAALwIAAA==
+sAMAccountName: Performance Log Users
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=S-1-5-20,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: foreignSecurityPrincipal
+cn: S-1-5-20
+distinguishedName: 
+ CN=S-1-5-20,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622055321.0Z
+uSNCreated: 8218
+memberOf: CN=Performance Log Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 8218
+showInAdvancedViewOnly: TRUE
+name: S-1-5-20
+objectGUID:: v3CWFzlMMUu1tMKN4n3G3Q==
+objectSid:: AQEAAAAAAAUUAAAA
+objectCategory: 
+ CN=Foreign-Security-Principal,CN=Schema,CN=Configuration,DC=ACMETradingLimited
+ ,DC=local
+
+dn: CN=Server,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: securityObject
+objectClass: samServer
+cn: Server
+distinguishedName: CN=Server,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055321.0Z
+whenChanged: 20050622060146.0Z
+uSNCreated: 8220
+uSNChanged: 13921
+showInAdvancedViewOnly: TRUE
+name: Server
+objectGUID:: bj1bfHCPhESU89t2byNPpw==
+revision: 65543
+systemFlags: -1946157056
+objectCategory: 
+ CN=Sam-Server,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+objectClass: computer
+cn: ACME-SERVER
+distinguishedName: 
+ CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050802235554.0Z
+uSNCreated: 12290
+uSNChanged: 20482
+name: ACME-SERVER
+objectGUID:: Dxnb8l2SOkqEs/PysIRBcA==
+userAccountControl: 532480
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 127679298835252016
+localPolicyFlags: 0
+pwdLastSet: 127675005544361840
+primaryGroupID: 516
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu7QMAAA==
+accountExpires: 9223372036854775807
+logonCount: 17
+sAMAccountName: ACME-SERVER$
+sAMAccountType: 805306369
+operatingSystem: Windows Server 2003
+operatingSystemVersion: 5.2 (3790)
+serverReferenceBL: 
+ CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=Configuration,DC=A
+ CMETradingLimited,DC=local
+dNSHostName: acme-server.ACMETradingLimited.local
+rIDSetReferences: 
+ CN=RID Set,CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+servicePrincipalName: 
+ ldap/acme-server.ACMETradingLimited.local/TAPI3Directory.ACMETradingLimited.lo
+ cal
+servicePrincipalName: 
+ NtFrs-88f5d2bd-b646-11d2-a6d3-00c04fc9b232/acme-server.ACMETradingLimited.loca
+ l
+servicePrincipalName: 
+ ldap/acme-server.ACMETradingLimited.local/ForestDnsZones.ACMETradingLimited.lo
+ cal
+servicePrincipalName: 
+ GC/acme-server.ACMETradingLimited.local/ACMETradingLimited.local
+servicePrincipalName: HOST/acme-server.ACMETradingLimited.local/ACME
+servicePrincipalName: HOST/ACME-SERVER
+servicePrincipalName: HOST/acme-server.ACMETradingLimited.local
+servicePrincipalName: 
+ HOST/acme-server.ACMETradingLimited.local/ACMETradingLimited.local
+servicePrincipalName: 
+ E3514235-4B06-11D1-AB04-00C04FC2DCD2/b5421591-0ed4-41c3-b04a-a8cfe3220417/ACME
+ TradingLimited.local
+servicePrincipalName: 
+ ldap/b5421591-0ed4-41c3-b04a-a8cfe3220417._msdcs.ACMETradingLimited.local
+servicePrincipalName: ldap/acme-server.ACMETradingLimited.local/ACME
+servicePrincipalName: ldap/ACME-SERVER
+servicePrincipalName: ldap/acme-server.ACMETradingLimited.local
+servicePrincipalName: 
+ ldap/acme-server.ACMETradingLimited.local/DomainDnsZones.ACMETradingLimited.lo
+ cal
+servicePrincipalName: 
+ ldap/acme-server.ACMETradingLimited.local/ACMETradingLimited.local
+servicePrincipalName: DNS/acme-server.ACMETradingLimited.local
+objectCategory: 
+ CN=Computer,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+frsComputerReferenceBL: 
+ CN=ACME-SERVER,CN=Domain System Volume (SYSVOL share),CN=File Replication Serv
+ ice,CN=System,DC=ACMETradingLimited,DC=local
+
+dn: CN=krbtgt,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: krbtgt
+description: Key Distribution Center Service Account
+distinguishedName: CN=krbtgt,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12320
+uSNChanged: 16410
+showInAdvancedViewOnly: TRUE
+name: krbtgt
+objectGUID:: 1djVhJtfKk6Fv78Nc1Mhkw==
+userAccountControl: 514
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+pwdLastSet: 127638933937593936
+primaryGroupID: 513
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2Lu9gEAAA==
+adminCount: 1
+accountExpires: 9223372036854775807
+logonCount: 0
+sAMAccountName: krbtgt
+sAMAccountType: 805306368
+servicePrincipalName: kadmin/changepw
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Computers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Computers
+description: All workstations and servers joined to the domain
+distinguishedName: CN=Domain Computers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622055633.0Z
+uSNCreated: 12326
+uSNChanged: 12328
+name: Domain Computers
+objectGUID:: iOBEiIakikmyi4Q6BdtqGQ==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAwIAAA==
+sAMAccountName: Domain Computers
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Controllers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Controllers
+description: All domain controllers in the domain
+distinguishedName: 
+ CN=Domain Controllers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12329
+uSNChanged: 16411
+name: Domain Controllers
+objectGUID:: rbVmumPHwkW3G9M25pGrKA==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBAIAAA==
+adminCount: 1
+sAMAccountName: Domain Controllers
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Schema Admins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Schema Admins
+description: Designated administrators of the schema
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Schema Admins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062327.0Z
+uSNCreated: 12332
+uSNChanged: 16402
+name: Schema Admins
+objectGUID:: l68d/S1NHUGQiFlQwprJwQ==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBgIAAA==
+adminCount: 1
+sAMAccountName: Schema Admins
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Enterprise Admins
+description: Designated administrators of the enterprise
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Enterprise Admins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622062327.0Z
+uSNCreated: 12335
+memberOf: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 16400
+name: Enterprise Admins
+objectGUID:: aUyr6rSatUOrn1k6ghGz1A==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBwIAAA==
+adminCount: 1
+sAMAccountName: Enterprise Admins
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Cert Publishers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Cert Publishers
+description: 
+ Members of this group are permitted to publish certificates to the Active Dire
+ ctory
+distinguishedName: CN=Cert Publishers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055633.0Z
+whenChanged: 20050622055633.0Z
+uSNCreated: 12338
+uSNChanged: 12340
+name: Cert Publishers
+objectGUID:: cT6KVUUcSEG9ohciH5VKlA==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuBQIAAA==
+sAMAccountName: Cert Publishers
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Admins
+description: Designated administrators of the domain
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=Domain Admins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12341
+memberOf: CN=Administrators,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 16403
+name: Domain Admins
+objectGUID:: y5L570awukmssZAep6bHdg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAAIAAA==
+adminCount: 1
+sAMAccountName: Domain Admins
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Users,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Users
+description: All domain users
+distinguishedName: CN=Domain Users,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12344
+memberOf: CN=Remote Desktop Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+memberOf: CN=Users,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 12346
+name: Domain Users
+objectGUID:: 9Zy156hEKEWzpYdBSJ/AtQ==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAQIAAA==
+sAMAccountName: Domain Users
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Domain Guests,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Domain Guests
+description: All domain guests
+distinguishedName: CN=Domain Guests,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12347
+memberOf: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 12349
+name: Domain Guests
+objectGUID:: yctUqPjPrU+2QT1khUhwHA==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuAgIAAA==
+sAMAccountName: Domain Guests
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Group Policy Creator Owners,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Group Policy Creator Owners
+description: Members in this group can modify group policy for the domain
+member: CN=Administrator,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Group Policy Creator Owners,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12350
+uSNChanged: 12380
+name: Group Policy Creator Owners
+objectGUID:: 0aGm3R/CRUGyneUQWCuuTw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuCAIAAA==
+sAMAccountName: Group Policy Creator Owners
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=RAS and IAS Servers,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: RAS and IAS Servers
+description: 
+ Servers in this group can access remote access properties of users
+distinguishedName: 
+ CN=RAS and IAS Servers,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12353
+uSNChanged: 12355
+name: RAS and IAS Servers
+objectGUID:: CB+Q7FwzBEewdIKkoAcZcg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuKQIAAA==
+sAMAccountName: RAS and IAS Servers
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Server Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Server Operators
+description: Members can administer domain servers
+distinguishedName: 
+ CN=Server Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12356
+uSNChanged: 16408
+name: Server Operators
+objectGUID:: ylg1BIAVJE+zopCbqoEiXA==
+objectSid:: AQIAAAAAAAUgAAAAJQIAAA==
+adminCount: 1
+sAMAccountName: Server Operators
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Account Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Account Operators
+description: Members can administer domain user and group accounts
+distinguishedName: 
+ CN=Account Operators,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622062328.0Z
+uSNCreated: 12359
+uSNChanged: 16405
+name: Account Operators
+objectGUID:: QcQwR5v/b0++F6dgCDkohA==
+objectSid:: AQIAAAAAAAUgAAAAJAIAAA==
+adminCount: 1
+sAMAccountName: Account Operators
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Pre-Windows 2000 Compatible Access,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Pre-Windows 2000 Compatible Access
+description: 
+ A backward compatibility group which allows read access on all users and group
+ s in the domain
+member: 
+ CN=S-1-5-11,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Pre-Windows 2000 Compatible Access,CN=Builtin,DC=ACMETradingLimited,DC=loca
+ l
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12362
+uSNChanged: 12381
+name: Pre-Windows 2000 Compatible Access
+objectGUID:: sQk64gDBVECcvnMevaqZ8A==
+objectSid:: AQIAAAAAAAUgAAAAKgIAAA==
+sAMAccountName: Pre-Windows 2000 Compatible Access
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Incoming Forest Trust Builders,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Incoming Forest Trust Builders
+description: 
+ Members of this group can create incoming, one-way trusts to this forest
+distinguishedName: 
+ CN=Incoming Forest Trust Builders,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12365
+uSNChanged: 12367
+name: Incoming Forest Trust Builders
+objectGUID:: IvhfHn0ABEyQ/3R/Y/KwKQ==
+objectSid:: AQIAAAAAAAUgAAAALQIAAA==
+sAMAccountName: Incoming Forest Trust Builders
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Windows Authorization Access Group,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Windows Authorization Access Group
+description: 
+ Members of this group have access to the computed tokenGroupsGlobalAndUniversa
+ l attribute on User objects
+member: CN=S-1-5-9,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+distinguishedName: 
+ CN=Windows Authorization Access Group,CN=Builtin,DC=ACMETradingLimited,DC=loca
+ l
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12368
+uSNChanged: 12383
+name: Windows Authorization Access Group
+objectGUID:: Th50kcdAKEGdleZyfn248w==
+objectSid:: AQIAAAAAAAUgAAAAMAIAAA==
+sAMAccountName: Windows Authorization Access Group
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=Terminal Server License Servers,CN=Builtin,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: Terminal Server License Servers
+description: Terminal Server License Servers
+distinguishedName: 
+ CN=Terminal Server License Servers,CN=Builtin,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12371
+uSNChanged: 12373
+name: Terminal Server License Servers
+objectGUID:: b4Wd9J+vcEG0q9Fb9soojw==
+objectSid:: AQIAAAAAAAUgAAAAMQIAAA==
+sAMAccountName: Terminal Server License Servers
+sAMAccountType: 536870912
+systemFlags: -1946157056
+groupType: -2147483643
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=S-1-5-9,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: foreignSecurityPrincipal
+cn: S-1-5-9
+distinguishedName: 
+ CN=S-1-5-9,CN=ForeignSecurityPrincipals,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12382
+memberOf: 
+ CN=Windows Authorization Access Group,CN=Builtin,DC=ACMETradingLimited,DC=loca
+ l
+uSNChanged: 12382
+showInAdvancedViewOnly: TRUE
+name: S-1-5-9
+objectGUID:: JnUht2RzCkOw+aA9BK0THQ==
+objectSid:: AQEAAAAAAAUJAAAA
+objectCategory: 
+ CN=Foreign-Security-Principal,CN=Schema,CN=Configuration,DC=ACMETradingLimited
+ ,DC=local
+
+dn: CN=6E157EDF-4E72-4052-A82A-EC3F91021A22,CN=Operations,CN=DomainUpdates,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: 6E157EDF-4E72-4052-A82A-EC3F91021A22
+distinguishedName: 
+ CN=6E157EDF-4E72-4052-A82A-EC3F91021A22,CN=Operations,CN=DomainUpdates,CN=Syst
+ em,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055634.0Z
+whenChanged: 20050622055634.0Z
+uSNCreated: 12384
+uSNChanged: 12384
+showInAdvancedViewOnly: TRUE
+name: 6E157EDF-4E72-4052-A82A-EC3F91021A22
+objectGUID:: qoo2mOK7BUaIA9D2NoRblw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=RID Manager$,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: rIDManager
+cn: RID Manager$
+distinguishedName: CN=RID Manager$,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055635.0Z
+whenChanged: 20050622055635.0Z
+uSNCreated: 12387
+uSNChanged: 12392
+showInAdvancedViewOnly: TRUE
+name: RID Manager$
+objectGUID:: WTfkvBK8MUS79uwnlnaPiQ==
+fSMORoleOwner: 
+ CN=NTDS Settings,CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=C
+ onfiguration,DC=ACMETradingLimited,DC=local
+rIDAvailablePool: 4611686014132422213
+systemFlags: -1946157056
+objectCategory: 
+ CN=RID-Manager,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=RID Set,CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: rIDSet
+cn: RID Set
+distinguishedName: 
+ CN=RID Set,CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055635.0Z
+whenChanged: 20050622055635.0Z
+uSNCreated: 12390
+uSNChanged: 12393
+showInAdvancedViewOnly: TRUE
+name: RID Set
+objectGUID:: 4jPNHw32zkmQvevvM3Tuew==
+rIDAllocationPool: 6889127543889
+rIDPreviousAllocationPool: 6889127543889
+rIDUsedPool: 0
+rIDNextRID: 1114
+objectCategory: 
+ CN=RID-Set,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DnsAdmins,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DnsAdmins
+description: DNS Administrators Group
+distinguishedName: CN=DnsAdmins,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055712.0Z
+whenChanged: 20050622055712.0Z
+uSNCreated: 12399
+uSNChanged: 12401
+name: DnsAdmins
+objectGUID:: QX5DkLB+tkGb9Fsgn/SNSw==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuUgQAAA==
+sAMAccountName: DnsAdmins
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=DnsUpdateProxy,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: DnsUpdateProxy
+description: 
+ DNS clients who are permitted to perform dynamic updates on behalf of some oth
+ er clients (such as DHCP servers).
+distinguishedName: CN=DnsUpdateProxy,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055712.0Z
+whenChanged: 20050622055712.0Z
+uSNCreated: 12404
+uSNChanged: 12404
+name: DnsUpdateProxy
+objectGUID:: OWLTEKk/ZkysHN/kyrzY+Q==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuUwQAAA==
+sAMAccountName: DnsUpdateProxy
+sAMAccountType: 268435456
+groupType: -2147483646
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=MicrosoftDNS,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: MicrosoftDNS
+distinguishedName: CN=MicrosoftDNS,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055712.0Z
+whenChanged: 20050622055712.0Z
+displayName: DNS Servers
+uSNCreated: 12407
+uSNChanged: 12411
+showInAdvancedViewOnly: TRUE
+name: MicrosoftDNS
+objectGUID:: HIdafiIU40e8dkMk9v7eIw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=Domain System Volume (SYSVOL share),CN=File Replication Service,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: nTFRSReplicaSet
+cn: Domain System Volume (SYSVOL share)
+distinguishedName: 
+ CN=Domain System Volume (SYSVOL share),CN=File Replication Service,CN=System,D
+ C=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055718.0Z
+whenChanged: 20050622055719.0Z
+uSNCreated: 12495
+uSNChanged: 12497
+showInAdvancedViewOnly: TRUE
+name: Domain System Volume (SYSVOL share)
+objectGUID:: agUQTiMtVEWPEZoy3HmZXQ==
+fRSReplicaSetType: 2
+fRSVersionGUID:: AAAAAAAAAAAAAAAAAAAAAA==
+fRSFileFilter: *.tmp, *.bak, ~*
+fRSReplicaSetGUID:: AAAAAAAAAAAAAAAAAAAAAA==
+objectCategory: 
+ CN=NTFRS-Replica-Set,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+fRSPrimaryMember: 
+ CN=ACME-SERVER,CN=Domain System Volume (SYSVOL share),CN=File Replication Serv
+ ice,CN=System,DC=ACMETradingLimited,DC=local
+
+dn: CN=ACME-SERVER,CN=Domain System Volume (SYSVOL share),CN=File Replication Service,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: nTFRSMember
+cn: ACME-SERVER
+distinguishedName: 
+ CN=ACME-SERVER,CN=Domain System Volume (SYSVOL share),CN=File Replication Serv
+ ice,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055719.0Z
+whenChanged: 20050622055719.0Z
+uSNCreated: 12496
+uSNChanged: 12496
+showInAdvancedViewOnly: TRUE
+name: ACME-SERVER
+objectGUID:: 0LN5U1xRRkell+zE25nUvQ==
+serverReference: 
+ CN=NTDS Settings,CN=ACME-SERVER,CN=Servers,CN=Default-First-Site,CN=Sites,CN=C
+ onfiguration,DC=ACMETradingLimited,DC=local
+objectCategory: 
+ CN=NTFRS-Member,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+frsComputerReference: 
+ CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+fRSMemberReferenceBL: 
+ CN=Domain System Volume (SYSVOL share),CN=NTFRS Subscriptions,CN=ACME-SERVER,O
+ U=Domain Controllers,DC=ACMETradingLimited,DC=local
+
+dn: CN=NTFRS Subscriptions,CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: nTFRSSubscriptions
+cn: NTFRS Subscriptions
+distinguishedName: 
+ CN=NTFRS Subscriptions,CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimi
+ ted,DC=local
+instanceType: 4
+whenCreated: 20050622055719.0Z
+whenChanged: 20050622055719.0Z
+uSNCreated: 12498
+uSNChanged: 12498
+showInAdvancedViewOnly: TRUE
+name: NTFRS Subscriptions
+objectGUID:: iQv4z7AEt0SoJMz8fnnIlw==
+fRSWorkingPath: c:\windows\ntfrs
+objectCategory: 
+ CN=NTFRS-Subscriptions,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=loc
+ al
+
+dn: CN=Domain System Volume (SYSVOL share),CN=NTFRS Subscriptions,CN=ACME-SERVER,OU=Domain Controllers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: nTFRSSubscriber
+cn: Domain System Volume (SYSVOL share)
+distinguishedName: 
+ CN=Domain System Volume (SYSVOL share),CN=NTFRS Subscriptions,CN=ACME-SERVER,O
+ U=Domain Controllers,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055719.0Z
+whenChanged: 20050622055719.0Z
+uSNCreated: 12499
+uSNChanged: 12499
+showInAdvancedViewOnly: TRUE
+name: Domain System Volume (SYSVOL share)
+objectGUID:: btK0XTUIFEKPIKiIkBuBfA==
+fRSRootPath: C:\WINDOWS\sysvol\domain
+fRSStagingPath: C:\WINDOWS\sysvol\staging\domain
+objectCategory: 
+ CN=NTFRS-Subscriber,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+fRSMemberReference: 
+ CN=ACME-SERVER,CN=Domain System Volume (SYSVOL share),CN=File Replication Serv
+ ice,CN=System,DC=ACMETradingLimited,DC=local
+
+dn: CN=BCKUPKEY_a1531339-03d3-4aa9-b290-d193e397ba2a Secret,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: secret
+cn: BCKUPKEY_a1531339-03d3-4aa9-b290-d193e397ba2a Secret
+distinguishedName: 
+ CN=BCKUPKEY_a1531339-03d3-4aa9-b290-d193e397ba2a Secret,CN=System,DC=ACMETradi
+ ngLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055903.0Z
+whenChanged: 20050622055903.0Z
+uSNCreated: 12586
+uSNChanged: 12588
+showInAdvancedViewOnly: TRUE
+name: BCKUPKEY_a1531339-03d3-4aa9-b290-d193e397ba2a Secret
+objectGUID:: dRS7UcK3LUSsmwqCbbdoaA==
+lastSetTime: 127638935431141552
+priorSetTime: 127638935430540688
+objectCategory: 
+ CN=Secret,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=BCKUPKEY_P Secret,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: secret
+cn: BCKUPKEY_P Secret
+distinguishedName: 
+ CN=BCKUPKEY_P Secret,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055903.0Z
+whenChanged: 20050622055903.0Z
+uSNCreated: 12589
+uSNChanged: 12591
+showInAdvancedViewOnly: TRUE
+name: BCKUPKEY_P Secret
+objectGUID:: 1eHC0T7FLUSlY51Y3LTs3w==
+lastSetTime: 127638935431441984
+priorSetTime: 127638935431241696
+objectCategory: 
+ CN=Secret,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=BCKUPKEY_3fbf6bbb-d18f-45db-90d6-1429c5510e6b Secret,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: secret
+cn: BCKUPKEY_3fbf6bbb-d18f-45db-90d6-1429c5510e6b Secret
+distinguishedName: 
+ CN=BCKUPKEY_3fbf6bbb-d18f-45db-90d6-1429c5510e6b Secret,CN=System,DC=ACMETradi
+ ngLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055906.0Z
+whenChanged: 20050622055906.0Z
+uSNCreated: 12592
+uSNChanged: 12594
+showInAdvancedViewOnly: TRUE
+name: BCKUPKEY_3fbf6bbb-d18f-45db-90d6-1429c5510e6b Secret
+objectGUID:: /Pv5il/8XU2+owBDTaQYTw==
+lastSetTime: 127638935466792816
+priorSetTime: 127638935465791376
+objectCategory: 
+ CN=Secret,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=BCKUPKEY_PREFERRED Secret,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: secret
+cn: BCKUPKEY_PREFERRED Secret
+distinguishedName: 
+ CN=BCKUPKEY_PREFERRED Secret,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055906.0Z
+whenChanged: 20050622055906.0Z
+uSNCreated: 12595
+uSNChanged: 12597
+showInAdvancedViewOnly: TRUE
+name: BCKUPKEY_PREFERRED Secret
+objectGUID:: Lrmx5n1j40eA8UsXdMQcXQ==
+lastSetTime: 127638935466993104
+priorSetTime: 127638935466892960
+objectCategory: 
+ CN=Secret,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: TRUE
+
+dn: CN=MicrosoftTAPI,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: container
+cn: MicrosoftTAPI
+distinguishedName: CN=MicrosoftTAPI,CN=System,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055934.0Z
+whenChanged: 20050622055934.0Z
+uSNCreated: 13910
+uSNChanged: 13910
+showInAdvancedViewOnly: TRUE
+name: MicrosoftTAPI
+objectGUID:: 4bJ6e3mpCEimaJpFNqasGw==
+objectCategory: 
+ CN=Container,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+
+dn: CN=ed9bc3ec-7d7e-4f37-aa9c-f774f8dd4f4d,CN=MicrosoftTAPI,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: connectionPoint
+objectClass: serviceConnectionPoint
+cn: ed9bc3ec-7d7e-4f37-aa9c-f774f8dd4f4d
+distinguishedName: 
+ CN=ed9bc3ec-7d7e-4f37-aa9c-f774f8dd4f4d,CN=MicrosoftTAPI,CN=System,DC=ACMETrad
+ ingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622055935.0Z
+whenChanged: 20050622055935.0Z
+uSNCreated: 13911
+uSNChanged: 13911
+showInAdvancedViewOnly: TRUE
+name: ed9bc3ec-7d7e-4f37-aa9c-f774f8dd4f4d
+objectGUID:: iaEvwwG/OUGAJf67d/o0lw==
+keywords: ILS
+keywords: TAPI
+keywords: Microsoft
+keywords: a57ef962-0367-4a5d-a6a9-a48ea236ea12
+serviceDNSName: TAPI3Directory.ACMETradingLimited.local
+serviceDNSNameType: SRV
+objectCategory: 
+ CN=Service-Connection-Point,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+
+dn: CN=DefaultTAPIDirectory,CN=MicrosoftTAPI,CN=System,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: leaf
+objectClass: connectionPoint
+objectClass: serviceConnectionPoint
+cn: DefaultTAPIDirectory
+distinguishedName: 
+ CN=DefaultTAPIDirectory,CN=MicrosoftTAPI,CN=System,DC=ACMETradingLimited,DC=lo
+ cal
+instanceType: 4
+whenCreated: 20050622055935.0Z
+whenChanged: 20050622055935.0Z
+uSNCreated: 13912
+uSNChanged: 13912
+showInAdvancedViewOnly: TRUE
+name: DefaultTAPIDirectory
+objectGUID:: XgremchWRUqqvQhGauA1MA==
+serviceDNSName: TAPI3Directory.ACMETradingLimited.local
+serviceDNSNameType: SRV
+objectCategory: 
+ CN=Service-Connection-Point,CN=Schema,CN=Configuration,DC=ACMETradingLimited,D
+ C=local
+
+dn: CN=Bill Gates,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: Bill Gates
+sn: Gates
+description: Domain User
+givenName: Bill
+distinguishedName: CN=Bill Gates,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622060453.0Z
+whenChanged: 20050622063553.0Z
+displayName: Bill Gates
+uSNCreated: 13937
+uSNChanged: 16453
+name: Bill Gates
+objectGUID:: OaErA55qV0G2RjtOwlp0fw==
+userAccountControl: 66048
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 127638972194373632
+pwdLastSet: 127638938934074544
+primaryGroupID: 513
+userParameters:: 
+ ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUAUaCAFDdHhDZm
+ dQcmVzZW5045S15pSx5oiw44GiGAgBQ3R4Q2ZnRmxhZ3Mx44Cw44Gm44Cy44C5EggBQ3R4U2hhZG93
+ 44Sw44Cw44Cw44CwKgIBQ3R4TWluRW5jcnlwdGlvbkxldmVs44SwGBQBQ3R4V0ZIb21lRGly44y05o
+ Sz5oy145C144y144i15pi25pi245C344Cw
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuVgQAAA==
+accountExpires: 9223372036854775807
+logonCount: 4
+sAMAccountName: Bill
+sAMAccountType: 805306368
+userPrincipalName: Bill@ACMETradingLimited.local
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+msNPAllowDialin: FALSE
+
+dn: CN=ACME-XP-CLIENT,CN=Computers,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+objectClass: computer
+cn: ACME-XP-CLIENT
+distinguishedName: 
+ CN=ACME-XP-CLIENT,CN=Computers,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050622062346.0Z
+whenChanged: 20050622062350.0Z
+displayName: ACME-XP-CLIENT$
+uSNCreated: 16415
+uSNChanged: 16422
+name: ACME-XP-CLIENT
+objectGUID:: n5FuoGXoh0ePP+/Vs2bL9w==
+userAccountControl: 4096
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 127638973347732080
+localPolicyFlags: 0
+pwdLastSet: 127638950264521600
+primaryGroupID: 515
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuVwQAAA==
+accountExpires: 9223372036854775807
+logonCount: 1
+sAMAccountName: ACME-XP-CLIENT$
+sAMAccountType: 805306369
+operatingSystem: Windows XP Professional
+operatingSystemVersion: 5.1 (2600)
+operatingSystemServicePack: Service Pack 2
+dNSHostName: acme-xp-client.ACMETradingLimited.local
+servicePrincipalName: HOST/ACME-XP-CLIENT
+servicePrincipalName: HOST/acme-xp-client.ACMETradingLimited.local
+objectCategory: 
+ CN=Computer,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+isCriticalSystemObject: FALSE
+
+dn: CN=IUSR_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: IUSR_ACME-SERVER
+description: 
+ Built-in account for anonymous access to Internet Information Services
+distinguishedName: CN=IUSR_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050803014815.0Z
+whenChanged: 20050803014842.0Z
+displayName: Internet Guest Account
+uSNCreated: 20508
+memberOf: CN=Guests,CN=Builtin,DC=ACMETradingLimited,DC=local
+uSNChanged: 20534
+name: IUSR_ACME-SERVER
+objectGUID:: lBtyiLgq5k6vSax6OUo2lg==
+userAccountControl: 66080
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 0
+logonHours:: ////////////////////////////
+pwdLastSet: 127675073001694624
+primaryGroupID: 513
+userParameters:: 
+ bTogICAgICAgICAgICAgICAgICAgIGQBICAgICAgICAgICAgICAgICAgICAgICAgUAQaCAFDdHhDZm
+ dQcmVzZW5045S15pSx5oiw44GiGAgBQ3R4Q2ZnRmxhZ3Mx44Cw44Gm44Sy44C5EggBQ3R4U2hhZG93
+ 44Sw44Cw44Cw44CwKgIBQ3R4TWluRW5jcnlwdGlvbkxldmVs44Sw
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuWAQAAA==
+comment: 
+ Built-in account for anonymous access to Internet Information Services
+accountExpires: 0
+logonCount: 0
+sAMAccountName: IUSR_ACME-SERVER
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+msNPAllowDialin: FALSE
+
+dn: CN=IWAM_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+cn: IWAM_ACME-SERVER
+description: 
+ Built-in account for Internet Information Services to start out of process app
+ lications
+distinguishedName: CN=IWAM_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050803014820.0Z
+whenChanged: 20050803014843.0Z
+displayName: Launch IIS Process Account
+uSNCreated: 20518
+memberOf: CN=IIS_WPG,CN=Users,DC=ACMETradingLimited,DC=local
+uSNChanged: 20536
+name: IWAM_ACME-SERVER
+objectGUID:: tq8qMWuhi0yPr98d3rWWAQ==
+userAccountControl: 66080
+badPwdCount: 0
+codePage: 0
+countryCode: 0
+badPasswordTime: 0
+lastLogoff: 0
+lastLogon: 127679298686938752
+logonHours:: ////////////////////////////
+pwdLastSet: 127675073003196784
+primaryGroupID: 513
+userParameters:: 
+ bTogICAgICAgICAgICAgICAgICAgIGQBICAgICAgICAgICAgICAgICAgICAgICAgUAQaCAFDdHhDZm
+ dQcmVzZW5045S15pSx5oiw44GiGAgBQ3R4Q2ZnRmxhZ3Mx44Cw44Gm44Sy44C5EggBQ3R4U2hhZG93
+ 44Sw44Cw44Cw44CwKgIBQ3R4TWluRW5jcnlwdGlvbkxldmVs44Sw
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuWQQAAA==
+comment: 
+ Built-in account for Internet Information Services to start out of process app
+ lications
+accountExpires: 0
+logonCount: 2
+sAMAccountName: IWAM_ACME-SERVER
+sAMAccountType: 805306368
+objectCategory: 
+ CN=Person,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+msNPAllowDialin: FALSE
+
+dn: CN=IIS_WPG,CN=Users,DC=ACMETradingLimited,DC=local
+changetype: add
+objectClass: top
+objectClass: group
+cn: IIS_WPG
+description: IIS Worker Process Group
+member: CN=IWAM_ACME-SERVER,CN=Users,DC=ACMETradingLimited,DC=local
+distinguishedName: CN=IIS_WPG,CN=Users,DC=ACMETradingLimited,DC=local
+instanceType: 4
+whenCreated: 20050803014822.0Z
+whenChanged: 20050803014823.0Z
+uSNCreated: 20526
+uSNChanged: 20529
+name: IIS_WPG
+objectGUID:: lTFkbXWKHUKNttfnC6jnFg==
+objectSid:: AQUAAAAAAAUVAAAAABP+0d3rEMVxO2LuWgQAAA==
+sAMAccountName: IIS_WPG
+sAMAccountType: 536870912
+groupType: -2147483644
+objectCategory: 
+ CN=Group,CN=Schema,CN=Configuration,DC=ACMETradingLimited,DC=local
+

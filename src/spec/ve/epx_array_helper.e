@@ -1,0 +1,33 @@
+indexing
+
+	description: "Converts arrays to pointers."
+	thanks: "The mico/E team for the idea."
+
+	date: "$Date: 2003/10/02 $"
+	revision: "$Revision: #1 $"
+
+
+class
+
+	EPX_ARRAY_HELPER
+
+inherit
+
+	ABSTRACT_ARRAY_HELPER
+
+
+feature -- Visual Eiffel specific conversions
+
+	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER is
+		do
+			Result := a.to_external
+		end
+
+	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER is
+			-- convert to void **
+		do
+			Result := a.to_external
+		end
+
+
+end

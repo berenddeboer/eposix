@@ -1,0 +1,75 @@
+;// As EPX_LOG_HANDLER does not understand message ids, it uses the
+;// level number as the Event ID. This message file makes the messages
+;// in the event log more readable by removing the warning that the
+;// message file is not found.
+;// The Severities should remain in sync with the mappings in EPX_LOG_HANDLER.
+MessageId=0x1
+Severity=Error
+Facility=Application
+SymbolicName=Emergency
+Language=English
+%1
+.
+MessageId=0x2
+Severity=Error
+Facility=Application
+SymbolicName=Alert
+Language=English
+test %1.
+.
+MessageId=0x3
+Severity=Error
+Facility=Application
+SymbolicName=Error
+Language=English
+%1
+.
+MessageId=0x4
+Severity=Warning
+Facility=Application
+SymbolicName=Warning
+Language=English
+%1
+.
+MessageId=0x5
+Severity=Informational
+Facility=Application
+SymbolicName=Authentication
+Language=English
+%1
+.
+MessageId=0x6
+Severity=Warning
+Facility=Application
+SymbolicName=Security
+Language=English
+%1
+.
+MessageId=0x7
+Severity=Informational
+Facility=Application
+SymbolicName=Usage
+Language=English
+%1
+.
+MessageId=0x8
+Severity=Success
+Facility=Application
+SymbolicName=System_usage
+Language=English
+%1
+.
+MessageId=0x9
+Severity=Informational
+Facility=Application
+SymbolicName=Important
+Language=English
+%1
+.
+MessageId=0x10
+Severity=Informational
+Facility=Application
+SymbolicName=Debugging
+Language=English
+%1
+.

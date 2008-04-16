@@ -1,0 +1,92 @@
+FLATTEX = \
+	stdc_current_process.tex \
+	abstract_current_process.tex \
+	abstract_file_descriptor.tex \
+	abstract_file_system.tex \
+	abstract_host.tex \
+	abstract_ip4_address.tex \
+	abstract_ip6_address.tex \
+	abstract_service.tex \
+	abstract_tcp_client_socket.tex \
+	abstract_tcp_server_socket.tex \
+	epx_host_port.tex \
+	epx_imap4_client.tex \
+	posix_constants.tex \
+	posix_current_process.tex \
+	posix_exec_process.tex \
+	posix_file_descriptor.tex \
+	posix_file_system.tex \
+	posix_fork_root.tex
+
+
+stdc_current_process.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace STDC_CURRENT_PROCESS > temp.tex
+	mv temp.tex $@
+
+abstract_current_process.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_CURRENT_PROCESS > temp.tex
+	mv temp.tex $@
+
+abstract_file_descriptor.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_FILE_DESCRIPTOR > temp.tex
+	mv temp.tex $@
+
+abstract_file_system.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_FILE_SYSTEM > temp.tex
+	mv temp.tex $@
+
+abstract_host.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_HOST > temp.tex
+	mv temp.tex $@
+
+abstract_ip4_address.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_IP4_ADDRESS > temp.tex
+	mv temp.tex $@
+
+abstract_ip6_address.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_IP6_ADDRESS > temp.tex
+	mv temp.tex $@
+
+abstract_service.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_SERVICE > temp.tex
+	mv temp.tex $@
+
+abstract_tcp_client_socket.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_TCP_CLIENT_SOCKET > temp.tex
+	mv temp.tex $@
+
+abstract_tcp_server_socket.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace ABSTRACT_TCP_SERVER_SOCKET > temp.tex
+	mv temp.tex $@
+
+epx_host_port.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace EPX_HOST_PORT > temp.tex
+	mv temp.tex $@
+
+epx_imap4_client.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace EPX_IMAP4_CLIENT > temp.tex
+	mv temp.tex $@
+
+posix_constants.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace POSIX_CONSTANTS > temp.tex
+	mv temp.tex $@
+
+posix_current_process.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace POSIX_CURRENT_PROCESS > temp.tex
+	mv temp.tex $@
+
+posix_exec_process.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace POSIX_EXEC_PROCESS > temp.tex
+	mv temp.tex $@
+
+posix_file_descriptor.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace POSIX_FILE_DESCRIPTOR > temp.tex
+	mv temp.tex $@
+
+posix_file_system.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace POSIX_FILE_SYSTEM > temp.tex
+	mv temp.tex $@
+
+posix_fork_root.tex: compile_short.ace $(ESRC)
+	short -no_style_warning compile_short.ace POSIX_FORK_ROOT > temp.tex
+	mv temp.tex $@

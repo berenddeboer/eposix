@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+
+<project name="kernel" default="help">
+
+	<description>
+		description: "Eiffel Ant file for the eposix library"
+		library: "eposix library"
+		copyright: "Copyright (c) 2007, Berend de Boer"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: $"
+		revision: "$Revision: $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/ge2e.eant"/>
+	</inherit>
+
+	<target name="help">
+		<echo message="usage:"/>
+		<echo message="   geant install"/>
+		<echo message="   geant clean"/>
+		<echo message="   geant clobber"/>
+	</target>
+
+	<target name="install">
+		<description>
+			Install the eposix library.
+			Generate Eiffel files from .ge files.
+		</description>
+		<geant target="install_capi"/>
+		<geant target="install_papi"/>
+		<geant target="install_sapi"/>
+		<geant target="install_wapi"/>
+	</target>
+
+	<target name="clean">
+		<description>
+			Remove intermediary generated files.
+		</description>
+		<ve clean="kernel" recursive="true"/>
+	</target>
+
+	<target name="clobber">
+		<description>
+			Remove all generated files.
+		</description>
+		<geant target="clean"/>
+		<delete directory="capi/spec"/>
+		<delete directory="papi/spec"/>
+		<delete directory="sapi/spec"/>
+		<delete directory="wapi/spec"/>
+	</target>
+
+<!-- Implementation -->
+
+	<target name="install_capi">
+		<geant target="ge2e">
+			<argument name="spec_dir" value="capi/spec"/>
+			<argument name="gepp_dir" value="capi"/>
+			<argument name="gepp_file" value="capi_stdio"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="capi/spec"/>
+			<argument name="gepp_dir" value="capi"/>
+			<argument name="gepp_file" value="capi_stdlib"/>
+		</geant>
+	</target>
+
+	<target name="install_papi">
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_aio"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_dirent"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_fcntl"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_grp"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_mman"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_pwd"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_semaphore"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_stat"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_stdio"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_unistd"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_utime"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="papi/spec"/>
+			<argument name="gepp_dir" value="papi"/>
+			<argument name="gepp_file" value="papi_wait"/>
+		</geant>
+	</target>
+
+	<target name="install_sapi">
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_netdb"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_select"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_socket"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_stat"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_stdlib"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_stropts"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_syslog"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="sapi/spec"/>
+			<argument name="gepp_dir" value="sapi"/>
+			<argument name="gepp_file" value="sapi_unistd"/>
+		</geant>
+	</target>
+
+	<target name="install_wapi">
+		<geant target="ge2e">
+			<argument name="spec_dir" value="wapi/spec"/>
+			<argument name="gepp_dir" value="wapi"/>
+			<argument name="gepp_file" value="wapi_direct"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="wapi/spec"/>
+			<argument name="gepp_dir" value="wapi"/>
+			<argument name="gepp_file" value="wapi_io"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="wapi/spec"/>
+			<argument name="gepp_dir" value="wapi"/>
+			<argument name="gepp_file" value="wapi_stat"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="wapi/spec"/>
+			<argument name="gepp_dir" value="wapi"/>
+			<argument name="gepp_file" value="wapi_stdio"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="wapi/spec"/>
+			<argument name="gepp_dir" value="wapi"/>
+			<argument name="gepp_file" value="wapi_windows"/>
+		</geant>
+		<geant target="ge2e">
+			<argument name="spec_dir" value="wapi/spec"/>
+			<argument name="gepp_dir" value="wapi"/>
+			<argument name="gepp_file" value="wapi_winsock2"/>
+		</geant>
+	</target>
+
+</project>

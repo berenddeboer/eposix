@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<system name="eposix_test">
+	<description>
+		system:      "getest for eposix"
+		author:      "Berend de Boer [berend@pobox.com]"
+		copyright:   "Copyright (c) 2002, Berend de Boer"
+		license:     "Eiffel Forum Freeware License v1 (see forum.txt)"
+		date:        "$Date: $"
+		revision:    "$Revision: $"
+	</description>
+
+	<root class="EPOSIX_TEST" creation="make"/>
+
+	<option unless="${DEBUG}">
+		<option name="assertion" value="none"/>
+		<option name="garbage_collector" value="internal"/>
+		<option name="finalize" value="true" unless="${GOBO_EIFFEL}=ve"/>
+			<option name="high_memory_compiler" value="true" if="${GOBO_EIFFEL}=se"/>
+	</option>
+	<option if="${DEBUG}">
+		<option name="assertion" value="none"/>
+		<option name="garbage_collector" value="internal"/>
+		<option name="finalize" value="false"/>
+		<option name="debug" value="true"/>
+    <option if="${GOBO_EIFFEL}=se">
+			<option name="high_memory_compiler" value="true"/>
+		</option>
+	</option>
+
+  <cluster name="testgen" location="TESTGEN"/>
+  <cluster name="test" location="${EPOSIX}/test_suite/posix/security"/>
+
+  <mount location="${EPOSIX}/src/library.xace"/>
+	<mount location="${GOBO}/library/library.xace"/>
+	<mount location="${GOBO}/library/kernel.xace"/>
+</system>

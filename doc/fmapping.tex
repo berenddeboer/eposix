@@ -1,0 +1,256 @@
+\NC \posix{abort} \NC \header{stdlib.h} \NC \Efeature[STDC_CURRENT_PROCESS]{abort} \NC \NC\NR
+\NC \posix{accept} \NC \header{sys/socket.h} \NC \Efeature[EPX_TCP_SERVER_SOCKET]{accept} \NC \NC\NR
+\NC \posix{access} \NC \header{unistd.h} \NC \Efeature[ABSTRACT_FILE_SYSTEM]{is_accessible} \NC \NC\NR
+\NC \posix{aio_cancel} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{cancel} \NC \NC\NR
+\NC \posix{aio_error} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{is_pending} \NC \NC\NR
+\NC \posix{aio_fsync} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{synchronize} \NC \NC\NR
+\NC \posix{aio_read} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{read} \NC \NC\NR
+\NC \posix{aio_return} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{return_status} \NC \NC\NR
+\NC \posix{aio_suspend} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{wait_for} \NC \NC\NR
+\NC \posix{aio_write} \NC \header{aio.h} \NC \Efeature[POSIX_ASYNC_IO_REQUEST]{write} \NC \NC\NR
+\NC \posix{alarm} \NC \header{unistd.h} \NC \Eclass{POSIX_TIMED_COMMAND} \NC \NC\NR
+\NC \posix{asctime} \NC \header{time.h} \NC \Efeature[STDC_TIME]{default_format} \NC \NC\NR
+\NC \posix{atexit} \NC \header{stdlib.h} \NC\Efeature[STDC_EXIT_SWITCH]{install} \NC Use \Efeature[STDC_EXIT_SWITCH_ACCESSOR]{exit_switch} to access this class. \NC\NR
+
+\NC \posix{bind} \NC \header{sys/socket.h} \NC \Efeature[EPX_TCP_SERVER_SOCKET]{listen_by_address} \NC \NC\NR
+
+\NC \posix{calloc} \NC \header{stdlib.h} \NC \Efeature[STDC_BUFFER]{allocate_and_clear} \NC \NC\NR
+\NC \posix{cfgetispeed} \NC \header{termios.h} \NC \Efeature[POSIX_TERMIOS]{input_speed} \NC \NC\NR
+\NC \posix{cfgetospeed} \NC \header{termios.h} \NC \Efeature[POSIX_TERMIOS]{output_speed} \NC \NC\NR
+\NC \posix{cfsetispeed} \NC \header{termios.h} \NC \Efeature[POSIX_TERMIOS]{set_input_speed} \NC \NC\NR
+\NC \posix{cfsetospeed} \NC \header{termios.h} \NC \Efeature[POSIX_TERMIOS]{set_output_speed} \NC \NC\NR
+\NC \posix{chdir} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_SYSTEM]{change_directory} \NC \NC\NR
+\NC \posix{chmod} \NC \header{sys/stat.h} \NC \Efeature[POSIX_FILE_SYSTEM]{change_mode} \NC \NC\NR
+\NC \posix{chown} \NC \header{unistd.h} \NC \Efeature[POSIX_PERMISSIONS_PATH]{apply_owner_and_group} \NC \NC\NR
+\NC \posix{clearerr} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{clear_error} \NC \NC\NR
+\NC \posix{clock} \NC \header{time.h} \NC \Efeature[STDC_CURRENT_PROCESS]{clock} \NC \NC\NR
+\NC \posix{clock_getcpuclockid} \NC \header{time.h} \NC \NC \NC\NR
+\NC \posix{clock_getres} \NC \header{time.h} \NC \Efeature[SUS_SYSTEM]{real_time_clock_resolution} \NC \NC\NR
+\NC \posix{clock_gettime} \NC \header{time.h} \NC \Efeature[SUS_SYSTEM]{real_time_clock} \NC \NC\NR
+\NC \posix{clock_nanosleep} \NC \header{time.h} \NC \NC \NC\NR
+\NC \posix{clock_settime} \NC \header{time.h} \NC \NC \NC\NR
+\NC \posix{close} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{close} \NC \NC\NR
+\NC \posix{closedir} \NC \header{dirent.h} \NC \Eclass{POSIX_DIRECTORY} \NC \NC\NR
+\NC \posix{closelog} \NC \header{syslog.h} \NC \Efeature[SUS_SYSLOG]{close} \NC \NC\NR
+\NC \posix{confstr} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{connect} \NC \header{sys/socket.h} \NC \Efeature[EPX_TCP_CLIENT_SOCKET]{open_by_address}, \Efeature{open_by_name_and_port} \NC \NC\NR
+\NC \posix{creat} \NC \header{fcntl.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{create_read_write} \NC \NC\NR
+\NC \posix{ctermid} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{ctime} \NC \header{time.h} \NC \NC Can be emulated with \Eclass{STDC_TIME}. \NC\NR
+\NC \posix{cuserid} \NC \header{stdio.h} \NC \NC see \posix{getlogin} \NC\NR
+
+\NC \posix{daylight} \NC \header{time.h} \NC \NC \NC\NR
+\NC \posix{difftime} \NC \header{time.h} \NC \Eclass{STDC_TIME} \NC \NC\NR
+\NC \posix{dup} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{make_as_duplicate} \NC \NC\NR
+\NC \posix{dup2} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{make_as_duplicate} \NC \NC\NR
+
+\NC \posix{endgrent} \NC \header{grp.h} \NC \NC \NC\NR
+\NC \posix{endhostent} \NC \header{netdb.h} \NC \NC \NC\NR
+\NC \posix{endnetent} \NC \header{netdb.h} \NC \NC \NC\NR
+\NC \posix{endprotoent} \NC \header{netdb.h} \NC \NC \NC\NR
+\NC \posix{endpwent} \NC \header{pwd.h} \NC \NC \NC\NR
+\NC \posix{endservent} \NC \header{netdb.h} \NC \NC \NC\NR
+\NC \posix{execl} \NC \header{unistd.h} \NC \NC See \posix{execvp}. \NC\NR
+\NC \posix{execle} \NC \header{unistd.h} \NC \NC See \posix{execvp}. \NC\NR
+\NC \posix{execlp} \NC \header{unistd.h} \NC \NC See \posix{execvp}. \NC\NR
+\NC \posix{execv} \NC \header{unistd.h} \NC \NC See \posix{execvp}. \NC\NR
+\NC \posix{execve} \NC \header{unistd.h} \NC \NC See \posix{execvp}. \NC\NR
+\NC \posix{execvp} \NC \header{unistd.h} \NC \Efeature[EPX_EXEC_PROCESS]{execute} \NC \NC\NR
+\NC \posix{exit} \NC \header{stdlib.h} \NC \Efeature[STDC_CURRENT_PROCESS]{exit} \NC \NC\NR
+\NC \posix{_exit} \NC \header{unistd.h} \NC \NC \NC\NR
+
+\NC \posix{fchmod} \NC \header{sys/stat.h} \NC \NC \NC\NR
+\NC \posix{fchown} \NC \header{sys/stat.h} \NC \NC \NC\NR
+\NC \posix{fclose} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{close} \NC \NC\NR
+\NC \posix{fcntl} \NC \header{unistd.h} \NC \Eclass{POSIX_FILE_DESCRIPTOR} \NC \Efeature{attempt_lock},\Efeature{get_lock}, \Efeature{set_lock} and others. \NC\NR
+\NC \posix{fdatasync} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_DESCRIPTOR]{synchronize_data} \NC This function is not available on many so called \cap{posix} systems. In such cases it is mapped to \posix{fsync}. \NC\NR
+\NC \posix{fdopen} \NC \header{stdio.h} \NC \Efeature[POSIX_FILE]{make_from_file_descriptor} \NC \NC\NR
+\NC \posix{feof} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{eof} \NC \NC\NR
+\NC \posix{ferror} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{error} \NC \NC\NR
+\NC \posix{fflush} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{flush} \NC \NC\NR
+\NC \posix{fgetc} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{get_character} \NC \NC\NR
+\NC \posix{fgetpos} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{get_position} \NC \NC\NR
+\NC \posix{fgets} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{get_string} \NC \NC\NR
+\NC \posix{fileno} \NC \header{stdio.h} \NC \Efeature[POSIX_FILE_DESCRIPTOR]{make_from_file} \NC \NC\NR
+\NC \posix{flockfile} \NC \header{stdio.h} \NC \NC\NR
+\NC \posix{fopen} \NC \header{stdio.h} \NC \Eclass{STDC_FILE} \NC various open creation features. \NC\NR
+\NC \posix{fork} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{fork} \NC \NC\NR
+\NC \posix{fpathconf} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{fprintf} \NC \header{stdio.h} \NC \NC not applicable. \NC\NR
+\NC \posix{fputc} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{putc} \NC \NC\NR
+\NC \posix{fputs} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{put_string} \NC \NC\NR
+\NC \posix{fread} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{read} \NC Also \Efeature{read_string} and \Efeature{read_character}. \NC\NR
+\NC \posix{free} \NC \header{stdlib.h} \NC \Efeature[STDC_BUFFER]{deallocate} \NC \NC\NR
+\NC \posix{freopen} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{reopen} \NC \NC\NR
+\NC \posix{fseek} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{seek} \NC Also \Efeature{seek_from_current} and \Efeature{seek_from_end}. \NC\NR
+\NC \posix{fsetpos} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{set_position} \NC \NC\NR
+\NC \posix{fstat} \NC \header{sys/stat.h} \NC \Eclass{POSIX_STATUS} \NC Returned by \Efeature[EPX_FILE_DESCRIPTOR]{status}. \NC\NR
+\NC \posix{fsync} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_DESCRIPTOR]{synchronize} \NC \NC\NR
+\NC \posix{ftell} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{tell} \NC \NC\NR
+\NC \posix{ftruncate} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{ftrylockfile} \NC \header{stdio.h} \NC \NC \NC\NR
+\NC \posix{funlockfile} \NC \header{stdio.h} \NC \NC \NC\NR
+\NC \posix{fwrite} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{write} \NC \NC\NR
+
+% validated above against SuSv3 2004-05-10
+\NC \posix{getc} \NC \header{stdioh} \NC \NC See \posix{fgetc}. \NC\NR
+\NC \posix{getchar} \NC \header{stdio.h} \NC \NC See \posix{fgetc}. \NC\NR
+\NC \posix{getcwd} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_SYSTEM]{current_directory} \NC \NC\NR
+\NC \posix{getegid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{effective_group_id} \NC \NC\NR
+\NC \posix{getenv} \NC \header{stdlib.h} \NC \Efeature[STDC_ENV_VAR]{value} \NC \NC\NR
+\NC \posix{geteuid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{effective_user_id} \NC \NC\NR
+\NC \posix{getgid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{real_group_id} \NC \NC\NR
+\NC \posix{getgrgid} \NC \header{grp.h} \NC \Efeature[POSIX_GROUP]{make_from_gid} \NC \NC\NR
+\NC \posix{getgrnam} \NC \header{grp.h} \NC \Efeature[POSIX_GROUP]{make_from_name} \NC \NC\NR
+\NC \posix{getgroups} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{is_in_group} \NC \NC\NR
+\NC \posix{getlogin} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{login_name} \NC \NC\NR
+\NC \posix{getpgrp} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{process_group_id} \NC \NC\NR
+\NC \posix{getpid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{pid} \NC \NC\NR
+\NC \posix{getppid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{parent_pid} \NC \NC\NR
+\NC \posix{getpwnam} \NC \header{pwd.h} \NC \Efeature[POSIX_USER]{make_from_name} \NC \NC\NR
+\NC \posix{getpwuid} \NC \header{pwd.h} \NC \Efeature[POSIX_USER]{make_from_uid} \NC \NC\NR
+\NC \posix{gets} \NC \header{stdio.h} \NC \NC See \posix{fgets}. \NC\NR
+\NC \posix{gettimeofday} \NC \header{sys/time.h} \NC \NC \Eclass{SUS_TIME_VALUE}\NC\NR
+\NC \posix{getuid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{real_user_id} \NC \NC\NR
+\NC \posix{gmtime} \NC \header{time.h} \NC \Efeature[STDC_TIME]{to_utc} \NC \NC\NR
+
+\NC \posix{inet_ntoa} \NC \header{arpa/inet.h} \NC \Efeature[EPX_IP4_ADDRESS]{out} \NC \NC\NR
+\NC \posix{isatty} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{is_attached_to_terminal} \NC \NC\NR
+
+\NC \posix{htonl} \NC \header{netinet/in.h} \NC \Efeature[SAPI_IN]{posix_htonl} \NC \NC\NR
+\NC \posix{htons} \NC \header{netinet/in.h} \NC \Efeature[SAPI_IN]{posix_htons} \NC \NC\NR
+
+\NC \posix{ioctl} \NC \header{stropts.h} \NC \Efeature[SAPI_STROPTS]{posix_ioctl} \NC \NC\NR
+
+\NC \posix{kill} \NC \header{signal.h} \NC \Efeature[POSIX_PROCESS]{kill} \NC \NC\NR
+\NC \posix{link} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_SYSTEM]{link} \NC \NC\NR
+\NC \posix{lio_listio} \NC \header{aio.h} \NC \NC \NC\NR
+\NC \posix{localeconv} \NC \header{locale.h} \NC \Eclass{STDC_LOCALE_NUMERIC} \NC \NC\NR
+\NC \posix{localtime} \NC \header{time.h} \NC \Efeature[STDC_TIME]{to_local} \NC \NC\NR
+\NC \posix{lseek} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{seek} \NC Also \Efeature{seek_from_current} and \Efeature{seek_from_end}. \NC\NR
+
+\NC \posix{malloc} \NC \header{stdlib.h} \NC \Efeature[STDC_BUFFER]{allocate} \NC \NC\NR
+\NC \posix{memcpy} \NC \header{string.h} \NC \Efeature[STDC_BUFFER]{memory_copy} \NC See also \Efeature{copy_from}. \NC\NR
+\NC \posix{memchr} \NC \header{string.h} \NC \NC \NC\NR
+\NC \posix{memcmp} \NC \header{string.h} \NC \Efeature[CAPI_STRING]{posix_memcmp} \NC \NC\NR
+\NC \posix{memmove} \NC \header{string.h} \NC \Efeature[STDC_BUFFER]{memory_move} \NC \NC\NR
+\NC \posix{memset} \NC \header{string.h} \NC \Efeature[STDC_BUFFER]{fill_with} \NC \NC\NR
+\NC \posix{mkdir} \NC \header{sys/stat.h} \NC \Efeature[POSIX_FILE_SYSTEM]{make_directory} \NC \NC\NR
+\NC \posix{mkfifo} \NC \header{sys/stat.h} \NC \Efeature[POSIX_FILE_SYSTEM]{create_fifo} \NC \NC\NR
+\NC \posix{mkstemp} \NC \header{stdlib.h} \NC \Efeature[SUS_TEMPORARY_FILE]{make} \NC \NC\NR
+\NC \posix{mktime} \NC \header{time.h} \NC \Efeature[STDC_TIME]{set_date_time} \NC Also \Efeature{set_date} and \Efeature{set_time}. \NC\NR
+\NC \posix{mlockall} \NC \header{sys/mman.h} \NC \NC \NC\NR
+\NC \posix{mlock} \NC \header{sys/mman.h} \NC \NC \NC\NR
+\NC \posix{mmap} \NC \header{sys/mman.h} \NC \Eclass{POSIX_MEMORY_MAP} \NC \NC\NR
+\NC \posix{mprotect} \NC \header{sys/mman.h} \NC \NC \NC\NR
+\NC \posix{mq-receive} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_close} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_getattr} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_notify} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_open} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_send} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_setattr} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{mq_unlink} \NC \header{mqueue.h} \NC \NC \NC\NR
+\NC \posix{msync} \NC \header{sys/mman.h} \NC \NC \NC\NR
+\NC \posix{munlockall} \NC \header{sys/mman.h} \NC \NC \NC\NR
+\NC \posix{munlock} \NC \header{sys/mman.h} \NC \NC \NC\NR
+\NC \posix{munmap} \NC \header{sys/mman.h} \NC \Eclass{POSIX_MEMORY_MAP} \NC \NC\NR
+
+\NC \posix{nanosleep} \NC \header{time.h} \NC \Efeature[SUS_CURRENT_PROCESS]{nanosleep} \NC \NC\NR
+\NC \posix{ntohl} \NC \header{netinet/in.h} \NC \Efeature[SAPI_IN]{posix_ntohl} \NC \NC\NR
+\NC \posix{ntohs} \NC \header{netinet/in.h} \NC \Efeature[SAPI_IN]{posix_ntohs} \NC \NC\NR
+
+\NC \posix{open} \NC \header{fcntl.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{open} \NC Also \Efeature{open_read}, \Efeature{open_read_write} and \Efeature{open_write} \NC\NR
+\NC \posix{opendir} \NC \header{dirent.h} \NC \Eclass{POSIX_DIRECTORY} \NC \NC\NR
+\NC \posix{openlog} \NC \header{syslog.h} \NC \Efeature[SUS_SYSLOG]{open} \NC \NC\NR
+\NC \posix{pathconf} \NC \header{unistd.h} \NC \Efeature[POSIX_DIRECTORY]{max_filename_length} \NC \NC\NR
+\NC \posix{pause} \NC \header{unistd.h} \NC \Efeature[EPX_CURRENT_PROCESS]{pause} \NC \NC\NR
+\NC \posix{perror} \NC \header{stdio.h} \NC \NC \eposix\ generates exceptions on error. \NC\NR
+\NC \posix{pipe} \NC \header{unistd.h} \NC \Efeature[EPX_PIPE]{make} \NC \NC\NR
+\NC \posix{printf} \NC \header{stdio.h} \NC \NC not applicable. \NC\NR
+\NC \posix{putc} \NC \header{stdio.h} \NC \NC See \posix{fputc}. \NC\NR
+\NC \posix{putchar} \NC \header{stdio.h} \NC \NC See \posix{fputc}. \NC\NR
+\NC \posix{puts} \NC \header{stdio.h} \NC \NC See \posix{fputs}. \NC\NR
+\NC \posix{raise} \NC \header{signal.h} \NC \Efeature[STDC_SIGNAL]{raise} \NC \NC\NR
+\NC \posix{rand} \NC \header{stdlib.h} \NC \Efeature[STDC_CURRENT_PROCESS]{random} \NC \NC\NR
+\NC \posix{read} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{read} \NC \NC\NR
+\NC \posix{readdir} \NC \header{dirent.h} \NC \Eclass{POSIX_DIRECTORY} \NC \NC\NR
+\NC \posix{realloc} \NC \header{stdlib.h} \NC \Efeature[STDC_BUFFER]{resize} \NC \NC\NR
+\NC \posix{remove} \NC \header{stdio.h} \NC \Efeature[POSIX_FILE_SYSTEM]{remove_file} \NC \NC\NR
+\NC \posix{rename} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_SYSTEM]{rename_to} \NC \NC\NR
+\NC \posix{rewind} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{rewind} \NC \NC\NR
+\NC \posix{rewinddir} \NC \header{dirent.h} \NC \Eclass{POSIX_DIRECTORY} \NC \NC\NR
+\NC \posix{rmdir} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_SYSTEM]{remove_directory} \NC \NC\NR
+
+\NC \posix{scanf} \NC \header{stdio.h} \NC \NC not applicable. \NC\NR
+\NC \posix{select} \NC \header{sys/select.h} \NC \Eclass{EPX_SELECT} \NC \NC\NR
+\NC \posix{sem_close} \NC \header{semaphore.h} \NC \NC \NC\NR
+\NC \posix{sem_destroy} \NC \header{semaphore.h} \NC \NC \NC\NR
+\NC \posix{sem_getvalue} \NC \header{semaphore.h} \NC \NC \NC\NR
+\NC \posix{sem_init} \NC \header{semaphore.h} \NC \Efeature[POSIX_UNNAMED_SEMAPHORE]{create_shared} \NC And \Efeature{create_unshared}. \NC\NR
+\NC \posix{sem_open} \NC \header{semaphore.h} \NC \NC \NC\NR
+\NC \posix{sem_post} \NC \header{semaphore.h} \NC \Efeature[POSIX_SEMAPHORE]{release} \NC \NC\NR
+\NC \posix{sem_trywait} \NC \header{semaphore.h} \NC \Efeature[POSIX_SEMAPHORE]{attempt_acquire} \NC \NC\NR
+\NC \posix{sem_unlink} \NC \header{semaphore.h} \NC \NC \NC\NR
+\NC \posix{sem_wait} \NC \header{semaphore.h} \NC \Efeature[POSIX_SEMAPHORE]{acquire} \NC \NC\NR
+\NC \posix{setbuf} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{set_buffer} \NC \NC\NR
+\NC \posix{setgid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{set_group_id} \NC Also \Efeature{restore_group_id}. \NC\NR
+\NC \posix{setlocale} \NC \header{locale.h} \NC \Efeature[STDC_CURRENT_PROCESS]{set_locale} \NC Also \Efeature{set_native_locale} and \Efeature{set_native_time}. \NC\NR
+\NC \posix{setpgid} \NC \header{unistd.h} \NC \Efeature[PAPI_UNISTD]{posix_setsid} \NC \NC\NR
+\NC \posix{setsid} \NC \header{unistd.h} \NC \Efeature[PAPI_UNISTD]{posix_setsid} \NC \NC\NR
+\NC \posix{setuid} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{set_user_id} \NC Also \Efeature{restore_user_id}. \NC\NR
+\NC \posix{setvbuf} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{set_no_buffering} \NC Also \Efeature{set_full_buffering} and \Efeature{set_line_buffering} \NC\NR
+\NC \posix{shm_open} \NC \header{sys/mman.h} \NC \Efeature[POSIX_SHARED_MEMORY]{open_read_write} \NC And \Efeature{create_write}, \Efeature{open_read}, Efeature{open_write}. \NC\NR
+\NC \posix{shm_unlink} \NC \header{sys/mman.h} \NC \Efeature[POSIX_FILE_SYSTEM]{unlink_shared_memory_object} \NC \NC\NR
+\NC \posix{sigaction} \NC \header{signal.h} \NC \Eclass{POSIX_SIGNAL} \NC \NC\NR
+\NC \posix{sigaddset} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{add} \NC \NC\NR
+\NC \posix{sigdelset} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{prune} \NC \NC\NR
+\NC \posix{sigemptyset} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{make_empty} \NC \NC\NR
+\NC \posix{sigfillset} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{make_full} \NC \NC\NR
+\NC \posix{sigismember} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{has} \NC \NC\NR
+\NC \posix{signal} \NC \header{signal.h} \NC \Efeature[STDC_SIGNAL]{raise} \NC \NC\NR
+\NC \posix{sigpending} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{make_pending} \NC \NC\NR
+\NC \posix{sigprocmask} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{add_to_blocked_signals} \NC Also \Efeature{remove_from_blocked_signals} and \Efeature{set_blocked_signals} \NC\NR
+\NC \posix{sigqueue} \NC \header{signal.h} \NC \NC \NC\NR
+\NC \posix{sigsuspend} \NC \header{signal.h} \NC \Efeature[POSIX_SIGNAL_SET]{suspend} \NC \NC\NR
+\NC \posix{sigtimedwait} \NC \header{signal.h} \NC \NC \NC\NR
+\NC \posix{sigwait} \NC \header{signal.h} \NC \NC \NC\NR
+\NC \posix{sigwaitinfo} \NC \header{signal.h} \NC \NC \NC\NR
+\NC \posix{sleep} \NC \header{unistd.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{sleep} \NC \NC\NR
+\NC \posix{sprintf} \NC \header{stdio.h} \NC \NC Not applicable. \NC\NR
+\NC \posix{srand} \NC \header{stdlib.h} \NC \Efeature[STDC_CURRENT_PROCESS]{set_random_seed} \NC \NC\NR
+\NC \posix{sscanf} \NC \header{stdio.h} \NC \NC Not applicable. \NC\NR
+\NC \posix{stat} \NC \header{sys/stat.h} \NC \Eclass{POSIX_STATUS} \NC \NC\NR
+\NC \posix{strftime} \NC \header{time.h} \NC \Efeature[STDC_TIME]{format} \NC \NC\NR
+\NC \posix{sysconf} \NC \header{unistd.h} \NC \Eclass{POSIX_SYSTEM} \NC \NC\NR
+\NC \posix{syslog} \NC \header{syslog.h} \NC \Eclass{SUS_SYSLOG} \NC
+Use features as \Efeature{notice} or \Efeature{error}. \NC\NR
+\NC \posix{system} \NC \header{stdlib.h} \NC \Eclass{STDC_SHELL_COMMAND} \NC \NC\NR
+
+\NC \posix{tcdrain} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{tcflow} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{tcflush} \NC \header{unistd.h} \NC \Efeature[POSIX_TERMIOS]{flush_input} \NC \NC\NR
+\NC \posix{tcgetattr} \NC \header{unistd.h} \NC \Efeature[POSIX_TERMIOS]{make}\NC \NC\NR
+\NC \posix{tcgetpgrp} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{tcsendbreak} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{tcsetattr} \NC \header{unistd.h} \NC \Efeature[POSIX_TERMIOS]{apply_now} \NC Also \Efeature{apply_drain} and \Efeature{apply_flush} \NC\NR
+\NC \posix{tcsetpgrp} \NC \header{unistd.h} \NC \NC \NC\NR
+\NC \posix{time} \NC \header{time.h} \NC \Efeature[STDC_TIME]{make_from_unix_time} \NC \NC\NR
+\NC \posix{timer_create} \NC \header{signal.h} \NC \NC \NC\NR
+\NC \posix{timer_create} \NC \header{time.h} \NC \NC \NC\NR
+\NC \posix{times} \NC \header{times.h} \NC \NC \NC\NR
+\NC \posix{tmpfile} \NC \header{stdio.h} \NC \Efeature[STDC_TEMPORARY_FILE]{make} \NC \NC\NR
+\NC \posix{tmpnam} \NC \header{stdio.h} \NC \Efeature[STDC_FILE_SYSTEM]{temporary_file_name} \NC \NC\NR
+\NC \posix{ttyname} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_DESCRIPTOR]{ttyname} \NC \NC\NR
+\NC \posix{tzset} \NC \header{time.h} \NC \NC \NC\NR
+\NC \posix{umask} \NC \header{sys/stat.h} \NC \NC \NC\NR
+\NC \posix{uname} \NC \header{sys/utsname.h} \NC \Eclass{POSIX_SYSTEM} \NC Various queries. \NC\NR
+\NC \posix{ungetc} \NC \header{stdio.h} \NC \Efeature[STDC_FILE]{ungetc} \NC \NC\NR
+\NC \posix{unlink} \NC \header{unistd.h} \NC \Efeature[POSIX_FILE_SYSTEM]{unlink} \NC \NC\NR
+\NC \posix{utime} \NC \header{utime.h} \NC \Efeature[POSIX_FILE_SYSTEM]{utime} \NC See also its \Efeature{touch} method. \NC\NR
+\NC \posix{vfprintf} \NC \header{stdio.h} \NC \NC Not applicable. \NC\NR
+\NC \posix{vprintf} \NC \header{stdio.h} \NC \NC Not applicable. \NC\NR
+\NC \posix{vsprint} \NC \header{stdio.h} \NC \NC Not applicable. \NC\NR
+\NC \posix{wait} \NC \header{sys/wait.h} \NC \Efeature[POSIX_CURRENT_PROCESS]{wait} \NC \NC\NR
+\NC \posix{waitpid} \NC \header{sys/wait.h} \NC \Efeature[POSIX_FORK_ROOT]{wait_pid} \NC \NC\NR
+\NC \posix{write} \NC \header{unistd.h} \NC \Efeature[EPX_FILE_DESCRIPTOR]{write} \NC \NC\NR

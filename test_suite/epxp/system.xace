@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<system name="eposix_test">
+	<description>
+		system:      "getest for eposix"
+		author:      "Berend de Boer [berend@pobox.com]"
+		copyright:   "Copyright (c) 2004, Berend de Boer"
+		license:     "Eiffel Forum Freeware License v2 (see forum.txt)"
+		date:        "$Date: 2004/12/18 $"
+		revision:    "$Revision: #1 $"
+	</description>
+
+	<root class="EPOSIX_TEST" creation="make"/>
+
+	<option unless="${DEBUG}">
+		<option name="assertion" value="all"/>
+		<option name="garbage_collector" value="none"/>
+		<option name="finalize" value="true"/>
+	</option>
+	<option if="${DEBUG}">
+		<option name="assertion" value="all"/>
+		<option name="garbage_collector" value="none"/>
+		<option name="finalize" value="false"/>
+		<option name="debug" value="false"/>
+		<option name="debug_tag" value="test"/>
+	</option>
+
+  <option if="${GOBO_EIFFEL}=se">
+			<option name="high_memory_compiler" value="true"/>
+  </option>
+  <option if="${GOBO_EIFFEL}=ve">
+  	<option name="linker" value="microsoft" if="${GOBO_OS}=windows"/>
+  </option>
+
+  <cluster name="testgen" location="TESTGEN"/>
+  <cluster name="test" location="${EPOSIX}/test_suite/epxp"/>
+
+  <mount location="${EPOSIX}/src/library.xace"/>
+
+	<mount location="${GOBO}/library/library.xace"/>
+	<mount location="${EPOSIX}/test_suite/gobo/eiffel.xace" if="${DEBUG}"/>
+	<mount location="${GOBO}/library/kernel.xace" unless="${DEBUG}"/>
+</system>

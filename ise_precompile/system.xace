@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<system name="eposix_precompile">
+	<description>
+		system:      "precompile eposix"
+		author:      "Berend de Boer [berend@pobox.com]"
+		copyright:   "Copyright (c) 2002-2004, Berend de Boer"
+		license:     "Eiffel Forum Freeware License v2 (see forum.txt)"
+		date:        "$Date: $"
+		revision:    "$Revision: $"
+	</description>
+
+	<root class="ANY" creation="make"/>
+
+	<option unless="${DEBUG}">
+		<option name="assertion" value="all"/>
+		<option name="garbage_collector" value="none"/>
+		<option name="finalize" value="true"/>
+	</option>
+	<option if="${DEBUG}">
+		<option name="assertion" value="all"/>
+		<option name="garbage_collector" value="none"/>
+		<option name="finalize" value="false"/>
+	</option>
+
+  <cluster name="precompile" location="${EPOSIX}/ise_precompile"/>
+  <mount location="${EPOSIX}/src/library.xace"/>
+
+	<mount location="${GOBO}/library/xml/library.xace"/>
+	<mount location="${GOBO}/library/lexical/library.xace"/>
+	<mount location="${GOBO}/library/structure/library.xace"/>
+	<mount location="${GOBO}/library/parse/library.xace"/>
+	<mount location="${GOBO}/library/utility/library.xace"/>
+	<mount location="${GOBO}/library/pattern/library.xace"/>
+	<mount location="${GOBO}/library/string/library.xace"/>
+	<mount location="${GOBO}/library/math/library.xace"/>
+	<mount location="${GOBO}/library/time/library.xace"/>
+	<mount location="${GOBO}/library/kernel/library.xace"/>
+  <mount location="${GOBO}/library/kernel.xace"/>
+</system>

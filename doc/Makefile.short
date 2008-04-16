@@ -1,0 +1,259 @@
+# Generated Makefile, see Makefile.maintainer
+SHORTTEX = \
+	stdc_base.tex \
+	stdc_buffer.tex \
+	stdc_constants.tex \
+	stdc_env_var.tex \
+	stdc_file_system.tex \
+	stdc_file.tex \
+	stdc_security.tex \
+	stdc_signal_handler.tex \
+	stdc_signal.tex \
+	stdc_system.tex \
+	stdc_time.tex \
+	abstract_exec_process.tex \
+	abstract_pipe.tex \
+	abstract_status.tex \
+	posix_async_io_request.tex \
+	posix_base.tex \
+	posix_child_process.tex \
+	posix_daemon.tex \
+	posix_directory.tex \
+	posix_file.tex \
+	posix_group.tex \
+	posix_lock.tex \
+	posix_memory_map.tex \
+	posix_permissions.tex \
+	posix_pipe.tex \
+	posix_semaphore.tex \
+	posix_signal.tex \
+	posix_signal_set.tex \
+	posix_status.tex \
+	posix_system.tex \
+	posix_termios.tex \
+	posix_timed_command.tex \
+	posix_user.tex \
+	posix_user_database.tex \
+	sus_constants.tex \
+	sus_env_var.tex \
+	sus_file_system.tex \
+	sus_host.tex \
+	sus_service.tex \
+	sus_socket_address.tex \
+	sus_tcp_socket.tex \
+	sus_syslog.tex \
+	epx_cgi.tex \
+	epx_http_10_client.tex \
+	epx_mime_parser.tex \
+	epx_mime_part.tex \
+	epx_soap_writer.tex \
+	epx_uri.tex \
+	epx_xml_writer.tex \
+	epx_xhtml_writer.tex \
+	ulm_logging.tex
+
+
+stdc_base.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_BASE > temp.tex
+	mv temp.tex $@
+
+stdc_buffer.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_BUFFER > temp.tex
+	mv temp.tex $@
+
+stdc_constants.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_CONSTANTS > temp.tex
+	mv temp.tex $@
+
+stdc_env_var.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_ENV_VAR > temp.tex
+	mv temp.tex $@
+
+stdc_file_system.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_FILE_SYSTEM > temp.tex
+	mv temp.tex $@
+
+stdc_file.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_FILE > temp.tex
+	mv temp.tex $@
+
+stdc_security.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_SECURITY > temp.tex
+	mv temp.tex $@
+
+stdc_signal_handler.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_SIGNAL_HANDLER > temp.tex
+	mv temp.tex $@
+
+stdc_signal.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_SIGNAL > temp.tex
+	mv temp.tex $@
+
+stdc_system.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_SYSTEM > temp.tex
+	mv temp.tex $@
+
+stdc_time.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace STDC_TIME > temp.tex
+	mv temp.tex $@
+
+abstract_exec_process.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace ABSTRACT_EXEC_PROCESS > temp.tex
+	mv temp.tex $@
+
+abstract_pipe.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace ABSTRACT_PIPE > temp.tex
+	mv temp.tex $@
+
+abstract_status.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace ABSTRACT_STATUS > temp.tex
+	mv temp.tex $@
+
+posix_async_io_request.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_ASYNC_IO_REQUEST > temp.tex
+	mv temp.tex $@
+
+posix_base.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_BASE > temp.tex
+	mv temp.tex $@
+
+posix_child_process.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_CHILD_PROCESS > temp.tex
+	mv temp.tex $@
+
+posix_daemon.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_DAEMON > temp.tex
+	mv temp.tex $@
+
+posix_directory.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_DIRECTORY > temp.tex
+	mv temp.tex $@
+
+posix_file.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_FILE > temp.tex
+	mv temp.tex $@
+
+posix_group.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_GROUP > temp.tex
+	mv temp.tex $@
+
+posix_lock.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_LOCK > temp.tex
+	mv temp.tex $@
+
+posix_memory_map.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_MEMORY_MAP > temp.tex
+	mv temp.tex $@
+
+posix_permissions.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_PERMISSIONS > temp.tex
+	mv temp.tex $@
+
+posix_pipe.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_PIPE > temp.tex
+	mv temp.tex $@
+
+posix_semaphore.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_SEMAPHORE > temp.tex
+	mv temp.tex $@
+
+posix_signal.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_SIGNAL > temp.tex
+	mv temp.tex $@
+
+posix_signal_set.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_SIGNAL_SET > temp.tex
+	mv temp.tex $@
+
+posix_status.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_STATUS > temp.tex
+	mv temp.tex $@
+
+posix_system.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_SYSTEM > temp.tex
+	mv temp.tex $@
+
+posix_termios.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_TERMIOS > temp.tex
+	mv temp.tex $@
+
+posix_timed_command.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_TIMED_COMMAND > temp.tex
+	mv temp.tex $@
+
+posix_user.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_USER > temp.tex
+	mv temp.tex $@
+
+posix_user_database.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace POSIX_USER_DATABASE > temp.tex
+	mv temp.tex $@
+
+sus_constants.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_CONSTANTS > temp.tex
+	mv temp.tex $@
+
+sus_env_var.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_ENV_VAR > temp.tex
+	mv temp.tex $@
+
+sus_file_system.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_FILE_SYSTEM > temp.tex
+	mv temp.tex $@
+
+sus_host.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_HOST > temp.tex
+	mv temp.tex $@
+
+sus_service.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_SERVICE > temp.tex
+	mv temp.tex $@
+
+sus_socket_address.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_SOCKET_ADDRESS > temp.tex
+	mv temp.tex $@
+
+sus_tcp_socket.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_TCP_SOCKET > temp.tex
+	mv temp.tex $@
+
+sus_syslog.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace SUS_SYSLOG > temp.tex
+	mv temp.tex $@
+
+epx_cgi.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_CGI > temp.tex
+	mv temp.tex $@
+
+epx_http_10_client.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_HTTP_10_CLIENT > temp.tex
+	mv temp.tex $@
+
+epx_mime_parser.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_MIME_PARSER > temp.tex
+	mv temp.tex $@
+
+epx_mime_part.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_MIME_PART > temp.tex
+	mv temp.tex $@
+
+epx_soap_writer.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_SOAP_WRITER > temp.tex
+	mv temp.tex $@
+
+epx_uri.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_URI > temp.tex
+	mv temp.tex $@
+
+epx_xml_writer.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_XML_WRITER > temp.tex
+	mv temp.tex $@
+
+epx_xhtml_writer.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace EPX_XHTML_WRITER > temp.tex
+	mv temp.tex $@
+
+ulm_logging.tex: compile_short.ace $(ESRC)
+	short -short -no_style_warning compile_short.ace ULM_LOGGING > temp.tex
+	mv temp.tex $@
+

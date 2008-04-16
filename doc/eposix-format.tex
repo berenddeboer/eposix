@@ -1,0 +1,226 @@
+\setuppapersize
+  [A4][A4]
+
+\setuplayout
+  [backspace=3.5cm,
+   width=13.8cm,
+   location=doublesided,
+   top=0.5ex]
+
+%\input font-pospdf.tex
+
+\setupbodyfont
+  [postscript,10pt]
+
+\setupwhitespace
+  [medium]
+
+\setupitemize
+  [packed]
+
+\setupcolors
+  [state=start]
+
+\setupinteraction
+  [state=start,
+   title=e-POSIX,
+   subtitle=The complete Eiffel POSIX binding,
+   author=Berend de Boer,
+   color=blue]
+
+% bookmarks not supported, because list is build before my macro's are
+% known I think. I can't get context to write them expanded to the file.
+% \placebookmarks
+%   [chapter,section]
+
+\setuppagenumbering
+  [location=]
+
+\setuptoptexts
+  [\vbox{\vss\blank[4.5ex]\hairline}]
+
+\setupheadertexts
+  [chapter]
+  [pagenumber]
+  [section]
+  [pagenumber]
+
+\setupheader
+  [style=boldslanted]
+
+
+\def\myContents#1#2#3%
+  {\sym{$\bullet$} {\bs #2}\par}
+
+\def\MyHead#1#2%
+  {\setupframed[frame=off]
+   \framed[width=\hsize,offset=overlay]
+     {\placesidebyside
+        {\doifmodeelse{*sectionnumber}%
+           {\framed[width=.6\hsize,offset=1em,strut=no,align=right,background=screen,backgroundscreen=0.4]
+              {In this chapter: \blank
+                    \placelist
+                      [section]
+                      [criterium=chapter,
+                       style=boldslanted,
+                       align=right,
+                       interaction=all,
+                       symbol=1,
+                       width=2em,
+                       pagenumber=no,
+                       before=,
+                       after=]}}%
+           {\framed[width=.6\hsize]{}} % dummy
+        }%
+        {\framed
+           [width=.4\hsize,offset=1em,strut=no,align=left]
+           {{\bsd #1\par\leftskip=0pt plus1fil #2}}}}%
+}
+
+\setuphead
+  [chapter]
+  [header=empty,
+   command=\MyHead,
+   style=\relax,
+   page=right,
+   before={\vskip-2cm},
+   after={\blank[2*big]}]
+
+\setuphead
+  [section]
+  [style=\bsb]
+
+\setuphead
+  [subsection]
+  [style=\bsa]
+
+
+%\unprotect
+%\catcode`\_=\@@active
+%\def_{\discretionarycommand|\_|}
+%\protect
+
+\setuptyping
+  [before={\bgroup\x},
+   after=\egroup,
+   margin=1em]
+
+\setuptyping
+  [EIFFEL]
+  [before={\bgroup\x},
+   after=\egroup,
+   margin=1em,
+   palet=,color=blue,
+   style=\it,icommand=\bf,ccommand=\tf]
+
+% this library
+\def\eposix{e-\cap{posix}}
+
+% typeset Eiffel reserved word
+\def\Ekeyword#1%
+  {\color[blue]{\bf #1}}
+
+\setupregister
+  [index]
+  [expansion=yes]
+
+\gdef\PrevClass{}
+
+% typeset Eiffel class and link to it
+%% \def\Eclass#1%
+%%   {\index{#1}\color[blue]{{\it \edef\classname{\hyphenatedword{#1}}\goto{\classname}[classes::#1]\/}}%
+%%    \gdef\PrevClass{#1}}
+\def\Eclass#1%
+  {\index{#1}{\it \edef\classname{\filename{#1}}\goto{\it\classname}[classes::#1]\/}%
+   \gdef\PrevClass{#1}}
+
+% simple format of Eclass without stuff that breaks contents entries
+\def\simpleEclass#1%
+  {\color[blue]{{\it #1}}%
+   \gdef\PrevClass{#1}}
+
+% typeset Eiffel feature call
+\def\Efeature%
+  {\dosingleempty\doEfeature}
+
+\def\doEfeature[#1]#2% object method
+  {\color[blue]{\it
+     \doifemptyelse{#1}%
+        {\index{{\it #2}+\PrevClass}\edef\featurename{\filename{#2}}\goto{\featurename}[classes::\PrevClass]}%
+        {\index{{\it #2}+#1}\edef\fullfeaturename{\filename{#1.#2}}\goto{\fullfeaturename}[classes::#1]%
+         \gdef\PrevClass{#1}}}}
+
+% C #define
+\def\cdefine#1{\index[#1]{{\tttf #1}}{\tttf #1}}
+
+% a C posix function()
+\def\posix#1{\index[#1]{{\tttf #1}}{\tttf #1}}
+
+% a C external symbol
+\def\external#1{\index[#1]{{\tttf #1}}{\tttf #1}}
+
+% system header
+% placing the < and > in the headers, gives me lots of head-aches...
+\def\header#1%
+  {\index[#1]{\filename{#1}}\filename{$<$#1$>$}}
+
+% my header
+\def\myheader#1%
+  {\index[#1]{\filename{#1}}\filename{#1}}
+
+% filenames
+\def\MYfilename#1{\index[#1]{\filename{#1}}\filename{#1}}
+
+
+\unprotect
+
+% \definecomplexorsimple\typefile
+
+% \def\simpletypefile%
+%   {\complextypefile[\v!file]}
+
+% \def\complextypefile[#1]#2%
+%   {\getvalue{\??tp#1\c!before}%
+%    \doiflocfileelse{\pathplusfile\f!currentpath{#2}}
+%      {\startpacked % includes \bgroup
+%       \startcolor[\getvalue{\??tp#1\c!color}]%
+%       \doifinset{\getvalue{\??tp#1\c!option}}{\v!commands,\v!slanted,\v!normal}
+%         {\setuptyping[#1][\c!option=\v!none]}%
+%       \doifvalue{\??tp#1\c!option}{\v!color}
+%         {\expandafter\aftersplitstring#2\at.\to\prettyidentifier
+%          \letvalue{\??tp#1\c!option}=\prettyidentifier}%
+%       \initializetyping{#1}%
+%       \processfileverbatim{\pathplusfile\f!currentpath{#2}}%
+%       \stopcolor
+%       \stoppacked}  % includes \egroup
+%      {{\tttf[\makemessage{\m!verbatims}{1}{#2}]}%
+%       \showmessage{\m!verbatims}{1}{#2}}%
+%    \getvalue{\??tp#1\c!after}}
+
+\def\typeEIFFELfile{\typefile[EIFFEL]}
+%\def\typePLfile    {\typefile[PL]}
+
+\protect
+
+
+% XML
+
+\setuptyping[XML]
+  [margin=1em,
+   before={\blank[medium]},
+   after={\blank[medium]},
+   letter=\ss\x]
+
+\def\typeXMLfile{\typefile[XML]}
+
+
+% abbreviations
+
+\abbreviation {HTML} {HyperText Markup Language}
+\abbreviation {POSIX} {POSIX}
+\abbreviation {CGI} {CGI}
+\abbreviation {ULM} {Universal Format for Logger Messages}
+
+% _ should be normal character
+%\defineactivecharacter _ {\mathortext{_}{\_}}
+\catcode`\_=12

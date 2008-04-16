@@ -1,0 +1,6 @@
+-- The name of the include C file :
+eposix.h
+-- The features you want to call from C :
+stdc_signal_switch_switcher   STDC_SIGNAL_SWITCH   switcher
+stdc_exit_switch_at_exit      STDC_EXIT_SWITCH     at_exit
+

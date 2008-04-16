@@ -1,0 +1,4 @@
+${EPOSIX}/src/posix/loadpath.se
+${EPOSIX}/src/sus/
+${EPOSIX}/src/sapi/
+${EPOSIX}/src/epxs/

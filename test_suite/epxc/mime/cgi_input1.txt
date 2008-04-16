@@ -1,0 +1,129 @@
+MIME-Version: 1.0
+Content-Type: multipart/form-data; boundary=---------------------------17146369151957747793424238335
+
+-----------------------------17146369151957747793424238335
+Content-Disposition: form-data; name="source_file"; filename="test.tex"
+Content-Type: application/x-tex
+
+\setupbodyfont
+  [ber,pos,ss,10pt]
+
+\setupcolors
+  [state=start]
+
+\usemodule[chart]
+
+\setupFLOWcharts
+  [dx=\bodyfontsize,
+   dy=.8\bodyfontsize,
+   width=7\bodyfontsize,
+   height=4\bodyfontsize]
+
+\starttext
+
+\startFLOWchart[changedetector]
+
+\setupFLOWcharts
+  [nx=5,
+   ny=3]
+
+\startFLOWcell
+\name {root}
+\location {1,2}
+\shape {procedure}
+\text {/}
+\connection [rl] {xrtds:root}
+\stopFLOWcell
+
+\startFLOWcell
+\name {xrtds:root}
+\location {+1,}
+\shape {decision}
+\text {xrtds:root}
+\connection [rl] {SAP}
+\connection [rl] {other}
+\connection [rl] {BPCS}
+\stopFLOWcell
+
+
+\startFLOWcell
+\name {SAP}
+\location {3,1}
+\shape {decision}
+\text {publisher name="SAP"}
+\connection [rl] {SAPorders}
+\stopFLOWcell
+
+\startFLOWcell
+\name {SAPorders}
+\location {+1,}
+\shape {decision}
+\text {publication name="orders"}
+\connection [rl] {subscriber1}
+\connection [rl] {subscriber2}
+\stopFLOWcell
+
+\startFLOWcell
+\name {subscriber1}
+\location {+1,}
+\shape {wait}
+\text {subscriber 1}
+\stopFLOWcell
+
+\startFLOWcell
+\name {subscriber2}
+\location {,+1}
+\shape {wait}
+\text {subscriber 2}
+\stopFLOWcell
+
+
+\startFLOWcell
+\name {other}
+\location {3,2}
+\shape {decision}
+\text {publisher name="..."}
+\stopFLOWcell
+
+
+\startFLOWcell
+\name {BPCS}
+\location {3,3}
+\shape {decision}
+\text {publisher name="BPCS"}
+\connection [rl] {BPCSall}
+\stopFLOWcell
+
+\startFLOWcell
+\name {BPCSall}
+\location {4,}
+\shape {decision}
+\text {*}
+\connection [rl] {subscriber3}
+\stopFLOWcell
+
+\startFLOWcell
+\name {subscriber3}
+\location {+1,}
+\shape {wait}
+\text {subscriber 3}
+\stopFLOWcell
+
+
+
+\stopFLOWchart
+
+
+\FLOWchart[changedetector]
+
+\stoptext
+
+-----------------------------17146369151957747793424238335
+Content-Disposition: form-data; name="action"
+
+Upload file(s)
+-----------------------------17146369151957747793424238335
+Content-Disposition: form-data; name="uid"
+
+1804289383
+-----------------------------17146369151957747793424238335--

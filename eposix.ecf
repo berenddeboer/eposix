@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-0-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-0-0 http://www.eiffel.com/developers/xml/configuration-1-0-0.xsd" name="eposix" uuid="70ED4FF9-249E-42E0-B9EC-F424CFA5FB89" library_target="eposix">
+	<target name="eposix">
+		<root all_classes="true"/>
+		<external_object location="${ISE_LIBRARY}\lib\${ISE_PLATFORM}\${ISE_C_COMPILER}\libeposix.lib">
+			<condition>
+				<platform value="windows"/>
+			</condition>
+		</external_object>
+		<external_object location="${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a">
+			<condition>
+				<platform excluded_value="windows"/>
+			</condition>
+		</external_object>
+		<setting name="platform" value="unix"/>
+		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<library name="gobo" location="$ISE_LIBRARY\library\gobo\gobo.ecf"/>
+		<cluster name="unix" location=".\src\" recursive="true">
+			<condition>
+				<platform excluded_value="windows"/>
+			</condition>
+			<file_rule>
+				<exclude>/epxw$</exclude>
+				<exclude>/capi/spec/ge$</exclude>
+				<exclude>/capi/spec/se$</exclude>
+				<exclude>/capi/spec/ve$</exclude>
+				<exclude>/papi/spec/ge$</exclude>
+				<exclude>/papi/spec/se$</exclude>
+				<exclude>/papi/spec/ve$</exclude>
+				<exclude>/sapi/spec/ge$</exclude>
+				<exclude>/sapi/spec/se$</exclude>
+				<exclude>/sapi/spec/ve$</exclude>
+				<exclude>/spec/ge$</exclude>
+				<exclude>/spec/se$</exclude>
+				<exclude>/spec/ve$</exclude>
+				<exclude>/spec/lapi$</exclude>
+				<exclude>/supportc$</exclude>
+				<exclude>/wapi$</exclude>
+				<exclude>/wapi5$</exclude>
+				<exclude>/windows$</exclude>
+			</file_rule>
+			<visible class="STDC_SIGNAL_SWITCH" feature="switcher"/>
+			<visible class="STDC_EXIT_SWITCH" feature="at_exit"/>
+		</cluster>
+		<cluster name="windows" location=".\src\" recursive="true">
+			<condition>
+				<platform value="windows"/>
+			</condition>
+			<file_rule>
+				<exclude>/epxp$</exclude>
+				<exclude>/epxs$</exclude>
+				<exclude>/papi$</exclude>
+				<exclude>/posix$</exclude>
+				<exclude>/sapi$</exclude>
+				<exclude>/spec/ge$</exclude>
+				<exclude>/spec/se$</exclude>
+				<exclude>/spec/ve$</exclude>
+				<exclude>/spec/lapi$</exclude>
+				<exclude>/sus$</exclude>
+				<exclude>/supportc$</exclude>
+				<exclude>/wapi/spec/ge$</exclude>
+				<exclude>/wapi/spec/se$</exclude>
+				<exclude>/wapi/spec/ve$</exclude>
+				<exclude>/wapi5$</exclude>
+			</file_rule>
+			<visible class="STDC_SIGNAL_SWITCH" feature="switcher"/>
+			<visible class="STDC_EXIT_SWITCH" feature="at_exit"/>
+		</cluster>
+	</target>
+</system>

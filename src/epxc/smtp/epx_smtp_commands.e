@@ -1,0 +1,34 @@
+indexing
+
+	description:
+
+		"Commands that can be send to an SMTP server"
+
+	library: "eposix"
+	author: "Berend de Boer <berend@pobox.com>"
+	copyright: "Copyright (c) 2004, Berend de Boer and others"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2004/12/18 $"
+	revision: "$Revision: #2 $"
+
+class
+
+	EPX_SMTP_COMMANDS
+
+
+feature -- Access
+
+	data: STRING is "DATA"
+	ehlo: STRING is "EHLO"
+	expn: STRING is "EXPN"
+	helo: STRING is "HELO"
+	help: STRING is "HELP"
+	mail: STRING is "MAIL"
+	noop: STRING is "NOOP"
+	quit: STRING is "QUIT"
+	rcpt: STRING is "RCPT"
+	rset: STRING is "RSET"
+	vrfy: STRING is "VRFY"
+
+
+end

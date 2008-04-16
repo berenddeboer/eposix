@@ -1,0 +1,7 @@
+Welcome to eposix, the complete Eiffel to Standard C and Posix binding.
+It also contains Windows and Single Unix Specification support.
+
+Important files:
+- doc/eposix-manual.pdf, the manual
+- INSTALL, installation instructions
+- LICENSE, license restrictions (none)

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<project name="eposix_test" default="help">
+
+	<description>
+		system: "eposix Windows tests"
+		copyright: "Copyright (c) 2007 by Berend de Boer"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2007/05/18 $"
+		revision: "$Revision: #1 $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/test.eant">
+			<redefine target="other_clean"/>
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+
+<!-- Implementation -->
+
+	<target name="other_clean" depend="init">
+		<description>
+			Remove other intermediary generated files.
+		</description>
+	</target>
+
+	<target name="init_system">
+		<set name="system" value="eposix_test"/>
+		<set name="library" value="windows/base"/>
+		<set name="system_dir" value="${EPOSIX}/test_suite/${library}"/>
+	</target>
+
+</project>

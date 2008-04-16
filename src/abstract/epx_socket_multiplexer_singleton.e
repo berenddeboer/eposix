@@ -1,0 +1,27 @@
+indexing
+
+	description: "Singleton for EPX_SOCKET_MULTIPLEXER"
+
+	library: "eposix library"
+	author: "Till G. Bay"
+	copyright: "Copyright (c) 2007, Berend de Boer"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2007/05/17 $"
+	revision: "$Revision: #1 $"
+
+class
+
+	EPX_SOCKET_MULTIPLEXER_SINGLETON
+
+feature
+
+	socket_multiplexer: EPX_SOCKET_MULTIPLEXER is
+			-- The one and only socket multiplexer
+		once
+			create Result.make
+		ensure
+			not_void: Result /= Void
+		end
+
+
+end

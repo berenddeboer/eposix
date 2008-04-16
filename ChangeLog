@@ -1,0 +1,2459 @@
+2007-05-18  Berend de Boer  <berend@pobox.com>
+
+	* release 3.0.
+
+	* WINDOWS_SYSTEM: two new functions to retrieve the
+	high-performance timer frequency and current count. Can be used
+	for high-resolution timing (requested in March 2004 by Brian
+	Heilig...).
+
+	* EPX_MIME_PARSER: MIME parser parsed field Content-Disposition
+	without stripping directory components from the filename
+	parameter.
+
+	* Two new email writing examples: writing HTML email, and writing
+	a multipart/related email, with both HTML and text content.
+
+	* EPX_MIME_EMAIL_HEADER.make_default: adds the MIME-Version field.
+
+	* All C calls that are potentially blocking, are now marked as "C
+	blocking" in ISE specific code. That means that a lot of the API
+	classes now reside in spec/<compiler> directories.
+
+
+2007-05-17  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTPS_URI_RESOLVER: new class (thanks Colin Paul Adams for
+	noting it was missing).
+
+
+2007-05-07  Berend de Boer  <berend@pobox.com>
+
+	* posix_syslog: possibility for format string vulnerability (DDJ
+	March 2007) because second argument was actually a C format
+	string. Everyone who uses syslog should upgrade to the new
+	release.
+
+
+2007-03-28  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI: better mechanism to detect if data is available in the
+	QUERY_STRING environment variable or via stdin.
+
+	* EPX_MIME_PART.append_to_string: only appends a Content-Length
+	field if `auto_insert_content_length' is set to True as this is
+	not appropriate in all cases, and did confuse at least my own MIME
+	parser in some cases.
+
+	* EPX_MIME_PARSER: if bodies inside a multipart body had a
+	Content-Length, parsing stopped after such a body. Now such
+	Content-Length fields are ignored.
+
+	* EPX_CGI: don't write body when request method is HEAD.
+
+
+2007-03-14  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI.if_modified_since: new feature to return value of
+	If-Modified-Since header.
+
+	* STDC_TIME: now conversion routine `as_dt_date_time' to return a
+	Gobo DT_DATE_TIME object.
+
+	* STDC_TIME: new creation routine make_from_dt_date_time, to
+	initialize from a Gobo DT_DATE_TIME object.
+
+	* EPX_MIME_PARSER: new creation routine make_from_string.
+
+
+2007-03-13  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_FIELD_LAST_MODIFIED: new class.
+
+	* EPX_CGI: error message + abort when CONTENT_LENGTH not set and
+	method other than GET is called.
+
+
+2007-03-07  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.open_write: new feature.
+
+	* Solaris: fixed library compile issue.
+
+	* c_signal_handling.c: signal_switch is now of type EIF_OBJECT.
+
+	* c_exit_handling.c: exit_switch is now of type EIF_OBJECT.
+
+
+42007-03-02  Berend de Boer  <berend@pobox.com>
+
+	* beta 2.5.1.
+
+
+2007-02-17  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_TCP_SERVER_SOCKET: don't set the SO_REUSEADDR option on
+	Windows as it does something completely different: it screws up
+	your system. Really. Read
+	http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winsock/winsock/using_so_reuseaddr_and_so_exclusiveaddruse.asp and shiver.
+
+	* ABSTRACT_TCP_SERVER_SOCKET.set_reuse_address: `enable' parameter
+	was ignored, value was always set.
+
+
+2007-02-01  Berend de Boer  <berend@pobox.com>
+
+	* POSIX_FILE_DESCRIPTOR.close_on_execute: did nothing.
+
+
+2007-01-27  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT.read_response_wit_redirect: new method to
+	read a response and follow up on redirects until the redirects end
+	(or 20 redirects have been processed).
+
+	* EPX_MIME_PARSER: unlike the RFC 2617 as I read it Apache returns
+	WWW-Authenticate with parameters separated by comma's. This is now
+	handled correctly.
+
+
+2007-01-26  Berend de Boer  <berend@pobox.com>
+
+	* socket multiplexing patch from Till G. Bay merged. This makes
+	eposix usuable for Goanna without patches.
+
+	* ABSTRACT_SOCKET/EPX_SOCKET now inherit from ABSTRACT_DESCRIPTOR
+	and no longer contain file specific features.
+
+	* EPX_FILE_DESCRIPTOR: generic descriptor code moved to new class
+	EPX_DESCRIPTOR.
+
+	* ABSTRACT_DESCRIPTOR: class with most functionality from
+	ABSTRACT_FILE_DESCRIPTOR, but contains only descriptor specific
+	functionality, not file descriptor
+	functionality.
+
+
+2007-01-17  Berend de Boer  <berend@pobox.com>
+
+	* EPX_TCP_CLIENT: default now raises an exception when a
+	connection to a serve can't be opened (previously it returned not
+	is_open), this is more consistent with how eposix works. Set
+	continue_on_error to get the previous behaviour.
+
+	* STDC_BASE: new feature `inherit_error_handling' to inherit
+	error handling like raising an exception from another class.
+
+2007-01-15  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XHTML_WRITER: new features set_onclick and script.
+
+
+2006-11-30  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.put_string: now supports writing of strings wtih %U
+	characters. Strings are also used as buffers in Eiffel, it was a
+	bit surprising that only C like strings could be written. This
+	could have an impact on performance.
+
+
+2006-11-29  Berend de Boer  <berend@pobox.com>
+
+	* SUS_TEMPORARY_FILE: create temporary file based on mkstemp(), so
+	filename is available.
+
+	* STDC_TEMPORARY_FILE.name: no longer exported as not applicable.
+
+	* STDC_FILE and ABSTRACT_FILE_DESCRIPTOR: they no longer use
+	incompatible identifiers to refer to their name: it's simply name
+	now, as inherited from Gobo's stream network. So rename filename
+	and path to name. Old features marked as obsolete.
+
+
+2006-11-14  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_PARSER: added some rudimentary cookie parsing, only
+	name=value is parsed properly, all the other fields are in
+	parameters, but not available yet through nice names, although it
+	might appear that way.
+
+	* EPX_HTTP_10_CLIENT: added features is_authentication_required,
+	authentication_scheme and authentication_realm to help identify
+	what authentication is required.
+
+
+2006-11-13  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT: Added set_basic_authentication to include
+	the authorization header in case the server uses basic
+	authentication.
+
+
+2006-11-01  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE_SYSTEM.write_string_to_file: new feature to write
+	contents of a string to a file. File is always created.
+
+
+2006-10-28  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_HEADER.set_content_type: new method.
+
+2006-10-24  Berend de Boer  <berend@pobox.com>
+
+	* EPX_TCP_CLIENT: use make_secure to create an https connection to
+	the server. Needs the openssl binary to create such connections.
+
+
+2006-10-23  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE/ABSTRACT_FILE_DESCRIPTOR.eof: made eof obsolete, so we
+	are now fully Gobo compatible by using `end_of_input'.
+
+
+2006-10-04  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_BUFFER: class invariant could fail under certain
+	circumstances when an HTTP server used chunked encoding.
+
+
+2006-09-30  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_EMAIL_HEADER.set_cc: new method
+
+	* Fixed a nasty bug in FreeBSD socket handling. It seems sockets
+	set EWOULDBLOCK even when data is returned for FreeBSD 5 and
+	higher. So errno is now explictly reset when data is returned, so
+	routines expecting errno to be set only on errors behave like
+	expected.
+
+	* Some Makefiles contained some constructs not supported by
+	FreeBSD make.
+
+
+2006-08-23  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI: support for PUT method.
+
+
+2006-07-31  Berend de Boer  <berend@pobox.com>
+
+	* Ugraded automake/autoconf to 1.9.6/2.6.
+
+
+2006-07-29  Berend de Boer  <berend@pobox.com>
+
+	* Added all POSIX error codes to POSIX_CONSTANT, included EPIPE.
+
+	* EPX_URI: obsolete, now use Gobo's UT_URI.
+
+	* Removed long obsolete classes as ARRAY_HELPER, CHARACTER_HELPER
+	and STRING_HELPER.
+
+
+2006-07-22  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.put_string contained a check instruction that failed
+	if a UC_STRING was passed with a real Unicode character. Check
+	instruction removed.
+
+
+2006-07-08  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI: moved to separate directory eposix/src/epxc/cgi
+
+
+2006-06-30  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER: now uses the stricter routines from
+	XM_UNICODE_CHARACTERS for name and content validation. The
+	corresponding routines in EPX_XML_ROUTINES have been made
+	obsolete.
+
+
+2006-06-21  Berend de Boer  <berend@pobox.com>
+
+	* STDC_PATH.directory_separator: exported to all.
+
+
+2006-06-10  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI.is_valid_request_method: new feature which can return
+	false in case the request method is not recognised. The EPX_CGI
+	will return 405 in that case.
+
+
+2006-06-05  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI.status: did not emit new line after header, so the next
+	header effectively became part of the status reason.
+
+
+2006-05-31  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_STRING_HELPER: uc_string_to_pointer and
+	do_uc_string_to_pointer had an incorrectly specified precondition
+	`not_prematurely_terminated'. This was due to a late minute fix
+	due to some Gobo renames, it only affected release 2.4.
+
+	* EPX_XML_WRITER: uses append_item_code instead of append_code due
+	to rename in Gobo CVS.
+
+	* EIF_OBJECT wasn't defined for Visual Eiffel when compiling the C
+	binding.
+
+
+2006-05-30  Berend de Boer  <berend@pobox.com>
+
+	* release 2.4.
+
+
+2006-05-26  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI: new feature `status' which can signal to the server
+	what status code, response code, to return to the browser.
+
+	* EPX_IMAP4_CLIENT: new feature fetch_header_and_flags.
+
+
+2006-05-25  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI: has_key didn't initialise the key/value pair data
+	structure which `value' and `raw_value' did.
+
+	* EPX_MIME_PARSER: now parses most of the fields which contain a
+	list of email addresses such as the from, to, cc and bcc fields.
+
+
+2006-05-20  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XHTML_WRITER.img: features to add an image.
+
+
+2006-05-18  Berend de Boer  <berend@pobox.com>
+
+	* same_string: fixed various unsafe STRING comparisons, thanks to
+	Colin Paul Adams for the list.
+
+
+2006-04-21  Berend de Boer  <berend@pobox.com>
+
+	* library.xaxce: SmartEiffel + msc required linking in the
+	Advapi32.lib.
+
+
+2006-04-17  Berend de Boer  <berend@pobox.com>
+
+	* EPX_IMAP4_RESPONSE_PARSER: Binc imap server included a flag that
+	should not have been included in the FLAGS flag list.
+
+
+2006-04-14  Berend de Boer  <berend@pobox.com>
+
+	* beta release 2.3.2.
+
+
+2006-04-03  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_PARSER: support for Transfer-Encoding chunked.
+
+	* EPX_MIME_PARSER.parse_body: does not take an argument
+	anymore. Determining length of message body is now entirely based
+	on the previously parsed header.
+
+	* EPX_MIME_PARSER: now based on new parser.
+
+
+2006-03-31  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXTENSION_FILTER: now accepts all directories and will
+	recursive to any depth. Filenames must still match the filter
+	though.
+
+	* ABSTRACT_DIRECTORY.forth: when an extension filter was set, and
+	recursive browsing was specified, directories were not recursived
+	because they did not match the extension filter. Introduced the
+	option validate_directory in ABSTRACT_PATH_FILTER to give a filter
+	the option to accept directories, and not include them in the
+	filter.
+
+	* EPX_FILE_SYSTEM.browse_directory: now returns an EPX_DIRECTORY.
+
+	* EPX_DIRECTORY: class equal to ABSTRACT_DIRECTORY. People should
+	use this as I want to face out seeing ABSTRACT_XXXX in code
+	outside of eposix.
+
+
+2006-03-22  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CHARACTER_HELPER has been marked as obsolete. There's
+	perfectly valid Gobo code to do this.
+
+
+2006-03-21  Berend de Boer  <berend@pobox.com>
+
+	* Gobo Eiffel Compiler support added. Use --with-compiler=gec.
+
+	* src/capi/c_exit_handling.c and src/capi/c_signal_handling.c:
+	used EIF_OBJECT to store a reference, changed that to the proper
+	EIF_REFERENCE.
+
+
+2006-02-17  Berend de Boer  <berend@pobox.com>
+
+	* STDC_TIME.is_valid_date_and_time returned True for a date and
+	time after the maximum valid time that can be represented by an
+	INTEGER in SmartEiffel. This was due to a compiler bug in
+	SmartEiffel in my opinion and probably present in earlier versions
+	as well.
+
+
+2006-02-10  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR: seek features didn't reset eof,
+	should always be False after a seek.
+
+
+2006-02-06  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_SERVER: support for persistent and multiple open
+	connections. It's not multi-threaded and a client can still block
+	the server, but it will now serve multiple open connections.
+	This caused a severe internal rewrite, many functions in
+	EPX_HTTP_SERVER have moved to EPX_HTTP_CONNECTION. If you wrote
+	custom servlets you will probably see many obsolete warnings. Most
+	should still compile though.
+
+	* EPX_HTTP_SERVER.make: does not start listening. You will have
+	to call `listen_locally' or `listen_globally' to start listening
+	on an interface.
+
+
+2006-02-03  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_SERVER.send_file: when serving a file it now includes
+	an ETag, supposedly a required field.
+
+
+2006-02-02  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FILE_DESCRIPTOR.status: now of type EPX_STATUS instead of
+	ABSTRACT_STATUS.
+
+	* EPX_HTTP_SERVER.add_file_expires_date: new feature that adds an
+	Expires header for image files in order to improve performance
+	with IE. Without this IE will retrieve reused images on a page
+	multiple times.
+
+
+2006-01-20  Berend de Boer  <berend@pobox.com>
+
+	* Added the --enable-threads flag to configure to compile the
+	eposix C binding lib for use with a multi-threaded ISE Eiffel program.
+
+
+2006-01-17  Berend de Boer  <berend@pobox.com>
+
+	* beta release 2.3.
+
+
+2006-01-10  Berend de Boer  <berend@pobox.com>
+
+	* makelib.exe now generates multi-threaded libraries when
+	compiling the eposix C bindings for ISE Eiffel and Microsoft C.
+
+
+2005-12-14  Berend de Boer  <berend@pobox.com>
+
+	* Fixed subtle code ordering problem when a maximum number of
+	files was in place and this number was exceeded. At garbage
+	collection time the `open_files' count could drop below zero. As
+	the program really should be terminated at this point, this
+	wouldn't be a problem, but if you have a giant retry handler, you
+	might encounter this issue.
+
+
+2005-11-17  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT: removed precondition
+	post_data_content_type_recognized as this is not necessarily true
+	(Colin Paul Adams).
+
+
+2005-11-12  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CURRENT_PROCESS: new feature effective_user_name.
+
+
+2005-11-10  Berend de Boer  <berend@pobox.com>
+
+	* EPX_SMTP_CLIENT: When reading capabilities should have used
+	force_last (Colin Paul Adams).
+
+
+2005-08-25  Berend de Boer  <berend@pobox.com>
+
+	* WINDOWS_CURRENT_PROCESS.user_name: returns name of user
+	associated with current thread.
+
+
+2005-08-19  Berend de Boer  <berend@pobox.com>
+
+	* WINDOWS_BASE: redefined raise_posix_error to get the error
+	message from the Windows API GetErrorMessage() instead of the
+	posix strmessage. The posix strerror() doesn't return anything for
+	Windows specific error numbers.
+	This is a bit annoying if you combine classes that don't
+	descend from WINDOWS_BASE with ones that do. In that case make
+	sure to undefine raise_posix_error on the classes that do not
+	inherit from WINDOWS_BASE.
+
+	* PAPI_UNISTD: posix_getgroups compared pointer to Void, should
+	have been default_pointer (Andrea Rezzonico).
+
+
+2005-08-16  Berend de Boer  <berend@pobox.com>
+
+	* EPX_DSML_V1_WRITER: class to write LDIF file in XML format,
+	i.e. DSML v1. DSML v2 is the latest standard, but it's more
+	complex and there are almost no examples.
+
+
+2005-08-09  Berend de Boer  <berend@pobox.com>
+
+	* Started LDIF parser. Does parse all LDIF files, but doesn't
+	create a lot of AST.
+
+
+2005-07-21  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE_SYSTEM.rename_to: when compiled with preconditions
+	might set errno, so make sure errno is cleared just in case.
+
+	* STDC_ERRNO.clear_all: normally one wants to reset both value and
+	first_value at the same time before checking for errors.
+
+	* STDC_ERRNO: first_value wasn't shared among all STDC_ERRNO
+	objects. Like value it should be a global value.
+
+
+2005-06-11  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_STRING_HELPER: incorrect postcondition in case the STRING
+	contained a NULL character (Colin Paul Adams).
+
+
+2005-06-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.add_comment: didn't quote meta data properly.
+
+	* EPX_XML_WRITER.add_attribute, add_ns_attribute,
+	add_a_name_space: faster way of adding attributes to a very big
+	XML document. Unlike set_attribute the attribute is written
+	immediately to the stream, it cannot be changed.
+
+
+2005-06-08  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.put_string: don't check for null
+	characters anymore.
+
+2005-05-19  Berend de Boer  <berend@pobox.com>
+
+	* STDC_TIME: new feature is_valid_date_and_time. Strengthened
+	preconditions to make sure dates past 2038-Jan-19 03:14:08 UTC are
+	not allowed.
+
+	* EPX_MIME_PARSER didn't correctly validate dates which could lead
+	to a precondition violation.
+
+
+2005-03-30  Berend de Boer  <berend@pobox.com>
+
+	* MAP_FIXED: FreeBSD 5.3 does not seem to have the MAP_FIXED
+	define (reported by Frank J. Beckmann), unless some define is
+	set. Not sure why that is, so MAP_FIXED is 0 now, if not
+	defined. To be fixed properly.
+
+	* POSIX_FILE_DESCRIPTOR: new feature is_closed_on_execute to test
+	if the descriptor closed on execute.
+
+
+2005-03-24  Berend de Boer  <berend@pobox.com>
+
+	* Added precursor call to dispose routines. This seems to be
+	required for ISE Eiffel.
+
+
+2005-03-04  Berend de Boer  <berend@pobox.com>
+
+	* release 2.2.
+
+
+2005-03-03  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_URI_RESOLVER: sets name of last_stream to full URI.
+
+	* EPX_IRC_CTCP: DCC talk support. Needs INTEGER_64 to work, so
+	that rules out VisualEiffel 4.1 support for this part in eposix.
+
+
+2005-02-23  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line: could append %U characters
+	in case non-blocking i/o was enabled (screw up with last change
+	made on 2004-12-15).
+
+	* EPX_IRC_CLIENT: NickServ support added.
+
+	* EPX_IRC_CHANNEL: user tracking added.
+
+
+2005-02-11  Berend de Boer  <berend@pobox.com>
+
+	* MIME parser/scanner were not deleted with "make clean".
+
+	* eposix's C binding now compiles on Solaris, provided the
+	-std=c99 flag is set.
+
+
+2005-02-10  Berend de Boer  <berend@pobox.com>
+
+	* Removed setting of _POSIX_SOURCE from all capi/*.h files.
+
+	* All sapi/*.h files now define _XOPEN_SOURCE to 600.
+
+	* All papi/*.h files now define _XOPEN_SOURCE instead of
+	sometimes, or sometimes _POSIX_SOURCE. _POSIX_SOURCE seems to be
+	unsupported when the -std=c99 flag is specified, at least Solaris
+	10 doesn't want to compile such sources.
+
+
+2005-02-10  Berend de Boer  <berend@pobox.com>
+
+	* release 2.1.3.
+
+	* SUS_ENV_VAR.set_value was still susceptible to a garbage
+	collection that could make the set environment value invalid. Be
+	aware that if you create a new SUS_ENV_VAR and set the same
+	environment variable repeatedly, there will be a memory leak.
+
+	* WAPI_WINDOWS.posix_createprocess: similar comparison to Void
+	instead of default_pointer (Jocelyn).
+
+	* STDC_FILE.attach_to_stream: required a_stream not Void, should
+	be not default_pointer (Jocelyn).
+
+
+2005-02-02  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FILE_DESCRIPTOR: new creation method make. Takes no arguments.
+
+	* It seems Windows child processes inherit their socket handles by
+	default. Turned this off, should perhaps become a feature if
+	someone really needs it, but it looks more like a possible and
+	exploitable security hole at the moment.
+
+
+2005-01-27  Berend de Boer  <berend@pobox.com>
+
+	* STDC_BUFFER.put_string: off by one wrong variant in loop.
+
+	* SUS_ENV_VAR.set_value was wrong. Argument should be a pointer to
+	a memory area, but a string was passed that could become garbage
+	collected.
+
+	* PORTABLE_PATH.set_portable_path now reuses existing string
+	again, because we're no longer freezing objects in memory with ISE
+	Eiffel.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_string no longer reads directly to
+	a string. Reading now takes a string copy. This to avoid calling
+	eif_freeze in ISE Eiffel.
+
+	* EPX_ARRAY_HELPER.pointer_array_to_pointer now returns a read-only
+	pointer to the array (true for ISE Eiffel, but might become true
+	for others as well). Modifications made on the C side are not
+	reflected in the ARRAY.
+
+	* EPX_ARRAY_HELPER.integer_array_to_pointer now returns a read-only
+	pointer to the array (true for ISE Eiffel, but might become true
+	for others as well). Modifications made on the C side are not
+	reflected in the ARRAY.
+
+	* EPX_STRING_HELPER.string_to_pointer now returns a read-only
+	pointer to the string (true for ISE Eiffel, but might become true
+	for others as well). Modifications made on the C side are not
+	reflected in the STRING.
+
+	* Removed freezing/unfreezing for ISE altogether. Used
+	STDC_BUFFER for all memory management to avoid weird errors.
+
+
+2005-01-11  Berend de Boer  <berend@pobox.com>
+
+	* PORTABLE_PATH.set_portable_path: reused an existing string, but
+	this did not work in certain cases with ISE. Existing string was
+	frozen (marked as unmovable for the gc) with ISE when passed to
+	C. But when two such calls were done, I got a segment
+	violating. Could not track it down, but problem disappeared when
+	creating a new string. Perhaps freezing strings doesn't work after
+	all...
+
+
+2005-01-06  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FTP_CLIENT: inherited from SAPI_IN, should have been
+	EPX_NET_API in order to make it work on Windows.
+
+
+2004-12-21  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_BODY_MULTIPART.make now needs header as argument.
+
+	* EPX_MIME_BODY_MULTIPART.append_to_string: in case of more than
+	one part, parts were not properly separated by a header.
+
+	* EPX_MIME_PART.append_to_string: created wrong MIME multi part
+	structure in case user had supplied a Content-Length field (no
+	boundary was emitted) or in case it was called twice (because
+	after the first call a Content-Length field was added).
+
+
+2004-12-17  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_PART.append_to_string didn't append the boundary in a
+	proper manner. So multi part MIME structures were incorrectly
+	formatted if they did not end with a CR LF. In case they did, the
+	CR LF became part of the boundary and was therefore stripped from
+	the input. This affected EPX_MIME_PART.make_form_data for example.
+
+
+2004-12-16  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_CLIENT.make_from_port: renamed to make_with_port.
+
+	* EPX_HTTP_CLIENT: now shares same reply and socket handling code
+	as EPX_SMTP_CLIENT/EPX_FTP_CLIENT.
+
+	* EPX_SMTP_CLIENT: breaking change in open: parameters moved to
+	correspending make_XXXX routines. Open now doesn't take any
+	argument. Makes it slightly easier to reuse an SMTP connection and
+	open/close it multiple times.
+
+	* EPX_FTP_CLIENT: breaking change in open: parameters moved to
+	correspending make_XXXX routines. Open now doesn't take any
+	argument. Makes it slightly easier to reuse an FTP connection and
+	open/close it multiple times.
+
+	* EPX_REPLY_CODE: new class which abstracts the reply code logic
+	implemented by FTP/HTTP/SMTP clients.
+
+
+2004-12-15  Berend de Boer  <berend@pobox.com>
+
+	* EPX_IRC_CLIENT: first implementation of IRC client.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line: now does blocking i/o if it
+	has read the first character. Else you could end up reading
+	partial lines. If you want truly non-blocking i/o string reading,
+	use read_string instead of line reading.
+
+
+2004-12-13  Berend de Boer  <berend@pobox.com>
+
+	* Renamed EPX_TCP_CLIENT_BASE to
+	EPX_TCP_CLIENT_WITH_REPLY_CODE_BASE.
+
+
+2004-12-13  Berend de Boer  <berend@pobox.com>
+
+	* beta release 2.1.2.
+
+	* EPX_MIME_FORM: new class, inherits from EPX_MIME_PART. Contains
+	the make_form_data feature moved from EPX_MIME_PART. Use this
+	class to create the result of HTML form submission to an HTTP
+	server.
+
+2004-12-11  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FTP_CLIENT: commands didn't end with a CR LF, so didn't
+	work against some servers (Colin Paul Adams).
+
+
+2004-12-10  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_IP4_ADDRESS.make_from_components: didn't handle
+	addresses which let to overflow of a signed 32 bit integer. Now it
+	correctly does unsigned integer arithmetic (thanks to Colin Paul
+	Adams).
+
+	* POSIX_CURRENT_PROCESS.login_name: new definition, now seems to
+	return a reliable login name, based on the effective user
+	id. Feature getlogin retains the original definition, but is
+	marked as obsolete and insecure.
+
+	* POSIX_CURRENT_PROCESS.real_user: now returns the user based on
+	the effective_user_id.
+
+	* EPX_SMTP_CLIENT: send email through SMTP protocol.
+
+
+2004-12-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FTP_CLIENT: supports uploading, creating directories, and
+	deleting files or directories.
+
+	* EPX_FTP_CLIENT.name_list: new routine that returns just the file
+	names present on the remote server.
+
+	* EPX_SERVICE_STRINGS: new class, once strings when working with
+	services.
+
+	* EPX_FTP_CLIENT: only downloaded data from local FTP server (Colin
+	Paul Adams).
+
+
+2004-11-30  Berend de Boer  <berend@pobox.com>
+
+	* STDC_BUFFER.put_string: new routine to put a string into a
+	buffer between two indexes.
+
+
+2004-11-29  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.hash_code: returned invalid hash value
+	(-1) if file descriptor was closed.
+
+
+2004-11-26  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_DESCRIPTOR_SET.is_set: On FreeBSD could return False,
+	because a value other than 1 seems to be considered False by
+	SmartEiffel.
+
+
+2004-11-23  Berend de Boer  <berend@pobox.com>
+
+	* New class EPX_PARTIAL_BUFFER: like STDC_BUFFER but has a count
+	that can be less than capacity. Use when a buffer is only
+	partially filled. You cannot peek_XXXX or poke_XXXX past count.
+
+
+2004-11-18  Berend de Boer  <berend@pobox.com>
+
+	* beta release 2.1.1.
+
+
+2004-11-01  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CURRENT_PROCESS.environment_variables: new feature that
+	returns the names of all environment variables.
+
+	* PAPI_UNISTD defined vfork, but a fork call was always
+	done. Modern forks don't need vfork, feature removed.
+
+	* STDC_CURRENT_PROCESS now inherits from ARGUMENTS. Previously it
+	was ABSTRACT_CURRENT_PROCESS.
+
+
+2004-11-01  Neal L. Lester <hidden@hidden.hidden>
+
+	* EPX_INCREMENTAL_XML_WRITER: new class for incrementally writing
+	XML. Does not need to be fully formed.
+
+
+2004-10-28  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.tag_depth: new method which returns how many tags
+	have been started, but not stopped.
+
+
+2004-08-07  Berend de Boer  <berend@pobox.com>
+
+	* EPX_URI.make had a precondition failure in stop_query if URL had
+	an empty query, i.e. url that ended with a ? with no characters
+	after it (thnx Neal Lester).
+
+
+2004-08-03  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_SCANNER: scanner inadvertedly accepted fields with
+	space names or a space between a name and a colon. Both are not
+	acceptable. And I don't believe in being liberal what you accept.
+
+
+2004-07-22  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_string: postcondition
+	empty_only_when_blocked is only true when an exception is raised
+	on a read error.
+
+
+2004-07-13  Berend de Boer  <berend@pobox.com>
+
+	* STDC_CURRENT_PROCESS.current_time: new feature returning seconds
+	since epoch.
+
+
+2004-07-01  Raphael Mack
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line: when nothing read, could try
+	to remove a character from an empty string.
+
+
+2004-06-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXEC_PROCESS for Windows: could wait indefinitely for
+	process to exit if there was still unread data in stderr or
+	stdout. Now these pipes are closed before waiting for the process
+	to exit.
+
+
+2004-05-21  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.add_cdata: new routine to add data within a cdata
+	section. Useful when adding data that is itself XML, because a
+	CDATA section requires less quoting. So the resulting XML is
+	smaller and will be processed faster.
+
+
+2004-05-20  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_string: tag
+	eof_only_when_nothing_read missed critical
+	parentheses. Postcondition could fail, while everything was ok if
+	you used non-blocking i/o.
+
+
+2004-05-19  Berend de Boer  <berend@pobox.com>
+
+	* SUS_UNIX_SERVER_SOCKET.accept: should work for non-blocking
+	sockets.
+
+	* EPX_SELECT.execute: possibly did not test all sockets in case
+	you were selecting both for readable and writable sockets.
+
+
+2004-05-11  Andreas Leitner  <nozone@sbox.tugraz.at>
+
+	* EPX_XHTML_WRITER: form methods GET and POST must be lower-case
+	according to spec.
+
+
+2004-05-10  Berend de Boer  <berend@pobox.com>
+
+	* SUS_CURRENT_PROCESS.nanosleep: new feature.
+
+	* SUS_SYSTEM: new feature have_realtime_clock,
+	real_time_clock_resolution and real_time_clock.
+
+	* SUS_TIME: based on STDC_TIME, allows nano-second resolution for
+	systems that support it. Because it uses a portion of the POSIX
+	spec that is not widely supported, expect compile errors if you
+	use it and your system doesn't have it.
+
+
+2004-05-07  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FTP_CLIENT: primitive FTP client, can only retrieve not yet
+	upload.
+
+
+2004-05-05  Berend de Boer  <berend@pobox.com>
+
+	* EPX_SOAP_WRITER.message: returned a ASCII string, but should
+	have returned a UC_STRING instead.
+
+
+2004-05-03  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_SERVICE.make_from_name_with_default: create a service,
+	but provide a default port. Uses the given port if port not found
+	in services, instead of rasing an exception like make_from_name
+	does.
+
+
+2004-04-24  Andreas Leitner  <nozone@sbox.tugraz.at>
+
+	* EPX_XHTML_WRITER: more tags added
+
+
+2004-04-19  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXEC_PROCESS.wait_for: now supports Suspend = False on
+	Windows. This can be used to check if a process has terminated,
+	forcibly or voluntarily, without waiting for that process to
+	terminate.
+
+
+2004-04-13  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_CURRENT_PROCESS.full_command_name: new feature that
+	returns ARGUMENTS.command_name with the full path leading to the
+	program.
+
+
+2004-04-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXEC_PROCESS.wait_for: closes input pipe in case it is
+	open. This was left to client, but you want that always really so
+	the child process gets the proper end-of-input.
+
+
+2004-03-24  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_SYSTEM.resolved_path was incorrect in case path
+	was not a directory.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read and write routines did leave errno
+	set when EWOULDBLOCK occurred. As this is not an error, but more
+	of a status, errno should not be set in such cases.
+
+	* ABSTRACT_FILE_DESCRIPTOR.append did not properly abort when
+	raise exceptions on error was turned off and a read failure had
+	occured.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line did not properly abort when
+	raise exceptions on error was turned off and a read failure had
+	occured.
+
+	* makelib.exe didn't give an error message if the ISE_EIFFEL
+	environment variable wasn't set.
+
+	* STDC_PATH.parse now does a case-insensitive compare with the
+	suffix, so you don't have to supply suffixes which only differ in
+	case. I'm not aware of any platform where the case of the suffix
+	mattered.
+
+
+2004-03-22  Berend de Boer  <berend@pobox.com>
+
+	* s_select.h had the include order wrong (Chris Jones on NetBSD).
+
+	* makelib.exe did want makelib.exe.cfg instead of makelib.cfg on
+	Windows 98.
+
+
+2004-03-19  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* EPX_MIME_FIELD_MESSAGE_ID has new create method make_unique,
+	which attempts to create some random message id.
+
+	* EPX_FACTORY now has two new features: system_info and
+	current_process which return a reference to EPX_SYSTEM and
+	EPX_CURRENT_PROCESS respectively. Use EPX_FACTORY when you don't
+	want to pollute your name space.
+
+	* Accessing the body in EPX_MIME_PART was always a bit akward. Now
+	when creating the body, either text_body or multipart_body is set,
+	that makes it easier to access or change a bodies context.
+
+	* If EPX_MIME_PART was serialized by calling append_to_string the
+	body contained an additional %R%N. But that is incorrect, the body
+	should be exactly as specified.
+
+
+2004-03-18  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* EPX_SENDMAIL now gives some access to the sendmail binary. Easy
+	way to send email from within Eiffel while there is no SMTP
+	support. But you need the sendmail program on your system or one
+	that is mimicking sendmail like postfix.
+
+	* EPX_MIME_EMAIL and EPX_MIME_EMAIL_HEADER added to make creation
+	of RFC 2822 emails easier.
+
+
+2004-03-16  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* WINDOWS_PAGING_FILE_SHARED_MEMORY didn't compile anymore,
+	because its handle clashed with the handle from STDC_BUFFER.
+
+
+2004-03-13  Berend de Boer  <berend@pobox.com>
+
+	* If an exception should be raised on error, can now be set per
+	object. Previously it was a global setting. Use
+	set_default_action_on_error, set_raise_exception_on_error and
+	set_continue_on_error. Call raise_exception_on_error to ask if an
+	EPOSIX class will raise an exception when a C call returns an
+	error.
+
+	* EPX_IMAP4_CLIENT allows to specify port via make_with_port.
+
+
+2004-03-12  Berend de Boer  <berend@pobox.com>
+
+	* alpha release 2.1.0.
+
+	* STDC_FILE.is_binary_mode_specification and
+	STDC_FILE.is_text_mode_specification were incorrect.
+
+	* STDC_FILE now inherits from KI_TEXT_INPUT_STREAM and
+	KI_TEXT_OUTPUT_STREAM instead of just KI_CHARACTER_INPUT_STREAM
+	and KI_CHARACTER_OUTPUT_STREAM.
+
+	* In all examples replaced write_string by put_string. The
+	put_XXXX are the default in Eiffel, so I'll probably phase out the
+	write_XXXX methods.
+
+	* STDC_FILE.put_character accepts a CHARACTER now instead of an
+	INTEGER.
+
+
+2004-03-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_URI.make didn't handle a "//" URI correctly, causing a
+	precondition violation when parsing.
+
+
+2004-03-08  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_IP_ADDRESS redefines is_equal so IP addresses can be
+	compared for equality.
+
+
+2004-03-06  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR now also inherits from
+	KI_TEXT_OUTPUT_STREAM, previously only from
+	KI_CHARACTER_OUTPUT_STREAM.
+
+	* Support for the select() call on Unix and Windows. Allows
+	synchronous i/o multiplexing.
+
+
+2004-03-04  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.write did reset eof which it shouldn't do.
+
+	* The --with-compiler option didn't work anymore for configure.
+
+	* EPX_CURRENT_PROCESS now has a millisleep method that provides
+	for millisecond resolution sleep on Windows and Unix. Due to timer
+	issues, the minimum resolution can be higher than 1ms.
+
+
+2004-02-25  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_PART has an initialization method that allows you to
+	easily create a form data MIME message (RFC 2388).
+
+
+2004-02-20  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT.get now sets the response code to 200 if the
+	request was send successfully. You still need to call
+	read_response to receive the actual response code from the server.
+
+
+2004-02-12  Berend de Boer  <berend@pobox.com>
+
+	* Added class EPX_OPENSSL which uses the openssl program to
+	connect to a server using a SSL/TLS session.
+
+
+2004-02-02  Berend de Boer  <berend@pobox.com>
+
+	* Changed EPX_HTTP_DYNAMIC_PATH such that a component must contain
+	at least one character. I.e. previously /instance//show would be
+	ok, but now it must be /instance/1/show or something like that.
+
+
+2004-01-06  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* release 2.0.
+
+
+2004-01-05  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* QNX doesn't set eof when STDC_FILE.read doesn't read the
+	requested number of bytes. An exception was raised in that
+	case. As it is harmless, behaviour is the same if we just ignore
+	this case, the exception is no longer raised. It isn't our duty to
+	check libc anyway.
+
+
+2004-01-02  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* EPX_EXEC_PROCESS.all_arguments had a faulty postcondition that
+	failed in case there were no arguments.
+
+	* inet_ntop isn't available for Windows. I need it for IPv6, so
+	IPv6, even if enabled on your Windows version, probably doesn't
+	work. Will have to find a suitable replacement.
+
+	* Socket programs didn't link with VisualEiffel for
+	Windows, because the proper winsock library wasn't specified in
+	eposix' library.xace.
+
+
+2003-12-23  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI no longer emits output while it goes. The header is
+	still written to the client as soon as possible, but the actual
+	content, the XHTML body, is only written when the CGI is
+	finished. This is thought to be more efficient than writing output
+	while building the body.
+
+
+2003-12-10  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI now attempts to buffer output more than it used to do.
+
+	* Added cookie support for EPX_CGI class. Cookies an be created
+	via EPX_HTTP_COOKIE.
+
+
+2003-12-04  Berend de Boer  <berend@pobox.com>
+
+	* Release 1.9.5, beta release 2.
+
+
+2003-11-17  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.add_data (or puts) and set_attribute didn't
+	handle UC_STRINGs which contained real unicode characters.
+
+
+2003-10-15  Berend de Boer  <berend@pobox.com>
+
+	* POSIX_ASYNC_IO_REQUEST is now Unicode string safe.
+
+
+2003-10-14  Berend de Boer  <berend@pobox.com>
+
+	* EPX_STRING_HELPER.string_to_pointer does now work correctly for
+	UC_STRINGs. For SmartEiffel and VisualEiffel UC_STRING involve
+	creating a new string. For ISE a new string is only created when
+	the UC_STRING contains Unicode specific characters.
+
+
+2003-10-11  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* Beta release 1.
+
+
+2003-10-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_IMAP4_RESPONSE_SCANNER didn't recognize months after May.
+
+	* STDC_TIME.make_utc_date_time did not calculate the unix time
+	value correctly under certain occassions. Code entirely replaced
+	and I do the calculation myself now.
+
+
+2003-10-07  Berend de Boer  <berend@pobox.com>
+
+	* Fixed postcondition bugs in STDC_TIME in set_date and
+	set_date_time.
+
+
+2003-10-04  Berend de Boer  <berend@pobox.com>
+
+	* Upgraded to autoconf-2.57 and automake-1.7.7.
+
+
+2003-10-02  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_DIRECTORY.forth was not correct after rewrite in
+	1.9.3. Recursive browsing would end in a never-ending loop.
+
+
+2003-09-27  Berend de Boer  <berend@pobox.com>
+
+	* Writing a unicode string to ABSTRACT_FILE_DESCRIPTOR was
+	incorrect for SmartEiffel.
+
+
+2003-09-24  Berend de Boer  <berend@pobox.com>
+
+	* The GOBO_CC variable I was using should be equal to
+	ISE_C_COMPILER. But it seems I used bcc where ISE used
+	bcb. Corrected this. makelib now produces a lib with bcb in the
+	name like libeposix_ise_bcb.lib.
+
+
+2003-09-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_ROUTINES.is_valid_tag_name and as_valid_tag_name now
+	fully implement the XML specification.
+
+
+2003-08-27  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_IP4_ADDRESS.make_from_integer and make_from_loopback
+	stored the IP address in host byte order.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line's postcondition was
+	incorrect. last_string could be empty due to removal of
+	end-of-line character. In that case eof is still false.
+
+	* ABSTRACT_IP4_ADDRESS.make_from_integer didn't set its value.
+
+	* EPX_HTTP_SERVER now makes all parts in dynamic part available as
+	"part <part name>". It also makes them available as just "<part
+	name"> in case the field was not included in the form submission.
+
+
+2003-08-22  Berend de Boer  <berend@pobox.com>
+
+	* alpha release 1.9.3.
+
+
+2003-08-19  Berend de Boer  <berend@pobox.com>
+
+	* Fixed a type cast bug in the C code for posix_reportevent, where
+	anything other than Success events gave the dreaded The
+	description for Event ID cannot be found.
+
+
+2003-08-18  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.put_string and ABSTRACT_FILE_DESCRIPTOR.put_string now
+	support Unicode strings. If the Unicode string contains actual
+	Unicode characters, writing them is slower as they require a new
+	string to be made to be written correctly.
+
+
+2003-08-12  Berend de Boer  <berend@pobox.com>
+
+	* Recursive directory browsing did not pass the directory name to
+	a filter if one was set. Now it does, and if the filter returns
+	False, the subdirectory is not descended into.
+
+	* Added fix to STDC_TEMPORARY_FILE to garbage collect when a
+	"Too many open files" is encountered.
+
+
+2003-08-05  Berend de Boer  <berend@pobox.com>
+
+	* Renamed abstract_EAGAIN to abstract_EWOULDBLOCK as this is
+	clearer. But for today's unixes it's equal to EAGAIN.
+
+
+2003-08-04  Berend de Boer  <berend@pobox.com>
+
+	* The eposix implementations of YY_BUFFER for its STDC_FILE and
+	ABSTRACT_FILE_DESCRIPTOR now inherit from YY_FILE_BUFFER. This is
+	possible, because they now inherit from
+	KI_CHARACTER_INPUT_STREAM. This helped to remove a lot of code.
+
+	* The ARRAY to pointer conversion now uses the same mechanism as
+	STRING to pointer: the object is freezed, and has to be manually
+	unfreezed.
+
+
+2003-07-17  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_DIRECTORY.status can now return a not found
+	status. This can happen when the directory contains a symbolic
+	link to a non-existing file.
+
+	* ABSTRACT_STATUS_PATH has two new methods: make_may_fail and
+	refresh_my_fail. Both set the new found attribute. Use this to see
+	if the status could be retrieved successfully or not, without
+	raising an exception.
+
+	* ABSTRACT_DIRECTORY now skips entries that do not exist when a
+	filter is applied and the filter requires a status. Such entries
+	can be symbolic links that point to files that do not
+	exist. Status information is not available for such entries.
+
+	Note that in other cases the start/forth loop can still return
+	non-existing entries.
+
+
+2003-07-15  Berend de Boer  <berend@pobox.com>
+
+	* WINDOWS_STATUS_PATH (stat() on paths) was incorrect on
+	Windows. Windows doesn't like a trailing slash for
+	directories. It's now stripped before we attempt to get the status
+	of something.
+
+
+2003-07-10  Berend de Boer  <berend@pobox.com>
+
+	* eposix's configure now autodetects the location of the
+	SmartEiffel base.h file. This implies that earlier versions of
+	SmartEiffel than 1.1 should work fine again. This only works on
+	Unix. On Windows you still have to modify src/supportc/eiffel.h
+	manually.
+
+	* ISE signal handling now uses a frozen object. Experiment to see
+	if I can get signal handling on Windows for safe. I catch Ctrl+C
+	in a certain program and every now and then this leads to an
+	exception.
+
+	* Made signal handling safe. There was perhaps a corner case of a
+	few CPU instructions where a signal could occur when things were
+	not yet properly set up.
+
+	* Now use EIF_OBJECT in C code instead of EIF_OBJ.
+
+
+2003-07-07  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_SYSTEM.resolved_path_name did change the
+	current directory when called.
+
+	* STD_ERRNO now includes the error number when it looks like the
+	error message was "Unknown error".
+
+	* STD_ERRNO no longer inherits from STDC_BASE. STDC_BASE used
+	STD_ERRNO and that lead to a form recursion that didn't look
+	helpful.
+	Cleaned up the code in this class somewhat.
+
+
+2003-07-04  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.read_string has a new definition: it no longer reads
+	line, but only a stream of bytes without regard for the new line
+	character. Use the new STDC_TEXT_FILE.read_line for line reading.
+
+	* STDC_TEXT_FILE.chop_last_string is obsolete. new line characters
+	are no longer present in last_string to remain compatible with Gobo.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_string does no longer do line
+	reading, but just reads a certain amount of characters. This is
+	new behaviour, and can potentially break code! But I think
+	compatibility with Gobo was worth it.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line is no longer obsolete (was
+	made obsolete in alpha 1.9.1). It now implements the proper Gobo
+	functionality. This is essentially the behaviour implemented in
+	the last official release (1.6.x).
+	But it's signature is changed, to code will still break. Gobo's
+	read_line does not have an upper bound of the length of the
+	line. Also last_string does not contain the new line characters,
+	so chop isn't necessary.
+
+	* ABSTRACT_FILE_DESCRIPTOR and STDC_TEXT_FILE now inherit from
+	KI_TEXT_INPUT_STREAM (through EPX_TEXT_INPUT_STREAM). This implies
+	that their put_string (and obsolete write_string) routines no
+	longer take Void arguments.
+
+
+2003-06-30  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR inherited four read routines from
+	KI_CHARACTER_INPUT_STREAM. Those four are read_to_buffer,
+	read_character, read_string and read_to_string. They expected
+	blocking i/o. They are now renamed to non_blocking_read_character,
+	non_blocking_read_string, etc. They will enable blocking i/o for
+	the duration of the call. ABSTRACT_FILE_DESCRIPTOR has now two new
+	routines read_character and read_string that have the correct
+	contract for non-blocking i/o. This way, ABSTRACT_FILE_DESCRIPTOR
+	behaves blocking when used as KI_INPUT_STREAM, and possibly
+	non-blocking otherwise.
+
+
+2003-06-27  Berend de Boer  <berend@pobox.com>
+
+	* UDP and unix stream sockets did not set is_open_read and
+	is_open_write. This is needed, because descriptors now inherit
+	from Gobo. By not setting those, you couldn't read or write to
+	those sockets.
+
+
+2003-06-21  Berend de Boer  <berend@pobox.com>
+
+	* It now seems that not is_terminated and is_pid_set are synonyms,
+	perhaps will need to removing one of them.
+
+	* Fixed invariant violation in classes that inherited from
+	POSIX_DAEMON. Occurred when detach was called.
+
+	* IMAP4 parser did not correctly set the flags when a message was
+	retrieved, the flags were changed, and immediately after the flags
+	for that message were retrieved again.
+
+	* postcondition in EPX_URI.make_resolve could sometimes be false.
+
+
+2003-06-19  Berend de Boer  <berend@pobox.com>
+
+	* alpha 1.9.2 released.
+
+	* BeOS networking stuff works. Non-blocking sockets don't, have to
+	call setsockopt it seems to do that.
+
+
+2003-06-18  Berend de Boer  <berend@pobox.com>
+
+	* Postconditions of creation routines in
+	ABSTRACT_TCP_CLIENT_SOCKET and ABSTRACT_TCP_SERVER_SOCKET were
+	susceptible to garbage collection interception.
+
+	* Added creation routine open_by_name_and_port to
+	ABSTRACT_TCP_CLIENT_SOCKET. With this routine you don't have to
+	provide a resolved host name (EPX_HOST_PORT structure). Throws
+	exceptions if it cannot resolve.
+
+
+2003-06-17  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.write and do_read contained a wrong
+	variant in its loop. Removed the variant. And indeed, that implies
+	that there is no guarantee the loop ever terminates. Perhaps need
+	to implement a counter and terminate after x times that we
+	couldn't read/write anything??
+
+	* EPX_XML_WRITER now quotes the ]]> sequence. I thought it was
+	necessary only for compatilibity with SGML, but Xalan wants to see
+	it quoted.
+
+	* Removed EPX_XML_WRITER.insert_string as this routine is now in
+	ISE (since 5.2).
+
+	* Moved some once strings like QuoteAmp from EPX_XML_WRITER to
+	EPX_XML_ROUTINES.
+
+
+2003-06-13  Berend de Boer  <berend@pobox.com>
+
+	* STDC_BASE.exceptions is expanded again. Works now in SE 1.1rc2.
+
+	* Moved as_valid_tag_name to EPX_XML_ROUTINES.
+
+
+2003-06-09  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* Alpha release 1.9.1.
+
+
+2003-06-05  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* Due to compilation errors with SmartEiffel, STDC_PATH now
+	inherits from STDC_PATH_BASE where incompatibilities regarding
+	is_equal and "<" are solved/hacked away.
+
+
+2003-06-04  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* Moved certain queries that are XML specific, not EPX_XML_WRITER
+	specific from that class into EPX_XML_ROUTINES. Useful for adding
+	preconditions to routines that generate XML.
+
+
+2003-06-02  Berend de Boer  <berend@pobox.com>
+
+	* Correctly implemented Gobo's
+	KI_CHARACTER_OUTPUT_STREAM.put_integer and put_double. The
+	write_XXXX methods will become obsolete in the future.
+
+	* Made STDC_FILE.put_character obsolete. It's meaning will change
+	to conform to Gobo's put_character so it can accept CHARACTER
+	instead of INTEGER.
+
+
+2003-05-28  Berend de Boer  <berend@pobox.com>
+
+	* STDC_ENV_VAR.make is now exported to ANY as suggested by Marcio
+	Marchini.
+
+
+2003-05-22  Berend de Boer  <berend@pobox.com>
+
+	* EPX_STRING_HELPER.string_to_pointer for ISE didn't work when the
+	garbage collector was disabled.
+
+
+2003-05-20  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER indenting changed slightly. If an element had
+	data which ended in a new line, indenting caused spaces to be
+	added to the content of that element. Now no identing is done for
+	an element that contains data. A closing tag is just appended to
+	the data. An opening tag is also just appended to the data.
+
+
+2003-05-15  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.is_a_parent required the presence of an equality
+	tester in tags.
+
+
+2003-05-12  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* Added as_valid_tag_name to EPX_XML_WRITER to change a tag name
+	to a valid XML tag name. Not really 100%, but at least it replaces
+	spaces by a '-'.
+
+
+2003-05-08  Berend de Boer  <berend@pobox.com>
+
+	* EPX_STRING_OUTPUT_FILE is now obsolete. Any eposix file class is
+	is now a KI_OUTPUT_STREAM.
+
+	* EPX_TEXT_INPUT_FILE is now obsolete. Any eposix file class is
+	is now a KI_INPUT_STREAM.
+
+	* src/epxs/imap code moved to src/epxc/imap4 as it is platform
+	independent.
+
+	* http tests moved to test_suite/epxc/.
+
+
+2003-04-29  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.read_character could violate a precondition in CHARACTER
+	when fgetc returned -1 (EOF).
+
+
+2003-04-26  Berend de Boer  <berend@pobox.com>
+
+	* Added decoders to decode MIME bodies for base64 and
+	quoted-printable. Use EPX_MIME_BODY.as_plain_text to get the
+	decoded bodies.
+
+	* EPX_MIME_PART header stuff now moved to EPX_MIME_HEADER.
+
+
+2003-04-23  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_BODY has a new routine: as_plain_text to return the
+	body in 8bit text/plain format, as good as possible. For example a
+	BASE64 encoded body is decoded in such cases.
+
+
+2003-04-22  Berend de Boer  <berend@pobox.com>
+
+	* Stopped parsing Received field for now, what a mess people place
+	in there.
+
+	* More improvements in MIME parser.
+
+
+2003-04-21  Berend de Boer  <berend@pobox.com>
+
+	* STDC_TEMPORARY_FILE.make didn't set is_open_read and
+	is_open_write properly.
+
+
+2003-04-15  Berend de Boer  <berend@pobox.com>
+
+	* WINDOWS_STATUS_PATH had incorrect time fields. It seems to
+	change depending on daylight saving times. A lot of people seem to
+	know this bug, except Bill Gates. Another couple of hours lost,
+	because of a Windows bug.
+
+	* New method STDC_TIME.to_dos_seconds to change the seconds to an
+	even number.
+
+	* STDC_TIME now has methods to accept a broken down date or time
+	in UTC format: make_utc_date, make_utc_date_time and
+	make_utc_time. Employs some trickery, might not work correctly!
+
+	* STDC_TIME has now the proper preconditions to check if you
+	actually called to_local and to_utc.
+
+	* STDC_TIME has now status if time is in UTC or local time:
+	is_utc_time and is_local_time.
+
+	* New method STDC_BUFFER.append_to_string.
+
+
+2003-04-12  Berend de Boer  <berend@pobox.com>
+
+	* Removed FILE_FLAG_POSIX_SEMANTICS when opening files for Windows
+	EPX_FILE_DESCRIPTOR. Certain files would just not open with
+	it. No idea why.
+
+
+2003-04-11  Berend de Boer  <berend@pobox.com>
+
+	* non-blocking support for sockets under Windows added.
+
+	* Added sequential http server in EPX_HTTP_SERVER. Besides files
+	it can call servlet, see EPX_HTTP_SERVLET. Looks fairly complete
+	and robust, but still a work in progress.
+
+
+2003-04-09  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT has methods for delete and post.
+
+	* EPX_MIME_FIELD_CONTENT_TYPE.value had the subtype and type
+	components reversed.
+
+
+2003-04-08  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_line and last_line are
+	obsolete. read_string and read_character can now safely be mixed
+	with read.
+
+
+2003-04-07  Berend de Boer  <berend@pobox.com>
+
+	* Fixed "bug" in EPX_URI path resolving. It seems that ISE's
+	ARRAY.resize operator does not lower `upper' if `upper' is less
+	than requested. If ISE did that, the code would be correct.
+
+	* STDC_PATH.is_absolute and STDC_PATH.is_resolved added.
+
+
+2003-04-04  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE now inherits from KI_CHARACTER_INPUT_STREAM and
+	KI_CHARACTER_OUTPUT_STREAM as well.
+
+	* ABSTRACT_FILE_DESCRIPTOR now also inherits from
+	KI_CHARACTER_OUTPUT_STREAM
+	(through EPX_CHARACTER_IO_STREAM).
+
+	* Fixed bug in not setting SO_REUSEADDR properly in
+	ABSTRACT_TCP_SERVER_SOCKET.
+
+
+2003-04-03  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_TCP_SERVER_SOCKET.accept supports non-blocking sockets.
+
+	* Started on EPX_HTTP_SERVER
+
+
+2003-04-01  Berend de Boer  <berend@pobox.com>
+
+	* alpha release 1.9.0
+
+
+2003-03-26  Berend de Boer  <berend@pobox.com>
+
+	* STDC_SIGNAL_SWITCH.dispose did access other objects in its
+	dispose. ISE Eiffel does not allow that.
+
+
+2003-03-24  Berend de Boer  <berend@pobox.com>
+
+	* Windows EPX_EXEC_PROCESS now creates new processes with the
+	CREATE_NEW_PROCESS_GROUP flag. Without this flag, a Ctrl+C would
+	shut down any children as well (but not their children it
+	seems). I assume the new behaviour is more Unix like, but still
+	have to test it.
+
+
+2003-03-22  Berend de Boer  <berend@pobox.com>
+
+	* HTTP client code made available at EPX level, so should work
+	under Windows as well.
+
+
+2003-03-20  Berend de Boer  <berend@pobox.com>
+
+	* Fixed bug in POSIX_EXEC_PROCESS: it opened both a file
+	descriptor and a stream, but both the stream and descriptor could
+	be closed, because both were owner. Could lead to weird problems.
+
+
+2003-03-19  Berend de Boer  <berend@pobox.com>
+
+	* Detected a glaring error in my postconditions that check
+	resource accounting. They do not work when garbage collecting is
+	enabled. A sweep can actually decrease the number of open
+	resources, the behaviour is actually unpredictable. New routines
+	test if the gc is enabled or not, before testing the
+	postcondition. This affected STDC_BUFFER and STDC_FILE.
+
+
+2003-03-18  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_DIRECTORY.forth_recursive did not ensure its
+	postcondition in certain situations.
+
+
+2003-03-17  Berend de Boer  <berend@pobox.com>
+
+	* Added routines set_blocking_io and supports_nonblocking_io to
+	ABSTRACT_FILE_DESCRIPTOR.
+
+
+2003-03-11  Berend de Boer  <berend@pobox.com>
+
+	* Windows support for TCP sockets, client/server, finished. UDP
+	coming shortly.
+
+	* SUS_SOCKET_ADDRESS is now obsolete. Use EPX_HOST_PORT instead.
+
+
+2003-03-07  Berend de Boer  <berend@pobox.com>
+
+	* Started to add Windows TCP/IP support.
+
+
+2003-02-24  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR now inherits from
+	KI_CHARACTER_INPUT_STREAM. This should make a file descriptor
+	plug-compatible with Gobo. STDC_FILE will follow.
+
+
+2003-02-20  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXTENSION_FILTER inherited from EPX_CURRENT_PROCESS. No idea
+	why. Removed.
+
+
+	* STDC_PATH.is_equal implementation seems to be wrong, at least
+	for ISE 5.2 on Windows. I now make sure I just compare real
+	STRINGS.
+
+
+2003-02-14  Berend de Boer  <berend@pobox.com>
+
+	* Unix domain sockets work, see SUS_UNIX_SERVER_SOCKET and
+	SUS_UNIX_CLIENT_SOCKET.
+
+	* Added SUS_IP6_ADDRESS, IPv6 should be fully supported now.
+
+
+2003-02-13  Berend de Boer  <berend@pobox.com>
+
+	* Added file_content_as_string method in ABSTRACT_FILE_SYSTEM: given a
+	file name, returns its contents as a STRING.
+
+
+2003-02-11  Berend de Boer  <berend@pobox.com>
+
+	* license changed to Eiffel Forum Version 2, see
+	forum.txt. License is now FSF (GPL) and OSI (Open Software
+	Initiative) compatible.
+
+
+2003-02-10  Berend de Boer  <berend@pobox.com>
+
+	* Renamed EPX_SINGLETON.the_singleton to just singleton.
+
+
+2003-02-08  Berend de Boer  <berend@pobox.com>
+
+	* Added shutdown functions to SUS_TCP_SOCKET.
+
+	* Added local_address and remote_adddress features to
+	SUS_TCP_SOCKET.
+
+	* Marcio Marchini reported a problem with the latest
+	lcc. Apparantly it does not have PWIN32_FIND_DATA. Fixed this in
+	w_windows.h and w_windows.c with replacing it by PWIN32_FIND_DATAA.
+
+
+2003-02-07  Berend de Boer  <berend@pobox.com>
+
+	* WINDOWS_CHILD_PROCESS.is_pid_valid was incorrect, removed.
+
+	* Added EPX_POINTER_HELPER.posix_pointer_to_integer to convert a
+	pointer to an integer. Couldn't find a portable solution for this.
+
+	* EPX_POINTER_HELPER.posix_pointer_add made obsolete as every
+	POINTER class now supports the "+" operator.
+
+	* EPX_POINTER_ADD is renamed to EPX_POINTER_HELPER. Previous class
+	made obsolete.
+
+
+2003-02-06  Berend de Boer  <berend@pobox.com>
+
+	* Added SUS_TCP_SERVER_SOCKET for server side of tcp
+	connections. Using `listen_by_address' and `accept', server side
+	sockets are now working.
+
+	* SUS_TCP_SOCKET has been rewritten, use SUS_TCP_CLIENT_SOCKET
+	now. This breaks existing code, sorry.
+
+	* Verified that UDP works. Just create a SUS_SERVICE with protocol
+	"udp" and you're fine. There is an SUS_UDP_CLIENT SOCKET, but
+	currently it does not differ from SUS_TCP_CLIENT_SOCKET.
+
+	* It is believed that the issues regarding a moving garbage
+	collector with ISE Eiffel are now solved. Would like to get the
+	comments of real experts on my trick though. Thanx to Andreas
+	Leiter who `invented' it, he saw Eric Bezault doing something in
+	XM_EXPAT_API that lead him to the idea now implemented in eposix.
+
+
+2003-02-05  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.attach_to_fd now has a second
+	parameter. This breaks existing code, sorry.
+
+	* ABSTRACT_FILE_DESCRIPTOR.close is now slightly stricter: it must
+	actually be the owner, before it closes the file.
+
+	* ABSTRACT_FILE_DESCRIPTOR now inherits from STDC_HANDLE as
+	well. I'm well on my way to have all handle based stuff inherit
+	from STDC_HANDLE, should make resource management and resource
+	control very robust.
+
+	* ABSTRACT_FILE_DESCRIPTOR.read_loop_disabled removed. I didn't
+	seem to use it after I had a real read_string in this class and it
+	requires a potentially expensive status call to disable it in many
+	times.
+
+	* EPX_STRING_HELPER.make_with_capacity has been made
+	obsolete. STRING.make is now portable.
+
+
+2003-02-05  Berend de Boer  <berend@pobox.com>
+
+	* official release 1.6.1.
+
+	* Slight peformance improvement for VisualEiffel. Strings now
+	allocate with capacity.
+
+	* Now expects base.h in SmartEiffel 1.1 beta location.
+
+
+2003-01-23  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.start_ns_tag allows name_space = Void or empty.
+
+
+2003-01-18  Berend de Boer  <berend@pobox.com>
+
+	* official release 1.6.0.
+
+	* Some changes to the C glue code so it compiles on SunOS 5.8.
+
+
+2003-01-14  Berend de Boer  <berend@pobox.com>
+
+	* Some changes to the tests so they run better on cygwin.
+
+
+2003-01-13  Berend de Boer  <berend@pobox.com>
+
+	* release candidate 1.5.6
+
+2003-01-09  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_FILE_DESCRIPTOR.fd was also exported to none, it's now
+	made available. But was with `stream', you generally shouldn't use
+	it.
+
+	* STDC_FILE.stream was only exported to
+	ABSTRACT_FILE_DESCRIPTOR. As there is no reason to hide it, it's
+	exported to ANY now.
+
+
+2003-01-06  Berend de Boer  <berend@pobox.com>
+
+	* EPX_STACK made obsolete. Use Gobo's DS_STACK instead.
+
+
+2002-12-17  Berend de Boer  <berend@pobox.com>
+
+	* SEM_VALUE_MAX is UINT, so can be negative with Eiffel's INTEGER,
+	and actually it is on FreeBSD. Now a positive value is returned.
+
+
+2002-12-16  Berend de Boer  <berend@pobox.com>
+
+	* beta 1.5.5.
+
+
+2002-12-13  Berend de Boer  <berend@pobox.com>
+
+	* Added preconditions to STDC_FILE that file must be closed before
+	allowed to open it again.
+
+
+2002-12-11  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.make_owner is obsolete, use become_owner instead.
+
+	* STDC_FILE now inherits from STDC_HANDLE. This means stricter
+	preconditions, for example to become owner, you must not be the
+	owner already.
+
+	* STDC_BUFFER now inherits from STDC_HANDLE.
+
+	* Wrote an STDC_HANDLE class for managing handles like streams,
+	file descriptors and memory pointers. Handles can be owned, owned
+	handles are automatically closed on dispose.
+
+
+2002-11-30  Berend de Boer  <berend@pobox.com>
+
+	* Added a work-around to EPX_CGI. My change to use UC_STRING in
+	EPX_XML_WRITER cause a postcondition violation in UC_STRING when
+	you write it to an eposix STDC_FILE or POSIX_FILE_DESCRIPTOR. You
+	shouldn't do that at this moment...
+
+	* ABSTRACT_STRING_HELPER.insert_character is made obsolete. Itdoes
+	not work in combination with an UC_STRING and ISE 5.1. Use Gobo
+	routines for it. I'll attempt to phase out all my vendor specific
+	code in favor of the Gobo routines.
+
+	* Fixed fork bug. When passing a POSIX_FORK_ROOT to
+	POSIX_CURRENT_PROCESS.fork, the child had status is_terminated, so
+	when calling wait_for for that POSIX_FORK_ROOT, you got a
+	precondition violation. Now POSIX_FORK_ROOT correctly reflects a
+	successful fork.
+
+	* Resolved BeOS issues. Added emulation for realpath, so more SUS
+	code will work. Sockets don't work as BeOS does not treat sockets
+	as file descriptors. Sorry, maybe in another version I can come up
+	with a workaround.
+
+
+2002-11-28  Berend de Boer  <berend@pobox.com>
+
+	* alpha 1.5.4
+
+2002-11-26  Berend de Boer  <berend@pobox.com>
+
+	* Removed FILE_FLAG_POSIX_SEMANTICS flag when creating files
+	through a file descriptor on Windows. File creation would fail in
+	certain cases when running in a cygwin shell.
+
+
+2002-11-25  Berend de Boer  <berend@pobox.com>
+
+	* Uwe Sander reported that w_limits.h did not compile with lcc, as
+	lcc didn't have the same LIMITS.H as Windows had. Definitions
+	copied from VC++ include files.
+
+	* EPX_XML_WRITER.xml is now obsolete, use as_uc_string and
+	as_string to get either an UC_STRING or a STRING.
+
+	* EPX_XML_WRITER now based on UC_STRING, so can produce full
+	Unicode XML.
+
+
+2002-11-25  Berend de Boer  <berend@pobox.com>
+
+	* alpha 1.5.3.
+
+
+2002-11-21  Berend de Boer  <berend@pobox.com>
+
+	* Fixed bug in ABSTRACT_FILE_DESCRIPTOR.read_string. Could return
+	eof, even when there was something read. Happened when the last
+	line did not end with a '%N' character.
+
+	* ABSTRACT_STATUS.change_time is obsolete, use status_change_time,
+	more clear else confusing with modification_time.
+
+	* For some reason makelib.exe used an environment variable EIFFEL5
+	on Windows. I've changed that to ISE_EIFFEL. Thanks to Andreas
+	Leitner to spot this.
+
+
+2002-11-16  Berend de Boer  <berend@pobox.com>
+
+	* For non-recursive directory browsing, ABSTRACT_DIRECTORY.status
+	returned the same status after the first call for all items.
+
+	* STDC_PATH.parse failed when a suffix was larger as the filename
+	it self.
+
+	* STDC_PATH.make_expand failed when an empty path was passed.
+
+	* Precondition added to both creation routines of STDC_PATH that
+	argument may not be Void.
+
+
+2002-11-15  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_STRING_HELPER.split_on did not work correctly with
+	ISE. Problem wasn't noticed because of bug in precondition. Code
+	now tries to workaround a wierd ARRAY implementation.
+
+
+2002-11-08  Berend de Boer  <berend@pobox.com>
+
+	* Renamed EPX_XML_WRITER.set_name_space to set_a_name_space.
+
+
+2002-11-02  Berend de Boer  <berend@pobox.com>
+
+	* alpha 1.5.2.
+
+	* Memory allocated tracking for STDC_BUFFER should now also work
+	when the object is disposed.
+
+
+2002-11-01  Berend de Boer  <berend@pobox.com>
+
+	* Lots of work on ownership of streams and file descriptors
+	including correct increasing and decreasing count of open files
+	even on dispose. So open file counting should now work in all
+	cases.
+
+	* Fixed bug in ABSTRACT_FILE_DESCRIPTOR.read_string. Could read
+	after eof in assert_end_of_line_read.
+
+	* Not applicable commands in STDC_TEMPORARY_FILE are no longer
+	exported.
+
+
+2002-10-31  Berend de Boer  <berend@pobox.com>
+
+	* Fixed bug in URI resolving, someone referred me to
+	http://www.apache.org/~fielding/uri/rev-2002/issues.html#003-relative-query,
+	an interesting page indeed. The bug was in the specs, my code
+	implemented the spec correctly.
+
+
+2002-10-29  Berend de Boer  <berend@pobox.com>
+
+	* Fixed another invariant bug in STDC_FILE, opening a non-existing
+	file would violate it. Again that that I detected by moving more
+	of my tests to getest. Seems my old tests were pretty
+	complete. Hope to complete the conversion soon, so we can avoid
+	these kind of bugs in releases, even if it is just an alpha.
+
+	* It seems SmartEiffel added more stuff to their top heavy GENERAL
+	class. Had to change pi in EPX_EXEC_PROCESS to procinfo.
+
+	* The wapi directory and its contents were missing in the 1.5.x
+	release, so windows wouldn't work well, even after adding
+	makelib.exe. This release has been tested on Windows.
+
+
+2002-10-28  Berend de Boer  <berend@pobox.com>
+
+	* Added listen_by_address to SUS_TCP_SOCKET. No accept() yet. It
+	also seems I need to split SUS_TCP_SOCKET in a client and server
+	side as listen_by_address and connect_by_address cannot used
+	interchangeably, especially not when accept() or select() or so
+	will be added.
+
+	* Converted more tests to getest. Boring work.
+
+	* Function mkfifo was disabled, because p_stat.h didn't include
+	config.h.
+
+
+2002-10-28  Berend de Boer  <berend@pobox.com>
+
+	* alpha release 1.5.1.
+
+	* at_exit handling implemented for VisualEiffel. Was already
+	supported for the other Eiffel compilers.
+
+	* Uwe Sander <usander@onlinehome.de> was really quick in reporting
+	back an error in STDC_FILE. A last minute change compared a
+	POINTER to Void, and that doesn't work... Unfortunately, not all
+	my tests were ported to Gobo yet, so I hadn't detected that.
+
+	* Uwe also reported that makelib.exe was missing.
+
+2002-10-26  Berend de Boer  <berend@pobox.com>
+
+	* Created interim release 1.5.0. I didn't want to continue on the
+	1.1.x interim release branch, because there have been breaking
+	changes.
+
+
+2002-10-23  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.attach_to_stream now does not own the stream, just
+	like POSIX_FILE_DESCRIPTOR does. An unowned stream is not really
+	closed when close is called or the object is garbage
+	collected. This fixed a bug in EPX_CGI where the program would
+	crash (receive SIGTERM) as soon as it closed its stdout
+	stream. This occurred because it inherited from
+	STDC_CURRENT_PROCESS that used attach_stream to access the
+	standard streams.
+
+
+2002-10-19  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.set_attribute (was XML_GENERATOR) does no longer
+	accept a ':' in an attribute name, use set_ns_attribute instead.
+
+
+2002-10-17  Berend de Boer  <berend@pobox.com>
+
+	* EXP_CGI.cgi_data changed to a DS_HASH_TABLE. You have to use
+	Gobo's iterators to loop over the items.
+
+
+2002-10-04  Berend de Boer  <berend@pobox.com>
+
+	* Line endings in EPX_XML_WRITER are now just a single %N
+	character instead of a %R%N.
+
+
+2002-10-03  Berend de Boer  <berend@pobox.com>
+
+	* New class EPX_HTTP_10_CLIENT (derived from EPX_HTTP_CLIENT) can
+	retrieve data from an http server.
+
+	* Rewrite of EPX_MIME_PARSER complete. Should now be able to parse
+	any MIME message. Not all standards are supported, especially
+	international character sets, base-64 encoding and such, but
+	that's coming.
+
+
+2002-10-01  Berend de Boer  <berend@pobox.com>
+
+	* Added parse_authority to EPX_URI to split authority into host,
+	port and user info parts.
+
+
+2002-09-28  Berend de Boer  <berend@pobox.com>
+
+	* Changed definition of trim in ABSTRACT_STRING_HELPER. It's now a
+	command, and trims the given string. Function probably not used
+	much, because it removed all white space instead of just trimming
+	it.
+
+	* Added is_streaming and set_streaming to ABSTRACT_FILE_DESCRIPTOR
+	to influence optimizations in read that determine if an attempt is
+	made to read the requested number of bytes, or just do with what's
+	available. Also useful for clients to make a distinction between
+	stuff that's always there like disk files, and stuff that is
+	currently streaming in over the network.
+
+	* Added read_line to ABSTRACT_FILE_DESCRIPTOR to read something up
+	to %N. This routine can be mixed with the read call, unlike
+	read_character and read_string which never should be mixed with
+	read.
+
+
+2002-09-24  Berend de Boer  <berend@pobox.com>
+
+	* Added -mt option to makelib to produce an eposix library that
+	can be used in an ISE Eiffel program that has been compiled with
+	the multithreaded option. I don't think eposix is thread-safe,
+	call it only from the main thread. And this works only with the
+	MSC compiler.
+
+
+2002-09-17  Berend de Boer  <berend@pobox.com>
+
+	* Two new classes that enhance interoperability with Gobo:
+	EPX_FILE_BUFFER and EPX_CHARACTER_BUFFER.
+
+
+2002-09-13  Berend de Boer  <berend@pobox.com>
+
+	* Added start_ns_tag to start a tag with an explicit name space.
+
+
+2002-09-06  Berend de Boer  <berend@pobox.com>
+
+	* Added set_ns_attribute to EPX_XML_WRITER to set an attribute
+	with a name space.
+
+	* Added set_name_space to EPX_XML_WRITER.
+
+	* Added class EPX_SOAP_WRITER, based on EPX_XML_WRITER, to
+	generate SOAP messages with some confidence that the output is
+	valid.
+
+	* Slightly optimized EPX_XML_WRITER.
+
+
+2002-08-29  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* arg_max, open_max, stream_max and tzname_max have been given
+	more descriptive names. This was prompted by the fact that ISE
+	does net let you implement a deferred routine with an external
+	one, a trap I fell in again.
+
+
+2002-08-28  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* Another reshuffling of the configure code. I finally have
+	eiffel.m4, it really starts becoming something.
+
+	* Added ABSTRACT_SYSTEM class with properties that are common
+	between WINDOWS_SYSTEM and POSIX_SYSTEM. Use EPX_SYSTEM to pick
+	the lowest common denominator. The Windows one know also returns
+	the uname queries, quite useful for version and service pack
+	checking for example.
+
+
+2002-08-27  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* XML_GENERATOR renamed to EPX_XML_WRITER. So it now has the
+	proper prefix, and it really didn't generate things, you had to do
+	that.
+
+
+2002-08-26  Berend de Boer  <berend@dellius.nederware.nl>
+
+	* XML_GENERATOR can now generate XML fragments, use make_fragment
+	or make_fragment_with_capacity to initialize properly.
+
+
+2002-08-06	Berend de Boer	<berend@pobox.com>
+
+	* c_substring method added to STDC_BUFFER, copies substring up to
+	requested index, but also stops when '%U' is encountered.
+
+	* c_substring_with_string added to STDC_BUFFER. As c_substring,
+	but uses an existing string.
+
+
+2002-08-02	Berend de Boer	<berend@pobox.com>
+
+	* Converted to latest autoconf/automake. configure.in renamed to
+	configure.ac
+
+
+2002-07-23	Berend de Boer	<berend@pobox.com>
+
+	* STDC_BUFFER realloc method now obsolete. Often I used two names
+	for a routine, to help people making the transition from the C
+	API. I knew it was bad, because when redefining a feature, you
+	really have to redefine two names, but I didn't know a better way
+	then. Now I do: the solution was easy, make the POSIX name
+	available as an obsolete name. I will slowly be converting those
+	abbreviated POSIX names to obsolete names in the coming time.
+
+
+2002-07-23	Berend de Boer	<berend@pobox.com>
+
+	* POSIX_MEMORY_MAP now inherits from
+	ABSTRACT_MEMORY_MAP. ABSTRACT_MEMORY_MAP inherits from
+	STDC_BUFFER.
+
+
+2002-07-18	Berend de Boer	<berend@pobox.com>
+
+	* Lothar Scholz <llothar@web.de> asked for shared memory on
+	Windows. I needed something like this myself, so there is now a
+	WINDOWS_PAGING_FILE_SHARED_MEMORY class. I also implemented the
+	first abstractions in ABSTRACT_MEMORY_MAP. Creating maps is not
+	portable yet.
+	Use POSIX_MEMORY_MAP and POSIX_SHARED_MEMORY to achieve the same
+	effect on POSIX.
+
+
+2002-07-17	Berend de Boer	<berend@pobox.com>
+
+	* EPX_URI class added for URI parsing.
+
+	* split_on ensure strengthened. Now also works when passed a void
+	string.
+
+
+2002-07-15	Berend de Boer	<berend@pobox.com>
+
+	* makelib.exe tool now generates the same filenames as the Unix
+	ones: uses underscore instead of dash and uses all lowercase.
+
+	* lcc compiles again, it just missed EVENTLOG_SECURITY.
+
+
+2002-07-12	Berend de Boer	<berend@pobox.com>
+
+	* I finally got around to make string_to_pointer more secure. It
+	was potentially unsafe with ISE with garbage collection
+	enabled. Perhaps VE and SE should also be fixed??
+
+	* Windows library can currently not be compiled with lcc. It seems
+	lcc is missing some NT stuff.
+
+	* Implemented gettimeofday function in SUS_TIME_VALUE.
+
+
+2002-07-11	Berend de Boer	<berend@pobox.com>
+
+	* Created ULM_LOGGING, a platform independent class to do logging
+	based on the ULM concept. See
+	http://www.hsc.fr/gul/draft-abela-ulm-05.txt for details. See
+	test_suite/sus/ulm/test_ulm.e for examples.
+	Handlers are avaible for both Unix (syslog) and Windows (NT/XP)
+
+	* append_integer routine added to ABSTRACT_STRING_HELPER.
+
+
+2002-05-26	Berend de Boer	<berend@pobox.com>
+
+	* SUS_HOST used .clear to clear aliases, but unfortunately, this
+	was not supported by SmallEiffel, clear_all seems to be
+	universally available.
+
+
+2002-05-25	Berend de Boer	<berend@pobox.com>
+
+	* Created interim release 1.1.2
+
+	* Andreas Scholz notified me that precompiling the latest interim
+	release didn't work well with ISE. This release should do better.
+
+	* According to the latest Gobo conventions, cluster.xace is now
+	called library.xace.
+
+	* Improved the speed and memory requirements of simple recursive
+	directory browsing somewhat by employing some caching in
+	full_name. The find utility is still a factor 2 faster...
+
+	* ABSTRACT_DIRECTORY has two new queries: is_dot and is_dotdot
+	which return true if if the filename ends with a "." or ".."
+	respectively.
+
+	* Fixed memory leak bug in
+	ABSTRACT_FILE_DESCRIPTOR.assert_valid_buffer. It allocated new
+	memory in certain cases without releasing the old. This was
+	because the allocate and allocate_and_clear features of
+	STDC_BUFFER were publicly visible, now they're only valid in
+	object construction calls.
+
+	* Portable path also no longer creates a new path, but overwrites
+	the old one. Might have interesting effects on your code if you
+	didn't clone...
+
+
+2002-05-22	Berend de Boer	<berend@pobox.com>
+
+	* SUS_HOST has a found parameter which let you determine if the
+	host was found or not. Before it just generated an exception.
+
+
+2002-05-10	Berend de Boer	<berend@pobox.com>
+
+	* Created interim release 1.1.1
+
+	* Actually tested distribution made by autoconf's make dist.
+
+
+2002-03-09	Berend de Boer	<berend@pobox.com>
+
+	* fixed bug in ABSTRACT_FILE_SYSTEM.force_remove_directory. Called
+	directory.close, but directory was already closed, because
+	behaviour changed when adding recursive looping.
+
+	* EPX_CGI error handling didn't output a header if no CGI header
+	was written. Now it attempts to detect such cases and output a
+	plain text header.
+
+
+2002-03-01	Berend de Boer	<berend@pobox.com>
+
+	* fix for p_limits.c, test if PATH_MAX was defined. With this fix
+	eposix should compile out of the box on QNX 6.1. Thanks to Daniel
+	Solaz <dsolaz@lepidoptero.com>
+
+
+2002-02-24	Berend de Boer	<berend@pobox.com>
+
+	* STDC_TIME has now queries to let some one know if you have
+	called to_utc or to_local. Thanks to Lothar Hansche
+	<lothar.hansche@detewe.de> who reported this oversight.
+
+	* conversion to GNU build environment essentially complete. My
+	build environment will also move to this.
+
+
+2002-02-23	Berend de Boer	<berend@pobox.com>
+
+	* posix_pointer_advance changed according to suggestion of
+	H. Erdbrügger" <he@softpoint.de>
+
+	* started convertion to use GNU automake, libtool and others.
+
+	* History file has now become a GNU ChangeLog file.
+
+
+2002-02-05	Berend de Boer	<berend@pobox.com>
+
+	* release 1.0.0 of eposix

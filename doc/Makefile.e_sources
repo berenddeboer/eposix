@@ -1,0 +1,128 @@
+EXSRC = ex_async1.e ex_cgi1.e ex_cgi2.e ex_cgi3.e ex_cgi4.e ex_cmd.e ex_daemon.e ex_dir1.e ex_dir2.e ex_dir3.e ex_dir4.e ex_dir5.e ex_dir6.e ex_echo_client_tcp.e ex_echo_client_udp.e ex_echo_tcp.e ex_echo_unix.e ex_env1.e ex_env2.e ex_epx1.e ex_error1.e ex_error2.e ex_error3.e ex_exec1.e ex_exec2.e ex_factory1.e ex_fd1.e ex_fd2.e ex_fd3.e ex_fd4.e ex_file1.e ex_file2.e ex_file3.e ex_file4.e ex_file5.e ex_filename1.e ex_fork1.e ex_ftp1.e ex_http1.e ex_http_server1.e ex_http_server2.e ex_http_servlet1.e ex_http_servlet2.e ex_imap41.e ex_irc1.e ex_mem2.e ex_mem.e ex_memory_map1.e ex_modem.e ex_redirect1.e ex_shared_mem1.e ex_signal1.e ex_signal2.e ex_signal3.e ex_smtp1.e ex_smtp2.e ex_smtp3.e ex_syslog.e ex_time1.e ex_ulm.e ex_wrong1.e ex_wrong2.e fork_child.e
+
+ex_async1.bin: ex_async1.e $(ESRC)
+
+ex_cgi1.bin: ex_cgi1.e $(ESRC)
+
+ex_cgi2.bin: ex_cgi2.e $(ESRC)
+
+ex_cgi3.bin: ex_cgi3.e $(ESRC)
+
+ex_cgi4.bin: ex_cgi4.e $(ESRC)
+
+ex_cmd.bin: ex_cmd.e $(ESRC)
+
+ex_daemon.bin: ex_daemon.e $(ESRC)
+
+ex_dir1.bin: ex_dir1.e $(ESRC)
+
+ex_dir2.bin: ex_dir2.e $(ESRC)
+
+ex_dir3.bin: ex_dir3.e $(ESRC)
+
+ex_dir4.bin: ex_dir4.e $(ESRC)
+
+ex_dir5.bin: ex_dir5.e $(ESRC)
+
+ex_dir6.bin: ex_dir6.e $(ESRC)
+
+ex_echo_client_tcp.bin: ex_echo_client_tcp.e $(ESRC)
+
+ex_echo_client_udp.bin: ex_echo_client_udp.e $(ESRC)
+
+ex_echo_tcp.bin: ex_echo_tcp.e $(ESRC)
+
+ex_echo_unix.bin: ex_echo_unix.e $(ESRC)
+
+ex_env1.bin: ex_env1.e $(ESRC)
+
+ex_env2.bin: ex_env2.e $(ESRC)
+
+ex_epx1.bin: ex_epx1.e $(ESRC)
+
+ex_error1.bin: ex_error1.e $(ESRC)
+
+ex_error2.bin: ex_error2.e $(ESRC)
+
+ex_error3.bin: ex_error3.e $(ESRC)
+
+ex_exec1.bin: ex_exec1.e $(ESRC)
+
+ex_exec2.bin: ex_exec2.e $(ESRC)
+
+ex_factory1.bin: ex_factory1.e $(ESRC)
+
+ex_fd1.bin: ex_fd1.e $(ESRC)
+
+ex_fd2.bin: ex_fd2.e $(ESRC)
+
+ex_fd3.bin: ex_fd3.e $(ESRC)
+
+ex_fd4.bin: ex_fd4.e $(ESRC)
+
+ex_file1.bin: ex_file1.e $(ESRC)
+
+ex_file2.bin: ex_file2.e $(ESRC)
+
+ex_file3.bin: ex_file3.e $(ESRC)
+
+ex_file4.bin: ex_file4.e $(ESRC)
+
+ex_file5.bin: ex_file5.e $(ESRC)
+
+ex_filename1.bin: ex_filename1.e $(ESRC)
+
+ex_fork1.bin: ex_fork1.e $(ESRC)
+
+ex_ftp1.bin: ex_ftp1.e $(ESRC)
+
+ex_http1.bin: ex_http1.e $(ESRC)
+
+ex_http_server1.bin: ex_http_server1.e $(ESRC)
+
+ex_http_server2.bin: ex_http_server2.e $(ESRC)
+
+ex_http_servlet1.bin: ex_http_servlet1.e $(ESRC)
+
+ex_http_servlet2.bin: ex_http_servlet2.e $(ESRC)
+
+ex_imap41.bin: ex_imap41.e $(ESRC)
+
+ex_irc1.bin: ex_irc1.e $(ESRC)
+
+ex_mem2.bin: ex_mem2.e $(ESRC)
+
+ex_mem.bin: ex_mem.e $(ESRC)
+
+ex_memory_map1.bin: ex_memory_map1.e $(ESRC)
+
+ex_modem.bin: ex_modem.e $(ESRC)
+
+ex_redirect1.bin: ex_redirect1.e $(ESRC)
+
+ex_shared_mem1.bin: ex_shared_mem1.e $(ESRC)
+
+ex_signal1.bin: ex_signal1.e $(ESRC)
+
+ex_signal2.bin: ex_signal2.e $(ESRC)
+
+ex_signal3.bin: ex_signal3.e $(ESRC)
+
+ex_smtp1.bin: ex_smtp1.e $(ESRC)
+
+ex_smtp2.bin: ex_smtp2.e $(ESRC)
+
+ex_smtp3.bin: ex_smtp3.e $(ESRC)
+
+ex_syslog.bin: ex_syslog.e $(ESRC)
+
+ex_time1.bin: ex_time1.e $(ESRC)
+
+ex_ulm.bin: ex_ulm.e $(ESRC)
+
+ex_wrong1.bin: ex_wrong1.e $(ESRC)
+
+ex_wrong2.bin: ex_wrong2.e $(ESRC)
+
+fork_child.bin: fork_child.e $(ESRC)
+

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+
+<library name="eposix" prefix="eposix_">
+
+  <description>
+    description: "Xace file for the e-posix library"
+    note1:       "Make sure to define GOBO_CC on Windows!"
+    note2:       "Assumes libraries are installed in $EPOSIX/lib"
+    library:     "Full Eiffel binding for POSIX"
+    author:      "Berend de Boer [berend@pobox.com]"
+    copyright:   "Copyright (c) 2003-2007, Berend de Boer"
+    license:     "Eiffel Forum Freeware License v2 (see forum.txt)"
+    date:        "$Date: $"
+    revision:    "$Revision: $"
+  </description>
+
+  <cluster name="eposix" location="${EPOSIX}/src">
+
+    <option name="abstract" value="true"/>
+
+    <cluster name="support"/>
+    <cluster name="capi">
+      <cluster name="spec" prefix="capi_">
+        <option name="abstract" value="true"/>
+        <cluster name="${GOBO_EIFFEL}" prefix="capi_spec_"/>
+      </cluster>
+    </cluster>
+    <cluster name="standardc">
+      <class name="STDC_SIGNAL_SWITCH">
+        <feature name="switcher">
+          <option name="export" value="stdc_signal_switch_switcher"/>
+        </feature>
+      </class>
+      <class name="STDC_EXIT_SWITCH">
+        <feature name="at_exit">
+          <option name="export" value="stdc_exit_switch_at_exit"/>
+        </feature>
+      </class>
+    </cluster>
+    <cluster name="abstract"/>
+    <cluster name="wapi" if="${GOBO_OS}=windows">
+      <cluster name="spec" prefix="wapi_">
+        <option name="abstract" value="true"/>
+        <cluster name="${GOBO_EIFFEL}" prefix="wapi_spec_"/>
+      </cluster>
+    </cluster>
+    <cluster name="windows" if="${GOBO_OS}=windows"/>
+    <cluster name="epxw" if="${GOBO_OS}=windows"/>
+    <cluster name="papi" if="${GOBO_OS}=unix">
+      <cluster name="spec" prefix="papi_">
+        <option name="abstract" value="true"/>
+        <cluster name="${GOBO_EIFFEL}" prefix="papi_spec_"/>
+      </cluster>
+    </cluster>
+    <cluster name="posix" if="${GOBO_OS}=unix"/>
+    <cluster name="sapi" if="${GOBO_OS}=unix">
+      <cluster name="spec" prefix="sapi_">
+        <option name="abstract" value="true"/>
+        <cluster name="${GOBO_EIFFEL}" prefix="sapi_spec_"/>
+      </cluster>
+    </cluster>
+    <cluster name="sus" if="${GOBO_OS}=unix"/>
+    <cluster name="epxc" prefix="epxc_">
+      <cluster name="cgi"/>
+      <cluster name="ftp"/>
+      <cluster name="gobo"/>
+      <cluster name="http"/>
+      <cluster name="imap4"/>
+      <cluster name="irc"/>
+      <cluster name="ldap"/>
+      <cluster name="mime"/>
+      <cluster name="smtp"/>
+      <cluster name="ssl"/>
+      <cluster name="tcp"/>
+      <cluster name="ulm"/>
+      <cluster name="xml"/>
+    </cluster>
+    <cluster name="epxp" if="${GOBO_OS}=unix"/>
+    <cluster name="epxs" if="${GOBO_OS}=unix"/>
+    <cluster name="spec">
+      <option name="abstract" value="true"/>
+      <cluster name="${GOBO_EIFFEL}" prefix="spec_"/>
+    </cluster>
+
+    <option unless="${GOBO_OS}=windows">
+      <option name="link" value="${EPOSIX}/lib/lib${GOBO_MT}eposix_${GOBO_EIFFEL}.a" if="${GOBO_MT}"/>
+      <option name="link" value="${EPOSIX}/lib/libeposix_${GOBO_EIFFEL}.a" unless="${GOBO_MT}"/>
+      <!-- Comment out the previous line and uncomment this line for cygwin -->
+<!--       <option name="link" value="-L${EPOSIX}/lib -leposix_${GOBO_EIFFEL}" if="${GOBO_EIFFEL}=se"/> -->
+
+      <!-- The following libraries depend on your OS! -->
+      <!-- Enabled are the Linux values: -->
+      <option unless="${IS_MAC_OS_X}">
+        <option name="link" value="-lpthread" unless="${GOBO_EIFFEL}=ve"/>
+        <option name="link" value="-lrt"/>
+        <option name="link" value="/usr/lib/librt.a" if="${GOBO_EIFFEL}=ve"/>
+<!--       <option name="link" value="/usr/lib/libpthread.a" if="${GOBO_EIFFEL}=ve"/> -->
+      <!-- for FreeBSD you need this library -->
+      <!-- There is also a libc_p library, which I used previously, but
+           libc_r includes the semaphore functions -->
+<!--        <option name="link" value="-lc_r" unless="${GOBO_EIFFEL}=ve"/> -->
+      <!-- for QNX you need this library -->
+<!--        <option name="link" value="-lsocket"/> -->
+      <!-- for Solaris 10 you need these options -->
+<!--
+      <option name="link" value="-lsocket"/>
+      <option name="link" value="-lnsl"/>
+      <option name="link" value="-lrt"/>
+-->
+      </option>
+      <!-- for Mac OSX you won't need any additional library -->
+
+    </option>
+    <option if="${GOBO_OS}=windows">
+      <option name="link" value="${EPOSIX}\lib\lib${GOBO_MT}eposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" if="${GOBO_MT}"/>
+      <option name="link" value="${EPOSIX}\lib\libeposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" unless="${GOBO_MT}"/>
+      <!-- The following library is needed if you use network functions -->
+      <option name="link" value="ws2_32.lib" if="${GOBO_EIFFEL}=se"/>
+      <!-- The following library is needed if you use NT event logging -->
+      <option name="link" value="Advapi32.lib" if="${GOBO_EIFFEL}=se"/>
+      <option if="${GOBO_EIFFEL}=ve">
+        <option name="link" value="libc.lib"/>
+        <!-- The following library is needed if you use network functions -->
+        <option name="link" value="ws2_32.lib"/>
+        <!-- sometimes I needed this library too -->
+        <option name="link" value="oldnames.lib"/>
+        <!-- and you need to put this option in your system.xace! -->
+        <option name="linker" value="microsoft"/>
+      </option>
+    </option>
+
+  </cluster>
+
+</library>
