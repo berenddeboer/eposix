@@ -32,6 +32,7 @@ feature
 			create signal.make (SIGTERM)
 			signal.set_ignore_action
 			signal.apply
+			signal.raise
 			signal.set_default_action
 			signal.apply
 			signal.set_handler (Current)

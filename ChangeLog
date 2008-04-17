@@ -1,3 +1,9 @@
+2008-04-17  Berend de Boer  <berend@pobox.com>
+
+	* Signal and exit handling rewritten. cecil no longer used, and it
+	now works with gec as well.
+
+
 2008-04-08  Berend de Boer  <berend@pobox.com>
 
 	* STDC_SYSTEM.time_zone_seconds: new feature to return the number

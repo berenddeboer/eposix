@@ -4,7 +4,7 @@
 	<description>
 		system:      "getest for eposix"
 		author:      "Berend de Boer [berend@pobox.com]"
-		copyright:   "Copyright (c) 2002, Berend de Boer"
+		copyright:   "Copyright (c) 2002-2008, Berend de Boer"
 		license:     "Eiffel Forum Freeware License v1 (see forum.txt)"
 		date:        "$Date: $"
 		revision:    "$Revision: $"
@@ -31,12 +31,7 @@
   <cluster name="test" location="${EPOSIX}/test_suite/standardc/exit_handler"/>
 
   <mount location="${EPOSIX}/src/library.xace"/>
-	<mount location="${GOBO}/library/test/library.xace"/>
-	<mount location="${GOBO}/library/lexical/library.xace"/>
-	<mount location="${GOBO}/library/kernel/library.xace"/>
-	<mount location="${GOBO}/library/structure/library.xace"/>
-	<mount location="${GOBO}/library/parse/library.xace"/>
-	<mount location="${GOBO}/library/utility/library.xace"/>
-	<mount location="${GOBO}/library/pattern/library.xace"/>
+	<mount location="${GOBO}/library/library.xace"/>
 	<mount location="${GOBO}/library/kernel.xace"/>
+
 </system>

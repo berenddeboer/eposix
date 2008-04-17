@@ -3,4 +3,4 @@
 # for our Eiffel compiler resides.
 SUFFIXES = .e .mc .rc .res .dll .pdf .tex .bbl .aux .1 .mp .bin
 
-AM_CFLAGS=-DEIFFEL_VENDOR_$(GOBO_EIFFEL) -I$(EIFFEL_COMPILER_HEADER_DIR) -I$(top_srcdir)/src/supportc $(OPTIONAL_MULTITHREAD_FLAG)
+AM_CFLAGS=-DEIFFEL_VENDOR_$(GOBO_EIFFEL) -I$(EIFFEL_COMPILER_HEADER_DIR) $(OPTIONAL_MULTITHREAD_FLAG)
