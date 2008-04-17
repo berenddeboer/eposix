@@ -20,8 +20,13 @@ inherit
 			dispose
 		end
 
+	EPX_POINTER_HELPER
+		export
+			{NONE} all
+		end
 
-creation
+
+create {STDC_SIGNAL_SWITCH_ACCESSOR}
 
 	make
 
@@ -31,7 +36,6 @@ feature -- Initialization
 	make is
 		do
 			create switched_signals.make (1, 32)
-			epx_set_signal_switch (Current)
 		end
 
 
@@ -77,14 +81,20 @@ feature {NONE} -- Garbage collection
 feature {STDC_SIGNAL} -- signals to catch or ignore
 
 	catch (a_signal: STDC_SIGNAL; a_handler: STDC_SIGNAL_HANDLER) is
-			-- Make this a catched signal.
+			-- Make this a caught signal.
+		require
+			signal_not_void: a_signal /= Void
 		do
 			assert_can_store_signal (a_signal)
 			switched_signals.put (a_handler, a_signal.value)
+		ensure
+			handler_set: switched_signals.item (a_signal.value) = a_handler
 		end
 
 	ignore (a_signal: STDC_SIGNAL) is
 			-- This signal is no longer handled.
+		require
+			signal_not_void: a_signal /= Void
 		do
 			switched_signals.put (Void, a_signal.value)
 		end
@@ -93,8 +103,9 @@ feature {STDC_SIGNAL} -- signals to catch or ignore
 feature {STDC_SIGNAL,STDC_SIGNAL_HANDLER} -- lowest level C signal handler
 
 	handler: POINTER is
-			-- pointer to C routine that is called on signal
-		do
+			-- Pointer to C routine that is called on signal
+		once
+			epx_set_signal_switch (any_to_pointer (Current), $switcher)
 			Result := epx_signal_handler
 		end
 
@@ -102,7 +113,8 @@ feature {STDC_SIGNAL,STDC_SIGNAL_HANDLER} -- lowest level C signal handler
 feature {NONE} -- core switch
 
 	switcher (a_signal: INTEGER) is
-			-- Core routine, is called when a signal occurs for a catched signal.
+			-- Core routine, is called from C when a signal occurs for a
+			-- handled signal.
 		local
 			signal_handler: STDC_SIGNAL_HANDLER
 		do
@@ -120,16 +132,18 @@ feature {NONE} -- state
 
 	switched_signals: ARRAY [STDC_SIGNAL_HANDLER]
 
-	assert_can_store_signal (signal: STDC_SIGNAL) is
+	assert_can_store_signal (a_signal: STDC_SIGNAL) is
 			-- Make sure `signal' can be stored in `switched_signals'.
+		require
+			signal_not_void: a_signal /= Void
 		do
-			if signal.value > switched_signals.upper then
-				switched_signals.resize (switched_signals.lower, signal.value)
+			if a_signal.value > switched_signals.upper then
+				switched_signals.resize (switched_signals.lower, a_signal.value)
 			end
 		ensure
 			signal_fits:
-				signal.value >= switched_signals.lower and then
-				signal.value <= switched_signals.upper
+				a_signal.value >= switched_signals.lower and then
+				a_signal.value <= switched_signals.upper
 		end
 
 
@@ -139,14 +153,12 @@ feature {NONE} -- C binding
 		external "C"
 		end
 
-	epx_set_signal_switch (a_switch: STDC_SIGNAL_SWITCH) is
-		require
-			valid_switch: a_switch /= Void
+	epx_set_signal_switch (an_object, an_address: POINTER) is
 		external "C"
 		end
 
 	epx_signal_handler: POINTER is
-			-- address for e-POSIX special signal handler
+			-- Address of the e-POSIX global signal handler
 		external "C"
 		ensure
 			valid_handler: Result /= default_pointer

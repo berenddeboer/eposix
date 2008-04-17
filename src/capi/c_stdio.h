@@ -8,7 +8,7 @@ Access to Standard C stdio.h
 #define _C_STDIO_H_
 
 
-#include "eiffel.h"
+#include "../supportc/eiffel.h"
 #include <stdio.h>
 
 /* constants */

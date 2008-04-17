@@ -20,6 +20,11 @@ inherit
 			dispose
 		end
 
+	EPX_POINTER_HELPER
+		export
+			{NONE} all
+		end
+
 
 creation {STDC_EXIT_SWITCH_ACCESSOR}
 
@@ -31,7 +36,7 @@ feature {NONE} -- Initialization
 	make is
 		do
 			create {DS_LINKED_STACK [STDC_EXIT_HANDLER]} exit_handlers.make
-			epx_set_exit_switch (Current)
+			epx_set_exit_switch (any_to_pointer (Current), $at_exit)
 		end
 
 
@@ -75,10 +80,10 @@ feature -- install/uninstall handlers
 		end
 
 
-feature {NONE} -- core switch
+feature {NONE} -- Callback
 
 	at_exit is
-			-- Core routine, is called when program terminates.
+			-- Callback routine, is called when program terminates.
 		do
 			from
 			until
@@ -101,9 +106,7 @@ feature {NONE} -- C binding
 		external "C"
 		end
 
-	epx_set_exit_switch (a_switch: STDC_EXIT_SWITCH) is
-		require
-			valid_switch: a_switch /= Void
+	epx_set_exit_switch (an_object, an_address: POINTER) is
 		external "C"
 		end
 

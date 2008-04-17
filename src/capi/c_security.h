@@ -12,7 +12,7 @@ guarantee ragrding this, so I didn't try it.
 #ifndef _C_SECURITY_H_
 #define _C_SECURITY_H_
 
-#include "eiffel.h"
+#include "../supportc/eiffel.h"
 
 
 EIF_INTEGER the_posix_open_files = 0;

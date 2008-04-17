@@ -8,7 +8,7 @@ Access to Standard C errno.h
 #define _C_ERRNO_H_
 
 
-#include "eiffel.h"
+#include "../supportc/eiffel.h"
 #include <errno.h>
 
 

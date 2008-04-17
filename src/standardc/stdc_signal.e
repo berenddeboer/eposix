@@ -80,7 +80,7 @@ feature -- set signal properties, make effective with `apply'
 feature -- signal functions
 
 	raise is
-			-- raise the signal
+			-- Raise the signal.
 		do
 			safe_call (posix_raise (value))
 		end

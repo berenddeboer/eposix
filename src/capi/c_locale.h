@@ -8,7 +8,7 @@ Access to Standard C locale.h
 #define _C_LOCALE_H_
 
 
-#include "eiffel.h"
+#include "../supportc/eiffel.h"
 #include <locale.h>
 
 

@@ -38,6 +38,7 @@
 
 #ifdef EIFFEL_VENDOR_GE
 #include <ge_eiffel.h>
+#include <ge_gc.h>
 #define EIF_INTEGER EIF_INTEGER_32
 #define EIF_REAL EIF_REAL_32
 #define EIF_DOUBLE EIF_REAL_64

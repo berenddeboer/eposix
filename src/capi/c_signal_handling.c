@@ -3,101 +3,50 @@
 /* signal handling */
 
 
-/* Global flag, so far for multithreading... */
+/* Global fields, so far for multithreading... */
 
-EIF_OBJECT signal_switch = NULL;
-#ifdef EIFFEL_VENDOR_ISE
-EIF_REFERENCE frozen_signal_switch = NULL;
-EIF_PROCEDURE signal_callback = NULL;
-#endif
-#ifdef EIFFEL_VENDOR_VE
-EIF_PROCEDURE signal_callback = NULL;
-#endif
+EIF_REFERENCE signal_switch_object = NULL;
+void (*signal_switch_address)(EIF_REFERENCE, EIF_INTEGER_32) = NULL;
 
 
-void epx_clear_signal_switch()
-{
-  signal_switch = NULL;
-#ifdef EIFFEL_VENDOR_ISE
-  signal_callback = NULL;
-#endif
-#ifdef EIFFEL_VENDOR_VE
-  signal_callback = NULL;
-#endif
+void epx_clear_signal_switch() {
+  signal_switch_object = NULL;
+  signal_switch_address = NULL;
 }
 
 
-/* Set our signal_switch object. As the signal handler itself uses
-   this object, set it only at the last possible moment */
+/* Set address to callback to and the object reference to pass to that
+   address. */
 
-void epx_set_signal_switch (EIF_OBJECT a_switch)
-{
-#ifdef EIFFEL_VENDOR_ISE
-  EIF_TYPE_ID tid;
-  EIF_OBJECT temp;
-  if ( signal_switch != NULL ) {
-    temp = signal_switch;
-    signal_switch = NULL;
-    eif_unfreeze (frozen_signal_switch);
-    frozen_signal_switch = NULL;
-    eif_wean (temp);
-  }
-  if ( a_switch != NULL ) {
-    tid = eif_type_id ("STDC_SIGNAL_SWITCH");
-    signal_callback = eif_procedure ("switcher", tid);
-    if (signal_callback == 0)
-      { eif_panic ("switcher feature not found."); }
-    frozen_signal_switch = eif_freeze (a_switch);
-    signal_switch = eif_adopt (a_switch);
-  }
-#endif
+void epx_set_signal_switch (EIF_POINTER object, EIF_POINTER address) {
 #ifdef EIFFEL_VENDOR_VE
-  EIF_OBJECT temp;
-  if ( signal_switch != NULL ) {
-    temp = signal_switch;
-    signal_switch = NULL;
-    eif_wean (temp);
-  }
-  if ( a_switch != NULL ) {
-    eif_adopt (a_switch);
-    signal_callback = eif_dynamic_routine (a_switch, "switcher");
-    signal_switch = a_switch;
-  }
-#endif
+  signal_switch_object = eif_adopt(object);
+#else
 #ifdef EIFFEL_VENDOR_SE
-  signal_switch = a_switch;
+  signal_switch_object = object;
+#else
+  signal_switch_object = eif_protect(object);
 #endif
-#ifdef EIFFEL_VENDOR_GE
-  signal_switch = a_switch;
 #endif
+  signal_switch_address = address;
 }
 
 
-#ifdef EIFFEL_VENDOR_SE
-/* prototype callback function */
-void stdc_signal_switch_switcher(EIF_OBJECT obj, EIF_INTEGER sig);
-#endif
-
-#ifdef EIFFEL_VENDOR_GE
-/* prototype callback function */
-void stdc_signal_switch_switcher(EIF_OBJECT obj, EIF_INTEGER sig);
-#endif
-
-void epx_the_signal_handler (EIF_INTEGER sig)
-{
-  if (signal_switch != NULL) {
+/* This is the routine that is called upon a signal and switches back
+   to Eiffel */
+void epx_the_signal_handler (int sig) {
+  if (signal_switch_object != NULL && signal_switch_address != NULL) {
 #ifdef EIFFEL_VENDOR_ISE
-    /*    (signal_callback) (eif_access(signal_switch), sig);*/
-    (signal_callback) (frozen_signal_switch, sig);
+    (signal_switch_address) (eif_access(signal_switch_object), sig);
 #endif
 #ifdef EIFFEL_VENDOR_VE
-    (signal_callback) (eif_access(signal_switch), sig);
+    (signal_switch_address) (eif_access(signal_switch_object), sig);
 #endif
 #ifdef EIFFEL_VENDOR_SE
-    stdc_signal_switch_switcher(signal_switch, sig);
+    (signal_switch_address) (signal_switch_object, sig);
 #endif
 #ifdef EIFFEL_VENDOR_GE
-    stdc_signal_switch_switcher(signal_switch, sig);
+    (signal_switch_address) (eif_adopt(signal_switch_object), sig);
 #endif
   }
 }

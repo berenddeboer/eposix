@@ -1,6 +1,6 @@
 /*
 
-Support for calling Eiffel object when C signal occurs.
+Support for calling Eiffel object when C exit handling occurs.
 
 */
 
@@ -8,13 +8,12 @@ Support for calling Eiffel object when C signal occurs.
 #define _C_EXIT_HANDLING_H_
 
 #include "stdlib.h"
-#include "eiffel.h"
+#include "../supportc/eiffel.h"
 
 
-/* signal handling */
+/* exit handling */
 
 void epx_clear_exit_switch();
-void epx_set_exit_switch (EIF_OBJECT a_switch);
-
+void epx_set_exit_switch (EIF_POINTER object, EIF_POINTER address);
 
 #endif /* _C_EXIT_HANDLING_H_ */

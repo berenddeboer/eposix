@@ -8,7 +8,7 @@ Access to Standard C signal.h header
 #define _C_SIGNAL_H_
 
 
-#include "eiffel.h"
+#include "../supportc/eiffel.h"
 #include <signal.h>
 
 

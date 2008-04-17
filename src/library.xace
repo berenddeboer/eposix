@@ -25,18 +25,7 @@
         <cluster name="${GOBO_EIFFEL}" prefix="capi_spec_"/>
       </cluster>
     </cluster>
-    <cluster name="standardc">
-      <class name="STDC_SIGNAL_SWITCH">
-        <feature name="switcher">
-          <option name="export" value="stdc_signal_switch_switcher"/>
-        </feature>
-      </class>
-      <class name="STDC_EXIT_SWITCH">
-        <feature name="at_exit">
-          <option name="export" value="stdc_exit_switch_at_exit"/>
-        </feature>
-      </class>
-    </cluster>
+    <cluster name="standardc"/>
     <cluster name="abstract"/>
     <cluster name="wapi" if="${GOBO_OS}=windows">
       <cluster name="spec" prefix="wapi_">

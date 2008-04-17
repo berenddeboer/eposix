@@ -17,6 +17,20 @@ class
 
 feature -- Pointer conversion
 
+	any_to_pointer (a: any): POINTER is
+			-- Pointer to `a'
+		require
+			a_not_void: a /= Void
+		do
+#ifdef SE
+			Result := a.to_pointer
+#else
+			Result := $a
+#endif
+		ensure
+			not_nil: Result /= default_pointer
+		end
+
 	posix_pointer_to_integer (p: POINTER): INTEGER is
 		external "C"
 		end
