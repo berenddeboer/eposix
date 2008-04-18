@@ -1,3 +1,8 @@
+2008-04-19  Berend de Boer  <berend@pobox.com>
+
+	* Changed eposix license to MIT.
+
+
 2008-04-17  Berend de Boer  <berend@pobox.com>
 
 	* Signal and exit handling rewritten. cecil no longer used, and it

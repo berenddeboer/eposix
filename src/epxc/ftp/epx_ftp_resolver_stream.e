@@ -7,7 +7,7 @@ indexing
 	library: "eposix"
 	author: "Colin Adams"
 	copyright: "Copyright (c) 2004, Colin Adams"
-	license: "Eiffel Forum License v2 (see forum.txt)"
+	license: "MIT License"
 	date: "$Date: "
 	revision: "$Revision: "
 

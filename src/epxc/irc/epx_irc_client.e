@@ -9,7 +9,7 @@ indexing
 	bugs: "Assume that it is not connected via an sslclient socket"
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer"
-	license: "Eiffel Forum License v2 (see forum.txt)"
+	license: "MIT License"
 	date: "$Date: 2007/11/22 $"
 	revision: "$Revision: #6 $"
 

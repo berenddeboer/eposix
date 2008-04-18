@@ -7,7 +7,7 @@ indexing
 	library: "eposix"
 	author: "Berend de Boer <berend@pobox.com> and Colin Paul Adams"
 	copyright: "Copyright (c) 2004-2007, Berend de Boer"
-	license: "Eiffel Forum License v2 (see forum.txt)"
+	license: "MIT License"
 	date: "$Date: "
 	revision: "$Revision: "
 
