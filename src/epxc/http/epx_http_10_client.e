@@ -157,7 +157,9 @@ feature -- Requests
 		end
 
 	post (a_request_uri: STRING; a_post_data: EPX_MIME_PART) is
-			-- Post `a_post_data' to `host' using the HTTP POST request.
+			-- Post `a_post_data' to `host' using the HTTP POST
+			-- request. `a_post_data' may be empty in which case no data
+			-- will be send with this POST request.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
 			-- the connection), 503 is returned.
@@ -168,16 +170,13 @@ feature -- Requests
 			-- you sent data to an HTTP server.
 		require
 			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
-			post_data_not_void: a_post_data /= Void
-			post_data_has_content_type: a_post_data.header.content_type /= Void
--- 			post_data_content_type_recognized:
--- 				a_post_data.header.content_type.value.is_equal (mime_type_multipart_form_data) or else
--- 				a_post_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded)
+			post_data_has_content_type: a_post_data /= Void implies a_post_data.header.content_type /= Void
 			post_data_content_type_has_boundary_if_multipart:
-				a_post_data.header.content_type.value.is_equal (mime_type_multipart_form_data) implies
-					a_post_data.header.content_type.boundary /= Void and then
-					not a_post_data.header.content_type.boundary.is_empty
-			post_data_has_body: a_post_data.body /= Void
+				a_post_data /= Void implies
+					(a_post_data.header.content_type.value.is_equal (mime_type_multipart_form_data) implies
+						a_post_data.header.content_type.boundary /= Void and then
+						not a_post_data.header.content_type.boundary.is_empty)
+			post_data_has_body: a_post_data /= Void implies a_post_data.body /= Void
 		do
 			send_request (http_method_POST, a_request_uri, a_post_data)
 		end
@@ -556,11 +555,14 @@ feature -- Response
 feature -- Individual response fields, Void if not available
 
 	location: STRING is
+			-- The contents of the Location field in the header, if any
 		do
 			fields.search (field_name_location)
 			if fields.found then
 				Result := fields.found_item.value
 			end
+		ensure
+			definition: fields.has (field_name_location) = (location /= Void)
 		end
 
 
