@@ -159,17 +159,22 @@ feature {NONE} -- When script fails
 			is_exception: exceptions.exception /= 0
 		do
 			if not is_http_header_written then
+				if header.status_code = 0 then
+					stdout.put_string (once "Status: 500%N")
+				else
+					status (500, "Fatal error")
+				end
 				content_text_plain
 			end
-			stdout.put_string ("A fatal error prevents this program from continuing.%N")
+			stdout.put_string (once "A fatal error prevents this program from continuing.%N")
 			if exceptions.is_developer_exception then
-				stdout.put_string ("The error message was: ")
+				stdout.put_string (once "The error message was: ")
 				stdout.put_string (exceptions.developer_exception_name)
-				stdout.put_string ("%N")
+				stdout.put_character ('%N')
 			end
-			stdout.put_string ("Exception code: ")
+			stdout.put_string (once "Exception code: ")
 			stdout.put_string (exceptions.exception.out)
-			stdout.put_string ("%N")
+			stdout.put_character ('%N')
 			stdout.flush
 			exit_with_failure
 		end
