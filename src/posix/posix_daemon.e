@@ -2,7 +2,7 @@ indexing
 
 	description: "Abstract daemon class."
 
-	usage: "Inherit from this class, implement `execute' and call `detach' in your creation routine."
+	usage: "Inherit from this class, implement `execute' and call just `detach' in your creation routine (don't call `execute')."
 
 	author: "Berend de Boer"
 	date: "$Date: 2007/11/22 $"
