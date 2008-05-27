@@ -73,7 +73,7 @@
     </cluster>
 
     <option unless="${GOBO_OS}=windows">
-      <option name="link" value="${EPOSIX}/lib/lib${GOBO_MT}eposix_${GOBO_EIFFEL}.a" if="${GOBO_MT}"/>
+      <option name="link" value="${EPOSIX}/lib/libeposixmt_${GOBO_EIFFEL}.a" if="${GOBO_MT}"/>
       <option name="link" value="${EPOSIX}/lib/libeposix_${GOBO_EIFFEL}.a" unless="${GOBO_MT}"/>
       <!-- Comment out the previous line and uncomment this line for cygwin -->
 <!--       <option name="link" value="-L${EPOSIX}/lib -leposix_${GOBO_EIFFEL}" if="${GOBO_EIFFEL}=se"/> -->
@@ -102,7 +102,7 @@
 
     </option>
     <option if="${GOBO_OS}=windows">
-      <option name="link" value="${EPOSIX}\lib\lib${GOBO_MT}eposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" if="${GOBO_MT}"/>
+      <option name="link" value="${EPOSIX}\lib\libmteposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" if="${GOBO_MT}"/>
       <option name="link" value="${EPOSIX}\lib\libeposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" unless="${GOBO_MT}"/>
       <!-- The following library is needed if you use network functions -->
       <option name="link" value="ws2_32.lib" if="${GOBO_EIFFEL}=se"/>
