@@ -459,6 +459,44 @@ into the \type{\$EPOSIX/lib} directory. This is the location where
 \type{--prefix} switch the library will usually be installed in
 \filename{/usr/local/lib}.
 
+If you develop \index{Unix+multi-threaded applications}multi-thread
+applications, enable thread support with:
+
+\starttyping
+./configure --with-compiler=ise --prefix=$EPOSIX --enable-threads
+make clean
+make
+make install
+\stoptyping
+%$
+
+You can install both the multi-threaded library and the single thread
+library at the same time.
+
+In addition you have to make sure the \index{environment
+variable+GOBO_MT}\type{GOBO_MT} environment variable is defined when
+generating the \filename{.ecf} or \filename{.ace} file. This requires
+a change to Gobo's \filename{eifel.eant} file.
+
+In the target for xace add this line:
+
+\starttyping
+<define name="GOBO_MT" value="mt" if="${GOBO_MT}"/>
+\stoptyping
+%$
+
+You can now pass the \type{GOBO_MT} variable like this:
+
+\starttyping
+geant -D "GOBO_MT=mt" compile_ise
+\stoptyping
+
+In case your applications are always multi-threaded, it might be
+easier to copy \index{libmteposix_ise.a}\filename{libeposixmt_ise.a}
+to \filename{libeposix_ise.a} so you don't have to bother with
+this. The sole purpose of \type{GOBO_MT} is to pick
+\filename{libeposixmt_ise.a} or \filename{libeposix_ise.a}.
+
 More information about \MYfilename{configure} options can be displayed
 with:
 

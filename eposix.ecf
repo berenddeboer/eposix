@@ -7,9 +7,16 @@
 				<platform value="windows"/>
 			</condition>
 		</external_object>
-		<external_object location="${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a">
+		<external_object location="${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix_ise.a">
 			<condition>
 				<platform excluded_value="windows"/>
+				<multithreaded value="false"/>
+			</condition>
+		</external_object>
+		<external_object location="${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposixmt_ise.a">
+			<condition>
+				<platform excluded_value="windows"/>
+				<multithreaded value="true"/>
 			</condition>
 		</external_object>
 		<external_object location="-lpthread">

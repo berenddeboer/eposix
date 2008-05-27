@@ -7,6 +7,9 @@ This document is in Adobe PDF format, see http://www.adobe.com/acrobat.
 2. The only thing that needs to be built is the Eiffel/C glue library.
    It resides in the lib subdirectory.
 
+
+** Unix **
+
 On Unix type:
 
   ./configure --with-compiler=se|ise|ve --prefix=$EPOSIX
@@ -21,11 +24,22 @@ Install the libraries in $EPOSIX/lib with:
 If you have not specified the prefix, the libraries will go in
 /usr/local/lib or /usr/lib.
 
+If you develop multi-thread applications, perform the following steps:
+
+  ./configure --with-compiler=se|ise|ve --prefix=$EPOSIX --enable-threads
+  make clean
+  make
+  make install
+
+You can have both single-thread and multi-thread libraries installed.
+
 If you want to use the eposix.ecf file the library file should be
 copied to a different destination:
 
   cp lib/libeposix_ise.a ${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a
 
+
+** Windows **
 
 On Windows type:
 

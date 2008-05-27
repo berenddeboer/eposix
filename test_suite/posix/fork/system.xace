@@ -12,6 +12,7 @@
 
 	<root class="EPOSIX_TEST" creation="make"/>
 
+  <option name="multithreaded" value="true"/>
 	<option unless="${DEBUG}">
 		<option name="assertion" value="all"/>
 		<option name="garbage_collector" value="none"/>

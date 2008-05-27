@@ -25,7 +25,11 @@ void posix__exit(EIF_INTEGER status)
 
 EIF_INTEGER posix_fork()
 {
+#if defined(EIFFEL_VENDOR_ISE) && defined(EIF_THREADS)
+  return eif_thread_fork();
+#else
   return fork();
+#endif
 }
 
 EIF_POINTER posix_getlogin()

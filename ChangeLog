@@ -1,5 +1,8 @@
 2008-05-27  Berend de Boer  <berend@pobox.com>
 
+	* p_unistd.c::posix_fork(): amended definition to use the special
+	ISE fork routine in case multi-threading is enabled (Emmanuel Stapf).
+
 	* EPX_SMTP_CLIENT: emit CRLF for single LF, just as the spec says.
 
 	* EPX_CGI: emit 500 status on fatal error.
