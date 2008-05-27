@@ -1,3 +1,15 @@
+2008-05-27  Berend de Boer  <berend@pobox.com>
+
+	* EPX_SMTP_CLIENT: emit CRLF for single LF, just as the spec says.
+
+	* EPX_CGI: emit 500 status on fatal error.
+
+
+2008-05-26  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XHTML_WRITER: potential catcalls removed (Colin Paul Adams).
+
+
 2008-04-19  Berend de Boer  <berend@pobox.com>
 
 	* Changed eposix license to MIT.
