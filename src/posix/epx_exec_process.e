@@ -164,7 +164,7 @@ feature -- Execution
 					if capture_input then
 						fd_stdin := input_pipe.fdout
 						fd_stdin.inherit_error_handling (Current)
-						create stdin.make_from_file_descriptor (fd_stdin, "w")
+						create stdin.make_from_file_descriptor (fd_stdin, once "w")
 						input_pipe.fdin.close
 						fd_stdin.become_owner
 						stdin.unown
@@ -172,7 +172,7 @@ feature -- Execution
 					if capture_output then
 						fd_stdout := output_pipe.fdin
 						fd_stdout.inherit_error_handling (Current)
-						create stdout.make_from_file_descriptor (fd_stdout, "r")
+						create stdout.make_from_file_descriptor (fd_stdout, once "r")
 						output_pipe.fdout.close
 						fd_stdout.become_owner
 						stdout.unown
@@ -180,7 +180,7 @@ feature -- Execution
 					if capture_error then
 						fd_stderr := error_pipe.fdin
 						fd_stderr.inherit_error_handling (Current)
-						create stderr.make_from_file_descriptor (fd_stderr, "r")
+						create stderr.make_from_file_descriptor (fd_stderr, once "r")
 						error_pipe.fdout.close
 						fd_stderr.become_owner
 						stderr.unown
@@ -189,7 +189,7 @@ feature -- Execution
 			end
 		rescue
 			if in_child then
-				child_stderr.puts ("other in child.%N")
+				child_stderr.puts (once "in child %N")
 				handle_execute_failure
 			end
 		end
@@ -284,6 +284,7 @@ feature {NONE}
 			-- but if we do, r = -1
 			-- And we're already forked, so we're really in a separate process
 			-- There's no way to signal the parent (except through SIGCHILD).
+			child_stderr.puts ("r = " + r.out + "%N")
 			handle_execute_failure
 		end
 
@@ -294,11 +295,11 @@ feature {NONE}
 			-- perhaps should be done earlier?
 			-- Anyway, I want to write something to stderr
 			-- Format of error message is from perl5
-			child_stderr.puts ("Can't exec %"")
+			child_stderr.puts (once "Can't exec %"")
 			child_stderr.puts (program_name)
-			child_stderr.puts ("%": ")
+			child_stderr.puts (once "%": ")
 			child_stderr.puts (errno.message)
-			child_stderr.puts (".%N")
+			child_stderr.puts (once ".%N")
 			if capture_input then
 				fd_stdin.close
 			end
