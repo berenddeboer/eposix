@@ -183,10 +183,11 @@ feature -- Commands
 			mail_from,
 			mail_to: STRING
 			message: STRING
+			i: INTEGER
 		do
-			mail_from := "FROM:<" + an_email.sender_mailbox + ">"
+			mail_from := once "FROM:<" + an_email.sender_mailbox + once ">"
 			if supports_8_bit_mime then
-				mail_from.append_string (" BODY=8BITMIME")
+				mail_from.append_string (once " BODY=8BITMIME")
 			end
 			put_command (commands.mail, mail_from)
 			debug ("eformmail")
@@ -199,7 +200,7 @@ feature -- Commands
 			until
 				c.after
 			loop
-				mail_to := "TO:<" + c.item + ">"
+				mail_to := once "TO:<" + c.item + once ">"
 				put_command (commands.rcpt, mail_to)
 				debug ("eformmail")
 					stderr.put_string ("RCPT reply code: " + last_reply_code.out + "%N")
@@ -208,17 +209,31 @@ feature -- Commands
 			end
 			put_command (commands.data, Void)
 			if last_reply_code = 354 then
-				message := an_email.message.as_string
-				quote_forbidden_sequence (message)
+				message:= an_email.message.as_string
+				correct_line_breaks (message)
+-- 				from
+-- 					i := 1
+-- 				until
+-- 					i > message.count
+-- 				loop
+-- 					inspect message.item (i).code
+-- 					when 0..31 then
+-- 						print ("%%" + message.item (i).code.out)
+-- 						print ("%N")
+-- 					else
+-- 						print (message.item (i))
+-- 					end
+-- 					i := i + 1
+-- 				end
 				smtp.put_string (message)
 				if
 					message.count < 2 or else
 					message.item (message.count) /= '%N' or else
 					message.item (message.count - 1) /= '%R'
 				then
-					smtp.put_string ("%R%N")
+					smtp.put_string (once "%R%N")
 				end
-				smtp.put_string (".%R%N")
+				smtp.put_string (once ".%R%N")
 				read_reply
 			end
 		end
@@ -315,7 +330,8 @@ feature {NONE} -- Lowest level SMTP server interaction
 	commands: expanded EPX_SMTP_COMMANDS
 			-- SMTP commands
 
-	quote_forbidden_sequence (a_message: STRING) is
+	correct_line_breaks (a_message: STRING) is
+			-- Change all lone LFs to CR LF.
 			-- Replace all occurrences of "CR LF ." with "CR LF . .".
 			-- See section 4.5.2 Transparency in RFC 2821.
 		require
@@ -323,6 +339,7 @@ feature {NONE} -- Lowest level SMTP server interaction
 		local
 			p: INTEGER
 			i: INTEGER
+			c: CHARACTER
 		do
 			p := a_message.index_of ('.', 1)
 			if p /= 0 then
@@ -333,14 +350,26 @@ feature {NONE} -- Lowest level SMTP server interaction
 				until
 					i > a_message.count
 				loop
-					if
-						i >= 3 and then
-						a_message.item (i) = '.' and then
-						a_message.item (i - 1) = '%N' and then
-						a_message.item (i - 2) = '%R'
-					then
-						a_message.insert_character ('.', i)
-						i := i + 2
+					c := a_message.item (i)
+					inspect c
+					when '%N' then
+						if i > 1 and then a_message.item (i - 1) /= '%R' then
+							a_message.insert_character ('%R', i)
+							i := i + 2
+						else
+							i := i + 1
+						end
+					when '.' then
+						if
+							i >= 3 and then
+							a_message.item (i - 1) = '%N' and then
+							a_message.item (i - 2) = '%R'
+						then
+							a_message.insert_character ('.', i)
+							i := i + 2
+						else
+							i := i + 1
+						end
 					else
 						i := i + 1
 					end
@@ -349,6 +378,7 @@ feature {NONE} -- Lowest level SMTP server interaction
 		ensure
 			not_this_forbidden_sequence: a_message.substring_index ("%R%N.%R%N", 1) = 0
 			no_forbidden_sequence: True -- no "%R%N" follows any occurence of "%R%N."
+			no_line_lfs: -- all %N preceded by %RF
 		end
 
 
