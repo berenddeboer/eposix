@@ -65,24 +65,24 @@ feature {NONE} -- overrule some xml layout
 			tag_not_void: a_tag /= Void
 		do
 			Result :=
-				a_tag.is_equal (once_p) or else
-				a_tag.is_equal (once_br) or else
-				a_tag.is_equal (once_td) or else
-				a_tag.is_equal (once_tr) or else
-				a_tag.is_equal (once_table) or else
-				a_tag.is_equal (once_select) or else
-				a_tag.is_equal (once_option) or else
-				a_tag.is_equal (once_pre) or else
-				a_tag.is_equal (once_div) or else
-				a_tag.is_equal (once_h3) or else
-				a_tag.is_equal (once_h2) or else
-				a_tag.is_equal (once_h1) or else
-				a_tag.is_equal (once_form) or else
-				a_tag.is_equal (once_html) or else
-				a_tag.is_equal (once_meta) or else
-				a_tag.is_equal (once_head) or else
-				a_tag.is_equal (once_body) or else
-				a_tag.is_equal (once_title)
+				STRING_.same_string (a_tag, once_p) or else
+				STRING_.same_string (a_tag, once_br) or else
+				STRING_.same_string (a_tag, once_td) or else
+				STRING_.same_string (a_tag, once_tr) or else
+				STRING_.same_string (a_tag, once_table) or else
+				STRING_.same_string (a_tag, once_select) or else
+				STRING_.same_string (a_tag, once_option) or else
+				STRING_.same_string (a_tag, once_pre) or else
+				STRING_.same_string (a_tag, once_div) or else
+				STRING_.same_string (a_tag, once_h3) or else
+				STRING_.same_string (a_tag, once_h2) or else
+				STRING_.same_string (a_tag, once_h1) or else
+				STRING_.same_string (a_tag, once_form) or else
+				STRING_.same_string (a_tag, once_html) or else
+				STRING_.same_string (a_tag, once_meta) or else
+				STRING_.same_string (a_tag, once_head) or else
+				STRING_.same_string (a_tag, once_body) or else
+				STRING_.same_string (a_tag, once_title)
 			end
 
 	empty_tag_closing_chars: STRING is
@@ -635,16 +635,16 @@ feature -- Forms
 			form_started: not is_fragment implies is_a_parent (once_form)
 			type_not_empty: type /= Void and then not type.is_empty
 			valid_type:
-				type.is_equal ("button") or else
-				type.is_equal ("checkbox") or else
-				type.is_equal ("file") or else
-				type.is_equal ("hidden") or else
-				type.is_equal ("image") or else
-				type.is_equal ("password") or else
-				type.is_equal ("radio") or else
-				type.is_equal ("reset") or else
-				type.is_equal (once_submit) or else
-				type.is_equal (once_text)
+				STRING_.same_string (type, "button") or else
+				STRING_.same_string (type, "checkbox") or else
+				STRING_.same_string (type, "file") or else
+				STRING_.same_string (type, "hidden") or else
+				STRING_.same_string (type, "image") or else
+				STRING_.same_string (type, "password") or else
+				STRING_.same_string (type, "radio") or else
+				STRING_.same_string (type, "reset") or else
+				STRING_.same_string (type, once_submit) or else
+				STRING_.same_string (type, once_text)
 			name_not_empty: name /= Void and then not name.is_empty
 		do
 			start_tag (once_input)
@@ -995,7 +995,7 @@ feature -- JavaScript support
 			-- but according to the spec, it should be specified.
 			add_attribute (once_type, mime_type_text_javascript);
 		end
-	
+
 	e_script is
 		require
 			script_started: is_started (once_script)
