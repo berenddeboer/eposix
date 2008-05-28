@@ -15,7 +15,7 @@ obsolete
 
 		"eposix now depends upon Gobo. Use Gobo's DS_STACK instead."
 
-creation
+create
 
 	make
 

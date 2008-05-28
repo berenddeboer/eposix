@@ -6,7 +6,7 @@ inherit
 
 	EPX_FACTORY
 
-creation
+create
 
 	make
 

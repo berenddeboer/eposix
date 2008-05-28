@@ -39,7 +39,7 @@ inherit
 	WAPI_IO
 
 
-creation
+create
 
 	make,
 	open,

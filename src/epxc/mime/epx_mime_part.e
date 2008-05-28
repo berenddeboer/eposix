@@ -39,7 +39,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make_empty
 

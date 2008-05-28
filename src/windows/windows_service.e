@@ -22,7 +22,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make_from_name,
 	make_from_port

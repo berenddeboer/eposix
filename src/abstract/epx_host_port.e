@@ -17,7 +17,7 @@ inherit
 	ABSTRACT_NET_BASE
 
 
-creation
+create
 
 	make
 

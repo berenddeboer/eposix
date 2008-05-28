@@ -23,7 +23,7 @@ inherit
 		end
 
 
-creation
+create
 
 	open,
 	open_read,

@@ -31,7 +31,7 @@ inherit
 			substring as buffer_substring
 		end
 
-creation
+create
 
 	make,
 	make_from_string

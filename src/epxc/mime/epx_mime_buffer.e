@@ -28,7 +28,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	make_with_size

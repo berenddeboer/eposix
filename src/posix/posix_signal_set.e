@@ -19,7 +19,7 @@ inherit
    PAPI_SIGNAL
 
    
-creation
+create
    
    make_empty,
    make_full,

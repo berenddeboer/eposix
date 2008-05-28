@@ -1,6 +1,6 @@
 class EX_MEM2
 
-creation
+create
    
    make
    

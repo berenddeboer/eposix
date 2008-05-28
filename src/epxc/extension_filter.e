@@ -17,7 +17,7 @@ inherit
 
 	EPX_EXTENSION_FILTER
 
-creation
+create
 
 	make
 

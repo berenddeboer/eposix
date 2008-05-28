@@ -19,7 +19,7 @@ inherit
 	STDC_SIGNAL_SWITCH_ACCESSOR
 
 
-creation
+create
 
 	make
 

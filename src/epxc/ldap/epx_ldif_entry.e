@@ -17,7 +17,7 @@ class
 	EPX_LDIF_ENTRY
 
 
-creation
+create
 
 	make_from_linkables
 

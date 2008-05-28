@@ -1,6 +1,6 @@
 class	EX_SMTP2
 
-creation
+create
 
 	make
 

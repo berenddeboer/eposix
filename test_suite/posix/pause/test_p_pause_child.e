@@ -18,7 +18,7 @@ inherit
 	POSIX_SIGNAL_HANDLER
 
 
-creation
+create
 
 	make
 

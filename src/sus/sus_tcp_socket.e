@@ -19,7 +19,7 @@ inherit
 	EPX_TCP_SOCKET
 
 
-creation
+create
 
 	attach_to_socket
 

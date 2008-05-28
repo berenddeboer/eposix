@@ -19,7 +19,7 @@ inherit
 	SUS_UDP_SOCKET
 
 
-creation
+create
 
 	open_by_address
 

@@ -19,7 +19,7 @@ inherit
 	STDC_TEXT_FILE
 
 
-creation
+create
 
 	create_read_write,
 	create_write

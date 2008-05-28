@@ -17,7 +17,7 @@ inherit
 
 	EPX_DIRECTORY
 
-creation
+create
 
 	make
 

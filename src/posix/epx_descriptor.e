@@ -28,7 +28,7 @@ inherit
 	PAPI_FCNTL
 
 
-creation
+create
 
 	make,
 	make_as_duplicate,

@@ -16,7 +16,7 @@ inherit
 	EPX_MIME_BODY
 
 
-creation
+create
 
 	make
 

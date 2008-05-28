@@ -17,7 +17,7 @@ class
 	EPX_SMTP_MAIL
 
 
-creation
+create
 
 	make
 

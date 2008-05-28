@@ -19,7 +19,7 @@ inherit
 	EPX_HOST
 
 
-creation
+create
 
 	make_from_name,
 	make_from_address

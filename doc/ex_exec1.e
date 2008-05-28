@@ -4,7 +4,7 @@ inherit
 
 	EPX_CURRENT_PROCESS
 
-creation
+create
 
 	make
 

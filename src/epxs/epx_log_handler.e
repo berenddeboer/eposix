@@ -22,7 +22,7 @@ inherit
 			security as base_security
 		end
 
-creation
+create
 
 	make
 

@@ -7,7 +7,7 @@ inherit
 			get_header
 		end
 
-creation
+create
 
 	make
 

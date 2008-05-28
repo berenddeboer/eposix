@@ -17,7 +17,7 @@ inherit
 	ABSTRACT_SOCKET_ADDRESS_IN6
 
 
-creation
+create
 
 	make,
 	make_from_pointer

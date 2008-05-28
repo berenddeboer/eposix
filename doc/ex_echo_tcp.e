@@ -4,7 +4,7 @@ inherit
 
 	SUS_CONSTANTS
 
-creation
+create
 
 	make
 

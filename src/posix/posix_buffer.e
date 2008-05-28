@@ -17,7 +17,7 @@ inherit
    POSIX_BASE
 
 
-creation
+create
    
    allocate,
    allocate_and_clear,

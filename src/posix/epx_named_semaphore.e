@@ -26,7 +26,7 @@ inherit
 		end
 
 
-creation
+create
 
 	create_nonexclusive,
 	open

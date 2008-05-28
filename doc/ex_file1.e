@@ -1,6 +1,6 @@
 class EX_FILE1
 
-creation
+create
 
 	make
 

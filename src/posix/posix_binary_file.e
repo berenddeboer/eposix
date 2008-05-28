@@ -20,7 +20,7 @@ inherit
 	STDC_BINARY_FILE
 
 
-creation
+create
 
 	create_read_write,
 	create_write,

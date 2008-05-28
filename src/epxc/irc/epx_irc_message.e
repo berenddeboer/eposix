@@ -17,7 +17,7 @@ class
 	EPX_IRC_MESSAGE
 
 
-creation
+create
 
 	make_parse
 

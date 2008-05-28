@@ -22,7 +22,7 @@ inherit
 		end
 
 
-creation
+create
 
 	allocate,
 	allocate_and_clear,

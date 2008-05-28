@@ -17,7 +17,7 @@ class
 	EPX_IRC_CHANNEL_USER
 
 
-creation
+create
 
 	make
 

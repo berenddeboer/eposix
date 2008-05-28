@@ -4,7 +4,7 @@ inherit
 
 	EPX_CGI
 
-creation
+create
 
 	make
 

@@ -21,7 +21,7 @@ inherit
 	EPX_IRC_DCC_CHAT
 
 
-creation
+create
 
 	make
 

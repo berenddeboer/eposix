@@ -22,7 +22,7 @@ inherit
 	PAPI_GRP
 
 
-creation
+create
 
 	make_from_name,
 	make_from_gid

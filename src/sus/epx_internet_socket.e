@@ -27,7 +27,7 @@ inherit
 		end
 
 
-creation
+create
 
 	attach_to_socket
 

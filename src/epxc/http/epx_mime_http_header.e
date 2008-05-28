@@ -22,7 +22,7 @@ inherit
 	EPX_MIME_HEADER
 
 
-creation
+create
 
 	make_default
 

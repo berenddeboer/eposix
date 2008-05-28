@@ -30,7 +30,7 @@ inherit
 	WAPI_IO
 
 
-creation
+create
 
 	make,
 	make_as_duplicate,

@@ -7,7 +7,7 @@ inherit
 	ARGUMENTS
 
 
-creation
+create
 
 	make
 

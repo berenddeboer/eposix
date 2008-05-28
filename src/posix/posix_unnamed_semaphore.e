@@ -18,7 +18,7 @@ inherit
 	POSIX_SEMAPHORE
 
 
-creation
+create
 
 	create_shared,
 	create_unshared

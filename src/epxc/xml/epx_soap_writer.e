@@ -17,7 +17,7 @@ inherit
 			as_uc_string as message
 		end
 
-creation
+create
 
 	make,
 	make_with_capacity

@@ -25,7 +25,7 @@ inherit
 			rewind
 		end
 
-creation
+create
 
 	make
 

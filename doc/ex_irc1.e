@@ -1,6 +1,6 @@
 class	EX_IRC1
 
-creation
+create
 
 	make
 

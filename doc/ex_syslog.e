@@ -6,7 +6,7 @@ inherit
 
    SUS_SYSLOG_ACCESSOR
 
-creation
+create
    
    make
    

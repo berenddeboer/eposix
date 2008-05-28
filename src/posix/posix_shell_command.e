@@ -17,7 +17,7 @@ inherit
 	STDC_SHELL_COMMAND
 
 
-creation
+create
 
 	make
 

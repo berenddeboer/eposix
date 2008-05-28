@@ -20,7 +20,7 @@ inherit
 	EPX_SERVICE
 
 
-creation
+create
 
 	make_from_name,
 	make_from_port

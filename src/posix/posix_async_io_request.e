@@ -26,7 +26,7 @@ inherit
 	PAPI_SIGNAL
 
 
-creation
+create
 
 	make
 

@@ -23,7 +23,7 @@ inherit
 	EPX_IP4_ADDRESS
 
 
-creation
+create
 
 	make_from_integer,
 	make_from_pointer

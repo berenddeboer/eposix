@@ -17,7 +17,7 @@ inherit
 	ABSTRACT_IP4_ADDRESS
 
 
-creation
+create
 
 	make_from_any,
 	make_from_integer,

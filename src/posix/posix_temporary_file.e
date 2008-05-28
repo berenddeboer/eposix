@@ -19,7 +19,7 @@ inherit
    STDC_TEMPORARY_FILE
 
 
-creation
+create
 
    make
 

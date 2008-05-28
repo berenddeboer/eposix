@@ -12,7 +12,7 @@ class
 
 obsolete "Use EPX_KEY_VALUE instead"
 
-creation
+create
 
 	make
 

@@ -1,6 +1,6 @@
 class EX_ECHO_CLIENT_TCP
 
-creation
+create
 
 	make
 

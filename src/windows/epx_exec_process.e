@@ -26,7 +26,7 @@ inherit
 	WINDOWS_BASE
 
 
-creation
+create
 
 	make,
 	make_capture_input,

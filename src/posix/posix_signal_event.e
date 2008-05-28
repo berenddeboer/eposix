@@ -15,7 +15,7 @@ inherit
    POSIX_BASE
 
 
-creation
+create
 
    make
 

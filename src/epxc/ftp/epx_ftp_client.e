@@ -37,7 +37,7 @@ inherit
 	EPX_NET_API
 
 
-creation
+create
 
 	make,
 	make_anonymous,

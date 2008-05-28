@@ -17,7 +17,7 @@ class
 	EPX_LDIF_ATTRIBUTE_DESCRIPTION
 
 
-creation
+create
 
 	make
 

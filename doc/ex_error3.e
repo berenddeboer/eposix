@@ -6,7 +6,7 @@ inherit
    
    EXCEPTIONS
 
-creation
+create
 
    make
 

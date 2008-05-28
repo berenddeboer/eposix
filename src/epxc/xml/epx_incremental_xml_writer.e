@@ -18,7 +18,7 @@ inherit
 
 	EPX_XML_WRITER
 
-creation
+create
 
 	make,
 	make_with_capacity,

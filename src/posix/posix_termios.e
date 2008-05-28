@@ -19,7 +19,7 @@ inherit
 	PAPI_TERMIOS
 
 
-creation
+create
 
 	make
 

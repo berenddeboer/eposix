@@ -19,7 +19,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	make_inheritable_read,

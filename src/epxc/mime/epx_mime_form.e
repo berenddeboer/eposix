@@ -25,7 +25,7 @@ inherit
 	KL_ARRAY_ROUTINES [EPX_KEY_VALUE]
 
 
-creation
+create
 
 	make_empty,
 	make_form_data

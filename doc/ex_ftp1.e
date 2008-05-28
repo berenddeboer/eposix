@@ -1,6 +1,6 @@
 class	EX_FTP1
 
-creation
+create
 
 	make
 

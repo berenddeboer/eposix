@@ -21,7 +21,7 @@ inherit
 	PAPI_PWD
 
 
-creation
+create
 
 	make_from_name,
 	make_from_uid

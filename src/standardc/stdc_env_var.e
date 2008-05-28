@@ -18,7 +18,7 @@ inherit
 
 	CAPI_STDLIB
 
-creation
+create
 
 	make
 

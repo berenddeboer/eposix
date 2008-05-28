@@ -17,7 +17,7 @@ inherit
 	POSIX_BUFFER
 
 
-creation
+create
 
 	allocate,
 	allocate_and_clear,

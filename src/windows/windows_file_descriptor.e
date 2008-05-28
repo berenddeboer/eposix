@@ -18,7 +18,7 @@ inherit
    EPX_FILE_DESCRIPTOR
 
 
-creation
+create
 
    open,
    open_read,

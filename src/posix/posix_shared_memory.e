@@ -28,7 +28,7 @@ inherit
 	PAPI_MMAN
 
 
-creation
+create
 
 	open_read,
 	open_read_write,

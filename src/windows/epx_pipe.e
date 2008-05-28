@@ -22,7 +22,7 @@ inherit
 	WINDOWS_BASE
 
 
-creation
+create
 
 	make
 

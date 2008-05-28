@@ -4,7 +4,7 @@ inherit
    
    POSIX_CURRENT_PROCESS
 
-creation
+create
    
    make
    

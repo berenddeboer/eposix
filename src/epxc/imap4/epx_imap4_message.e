@@ -12,7 +12,7 @@ class
 	EPX_IMAP4_MESSAGE
 
 
-creation
+create
 
 	make
 

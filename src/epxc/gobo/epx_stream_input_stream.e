@@ -12,7 +12,7 @@ class
 	EPX_STREAM_INPUT_STREAM [G]
 
 
-creation
+create
 
 	make,
 	make_connect

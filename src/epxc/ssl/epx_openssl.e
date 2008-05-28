@@ -24,7 +24,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make_ssl3_client
 

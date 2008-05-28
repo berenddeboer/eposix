@@ -23,7 +23,7 @@ inherit
 	EPX_IP6_ADDRESS
 
 
-creation
+create
 
 	make_from_pointer
 

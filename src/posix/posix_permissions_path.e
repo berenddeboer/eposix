@@ -23,7 +23,7 @@ inherit
 	PAPI_UNISTD
 
 
-creation
+create
 
 	make
 

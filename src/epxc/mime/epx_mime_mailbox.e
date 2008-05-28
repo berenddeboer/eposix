@@ -17,7 +17,7 @@ class
 	EPX_MIME_MAILBOX
 
 
-creation
+create
 
 	make
 

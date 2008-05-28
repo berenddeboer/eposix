@@ -18,7 +18,7 @@ inherit
 		end
 
 
-creation
+create
 
 	create_read_write,
 	create_write,

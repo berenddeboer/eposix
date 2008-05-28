@@ -1,6 +1,6 @@
 class EX_CMD
 
-creation
+create
    
    make
    

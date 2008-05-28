@@ -19,7 +19,7 @@ inherit
 	EPX_TCP_SERVER_SOCKET
 
 
-creation
+create
 
 	listen_by_address
 

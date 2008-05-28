@@ -57,7 +57,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	make_virtual

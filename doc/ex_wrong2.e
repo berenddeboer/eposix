@@ -1,6 +1,6 @@
 class EX_WRONG2
 
-creation
+create
 
 	make
 

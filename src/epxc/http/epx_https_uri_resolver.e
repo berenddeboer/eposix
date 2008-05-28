@@ -24,7 +24,7 @@ inherit
 			new_client
 		end
 
-creation
+create
 
 	make
 

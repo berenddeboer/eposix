@@ -1,6 +1,6 @@
 class EX_FD2
 
-creation
+create
 
 	make
 

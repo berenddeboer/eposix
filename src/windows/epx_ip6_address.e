@@ -25,7 +25,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make_from_pointer
 

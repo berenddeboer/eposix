@@ -23,7 +23,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	open_by_address,

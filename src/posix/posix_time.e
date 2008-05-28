@@ -23,7 +23,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make_date,
 	make_date_time,

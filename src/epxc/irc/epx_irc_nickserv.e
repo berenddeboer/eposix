@@ -22,7 +22,7 @@ inherit
 	EPX_IRC_MESSAGE_HANDLER
 
 
-creation
+create
 
 	make
 

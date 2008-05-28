@@ -19,7 +19,7 @@ inherit
 	EPX_TCP_CLIENT_SOCKET
 
 
-creation
+create
 
 	open_by_address
 

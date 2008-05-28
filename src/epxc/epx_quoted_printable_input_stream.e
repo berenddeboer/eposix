@@ -33,7 +33,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	make_connect

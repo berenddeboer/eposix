@@ -39,7 +39,7 @@ inherit
 			{NONE} all
 		end
 
-creation
+create
 
 	make_default
 

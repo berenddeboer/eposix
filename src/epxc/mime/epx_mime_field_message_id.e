@@ -35,7 +35,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	make_unique

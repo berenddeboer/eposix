@@ -16,7 +16,7 @@ inherit
 	EPX_SOCKET_ADDRESS_IN
 
 
-creation
+create
 
 	make,
 	make_from_pointer

@@ -19,7 +19,7 @@ inherit
    WAPI_WINDOWS
 
 
-creation
+create
 
    make
 

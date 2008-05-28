@@ -18,7 +18,7 @@ inherit
 	STDC_TEXT_FILE
 
 
-creation
+create
 
 	open,
 	open_read

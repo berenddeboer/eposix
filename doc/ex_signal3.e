@@ -9,7 +9,7 @@ inherit
 	STDC_SIGNAL_HANDLER
 
 
-creation
+create
 
 	make
 
