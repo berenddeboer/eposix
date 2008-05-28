@@ -20,7 +20,7 @@ inherit
 	STDC_SECURITY_ASPECT
 
 
-creation {STDC_SECURITY}
+create {STDC_SECURITY}
 
 	make
 

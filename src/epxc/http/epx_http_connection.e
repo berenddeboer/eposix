@@ -48,7 +48,7 @@ inherit
 		end
 
 
-creation {EPX_HTTP_SERVER}
+create {EPX_HTTP_SERVER}
 
 	make
 

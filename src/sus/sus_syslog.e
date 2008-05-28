@@ -27,7 +27,7 @@ inherit
 		end
 
 
-creation {SUS_SYSLOG_ACCESSOR}
+create {SUS_SYSLOG_ACCESSOR}
 
 	make
 

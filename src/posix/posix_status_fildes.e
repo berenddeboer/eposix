@@ -21,7 +21,7 @@ inherit
       end
 
 
-creation {EPX_FILE_DESCRIPTOR}
+create {EPX_FILE_DESCRIPTOR}
 
    make
 

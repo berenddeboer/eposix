@@ -26,7 +26,7 @@ inherit
 		end
 
 
-creation {STDC_EXIT_SWITCH_ACCESSOR}
+create {STDC_EXIT_SWITCH_ACCESSOR}
 
 	make
 

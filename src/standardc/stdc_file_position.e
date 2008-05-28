@@ -18,7 +18,7 @@ inherit
 	CAPI_STDIO
 
 
-creation {STDC_FILE}
+create {STDC_FILE}
 
 	make
 

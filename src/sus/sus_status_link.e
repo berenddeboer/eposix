@@ -20,7 +20,7 @@ inherit
       end
    
 
-creation {SUS_FILE_SYSTEM}
+create {SUS_FILE_SYSTEM}
    
    make
    

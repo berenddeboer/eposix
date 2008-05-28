@@ -31,7 +31,7 @@ inherit
 		end
 
 
-creation {ABSTRACT_DIRECTORY}
+create {ABSTRACT_DIRECTORY}
 
 	make
 

@@ -25,7 +25,7 @@ inherit
 		end
 
 
-creation {EPX_IRC_CLIENT}
+create {EPX_IRC_CLIENT}
 
 	make
 

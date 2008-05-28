@@ -23,7 +23,7 @@ inherit
 	WAPI_WINDOWS
 
 
-creation {EPX_FILE_DESCRIPTOR}
+create {EPX_FILE_DESCRIPTOR}
 
 	make
 

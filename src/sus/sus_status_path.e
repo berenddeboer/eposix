@@ -19,7 +19,7 @@ inherit
    POSIX_STATUS_PATH
 
 
-creation {SUS_FILE_SYSTEM}
+create {SUS_FILE_SYSTEM}
    
    make
    

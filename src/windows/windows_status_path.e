@@ -28,7 +28,7 @@ inherit
 		end
 
 
-creation {EPX_FILE_SYSTEM}
+create {EPX_FILE_SYSTEM}
 
 	make,
 	make_may_fail

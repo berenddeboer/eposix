@@ -17,7 +17,7 @@ inherit
 	ABSTRACT_DESCRIPTOR_SET
 
 
-creation {ABSTRACT_SELECT}
+create {ABSTRACT_SELECT}
 
 	make
 
