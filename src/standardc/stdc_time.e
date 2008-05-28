@@ -105,7 +105,7 @@ feature -- Initialization
 
 		end
 
-	make_from_dt_date_time (a_date_time: DT_DATE_TIME) is
+	make_from_dt_date_time (a_date_time: DT_DATE_TIME_VALUE) is
 			-- Make from Gobo date time.
 			-- Date is assumed to be a local date.
 			-- We assume daylight saving time setting in effect is
