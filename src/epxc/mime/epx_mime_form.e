@@ -22,6 +22,8 @@ inherit
 
 	EPX_MIME_PART
 
+	KL_ARRAY_ROUTINES [EPX_KEY_VALUE]
+
 
 creation
 
@@ -36,7 +38,8 @@ feature {NONE} -- Initialization
 			-- multipart/form-data encoding as specified in RFC 2388.
 		require
 			key_value_pairs_not_void: a_key_value_pairs /= Void
-			a_key_value_pairs_has_only_unique_keys: True -- I hope
+			key_value_pairs_has_only_unique_keys: True -- I hope
+			key_value_pairs_has_no_void_values: not has (a_key_value_pairs, Void)
 		local
 			content_type: EPX_MIME_FIELD_CONTENT_TYPE
 			content_disposition: EPX_MIME_FIELD_CONTENT_DISPOSITION

@@ -1,3 +1,8 @@
+2008-05-28  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT.post: made a_post_data an optional parameter.
+
+
 2008-05-27  Berend de Boer  <berend@pobox.com>
 
 	* p_unistd.c::posix_fork(): amended definition to use the special
