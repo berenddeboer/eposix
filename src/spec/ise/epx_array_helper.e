@@ -24,6 +24,9 @@ inherit
 			unfreeze_objects as unfreeze_all
 		end
 
+	PLATFORM
+		export {NONE} all end
+
 
 feature -- ISE specific conversions
 
@@ -48,11 +51,13 @@ feature -- ISE specific conversions
 		local
 			c_any: ANY
 			buf: STDC_BUFFER
+			bytes: INTEGER
 		do
 			c_any := a.to_c
 			if c_any /= Void then
-				create buf.allocate (a.count * 4)
-				buf.memory_copy ($c_any, 0, 0, a.count * 4)
+				bytes := Pointer_bits // 8
+				create buf.allocate (a.count * bytes)
+				buf.memory_copy ($c_any, 0, 0, a.count * bytes)
 				frozen_objects.put_last (buf)
 				Result := buf.ptr
 			end
