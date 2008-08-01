@@ -193,7 +193,7 @@ feature -- Directory browsing
 			loop
 				path := a_paths.item (i)
 				if path = Void or else path.is_empty then
-					s := clone (a_filename)
+					s := a_filename.twin
 				else
 					create s.make (path.count + 1 + a_filename.count)
 					s.append_string (path)
