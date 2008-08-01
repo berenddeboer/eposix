@@ -33,11 +33,6 @@ If you develop multi-thread applications, perform the following steps:
 
 You can have both single-thread and multi-thread libraries installed.
 
-If you want to use the eposix.ecf file the library file should be
-copied to a different destination:
-
-  cp lib/libeposix_ise.a ${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a
-
 
 ** Windows **
 
@@ -49,12 +44,6 @@ to get help about makelib. To build for ISE Eiffel and Microsoft Visual C,
 type:
 
   makelib -ise -msc
-
-Again, if you want to use the eposix.ecf file you will need to copy
-the .lib file:
-
-  copy lib\libeposix_ise.a ${ISE_LIBRARY}\lib\${ISE_PLATFORM}\${ISE_C_COMPILER}\libeposix.lib
-
 
 If you are on a different platform than Linux or Windows you will have
 to edit src/library.xace or eposix.ecf might to be able to link your
