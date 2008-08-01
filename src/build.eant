@@ -6,7 +6,7 @@
 		description: "Eiffel Ant file for the eposix library"
 		library: "eposix library"
 		copyright: "Copyright (c) 2007, Berend de Boer"
-		license: "Eiffel Forum License v2 (see forum.txt)"
+		license: "MIT License (see LICENSE)"
 		date: "$Date: 2007/11/22 $"
 		revision: "$Revision: #1 $"
 	</description>
