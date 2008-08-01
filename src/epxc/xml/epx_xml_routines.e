@@ -59,7 +59,7 @@ feature -- Conversions
 			i: INTEGER
 		do
 			if not is_name_first (a_tag_name.item_code (1)) then
-				Result := clone (a_tag_name)
+				Result := a_tag_name.twin
 				Result.put ('_', 1)
 			end
 			from
@@ -73,7 +73,7 @@ feature -- Conversions
 			loop
 				if not is_name_char (a_tag_name.item_code (i)) then
 					if Result = Void then
-						Result := clone (a_tag_name)
+						Result := a_tag_name.twin
 					end
 					Result.put ('-', i)
 				end

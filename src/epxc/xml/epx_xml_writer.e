@@ -23,9 +23,6 @@ inherit
 	EPX_XML_ROUTINES
 
 	KL_IMPORTED_STRING_ROUTINES
-		export
-			{NONE} all
-		end
 
 	UT_CHARACTER_CODES
 		export
@@ -347,7 +344,7 @@ feature -- Commands that expand `xml'
 				-- should be faster.
 				uc ?= a_data
 				if uc = Void and then a_data.count < 256 then
-					s := clone (a_data)
+					s := a_data.twin
 					replace_content_meta_characters (s)
 					extend (s)
 				else
