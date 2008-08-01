@@ -204,7 +204,7 @@ feature -- Change
 				end
 			end
 			if found then
-				suffix := clone (suffix)
+				suffix := suffix.twin
 			else
 				suffix_position := count + 1
 				suffix := ""
