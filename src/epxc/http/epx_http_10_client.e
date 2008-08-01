@@ -84,13 +84,13 @@ feature -- Access
 
 feature -- Requests
 
-	delete (a_request_uri: STRING) is
+	delete (a_request_uri: STRING; a_delete_data: EPX_MIME_PART) is
 			-- Send DELETE request to server.
 			-- Use `read_response' to fetch the response and actual response code.
 		require
 			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
 		do
-			send_request (http_method_DELETE, a_request_uri, Void)
+			send_request (http_method_DELETE, a_request_uri, a_delete_data)
 		end
 
 	get (a_request_uri: STRING) is
