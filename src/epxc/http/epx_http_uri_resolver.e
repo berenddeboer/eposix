@@ -81,6 +81,9 @@ feature -- Operation(s)
 					end
 					if not has_local_error then
 						create a_path.make_from_string (a_uri_to_use.path)
+						if a_path.is_empty then
+							a_path := "/"
+						end
 						if a_uri_to_use.has_query then
 							a_path.append_character ('?')
 							a_path.append_string (a_uri_to_use.query)
@@ -89,7 +92,7 @@ feature -- Operation(s)
 							a_path.append_character ('#')
 							a_path.append_string (a_uri_to_use.fragment)
 						end
-						client.get (a_uri_to_use.path)
+						client.get (a_path)
 						a_response_code := client.response_code
 						if a_response_code = Sc_ok then
 							client.read_response
