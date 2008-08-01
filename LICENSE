@@ -1,4 +1,4 @@
-All source code and binary programs included in Gobo Eiffel
+All source code and binary programs included in eposix
 are distributed under the terms and conditions of the MIT
 License:
 
@@ -34,4 +34,4 @@ and a GPL-Compatible Free Software License:
     http://www.gnu.org/licenses/license-list.html#X11License
 
 --
-Copyright (c) 1997-2007, Eric Bezault and others
+Copyright (c) 2008, Berend de Boer
