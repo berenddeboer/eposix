@@ -8,7 +8,7 @@ include $(top_srcdir)/config/myrules.mak
 # redefine clean to remove SE files.
 
 mostlyclean-generic:
-	for i in $(EXSRC); do clean $$i; done
+	for i in $(EXSRC); do geant clean $$i; done
 
 # A user cannot built eposix-manual.pdf, but we include it with this
 # package. Because of EXTRA_DIST, make distcheck will fail, it tries
@@ -65,12 +65,12 @@ fork_child.bin: fork_child.e
 # turn those shorts/flats into filenames
 
 # .short-tex: system.xace compile_short.ace $(ESRC)
-# 	for i in $(SHORT_CLASSES); do short -short -no_style_warning compile_short.ace $$i > `echo $$i.tex | tr '[:upper:]' '[:lower:]'`; done;
-# 	touch $@
+#	for i in $(SHORT_CLASSES); do short -short -no_style_warning compile_short.ace $$i > `echo $$i.tex | tr '[:upper:]' '[:lower:]'`; done;
+#	touch $@
 
 # .flat-tex: system.xace compile_short.ace $(ESRC)
-# 	for i in $(FLAT_CLASSES); do short -no_style_warning compile_short.ace $$i > `echo $$i.tex | tr '[:upper:]' '[:lower:]'`; done;
-# 	touch $@
+#	for i in $(FLAT_CLASSES); do short -no_style_warning compile_short.ace $$i > `echo $$i.tex | tr '[:upper:]' '[:lower:]'`; done;
+#	touch $@
 
 compile_short.ace: system.xace $(top_srcdir)/src/library.xace
 	gexace --define="SE_1_0=true GOBO_OS=unix ROOT_CLASS=EXAMPLE" --system="se" --output="compile_short.ace" $(top_srcdir)/doc/system.xace
