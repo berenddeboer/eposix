@@ -65,11 +65,6 @@
 			<argument name="gepp_dir" value="capi"/>
 			<argument name="gepp_file" value="capi_stdlib"/>
 		</geant>
-		<geant target="ge2e">
-			<argument name="spec_dir" value="capi/spec"/>
-			<argument name="gepp_dir" value="capi"/>
-			<argument name="gepp_file" value="capi_time"/>
-		</geant>
 	</target>
 
 	<target name="install_papi">

@@ -28,11 +28,7 @@ feature -- Standard C binding
 
 	posix_difftime (time_end, time_start: INTEGER): DOUBLE is
 			-- Computes the difference between two times in seconds.
-#ifdef GE
-		external "C [macro (EIF_INTEGER, EIF_INTEGER): EIF_DOUBLE"
-#else
 		external "C"
-#endif
 		end
 
 	posix_gmtime (time: INTEGER): POINTER is
