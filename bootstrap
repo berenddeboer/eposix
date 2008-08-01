@@ -47,6 +47,8 @@ cd ..
 # run when configure.in or Makefile.am changes or so
 # if ltmain.sh does not exist:
 # libtoolize and move ltmain.sh, remove config.sub and config.guess
+# Also for updating config.sub and config.guess, run libtoolize
+#libtoolize
 aclocal -I config
 autoheader
 automake --foreign --add-missing --copy
