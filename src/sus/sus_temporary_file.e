@@ -43,14 +43,17 @@ feature {NONE} -- Initialization
 			last_six_characters_are_XXXXXX: a_template.count >= 6 and then STRING_.same_string (a_template.substring (a_template.count - 5, a_template.count), "XXXXXX")
 		local
 			a_descriptor: like fd
+			buf: STDC_BUFFER
 		do
 			do_make
-			name.make_from_string (a_template)
-			a_descriptor := posix_mkstemp (sh.string_to_pointer (name))
-			sh.unfreeze_all
+			create buf.allocate_and_clear (a_template.count + 1)
+			buf.put_string (a_template, 0, buf.capacity- 1)
+			a_descriptor := posix_mkstemp (buf.ptr)
 			if a_descriptor = -1 then
 				raise_posix_error
 			else
+				name.make_from_string (buf.c_substring (0, buf.capacity - 1))
+				buf.deallocate
 				capacity := 1
 				set_handle (a_descriptor, True)
 				is_open_write := True
