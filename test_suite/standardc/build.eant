@@ -5,7 +5,7 @@
 	<description>
 		description: "Eiffel Ant file for eposix Eiffel tests"
 		copyright: "Copyright (c) 2002, Berend de Boer"
-		license: "Eiffel Forum License v2 (see forum.txt)"
+		license: "MIT License (see LICENSE)"
 		date: "$Date: 2007/11/22 $"
 		revision: "$Revision: #8 $"
 	</description>

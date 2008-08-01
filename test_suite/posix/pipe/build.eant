@@ -5,7 +5,7 @@
 	<description>
 		system: "POSIX pipes test"
 		copyright: "Copyright (c) 2002 by Berend de Boer"
-		license: "Eiffel Forum License v1 (see forum.txt)"
+		license: "MIT License (see LICENSE)"
 		date: "$Date: $"
 		revision: "$Revision: $"
 	</description>

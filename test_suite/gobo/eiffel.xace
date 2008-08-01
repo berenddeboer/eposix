@@ -5,7 +5,7 @@
 	<description>
 		description: "Xace file for the Eiffel compilers' kernel libraries"
 		copyright: "Copyright (c) 2001-2005, Eric Bezault and others"
-		license: "Eiffel Forum License v2 (see forum.txt)"
+		license: "MIT License (see LICENSE)"
 		date: "$Date: 2006/03/17 17:06:32 $"
 		revision: "$Revision: 1.40 $"
 	</description>

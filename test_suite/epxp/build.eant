@@ -5,7 +5,7 @@
 	<description>
 		system: "eposix posix extensions test"
 		copyright: "Copyright (c) 2004 by Berend de Boer"
-		license: "Eiffel Forum License v2 (see forum.txt)"
+		license: "MIT License (see LICENSE)"
 		date: "$Date: 2007/11/22 $"
 		revision: "$Revision: #2 $"
 	</description>

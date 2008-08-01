@@ -5,7 +5,7 @@
 	<description>
 		system: "Execute child process test for POSIX or Windows"
 		copyright: "Copyright (c) 2002 by Berend de Boer"
-		license: "Eiffel Forum License v1 (see forum.txt)"
+		license: "MIT License (see LICENSE)"
 		date: "$Date: 2007/11/22 $"
 		revision: "$Revision: #3 $"
 	</description>
