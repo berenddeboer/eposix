@@ -365,12 +365,20 @@ EIF_INTEGER const_b38400()
 
 EIF_INTEGER const_b57600()
 {
+#ifdef B57600
   return B57600;
+#else
+  return 0;
+#endif;
 }
 
 EIF_INTEGER const_b115200()
 {
+#ifdef B115200
   return B115200;
+#else
+  return 0;
+#endif;
 }
 
 EIF_INTEGER const_b230400()
@@ -378,8 +386,7 @@ EIF_INTEGER const_b230400()
 #ifdef B230400
   return B230400;
 #else
-  /* this doesn't seem a good idea */
-  return const_b115200();
+  return 0;
 #endif
 }
 
@@ -400,4 +407,3 @@ EIF_INTEGER const_tcioflush()
 {
   return TCIOFLUSH;
 }
-
