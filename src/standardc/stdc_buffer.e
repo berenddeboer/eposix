@@ -3,7 +3,7 @@ indexing
 	description: "Standard C dynamic memory. Memory should be at least 1 byte%
 	%large. 0 size memory is not supported."
 
-	note: "If you treat this as an array, it is zero based."
+	remark: "If you treat this as an array, it is zero based."
 	author: "Berend de Boer"
 	date: "$Date: 2007/11/22 $"
 	revision: "$Revision: #12 $"
