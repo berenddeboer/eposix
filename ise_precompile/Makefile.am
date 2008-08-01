@@ -2,14 +2,14 @@
 
 EXTRA_DIST = system.xace
 
-MOSTLYCLEANFILES = precompile.ace precomp.epr
+MOSTLYCLEANFILES = precompile.ecf precomp.epr
 
 
-dist-hook: precompile.ace
+dist-hook: precompile.ecf
 	ec -precompile -ace $<
 	if [ -e EIFGEN/W_code/Makefile.SH ]; then cd EIFGEN/W_code; finish_freezing; fi
 
-precompile.ace: $(top_srcdir)/src/library.xace system.xace
+precompile.ecf: $(top_srcdir)/src/library.xace system.xace
 	gexace --define="GOBO_OS=unix" --system=ise --output=$@
 
 
