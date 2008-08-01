@@ -26,8 +26,9 @@ feature {NONE} -- Initialization
 	make is
 			-- Make sure date field has a value.
 		local
-			names: expanded NET_LOGGER_RESERVED_NAMES
+			names: NET_LOGGER_RESERVED_NAMES
 		do
+			create names
 			name := names.timestamp
 			create value.make (expected_length)
 			refresh

@@ -50,8 +50,11 @@ feature -- Access
 	level: INTEGER
 			-- Everything lower or equal to this level will be logged
 
-	levels: expanded NET_LOGGER_LEVELS
+	levels: NET_LOGGER_LEVELS is
 			-- The available NetLogger levels
+		once
+			create Result
+		end
 
 
 feature -- NetLogger normal usage API
