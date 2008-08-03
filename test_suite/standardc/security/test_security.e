@@ -15,6 +15,9 @@ deferred class
 inherit
 
 	TS_TEST_CASE
+		rename
+			exceptions as test_exceptions
+		end
 
 	STDC_BASE
 
@@ -61,6 +64,8 @@ feature -- Security tests
 		do
 			-- SmartEiffel needs this print...
 			print ("%N")
+			-- This does not work for gec as it seems you cannot force a
+			-- collect call.
 			full_collect
 			base_line := security.memory.allocated_memory
 			create_buffer (base_line)

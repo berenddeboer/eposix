@@ -14,7 +14,8 @@
 
   <option unless="${DEBUG}">
     <option name="assertion" value="all"/>
-    <option name="garbage_collector" value="internal"/>
+    <option name="garbage_collector" value="internal" unless="${GOBO_EIFFEL}=ge"/>
+    <option name="garbage_collector" value="boehm" if="${GOBO_EIFFEL}=ge"/>
     <option if="${GOBO_EIFFEL}=se">
       <!-- strange problems with finalize off, not really investigated -->
       <option name="finalize" value="false"/>

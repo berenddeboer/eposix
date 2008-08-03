@@ -15,6 +15,9 @@ deferred class
 inherit
 
 	TS_TEST_CASE
+		rename
+			exceptions as test_exceptions
+		end
 
 	EPX_FILE_SYSTEM
 
@@ -77,15 +80,15 @@ feature {NONE} -- Implementation
 			loop
 				a_directory.forth
 			end
-			assert_equal ("Number of directories correct", a_number_of_directories, number_of_directories)
-			assert_equal ("Number of files correct", a_number_of_files, number_of_files)
+			assert_equal ("Number of directories in " + a_directory.directory_name + " is correct", a_number_of_directories, number_of_directories)
+			assert_equal ("Number of files in " + a_directory.directory_name + " is correct", a_number_of_files, number_of_files)
 		end
 
 	number_of_directories: INTEGER
-			-- Number of directories counted by `is_valid'.
+			-- Number of directories counted by `is_valid'
 
 	number_of_files: INTEGER
-			-- Number of files counted by `is_valid'.
+			-- Number of files counted by `is_valid'
 
 
 feature {NONE} -- Filter characteristics
@@ -98,10 +101,13 @@ feature {NONE} -- Filter characteristics
 				print (path_name)
 				print ("%N")
 			end
-			if a_status.is_directory then
-				number_of_directories := number_of_directories + 1
-			elseif a_status.is_regular_file then
-				number_of_files := number_of_files + 1
+			-- Skip .svn directory
+			if not path_name.has_substring (once ".svn") then
+				if a_status.is_directory then
+					number_of_directories := number_of_directories + 1
+				elseif a_status.is_regular_file then
+					number_of_files := number_of_files + 1
+				end
 			end
 			Result := True
 		end

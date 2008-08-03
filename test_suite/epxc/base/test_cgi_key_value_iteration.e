@@ -15,8 +15,10 @@ deferred class
 inherit
 
 	TS_TEST_CASE
+		rename
+			exceptions as test_exceptions
 		redefine
-			make_test,
+			initialize,
 			set_up
 		end
 
@@ -30,9 +32,8 @@ inherit
 
 feature -- Initialization
 
-	make_test (an_id: INTEGER; a_variables: like variables) is
+	initialize is
 		do
-			precursor (an_id, a_variables)
 			make_xhtml_writer
 			create header.make_default
 		end

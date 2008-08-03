@@ -14,6 +14,7 @@ inherit
 
 	TS_TEST_CASE
 		rename
+			exceptions as test_exceptions,
 			execute as test_execute
 		end
 

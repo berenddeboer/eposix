@@ -14,6 +14,9 @@ class
 inherit
 
 	POSIX_FORK_ROOT
+		rename
+			exceptions as test_exceptions
+		end
 
 	POSIX_SIGNAL_HANDLER
 

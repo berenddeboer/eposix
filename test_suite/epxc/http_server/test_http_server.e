@@ -85,7 +85,7 @@ feature
 			client.read_response
 			assert_integers_equal ("Really virtual.", 404, client.response_code)
 
-			client.delete ("/list/customers")
+			client.delete ("/list/customers", Void)
 			server.process_next_request
 			client.read_response
 			assert_integers_equal ("Delete not implemented.", 405, client.response_code)

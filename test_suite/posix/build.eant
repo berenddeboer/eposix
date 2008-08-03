@@ -16,11 +16,9 @@
 		<echo message="   geant test"/>
 		<echo message="   geant test_ise"/>
 		<echo message="   geant test_se"/>
-		<echo message="   geant test_ve"/>
 		<echo message="   geant test_debug"/>
 		<echo message="   geant test_debug_ise"/>
 		<echo message="   geant test_debug_se"/>
-		<echo message="   geant test_debug_ve"/>
 		<echo message="   geant clean"/>
 		<echo message="   geant clobber"/>
 	</target>
@@ -46,22 +44,22 @@
 		<geant target="do_all"/>
 	</target>
 
+	<target name="test_ge" depend="init">
+		<description>
+			Run eposix tests with Gobo Eiffel.
+		</description>
+
+		<set name="target" value="test_ge"/>
+		<set name="do_clean" value="true"/>
+		<geant target="do_all"/>
+	</target>
+
 	<target name="test_ise" depend="init">
 		<description>
 			Run eposix tests with ISE Eiffel.
 		</description>
 
 		<set name="target" value="test_ise"/>
-		<set name="do_clean" value="true"/>
-		<geant target="do_all"/>
-	</target>
-
-	<target name="test_ve" depend="init">
-		<description>
-			Run eposix tests with Visual Eiffel.
-		</description>
-
-		<set name="target" value="test_ve"/>
 		<set name="do_clean" value="true"/>
 		<geant target="do_all"/>
 	</target>
@@ -88,22 +86,22 @@
 		<geant target="do_all"/>
 	</target>
 
+	<target name="test_debug_ge" depend="init">
+		<description>
+			Run eposix tests with Gobo Eiffel in debug mode.
+		</description>
+
+		<set name="target" value="test_debug_ge"/>
+		<set name="do_clean" value="true"/>
+		<geant target="do_all"/>
+	</target>
+
 	<target name="test_debug_ise" depend="init">
 		<description>
 			Run eposix tests with ISE Eiffel in debug mode.
 		</description>
 
 		<set name="target" value="test_debug_ise"/>
-		<set name="do_clean" value="true"/>
-		<geant target="do_all"/>
-	</target>
-
-	<target name="test_debug_ve" depend="init">
-		<description>
-			Run eposix tests with Visual Eiffel in debug mode.
-		</description>
-
-		<set name="target" value="test_debug_ve"/>
 		<set name="do_clean" value="true"/>
 		<geant target="do_all"/>
 	</target>

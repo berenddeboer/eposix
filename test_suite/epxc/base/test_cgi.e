@@ -14,6 +14,8 @@ deferred class
 inherit
 
 	TS_TEST_CASE
+		rename
+			exceptions as test_exceptions
 		redefine
 			initialize
 		end
