@@ -7,11 +7,11 @@ MOSTLYCLEANFILES = precompile.ecf precomp.epr
 
 dist-hook: precompile.ecf
 	ec -precompile -ace $<
-	if [ -e EIFGEN/W_code/Makefile.SH ]; then cd EIFGEN/W_code; finish_freezing; fi
+	if [ -e EIFGENs/eposix_precompile/W_code/Makefile.SH ]; then cd EIFGENs/eposix_precompile/W_code; finish_freezing; fi
 
 precompile.ecf: $(top_srcdir)/src/library.xace system.xace
 	gexace --define="GOBO_OS=unix" --system=ise --output=$@
 
 
 clean-generic:
-	rm -rf EIFGEN
+	rm -rf EIFGENs
