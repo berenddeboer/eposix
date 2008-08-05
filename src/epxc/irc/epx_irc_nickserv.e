@@ -21,6 +21,11 @@ inherit
 
 	EPX_IRC_MESSAGE_HANDLER
 
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		end
+
 
 create
 
@@ -38,9 +43,9 @@ feature {EPX_IRC_CLIENT} -- Handling
 			if
 				a_message.nick_name /= Void and then
 				a_message.command.is_equal (commands.notice) and then
-				a_message.nick_name.as_upper.is_equal (NickServ) and then
+				STRING_.same_string (a_message.nick_name.as_upper, NickServ) and then
 				a_message.parameters.count = 2 and then
-				a_message.parameters.item (1).is_equal (client.nick_name)
+				STRING_.same_string (a_message.parameters.item (1), client.nick_name)
 			then
 				password_request :=
 					a_message.parameters.item (2).has_substring (once_msg_command) and then

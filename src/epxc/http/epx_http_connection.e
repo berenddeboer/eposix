@@ -21,6 +21,11 @@ inherit
 
 	EPX_CURRENT_PROCESS
 
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		end
+
 	EPX_MIME_FIELD_NAMES
 		export
 			{NONE} all
@@ -290,7 +295,7 @@ feature -- Parsing
 									-- expectation. If so, I must respond
 									-- with the 100 continue status.
 									if request_fields.has (field_name_expect) then
-										if request_fields.item (field_name_expect).value.as_lower.is_equal (once_100_continue) then
+										if STRING_.same_string (request_fields.item (field_name_expect).value.as_lower, once_100_continue) then
 											send_expect_continue
 										else
 											report_expectation_failed (mime_parser.part.header.item (field_name_expect).value)
@@ -299,9 +304,9 @@ feature -- Parsing
 									mime_parser.parse_body
 									request_body := mime_parser.part.body
 									if mime_parser.part.header.content_type /= Void then
-										if mime_parser.part.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded) then
+										if STRING_.same_string (mime_parser.part.header.content_type.value, mime_type_application_x_www_form_urlencoded) then
 											urlencoded_to_form_fields
-										elseif mime_parser.part.header.content_type.value.is_equal (mime_type_multipart_form_data) then
+										elseif STRING_.same_string (mime_parser.part.header.content_type.value, mime_type_multipart_form_data) then
 											mime_body_to_form_fields
 										end
 									end
@@ -325,13 +330,13 @@ feature -- Parsing
 				-- Check if client wants a persistent connection.
 				if is_http_09_request then
 					is_persistent := False
-				elseif client_http_version.is_equal (once_http_1_0) then
+				elseif STRING_.same_string (client_http_version, once_http_1_0) then
 					-- For HTTP/1.0 clients we assume a persistent
 					-- connection only when explicitly requested.
 					is_persistent :=
 						request_fields /= Void and then
 						request_fields.has (field_name_connection) and then
-						request_fields.item (field_name_connection).value.as_lower.is_equal (once_keep_alive)
+						STRING_.same_string (request_fields.item (field_name_connection).value.as_lower, once_keep_alive)
 
 				else
 					-- For HTTP/1.1 we assume a persistent connection
@@ -339,7 +344,7 @@ feature -- Parsing
 					is_persistent :=
 						request_fields /= Void and then
 						(not request_fields.has (field_name_connection) or else
-						 not request_fields.item (field_name_connection).value.as_lower.is_equal (once_close))
+						 not STRING_.same_string (request_fields.item (field_name_connection).value.as_lower, once_close))
 				end
 			else
 				-- Only when the request was read successfully, send a bad
@@ -946,7 +951,7 @@ feature {NONE} -- Implementation
 			value: EPX_KEY_VALUE
 			p: INTEGER
 		do
-			if a_method.is_equal (http_method_POST) then
+			if STRING_.same_string (a_method, http_method_POST) then
 				from
 					request_form_fields.start
 				until

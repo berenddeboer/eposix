@@ -550,7 +550,12 @@ feature {NONE} -- Implementation
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	commands: expanded EPX_IRC_COMMANDS
+	commands: EPX_IRC_COMMANDS is
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 	log_file: STDC_TEXT_FILE
 			-- If set, session requests and responses are written to this
@@ -594,8 +599,13 @@ feature {NONE} -- Implementation
 			socket.put_string (cmd)
 		end
 
-	reply_codes: expanded EPX_IRC_REPLY_CODES
+	reply_codes: EPX_IRC_REPLY_CODES is
 			-- Standard reply codes
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 	system_handlers: DS_LIST [EPX_IRC_MESSAGE_HANDLER]
 			-- System defined handlers for incoming messages

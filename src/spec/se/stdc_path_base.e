@@ -21,21 +21,27 @@ inherit
 			infix "<"
 		end
 
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		undefine
+			copy,
+			fill_tagged_out_memory,
+			is_equal,
+			out,
+			out_in_tagged_out_memory
+		end
+
 
 feature -- Comparison
 
 	is_equal (other: STRING): BOOLEAN is
 			-- Is the path name equal to `other'?
-		local
-			s1,
-			s2: STRING
 		do
 			if other = Current then
 				Result := True
-			elseif other.count = count then
-				create s1.make_from_string (Current)
-				create s2.make_from_string (other)
-				Result := s1.is_equal (s2)
+			else
+				Result := STRING_.same_string (Current, other)
 			end
 		end
 

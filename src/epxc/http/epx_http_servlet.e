@@ -297,7 +297,7 @@ feature {NONE} -- Values
 			Result := item (a_key)
 			if not Result.is_empty then
 				-- right adjust
-				Result := clone (Result)
+				Result := Result.twin
 				from
 					i := Result.count
 				variant

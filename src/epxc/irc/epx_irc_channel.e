@@ -19,6 +19,13 @@ class
 
 inherit
 
+	ANY
+
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		end
+
 	EPX_IRC_MESSAGE_HANDLER
 		rename
 			make as make_handler
@@ -68,18 +75,18 @@ feature -- Status
 				-- is meant for this channel.
 				Result :=
 					(a_message.parameters.count >= 2 and then
-					 a_message.parameters.item (2).is_equal (channel_name)) or else
+					 STRING_.same_string (a_message.parameters.item (2), channel_name)) or else
 					(a_message.reply_code = RPL_NAMREPLY and then
 					 a_message.parameters.count = 4 and then
-					 a_message.parameters.item (3).is_equal (channel_name))
+					 STRING_.same_string (a_message.parameters.item (3), channel_name))
 			else
 				-- If the first parameter is the channel name, it's for
 				-- this channel, as well as a nick name change or a quit.
 				Result :=
 					(not a_message.parameters.is_empty and then
-					 a_message.parameters.first.is_equal (channel_name)) or else
-					a_message.command.is_equal (commands.nick) or else
-					a_message.command.is_equal (commands.quit)
+					 STRING_.same_string (a_message.parameters.first, channel_name)) or else
+					STRING_.same_string (a_message.command, commands.nick) or else
+					STRING_.same_string (a_message.command, commands.quit)
 			end
 		end
 

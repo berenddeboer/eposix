@@ -148,7 +148,7 @@ feature -- Compare to string
 		require
 			s_not_void: s /= Void
 		do
-			Result := s.is_equal (out)
+			Result := STRING_.same_string (s, out)
 		end
 
 
@@ -448,14 +448,6 @@ feature {NONE} -- Implementation
 	is_windows: BOOLEAN is
 			-- Are we running on the Windows platform?
 		external "C"
-		end
-
-	STRING_: KL_STRING_ROUTINES is
-			-- Routines that ought to be in class STRING
-		once
-			create Result
-		ensure
-			string_routines_not_void: Result /= Void
 		end
 
 

@@ -108,7 +108,7 @@ feature {NONE} -- Initialization
 		do
 			-- First replace the quoted spaces by %U as this cannot
 			-- appear in the input.
-			s := clone (a_command_line)
+			s := a_command_line.twin
 			from
 				i := 1
 			variant

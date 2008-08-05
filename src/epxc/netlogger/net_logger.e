@@ -108,7 +108,12 @@ feature -- NetLogger normal usage API
 
 feature -- Reserved field names
 
-	names: expanded NET_LOGGER_RESERVED_NAMES
+	names: NET_LOGGER_RESERVED_NAMES is
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 
 feature {NONE} -- Correct field list generation

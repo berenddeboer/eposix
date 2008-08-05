@@ -297,7 +297,7 @@ modrdn_or_moddn
 newrdn
 	: ATTRIBUTE_TYPE ':'
 		{
-			if not $1.is_equal ("newrdn") then
+			if not STRING_.same_string ($1, "newrdn") then
 				 report_error ("newrdn expected instead of " + $1)
 				 abort
 			end
@@ -307,7 +307,7 @@ newrdn
 deleteoldrdn
 	: ATTRIBUTE_TYPE ':'
 		{
-			if not $1.is_equal ("deleteoldrdn") then
+			if not STRING_.same_string ($1, "deleteoldrdn") then
 				 report_error ("deleteoldrdn expected instead of " + $1)
 				 abort
 			end
@@ -317,9 +317,9 @@ deleteoldrdn
 zero_or_one
 	: SAFE_STRING -- error if not '0' or '1'
 		{
-			if $1.is_equal ("1") then
+			if STRING_.same_string ($1, "1") then
 				 $$ := True
-			elseif $1.is_equal ("0") then
+			elseif STRING_.same_string ($1, "0") then
 				$$ := False
 			else
 				 report_error ("0 or 1 expected instead of " + $1)
@@ -337,7 +337,7 @@ optional_newsuperior
 	: -- none
 	| ATTRIBUTE_TYPE distinguished_name SEP
 		{
-			if not $1.is_equal ("newsuperior") then
+			if not STRING_.same_string ($1, "newsuperior") then
 				 report_error ("newsuperior expected instead of " + $1)
 				 abort
 			end
@@ -389,9 +389,9 @@ base64_string
 true_or_false
 	: ATTRIBUTE_TYPE -- error if not equal to "true" or "false"
 		{
-			if $1.is_equal ("true") then
+			if STRING_.same_string ($1, "true") then
 				 $$ := True
-			elseif $1.is_equal ("false") then
+			elseif STRING_.same_string ($1, "false") then
 				$$ := False
 			else
 				 report_error ("true or false expected")

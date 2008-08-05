@@ -1171,15 +1171,25 @@ feature {NONE} -- Standard or multipart key/value filling
 
 feature {NONE} -- Implementation
 
-	file_system: expanded EPX_FILE_SYSTEM
+	file_system: EPX_FILE_SYSTEM is
 			-- Access to file system routines
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 	my_boundary: STRING
 			-- Used for server push, multipart header.
 
 
-	url_encoder: expanded EPX_URL_ENCODING
+	url_encoder: EPX_URL_ENCODING is
 			-- Decoding of encoded passed values
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 
 feature {NONE} -- Once strings

@@ -21,6 +21,11 @@ inherit
 
 	EPX_IRC_MESSAGE_HANDLER
 
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		end
+
 	EPX_IRC_CTCP_ENCODING
 		export
 			{NONE} all
@@ -45,8 +50,8 @@ feature -- Status
 			Result :=
 				a_message.parameters.count = 2 and then
 				(a_message.nick_name /= Void) and then
-				(a_message.command.is_equal (commands.privmsg) or else
-				 a_message.command.is_equal (commands.notice)) and then
+				(STRING_.same_string (a_message.command, commands.privmsg) or else
+				 STRING_.same_string (a_message.command, commands.notice)) and then
 				(a_message.parameters.item (2).has (ctcp_x_delimiter))
 		end
 
@@ -74,11 +79,11 @@ feature {EPX_IRC_CLIENT} -- Handling
 				until
 					c.after
 				loop
-					if c.item.tag.is_equal (ctcp_dcc) then
+					if STRING_.same_string (c.item.tag, ctcp_dcc) then
 						if
 							not c.item.parameters.is_empty and then
-							c.item.parameters.item (1).is_equal (ctcp_dcc_type_chat) and then
-							c.item.parameters.item (2).as_lower.is_equal (ctcp_dcc_chat_argument) and then
+							STRING_.same_string (c.item.parameters.item (1), ctcp_dcc_type_chat) and then
+							STRING_.same_string (c.item.parameters.item (2).as_lower, ctcp_dcc_chat_argument) and then
 							c.item.parameters.item (3).is_integer and then
 							c.item.parameters.item (4).is_integer
 						then

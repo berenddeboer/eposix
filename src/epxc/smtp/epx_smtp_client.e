@@ -183,7 +183,6 @@ feature -- Commands
 			mail_from,
 			mail_to: STRING
 			message: STRING
-			i: INTEGER
 		do
 			mail_from := once "FROM:<" + an_email.sender_mailbox + once ">"
 			if supports_8_bit_mime then
@@ -211,20 +210,6 @@ feature -- Commands
 			if last_reply_code = 354 then
 				message:= an_email.message.as_string
 				correct_line_breaks (message)
--- 				from
--- 					i := 1
--- 				until
--- 					i > message.count
--- 				loop
--- 					inspect message.item (i).code
--- 					when 0..31 then
--- 						print ("%%" + message.item (i).code.out)
--- 						print ("%N")
--- 					else
--- 						print (message.item (i))
--- 					end
--- 					i := i + 1
--- 				end
 				smtp.put_string (message)
 				if
 					message.count < 2 or else
@@ -327,8 +312,13 @@ feature {NONE} -- Authentication not relevant for SMTP
 
 feature {NONE} -- Lowest level SMTP server interaction
 
-	commands: expanded EPX_SMTP_COMMANDS
+	commands: EPX_SMTP_COMMANDS is
 			-- SMTP commands
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 	correct_line_breaks (a_message: STRING) is
 			-- Change all lone LFs to CR LF.

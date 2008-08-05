@@ -441,8 +441,13 @@ feature {NONE} -- Lowest level FTP server interaction
 			async_put_command (a_command, a_parameter)
 		end
 
-	commands: expanded EPX_FTP_COMMANDS
+	commands: EPX_FTP_COMMANDS is
 			-- FTP commands
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 	hp: EPX_HOST_PORT
 

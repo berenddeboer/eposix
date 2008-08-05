@@ -56,6 +56,11 @@ inherit
 			{NONE} all
 		end
 
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		end
+
 
 create
 
@@ -760,20 +765,20 @@ feature {NONE} -- GET helper
 		do
 			create file_name.make_from_string (a_file_name)
 			file_name.parse (<<once_css, once_png, once_gif, once_xhtml, once_xml, once_xsl, once_xslt, once_js>>)
-			if file_name.suffix.is_equal (once_css) then
+			if STRING_.same_string (file_name.suffix, once_css) then
 				Result := mime_type_text_css
-			elseif file_name.suffix.is_equal (once_js) then
+			elseif STRING_.same_string (file_name.suffix, once_js) then
 				Result := mime_type_text_javascript
-			elseif file_name.suffix.is_equal (once_gif) then
+			elseif STRING_.same_string (file_name.suffix, once_gif) then
 				Result := mime_type_image_gif
-			elseif file_name.suffix.is_equal (once_png) then
+			elseif STRING_.same_string (file_name.suffix, once_png) then
 				Result := mime_type_image_png
-			elseif file_name.suffix.is_equal (once_xhtml) then
+			elseif STRING_.same_string (file_name.suffix, once_xhtml) then
 				Result := mime_type_application_xhtml_plus_xml
 			elseif
-				file_name.suffix.is_equal (once_xml) or else
-				file_name.suffix.is_equal (once_xsl) or else
-				file_name.suffix.is_equal (once_xslt)
+				STRING_.same_string (file_name.suffix, once_xml) or else
+				STRING_.same_string (file_name.suffix, once_xsl) or else
+				STRING_.same_string (file_name.suffix, once_xslt)
 			then
 				Result := mime_type_application_xml
 			end
@@ -1173,23 +1178,23 @@ feature {NONE} -- Execute requests
 			--client.set_blocking_io (False)
 
 			-- dispatch
-			if a_method.is_equal (http_method_GET) then
+			if STRING_.same_string (a_method, http_method_GET) then
 				process_get (a_request_uri)
-			elseif a_method.is_equal (http_method_POST) then
+			elseif STRING_.same_string (a_method, http_method_POST) then
 				if connection.request_body /= Void then
 					process_post (a_request_uri)
 				else
 					connection.report_bad_request ("request body expected")
 				end
-			elseif a_method.is_equal (http_method_PUT) then
+			elseif STRING_.same_string (a_method, http_method_PUT) then
 				if connection.request_body /= Void then
 					process_put (a_request_uri)
 				else
 					connection.report_bad_request ("request body expected")
 				end
-			elseif a_method.is_equal (http_method_HEAD) then
+			elseif STRING_.same_string (a_method, http_method_HEAD) then
 				process_head (a_request_uri)
-			elseif a_method.is_equal (http_method_DELETE) then
+			elseif STRING_.same_string (a_method, http_method_DELETE) then
 				process_delete (a_request_uri)
 			else
 				connection.report_not_implemented (a_method)

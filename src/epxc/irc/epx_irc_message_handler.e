@@ -57,7 +57,12 @@ feature {EPX_IRC_CLIENT, EPX_IRC_MESSAGE_HANDLER} -- Handling
 
 feature {NONE} -- Implementation
 
-	commands: expanded EPX_IRC_COMMANDS
+	commands:  EPX_IRC_COMMANDS is
+		once
+			create Result
+		ensure
+			not_void: Result /= Void
+		end
 
 
 invariant
