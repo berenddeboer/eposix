@@ -137,7 +137,7 @@ feature {NONE} -- Open
 			openssl: EPX_OPENSSL
 		do
 			if port = 0 then
-				create service.make_from_name_with_default ("imaps", "tcp", 993)
+				create service.make_from_name_with_default (once "imaps", once "tcp", 993)
 				port := service.port
 			end
 			create openssl.make_ssl3_client (host_name, port)
@@ -167,9 +167,9 @@ feature {NONE} -- Open
 				create host.make_from_name (host_name)
 				if host.found then
 					if port = 0 then
-						create service.make_from_name ("imap", "tcp")
+						create service.make_from_name (once "imap", once "tcp")
 					else
-						create service.make_from_port (port, "tcp")
+						create service.make_from_port (port, once "tcp")
 					end
 					create host_port.make (host, service)
 				else
@@ -337,7 +337,7 @@ feature -- Authenticated state commands
 				state.is_authenticated or else
 				state.is_selected
 		do
-			construct_command (imap4_command_list, <<"", "">>, True)
+			construct_command (imap4_command_list, <<once "", once "">>, True)
 			send_command
 		end
 
@@ -349,7 +349,7 @@ feature -- Authenticated state commands
 				state.is_authenticated or else
 				state.is_selected
 		do
-			construct_command (imap4_command_list, <<"", "*">>, True)
+			construct_command (imap4_command_list, <<once "", once "*">>, True)
 			send_command
 		end
 
@@ -361,7 +361,7 @@ feature -- Authenticated state commands
 				state.is_authenticated or else
 				state.is_selected
 		do
-			construct_command (imap4_command_lsub, <<"", "*">>, True)
+			construct_command (imap4_command_lsub, <<once "", once "*">>, True)
 			send_command
 		end
 
@@ -450,7 +450,7 @@ feature -- Selected state commands
 			mailbox_selected: state.is_selected
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
-			construct_command (imap4_command_store, <<sequence_number.out, "+FLAGS.SILENT", "(\Deleted)">>, False)
+			construct_command (imap4_command_store, <<sequence_number.out, once "+FLAGS.SILENT", once "(\Deleted)">>, False)
 			send_command
 		end
 
@@ -492,7 +492,7 @@ feature -- Selected state commands
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
 			response.new_current_message (sequence_number)
-			construct_command (imap4_command_fetch, <<sequence_number.out, "RFC822.TEXT">>, False)
+			construct_command (imap4_command_fetch, <<sequence_number.out, once "RFC822.TEXT">>, False)
 			send_command
 		ensure
 			have_current_message: response.current_message /= Void
@@ -507,7 +507,7 @@ feature -- Selected state commands
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
 			response.new_current_message (sequence_number)
-			construct_command (imap4_command_fetch, <<sequence_number.out, "RFC822.HEADER">>, False)
+			construct_command (imap4_command_fetch, <<sequence_number.out, once "RFC822.HEADER">>, False)
 			send_command
 		ensure
 			have_current_message: response.current_message /= Void
@@ -523,7 +523,7 @@ feature -- Selected state commands
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
 			response.new_current_message (sequence_number)
-			construct_command (imap4_command_fetch, <<sequence_number.out, "(FLAGS RFC822.HEADER)">>, False)
+			construct_command (imap4_command_fetch, <<sequence_number.out, once "(FLAGS RFC822.HEADER)">>, False)
 			send_command
 		ensure
 			have_current_message: response.current_message /= Void
@@ -536,7 +536,7 @@ feature -- Selected state commands
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
 			response.new_current_message (sequence_number)
-			construct_command (imap4_command_fetch, <<sequence_number.out, "RFC822">>, False)
+			construct_command (imap4_command_fetch, <<sequence_number.out, once "RFC822">>, False)
 			send_command
 		ensure
 			have_current_message: response.current_message /= Void
@@ -549,7 +549,7 @@ feature -- Selected state commands
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
 			response.new_current_message (sequence_number)
-			construct_command (imap4_command_fetch, <<sequence_number.out, "RFC822.SIZE">>, False)
+			construct_command (imap4_command_fetch, <<sequence_number.out, once "RFC822.SIZE">>, False)
 			send_command
 		ensure
 			have_current_message: response.current_message /= Void
@@ -579,7 +579,7 @@ feature -- Selected state commands
 			sequence_number_valid: is_valid_sequence_number (sequence_number)
 		do
 			response.new_current_message (sequence_number)
-			construct_command (imap4_command_store, <<sequence_number.out, "-FLAGS.SILENT", "(\Seen)">>, False)
+			construct_command (imap4_command_store, <<sequence_number.out, once "-FLAGS.SILENT", once "(\Seen)">>, False)
 			send_command
 		ensure
 			have_current_message: response.current_message /= Void
