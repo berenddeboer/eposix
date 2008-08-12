@@ -517,7 +517,7 @@ feature -- Buffered input
 			if last_string = Void then
 				create last_string.make (1024)
 			else
-				sh.wipe_out (last_string)
+				STRING_.wipe_out (last_string)
 			end
 
 			-- Read up to newline or eof, whatever comes first.
@@ -577,7 +577,7 @@ feature -- Buffered input
 			-- was found.
 		do
 			-- Not supported, so we never find a new line.
-			last_string.wipe_out
+			STRING_.wipe_out (last_string)
 		end
 
 	read_string (nb: INTEGER) is
@@ -602,7 +602,7 @@ feature -- Buffered input
 				if last_string = Void then
 					create last_string.make_empty
 				else
-					sh.wipe_out (last_string)
+					STRING_.wipe_out (last_string)
 				end
 			else
 				-- Set end-of-string character.
