@@ -171,7 +171,7 @@ feature -- Access
 			if my_full_name = Void then
 				create my_full_name.make (256)
 			else
-				sh.wipe_out (my_full_name)
+				STRING_.wipe_out (my_full_name)
 			end
 			Result := my_full_name
 			Result.append_string (directory_name)
