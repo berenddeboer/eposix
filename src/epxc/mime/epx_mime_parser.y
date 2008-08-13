@@ -1450,7 +1450,7 @@ feature {NONE} -- Reading MIME bodies
 			-- We have to stop when a boundary occurs after a CRLF.
 			from
 				matching_boundary := True
-				last_line.wipe_out
+				STRING_.wipe_out (last_line)
 				matched_index := 1
 				read_character
 			invariant
@@ -1485,7 +1485,7 @@ feature {NONE} -- Reading MIME bodies
 						add_cr := False
 					end
 					body.append_string (last_line)
-					last_line.wipe_out
+					STRING_.wipe_out (last_line)
 					if add_cr then
 						last_line.append_character ('%R')
 					end
@@ -1505,13 +1505,13 @@ feature {NONE} -- Reading MIME bodies
 							-- beginning of line, we just have a data line.
 							body.append_string (last_line)
 							body.append_character (c)
-							last_line.wipe_out
+							STRING_.wipe_out (last_line)
 							matching_boundary := False
 						end
 					else
 						body.append_string (last_line)
 						body.append_character (c)
-						last_line.wipe_out
+						STRING_.wipe_out (last_line)
 					end
 				end
 
@@ -1545,7 +1545,7 @@ feature {NONE} -- Reading MIME bodies
 			if last_string = Void then
 				create last_string.make (4096)
 			else
-				last_string.wipe_out
+				STRING_.wipe_out (last_string)
 			end
 			if yy_content_area /= Void then
 				from
