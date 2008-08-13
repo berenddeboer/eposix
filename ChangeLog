@@ -1,3 +1,48 @@
+2008-08-08  Berend de Boer  <berend@pobox.com>
+
+	* Made sure all wipe_out calls call STRING_.wipe_out so they don't
+	create new memory.
+
+
+2008-08-02  Berend de Boer  <berend@pobox.com>
+
+	* Fixed all catcalls reported by gec.
+
+
+2008-08-01  Berend de Boer  <berend@pobox.com>
+
+	* Support for VisualEiffel removed.
+
+	* EPX_URL_ENCODING: inherits from UT_URL_ENCODING (Colin Paul
+	Adams).
+
+	* Updated config.guess and config.sub so newer OSes should be
+	recognised better.
+
+	* EPX_HTT_URI_RESOLVER.resolve: empty path resolves to "/" (Colin
+	Paul Adams).
+
+
+2008-07-24  Berend de Boer  <berend@pobox.com>
+
+	* !SUS_TEMPORARY_FILE: didn't properly set name with ISE Eiffel,
+	so returned name was always the template, not the real temporary
+	file name.
+
+
+2008-06-25  Berend de Boer  <berend@pobox.com>
+
+	* EPX_ARRAY_HELPER: eposix have various issues on ISE o 64-bit
+	platforms as it assumed a 4 byte pointer in this class (thanks
+	Lennart Gustafsson).
+
+
+2008-05-30  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT.delete: didn't accept data, but it
+	should. Breaking change.
+
+
 2008-05-28  Berend de Boer  <berend@pobox.com>
 
 	* EPX_HTTP_10_CLIENT.post: made a_post_data an optional parameter.

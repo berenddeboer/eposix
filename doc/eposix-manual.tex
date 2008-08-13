@@ -236,10 +236,6 @@
   [Sven Ehrke]
 
 \useURL
-  [vestring]
-  [http://groups.yahoo.com/group/visual-eiffel/message/673]
-
-\useURL
   [ulm]
   [http://www.hsc.fr/gul/draft-abela-ulm-05.txt]
 
@@ -525,13 +521,6 @@ makelib -ise -msc
 to compile the C code with \index{C compiler+Microsoft}Microsoft's
 Visual C compiler targeting the \index{ISE Eiffel}ISE Eiffel compiler.
 
-Only the Microsoft supplied library did work, i.e. link, with
-\index{VisualEiffel}VisualEiffel:
-
-\starttyping
-makelib -ve -msc
-\stoptyping
-
 Type:
 
 \starttyping
@@ -633,6 +622,11 @@ Gobo files, is:
 
 \section{Vendor specific notes}
 
+\subsection{Gobo Eiffel}
+
+\eposix\ supports the Gobo Eiffel compiler of Gobo version 3.8 or
+higher. Multi-threading has not been tested with this compiler.
+
 \subsection{ISE Eiffel}
 
 \eposix\ supports \index{ISE Eiffel 5.6}ISE Eiffel 5.6 and higher.
@@ -648,24 +642,10 @@ if you use ISE Eiffel 5.6 and the Microsoft Visual C compiler. Else
 you will get a linker message complaining about the unresolved
 external symbol \external{_errno}.
 
-If you use \index{ISE Eiffel 5.7}ISE Eiffel 5.7, you can use the
+If you use \index{ISE Eiffel 6.2}ISE Eiffel 6.2, you can use the
 supplied \MYfilename{eposix.ecf} which will make inclusion of eposix
-in your projects much easier. However, the library path when you use
-the \MYfilename{eposix.ecf} is slightly different.
+in your projects much easier.
 
-After generation of \MYfilename{libeposix}, see
-\in{section}[sec:libeposix], do this on Unix:
-
-\starttyping
-cp lib/libeposix_ise.a ${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix.a
-\stoptyping
-
-And on Windows:
-
-\starttyping
-copy lib\libeposix_ise.a ${ISE_LIBRARY}\lib\${ISE_PLATFORM}\${ISE_C_COMPILER}\libeposix.lib
-\stoptyping
-%$
 
 \subsection{SmartEiffel}
 
@@ -708,31 +688,6 @@ this tool makes compilation for different Eiffel compilers a lot
 easier.
 
 
-\subsection{Visual Eiffel}
-
-\eposix\ has been tested with ObjectTool's free
-\index{VisualEiffel}VisualEiffel 5.0b for Linux. VisualEiffel 4.1
-might still work but is no longer tested.
-
-Follow these steps to compile with VisualEiffel 5 on Windows:
-\startitemize[n]
-\item Make sure the \index{VE_BIN}VE_BIN environment variable is set
-  to the Bin directory in the VisualEiffel subdirectory. On my system it
-  is set to \filename{M:/Program Files/ObjectTools/VisualEiffel/Bin}.
-\item Create the \MYfilename{libeposix_ve_msc.lib} library using the
-  Microsoft Visual C compiler:
- \starttyping
-makelib -ve -msc
- \stoptyping
-\item Use \type{gexace} to generate an {\tt .esd} file.
-\item Make sure to set the linker supplier option to Microsoft in your
-  \MYfilename{system.xace} file! So an option like this should be present:
-\starttyping
-<option name="linker" value="microsoft" if="\${GOBO_EIFFEL}=ve"/>
-\stoptyping
-\stopitemize
-
-
 \section{Platform specific notes}
 
 Although \eposix\ should, in principle, run on every platform that
@@ -746,7 +701,7 @@ will have to edit \MYfilename{src/library.xace}.
 
 \subsection{Linux}
 
-The latest version of \eposix\ was tested with kernel 2.6.20.1 and
+The latest version of \eposix\ was tested on Ubuntu 8.0.4. and
 \index{glibc}glibc 2.4.
 
 \subsection{FreeBSD}
@@ -3245,5 +3200,5 @@ Vulnerabilities at Runtime} article in IEEE Computer sep/oct 2000.
 \stopbackmatter
 
 \stoptext
-% LocalWords:  writability {Colophon} pid {posix} {posix} BON VisualEiffel Gobo
+% LocalWords:  writability {Colophon} pid {posix} {posix} BON Gobo
 % LocalWords:  redhat Cygwin plugin

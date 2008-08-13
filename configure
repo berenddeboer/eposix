@@ -20206,10 +20206,12 @@ then
 		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
 	else
 		if test ! "x"$SmartEiffel = "x"; then
-			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+			DIR1=`dirname "$SmartEiffel"`
+			EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 		else
 			if test ! "x"$SmallEiffel = "x"; then
-				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+				DIR1=`dirname "$SmartEiffel"`
+				EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 			else
 				{ { echo "$as_me:$LINENO: error: The SmartEiffel environment variable is not set" >&5
 echo "$as_me: error: The SmartEiffel environment variable is not set" >&2;}
@@ -20380,7 +20382,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:20383:" \
+echo "$as_me:20385:" \
 		 "checking for Eiffel compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -20477,10 +20479,12 @@ then
 		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
 	else
 		if test ! "x"$SmartEiffel = "x"; then
-			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+			DIR1=`dirname "$SmartEiffel"`
+			EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 		else
 			if test ! "x"$SmallEiffel = "x"; then
-				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+				DIR1=`dirname "$SmartEiffel"`
+				EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 			else
 				{ { echo "$as_me:$LINENO: error: The SmartEiffel environment variable is not set" >&5
 echo "$as_me: error: The SmartEiffel environment variable is not set" >&2;}
@@ -20651,7 +20655,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:20654:" \
+echo "$as_me:20658:" \
 		 "checking for Eiffel compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -20748,10 +20752,12 @@ then
 		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
 	else
 		if test ! "x"$SmartEiffel = "x"; then
-			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+			DIR1=`dirname "$SmartEiffel"`
+			EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 		else
 			if test ! "x"$SmallEiffel = "x"; then
-				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+				DIR1=`dirname "$SmartEiffel"`
+				EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 			else
 				{ { echo "$as_me:$LINENO: error: The SmartEiffel environment variable is not set" >&5
 echo "$as_me: error: The SmartEiffel environment variable is not set" >&2;}
@@ -20922,7 +20928,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:20925:" \
+echo "$as_me:20931:" \
 		 "checking for Eiffel compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -21019,10 +21025,12 @@ then
 		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
 	else
 		if test ! "x"$SmartEiffel = "x"; then
-			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+			DIR1=`dirname "$SmartEiffel"`
+			EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 		else
 			if test ! "x"$SmallEiffel = "x"; then
-				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+				DIR1=`dirname "$SmartEiffel"`
+				EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 			else
 				{ { echo "$as_me:$LINENO: error: The SmartEiffel environment variable is not set" >&5
 echo "$as_me: error: The SmartEiffel environment variable is not set" >&2;}
@@ -21193,7 +21201,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:21196:" \
+echo "$as_me:21204:" \
 		 "checking for Eiffel compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -21290,10 +21298,12 @@ then
 		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
 	else
 		if test ! "x"$SmartEiffel = "x"; then
-			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+			DIR1=`dirname "$SmartEiffel"`
+			EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 		else
 			if test ! "x"$SmallEiffel = "x"; then
-				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+				DIR1=`dirname "$SmartEiffel"`
+				EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 			else
 				{ { echo "$as_me:$LINENO: error: The SmartEiffel environment variable is not set" >&5
 echo "$as_me: error: The SmartEiffel environment variable is not set" >&2;}

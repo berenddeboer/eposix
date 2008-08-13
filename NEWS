@@ -1,6 +1,12 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
+New in 3.2 - 2008-08-01
+
+* 64 bit platforms: fixed various reported bugs for 64 bit platforms
+  and 64 bit ISE (EPX_ARRAY_HELPER, STDC_TIME.to_utc).
+
+
 New in 3.0 - 2007-05-18
 
 * Security, if you use this functionality you are urged to upgrade:
