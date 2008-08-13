@@ -5,7 +5,7 @@
 	<description>
 		description: "Eiffel Ant file for the eposix library"
 		library: "eposix library"
-		copyright: "Copyright (c) 2007, Berend de Boer"
+		copyright: "Copyright (c) 2007-2008, Berend de Boer"
 		license: "MIT License (see LICENSE)"
 		date: "$Date: 2007/11/22 $"
 		revision: "$Revision: #1 $"
