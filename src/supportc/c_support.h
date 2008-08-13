@@ -27,6 +27,7 @@ EIF_INTEGER posix_or (EIF_INTEGER op1, EIF_INTEGER op2);
 EIF_INTEGER posix_first_byte (EIF_INTEGER i);
 EIF_INTEGER posix_swap16 (EIF_INTEGER i);
 EIF_INTEGER posix_swap32 (EIF_INTEGER i);
+EIF_INTEGER_64 posix_swap64 (EIF_INTEGER_64 i);
 
 
 /* read/write arbitrary bytes */

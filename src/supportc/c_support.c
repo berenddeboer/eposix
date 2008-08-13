@@ -61,6 +61,18 @@ EIF_INTEGER posix_swap32 (EIF_INTEGER i)
   return ( a | b | c | d);
 }
 
+EIF_INTEGER_64 posix_swap64 (EIF_INTEGER_64 i) {
+  EIF_INTEGER_64 a,b,c,d,e,f,g,h; /* a is MSB byte, h is LSB byte */
+  a = (i & 0xff00000000000000ULL) >> 56;
+  b = (i & 0x00ff000000000000ULL) >> 48;
+  c = (i & 0x0000ff0000000000ULL) >> 40;
+  d = (i & 0x000000ff00000000ULL) >> 32;
+  e = (i & 0x00000000ff000000ULL) >> 24;
+  f = (i & 0x0000000000ff0000ULL) >> 16;
+  g = (i & 0x000000000000ff00ULL) >>  8;
+  h = (i & 0x00000000000000ffULL);
+  return ( (a) | (b << 8) | (c << 16) | (d << 24) | (e << 32) | (f << 40) | (g << 48) | (h << 56));
+}
 
 /* read/write arbitrary bytes */
 
