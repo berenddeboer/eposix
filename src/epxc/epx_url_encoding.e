@@ -15,7 +15,7 @@ class
 
 inherit
 
-	ANY
+	UT_URL_ENCODING
 
 	EPX_OCTET_ENCODING
 		export
@@ -78,7 +78,7 @@ feature -- Encode/decode field name/value pairs
 				-- The name parameter can be absent in case of multiple
 				-- uploaded files
 				ct := sub_part.header.content_disposition
-				if ct /= Void and then ct.value.is_equal (once_form_data) then
+				if ct /= Void and then STRING_.same_string (ct.value, once_form_data) then
 					parameter := ct.name_parameter
 					if
 						(parameter /= Void and then not parameter.value.is_empty) or else
@@ -193,159 +193,6 @@ feature -- Encode/decode field name/value pairs
 		ensure
 			key_value_pair_not_void: Result /= Void
 			key_value_pair_not_filled: urlencoded.is_empty implies Result.is_empty
-		end
-
-
-feature -- Escape/unescape data characters
-
-	unescape_string (in: STRING): STRING is
-			-- Replace the escape sequences in `in' by their characters.
-		require
-			in_not_void: in /= Void
-		local
-			i: INTEGER
-			c: CHARACTER
-			d1, d2: CHARACTER
-		do
-			create Result.make (in.count)
-			from
-				i := 1
-			until
-				i > in.count
-			loop
-				c := in.item (i)
-				if c = '+' then
-					Result.append_character (' ')
-				elseif c = '%%' then
-					if in.count >= i + 2 then
-						-- We skip the character if it is not valid
-						d1 := in.item (i + 1)
-						d2 := in.item (i + 2)
-						if is_valid_hex_digit (d1) and then is_valid_hex_digit (d2) then
-							Result.append_character (from_hex_characters (d1, d2))
-						else
-							c := '%U'
-						end
-					else
-						c := '%U'
-					end
-					i := i + 2
-				else
-					Result.append_character (c)
-				end
-				i := i + 1
-			end
-		ensure
-			decoded_string_not_void: Result /= Void
-			decoded_string_cannot_be_larger: Result.count <= in.count
-		end
-
-	escape_string (in: STRING): STRING is
-			-- Escape reserved characters in `in' and return a new
-			-- string.
-		require
-			in_not_void: in /= Void
-		local
-			i: INTEGER
-			c: CHARACTER
-		do
-			create Result.make_from_string (in)
-			from
-				i := 1
-			until
-				i > Result.count
-			loop
-				c := Result.item (i)
-				inspect c
-				when ' ' then
-					Result.put ('+', i)
-				when '0'..'9','A'..'Z','a'..'z' then
-					-- ok
-				when '-','_','.','!','~','*','%'', '(' ,')' then
-					-- ok
-				else
-					Result.put ('%%', i)
-					i := i + 1
-					Result.insert_string (to_hex (c), i)
-					i := i + 1
-				end
-				i := i + 1
-			end
-		ensure
-			encoded_string_not_void: Result /= Void
-			no_spaces: not Result.has (' ')
-			encoded_string_cannot_be_smaller: Result.count >= in.count
-		end
-
-
-feature -- Valid characters
-
-	has_excluded_characters (s: STRING): BOOLEAN is
-			-- Does `s' contain excluded characters?
-			-- Note that the escape character '%' is not considered
-			-- excluded.
-		local
-			i: INTEGER
-			c: CHARACTER
-		do
-			if s /= Void then
-				from
-					i := 1
-				until
-					Result or else
-					i > s.count
-				loop
-					c := s.item (i)
-					inspect c
-					when '%/00/'..'%/31/' then
-						-- control characters.
-						Result := True
-					when ' ', '%/128/'..'%/255/' then
-						-- space and non us-ascii characters.
-						Result := True
-					when '<', '>', '"' then
-						-- delimiters, we  allow %, else I can't create
-						-- URIs with encoded data.
-						Result := True
-					when '{', '}', '|', '\', '^', '`' then
-						-- unwise, can be modified by gateways and transport
-						-- agents.
-						Result := True
-					else
-						-- ok
-					end
-					i := i + 1
-				end
-			end
-		end
-
-	is_valid_scheme (a_scheme: STRING): BOOLEAN is
-			-- Is `scheme' a valid scheme?
-		local
-			i: INTEGER
-			c: CHARACTER
-		do
-			Result := a_scheme /= Void
-			if Result then
-				from
-					Result := True
-					i := 1
-				until
-					not Result or else
-					i > a_scheme.count
-				loop
-					c := a_scheme.item (i)
-					inspect c
-					when 'A'..'Z','a'..'z' then
-						-- ok
-					when '0'..'9', '+', '-', '.' then
-						Result := i > 1
-					else
-						Result := False
-					end
-					i := i + 1
-				end
-			end
 		end
 
 
