@@ -15,7 +15,6 @@ inherit
 
 	ABSTRACT_STRING_HELPER
 		redefine
-			wipe_out,
 			unfreeze_all
 		end
 
