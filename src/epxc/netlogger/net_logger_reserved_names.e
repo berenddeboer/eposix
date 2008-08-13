@@ -38,7 +38,7 @@ feature -- Access
 
 	host: STRING is "host"
 
-	local_host: STRING is "localHhost"
+	local_host: STRING is "localHost"
 
 	remote_host: STRING is "remoteHost"
 
