@@ -1,3 +1,21 @@
+2008-08-14  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HMACH_CALCULATION: HMAC calculation which can use SHA1 or
+	MD5.
+
+	* EPX_SHA1_CALCULATION: SHA1 calculation.
+
+
+2008-08-13  Berend de Boer  <berend@pobox.com>
+
+	* STDC_BUFFER: new 64 bit integer read and write routines. Also
+	optimised reading 32 bit integers and characters by using inline
+	C.
+
+	* STDC_BUFFER.put_character: new feature, more Eiffel like than
+	poke_character.
+
+
 2008-08-08  Berend de Boer  <berend@pobox.com>
 
 	* Made sure all wipe_out calls call STRING_.wipe_out so they don't

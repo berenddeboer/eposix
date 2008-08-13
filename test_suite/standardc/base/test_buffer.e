@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_environment is
+	test_buffer is
 		local
 			buf,
 			buf2: STDC_BUFFER
@@ -140,6 +140,39 @@ feature
 			assert_integers_equal ("Correct position.", 9, i)
 			i := buf.locate_string ("ld!", 10)
 			assert_integers_equal ("Not found.", -1, i)
+		end
+
+	test_integer_64 is
+		local
+			buf: STDC_BUFFER
+			i: INTEGER_64
+		do
+			create buf.allocate (8)
+			i := 0x000000000000ff00
+			buf.poke_integer_64 (0, i)
+			assert ("Is 0xff00", i = buf.peek_integer_64 (0).to_integer)
+			i := 0x0000000000cc0000
+			buf.poke_integer_64 (0, i)
+			assert ("Is 0xcc0000", i = buf.peek_integer_64 (0))
+			i := 0x00ff000000000000
+			buf.poke_integer_64 (0, i)
+			assert ("Correct", i = buf.peek_integer_64 (0))
+
+			i := 1
+			buf.poke_int64_big_endian (0, i)
+			assert ("Is 1", i = buf.peek_int64_big_endian (0))
+			i := 0x00000000000000ff
+			buf.poke_int64_big_endian (0, i)
+			assert ("Is 255", i = buf.peek_int64_big_endian (0))
+			i := 0x000000000000ff00
+			buf.poke_int64_big_endian (0, i)
+			assert ("Is 0xff00", i = buf.peek_int64_big_endian (0))
+			i := 0x0000000000cc0000
+			buf.poke_int64_big_endian (0, i)
+			assert ("Is 0xcc0000", i = buf.peek_int64_big_endian (0))
+			i := 0x00ff000000000000
+			buf.poke_int64_big_endian (0, i)
+			assert ("Correct", 0x00ff000000000000 = buf.peek_int64_big_endian (0))
 		end
 
 

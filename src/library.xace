@@ -51,6 +51,7 @@
     <cluster name="sus" if="${GOBO_OS}=unix"/>
     <cluster name="epxc" prefix="epxc_">
       <cluster name="cgi"/>
+      <cluster name="crypto"/>
       <cluster name="ftp"/>
       <cluster name="gobo"/>
       <cluster name="http"/>
