@@ -559,7 +559,7 @@ feature -- Input
 			if p = default_pointer then
 				eof_read := posix_feof (stream)
 				if eof_read then
-					last_string.wipe_out
+					STRING_.wipe_out (last_string)
 				else
 					raise_posix_error
 				end
@@ -597,7 +597,7 @@ feature -- Input
 			if last_string = Void then
 				create last_string.make (256)
 			else
-				last_string.wipe_out
+				STRING_.wipe_out (last_string)
 			end
 			read_character
 			if not end_of_input then
@@ -632,7 +632,7 @@ feature -- Input
 			assert_buf_has_room (nb + 1)
 			read (gets_buf.ptr, 0, nb)
 			if last_read = 0 then
-				sh.wipe_out (last_string)
+				STRING_.wipe_out (last_string)
 			else
 				-- Set end-of-string character.
 				gets_buf.poke_character (last_read, '%U')

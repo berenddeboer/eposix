@@ -313,7 +313,6 @@ feature {NONE} -- Implementation
 		do
 			-- Result := sh.make_with_capacity (s.count * 2)
 			create Result.make (s.count * 2)
-			Result.wipe_out
 			from
 				i := 1
 			until
