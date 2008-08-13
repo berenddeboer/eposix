@@ -1,1 +1,0 @@
-libcapi_la_SOURCES = c_errno.c c_errno.h c_exit_handling.c c_exit_handling.h c_locale.c c_locale.h c_security.c c_security.h c_signal.c c_signal.h c_signal_handling.c c_signal_handling.h c_stdio.c c_stdio.h c_stdlib.c c_stdlib.h c_string.c c_string.h c_time.c c_time.h
