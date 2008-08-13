@@ -1,1 +1,1 @@
-libsapi_la_SOURCES = s_defs.h s_in.c s_inet.c s_inet.h s_in.h s_netdb.c s_netdb.h s_select.c s_select.h s_socket.c s_socket.h s_stat.c s_stat.h s_stdlib.c s_stdlib.h s_stropts.c s_stropts.h s_syslog.c s_syslog.h s_time.c s_time.h s_un.c s_un.h s_unistd.c s_unistd.h
+libsapi_la_SOURCES = s_defs.h s_in.c s_in.h s_inet.c s_inet.h s_netdb.c s_netdb.h s_select.c s_select.h s_socket.c s_socket.h s_stat.c s_stat.h s_stdlib.c s_stdlib.h s_stropts.c s_stropts.h s_syslog.c s_syslog.h s_time.c s_time.h s_un.c s_un.h s_unistd.c s_unistd.h

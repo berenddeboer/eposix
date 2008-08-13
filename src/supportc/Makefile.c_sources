@@ -1,1 +1,1 @@
-libsupportc_la_SOURCES = config.h c_support.c c_support.h eiffel.h
+libsupportc_la_SOURCES = c_support.c c_support.h config.h eiffel.h
