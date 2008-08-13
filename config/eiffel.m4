@@ -140,10 +140,12 @@ then
 		EIFFEL_COMPILER_HEADER_DIR=$SEDIR
 	else
 		if test ! "x"$SmartEiffel = "x"; then
-			EIFFEL_COMPILER_HEADER_DIR=`echo $SmartEiffel | sed -e 's/\(.*\)SmartEiffel\(.*\)/\1SmartEiffel/'`
+			DIR1=`dirname "$SmartEiffel"`
+			EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 		else
 			if test ! "x"$SmallEiffel = "x"; then
-				EIFFEL_COMPILER_HEADER_DIR=`echo $SmallEiffel | sed -e 's/\(.*\)SmallEiffel\(.*\)/\1SmallEiffel/'`
+				DIR1=`dirname "$SmartEiffel"`
+				EIFFEL_COMPILER_HEADER_DIR=`dirname "$DIR1"`
 			else
 				AC_MSG_ERROR(The SmartEiffel environment variable is not set)
 			fi
