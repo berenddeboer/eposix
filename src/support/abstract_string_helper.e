@@ -87,10 +87,11 @@ feature -- String utilities that have different names per compiler...
 			-- here.
 			-- Note that if you have a UC_STRING, wipe_out is correctly
 			-- implemented, even for ISE.
+		obsolete "2008-08-08: use STRING_.wipe_out"
 		require
 			s_not_void: s /= Void
 		do
-			s.wipe_out
+			STRING_.wipe_out (s)
 		ensure
 			empty: s.is_empty
 		end
