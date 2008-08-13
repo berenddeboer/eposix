@@ -92,17 +92,6 @@ feature -- ISE specific conversions
 		end
 
 
-feature -- String utilities that have different names per compiler...
-
-	wipe_out (s: STRING) is
-			-- Remove all characters in `s', but do not change its
-			-- capacity. Notably ISE doesn't implement ELKS correctly
-			-- here.
-		do
-			s.clear_all
-		end
-
-
 feature {NONE} -- Implementation
 
 	do_string_to_pointer (s: STRING): POINTER is
