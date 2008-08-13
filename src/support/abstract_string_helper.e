@@ -81,7 +81,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 
 feature -- String utilities that have different names per compiler...
 
-	wipe_out (s: STRING) is
+	frozen wipe_out (s: STRING) is
 			-- Remove all characters in `s', but do not change its
 			-- capacity. Notably ISE doesn't implement ELKS correctly
 			-- here.
