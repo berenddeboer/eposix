@@ -1,6 +1,6 @@
 indexing
 
-	description: "Standard C dynamic memory. Memory should be at least 1 byte%
+	description: "Standard C linear piece of memory, starting with index 0. Memory is dynamically allocated. Size should be at least 1 byte%
 	%large. 0 size memory is not supported."
 
 	remark: "If you treat this as an array, it is zero based."
@@ -40,6 +40,11 @@ inherit
 		end
 
 	EPX_POINTER_HELPER
+		export
+			{NONE} all
+		end
+
+	KL_IMPORTED_STRING_ROUTINES
 		export
 			{NONE} all
 		end
@@ -113,7 +118,7 @@ feature -- Allocation
 			owner: is_owner
 			capacity_set: capacity = a_capacity
 			tracked_memory_increased:
-				security.memory.is_allocated_memory_increased (is_owner, old security.memory.allocated_memory, capacity)
+				not old is_owner implies security.memory.is_allocated_memory_increased (is_owner, old security.memory.allocated_memory, capacity)
 		end
 
 	make_from_pointer (
@@ -471,7 +476,6 @@ feature -- Set/get integers (16-bit data)
 
 feature -- Set/get integers (32-bit data)
 
-
 	peek_int32_native, peek_integer (index: INTEGER): INTEGER is
 			-- Read 32 bit value at offset `index', assume its byte order
 			-- is native, and return it.
@@ -595,6 +599,92 @@ feature -- Set/get integers (32-bit data)
 		end
 
 
+feature -- Set/get integers (64-bit data)
+
+	peek_int64_native, peek_integer_64 (index: INTEGER): INTEGER_64 is
+			-- Read 64 bit value at offset `index', assume its byte order
+			-- is native, and return it.
+		require
+			valid_index: is_valid_range (index, index + 7)
+		do
+			Result := posix_peek_int64_native (ptr, index)
+		end
+
+	peek_int64_big_endian (index: INTEGER): INTEGER_64 is
+			-- Read 64 bit int at offset `index', assume its
+			-- byte order is big endian, and return it in native format.
+		require
+			valid_index: is_valid_range (index, index + 7)
+		local
+			i: INTEGER_64
+		do
+			i := posix_peek_int64_native (ptr, index)
+			if is_little_endian then
+				i := posix_swap64 (i)
+			end
+			Result := i
+		end
+
+	peek_int64_little_endian (index: INTEGER): INTEGER_64 is
+			-- Read 64 bit int at offset `index', assume its
+			-- byte order is little endian, and return it in native format.
+		require
+			valid_index: is_valid_range (index, index + 7)
+		local
+			i: INTEGER_64
+		do
+			i := posix_peek_int64_native (ptr, index)
+			if is_big_endian then
+				i := posix_swap64 (i)
+			end
+			Result := i
+		end
+
+	poke_integer_64, poke_int64_native (index: INTEGER; value: INTEGER_64) is
+			-- Write 64 bit value at offset `index', in native endian format.
+		require
+			valid_index: is_valid_range (index, index + 7)
+		do
+			posix_poke_int64_native (ptr, index, value)
+		ensure
+			consistent: peek_integer_64 (index) = value
+		end
+
+	poke_int64_big_endian (index: INTEGER; value: INTEGER_64) is
+			-- Write 64 bit value at offset `index', in big endian format.
+		require
+			valid_index: is_valid_range (index, index + 7)
+		local
+			i: INTEGER_64
+		do
+			if is_little_endian then
+				i := posix_swap64 (value)
+			else
+				i := value
+			end
+			posix_poke_int64_native (ptr, index, i)
+		ensure
+			consistent: peek_int64_big_endian (index) = value
+		end
+
+	poke_int64_little_endian (index: INTEGER; value: INTEGER_64) is
+			-- Write 64 bit value at offset `index', in little endian format.
+		require
+			valid_index: is_valid_range (index, index + 7)
+		local
+			i: INTEGER_64
+		do
+			if is_big_endian then
+				i := posix_swap64 (value)
+			else
+				i := value
+			end
+			posix_poke_int64_native (ptr, index, i)
+		ensure
+			consistent: peek_int64_little_endian (index) = value
+		end
+
+
 feature -- Set/get characters
 
 	append_to_string (dest: STRING; start_index, end_index: INTEGER) is
@@ -635,6 +725,17 @@ feature -- Set/get characters
 			posix_poke_character (ptr, index, value)
 		ensure
 			consistent: peek_character (index) = value
+		end
+
+	put_character (c: CHARACTER; index: INTEGER) is
+			-- Set character at `index' index to `value'.
+			-- Same as `peek_character' with more Eiffel like parameter order.
+		require
+			valid_index: is_valid_index (index)
+		do
+			posix_poke_character (ptr, index, c)
+		ensure
+			consistent: peek_character (index) = c
 		end
 
 	put_string (s: STRING; a_start_index, an_end_index: INTEGER) is
@@ -704,7 +805,7 @@ feature -- Set/get characters
 			c: CHARACTER
 		do
 			if dest.count > 0 then
-				sh.wipe_out (dest)
+				STRING_.wipe_out (dest)
 			end
 			from
 				i := start_index
@@ -965,7 +1066,10 @@ feature {NONE} -- POSIX C interface
 			-- Read character at position `index'.
 		require
 			valid_memory: p /= default_pointer
-		external "C"
+		external "C inline"
+		alias "[
+*((EIF_CHARACTER*)(((char*)$p) + $index))
+]"
 		end
 
 	posix_peek_int16_native (p: POINTER; index: INTEGER): INTEGER is
@@ -979,7 +1083,20 @@ feature {NONE} -- POSIX C interface
 			-- Read integer at position `index'.
 		require
 			valid_memory: p /= default_pointer
-		external "C"
+		external "C inline"
+		alias "[
+*((EIF_INTEGER*)(((char*)$p) + $index))
+]"
+		end
+
+	posix_peek_int64_native (p: POINTER; index: INTEGER): INTEGER_64 is
+			-- Read integer at position `index'.
+		require
+			valid_memory: p /= default_pointer
+		external "C inline"
+		alias "[
+*((EIF_INTEGER_64*)(((char*)$p) + $index))
+]"
 		end
 
 	posix_peek_uint8 (p: POINTER; index: INTEGER): INTEGER is
@@ -1010,11 +1127,14 @@ feature {NONE} -- POSIX C interface
 		external "C"
 		end
 
-	posix_poke_character (p: POINTER; index: INTEGER; value: CHARACTER) is
+	posix_poke_character (p: POINTER; offset: INTEGER; value: CHARACTER) is
 			-- Set character at position `index'.
 		require
 			valid_memory: p /= default_pointer
-		external "C"
+		external "C inline"
+		alias "[
+*((EIF_CHARACTER*)(((char*)$p) + $offset)) = $value;
+]"
 		end
 
 	posix_poke_int16_native (p: POINTER; offset: INTEGER; value: INTEGER) is
@@ -1028,20 +1148,38 @@ feature {NONE} -- POSIX C interface
 			-- Put a signed 32 bit integer at offset `offset'.
 		require
 			valid_memory: p /= default_pointer
-		external "C"
+		external "C inline"
+		alias "[
+*((EIF_INTEGER*)(((char*)$p) + $offset)) = $value;
+]"
+		end
+
+	posix_poke_int64_native (p: POINTER; offset: INTEGER; value: INTEGER_64) is
+			-- Put a signed 32 bit integer at offset `offset'.
+		require
+			valid_memory: p /= default_pointer
+		external "C inline"
+		alias "[
+*((EIF_INTEGER_64*)(((char*)$p) + $offset)) = $value;
+]"
 		end
 
 
 feature {NONE} -- Endian operations
 
 	posix_swap16 (i: INTEGER): INTEGER is
-			-- revers byte order for lower 2 bytes, upper 2 bytes are
-			-- zeroed out
+			-- Reverse byte order for lower 2 bytes, upper 2 bytes are
+			-- zeroed out.
 		external "C"
 		end
 
 	posix_swap32 (i: INTEGER): INTEGER is
-			-- revers byte order
+			-- Reverse byte order.
+		external "C"
+		end
+
+	posix_swap64 (i: INTEGER_64): INTEGER_64 is
+			-- Reverse byte order.
 		external "C"
 		end
 
