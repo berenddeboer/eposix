@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<library name="eposix_linux" prefix="eposix_">
+
+  <description>
+    description: "Xace file for the e-posix linux specific library"
+    author:      "Berend de Boer [berend@pobox.com]"
+    copyright:   "Copyright (c) 2004, Berend de Boer"
+    license:     "Eiffel Forum Freeware License v2 (see forum.txt)"
+    date:        "$Date: 2007/11/22 $"
+    revision:    "$Revision: #2 $"
+  </description>
+
+  <cluster name="linux_api" location="${EPOSIX}/src/spec/lapi"/>
+<!--   <cluster name="linux" location="${EPOSIX}/src/spec/linux"/> -->
+
+</library>
