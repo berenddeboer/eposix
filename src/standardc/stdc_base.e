@@ -98,8 +98,11 @@ feature {STDC_BASE} -- Exceptions
 
 feature {NONE} -- Exceptions
 
-	exceptions: expanded EXCEPTIONS
+	exceptions: EXCEPTIONS is
 			-- Access to developer raised exceptions.
+		once
+			create Result
+		end
 
 	do_raise (name: STRING) is
 		do
