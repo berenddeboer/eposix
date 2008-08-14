@@ -1,5 +1,7 @@
 2008-08-14  Berend de Boer  <berend@pobox.com>
 
+	* STDC_BUFFER: implement twin and is_equal
+
 	* EPX_HMACH_CALCULATION: HMAC calculation which can use SHA1 or
 	MD5.
 

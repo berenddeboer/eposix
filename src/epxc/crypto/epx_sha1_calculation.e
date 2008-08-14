@@ -53,6 +53,26 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
+	checksum: STRING is
+		local
+			i: INTEGER
+			hi: INTEGER
+		do
+			if my_checksum = Void then
+				create my_checksum.make (hash_output_length * 2)
+				from
+				until
+					i = 5
+				loop
+					hi := h.peek_uint32_big_endian (i*4)
+					append_zeros (my_checksum, hi)
+					append_hexadecimal_integer (hi, my_checksum, False)
+					i := i + 1
+				end
+			end
+			Result := my_checksum
+		end
+
 	hash_output_length: INTEGER is 20
 			-- Byte length of the hash output function
 
@@ -90,6 +110,20 @@ feature -- Operations
 		ensure then
 			number_of_bits_increased: number_of_bits = old number_of_bits + (stop - start + 1) * 8
 			block_index_increased: block_index = (old block_index + (stop - start + 1)) \\ 64
+		end
+
+	put_character (c: CHARACTER) is
+		do
+			block.put_character (c, block_index)
+			block_index := block_index + 1
+			if block_index = block_length then
+				process_block
+				block_index := 0
+			end
+			number_of_bits := number_of_bits + 8
+		ensure then
+			number_of_bits_increased_by_eight: number_of_bits = old number_of_bits + 8
+			block_index_increased_by_one: block_index = (old block_index + 1) \\ 64
 		end
 
 	put_string (s: STRING) is
@@ -136,10 +170,8 @@ feature -- Operations
 	finalize is
 			-- Calculate checksum.
 		local
-			i: INTEGER
 			padding_length: INTEGER
 			message_bits: INTEGER_64
-			hi: INTEGER
 		do
 			message_bits := number_of_bits
 			-- Pad out to 56 mod 64.
@@ -159,18 +191,8 @@ feature -- Operations
 				check
 					all_processed: block_index = 0
 				end
-
 			-- Checksum now in H
-			create checksum.make (hash_output_length * 2)
-			from
-			until
-				i = 5
-			loop
-				hi := h.peek_uint32_big_endian (i*4)
-				append_zeros (checksum, hi)
-				append_hexadecimal_integer (hi, checksum, false)
-				i := i + 1
-			end
+			is_checksum_available := True
 		end
 
 	secure_wipe_out is
@@ -179,7 +201,6 @@ feature -- Operations
 		do
 			precursor
 			from
-				i := 0
 			until
 				i = block_index
 			loop
@@ -192,6 +213,7 @@ feature -- Operations
 			-- Start a new calculation.
 		do
 			precursor
+			my_checksum := Void
 			block_index := 0
 			create H.allocate (hash_output_length)
 			init_H
@@ -231,6 +253,9 @@ feature {NONE} -- Implementation
 			not_void: Result /= Void
 			holds_64_bit: Result.capacity = 8
 		end
+
+	my_checksum: STRING
+			-- Cached copy of `checksum'
 
 	number_of_bits: INTEGER_64
 			-- Number of bits in message
@@ -326,6 +351,7 @@ feature {NONE} -- Implementation
 			end
 
 			-- Step d.
+			-- Assumes Eiffel integer overflow detection is disabled...
 			from
 				t := 0
 			variant

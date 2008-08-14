@@ -86,6 +86,11 @@ feature -- Access
 			Result := calculation.block_length
 		end
 
+	checksum: STRING is
+		do
+			Result := calculation.checksum
+		end
+
 	hash_output_length: INTEGER is
 			-- Byte length of the hash output function
 		do
@@ -106,6 +111,11 @@ feature -- Operations
 			calculation.put_buffer (buf, start, stop)
 		end
 
+	put_character (c: CHARACTER) is
+		do
+			calculation.put_character (c)
+		end
+
 	put_substring (s: STRING; start, stop: INTEGER) is
 		do
 			calculation.put_substring (s, start, stop)
@@ -121,7 +131,8 @@ feature -- Operations
 			calculation.put_string (key_xor_opad)
 			calculation.put_buffer (first_hash, 0, first_hash.capacity-1)
 			calculation.finalize
-			checksum := calculation.checksum
+			binary_checksum := calculation.binary_checksum
+			is_checksum_available := True
 		end
 
 

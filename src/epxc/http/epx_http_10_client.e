@@ -299,8 +299,12 @@ feature -- Cookies
 
 feature {NONE} -- Request implementation
 
-	append_other_fields (request: STRING) is
+	append_other_fields (a_verb, a_path, request: STRING) is
 			-- Append any optional fields.
+		require
+			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
+			path_not_empty: a_path /= Void and then not a_path.is_empty
+			request_not_empty: request /= Void and then not request.is_empty
 		local
 			cookie: EPX_HTTP_COOKIE
 		do
@@ -332,9 +336,9 @@ feature {NONE} -- Request implementation
 					cookies.after
 				loop
 					cookie := cookies.item_for_iteration
-					request.append_string ("Cookie: ")
+					request.append_string (once "Cookie: ")
 					request.append_string (cookie.key)
-					request.append_string ("=")
+					request.append_character ('=')
 					request.append_string (cookie.value)
 					request.append_string (once_new_line)
 					cookies.forth
@@ -342,15 +346,15 @@ feature {NONE} -- Request implementation
 			end
 		end
 
-	send_request (a_request, a_request_uri: STRING; a_request_data: EPX_MIME_PART) is
-			-- Send request `a_request' with `a_request_uri' to `host'.
+	send_request (a_verb, a_request_uri: STRING; a_request_data: EPX_MIME_PART) is
+			-- Send request `a_verb' with `a_request_uri' to `host'.
 			-- Additional fields and an optional body can be passed in
 			-- `a_request_data'.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
 			-- the connection), 503 is returned.
 		require
-			request_not_empty: a_request /= Void and then not a_request.is_empty
+			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
 			request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
 		local
 			request: STRING
@@ -362,7 +366,7 @@ feature {NONE} -- Request implementation
 			if is_open then
 				response_code := reply_code_ok
 				create request.make (512)
-				request.append_string (a_request)
+				request.append_string (a_verb)
 				request.append_character (' ')
 				request.append_string (last_uri)
 				request.append_character (' ')
@@ -373,7 +377,7 @@ feature {NONE} -- Request implementation
 				request.append_string (once_colon_space)
 				request.append_string (host.name)
 				request.append_string (once_new_line)
-				append_other_fields (request)
+				append_other_fields (a_verb, a_request_uri, request)
 				request.append_string (once_connection_close)
 				if a_request_data = Void then
 					request.append_string (once_new_line)
@@ -384,8 +388,11 @@ feature {NONE} -- Request implementation
 						a_request_data.append_to_string (request)
 					end
 				end
+				debug ("http_client")
+					print (request)
+				end
 				http.put_string (request)
-				last_verb := a_request
+				last_verb := a_verb
 				last_data := a_request_data
 			else
 				response_code := reply_code_service_unavailable
@@ -393,7 +400,7 @@ feature {NONE} -- Request implementation
 			end
 		ensure
 			last_uri_set: STRING_.same_string (last_uri, escape_spaces (a_request_uri))
-			last_verb_set: response_code = reply_code_ok implies STRING_.same_string (a_request, last_verb)
+			last_verb_set: response_code = reply_code_ok implies STRING_.same_string (a_verb, last_verb)
 			last_data_set: response_code = reply_code_ok implies a_request_data = last_data
 		end
 
@@ -480,7 +487,7 @@ feature -- Response
 		end
 
 	read_response is
-			-- Read entire resonse and make it available in
+			-- Read entire response and make it available in
 			-- `response'. Header is available in `fields', and text body, if
 			-- any in `body'.
 			-- If a redirect response is returned, the redirect is not
@@ -489,18 +496,41 @@ feature -- Response
 			-- If the server has returned an invalid response, the
 			-- `response_code' is set to 500.
 		do
+			create parser.make_from_stream (http)
 			-- first line is HTTP version
-			if parser = Void then
-				create parser.make_from_stream (http)
-			else
-				create parser.make_from_stream (http)
-			end
 			read_and_parse_status_line
 			-- parse while reading.
 			parser.parse
 			if parser.syntax_error then
 				response_code := 500
-				response_phrase := "Syntax error parsing response."
+				response_phrase := once "Syntax error parsing response."
+				response := Void
+				is_authentication_required := False
+			else
+				response := parser.part
+				is_authentication_required :=
+					response_code = reply_code_unauthorized and then
+					response.header.has (field_name_www_authenticate)
+			end
+		end
+
+	read_response_header is
+			-- Read only the header and make it available in
+			-- `response'. Header is available in `fields'.
+			-- If a redirect response is returned, the redirect is not
+			-- automatically read. Use `read_response_with_redirect' to
+			-- automatically handle redirects.
+			-- If the server has returned an invalid response, the
+			-- `response_code' is set to 500.
+		do
+			create parser.make_from_stream (http)
+			-- first line is HTTP version
+			read_and_parse_status_line
+			-- parse while reading.
+			parser.parse_header
+			if parser.syntax_error then
+				response_code := 500
+				response_phrase := once "Syntax error parsing response."
 				response := Void
 				is_authentication_required := False
 			else

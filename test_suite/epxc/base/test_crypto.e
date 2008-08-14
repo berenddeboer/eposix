@@ -31,11 +31,11 @@ feature -- Tests
 
 	test_sha1 is
 		do
-			do_test ("test", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")
-			do_test ("abc", "a9993e364706816aba3e25717850c26c9cd0d89d")
-			do_test ("abcdbcdecdefdefgefghfghighijhi" + "jkijkljklmklmnlmnomnopnopq", "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
+			do_test_sha1 ("test", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")
+			do_test_sha1 ("abc", "a9993e364706816aba3e25717850c26c9cd0d89d")
+			do_test_sha1 ("abcdbcdecdefdefgefghfghighijhi" + "jkijkljklmklmnlmnomnopnopq", "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
 
-			do_test ("a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
+			do_test_sha1 ("a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
 			do_test_sha1 (create {STRING}.make_filled ('a', 1000000), "34aa973cd4c4daa4f61eeb2bdbad27316534016f")
 			do_repeat_test_sha1 ("01234567012345670123456701234567" + "01234567012345670123456701234567", "dea356a2cddd90c7a7ecedc5ebb563934f460452", 10)
 		end

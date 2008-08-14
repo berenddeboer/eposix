@@ -20,6 +20,9 @@ class
 inherit
 
 	KI_CHARACTER_BUFFER
+		undefine
+			copy,
+			is_equal
 		redefine
 			append_substring_to_string
 		end
