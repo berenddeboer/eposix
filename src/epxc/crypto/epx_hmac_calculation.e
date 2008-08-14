@@ -21,6 +21,9 @@ class
 inherit
 
 	EPX_HASH_CALCULATION
+		redefine
+			wipe_out
+		end
 
 
 create
@@ -133,6 +136,14 @@ feature -- Operations
 			calculation.finalize
 			binary_checksum := calculation.binary_checksum
 			is_checksum_available := True
+			first_hash.deallocate
+		end
+
+	wipe_out is
+		do
+			precursor
+			calculation.wipe_out
+			calculation.put_string (key_xor_ipad)
 		end
 
 
