@@ -515,13 +515,16 @@ feature -- Response
 		end
 
 	read_response_header is
-			-- Read only the header and make it available in
-			-- `response'. Header is available in `fields'.
+			-- Read the header and make it available in
+			-- `response'. Header is available in `fields'. Due to
+			-- buffering first part of body is usually also available in
+			-- `response'.`body'.
 			-- If a redirect response is returned, the redirect is not
 			-- automatically read. Use `read_response_with_redirect' to
 			-- automatically handle redirects.
 			-- If the server has returned an invalid response, the
 			-- `response_code' is set to 500.
+			-- First part of body is made available in `first_body_part'
 		do
 			create parser.make_from_stream (http)
 			-- first line is HTTP version
@@ -535,6 +538,11 @@ feature -- Response
 				is_authentication_required := False
 			else
 				response := parser.part
+				debug ("http_client")
+					print (response.as_string)
+					print ("%N")
+				end
+				parser.read_first_body_part
 				is_authentication_required :=
 					response_code = reply_code_unauthorized and then
 					response.header.has (field_name_www_authenticate)

@@ -1272,6 +1272,28 @@ feature {NONE} -- Error reporting
 
 feature -- Access
 
+	read_first_body_part is
+			-- First part of the body, if any, if `parse_header' has been
+			-- used;
+			-- Even if only the header is parsed using `parse_header',
+			-- the first part of the body is still read by the parser's
+			-- buffer as it doesn't know it's part of the body at that
+			-- time. Use this to retrieve the first part of the body, the
+			-- rest of the body can be read from the stream the usual
+			-- way.
+		require
+			not_end_of_input: not end_of_input
+			no_body: part.body = Void
+		local
+			body: EPX_MIME_BODY_TEXT
+		do
+			part.clear_body
+			part.create_singlepart_body
+			body ?= part.body
+			read_string
+			body.append_string (last_string)
+		end
+
 	part: EPX_MIME_PART
 			-- Structure we're building
 
@@ -1535,6 +1557,7 @@ feature {NONE} -- Reading MIME bodies
 		end
 
 	last_string: STRING
+			-- Set by `read_string'
 
 	read_string is
 			-- Optimized version `read_character' which returns as many
@@ -1601,14 +1624,6 @@ feature {NONE} -- Reading MIME bodies
 			body: EPX_MIME_BODY_TEXT
 		do
 			body ?= part.body
--- 			from
--- 				read_character
--- 			until
--- 				end_of_input
--- 			loop
--- 				body.append_character (last_character)
--- 				read_character
--- 			end
 			from
 				read_string
 			until
