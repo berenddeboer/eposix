@@ -82,6 +82,12 @@ feature -- Access
 			-- a request.
 
 
+feature -- Status
+
+	reuse_connection: BOOLEAN
+			-- Should HTTP connection be reused for more than 1 request?
+
+
 feature -- Requests
 
 	delete (a_request_uri: STRING; a_delete_data: EPX_MIME_PART) is
@@ -254,7 +260,7 @@ feature -- Authentication setup
 			basic_credentials.append_string (a_password)
 			create basic_authentication.make (32)
 			create base64_output.make(basic_authentication)
-			create base64_encoder.make (base64_output, True, True)
+			create base64_encoder.make (base64_output, False, False)
 			base64_encoder.put_string (basic_credentials)
 			base64_encoder.close
 		end
@@ -360,8 +366,12 @@ feature {NONE} -- Request implementation
 			request: STRING
 			error_message: STRING
 		do
-			assert_closed
-			open
+			if not reuse_connection then
+				assert_closed
+			end
+			if not is_open then
+				open
+			end
 			last_uri := escape_spaces (a_request_uri)
 			if is_open then
 				response_code := reply_code_ok
@@ -378,7 +388,9 @@ feature {NONE} -- Request implementation
 				request.append_string (host.name)
 				request.append_string (once_new_line)
 				append_other_fields (a_verb, a_request_uri, request)
-				request.append_string (once_connection_close)
+				if not reuse_connection then
+					request.append_string (once_connection_close)
+				end
 				if a_request_data = Void then
 					request.append_string (once_new_line)
 				else
@@ -496,22 +508,7 @@ feature -- Response
 			-- If the server has returned an invalid response, the
 			-- `response_code' is set to 500.
 		do
-			create parser.make_from_stream (http)
-			-- first line is HTTP version
-			read_and_parse_status_line
-			-- parse while reading.
-			parser.parse
-			if parser.syntax_error then
-				response_code := 500
-				response_phrase := once "Syntax error parsing response."
-				response := Void
-				is_authentication_required := False
-			else
-				response := parser.part
-				is_authentication_required :=
-					response_code = reply_code_unauthorized and then
-					response.header.has (field_name_www_authenticate)
-			end
+			do_read_response (True)
 		end
 
 	read_response_header is
@@ -526,27 +523,7 @@ feature -- Response
 			-- `response_code' is set to 500.
 			-- First part of body is made available in `first_body_part'
 		do
-			create parser.make_from_stream (http)
-			-- first line is HTTP version
-			read_and_parse_status_line
-			-- parse while reading.
-			parser.parse_header
-			if parser.syntax_error then
-				response_code := 500
-				response_phrase := once "Syntax error parsing response."
-				response := Void
-				is_authentication_required := False
-			else
-				response := parser.part
-				debug ("http_client")
-					print (response.as_string)
-					print ("%N")
-				end
-				parser.read_first_body_part
-				is_authentication_required :=
-					response_code = reply_code_unauthorized and then
-					response.header.has (field_name_www_authenticate)
-			end
+			do_read_response (False)
 		end
 
 	read_response_with_redirect is
@@ -605,6 +582,44 @@ feature -- Individual response fields, Void if not available
 
 
 feature {NONE} -- Implementation
+
+	do_read_response (including_body: BOOLEAN) is
+		do
+			create parser.make_from_stream (http)
+			-- first line is HTTP version
+			read_and_parse_status_line
+			-- parse while reading.
+			if including_body then
+				parser.parse
+			else
+				parser.parse_header
+			end
+			if parser.syntax_error then
+				response_code := 500
+				response_phrase := once "Syntax error parsing response."
+				response := Void
+				is_authentication_required := False
+			else
+				response := parser.part
+				debug ("http_client")
+					print (response_code.out)
+					print (" ")
+					print (response_phrase)
+					print ("%N")
+					print (response.as_string)
+					print ("%N")
+				end
+				if not including_body then
+					parser.read_first_body_part
+				end
+				if response.header.has (field_name_connection) and then STRING_.same_string (response.header.item (field_name_connection).value.as_lower, once "close") then
+					reuse_connection := False
+				end
+				is_authentication_required :=
+					response_code = reply_code_unauthorized and then
+					response.header.has (field_name_www_authenticate)
+			end
+		end
 
 	read_and_parse_status_line is
 			-- First line is HTTP version and response.

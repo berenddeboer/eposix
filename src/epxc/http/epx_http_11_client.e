@@ -39,4 +39,15 @@ feature -- Client http version
 		end
 
 
+feature -- Change
+
+	set_reuse_connection is
+			-- Reuse HTTP connection more than 1 request.
+		do
+			reuse_connection := True
+		ensure
+			reusing: reuse_connection
+		end
+
+
 end
