@@ -60,7 +60,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make,
 	make_from_file,
@@ -1290,7 +1290,7 @@ feature -- Access
 			part.clear_body
 			part.create_singlepart_body
 			body ?= part.body
-			read_string
+			read_cached_characters
 			body.append_string (last_string)
 		end
 
@@ -1559,14 +1559,15 @@ feature {NONE} -- Reading MIME bodies
 	last_string: STRING
 			-- Set by `read_string'
 
-	read_string is
-			-- Optimized version `read_character' which returns as many
-			-- characters as possible in `last_string'.
+	read_cached_characters is
+			-- Copy any characters in the input buffer to `last_string'.
+			-- As this function is for performance reasons only, we no
+			-- longer track line numbers etc.
 		local
 			c: CHARACTER
 		do
 			if last_string = Void then
-				create last_string.make (4096)
+				create last_string.make (8192)
 			else
 				STRING_.wipe_out (last_string)
 			end
@@ -1574,35 +1575,32 @@ feature {NONE} -- Reading MIME bodies
 				from
 					c := yy_content_area.item (yy_end)
 				until
-					c = yyEnd_of_buffer_character
+					yy_end > input_buffer.count
 				loop
 					last_string.append_character (c)
 					yy_end := yy_end + 1
-					if c = yyNew_line_character then
-						yy_line := yy_line + 1
-						yy_column := 1
-					else
-						yy_column := yy_column + 1
-					end
 					c := yy_content_area.item (yy_end)
 				end
 			else
 				from
 					c := yy_content.item (yy_end)
 				until
-					c = yyEnd_of_buffer_character
+					yy_end > input_buffer.count
 				loop
 					last_string.append_character (c)
 					yy_end := yy_end + 1
-					if c = yyNew_line_character then
-						yy_line := yy_line + 1
-						yy_column := 1
-					else
-						yy_column := yy_column + 1
-					end
 					c := yy_content.item (yy_end)
 				end
 			end
+		ensure
+			last_string_not_void: last_string /= Void
+		end
+
+	read_string is
+			-- Optimized version `read_character' which returns as many
+			-- characters as possible in `last_string'.
+		do
+			read_cached_characters
 			if last_string.is_empty then
 				read_character
 				if not end_of_input then
@@ -1613,6 +1611,7 @@ feature {NONE} -- Reading MIME bodies
 				input_buffer.set_beginning_of_line (yy_column = 1)
 			end
 		ensure
+			last_string_not_void: last_string /= Void
 			at_least_one_character: end_of_input = last_string.is_empty
 		end
 
