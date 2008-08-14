@@ -21,32 +21,41 @@ inherit
 			handle as ptr,
 			is_open as is_allocated
 		redefine
-			do_close
+			copy,
+			do_close,
+			is_equal
 		end
 
 	STDC_SYSTEM
 		export
 			{NONE} all
+		undefine
+			copy,
+			is_equal
 		end
 
 	CAPI_STDLIB
 		export
 			{NONE} all
+		undefine
+			copy,
+			is_equal
 		end
 
 	CAPI_STRING
 		export
 			{NONE} all
-		end
-
-	EPX_POINTER_HELPER
-		export
-			{NONE} all
+		undefine
+			copy,
+			is_equal
 		end
 
 	KL_IMPORTED_STRING_ROUTINES
 		export
 			{NONE} all
+		undefine
+			copy,
+			is_equal
 		end
 
 
@@ -182,6 +191,54 @@ feature -- Other allocation commands
 				memory.collecting or else
 				(raise_exception_on_error implies
 					(security.memory.allocated_memory = (old security.memory.allocated_memory - old capacity) + new_capacity))
+		end
+
+
+feature -- Element change
+
+	copy (other: like Current) is
+			-- Reinitialize by copying the characters of `other'.
+			-- (This is also used by `twin'.)
+		do
+			if other /= Current then
+				if other.is_owner then
+					allocate (other.capacity)
+					memory_copy (other.ptr, 0, 0, other.capacity)
+				else
+					make_from_pointer (other.ptr, other.capacity, False)
+				end
+			end
+		ensure then
+			same_capacity: capacity = other.capacity
+			owner_status_unchanged: is_owner = other.is_owner
+			different_pointer_if_owner: other.is_owner = (ptr /= other.ptr)
+		end
+
+
+feature -- Comparison
+
+	is_equal (other: like Current): BOOLEAN is
+			-- Is `other' attached to an object considered equal to
+			-- current object ?
+		local
+			i: INTEGER
+		do
+			if other = Current or else other.ptr = Current.ptr then
+				Result := True
+			else
+				if capacity = other.capacity then
+					from
+					until
+						i = capacity or else
+						peek_character (i) /= other.peek_character (i)
+					loop
+						i := i + 1
+					end
+					Result := i = capacity
+				else
+					Result := False
+				end
+			end
 		end
 
 
