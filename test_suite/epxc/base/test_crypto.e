@@ -30,6 +30,7 @@ inherit
 feature -- Tests
 
 	test_md5 is
+			-- All test cases from RFC 1321
 		do
 			do_test_md5 ("", "d41d8cd98f00b204e9800998ecf8427e")
 			do_test_md5 ("a", "0cc175b9c0f1b6a831c399e269772661")
@@ -52,7 +53,7 @@ feature -- Tests
 		end
 
 	test_hmac is
-			-- Includes all test-cases from rFC 2202.
+			-- Includes all test-cases from RFC 2202.
 		local
 			sha1: EPX_SHA1_CALCULATION
 			hmac: EPX_HMAC_CALCULATION
