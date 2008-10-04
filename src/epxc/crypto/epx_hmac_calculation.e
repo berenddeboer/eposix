@@ -22,6 +22,7 @@ inherit
 
 	EPX_HASH_CALCULATION
 		redefine
+			checksum,
 			wipe_out
 		end
 

@@ -62,7 +62,7 @@ feature -- Access
 				create my_checksum.make (hash_output_length * 2)
 				from
 				until
-					i = 5
+					i = hash_output_length // 4
 				loop
 					hi := h.peek_uint32_big_endian (i*4)
 					append_zeros (my_checksum, hi)
@@ -438,93 +438,10 @@ feature {NONE} -- Implementation
 		end
 
 
-feature {NONE} -- Output
-
-	append_zeros (s: STRING; i: INTEGER) is
-			-- Apply left padding
-		require
-			s_not_void: s /= Void
-		local
-			j, v: INTEGER
-		do
-			if i > 0 then
-				from
-					j := 0
-					v := 0x0fffffff
-				until
-					j = 7
-				loop
-					if i <= v then
-						s.append_character ('0')
-					end
-					v := v.bit_shift_right (4)
-					j := j + 1
-				end
-			end
-		end
-
-	to_hexadecimal_integer (integer: INTEGER): STRING is
-		do
-			create Result.make (8)
-			append_hexadecimal_integer (integer, Result, false)
-		end
-
-	append_hexadecimal_integer (integer: INTEGER; string: STRING; upper_case: BOOLEAN) is
-			-- Append 'value' as hexadecimal in `string' in upper/lower case.
-		require
-			string_not_void: string /= Void
-		local
-			s : STRING
-			nibble : INTEGER
-			v : INTEGER
-			mask : INTEGER
-		do
-			if integer = 0 then
-				string.append_character ('0')
-			else
-				create s.make (8)
-				from
-					v := integer
-					mask := 15
-				until
-					v = 0
-				loop
-					--nibble := u_and (v, mask)
-					nibble := v & mask
-					s.append_character (hexadecimal_digit (nibble, upper_case))
-					--v := v.right_shift (v, 4)
-					v := bit_shift_right_unsigned (v, 4)
-				end
-				from
-					v := s.count
-				until
-					v = 0
-				loop
-					string.append_character (s.item (v))
-					v := v-1
-				end
-			end
-		end
-
-	hexadecimal_digit (n: INTEGER; upper_case: BOOLEAN): CHARACTER is
-			-- A single digit
-		require
-			n_not_negative: n >= 0
-			n_less_16: n < 16
-		do
-			Result := hexadecimal_digits.item (n+1)
-			if upper_case then
-				Result := CHARACTER_.as_upper (Result)
-			end
-		end
-
-	hexadecimal_digits: STRING is "0123456789abcdef"
-
-
 invariant
 
 	H_not_void: H /= Void
-	H_has_five_elements: H.capacity = 20 -- 5 * sizeOf(uint32)
+	H_has_five_elements: H.capacity = hash_output_length -- 5 * sizeOf(uint32)
 	block_not_void: block /= Void
 	block_has_correct_length: block.capacity = W_count
 	valid_block_index: block_index >= 0 and then block_index <= block_length
