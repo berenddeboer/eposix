@@ -29,6 +29,17 @@ inherit
 
 feature -- Tests
 
+	test_md5 is
+		do
+			do_test_md5 ("", "d41d8cd98f00b204e9800998ecf8427e")
+			do_test_md5 ("a", "0cc175b9c0f1b6a831c399e269772661")
+			do_test_md5 ("abc", "900150983cd24fb0d6963f7d28e17f72")
+			do_test_md5 ("message digest", "f96b697d7cb7938d525a2f31aaf161d0")
+			do_test_md5 ("abcdefghijklmnopqrstuvwxyz", "c3fcd3d76192e4007dfb496cca67e13b")
+			do_test_md5 ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "d174ab98d277d9f5a5611c2c9f419d9f")
+			do_test_md5 ("12345678901234567890123456789012345678901234567890123456789012345678901234567890", "57edf4a22be3c955ac49da2e2107b67a")
+		end
+
 	test_sha1 is
 		do
 			do_test_sha1 ("test", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")
@@ -59,6 +70,10 @@ feature -- Tests
 			hmac.put_string ("what do ya want for nothing?")
 			hmac.finalize
 			assert_equal ("Checksum for `what do ya want for nothing?'", "effcdf6ae5eb2fa2d27416d5f184df9c259a7c79", hmac.checksum)
+			hmac.wipe_out
+			hmac.put_string ("what do ya want for nothing?")
+			hmac.finalize
+			assert_equal ("Reuse hmac for `what do ya want for nothing?'", "effcdf6ae5eb2fa2d27416d5f184df9c259a7c79", hmac.checksum)
 			do_test_hmac ("0xdd repeated 50 times", create {STRING}.make_filled ('%/0xaa/', 20),  create {STRING}.make_filled ('%/0xdd/', 50), "125d7342b9ac11cd91a39af48aa17b4f63f175d3")
 			do_test_hmac ("0xcd repeated 50 times", pack ("0102030405060708090a0b0c0d0e0f10111213141516171819"),  create {STRING}.make_filled ('%/0xcd/', 50), "4c9007f4026250c6bc8414f9bf50c86c2d7235da")
 			do_test_hmac ("Test With Truncation", create {STRING}.make_filled ('%/0x0c/', 20),  "Test With Truncation", "4c1a03424b55e07fe7f27be1d58bb9324a9a5a04")
@@ -82,6 +97,24 @@ feature {NONE} -- Implementation
 				Result.append_character (from_hex_string (s.substring (i, i+1)))
 				i := i + 2
 			end
+		end
+
+	do_test_md5 (value, checksum: STRING) is
+		require
+			value_not_void: value /= Void
+			checksum_not_empty: checksum /= Void and then not checksum.is_empty
+		local
+			md5: EPX_MD5_CALCULATION
+		do
+			create md5.make
+			md5.put_string (value)
+			md5.finalize
+			assert_equal ("Checksum for '" + value + "' correct", checksum, md5.checksum)
+			-- Test reuse
+			md5.wipe_out
+			md5.put_string (value)
+			md5.finalize
+			assert_equal ("Checksum for '" + value + "' correct", checksum, md5.checksum)
 		end
 
 	do_test_sha1 (value, checksum: STRING) is
