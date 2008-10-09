@@ -150,9 +150,6 @@ feature -- Requests
 			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
 			put_data_not_void: a_put_data /= Void
 			put_data_has_content_type: a_put_data.header.content_type /= Void
-			put_data_content_type_recognized:
-				a_put_data.header.content_type.value.is_equal (mime_type_multipart_form_data) or else
-				a_put_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded)
 			put_data_content_type_has_boundary_if_multipart:
 				a_put_data.header.content_type.value.is_equal (mime_type_multipart_form_data) implies
 					a_put_data.header.content_type.boundary /= Void and then
@@ -205,6 +202,74 @@ feature -- Requests
 			msg.header.set_content_type ("text", "xml", charset_utf8)
 			msg.text_body.append_string (utf8.to_utf8 (a_post_data))
 			send_request (http_method_POST, a_request_uri, msg)
+		end
+
+	send_request (a_verb, a_request_uri: STRING; a_request_data: EPX_MIME_PART) is
+			-- Send request `a_verb' with `a_request_uri' to `host'.
+			-- Additional header fields and an optional body can be passed in
+			-- `a_request_data'.
+			-- Sets `response_code' to 200 if the request was send successfully.
+			-- If sending the request failed (usually because the server refused
+			-- the connection), 503 is returned.
+		require
+			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
+			request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
+		local
+			request: STRING
+			error_message: STRING
+		do
+			if not reuse_connection then
+				assert_closed
+			end
+			if not is_open then
+				open
+				if tcp_socket /= Void then
+					tcp_socket.set_throughput
+					tcp_socket.set_nodelay
+				end
+			end
+			last_uri := escape_spaces (a_request_uri)
+			if is_open then
+				response_code := reply_code_ok
+				create request.make (512)
+				request.append_string (a_verb)
+				request.append_character (' ')
+				request.append_string (last_uri)
+				request.append_character (' ')
+				request.append_string (client_version)
+				request.append_string (once_new_line)
+				-- Add required field Host
+				request.append_string (field_name_host)
+				request.append_string (once_colon_space)
+				request.append_string (host.name)
+				request.append_string (once_new_line)
+				append_other_fields (a_verb, a_request_uri, a_request_data, request)
+				if not reuse_connection then
+					request.append_string (once_connection_close)
+				end
+				if a_request_data = Void then
+					request.append_string (once_new_line)
+				else
+					if a_request_data.header.content_type /= Void and then a_request_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded) then
+						a_request_data.append_urlencoded_to_string (request)
+					else
+						a_request_data.append_to_string (request)
+					end
+				end
+				debug ("http_client")
+					print (request)
+				end
+				http.put_string (request)
+				last_verb := a_verb
+				last_data := a_request_data
+			else
+				response_code := reply_code_service_unavailable
+				response_phrase := error_message
+			end
+		ensure
+			last_uri_set: STRING_.same_string (last_uri, escape_spaces (a_request_uri))
+			last_verb_set: response_code = reply_code_ok implies STRING_.same_string (a_verb, last_verb)
+			last_data_set: response_code = reply_code_ok implies a_request_data = last_data
 		end
 
 
@@ -305,8 +370,8 @@ feature -- Cookies
 
 feature {NONE} -- Request implementation
 
-	append_other_fields (a_verb, a_path, request: STRING) is
-			-- Append any optional fields.
+	append_other_fields (a_verb, a_path: STRING; a_request_data: EPX_MIME_PART; request: STRING) is
+			-- Append any other field to `request'.
 		require
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
 			path_not_empty: a_path /= Void and then not a_path.is_empty
@@ -350,70 +415,6 @@ feature {NONE} -- Request implementation
 					cookies.forth
 				end
 			end
-		end
-
-	send_request (a_verb, a_request_uri: STRING; a_request_data: EPX_MIME_PART) is
-			-- Send request `a_verb' with `a_request_uri' to `host'.
-			-- Additional fields and an optional body can be passed in
-			-- `a_request_data'.
-			-- Sets `response_code' to 200 if the request was send successfully.
-			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
-		require
-			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
-			request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
-		local
-			request: STRING
-			error_message: STRING
-		do
-			if not reuse_connection then
-				assert_closed
-			end
-			if not is_open then
-				open
-			end
-			last_uri := escape_spaces (a_request_uri)
-			if is_open then
-				response_code := reply_code_ok
-				create request.make (512)
-				request.append_string (a_verb)
-				request.append_character (' ')
-				request.append_string (last_uri)
-				request.append_character (' ')
-				request.append_string (client_version)
-				request.append_string (once_new_line)
-				-- Add required field Host
-				request.append_string (field_name_host)
-				request.append_string (once_colon_space)
-				request.append_string (host.name)
-				request.append_string (once_new_line)
-				append_other_fields (a_verb, a_request_uri, request)
-				if not reuse_connection then
-					request.append_string (once_connection_close)
-				end
-				if a_request_data = Void then
-					request.append_string (once_new_line)
-				else
-					if a_request_data.header.content_type /= Void and then a_request_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded) then
-						a_request_data.append_urlencoded_to_string (request)
-					else
-						a_request_data.append_to_string (request)
-					end
-				end
-				debug ("http_client")
-					print (request)
-				end
-				http.put_string (request)
-				last_verb := a_verb
-				last_data := a_request_data
-			else
-				response_code := reply_code_service_unavailable
-				response_phrase := error_message
-			end
-		ensure
-			last_uri_set: STRING_.same_string (last_uri, escape_spaces (a_request_uri))
-			last_verb_set: response_code = reply_code_ok implies STRING_.same_string (a_verb, last_verb)
-			last_data_set: response_code = reply_code_ok implies a_request_data = last_data
 		end
 
 
@@ -590,7 +591,12 @@ feature {NONE} -- Implementation
 			read_and_parse_status_line
 			-- parse while reading.
 			if including_body then
-				parser.parse
+				if reuse_connection then
+					parser.parse_header
+					parser.parse_body
+				else
+					parser.parse
+				end
 			else
 				parser.parse_header
 			end

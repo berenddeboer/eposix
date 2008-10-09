@@ -30,8 +30,8 @@ inherit
 	EPX_HTTP_REPLY_CODE
 		rename
 			reply_code as response_code
-		export
-			{NONE} response_code, is_line_with_reply_code
+-- 		export
+-- 			{NONE} response_code, is_line_with_reply_code
 		end
 
 
