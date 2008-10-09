@@ -8,7 +8,7 @@ include $(top_srcdir)/config/myrules.mak
 # redefine clean to remove SE files.
 
 mostlyclean-generic:
-	for i in $(EXSRC); do geant clean $$i; done
+	geant clean
 
 # A user cannot built eposix-manual.pdf, but we include it with this
 # package. Because of EXTRA_DIST, make distcheck will fail, it tries

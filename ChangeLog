@@ -1,3 +1,22 @@
+2008-10-04  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_MD5_CALCULATION: MD5 checksum support added.
+
+
+2008-08-15  Berend de Boer  <berend@pobox.com>
+
+	* ABSTRACT_TCP_SOCKET.set_nodelay: set TCP_NODELAY option.
+
+	* ABSTRACT_INTERNET_SOCKET: new features set_low_delay and
+	set_throughput to minimize delay or maximise throughput
+
+	* EPX_HTTP_10_CLIENT.put: remove wrong precondition that content
+	type was only allowed to be one of two specific type.
+
+	* EPX_HTTP_10_CLIENT.send_request: method made public to allow
+	sending more kinds of verbs.
+
+
 2008-08-14  Berend de Boer  <berend@pobox.com>
 
 	* STDC_BUFFER: implement twin and is_equal

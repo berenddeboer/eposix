@@ -22392,6 +22392,7 @@ done
 
 # src/sapi
 # sys/un.h is for BeOS, check for Unix socket support
+# netinet/ip.h isn't in susv3 but still useful
 
 
 
@@ -22404,7 +22405,8 @@ done
 
 
 
-for ac_header in arpa/inet.h netdb.h netinet/in.h stdlib.h sys/select.h sys/socket.h sys/time.h sys/un.h syslog.h unistd.h stropts.h sys/ioctl.h
+
+for ac_header in arpa/inet.h netdb.h netinet/in.h netinet/ip.h stdlib.h sys/select.h sys/socket.h sys/time.h sys/un.h syslog.h unistd.h stropts.h sys/ioctl.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
 if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
