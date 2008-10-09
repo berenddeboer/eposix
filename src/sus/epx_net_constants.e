@@ -27,7 +27,9 @@ inherit
 				INET6_ADDRSTRLEN,
 				SOL_SOCKET,
 				SO_REUSEADDR,
-				IPPROTO_TCP
+				IPPROTO_IP,
+				IPPROTO_TCP,
+				IPTOS_LOWDELAY
 		end
 
 end

@@ -386,6 +386,32 @@ feature -- SOL_SOCKET option names
 		end
 
 
+feature -- IP type-of-service options
+
+	IP_TOS: INTEGER is
+		external "C"
+		alias "const_ip_tos"
+		end
+
+	IPTOS_LOWDELAY: INTEGER is
+		external "C"
+		alias "const_iptos_lowdelay"
+		end
+
+	IPTOS_THROUGHPUT: INTEGER is
+		external "C"
+		alias "const_iptos_throughput"
+		end
+
+
+feature -- TCP options
+
+	TCP_NODELAY: INTEGER is
+		external "C"
+		alias "const_tcp_nodelay"
+		end
+
+
 feature -- Special IPv4 addresses
 
 	INADDR_ANY: INTEGER is 0
