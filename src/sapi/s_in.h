@@ -23,7 +23,7 @@ EIF_INTEGER posix_htonl (EIF_INTEGER host32value);
 EIF_INTEGER posix_ntohl (EIF_INTEGER net32value);
 
 
-/* socket levels for getsockopt */
+/* socket levels for [gs]etsockopt */
 
 EIF_INTEGER const_ipproto_ip();
 EIF_INTEGER const_ipproto_ipv6();
@@ -32,6 +32,12 @@ EIF_INTEGER const_ipproto_icmpv6();
 EIF_INTEGER const_ipproto_raw();
 EIF_INTEGER const_ipproto_tcp();
 EIF_INTEGER const_ipproto_udp();
+
+
+/* socket level options at the IP level */
+
+EIF_INTEGER const_ip_tos();
+EIF_INTEGER const_ip_ttl();
 
 
 /* struct in_addr */

@@ -74,6 +74,25 @@ EIF_INTEGER const_ipproto_udp() {
 }
 
 
+/* socket level options at the IP level */
+
+EIF_INTEGER const_ip_tos() {
+#ifdef IP_TOS
+  return IP_TOS;
+#else
+  return 0;
+#endif;
+}
+
+EIF_INTEGER const_ip_ttl() {
+#ifdef IP_TTL
+  return IP_TTL;
+#else
+  return 0;
+#endif;
+}
+
+
 /* struct in_addr */
 
 EIF_INTEGER posix_in_addr_size()
