@@ -20,6 +20,27 @@ inherit
 		end
 
 
+feature -- Change
+
+	set_low_delay is
+			-- Minimize delay.
+		do
+			if IP_TOS /= 0 and then IPTOS_LOWDELAY /= 0 then
+				my_flag := IPTOS_LOWDELAY
+				safe_call (abstract_setsockopt (fd, IPPROTO_IP, IP_TOS, $my_flag, 4))
+			end
+		end
+
+	set_throughput is
+			-- Maximize throughput.
+		do
+			if IP_TOS /= 0 and then IPTOS_THROUGHPUT /= 0 then
+				my_flag := IPTOS_THROUGHPUT
+				safe_call (abstract_setsockopt (fd, IPPROTO_IP, IP_TOS, $my_flag, 4))
+			end
+		end
+
+
 feature -- Local and remote addresses
 
 	local_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE is

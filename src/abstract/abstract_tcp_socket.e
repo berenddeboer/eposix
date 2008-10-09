@@ -69,6 +69,17 @@ feature -- Shutdown
 		end
 
 
+feature -- Socket options
+
+	set_nodelay is
+			-- Disable TCP's Nagle algorithm. By default this algorithm
+			-- is enabled.
+		do
+			my_flag := 1
+			safe_call (abstract_setsockopt (fd, IPPROTO_TCP, TCP_NODELAY, $my_flag, 4))
+		end
+
+
 feature {NONE} -- Shutdown
 
 	shutdown (a_how: INTEGER) is
