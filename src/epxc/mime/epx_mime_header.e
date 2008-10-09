@@ -328,6 +328,16 @@ feature -- Output
 			end
 		end
 
+	as_string: STRING is
+			-- Header in readable format;
+			--  Does not include the body separator.
+		do
+			create Result.make (1024)
+			append_fields_to_string (Result)
+		ensure
+			not_void: Result /= Void
+		end
+
 
 feature {NONE} -- Implementation
 
