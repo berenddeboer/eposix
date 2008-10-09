@@ -22,7 +22,7 @@ inherit
 	EPX_REPLY_CODE
 
 
-feature -- Redirection
+feature -- Status
 
 	is_redirect_response: BOOLEAN is
 			-- Is `reply_code' a redirect code?
@@ -34,6 +34,9 @@ feature -- Redirection
 				reply_code = reply_code_use_proxy or else
 				reply_code = reply_code_temporary_redirect
 		end
+
+
+feature -- Redirection codes
 
 	reply_code_moved_permanently: INTEGER is 301
 			-- The requested resource has been assigned a new permanent
