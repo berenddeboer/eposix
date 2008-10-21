@@ -27,7 +27,7 @@ geant clobber
 geant install
 echo ESRC = \\ > Makefile.e_sources
 find . -regex ".*\.[g]?e$" -exec echo -e "\t"{} "\\" >> Makefile.e_sources \;
-echo -e "\t./abstract/abstract_child_process.e" >> Makefile.e_sources
+echo "\t./abstract/abstract_child_process.e" >> Makefile.e_sources
 cd ..
 
 # Eiffel test_suite includes
@@ -36,7 +36,7 @@ echo TEST_SRC =  `find . -name "*.e" -exec echo -n {} " " \;` > Makefile.sources
 echo TEST_ANT =  `find . -name build.eant -exec echo -n {} " " \;` >> Makefile.sources
 echo TEST_XACE =  `find . -name system.xace -exec echo -n {} " " \;` >> Makefile.sources
 echo TEST_GETEST =  `find . -name getest.cfg -exec echo -n {} " " \;` >> Makefile.sources
-echo TEST_DIR_STRUCT = `find abstract/file_system -name "dir*" -or -name "file*" -exec echo -n {} " " \;` >> Makefile.sources
+echo TEST_DIR_STRUCT = `find abstract/file_system -regextype posix-extended -name "dir*" -or -regex '.*/dir[^/]+/file.*' -exec echo -n {} " " \;` >> Makefile.sources
 cd ..
 
 # Eiffel doc includes

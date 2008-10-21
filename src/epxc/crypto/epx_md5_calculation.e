@@ -30,11 +30,6 @@ inherit
 			wipe_out
 		end
 
-	KL_IMPORTED_CHARACTER_ROUTINES
-		export
-			{NONE} all
-		end
-
 
 create
 
@@ -198,15 +193,15 @@ feature -- Operations
 
 	secure_wipe_out is
 		local
-			i: INTEGER
+			j: INTEGER
 		do
 			precursor
 			from
 			until
-				i = block_index
+				j = block_index
 			loop
-				block.poke_uint8 (i, 0)
-				i := i + 1
+				block.poke_uint8 (j, 0)
+				j := j + 1
 			end
 		end
 

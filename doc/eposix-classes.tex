@@ -20,17 +20,22 @@
 
 % front page
 \start
+
+\writeutilitycommand{\catcode`\_=12}
+
 \startstandardmakeup
 
 \startfiguretext
   [left]
   {none}
-  %{\externalfigure[eposix-bw.png]}
-  {\externalfigure[eposix.jpg]}
+  {\externalfigure[eposix-bw.png]}
+  %{\externalfigure[eposix.jpg]}
 \start
 \ss
 {\switchtobodyfont[48pt] \eposix\par}
 \blank[big]
+\parskip=2ex
+\parindent=1em
 \bfb
 \rightaligned{eposix short-flat}
 \rightaligned{listing of classes}
@@ -44,9 +49,11 @@
 \stopstandardmakeup
 \stop
 
+\catcode`\_=12
 
 \startfrontmatter
 
+\catcode`\_=12
 \completecontent
 
 \stopfrontmatter
@@ -57,6 +64,8 @@
 \catcode`\_=12
 
 \chapter{Short (flat) listing of Standard C classes}
+
+\writeutilitycommand{\catcode`\_=12}
 
 \Eshort{STDC_BASE}
 \typeEIFFELfile{stdc_base.tex}

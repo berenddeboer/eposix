@@ -29,11 +29,6 @@ inherit
 			wipe_out
 		end
 
-	KL_IMPORTED_CHARACTER_ROUTINES
-		export
-			{NONE} all
-		end
-
 
 create
 

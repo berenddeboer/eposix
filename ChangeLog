@@ -1,6 +1,11 @@
+2008-10-16  Berend de Boer  <berend@pobox.com>
+
+	* Alpha release 3.1.1.
+
+
 2008-10-04  Berend de Boer  <berend@pobox.com>
 
-	* !EPX_MD5_CALCULATION: MD5 checksum support added.
+	* EPX_MD5_CALCULATION: MD5 checksum support added.
 
 
 2008-08-15  Berend de Boer  <berend@pobox.com>
@@ -21,7 +26,7 @@
 
 	* STDC_BUFFER: implement twin and is_equal
 
-	* EPX_HMACH_CALCULATION: HMAC calculation which can use SHA1 or
+	* EPX_HMAC_CALCULATION: HMAC calculation which can use SHA1 or
 	MD5.
 
 	* EPX_SHA1_CALCULATION: SHA1 calculation.
@@ -64,7 +69,7 @@
 
 2008-07-24  Berend de Boer  <berend@pobox.com>
 
-	* !SUS_TEMPORARY_FILE: didn't properly set name with ISE Eiffel,
+	* SUS_TEMPORARY_FILE: didn't properly set name with ISE Eiffel,
 	so returned name was always the template, not the real temporary
 	file name.
 
@@ -155,39 +160,39 @@
 	that remains valid. On ISE Eiffel the pointer was only temporary,
 	leading to garbage in the log.
 
-	* !EPX_LOG_HANDLER: now based on the NetLogger classes. Breaking
+	* EPX_LOG_HANDLER: now based on the NetLogger classes. Breaking
 	change!
 
 
 2007-12-24  Berend de Boer  <berend@pobox.com>
 
-	* !New NetLogger API classes for logging which replace the ULM
+	* New NetLogger API classes for logging which replace the ULM
 	classes (plug compatible).
 
-	* !ULM logging classes are obsolete, and no longer included by
+	* ULM logging classes are obsolete, and no longer included by
 	default in the library.xace.
 
 
 2007-12-20  Berend de Boer  <berend@pobox.com>
 
-	* !Segment violation on Windows when using STDC_TIME.to_utc. Due
+	* Segment violation on Windows when using STDC_TIME.to_utc. Due
 	to bug in posix_gmtime (Jocelyn).
 
 
 2007-12-11  Berend de Boer  <berend@pobox.com>
 
-	* !EPX_MIME_HTTP_HEADER.set_vary: set contents of Vary field.
+	* EPX_MIME_HTTP_HEADER.set_vary: set contents of Vary field.
 
 
 2007-12-07  Berend de Boer  <berend@pobox.com>
 
-	* !EPX_HTTP_10_CLIENT: now encodes spaces to + characters if a
+	* EPX_HTTP_10_CLIENT: now encodes spaces to + characters if a
 	passed uri fragment contains them.
 
 
 2007-11-12  Berend de Boer  <berend@pobox.com>
 
-	* !src/spec/ge/EPX_STRING_HELPER: fixed compile issues for gec.
+	* src/spec/ge/EPX_STRING_HELPER: fixed compile issues for gec.
 
 	* src/supportc/eiffel.h: gec fix: define EIF_INTEGER and such to
 	the default values as gec doesn't define them.
@@ -195,7 +200,7 @@
 
 2007-08-10  Berend de Boer  <berend@pobox.com>
 
-	* !EPX_CGI: Exception if no data was passed in a POST
+	* EPX_CGI: Exception if no data was passed in a POST
 	request. Probably a corner case, but I decided to accept such a
 	request, basically there will be non key/value pairs, so clients
 	can check for any required values if they consider this to be an
@@ -204,7 +209,7 @@
 
 2007-06-09  Berend de Boer  <berend@pobox.com>
 
-	* !EPX_CGI: if body data was present for a request, any parameters
+	* EPX_CGI: if body data was present for a request, any parameters
 	in the query part of a URL were ignored. That's incorrect, they're
 	just part of the data as well as the body data is. The body data
 	takes preference though, it overrides any values for the same keys
@@ -219,14 +224,14 @@
 
 2007-05-24  Berend de Boer  <berend@pobox.com>
 
-	* !!!STDC_SIGNAL_SWITCH_ACCESSOR: removed invariant, gave strange
+	* STDC_SIGNAL_SWITCH_ACCESSOR: removed invariant, gave strange
 	crash on ISE. If set to global once, it works however (Patrick
 	Ruckstuhl).
 
 
 2007-05-21  Berend de Boer  <berend@pobox.com>
 
-	* !eposix.ecf: works now out of the box when multithreading is
+	* eposix.ecf: works now out of the box when multithreading is
 	enabled (Patrick Ruckstuhl).
 
 

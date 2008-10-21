@@ -22,12 +22,17 @@ inherit
 
 	POSIX_BUFFER
 		undefine
-			dispose
+			dispose,
+			copy,
+			is_equal
 		end
 
 	PAPI_MMAN
 		export
 			{NONE} all
+		undefine
+			copy,
+			is_equal
 		end
 
 

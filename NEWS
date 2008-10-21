@@ -1,11 +1,55 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
-New in 3.2 - 2008-08-01
+New in 3.1.1 - 2008-08-01
 
 * 64 bit platforms: fixed various reported bugs for 64 bit platforms
   and 64 bit ISE (EPX_ARRAY_HELPER, STDC_TIME.to_utc).
-
+* MD5, SHA1 and HMAC calculation, see EPX_MD5_CALCULATION,
+  EPX_SHA1_CALCULATION and EPX_MACH_CALCULATION
+* EPX_HTTP_10_CLIENT
+  - put: fixed bug in precondition, because should
+    allow sending of all kinds of data, not just forms.
+  - delete: didn't accept data, but it should. Breaking change.
+  - now encodes spaces to + characters if a passed uri fragment
+    contains them.
+* ABSTRACT_INTERNET_SOCKET: new features set_low_delay and
+	set_throughput to minimize delay or maximise throughput
+* ABSTRACT_TCP_SOCKET.set_nodelay: new feature.
+* STDC_BUFFER: new 64 bit integer read and write routines
+* Fixed all catcalls reported by gec.
+* License changed to MIT.
+* VisualEiffel support dropped.
+* ISE Eiffel:
+  - p_unistd.c::posix_fork(): amended definition to use the special
+  	ISE fork routine in case multi-threading is enabled.
+  - SUS_SYSLOG: identification passed to syslog should be a pointer
+  	that remains valid. On ISE Eiffel the pointer was only temporary,
+  	leading to garbage in the log.
+  - eposix.ecf: works now out of the box when multithreading is	enabled
+* Gobo Eiffel Compiler now supported.
+* Logging framework changes:
+  - ULM logging classes are obsolete, and no longer included by
+   	default in the library.xace.
+  - EPX_LOG_HANDLER: now based on the NetLogger classes. Breaking
+   	change.
+  - New NetLogger API classes for logging which replace the ULM
+    classes.
+* Signal and exit handling rewritten. cecil no longer used.
+* EPX_XML_WRITER: when a & is followed by a # it is assumed a
+	character reference follows, so the & is not replaced by &amp;
+	Previously character references were made invalid.
+* EPX_CGI.if_match and if_none_match: new feature to return value of
+	If-Match and If-None-Match header.
+* EPX_URL_ENCODING: inherits from UT_URL_ENCODING.
+* EPX_HTT_URI_RESOLVER.resolve: empty path resolves to "/".
+* Updated config.guess and config.sub so newer OSes should be
+  recognised better.
+* SUS_TEMPORARY_FILE: didn't properly set name with ISE Eiffel,
+	so returned name was always the template, not the real temporary
+	file name.
+* Many other bug fixes, see ChangeLog.
+* eposix sources now hosted on origo.
 
 New in 3.0 - 2007-05-18
 

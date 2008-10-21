@@ -251,23 +251,28 @@
 
 % front page
 \start
+
+\writeutilitycommand{\catcode`\_=12}
+
 \startstandardmakeup
 
 \startfiguretext
   [left]
   {none}
-  %{\externalfigure[eposix-bw.png]}
-  {\externalfigure[eposix.jpg]}
+  {\externalfigure[eposix-bw.png]}
+  %{\externalfigure[eposix.jpg]}
 \start
 \ss
 {\switchtobodyfont[48pt] \eposix\par}
 \blank[big]
+\parskip=2ex
+\parindent=1em
 \bfb
-\rightaligned{The definitive and complete}
-\rightaligned{Eiffel to Standard C and}
+\rightaligned{The definitive and complete}\par
+\rightaligned{Eiffel to Standard C and}\par
 \rightaligned{POSIX 1003.1 binding}
 
-\blank[6.4cm]
+\blank[5.65cm]
 
 \leftaligned{{\it written by Berend de Boer}}
 \stop
@@ -276,10 +281,13 @@
 \stopstandardmakeup
 \stop
 
+% _ is normal character
+\catcode`\_=12
 
 \startfrontmatter
 \setuppagenumbering[conversion=romannumerals]
 
+\catcode`\_=12
 \completecontent
 
 \title{Introduction}

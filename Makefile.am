@@ -3,7 +3,7 @@
 SUBDIRS = src test_suite doc ise_precompile
 
 EXTRA_DIST = \
-	LICENSE forum.txt \
+	LICENSE \
 	config/myrules.mak \
 	makelib.exe makelib.cfg \
 	eposix.ecf

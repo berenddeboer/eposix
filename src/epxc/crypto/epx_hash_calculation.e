@@ -17,6 +17,14 @@ deferred class
 	EPX_HASH_CALCULATION
 
 
+inherit
+
+	KL_IMPORTED_CHARACTER_ROUTINES
+		export
+			{NONE} all
+		end
+
+
 feature -- Status
 
 	is_checksum_available: BOOLEAN

@@ -7,7 +7,7 @@ SUBDIRS = supportc capi standardc epxc papi posix sapi sus wapi windows epxw spe
 EXTRA_DIST = \
 	$(ESRC) \
 	Makefile.e_sources \
-	build.eant library.xace loadpath.se cluster.es
+	build.eant library.xace loadpath.se
 
 
 if LINUX
