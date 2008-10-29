@@ -15,11 +15,20 @@ class
 
 	POSIX_GROUP
 
+
 inherit
 
 	POSIX_BASE
 
 	PAPI_GRP
+		export
+			{NONE} all
+		end
+
+	KL_IMPORTED_STRING_ROUTINES
+		export
+			{NONE} all
+		end
 
 
 create
@@ -28,7 +37,7 @@ create
 	make_from_gid
 
 
-feature -- creation
+feature -- Initialization
 
 	make_from_name (a_name: STRING) is
 		do
@@ -46,10 +55,10 @@ feature -- creation
 		end
 
 
-feature -- refresh cache
+feature -- Commands
 
 	refresh is
-			-- refresh cache with latest info from user database
+			-- Refresh cache with latest info from user database.
 		do
 			group := posix_getgrnam (sh.string_to_pointer (name))
 			sh.unfreeze_all
@@ -59,10 +68,33 @@ feature -- refresh cache
 		end
 
 
-feature -- queries
+feature -- Status
+
+	is_member (a_name: STRING): BOOLEAN is
+			-- Is user `a_name' a member of this group?
+			-- Only checks secondary membership, so will return false if
+			-- this group is the user's primary group
+		local
+			members: ARRAY [STRING]
+			i: INTEGER
+		do
+			members := ah.pointer_to_string_array (posix_gr_mem (group))
+			from
+				i := members.lower
+			until
+				Result or else
+				i > members.upper
+			loop
+				Result := STRING_.same_string (members.item (i), a_name)
+				i := i + 1
+			end
+		end
+
+
+feature -- Access
 
 	name: STRING
-			-- group name
+			-- Group name
 
 	gid: INTEGER is
 			-- ID number
@@ -71,7 +103,7 @@ feature -- queries
 		end
 
 
-feature {NONE} -- state
+feature {NONE} -- Implementation
 
 	group: POINTER
 
@@ -80,4 +112,4 @@ invariant
 
 	valid_group: group /= default_pointer
 
-end -- class POSIX_GROUP
+end

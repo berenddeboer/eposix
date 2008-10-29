@@ -93,7 +93,7 @@ feature -- Access
 		end
 
 
-feature {NONE} -- state
+feature {NONE} -- Implementation
 
 	passwd: POINTER
 
