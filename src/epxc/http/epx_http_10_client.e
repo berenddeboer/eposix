@@ -250,7 +250,9 @@ feature -- Requests
 				if a_request_data = Void then
 					request.append_string (once_new_line)
 				else
-					if a_request_data.header.content_type /= Void and then a_request_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded) then
+					-- If body isn't multi-part, assume it is already form
+					-- urlencoded
+					if a_request_data.header.content_type /= Void and then a_request_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded) and then a_request_data.body.is_multipart then
 						a_request_data.append_urlencoded_to_string (request)
 					else
 						a_request_data.append_to_string (request)
@@ -546,9 +548,9 @@ feature -- Response
 			loop
 				new_location := location
 				if response_code = reply_code_see_other then
-					send_request (http_method_GET, new_location, Void)
+					send_request (http_method_GET, new_location, last_data)
 				else
-					send_request (last_verb, new_location, Void)
+					send_request (last_verb, new_location, last_data)
 				end
 				read_response
 				redirected_counter := redirected_counter + 1
