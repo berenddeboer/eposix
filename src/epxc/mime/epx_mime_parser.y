@@ -1067,6 +1067,7 @@ feature -- Parsing
 		do
 			part := new_part
 			parsing_errors := 0
+			last_character := yyEnd_of_buffer_character
 			inner_parse
 		end
 
@@ -1597,8 +1598,10 @@ feature {NONE} -- Reading MIME bodies
 		end
 
 	read_string is
-			-- Optimized version `read_character' which returns as many
+			-- Optimized version of `read_character' which returns as many
 			-- characters as possible in `last_string'.
+		require
+			not_end_of_input: not end_of_input
 		do
 			read_cached_characters
 			if last_string.is_empty then
@@ -1622,14 +1625,16 @@ feature {NONE} -- Reading MIME bodies
 		local
 			body: EPX_MIME_BODY_TEXT
 		do
-			body ?= part.body
-			from
-				read_string
-			until
-				end_of_input
-			loop
-				body.append_string (last_string)
-				read_string
+			if not end_of_input then
+				body ?= part.body
+				from
+					read_string
+				until
+					end_of_input
+				loop
+					body.append_string (last_string)
+					read_string
+				end
 			end
 		ensure
 			read_everything: end_of_input
