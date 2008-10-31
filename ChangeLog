@@ -1,3 +1,21 @@
+2008-10-29  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT.post: if data is set to form encoded and the
+	body is not multiplart, it is assumed the body is already encoded
+	in the proper format.
+
+	* EPX_HTTP_10_CLIENT.read_response_with_redirect: did not submit
+	body data when redirected.
+
+	* EPX_MIME_PARSER: parsing MIME message without a body could lead
+	to a postcondition failure.
+
+
+2008-10-28  Berend de Boer  <berend@pobox.com>
+
+	* POSIX_GROUP.is_member: new feature
+
+
 2008-10-16  Berend de Boer  <berend@pobox.com>
 
 	* Alpha release 3.1.1.
