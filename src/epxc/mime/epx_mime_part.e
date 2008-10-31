@@ -116,10 +116,13 @@ feature -- Output
 			if multipart_body /= Void then
 				create body_text.make_empty
 				multipart_body.append_urlencoded_to_string (body_text)
-				-- If there is a Content-Length field, assume it is correct.
-				if not header.has (field_name_content_length) then
-					create cl.make (body_text.count)
-					header.add_field (cl)
+				if auto_insert_content_length then
+					if not header.has (field_name_content_length) then
+						create cl.make (body_text.count)
+						header.add_field (cl)
+					else
+						header.content_length.set_length (body_text.count)
+					end
 				end
 			end
 			header.append_fields_to_string (s)
