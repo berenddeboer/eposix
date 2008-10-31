@@ -52,7 +52,7 @@ feature -- Execute the command
 		end
 
 
-feature -- Local state
+feature -- Access
 
 	command: STRING
 			-- The command to `execute'.
