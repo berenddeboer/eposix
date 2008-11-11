@@ -33,9 +33,6 @@ inherit
 			fd_stderr as child_fd_sterr
 		redefine
 			wait_for
-		select
-			child_pid,
-			is_child_pid_valid
 		end
 
 

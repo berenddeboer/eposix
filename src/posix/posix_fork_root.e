@@ -26,12 +26,13 @@ inherit
 			pid as child_pid
 		redefine
 			has_exit_code
-		select
-			child_pid,
-			is_child_pid_valid
 		end
 
 	POSIX_CURRENT_PROCESS
+		select
+			pid,
+			is_pid_valid
+		end
 
 	PAPI_WAIT
 		export

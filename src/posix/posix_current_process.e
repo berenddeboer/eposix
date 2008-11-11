@@ -64,10 +64,16 @@ feature {NONE} -- Various access
 			login_name_not_void: Result /= Void
 		end
 
-	getppid, parent_pid: INTEGER is
+	parent_pid: INTEGER is
 			-- Parent process id
 		do
 			Result := posix_getppid
+		end
+
+	frozen getppid: INTEGER is
+		obsolete "2008-11-03: please use `parent_pid'"
+		do
+			Result := parent_pid
 		end
 
 	login_name: STRING is

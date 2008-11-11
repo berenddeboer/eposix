@@ -16,16 +16,19 @@ inherit
 	STDC_PROCESS
 
 
-feature -- Process properties
+feature -- Access
 
 	pid: INTEGER is
-			-- The process identifier.
+			-- The process identifier
 		require
 			valid_pid: is_pid_valid
 		deferred
 		ensure
 			valid_pid: Result > 0
 		end
+
+
+feature -- Status
 
 	is_pid_valid: BOOLEAN is
 			-- Has this process a correct pid?

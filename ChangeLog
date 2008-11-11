@@ -1,3 +1,8 @@
+2008-11-04  Berend de Boer  <berend@pobox.com>
+
+	* POSIX_FORK_ROOT.pid: selected wrong features.
+
+
 2008-10-29  Berend de Boer  <berend@pobox.com>
 
 	* EPX_HTTP_10_CLIENT.post: if data is set to form encoded and the
