@@ -3,7 +3,7 @@
 SAVEPATH=$PATH
 export SEDIR='m:\elj-win32\SmartEiffel'
 
-PATH=`cygpath -u $ISE_EIFFEL`/BCC55/bin:$SAVEPATH
+PATH=/cygdrive/e/BCC55/bin:$SAVEPATH
 ./makelib -bcc -se
 if [ $? -gt 0 ]; then exit 1; fi
 
@@ -14,7 +14,7 @@ if [ $? -gt 0 ]; then exit 1; fi
 ./makelib -msc -se
 if [ $? -gt 0 ]; then exit 1; fi
 
-PATH=`cygpath -u $ISE_EIFFEL`/BCC55/bin:$SAVEPATH
+PATH=cygdrive/e/BCC55/bin:$SAVEPATH
 ./makelib -bcc -ise
 if [ $? -gt 0 ]; then exit 1; fi
 
