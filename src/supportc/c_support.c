@@ -62,6 +62,19 @@ EIF_INTEGER posix_swap32 (EIF_INTEGER i)
 }
 
 EIF_INTEGER_64 posix_swap64 (EIF_INTEGER_64 i) {
+#ifdef  __BORLANDC__
+  register char c;
+  EIF_INTEGER_64 r;
+  char *ca;
+  char *cb;
+  ca = (char *) &i;
+  cb = (char *) &r;
+  c = ca[0]; cb[0] = ca[7]; cb[7] = c;
+  c = ca[1]; cb[1] = ca[6]; cb[6] = c;
+  c = ca[2]; cb[2] = ca[5]; cb[5] = c;
+  c = ca[3]; cb[3] = ca[4]; cb[4] = c;
+  return r;
+#else
   EIF_INTEGER_64 a,b,c,d,e,f,g,h; /* a is MSB byte, h is LSB byte */
   a = (i & 0xff00000000000000ULL) >> 56;
   b = (i & 0x00ff000000000000ULL) >> 48;
@@ -72,6 +85,7 @@ EIF_INTEGER_64 posix_swap64 (EIF_INTEGER_64 i) {
   g = (i & 0x000000000000ff00ULL) >>  8;
   h = (i & 0x00000000000000ffULL);
   return ( (a) | (b << 8) | (c << 16) | (d << 24) | (e << 32) | (f << 40) | (g << 48) | (h << 56));
+#endif
 }
 
 /* read/write arbitrary bytes */
