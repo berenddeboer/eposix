@@ -329,6 +329,18 @@ feature -- File and string
 			file_to_string_void: Result /= Void
 		end
 
+	string_to_file (s, a_file_name: STRING) is
+			-- Create or overwrite a file `a_file_name' and make its
+			-- contents `s'.
+		local
+			file: EPX_FILE_DESCRIPTOR
+		do
+			remove_file (a_file_name)
+			create file.create_write (a_file_name)
+			file.put_string (s)
+			file.close
+		end
+
 
 feature -- Path names
 
