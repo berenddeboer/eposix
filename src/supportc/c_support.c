@@ -62,7 +62,7 @@ EIF_INTEGER posix_swap32 (EIF_INTEGER i)
 }
 
 EIF_INTEGER_64 posix_swap64 (EIF_INTEGER_64 i) {
-#ifdef  __BORLANDC__
+#if defined(__BORLANDC__) || defined(_MSC_VER)
   register char c;
   EIF_INTEGER_64 r;
   char *ca;
