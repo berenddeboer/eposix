@@ -511,6 +511,14 @@ feature -- Response
 			-- If the server has returned an invalid response, the
 			-- `response_code' is set to 500.
 		do
+-- 			from
+-- 				http.read_character
+-- 			until
+-- 				http.end_of_input
+-- 			loop
+-- 				print (http.last_character)
+-- 				http.read_character
+-- 			end
 			do_read_response (True)
 		end
 
