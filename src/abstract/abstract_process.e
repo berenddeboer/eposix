@@ -32,7 +32,11 @@ feature -- Status
 
 	is_pid_valid: BOOLEAN is
 			-- Has this process a correct pid?
-		deferred
+		do
+			-- SmartEiffel gets confused by all the renaming ending up in
+			-- EPX_EXEC_PROCESS, so it calls this for a child, so we
+			-- trick SE to do the right thing.
+			Result := se_child_pid > 0
 		end
 
 
@@ -44,6 +48,11 @@ feature -- Signal this process
 			valid_pid: is_pid_valid
 		deferred
 		end
+
+
+feature {NONE} -- State necessary for SE
+
+	se_child_pid: INTEGER
 
 
 end

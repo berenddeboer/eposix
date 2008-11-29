@@ -1,3 +1,24 @@
+2008-11-29  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXEC_PROCESS: with this change the child didn't work on
+	SmartEiffel. Somehow the current code trips up SE, so added some
+	trickery to make this working again.
+
+
+2008-11-24  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXEC_PROCESS: due to POSIX_FORK_ROOT.pid change, the pid was
+	no longer the child pid.
+
+
+2008-11-11  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_BUFFER.fill: possible invariant violation for chunked
+	input.
+
+	* Compiles on Windows again.
+
+
 2008-11-04  Berend de Boer  <berend@pobox.com>
 
 	* POSIX_FORK_ROOT.pid: selected wrong features.

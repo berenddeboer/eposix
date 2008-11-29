@@ -22,6 +22,9 @@ inherit
 	STDC_CURRENT_PROCESS
 
 	ABSTRACT_PROCESS
+		redefine
+			is_pid_valid
+		end
 
 
 feature -- Access
@@ -55,7 +58,14 @@ feature -- Access
 	pid: INTEGER is
 			-- Process identifier, unique for this process
 		do
-			Result := abstract_getpid
+			-- SmartEiffel gets confused by all the renaming ending up in
+			-- EPX_EXEC_PROCESS, so it calls this for a child, so we
+			-- trick SE to do the right thing.
+			if se_child_pid > 0 then
+				Result := se_child_pid
+			else
+				Result := abstract_getpid
+			end
 		end
 
 

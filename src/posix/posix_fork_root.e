@@ -9,8 +9,6 @@ indexing
 
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #9 $"
 
 
 deferred class
@@ -23,7 +21,9 @@ inherit
 	POSIX_CHILD_PROCESS
 		rename
 			is_pid_valid as is_child_pid_valid,
-			pid as child_pid
+			pid as child_pid,
+			kill as kill_child,
+			terminate as terminate_child
 		redefine
 			has_exit_code
 		end
@@ -31,7 +31,9 @@ inherit
 	POSIX_CURRENT_PROCESS
 		select
 			pid,
-			is_pid_valid
+			is_pid_valid,
+			kill,
+			terminate
 		end
 
 	PAPI_WAIT

@@ -147,9 +147,10 @@
 			in all subdirectories.
 		</description>
 
-		<geant file="build.eant" target="${target}" dir="async" if="${GOBO_EIFFEL}=se"/>
-		<geant file="build.eant" target="${target}" dir="async" if="${GOBO_EIFFEL}=ise"/>
+		<geant file="build.eant" target="${target}" dir="async"/>
 		<geant file="build.eant" target="clean" dir="async" if="${do_clean}"/>
+		<geant file="build.eant" target="${target}" dir="base"/>
+		<geant file="build.eant" target="clean" dir="base" if="${do_clean}"/>
 		<geant file="build.eant" target="${target}" dir="current_process"/>
 		<geant file="build.eant" target="clean" dir="current_process" if="${do_clean}"/>
 		<geant file="build.eant" target="${target}" dir="daemon"/>

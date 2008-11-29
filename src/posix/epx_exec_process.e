@@ -16,7 +16,8 @@ inherit
 
 	ABSTRACT_EXEC_PROCESS
 		undefine
-			has_exit_code
+			has_exit_code,
+			is_pid_valid
 		redefine
 			fd_stdin,
 			fd_stdout,
@@ -30,9 +31,21 @@ inherit
 			stderr as child_stderr,
 			fd_stdin as child_fd_stin,
 			fd_stdout as child_fd_stdout,
-			fd_stderr as child_fd_sterr
+			fd_stderr as child_fd_sterr,
+			pid as fork_parent_pid,
+			is_pid_valid as is_fork_parent_pid_valid,
+			child_pid as pid,
+			is_child_pid_valid as is_pid_valid,
+			kill as kill_fork_parent,
+			terminate as terminate_fork_parent,
+			kill_child as kill,
+			terminate_child as terminate
 		redefine
 			wait_for
+		select
+			terminate,
+			pid,
+			is_pid_valid
 		end
 
 
@@ -98,12 +111,13 @@ feature -- Execution
 				fd_stderr := Void
 			end
 
-			my_pid := posix_fork
-			if my_pid = -1 then
+			se_child_pid := posix_fork
+			my_pid := se_child_pid
+			if se_child_pid = -1 then
 				raise_posix_error
 			else
 				running := True
-				in_child := my_pid = 0
+				in_child := se_child_pid = 0
 				if in_child  then
 
 					-- This child process has now current process characteristics.
@@ -213,6 +227,7 @@ feature -- Actions that parent may execute
 			end
 			precursor (suspend)
 			if is_terminated then
+				se_child_pid := 0
 				-- avoid file handle leaks. We have to be careful because
 				-- the streams can be closed too. And because the file
 				-- descriptor also is an owner, we should avoid closing an

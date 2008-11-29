@@ -29,6 +29,10 @@ inherit
 		end
 
 	WINDOWS_BASE
+		undefine
+			copy,
+			is_equal
+		end
 
 
 create

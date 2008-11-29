@@ -311,75 +311,81 @@ feature -- Tests
 			parser: EPX_MIME_PARSER
 			body: STRING
 		do
-			-- Test case where entire message fits into our buffer.
+-- 			-- Test case where entire message fits into our buffer.
 
-			-- Test case where header + first chunk + part of 2nd chunk
-			-- fit into our buffer.
-			create file.open_read ("chunk1.msg")
+-- 			-- Test case where header + first chunk + part of 2nd chunk
+-- 			-- fit into our buffer.
+-- 			create file.open_read ("chunk1.msg")
+-- 			create parser.make_from_file (file)
+-- 			parser.parse
+-- 			assert ("chunk1.msg parsed ok", not parser.syntax_error)
+-- 			parser.part.header.search (field_name_transfer_encoding)
+-- 			assert ("Field has Transfer-Encoding", parser.part.header.found)
+-- 			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
+-- 			body := parser.part.body.as_plain_text
+-- 			assert_equal ("First character is T.", 'T', body.item (1))
+-- 			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
+-- 			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
+-- 			file.close
+
+-- 			-- Test case where the header + first character of chunk size
+-- 			-- fits into our buffer.
+-- 			-- The chunk size should be partially have to be read from stream.
+-- 			-- The chunk is read on the next `fill'.
+-- 			create file.open_read ("chunk2.msg")
+-- 			parser.make_from_file (file)
+-- 			parser.parse
+-- 			assert ("chunk2.msg parsed ok", not parser.syntax_error)
+-- 			parser.part.header.search (field_name_transfer_encoding)
+-- 			assert ("Field has Transfer-Encoding", parser.part.header.found)
+-- 			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
+-- 			body := parser.part.body.as_plain_text
+-- 			assert_equal ("First character is T.", 'T', body.item (1))
+-- 			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
+-- 			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
+-- 			file.close
+
+-- 			-- Test case where just the header fits into our buffer.
+-- 			-- The chunk size is read on the next `fill'.
+-- 			create file.open_read ("chunk3.msg")
+-- 			parser.make_from_file (file)
+-- 			parser.parse
+-- 			assert ("chunk3.msg parsed ok", not parser.syntax_error)
+-- 			parser.part.header.search (field_name_transfer_encoding)
+-- 			assert ("Field has Transfer-Encoding", parser.part.header.found)
+-- 			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
+-- 			body := parser.part.body.as_plain_text
+-- 			assert_equal ("First character is T.", 'T', body.item (1))
+-- 			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
+-- 			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
+-- 			file.close
+
+-- 			-- Test where empty line between header and body just falls
+-- 			-- over the buffer size.
+-- 			create file.open_read ("chunk4.msg")
+-- 			create parser.make_from_file (file)
+-- 			parser.parse
+-- 			assert ("chunk4.msg parsed ok", not parser.syntax_error)
+-- 			parser.part.header.search (field_name_transfer_encoding)
+-- 			assert ("Field has Transfer-Encoding", parser.part.header.found)
+-- 			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
+-- 			body := parser.part.body.as_plain_text
+-- 			assert_equal ("First character is T.", 'T', body.item (1))
+-- 			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
+-- 			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
+-- 			file.close
+
+-- 			-- Test case where the header + chunk size fits  into our buffer.
+-- 			-- The chunk is read on the next `fill'.
+
+
+-- 			-- Test chunk with extra headers after chunk
+
+			-- Another failure, caused class invariant violation
+			create file.open_read ("chunk5.msg")
 			create parser.make_from_file (file)
 			parser.parse
-			assert ("chunk1.msg parsed ok", not parser.syntax_error)
-			parser.part.header.search (field_name_transfer_encoding)
-			assert ("Field has Transfer-Encoding", parser.part.header.found)
-			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
-			body := parser.part.body.as_plain_text
-			assert_equal ("First character is T.", 'T', body.item (1))
-			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
-			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
-			file.close
-
-			-- Test case where the header + first character of chunk size
-			-- fits into our buffer.
-			-- The chunk size should be partially have to be read from stream.
-			-- The chunk is read on the next `fill'.
-			create file.open_read ("chunk2.msg")
-			parser.make_from_file (file)
-			parser.parse
-			assert ("chunk2.msg parsed ok", not parser.syntax_error)
-			parser.part.header.search (field_name_transfer_encoding)
-			assert ("Field has Transfer-Encoding", parser.part.header.found)
-			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
-			body := parser.part.body.as_plain_text
-			assert_equal ("First character is T.", 'T', body.item (1))
-			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
-			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
-			file.close
-
-			-- Test case where just the header fits into our buffer.
-			-- The chunk size is read on the next `fill'.
-			create file.open_read ("chunk3.msg")
-			parser.make_from_file (file)
-			parser.parse
-			assert ("chunk3.msg parsed ok", not parser.syntax_error)
-			parser.part.header.search (field_name_transfer_encoding)
-			assert ("Field has Transfer-Encoding", parser.part.header.found)
-			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
-			body := parser.part.body.as_plain_text
-			assert_equal ("First character is T.", 'T', body.item (1))
-			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
-			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
-			file.close
-
-			-- Test where empty line between header and body just falls
-			-- over the buffer size.
-			create file.open_read ("chunk4.msg")
-			create parser.make_from_file (file)
-			parser.parse
-			assert ("chunk4.msg parsed ok", not parser.syntax_error)
-			parser.part.header.search (field_name_transfer_encoding)
-			assert ("Field has Transfer-Encoding", parser.part.header.found)
-			assert_equal ("Content of field Transfer-Encoding", "chunked", parser.part.header.found_item.value)
-			body := parser.part.body.as_plain_text
-			assert_equal ("First character is T.", 'T', body.item (1))
-			assert_equal ("Last character is \n.", ('%N').code, body.item (body.count).code)
-			assert_equal ("Second to last character is 0.", ('0').code, body.item (body.count - 1).code)
-			file.close
-
-			-- Test case where the header + chunk size fits  into our buffer.
-			-- The chunk is read on the next `fill'.
-
-
-			-- Test chunk with extra headers after chunk
+			assert ("chunk5.msg parsed ok", not parser.syntax_error)
 		end
 
 

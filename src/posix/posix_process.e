@@ -26,7 +26,7 @@ inherit
 feature -- signal this process
 
 	kill (a_signal_code: INTEGER) is
-			-- Send signal `signal_code' to the process
+			-- Send signal `signal_code' to the process.
 		require
 			valid_pid: is_pid_valid
 			valid_signal: a_signal_code >= 0
@@ -36,7 +36,7 @@ feature -- signal this process
 		end
 
 	terminate is
-			-- attempt to gracefully terminate this process
+			-- Attempt to gracefully terminate this process.
 		do
 			safe_call (posix_kill (pid, SIGTERM))
 		end

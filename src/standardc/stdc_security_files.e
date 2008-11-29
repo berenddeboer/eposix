@@ -94,10 +94,13 @@ feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 
 feature {NONE} -- Implementation
 
-	memory: expanded MEMORY
+	memory: MEMORY is
 			-- Ensuring that resource counting is correct, works only
 			-- when garbage collector doesn't kick in to dispose handles.
 			-- Need to test if garbage collector enabled or not.
+		once
+			create Result
+		end
 
 	posix_increase_open_files is
 		external "C"

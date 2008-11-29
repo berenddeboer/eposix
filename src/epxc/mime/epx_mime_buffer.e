@@ -169,6 +169,10 @@ feature -- Element change
 						end
 					content.put (saved_character_2, index + 1)
 				end
+				-- Magic markers could be overwritten, so put them back
+				if saved_character_1 /= '%U' and saved_character_2 /= '%U' then
+					mark_end_of_input (count + 1)
+				end
 				if chunk_expect_end_of_chunk then
 					-- If we come here after having read a chunk, the chunk
 					-- ends with CRLF (or just LF). In that case, skip past this.

@@ -15,8 +15,14 @@ deferred class
 inherit
 
 	POSIX_PROCESS
+		redefine
+			is_pid_valid
+		end
 
 	ABSTRACT_CHILD_PROCESS
+		redefine
+			is_pid_valid
+		end
 
 
 feature -- Child's pid

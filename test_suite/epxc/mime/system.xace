@@ -26,7 +26,7 @@
 		<option name="finalize" value="false"/>
 		<option name="debug" value="true"/>
 		<option name="debug_tag" value="test"/>
-		<option name="debug_tag" value="mime"/>
+<!-- 		<option name="debug_tag" value="mime"/> -->
 <!-- 		<option name="debug_tag" value="GELEX"/> -->
 <!-- 		<option name="debug_tag" value="GEYACC"/> -->
 	</option>

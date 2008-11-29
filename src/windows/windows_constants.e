@@ -263,6 +263,33 @@ feature -- Socket options level
 
 	SOL_SOCKET: INTEGER is 65535
 
+	IPPROTO_IP: INTEGER is 0
+
+	IPPROTO_IPV4: INTEGER is 4
+
+	IPPROTO_IPV6: INTEGER is 41
+
+	IPPROTO_ICMP: INTEGER is 1
+
+	IPPROTO_ICMPV6: INTEGER is 58
+
+	IPPROTO_RAW: INTEGER is 255
+
+	IPPROTO_TCP: INTEGER is 6
+
+	IPPROTO_UDP: INTEGER is 17
+
+
+feature -- IP type-of-service options
+
+	IP_TOS: INTEGER is 3
+
+	IPTOS_LOWDELAY: INTEGER is 0
+			-- Not implemented
+
+	IPTOS_THROUGHPUT: INTEGER is 0
+			-- Not implemented
+
 
 feature -- SOL_SOCKET option names
 
@@ -298,6 +325,12 @@ feature -- Special IPv4 addresses
 
 	INADDR_LOOPBACK: INTEGER is 2130706433
 		-- 127.0.0.1
+
+
+feature -- TCP options
+
+	TCP_NODELAY: INTEGER is 1
+			-- Disables the Nagle algorithm for send coalescing
 
 
 feature -- Semaphore access rights

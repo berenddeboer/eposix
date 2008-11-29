@@ -13,6 +13,9 @@ deferred class
 inherit
 
 	TS_TEST_CASE
+		rename
+			exceptions as test_exceptions
+		end
 
 	POSIX_CURRENT_PROCESS
 
@@ -59,7 +62,7 @@ feature -- Tests
 			signal.set_default_action
 			signal.apply
 
-			create mail.make ("mail", <<"berend">>)
+			create mail.make ("sendmail", <<"berend">>)
 			mail.set_capture_error (True)
 			mail.execute
 			mail.wait_for (False)
@@ -82,7 +85,7 @@ feature -- Tests
 			test.wait_for (True)
 			assert ("test.sh terminated normally.", test.is_terminated_normally)
 			assert ("test.sh not signalled.", not test.is_signalled)
-			assert_equal ("test.sh exit code.", 10, test.exit_code)
+			assert_integers_equal ("test.sh exit code.", 10, test.exit_code)
 		end
 
 end

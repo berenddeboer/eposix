@@ -14,6 +14,9 @@ class
 inherit
 
 	ABSTRACT_CURRENT_PROCESS
+		undefine
+			is_pid_valid
+		end
 
 	POSIX_PROCESS
 
