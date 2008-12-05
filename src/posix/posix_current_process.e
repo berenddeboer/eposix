@@ -26,6 +26,9 @@ inherit
 		end
 
 	POSIX_PROCESS
+		undefine
+			is_pid_valid
+		end
 
 	PAPI_TYPES
 		export
