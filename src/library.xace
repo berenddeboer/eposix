@@ -8,10 +8,8 @@
     note2:       "Assumes libraries are installed in $EPOSIX/lib"
     library:     "Full Eiffel binding for POSIX"
     author:      "Berend de Boer [berend@pobox.com]"
-    copyright:   "Copyright (c) 2003-2007, Berend de Boer"
-    license:     "Eiffel Forum Freeware License v2 (see forum.txt)"
-    date:        "$Date: $"
-    revision:    "$Revision: $"
+    copyright:   "Copyright (c) 2003-2008, Berend de Boer"
+  	license:     "MIT License (see LICENSE)"
   </description>
 
   <cluster name="eposix" location="${EPOSIX}/src">
@@ -82,14 +80,12 @@
       <!-- The following libraries depend on your OS! -->
       <!-- Enabled are the Linux values: -->
       <option unless="${IS_MAC_OS_X}">
-        <option name="link" value="-lpthread" unless="${GOBO_EIFFEL}=ve"/>
+        <option name="link" value="-lpthread"/>
         <option name="link" value="-lrt"/>
-        <option name="link" value="/usr/lib/librt.a" if="${GOBO_EIFFEL}=ve"/>
-<!--       <option name="link" value="/usr/lib/libpthread.a" if="${GOBO_EIFFEL}=ve"/> -->
       <!-- for FreeBSD you need this library -->
       <!-- There is also a libc_p library, which I used previously, but
            libc_r includes the semaphore functions -->
-<!--        <option name="link" value="-lc_r" unless="${GOBO_EIFFEL}=ve"/> -->
+<!--        <option name="link" value="-lc_r"/> -->
       <!-- for QNX you need this library -->
 <!--        <option name="link" value="-lsocket"/> -->
       <!-- for Solaris 10 you need these options -->
@@ -105,18 +101,18 @@
     <option if="${GOBO_OS}=windows">
       <option name="link" value="${EPOSIX}\lib\libmteposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" if="${GOBO_MT}"/>
       <option name="link" value="${EPOSIX}\lib\libeposix_${GOBO_EIFFEL}_${GOBO_CC}.lib" unless="${GOBO_MT}"/>
-      <!-- The following library is needed if you use network functions -->
-      <option name="link" value="ws2_32.lib" if="${GOBO_EIFFEL}=se"/>
-      <!-- The following library is needed if you use NT event logging -->
-      <option name="link" value="Advapi32.lib" if="${GOBO_EIFFEL}=se"/>
-      <option if="${GOBO_EIFFEL}=ve">
-        <option name="link" value="libc.lib"/>
+      <option if="${GOBO_EIFFEL}=se">
         <!-- The following library is needed if you use network functions -->
         <option name="link" value="ws2_32.lib"/>
-        <!-- sometimes I needed this library too -->
-        <option name="link" value="oldnames.lib"/>
-        <!-- and you need to put this option in your system.xace! -->
-        <option name="linker" value="microsoft"/>
+        <!-- The following library is needed if you use NT event logging -->
+        <option name="link" value="Advapi32.lib"/>
+      </option>
+      <option if="${GOBO_EIFFEL}=ge">
+        <option if="${GOBO_CC}=mingw">
+          <!-- The following library is needed if you use network functions and you use gec and mingw -->
+          <option name="link" value="-lws2_32"/>
+          <option name="link" value="-ladvapi32"/>
+        </option>
       </option>
     </option>
 
