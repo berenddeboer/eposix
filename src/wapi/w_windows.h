@@ -379,7 +379,7 @@ EIF_INTEGER const_semaphore_all_access();
 
 /* security descriptor */
 
-const_security_descriptor_revision();
+EIF_INTEGER const_security_descriptor_revision();
 
 
 #endif /* _W_WINDOWS_H_ */

@@ -1151,13 +1151,13 @@ EIF_INTEGER const_semaphore_all_access()
   return SEMAPHORE_ALL_ACCESS;
 #else
   return 3;
-#endif;
+#endif
 }
 
 
 /* security descriptor */
 
-const_security_descriptor_revision()
+EIF_INTEGER const_security_descriptor_revision()
 {
   return SECURITY_DESCRIPTOR_REVISION;
 }
