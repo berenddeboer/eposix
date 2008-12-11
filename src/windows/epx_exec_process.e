@@ -19,9 +19,14 @@ inherit
 	ABSTRACT_EXEC_PROCESS
 		undefine
 			raise_posix_error
+		redefine
+			is_pid_valid
 		end
 
 	WINDOWS_PROCESS
+		redefine
+			is_pid_valid
+		end
 
 	WINDOWS_BASE
 

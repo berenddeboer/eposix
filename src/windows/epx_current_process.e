@@ -20,6 +20,9 @@ inherit
 		end
 
 	WINDOWS_PROCESS
+		undefine
+			is_pid_valid
+		end
 
 	WAPI_WINDOWS
 		export
