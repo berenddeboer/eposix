@@ -29,10 +29,6 @@
   <cluster name="test" location="${EPOSIX}/test_suite/windows/base"/>
 
   <mount location="${EPOSIX}/src/library.xace"/>
-	<mount location="${GOBO}/library/test/library.xace"/>
-	<mount location="${GOBO}/library/kernel/library.xace"/>
-	<mount location="${GOBO}/library/structure/library.xace"/>
-	<mount location="${GOBO}/library/utility/library.xace"/>
-	<mount location="${GOBO}/library/pattern/library.xace"/>
+	<mount location="${GOBO}/library/library.xace"/>
 	<mount location="${GOBO}/library/kernel.xace"/>
 </system>
