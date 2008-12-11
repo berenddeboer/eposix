@@ -178,7 +178,10 @@ feature -- New parts
 
 feature {NONE} -- Implementation
 
-	url_encoder: expanded EPX_URL_ENCODING
+	url_encoder: EPX_URL_ENCODING is
+		once
+			create Result
+		end
 
 
 feature {NONE} -- Once strings
