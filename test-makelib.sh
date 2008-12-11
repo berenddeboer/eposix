@@ -20,3 +20,9 @@ if [ $? -gt 0 ]; then exit 1; fi
 
 ./makelib -msc -ise
 if [ $? -gt 0 ]; then exit 1; fi
+
+./makelib -mingw -ise
+if [ $? -gt 0 ]; then exit 1; fi
+
+./makelib -mingw -ge
+if [ $? -gt 0 ]; then exit 1; fi
