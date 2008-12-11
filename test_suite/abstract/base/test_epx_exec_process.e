@@ -46,7 +46,7 @@ feature
 			from
 				ls.fd_stdout.read_string (512)
 			until
-				ls.fd_stdout.eof
+				ls.fd_stdout.end_of_input
 			loop
 				print (ls.fd_stdout.last_string)
 				ls.fd_stdout.read_string (512)
@@ -107,7 +107,7 @@ feature
 			from
 				ls.fd_stdout.read_string (512)
 			until
-				ls.fd_stdout.eof or else more.fd_stdin.eof
+				ls.fd_stdout.end_of_input or else more.fd_stdin.end_of_input
 			loop
 				--print (ls.fd_stdout.last_string)
 				more.fd_stdin.put_string (ls.fd_stdout.last_string)

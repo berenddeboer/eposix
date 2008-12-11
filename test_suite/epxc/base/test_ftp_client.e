@@ -137,7 +137,7 @@ feature -- Tests
 
 			ftp.rename_to ("test_ftp_client.e", "to_be_removed")
 			assert ("Rename successful", ftp.is_command_ok)
-			ftp.delete_file ("to_be_removed")
+			ftp.remove_file ("to_be_removed")
 			assert ("File removed", ftp.is_command_ok)
 
 			ftp.quit

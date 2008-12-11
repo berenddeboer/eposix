@@ -22,7 +22,7 @@ inherit
 			{NONE} all
 		end
 
-	STDC_SYSTEM
+	EPX_SYSTEM
 		export
 			{NONE} all
 		end
