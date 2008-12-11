@@ -304,10 +304,13 @@ feature {NONE} -- Counting of allocated resource
 			no_test_when_gc_enabled: memory.collecting implies Result
 		end
 
-	memory: expanded MEMORY
+	memory: MEMORY is
 			-- Ensuring that resource counting is correct, works only
 			-- when garbage collector doesn't kick in to dispose handles.
 			-- Need to test if garbage collector enabled or not.
+		once
+			create Result
+		end
 
 	resource_count: INTEGER is
 			-- Currently allocated number of resources. It's a global
