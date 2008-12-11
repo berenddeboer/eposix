@@ -44,6 +44,12 @@ feature -- Access
 	debug2: INTEGER is 7
 			-- Even more detailed debugging.
 
+	debug3: INTEGER is 8
+			-- Even more detailed debugging.
+
+	debug4: INTEGER is 9
+			-- Even more detailed debugging.
+
 	trace: INTEGER is 10
 			-- Finest granularity, similar to “stepping through” the
 			-- component or system.

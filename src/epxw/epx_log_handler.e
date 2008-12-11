@@ -1,6 +1,6 @@
 indexing
 
-	description: "Class that implements ULM logging on top of NT event log."
+	description: "Class that implements NetLogger logging on top of NT event log."
 
 	notes:
 		"If you don't want the message in the NT Event Log that %
@@ -9,8 +9,6 @@ indexing
 		%`make'. You can use the supplied messages.dll."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 class
@@ -20,7 +18,7 @@ class
 
 inherit
 
-	ULM_LOG_HANDLER
+	NET_LOGGER_LOG_HANDLER
 
 	WINDOWS_SYSTEM
 		rename
@@ -68,16 +66,11 @@ feature -- Logging
 			-- events are to be logged.
 		do
 			inspect level
-			when Emergency then do_log_event (EVENTLOG_ERROR_TYPE, level, line)
-			when Alert then do_log_event (EVENTLOG_ERROR_TYPE, level, line)
-			when Error then do_log_event (EVENTLOG_ERROR_TYPE, level, line)
-			when Warning then do_log_event (EVENTLOG_WARNING_TYPE, level, line)
-			when Authentication then do_log_event (EVENTLOG_INFORMATION_TYPE, level, line)
-			when Security then do_log_event (EVENTLOG_WARNING_TYPE, level, line)
-			when Usage then do_log_event (EVENTLOG_INFORMATION_TYPE, level, line)
-			when System_usage then do_log_event (EVENTLOG_SUCCESS, level, line)
-			when Important then do_log_event (EVENTLOG_INFORMATION_TYPE, level, line)
-			when Debugging then do_log_event (EVENTLOG_INFORMATION_TYPE, level, line)
+			when fatal then do_log_event (EVENTLOG_ERROR_TYPE, level, line)
+			when error then do_log_event (EVENTLOG_ERROR_TYPE, level, line)
+			when warning then do_log_event (EVENTLOG_WARNING_TYPE, level, line)
+			when info then do_log_event (EVENTLOG_INFORMATION_TYPE, level, line)
+			when debug0..trace then do_log_event (EVENTLOG_INFORMATION_TYPE, level, line)
 			end
 		end
 
@@ -89,7 +82,7 @@ feature {NONE} -- NT logging
 	do_log_event (event_type: INTEGER; level: INTEGER; line: STRING) is
 			-- Log event to NT event log, truncate `line' if necessary.
 		require
-			valid_level: is_valid_log_level (level)
+			valid_level: is_valid_level (level)
 			line_not_void: line /= Void
 		local
 			short_line: STRING
@@ -155,26 +148,26 @@ feature {NONE} -- The event ids which we log
 
 	event_ids: ARRAY [INTEGER] is
 		once
-			create Result.make (Emergency, Debugging)
-			Result.put (event_id_emergency, Emergency)
-			Result.put (event_id_alert, Alert)
-			Result.put (event_id_error, Error)
-			Result.put (event_id_warning, Warning)
-			Result.put (event_id_authentication, Authentication)
-			Result.put (event_id_security, Security)
-			Result.put (event_id_usage, Usage)
-			Result.put (event_id_system_usage, System_usage)
-			Result.put (event_id_important, Important)
-			Result.put (event_id_debugging, Debugging)
+			create Result.make (fatal, trace)
+			Result.put (event_id_emergency, fatal)
+			Result.put (event_id_error, error)
+			Result.put (event_id_warning, warning)
+			Result.put (event_id_usage, info)
+			Result.put (event_id_debugging, debug0)
+			Result.put (event_id_debugging, debug1)
+			Result.put (event_id_debugging, debug2)
+			Result.put (event_id_debugging, debug3)
+			Result.put (event_id_debugging, debug4)
+			Result.put (event_id_debugging, trace)
 		ensure
 			valid_bounds:
-				is_valid_log_level (Result.lower) and
-				is_valid_log_level (Result.upper)
+				is_valid_level (Result.lower) and
+				is_valid_level (Result.upper)
 		end
 
 	map_level_to_event_id (level: INTEGER): INTEGER is
 		require
-			valid_level: is_valid_log_level (level)
+			valid_level: is_valid_level (level)
 		do
 			Result := event_ids.item (level)
 		end
