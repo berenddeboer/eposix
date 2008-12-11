@@ -25,7 +25,7 @@ void epx_set_signal_switch (EIF_POINTER object, EIF_POINTER address) {
 #ifdef EIFFEL_VENDOR_SE
   signal_switch_object = object;
 #else
-  signal_switch_object = eif_protect(object);
+  signal_switch_object = (EIF_REFERENCE) eif_protect(object);
 #endif
 #endif
   signal_switch_address = address;

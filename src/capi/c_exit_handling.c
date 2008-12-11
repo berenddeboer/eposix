@@ -47,7 +47,7 @@ void epx_set_exit_switch (EIF_POINTER object, EIF_POINTER address) {
 #ifdef EIFFEL_VENDOR_SE
   exit_switch_object = object;
 #else
-  exit_switch_object = eif_protect(object);
+  exit_switch_object = (EIF_REFERENCE) eif_protect(object);
 #endif
 #endif
   exit_switch_address = address;
