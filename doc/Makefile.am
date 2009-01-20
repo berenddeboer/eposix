@@ -81,10 +81,11 @@ compile_short.ace: system.xace $(top_srcdir)/src/library.xace
 .e.bin: system.xace $(ESRC)
 	gexace --define="SE_1_0=true DEBUG=true GOBO_OS=unix GOBO_EIFFEL=${GOBO_EIFFEL} ROOT_CLASS=`basename $< .e | tr [:lower:] [:upper:]`" --system="${GOBO_EIFFEL}" --output="compile_${GOBO_EIFFEL}.ace" $(top_srcdir)/doc/system.xace
 if ISE
+	mv compile_${GOBO_EIFFEL}.ace compile_${GOBO_EIFFEL}.ecf
 	rm -rf EIFGEN
-	ec -finalize -ace compile_${GOBO_EIFFEL}.ace
-	cd EIFGEN/F_code && finish_freezing
-	mv EIFGEN/F_code/eposix_test $@
+	ec -finalize -config compile_${GOBO_EIFFEL}.ecf
+	cd EIFGENs/eposix_test/F_code && finish_freezing
+	mv EIFGENs/eposix_test/F_code/eposix_test $@
 endif
 if SE
 	compile compile_${GOBO_EIFFEL}.ace
