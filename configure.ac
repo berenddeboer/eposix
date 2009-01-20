@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script
-AC_INIT(eposix-alpha, 3.1.2)
+AC_INIT(eposix-beta, 3.1.2)
 AC_CONFIG_SRCDIR(src/supportc/c_support.c)
 AC_CONFIG_AUX_DIR(config)
 AC_DISABLE_SHARED
@@ -74,7 +74,7 @@ AC_CHECK_HEADERS([fcntl.h limits.h locale.h semaphore.h termios.h unistd.h utime
 # src/sapi
 # sys/un.h is for BeOS, check for Unix socket support
 # netinet/ip.h isn't in susv3 but still useful
-AC_CHECK_HEADERS([arpa/inet.h netdb.h netinet/in.h netinet/ip.h stdlib.h sys/select.h sys/socket.h sys/time.h sys/un.h syslog.h unistd.h stropts.h sys/ioctl.h])
+AC_CHECK_HEADERS([arpa/inet.h netdb.h netinet/in.h netinet/in_systm.h netinet/ip.h stdlib.h sys/select.h sys/socket.h sys/time.h sys/un.h syslog.h unistd.h stropts.h sys/ioctl.h])
 #
 # Checks for typedefs, structures, and compiler characteristics.
 #
