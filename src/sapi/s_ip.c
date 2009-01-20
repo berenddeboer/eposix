@@ -7,7 +7,7 @@ EIF_INTEGER const_iptos_lowdelay() {
   return IPTOS_LOWDELAY;
 #else
   return 0;
-#endif;
+#endif
 }
 
 EIF_INTEGER const_iptos_throughput() {
@@ -15,5 +15,5 @@ EIF_INTEGER const_iptos_throughput() {
   return IPTOS_THROUGHPUT;
 #else
   return 0;
-#endif;
+#endif
 }
