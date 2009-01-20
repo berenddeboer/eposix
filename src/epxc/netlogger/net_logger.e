@@ -34,7 +34,7 @@ feature {NONE} -- Initialization
 
 	make (a_handler: NET_LOGGER_LOG_HANDLER; a_program_name: STRING) is
 		require
-			handler_not_void: handler /= Void
+			handler_not_void: a_handler /= Void
 			program_name_not_empty: a_program_name /= Void and then not a_program_name.is_empty
 		do
 			handler := a_handler
