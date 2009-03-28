@@ -16,9 +16,6 @@ inherit
 	ABSTRACT_CURRENT_PROCESS
 
 	POSIX_PROCESS
-		undefine
-			is_pid_valid
-		end
 
 	POSIX_BASE
 

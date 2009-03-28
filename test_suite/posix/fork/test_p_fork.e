@@ -54,19 +54,26 @@ feature {NONE} -- Implementation
 			stop_sign: BOOLEAN
 			child: FORK_CHILD
 		do
-			print ("My pid: ")
-			print (pid)
-			print ("%N")
+			debug ("test")
+				print ("My pid: ")
+				print (pid)
+				print ("%N")
+			end
 
 			unlink ("berend.tmp")
-			print ("Make a fifo.%N")
+			debug ("test")
+				print ("Make a fifo.%N")
+			end
 			create_fifo ("berend.tmp", S_IRUSR + S_IWUSR)
 			create child
 			print ("Fork object.%N")
 			fork (child)
-			print ("child pid: ")
-			print (child.pid)
-			print ("%N")
+			debug ("test")
+				print ("child pid: ")
+				print (child.pid)
+				print ("%N")
+			end
+			assert ("PID valid", child.is_child_pid_valid)
 
 			-- we will now block until file is opened for writing.
 			debug ("test")

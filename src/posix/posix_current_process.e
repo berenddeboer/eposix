@@ -6,9 +6,8 @@ indexing
 	%you really are a POSIX_CURRENT_PROCESS, they cannot be applied to%
 	%an instance of this class, this to protect against unintended effects."
 
+	library: "eposix"
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 class
@@ -26,9 +25,6 @@ inherit
 		end
 
 	POSIX_PROCESS
-		undefine
-			is_pid_valid
-		end
 
 	PAPI_TYPES
 		export
@@ -36,7 +32,7 @@ inherit
 		end
 
 
-feature -- my stdandard input/output/error
+feature -- my standard input/output/error
 
 	stdin: POSIX_TEXT_FILE is
 		once
@@ -51,6 +47,17 @@ feature -- my stdandard input/output/error
 	stderr: POSIX_TEXT_FILE is
 		once
 			create Result.attach_to_stream (stream_stderr, "w")
+		end
+
+
+feature -- signal this process
+
+	kill (a_signal_code: INTEGER) is
+			-- Send signal `signal_code' to current process.
+		require
+			valid_signal: a_signal_code >= 0
+		do
+			safe_call (posix_kill (pid, a_signal_code))
 		end
 
 

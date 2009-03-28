@@ -95,15 +95,6 @@ feature -- Standard file descriptors
 		end
 
 
-feature -- Process termination
-
-	terminate is
-			-- Attempt to gracefully terminate this process.
-		do
-			exit_with_success
-		end
-
-
 feature -- Sleeping
 
 	millisleep (a_milliseconds: INTEGER) is

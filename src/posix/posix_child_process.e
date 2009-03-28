@@ -15,14 +15,8 @@ deferred class
 inherit
 
 	POSIX_PROCESS
-		redefine
-			is_pid_valid
-		end
 
 	ABSTRACT_CHILD_PROCESS
-		redefine
-			is_pid_valid
-		end
 
 
 feature -- Child's pid
@@ -32,9 +26,11 @@ feature -- Child's pid
 			Result := my_pid
 		end
 
+
+feature -- Status
+
 	is_pid_valid: BOOLEAN is
-			-- return True if this object refers to a child process, so
-			-- it has an id
+			-- Is `pid' valid?
 		do
 			Result := my_pid > 0
 		end
@@ -74,6 +70,24 @@ feature -- Actions that parent may execute
 			termination_info := stat_loc.peek_integer (0)
 		end
 
+
+feature -- Signal
+
+	kill (a_signal_code: INTEGER) is
+			-- Send signal `signal_code' to the process.
+		require
+			valid_pid: is_pid_valid
+			valid_signal: a_signal_code >= 0
+			-- not_terminated: not is_terminated
+		do
+			safe_call (posix_kill (pid, a_signal_code))
+		end
+
+	terminate is
+			-- Attempt to gracefully terminate the process.
+		do
+			safe_call (posix_kill (pid, SIGTERM))
+		end
 
 
 feature {POSIX_CURRENT_PROCESS}

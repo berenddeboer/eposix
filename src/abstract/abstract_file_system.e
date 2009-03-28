@@ -79,6 +79,41 @@ feature -- Directory access
 			sh.unfreeze_all
 		end
 
+	make_directories (a_path: STRING) is
+			-- Makes a directory, only accessible by owner.
+		require
+			path_not_empty: a_path /= Void and then not a_path.is_empty
+		local
+			paths: ARRAY [STRING]
+			i: INTEGER
+			s: STRING
+		do
+			set_portable_path (a_path)
+			paths := sh.split_on (portable_path, portable_path.directory_separator)
+			i := paths.lower
+			s := paths.item (i)
+			if s.is_empty then
+				s := "/"
+			end
+			from
+				i := i + 1
+			until
+				not errno.is_ok or else
+				i > paths.upper
+			loop
+				if not paths.item (i).is_empty then
+					s.append_string (paths.item (i))
+					if not is_directory (s) then
+						make_directory (s)
+					end
+					s.append_character ('/')
+				end
+				i := i + 1
+			end
+		ensure
+			directory_exists: errno.is_ok implies is_directory (a_path)
+		end
+
 	remove_directory, rmdir (a_directory: STRING) is
 			-- Removes an empty directory. See also `force_remove_directory'.
 		require

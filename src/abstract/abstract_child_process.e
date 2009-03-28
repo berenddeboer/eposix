@@ -19,6 +19,36 @@ inherit
 	STDC_CHILD_PROCESS
 
 
+feature -- Access
+
+	pid: INTEGER is
+			-- The process identifier
+		require
+			valid_pid: is_pid_valid
+		deferred
+		ensure
+			valid_pid: Result > 0
+		end
+
+
+feature -- Status
+
+	is_pid_valid: BOOLEAN is
+			-- Is `pid' valid?
+		deferred
+		end
+
+
+feature -- Signal
+
+	terminate is
+			-- Attempt to gracefully terminate the child.
+		require
+			valid_pid: is_pid_valid
+		deferred
+		end
+
+
 feature -- Actions that parent may execute
 
 	wait_for (suspend: BOOLEAN) is
@@ -30,6 +60,7 @@ feature -- Actions that parent may execute
 		deferred
 		ensure
 			terminated: suspend implies is_terminated
+			-- Does not work for SE:
 			pid_invalid: is_terminated implies not is_pid_valid
 		end
 

@@ -16,8 +16,7 @@ inherit
 
 	ABSTRACT_EXEC_PROCESS
 		undefine
-			has_exit_code,
-			is_pid_valid
+			has_exit_code
 		redefine
 			fd_stdin,
 			fd_stdout,
@@ -33,19 +32,13 @@ inherit
 			fd_stdout as child_fd_stdout,
 			fd_stderr as child_fd_sterr,
 			pid as fork_parent_pid,
-			is_pid_valid as is_fork_parent_pid_valid,
 			child_pid as pid,
 			is_child_pid_valid as is_pid_valid,
 			kill as kill_fork_parent,
-			terminate as terminate_fork_parent,
 			kill_child as kill,
 			terminate_child as terminate
 		redefine
 			wait_for
-		select
-			terminate,
-			pid,
-			is_pid_valid
 		end
 
 
@@ -111,13 +104,12 @@ feature -- Execution
 				fd_stderr := Void
 			end
 
-			se_child_pid := posix_fork
-			my_pid := se_child_pid
-			if se_child_pid = -1 then
+			my_pid := posix_fork
+			if my_pid = -1 then
 				raise_posix_error
 			else
 				running := True
-				in_child := se_child_pid = 0
+				in_child := my_pid = 0
 				if in_child  then
 
 					-- This child process has now current process characteristics.
@@ -227,7 +219,6 @@ feature -- Actions that parent may execute
 			end
 			precursor (suspend)
 			if is_terminated then
-				se_child_pid := 0
 				-- avoid file handle leaks. We have to be careful because
 				-- the streams can be closed too. And because the file
 				-- descriptor also is an owner, we should avoid closing an
@@ -238,28 +229,29 @@ feature -- Actions that parent may execute
 				if fd_stdin /= Void and then fd_stdin.is_open then
 					fd_stdin.close
 				end
-				if stdout /= Void and then stdout.is_open then
-					stdout.detach
-				end
-				if fd_stdout /= Void and then fd_stdout.is_open then
-					fd_stdout.close
-				end
-				if stderr /= Void and then stderr.is_open then
-					stderr.detach
-				end
-				if fd_stderr /= Void and then fd_stderr.is_open then
-					fd_stderr.close
-				end
+-- 				if stdout /= Void and then stdout.is_open then
+-- 					stdout.detach
+-- 				end
+-- 				if fd_stdout /= Void and then fd_stdout.is_open then
+-- 					fd_stdout.close
+-- 				end
+-- 				if stderr /= Void and then stderr.is_open then
+-- 					stderr.detach
+-- 				end
+-- 				if fd_stderr /= Void and then fd_stderr.is_open then
+-- 					fd_stderr.close
+-- 				end
 			end
 		ensure then
 			terminated_implies_closed:
 				is_terminated implies
 					(stdin = Void or else not stdin.is_open) and then
-					(stdout = Void or else not stdout.is_open) and then
-					(stderr = Void or else not stderr.is_open) and then
-					(fd_stdin = Void or else not fd_stdin.is_open) and then
-					(fd_stdout = Void or else not fd_stdout.is_open) and then
-					(fd_stderr = Void or else not fd_stderr.is_open)
+-- 					(stdout = Void or else not stdout.is_open) and then
+-- 					(stderr = Void or else not stderr.is_open) and then
+					(fd_stdin = Void or else not fd_stdin.is_open)
+-- 					and then
+-- 					(fd_stdout = Void or else not fd_stdout.is_open) and then
+-- 					(fd_stderr = Void or else not fd_stderr.is_open)
 		end
 
 

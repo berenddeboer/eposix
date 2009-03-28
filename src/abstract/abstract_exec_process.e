@@ -273,8 +273,8 @@ feature -- Actions that parent may execute
 		deferred
 		ensure then
 			stdin_closed: is_terminated implies fd_stdin = Void or else not fd_stdin.is_open
-			stdout_closed: is_terminated implies fd_stdout = Void or else not fd_stdout.is_open
-			stderr_closed: is_terminated implies fd_stderr = Void or else not fd_stderr.is_open
+			--stdout_closed: is_terminated implies fd_stdout = Void or else not fd_stdout.is_open
+			--stderr_closed: is_terminated implies fd_stderr = Void or else not fd_stderr.is_open
 		end
 
 

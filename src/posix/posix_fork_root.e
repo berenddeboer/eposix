@@ -29,12 +29,12 @@ inherit
 		end
 
 	POSIX_CURRENT_PROCESS
-		select
-			pid,
-			is_pid_valid,
-			kill,
-			terminate
-		end
+-- 		select
+-- 			pid,
+-- 			is_pid_valid,
+-- 			kill,
+-- 			terminate
+-- 		end
 
 	PAPI_WAIT
 		export

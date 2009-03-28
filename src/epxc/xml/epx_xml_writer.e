@@ -75,7 +75,7 @@ feature -- Initialization
 			is_indenting := True
 			create my_xml.make (a_capacity)
 			create my_xml.make_empty
-			create {DS_LINKED_STACK [STRING]} tags.make
+			create tags.make (12)
 			create tester
 			tags.set_equality_tester (tester)
 			create attributes.make
@@ -117,13 +117,13 @@ feature -- Status
 			tag_must_be_started: Result implies is_tag_started
 		end
 
-	is_a_parent (tag: STRING): BOOLEAN is
+	is_a_parent (a_tag: STRING): BOOLEAN is
 			-- Is `tag' the current element, or is it a parent of the
 			-- current tag at some point?
 		do
-			Result := tags.has (tag)
+			Result := tags.has (a_tag)
 		ensure
-			started_implies_parent: is_started (tag) implies Result
+			started_implies_parent: is_started (a_tag) implies Result
 		end
 
 	is_attribute_set (a_name_space, an_attribute: STRING): BOOLEAN is
@@ -216,6 +216,16 @@ feature -- Access
 			Result := my_xml
 		ensure
 			result_not_void: Result /= Void
+		end
+
+	tag (i: INTEGER): STRING is
+			-- Retrieve current or parents of current tag
+		require
+			valid_index: i >= 1 and then i <= tag_depth
+		do
+			Result := tags.i_th (i)
+		ensure
+			not_empty: Result /= Void and then not Result.is_empty
 		end
 
 	tag_depth: INTEGER is
@@ -474,19 +484,19 @@ feature -- Commands that expand `xml'
 			new_line
 		end
 
-	add_tag (tag, a_data: STRING) is
+	add_tag (a_tag, a_data: STRING) is
 			-- Shortcut for `add_tag', `add_data' and `stop_tag'.
 		require
 			have_header: is_header_written
-			valid_tag: is_name (tag)
+			valid_tag: is_name (a_tag)
 			valid_data: a_data = Void or else is_string (a_data)
 		do
-			start_tag (tag)
+			start_tag (a_tag)
 			add_data (a_data)
 			stop_tag
 		end
 
-	add_ns_tag (name_space, tag, a_data: STRING) is
+	add_ns_tag (name_space, a_tag, a_data: STRING) is
 			-- Shortcut for `add_ns_tag', `add_data' and `stop_tag'.
 		require
 			have_header: is_header_written
@@ -494,20 +504,20 @@ feature -- Commands that expand `xml'
 				name_space = Void or else
 				name_space.is_empty or else
 				is_ncname (name_space)
-			valid_tag: is_ncname (tag)
+			valid_tag: is_ncname (a_tag)
 			valid_data: a_data = Void or else is_string (a_data)
 		do
-			start_ns_tag (name_space, tag)
+			start_ns_tag (name_space, a_tag)
 			add_data (a_data)
 			stop_tag
 		end
 
-	get_attribute (attribute: STRING): STRING is
+	get_attribute (an_attribute: STRING): STRING is
 			-- Get contents of attribute `attribute' for
 			-- current tag. `attribute' may include a name space.
 			-- Returns Void if attribute doesn't exist
 		do
-			if exist_attribute (attribute) then
+			if exist_attribute (an_attribute) then
 				Result := get_value
 			end
 		end
@@ -530,7 +540,7 @@ feature -- Commands that expand `xml'
 			data_added: is_element_with_data
 		end
 
-	set_attribute (attribute, a_value: STRING) is
+	set_attribute (an_attribute, a_value: STRING) is
 			-- Set an attribute of the current tag.
 			-- `attribute' must be name-space less, else use `set_ns_attribute'.
 			-- `value' may not contain an entity reference.
@@ -539,14 +549,14 @@ feature -- Commands that expand `xml'
 			-- immutable).
 		require
 			can_add_attributes: can_add_attributes
-			valid_attribute: is_name (attribute)
-			attribute_has_no_colon: not attribute.has (':')
+			valid_attribute: is_name (an_attribute)
+			attribute_has_no_colon: not an_attribute.has (':')
 			valid_data: a_value = Void or else is_string (a_value)
 		do
 			if a_value = Void then
-				do_set_attribute (Void, attribute, Void)
+				do_set_attribute (Void, an_attribute, Void)
 			else
-				do_set_attribute (Void, attribute, make_valid_attribute_value (a_value))
+				do_set_attribute (Void, an_attribute, make_valid_attribute_value (a_value))
 			end
 		end
 
@@ -572,25 +582,25 @@ feature -- Commands that expand `xml'
 			do_set_attribute (Void, xmlns, uri)
 		end
 
-	set_ns_attribute (name_space, attribute, value: STRING) is
+	set_ns_attribute (name_space, an_attribute, value: STRING) is
 			-- Set an attribute of the current tag.  `value' may not
 			-- contain an entity reference. `name_space' is the optional
 			-- prefix to be used, not the actual URI.
 			-- As the attribute is not immediately written, make sure
-			-- `name_space', `attribute' and `value' do not change (ie
+			-- `name_space', `an_attribute' and `value' do not change (ie
 			-- are cloned or immutable).
 		require
 			can_add_attributes: can_add_attributes
-			valid_attribute: is_ncname (attribute)
+			valid_attribute: is_ncname (an_attribute)
 		do
 			if value = Void then
-				do_set_attribute (name_space, attribute, Void)
+				do_set_attribute (name_space, an_attribute, Void)
 			else
-				do_set_attribute (name_space, attribute, make_valid_attribute_value (value))
+				do_set_attribute (name_space, an_attribute, make_valid_attribute_value (value))
 			end
 		end
 
-	start_ns_tag (name_space, tag: STRING) is
+	start_ns_tag (name_space, a_tag: STRING) is
 			-- Start a new tag in the given `name_space'. `name_space' is
 			-- a prefix only, not the actual URI. If `name_space' is Void
 			-- or empty, the tag will not get a prefix.
@@ -603,18 +613,18 @@ feature -- Commands that expand `xml'
 				name_space = Void or else
 				name_space.is_empty or else
 				is_ncname (name_space)
-			valid_tag: is_ncname (tag)
+			valid_tag: is_ncname (a_tag)
 		local
 			ns_tag: UC_UTF8_STRING
 		do
 			assure_last_tag_written (False)
 			if name_space = Void or else name_space.is_empty then
-				tags.put (tag)
+				tags.put (a_tag)
 			else
-				create ns_tag.make (name_space.count + 1 + tag.count)
+				create ns_tag.make (name_space.count + 1 + a_tag.count)
 				ns_tag.append_string (name_space)
 				ns_tag.append_character (':')
-				ns_tag.append_string (tag)
+				ns_tag.append_string (a_tag)
 				tags.put (ns_tag)
 			end
 			tag_state := tag_pending
@@ -622,16 +632,16 @@ feature -- Commands that expand `xml'
 			tag_not_written: tag_state = tag_pending
 		end
 
-	start_tag (tag: STRING) is
+	start_tag (a_tag: STRING) is
 			-- Start a new tag.
-			-- As the tag is not immediately written, make sure `tag'
+			-- As the tag is not immediately written, make sure `a_tag'
 			-- does not change (ie is cloned or immutable).
 		require
 			have_header: is_header_written
-			valid_tag: is_name (tag)
+			valid_tag: is_name (a_tag)
 		do
 			assure_last_tag_written (False)
-			tags.put (tag)
+			tags.force (a_tag)
 			tag_state := tag_pending
 		ensure
 			tag_not_written: tag_state = tag_pending
@@ -1062,24 +1072,26 @@ feature {NONE} -- Internal xml change
 		end
 
 
-feature {NONE} -- Stack of tags
+feature {NONE} -- Tags
 
-	tags: DS_STACK [STRING]
-			-- Tags that have been started.
+	tags: DS_ARRAYED_STACK [STRING]
+			-- Tags that have been started
 
 
 feature {NONE} -- Tag attributes
 
 	attributes: DS_LINKED_LIST [STRING]
-			-- Order of attributes.
+			-- Order of attributes
 
 	values: DS_HASH_TABLE [STRING, STRING]
-			-- Attribute values.
+			-- Attribute values
 
 	clear_attributes is
 		do
 			attributes.wipe_out
 			values.wipe_out
+		ensure
+			no_attributes: attributes.is_empty
 		end
 
 	do_add_attribute (a_name_space, an_attribute, a_value: STRING) is
@@ -1119,22 +1131,22 @@ feature {NONE} -- Tag attributes
 			attribute_has_no_colon:
 				an_attribute /= Void implies not an_attribute.has (':')
 		local
-			attribute: STRING
+			my_attribute: STRING
 		do
 			if a_name_space = Void or else a_name_space.is_empty then
-				attribute := an_attribute
+				my_attribute := an_attribute
 			else
-				create {UC_UTF8_STRING} attribute.make (a_name_space.count + 1 + an_attribute.count)
-				attribute.append_string (a_name_space)
-				attribute.append_character (':')
-				attribute.append_string (an_attribute)
+				create {UC_UTF8_STRING} my_attribute.make (a_name_space.count + 1 + an_attribute.count)
+				my_attribute.append_string (a_name_space)
+				my_attribute.append_character (':')
+				my_attribute.append_string (an_attribute)
 			end
-			values.search (attribute)
+			values.search (my_attribute)
 			if values.found then
 				values.replace_found_item (a_value)
 			else
-				attributes.put_last (attribute)
-				values.put (a_value, attribute)
+				attributes.put_last (my_attribute)
+				values.put (a_value, my_attribute)
 			end
 		ensure
 			attribute_found: is_attribute_set (a_name_space, an_attribute)
@@ -1143,13 +1155,14 @@ feature {NONE} -- Tag attributes
 				(a_name_space /= Void implies values.has (a_name_space + ":" + an_attribute))
 		end
 
-	exist_attribute (attribute: STRING): BOOLEAN is
-			-- Return True if `attribute' exists. `attribute' may contain
-			-- a name space. If returns True, `get_value' may be called.
+	exist_attribute (an_attribute: STRING): BOOLEAN is
+			-- Has the current tag the attribute `an_attribute'?
+			-- `an_attribute' may contain a name space. If true,
+			-- `get_value' may be called.
 		require
-			attribute_not_empty: attribute /= Void and then not attribute.is_empty
+			attribute_not_empty: an_attribute /= Void and then not an_attribute.is_empty
 		do
-			values.search (attribute)
+			values.search (an_attribute)
 			Result := values.found
 		ensure
 			found_set: Result implies values.found

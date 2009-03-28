@@ -138,6 +138,7 @@ feature {NONE} -- abstract C interface
 			-- Tests for file accessibility
 		do
 			Result := posix_access (a_path, a_mode)
+			errno.clear
 		end
 
 	abstract_chdir (a_path: POINTER): INTEGER is

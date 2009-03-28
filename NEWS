@@ -1,10 +1,11 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
-New in 3.1.1 - 2008-08-01
+New in 3.1.2 - 2009-01-20
 
 * 64 bit platforms: fixed various reported bugs for 64 bit platforms
   and 64 bit ISE (EPX_ARRAY_HELPER, STDC_TIME.to_utc).
+* Support for the mingw32 C compiler.
 * MD5, SHA1 and HMAC calculation, see EPX_MD5_CALCULATION,
   EPX_SHA1_CALCULATION and EPX_MACH_CALCULATION
 * EPX_HTTP_10_CLIENT
