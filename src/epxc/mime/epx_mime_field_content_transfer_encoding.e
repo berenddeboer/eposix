@@ -22,8 +22,8 @@ inherit
 
 create
 
-	make
-
+	make,
+	make_base64
 
 
 feature -- Initialization
@@ -36,6 +36,11 @@ feature -- Initialization
 			mechanism := a_mechanism
 		end
 
+	make_base64 is
+		do
+			mechanism := once_base64
+		end
+
 
 feature -- Access
 
@@ -46,12 +51,13 @@ feature -- Access
 			-- Authorative name
 
 
-feature -- Decoders
+feature -- Encoding and decoding
 
 	new_decoder: EPX_STREAM_INPUT_STREAM [CHARACTER] is
 			-- Return a new decoder that can decode text encoded
 			-- according to `mechanism'.
 			-- Returns Void if there is no known encoder.
+			-- TODO: replace by UT_BASE64_DECODING_INPUT_STREAM.
 		local
 			s: STRING
 		do
@@ -61,6 +67,20 @@ feature -- Decoders
 				create {EPX_BASE64_INPUT_STREAM} Result.make
 			elseif s.is_equal (once_quoted_printable) then
 				create {EPX_QUOTED_PRINTABLE_INPUT_STREAM} Result.make
+			end
+		end
+
+	new_encoder (a_from_stream: KI_CHARACTER_OUTPUT_STREAM): KL_PROXY_CHARACTER_OUTPUT_STREAM is
+			-- Return a new encoder that can encode text encoded
+			-- according to `mechanism'.
+			-- Returns Void if there is no known encoder.
+		local
+			s: STRING
+		do
+			create s.make_from_string (mechanism)
+			s.to_lower
+			if s.is_equal (once_base64) then
+				create {EPX_BASE64_OUTPUT_STREAM} Result.make (a_from_stream, True, False)
 			end
 		end
 

@@ -2273,7 +2273,7 @@ download the Eiffel Bot from the \eposix\ page.
 SMTP server. It only supports servers that can receive 8 bit messages.
 This class cannot convert 8 bit data to 7 bit data.
 
-\section{Sending plain text email}
+\subsection{Sending plain text email}
 
 The following example demonstrates sending a plain text email with
 this class:
@@ -2306,7 +2306,7 @@ involves querying a DNS server for MX records. \eposix\ does not
 support this at the moment. However, passing the local SMTP server is
 usually sufficient as this server knows how to figure this out.
 
-\section{Sending \cap{html} email}
+\subsection{Sending \cap{html} email}
 
 The following example demonstrates sending an \HTML\ text email with
 this class:
@@ -2317,7 +2317,7 @@ The main difference is setting the content type to be ``text/hmtl''.
 And the body must be \HTML\ of course.
 
 
-\section{Sending both text and \cap{html} email}
+\subsection{Sending both text and \cap{html} email}
 
 As not all email clients can display \HTML, most mailers send both a
 text and an \HTML\ version. The following example demonstrates how
@@ -2328,6 +2328,36 @@ this can be done in \eposix:
 We set the content type to be ``multipart/alternative'', and
 create two parts. The first part is content type ``text/plain'' and
 the second is the content type ``text/html''.
+
+
+\subsection{Sending attachments}
+
+Multipart emails are also the key to sending attachments. The
+following example demonstrates how this can be done in \eposix\ by
+attaching the example itself:
+
+\typeEIFFELfile{ex_smtp4.e}
+
+The attachment in this case has to be a text file. Anything that has
+binary data, i.e. characters lower than character code 32, needs to
+be encoded first. The following extract demonstrates this
+encoding:
+
+\startEIFFEL
+file_part := message.multipart_body.new_part
+file_part.header.set_content_type (
+  type_names.mime_type_application, type_names.mime_subtype_pdf, Void)
+file_part.header.content_type.set_parameter ("name", filename)
+file_part.create_base64_body
+file_part.text_body.append_string (file_content_as_string (filename))
+\stopEIFFEL
+
+All the other code is just the same as in the previous example, just
+the file part is different.
+
+An even shorter method to add an attachment is by using
+\Efeature[EPX_MIME_EMAIL]{attach_file} which basically does what the
+above lines of code do.
 
 
 \section{LDIF parser}

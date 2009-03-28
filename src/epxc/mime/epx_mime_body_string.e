@@ -30,6 +30,7 @@ feature {NONE} -- Initialization
 			-- Initialize text body.
 		do
 			value := ""
+			create {KL_STRING_OUTPUT_STREAM} output_stream.make (value)
 		end
 
 
@@ -38,6 +39,7 @@ feature -- Access to body content
 	as_string: STRING is
 			-- Return `value'.
 		do
+			flush_encoder
 			Result := value
 		end
 
@@ -57,21 +59,6 @@ feature -- Access to body content
 				create my_stream.make (value)
 			end
 			Result := my_stream
-		end
-
-
-feature -- Change body commands
-
-	append_character (c: CHARACTER) is
-			-- Extend `value' with `c' somehow.
-		do
-			value.append_character (c)
-		end
-
-	append_string (s: STRING) is
-			-- Extend `value' with `s' somehow.
-		do
-			value.append_string (s)
 		end
 
 

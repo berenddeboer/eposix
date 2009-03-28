@@ -30,6 +30,7 @@ feature {NONE} -- Initialization
 			-- Initialize text body.
 		do
 			file := new_file
+			output_stream := file
 		end
 
 
@@ -40,6 +41,7 @@ feature -- Access to body content
 		local
 			buf: STDC_BUFFER
 		do
+			flush_encoder
 			-- Should be precondition, not sure how to do that
 				check
 					file_open_for_read: file.is_open_read
@@ -78,21 +80,6 @@ feature -- Access to body content
 		end
 
 
-feature -- Change body commands
-
-	append_character (c: CHARACTER) is
-			-- Extend `file' with `c' somehow.
-		do
-			file.put_character (c)
-		end
-
-	append_string (s: STRING) is
-			-- Extend `file' with `s' somehow.
-		do
-			file.put_string (s)
-		end
-
-
 feature -- Access
 
 	file: EPX_CHARACTER_IO_STREAM
@@ -113,6 +100,7 @@ invariant
 
 	file_not_void: file /= Void
 	file_open_for_writing: file.is_open_write
+	file_open_for_reading: file.is_open_read
 	file_rewindable: file.is_rewindable
 
 end

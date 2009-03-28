@@ -1,3 +1,47 @@
+2009-03-23  Berend de Boer  <berend@pobox.com>
+
+	* !Rewrite of child/current process structure as weird things were
+	happening. I think I didn't understand Eiffel's select mechanism
+	very well.
+
+
+2009-03-19  Berend de Boer  <berend@pobox.com>
+
+	* EPX_MIME_EMAIL.attach_file: new feature to attach a file to an
+	email.
+
+	* Manual: example how to attach files.
+
+2009-02-21  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FILE_SYSTEM.is_directory: and basically everything that
+	calls `abstract_access': this feature sets errno, and if something
+	doesn't exist, it isn't really an error. So errno is now reset,
+	else paths further in the code might inadvertedly think errno is
+	set. Code that expects errno to be set afer this call, will
+	break. It should call posix_access straight, instead of going
+	through an abstraction function.
+
+	* !ABSTRACT_FILE_SYSTEM.make_directories: new function to create
+	more than 1 directory at once.
+
+
+2009-02-13  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.tag: new feature that can return the name of any
+	parent element.
+
+
+2009-01-20  Berend de Boer  <berend@pobox.com>
+
+	* First beta release 3.1.2.
+
+
+2008-12-20  Berend de Boer  <berend@pobox.com>
+
+	* Support for mingw32.
+
+
 2008-11-29  Berend de Boer  <berend@pobox.com>
 
 	* EPX_EXEC_PROCESS: with this change the child didn't work on

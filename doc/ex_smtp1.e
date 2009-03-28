@@ -27,7 +27,7 @@ feature
 			smtp.close
 		end
 
-	my_domain: STRING is "nederware.nl"
+	my_domain: STRING is "example.com"
 
 	smtp_server_name: STRING is "localhost"
 

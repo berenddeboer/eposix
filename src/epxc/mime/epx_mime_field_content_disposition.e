@@ -79,7 +79,7 @@ feature -- Change
 
 	cleanup_filename_parameter is
 			-- If the Content-Disposition field has a filename parameter,
-			-- strip it from any directory components.
+			-- strip any directory components.
 		local
 			filename: EPX_MIME_PARAMETER
 			path: STDC_PATH

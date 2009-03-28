@@ -30,7 +30,7 @@ inherit
 	EPX_MIME_FIELD_NAMES
 		export
 			{NONE} all;
-			{ANY} field_name_content_length
+			{ANY} field_name_content_length, field_name_content_transfer_encoding
 		end
 
 	EPX_MIME_PARAMETER_NAMES
@@ -230,6 +230,24 @@ feature -- Body creation/removal
 			text_body_set: text_body = body
 		end
 
+	create_base64_body is
+			-- Create a single part body whose content is base 64
+			-- encoded when writing to it.
+		require
+			transfer_encoding_not_set: not header.fields.has (field_name_content_transfer_encoding)
+		local
+			cte: EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING
+			encoder: KL_PROXY_CHARACTER_OUTPUT_STREAM
+		do
+			create cte.make_base64
+			header.add_field (cte)
+			create_singlepart_body
+			encoder := cte.new_encoder (text_body.output_stream)
+			if encoder /= Void then
+				text_body.set_encoder (encoder)
+			end
+		end
+
 
 feature -- Change
 
@@ -254,7 +272,7 @@ feature {NONE} -- Implementation
 		end
 
 	new_string_body: EPX_MIME_BODY_TEXT is
-			-- New body where data is hold in a string
+			-- New body where data is held in a string
 		do
 			create {EPX_MIME_BODY_STRING} Result.make
 		ensure

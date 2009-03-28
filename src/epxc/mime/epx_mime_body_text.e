@@ -75,37 +75,68 @@ feature -- Access to body content
 		end
 
 	stream: KI_CHARACTER_INPUT_STREAM is
-			-- Return a stream to the actual body.
+			-- Stream to the actual body; to be used for reading that body
 		deferred
 		ensure
-			stream_not_void: stream /= Void
+			stream_not_void: Result /= Void
 		end
+
+	output_stream: KI_CHARACTER_OUTPUT_STREAM
+			-- Stream to the actual body; to be used when writing to that body
 
 
 feature -- Change body commands
 
 	append_character (c: CHARACTER) is
 			-- Extend value with `c' somehow.
-		deferred
+		require
+			writable: output_stream.is_open_write
+		do
+			output_stream.put_character (c)
 		end
 
 	append_string (s: STRING) is
 			-- Extend value with `s' somehow.
 		require
+			writable: output_stream.is_open_write
 			s_not_void: s /= Void
-		deferred
+		do
+			output_stream.put_string (s)
 		end
 
 
 feature -- Change
 
 	set_decoder (a_decoder: EPX_STREAM_INPUT_STREAM [CHARACTER]) is
-			-- Set `a_decoder'.
+			-- Set `decoder'.
 		do
 			decoder := a_decoder
 		ensure
 			decoder_set: decoder = a_decoder
 		end
 
+	set_encoder (an_encoder: KL_PROXY_CHARACTER_OUTPUT_STREAM) is
+			-- Replace `output_stream', assuming that it writes to
+			-- `output_stream'.
+		require
+			writes_to_output_stream: an_encoder.base_stream = output_Stream
+		do
+			output_stream := an_encoder
+		ensure
+			encoder_set: output_stream = an_encoder
+		end
+
+
+feature {NONE} -- Implementation
+
+	flush_encoder is
+		do
+			output_stream.flush
+		end
+
+
+invariant
+
+	output_stream_not_void: output_stream /= Void
 
 end

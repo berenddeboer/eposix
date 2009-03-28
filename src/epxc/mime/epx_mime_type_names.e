@@ -28,6 +28,7 @@ feature -- Subtype names
 	mime_subtype_form_data: STRING is "form-data"
 	mime_subtype_html: STRING is "html"
 	mime_subtype_javascript: STRING is "javascript"
+	mime_subtype_mixed: STRING is "mixed"
 	mime_subtype_octet_stream: STRING is "octet-stream"
 	mime_subtype_pdf: STRING is "pdf"
 	mime_subtype_plain: STRING is "plain"
