@@ -91,9 +91,10 @@ if SE
 	compile compile_${GOBO_EIFFEL}.ace
 	mv eposix_test $@
 endif
-if VE
-	vec -y -a:compile_${GOBO_EIFFEL}.ace
-	mv eposix_test $@
+if GE
+	mv compile_${GOBO_EIFFEL}.ace compile_${GOBO_EIFFEL}.xace
+	gec compile_${GOBO_EIFFEL}.xace
+	mv eposix_test.exe $@
 endif
 
 .mp.1:
