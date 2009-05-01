@@ -1,8 +1,8 @@
 indexing
 
-	description: "Abstract daemon class."
+	description: "POSIX daemon class."
 
-	usage: "Inherit from this class, implement `execute' and call just `detach' in your creation routine (don't call `execute')."
+	usage: "Inherit from this class, implement `execute' and call just `detach' in your creation routine (don't call `execute'). You can `execute' for the non-daemonised (interactive) version."
 
 	author: "Berend de Boer"
 	date: "$Date: 2007/11/22 $"
