@@ -154,9 +154,10 @@ feature {NONE} -- abstract C interface
 		end
 
 	abstract_mkdir (a_path: POINTER): INTEGER is
-			-- Makes a directory
+			-- Makes a directory. Accessible by user and group, unless
+			-- modified by umask.
 		do
-			Result := posix_mkdir(a_path, S_IRUSR + S_IWUSR + S_IXUSR)
+			Result := posix_mkdir(a_path, S_IRUSR + S_IWUSR + S_IXUSR + S_IRGRP + S_IWGRP + S_IXGRP)
 		end
 
 	abstract_rmdir (a_path: POINTER): INTEGER is
