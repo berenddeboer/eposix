@@ -52,7 +52,7 @@ feature -- open and close
 		do
 			identification := a_identification
 			create identification_buffer.allocate_and_clear (identification.count + 1)
-			identification_buffer.put_string (identification, 0, identification.capacity - 1)
+			identification_buffer.put_string (identification, 0, identification.count - 1)
 			format := a_format
 			facility := a_facility
 			posix_openlog (identification_buffer.ptr, format, facility)
