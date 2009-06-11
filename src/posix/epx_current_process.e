@@ -2,9 +2,11 @@ indexing
 
 	description: "Class that covers portable Windows current process code."
 
-	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
+	library: "eposix library"
+	author: "Berend de Boer <berend@pobox.com>"
+	copyright: "Copyright (c) 2007 - 2009, Berend de Boer"
+	license: "MIT License"
+
 
 class
 
