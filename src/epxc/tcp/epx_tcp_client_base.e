@@ -233,7 +233,7 @@ feature {NONE} -- Implementation
 		do
 			Result ?= socket
 		ensure
-			not_void_when_not_using_ssl: not is_secure_connection implies Result /= Void
+			not_void_when_not_using_ssl: not is_secure_connection and then errno.is_ok implies Result /= Void
 		end
 
 
