@@ -57,9 +57,6 @@ feature -- Access
 	command: STRING
 			-- The command to `execute'.
 
-
-feature -- Termination info
-
 	exit_code: INTEGER
 			-- Exit code after `execute'.
 
