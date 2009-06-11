@@ -67,6 +67,8 @@ feature {POSIX_CURRENT_PROCESS}
 			after_fork
 			execute
 			exit_with_success
+		ensure
+			does_not_return: false
 		rescue
 			-- last resort
 			minimal_exit (EXIT_FAILURE)
