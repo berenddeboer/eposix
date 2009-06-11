@@ -2,14 +2,16 @@ indexing
 
 	description: "Class that implements NetLogger logging on top of syslog."
 
-	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
+	library: "eposix library"
+	author: "Berend de Boer <berend@pobox.com>"
+	copyright: "Copyright (c) 2007 - 2009, Berend de Boer"
+	license: "MIT License"
 
 
 class
 
 	EPX_LOG_HANDLER
+
 
 inherit
 
@@ -18,13 +20,12 @@ inherit
 	SUS_SYSLOG_ACCESSOR
 
 	SUS_SYSTEM
-		rename
-			security as base_security
-		end
+
 
 create
 
 	make
+
 
 feature -- Initialization
 
