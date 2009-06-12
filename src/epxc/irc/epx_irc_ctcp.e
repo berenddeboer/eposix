@@ -87,7 +87,7 @@ feature {EPX_IRC_CLIENT} -- Handling
 							c.item.parameters.item (3).is_integer and then
 							c.item.parameters.item (4).is_integer
 						then
-							unsigned_int := c.item.parameters.item (3).to_integer_64
+							unsigned_int := STRING_.to_integer_64 (c.item.parameters.item (3))
 							create ip_address.make_from_integer (unsigned_int.to_integer)
 							debug ("test")
 								print ("got ip address: ")
