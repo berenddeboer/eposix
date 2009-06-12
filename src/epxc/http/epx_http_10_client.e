@@ -549,21 +549,30 @@ feature -- Response
 		local
 			new_location: STRING
 			redirected_counter: INTEGER
+			url: UT_URI
 		do
 			from
 				read_response
 			until
+				response_code >= 500 or else
 				redirected_counter > 20 or else
 				not is_redirect_response
 			loop
 				new_location := location
-				if response_code = reply_code_see_other then
-					send_request (http_method_GET, new_location, last_data)
+				create url.make (new_location)
+				if url.is_server_authority then
+					url.parse_authority (80)
+					make_with_port (url.host, url.port)
+					if response_code = reply_code_see_other then
+						send_request (http_method_GET, url.path, last_data)
+					else
+						send_request (last_verb, url.path, last_data)
+					end
+					read_response
+					redirected_counter := redirected_counter + 1
 				else
-					send_request (last_verb, new_location, last_data)
+					response_code := 500
 				end
-				read_response
-				redirected_counter := redirected_counter + 1
 			end
 		end
 
