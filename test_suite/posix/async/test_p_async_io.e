@@ -14,6 +14,9 @@ deferred class
 inherit
 
 	TS_TEST_CASE
+		rename
+			exceptions as test_exceptiosn
+		end
 
 	POSIX_CURRENT_PROCESS
 
