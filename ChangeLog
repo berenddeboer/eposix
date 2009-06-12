@@ -1,3 +1,21 @@
+2009-06-12  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT.read_response_with_redirect: did not redirect
+	if redirect was to a different server.
+
+	* EPX_CHARACTER_BUFFER: adapted to change in KI_CHARACTER_BUFFER
+	where `as_special' has become a deferred routine. And `as_special'
+	must now return a value because of a change in
+	YY_COMPRESSED_SCANNER_SKELETON which made it Void
+	safe. Unfortunately that was a very annoying change for me and
+	performance has suffered.
+
+	* configure: fixed bug where gec was not recognised (reported by
+	Colin Paul Adams).
+
+	* configure: default compiler is now gec.
+
+
 2009-06-02  Berend de Boer  <berend@pobox.com>
 
 	* SUS_SYSLOG: buffer overflow possible (not on stack) when opening
@@ -13,7 +31,7 @@
 
 2009-05-15  Berend de Boer  <berend@pobox.com>
 
-	* EPX_TCP_CLILENT_BASE.tcp_socket: postcondition failure even when
+	* EPX_TCP_CLIENT_BASE.tcp_socket: postcondition failure even when
 	exception on C call errors was turned off.
 
 
@@ -29,7 +47,8 @@
 	* EPX_MIME_EMAIL.attach_file: new feature to attach a file to an
 	email.
 
-	* Manual: example how to attach files.
+	* Manual: example how to attach files to an email.
+
 
 2009-02-21  Berend de Boer  <berend@pobox.com>
 

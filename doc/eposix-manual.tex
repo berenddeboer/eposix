@@ -738,41 +738,41 @@ The latest version of \eposix\ was tested with \index{cygwin}Cygwin
   there.
 \stopitemize
 
-\subsection{BeOS}
+% \subsection{BeOS}
 
-The latest version of \eposix\ was tested with \index{BeOS}BeOS
-5.03. BeOS has a nice \cap{posix} compatibility layer. Some remarks:
-\startitemize[n]
-\item Locking doesn't seem to be supported.
-\item fifo's (\posix{mkfifo}) are not supported.
-\item Hard links are not supported, only symbolic links.
-\item No support for \posix{fdatasync}, so we do a \posix{fsync}
-  there.
-\item Sockets work in BeOS, but they are not file descriptors. Stick
-  to the \Eclass{EPX_SOCKET} classes like
-  \Eclass{EPX_TCP_CLIENT_SOCKET}. Never pass a socket to an
-  \Eclass{ABSTRACT_FILE_DESCRIPTOR} as that will not work.\par
-  The trick is that \Efeature{read} and \Efeature{write} in
-  \Eclass{EPX_SOCKET} call \posix{recv} and \posix{sendmsg}. If you
-  pass a socket to an \Eclass{ABSTRACT_FILE_DESCRIPTOR}, the POSIX
-  \posix{read} and \posix{write} routines will be called.
-\item \index{BeOS}BeOS does not support
-  \index{BeOS+non-blocking i/o}non-blocking i/o on file descriptors or
-  sockets. \eposix\ says it does if you ask
-  \Efeature[ABSTRACT_FILE_DESCRIPTOR]{supports_nonblocking_io}, but it
-  doesn't.\par
-  BeOS has some options for non-blocking sockets, but they're very
-  primitive and it seems you can't turn blocking off once it has been
-  turned on for example.
-\stopitemize
+% The latest version of \eposix\ was tested with \index{BeOS}BeOS
+% 5.03. BeOS has a nice \cap{posix} compatibility layer. Some remarks:
+% \startitemize[n]
+% \item Locking doesn't seem to be supported.
+% \item fifo's (\posix{mkfifo}) are not supported.
+% \item Hard links are not supported, only symbolic links.
+% \item No support for \posix{fdatasync}, so we do a \posix{fsync}
+%   there.
+% \item Sockets work in BeOS, but they are not file descriptors. Stick
+%   to the \Eclass{EPX_SOCKET} classes like
+%   \Eclass{EPX_TCP_CLIENT_SOCKET}. Never pass a socket to an
+%   \Eclass{ABSTRACT_FILE_DESCRIPTOR} as that will not work.\par
+%   The trick is that \Efeature{read} and \Efeature{write} in
+%   \Eclass{EPX_SOCKET} call \posix{recv} and \posix{sendmsg}. If you
+%   pass a socket to an \Eclass{ABSTRACT_FILE_DESCRIPTOR}, the POSIX
+%   \posix{read} and \posix{write} routines will be called.
+% \item \index{BeOS}BeOS does not support
+%   \index{BeOS+non-blocking i/o}non-blocking i/o on file descriptors or
+%   sockets. \eposix\ says it does if you ask
+%   \Efeature[ABSTRACT_FILE_DESCRIPTOR]{supports_nonblocking_io}, but it
+%   doesn't.\par
+%   BeOS has some options for non-blocking sockets, but they're very
+%   primitive and it seems you can't turn blocking off once it has been
+%   turned on for example.
+% \stopitemize
 
 
-\subsection{QNX}
+% \subsection{QNX}
 
-The latest version of \eposix\ was tested with \index{QNX}QNX 6.2.1.
+% The latest version of \eposix\ was tested with \index{QNX}QNX 6.2.1.
 
-You have to edit \MYfilename{/src/library.xace} to link the proper
-library for QNX. Look at the comments.
+% You have to edit \MYfilename{/src/library.xace} to link the proper
+% library for QNX. Look at the comments.
 
 
 \subsection{Solaris}
