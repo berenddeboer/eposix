@@ -78,11 +78,11 @@ AC_ARG_WITH(compiler,
  [  --with-compiler=compiler What compiler do you use? ise, se or ge (lowercase!)],
  GOBO_EIFFEL=$withval)
 AC_ARG_VAR([EC],     [Eiffel compiler command])dnl
-AC_ARG_VAR([GOBO_EIFFEL],     [Eiffel vendor (se, ise, ge), default is se])dnl
+AC_ARG_VAR([GOBO_EIFFEL],     [Eiffel vendor (se, ise, ge), default is ge])dnl
 
 AC_CHECK_TOOLS(EC,
 			[m4_default([$1],
-									[se-compile compile ec gec vec])])
+									[gec ec se-compile compile])])
 
 # Provide some information about the compiler.
 echo "$as_me:__oline__:" \
@@ -113,10 +113,7 @@ then
 	elif test x$EC = xec
 	then
 		GOBO_EIFFEL=ise
-	elif test x$EC = xvec
-	then
-		GOBO_EIFFEL=ve
-	elif test x$EC = xge
+	elif test x$EC = xgec
 	then
 		GOBO_EIFFEL=ge
 	fi
@@ -199,10 +196,6 @@ else
 	if test "x$GOBO_EIFFEL" = "xse"
 	then
 		AC_PROG_EC([m4_default([$1], [se-compile compile])])
-	fi
-	if test "x$GOBO_EIFFEL" = "xve"
-	then
-		AC_PROG_EC(vec)
 	fi
 	if test "x$GOBO_EIFFEL" = "xge"
 	then
