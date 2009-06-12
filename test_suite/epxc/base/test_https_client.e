@@ -33,8 +33,8 @@ feature
 		local
 			client: EPX_HTTP_11_CLIENT
 		do
-			create client.make_secure ("www.tradesports.com")
-			client.get ("/index.html")
+			create client.make_secure ("www.intrade.com")
+			client.get ("/")
 			client.read_response
 			assert_equal ("Response code", reply_code_ok, client.response_code)
 			assert_equal ("Response phrase", "OK", client.response_phrase)
