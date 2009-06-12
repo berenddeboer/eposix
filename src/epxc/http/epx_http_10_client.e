@@ -546,6 +546,8 @@ feature -- Response
 			-- request send.
 			-- A maximum of twenty redirects are followed, after that
 			-- this routine just returns.
+			-- Note then when a redirect is followed, the `server_name'
+			-- and `port' will change to the redirected server.
 		local
 			new_location: STRING
 			redirected_counter: INTEGER
@@ -558,6 +560,8 @@ feature -- Response
 				redirected_counter > 20 or else
 				not is_redirect_response
 			loop
+				-- Redirect will still fail if returned Location includes
+				-- a username, as we don't pick that up.
 				new_location := location
 				create url.make (new_location)
 				if url.is_server_authority then
