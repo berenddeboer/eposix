@@ -2,9 +2,9 @@ indexing
 
 	description: "Test Standard C securiy class."
 
+	warning: "Works only if garbage collection cycle can be triggered. So it uses check instead of assert, else compiliation fails for compilers that do not support this."
+
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
