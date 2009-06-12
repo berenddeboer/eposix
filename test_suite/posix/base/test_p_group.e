@@ -55,7 +55,7 @@ feature -- Tests
 		do
 			create db
 			assert ("gid 0 exists.", db.is_existing_gid (0))
-			assert ("group wheel exists.", db.is_existing_group ("wheel"))
+			assert ("group wheel exists.", db.is_existing_group ("daemon"))
 			if system_name.substring_index ("CYGWIN", 1) = 0 then
 				assert ("Assume group 61431 does not exist.", not db.is_existing_gid (61431))
 			else
