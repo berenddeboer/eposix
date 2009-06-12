@@ -55,6 +55,8 @@ feature
 			print ("block size: ")
 			print (stat.block_size)
 			print ("%N")
+			unlink ("test.berend")
+			unlink ("tmp.tmp")
 		end
 
 end

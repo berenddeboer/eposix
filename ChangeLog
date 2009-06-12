@@ -1,3 +1,22 @@
+2009-06-02  Berend de Boer  <berend@pobox.com>
+
+	* SUS_SYSLOG: buffer overflow possible (not on stack) when opening
+	syslog.
+
+
+2009-05-29  Berend de Boer  <berend@pobox.com>
+
+	* EPX_FILE_SYSTEM.mkdir: security change: newly created
+	directories are now also accesible by group (formerly only by
+	user) unless changed by the umask that is in effect.
+
+
+2009-05-15  Berend de Boer  <berend@pobox.com>
+
+	* EPX_TCP_CLILENT_BASE.tcp_socket: postcondition failure even when
+	exception on C call errors was turned off.
+
+
 2009-03-23  Berend de Boer  <berend@pobox.com>
 
 	* !Rewrite of child/current process structure as weird things were

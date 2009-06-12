@@ -223,6 +223,8 @@ feature -- The tests
 			link ("file.tmp", "link.tmp")
 			assert ("link.tmp is a readable file.", is_readable ("link.tmp"))
 			unlink ("link.tmp")
+			unlink ("file.tmp")
+			assert ("file.tmp is not a readable file.", not is_readable ("file.tmp"))
 		end
 
 	test_fifo is
