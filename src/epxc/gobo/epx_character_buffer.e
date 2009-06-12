@@ -24,7 +24,8 @@ inherit
 			copy,
 			is_equal
 		redefine
-			append_substring_to_string
+			append_substring_to_string,
+			as_special
 		end
 
 	STDC_BUFFER
@@ -50,6 +51,39 @@ feature -- Access
 	substring (s, e: INTEGER): STRING is
 		do
 			Result := buffer_substring (s-1, e-1)
+		end
+
+
+feature -- Conversion
+
+	as_special: SPECIAL [CHARACTER] is
+			-- 'SPECIAL [CHARACTER]' version of current character buffer;
+			-- Characters are indexed starting at 1;
+			-- Note that the result may share the internal data with `Current'.
+		local
+			i: INTEGER
+			s: STRING
+			c: CHARACTER
+		do
+			-- Unfortunately we must copy the data out of the buffer for
+			-- this routine. For ISE I probably can use
+			-- SPECIAL.base_address for a faster copy?
+			create s.make (count + 1)
+			-- We must return a 1 based SPECIAL, so insert dummy charater
+			-- at the beginning.
+			s.append_character ('%U')
+			from
+				c := posix_peek_character (ptr, i)
+			variant
+				(count + 1) - i
+			until
+				c = '%U'
+			loop
+				s.append_character (c)
+				i := i + 1
+				c := posix_peek_character (ptr, i)
+			end
+			Result := s.area
 		end
 
 
