@@ -94,7 +94,7 @@ endif
 if GE
 	mv compile_${GOBO_EIFFEL}.ace compile_${GOBO_EIFFEL}.xace
 	gec compile_${GOBO_EIFFEL}.xace
-	mv eposix_test.exe $@
+	mv eposix_test $@
 endif
 
 .mp.1:
