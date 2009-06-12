@@ -68,14 +68,14 @@ feature -- Change
 		require
 			an_attribute_name_not_empty: an_attribute_name /= Void and then not an_attribute_name.is_empty
 		local
-			attribute: EPX_LDIF_ATTRIBUTE
+			my_attribute: EPX_LDIF_ATTRIBUTE
 		do
 			attributes.search (an_attribute_name)
 			if attributes.found then
 				attributes.found_item.add_value (a_value)
 			else
-				create attribute.make (an_attribute_name, Void, a_value)
-				attributes.force (attribute, attribute.name)
+				create my_attribute.make (an_attribute_name, Void, a_value)
+				attributes.force (my_attribute, my_attribute.name)
 			end
 		ensure
 			has_attribute: attributes.has (an_attribute_name)
