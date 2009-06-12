@@ -153,8 +153,8 @@
 		<geant file="build.eant" target="clean" dir="base" if="${do_clean}"/>
 		<geant file="build.eant" target="${target}" dir="exit_handler"/>
 		<geant file="build.eant" target="clean" dir="exit_handler" if="${do_clean}"/>
-    <!-- security test fails with SE 1.2b5 -->
-		<geant file="build.eant" target="${target}" dir="security"/>
+    <!-- security test fails with SE 1.2b5. security doesn't work with gec -->
+		<geant file="build.eant" target="${target}" dir="security" if="${GOBO_EIFFEL}=ise"/>
 		<geant file="build.eant" target="clean" dir="security" if="${do_clean}"/>
 		<geant file="build.eant" target="${target}" dir="signal_handler"/>
 		<geant file="build.eant" target="clean" dir="signal_handler" if="${do_clean}"/>
