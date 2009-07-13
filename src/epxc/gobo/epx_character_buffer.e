@@ -62,16 +62,15 @@ feature -- Conversion
 			-- Note that the result may share the internal data with `Current'.
 		local
 			i: INTEGER
-			s: STRING
+			s: SPECIAL [CHARACTER]
 			c: CHARACTER
 		do
 			-- Unfortunately we must copy the data out of the buffer for
 			-- this routine. For ISE I probably can use
 			-- SPECIAL.base_address for a faster copy?
-			create s.make (count + 1)
-			-- We must return a 1 based SPECIAL, so insert dummy charater
+			-- We must return a 1 based SPECIAL, so have dummy character
 			-- at the beginning.
-			s.append_character ('%U')
+			create s.make (count + 1)
 			from
 				c := posix_peek_character (ptr, i)
 			variant
@@ -79,11 +78,11 @@ feature -- Conversion
 			until
 				c = '%U'
 			loop
-				s.append_character (c)
+				s.put (c, i + 1)
 				i := i + 1
 				c := posix_peek_character (ptr, i)
 			end
-			Result := s.area
+			Result := s
 		end
 
 
