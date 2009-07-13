@@ -867,6 +867,35 @@ feature -- Quote unsafe characters
 		end
 
 
+feature -- Conversion
+
+	force_valid_string (s: STRING): STRING is
+			-- `'s' with all invalid characters replaced by spaces; if
+			-- there are no changes `s' is returned, else a new string
+		local
+			i: INTEGER
+		do
+			if  s /= Void then
+				Result := s
+				from
+					i := 1
+				until
+					i > Result.count
+				loop
+					if not is_char (Result.item (i).code) then
+						if s = Result then
+							Result := s.twin
+						end
+						Result.put (' ', i)
+					end
+					i := i + 1
+				end
+			end
+		ensure
+			valid_string: s /= Void implies is_string (Result)
+		end
+
+
 feature -- Comments
 
 	add_comment (a_comment: STRING) is
@@ -1000,6 +1029,8 @@ feature {NONE} -- Internal xml change
 			-- `value' should not contain an entity reference, because it
 			-- will be quoted.
 			-- Returns either `value' or a new string.
+		require
+			no_invalid_characters: is_string (value)
 		local
 			i: INTEGER
 			cloned: BOOLEAN
