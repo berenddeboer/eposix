@@ -75,10 +75,10 @@ m4_define([AC_LANG_SOURCE(Eiffel)],
 AC_DEFUN([AC_PROG_EC],
 [AC_LANG_PUSH(Eiffel)dnl
 AC_ARG_WITH(compiler,
- [  --with-compiler=compiler What compiler do you use? ise, se or ge (lowercase!)],
+ [  --with-compiler=compiler What compiler do you use? ge, ise or se (lowercase!)],
  GOBO_EIFFEL=$withval)
 AC_ARG_VAR([EC],     [Eiffel compiler command])dnl
-AC_ARG_VAR([GOBO_EIFFEL],     [Eiffel vendor (se, ise, ge), default is ge])dnl
+AC_ARG_VAR([GOBO_EIFFEL],     [Eiffel vendor (ge, ise, se), default is ge])dnl
 
 AC_CHECK_TOOLS(EC,
 			[m4_default([$1],
@@ -123,7 +123,6 @@ fi
 # to create libraries for a specific compiler or to do other compiler
 # specific stuff in a Makefile.am
 AM_CONDITIONAL(SE, test "x$GOBO_EIFFEL" = "xse")
-AM_CONDITIONAL(VE, test "x$GOBO_EIFFEL" = "xve")
 AM_CONDITIONAL(ISE, test "x$GOBO_EIFFEL" = "xise")
 AM_CONDITIONAL(GE, test "x$GOBO_EIFFEL" = "xge")
 
@@ -161,15 +160,15 @@ then
 				AC_MSG_ERROR(SmartEiffel base.h header file not found in $EIFFEL_COMPILER_HEADER_DIR. Make sure your SmartEiffel environment variable is set correctly)
 		fi
 	fi
+  EC=compile
 elif test "x$GOBO_EIFFEL" = "xise"
 then
 	EIFFEL_COMPILER_HEADER_DIR=$ISE_EIFFEL/studio/spec/$ISE_PLATFORM/include
-elif test "x$GOBO_EIFFEL" = "xve"
-then
-	EIFFEL_COMPILER_HEADER_DIR=$VE_Bin
+  EC=ec
 elif test "x$GOBO_EIFFEL" = "xge"
 then
 	EIFFEL_COMPILER_HEADER_DIR=$GOBO/tool/gec/runtime/c
+  EC=gec
 else
 	AC_MSG_ERROR(Eiffel compiler $GOBO_EIFFEL not recognized)
 fi
