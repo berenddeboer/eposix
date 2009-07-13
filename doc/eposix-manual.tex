@@ -2280,12 +2280,14 @@ this class:
 
 \typeEIFFELfile{ex_smtp1.e}
 
+The example sends email from the current user to the current user.
+
 There are three steps in creating an email:
 \startitemize[n]
 \item Create the message using \Eclass{EPX_MIME_EMAIL}, which
   basically is an \Eclass{EPX_MIME_PART}. It has and has several
   convenience routines to quickly create such a message.
-\item Create the mail using \Eclass{EX_SMTP_MAIL}. This class is a
+\item Create the mail using \Eclass{EPX_SMTP_MAIL}. This class is a
   container for the sender, the recipients and the actual message that
   is to be sent.
 \item Create an instance of the \Eclass{EPX_SMTP_CLIENT} class. The

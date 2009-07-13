@@ -1,7 +1,7 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
-New in 3.1.2 - 2009-01-20
+New in 3.1.3 - 2009-06-12
 
 * 64 bit platforms: fixed various reported bugs for 64 bit platforms
   and 64 bit ISE (EPX_ARRAY_HELPER, STDC_TIME.to_utc).
@@ -14,10 +14,23 @@ New in 3.1.2 - 2009-01-20
   - delete: didn't accept data, but it should. Breaking change.
   - now encodes spaces to + characters if a passed uri fragment
     contains them.
+  - read_response_with_redirect: didn't redirect if redirection was to
+    a different server.
+* EPX_FILE_SYSTEM
+  - mkdir: security change! newly created directories are now also
+  	accessible by everyone (formerly only by user) unless of course
+  	changed by the umask that is in effect. This is more like how
+  	other tools and languages work.
+  - is_directory and others: check was done by calling a routine that
+    did set errno, but this meant errno might have been propagated,
+    and cause code to think it was set. So now properly reset.
+  - make_directories: create more than 1 directory (i.e. mkdir -p).
 * ABSTRACT_INTERNET_SOCKET: new features set_low_delay and
 	set_throughput to minimize delay or maximise throughput
 * ABSTRACT_TCP_SOCKET.set_nodelay: new feature.
 * STDC_BUFFER: new 64 bit integer read and write routines
+* EPX_MIME_EMAIL.attach_file: new feature to attach files to an email.
+* Child process/fork changes: should now work with fewer surprises.
 * Fixed all catcalls reported by gec.
 * License changed to MIT.
 * VisualEiffel support dropped.
@@ -29,6 +42,7 @@ New in 3.1.2 - 2009-01-20
   	leading to garbage in the log.
   - eposix.ecf: works now out of the box when multithreading is	enabled
 * Gobo Eiffel Compiler now supported.
+* Works against latest Gobo SVN (which is Void safe or being made Void safe).
 * Logging framework changes:
   - ULM logging classes are obsolete, and no longer included by
    	default in the library.xace.

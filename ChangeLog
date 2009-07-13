@@ -1,5 +1,7 @@
 2009-06-12  Berend de Boer  <berend@pobox.com>
 
+	* Second beta release 3.1.3.
+
 	* EPX_HTTP_10_CLIENT.read_response_with_redirect: did not redirect
 	if redirect was to a different server.
 
@@ -7,8 +9,7 @@
 	where `as_special' has become a deferred routine. And `as_special'
 	must now return a value because of a change in
 	YY_COMPRESSED_SCANNER_SKELETON which made it Void
-	safe. Unfortunately that was a very annoying change for me and
-	performance has suffered.
+	safe.
 
 	* configure: fixed bug where gec was not recognised (reported by
 	Colin Paul Adams).
@@ -25,7 +26,7 @@
 2009-05-29  Berend de Boer  <berend@pobox.com>
 
 	* EPX_FILE_SYSTEM.mkdir: security change: newly created
-	directories are now also accesible by group (formerly only by
+	directories are now also accessible by everyone (formerly only by
 	user) unless changed by the umask that is in effect.
 
 
@@ -37,7 +38,7 @@
 
 2009-03-23  Berend de Boer  <berend@pobox.com>
 
-	* !Rewrite of child/current process structure as weird things were
+	* Rewrite of child/current process structure as weird things were
 	happening. I think I didn't understand Eiffel's select mechanism
 	very well.
 
@@ -60,7 +61,7 @@
 	break. It should call posix_access straight, instead of going
 	through an abstraction function.
 
-	* !ABSTRACT_FILE_SYSTEM.make_directories: new function to create
+	* ABSTRACT_FILE_SYSTEM.make_directories: new function to create
 	more than 1 directory at once.
 
 
