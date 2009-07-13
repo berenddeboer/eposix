@@ -566,7 +566,9 @@ feature -- Response
 				create url.make (new_location)
 				if url.is_server_authority then
 					url.parse_authority (80)
-					make_with_port (url.host, url.port)
+					if not STRING_.same_string (server_name, url.host) or http_service.port /= url.port then
+						make_with_port (url.host, url.port)
+					end
 					if response_code = reply_code_see_other then
 						send_request (http_method_GET, url.path, last_data)
 					else
