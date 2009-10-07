@@ -9,6 +9,7 @@ include $(top_srcdir)/config/myrules.mak
 
 mostlyclean-generic:
 	geant clean
+	rm compile_short.ace
 
 # A user cannot built eposix-manual.pdf, but we include it with this
 # package. Because of EXTRA_DIST, make distcheck will fail, it tries

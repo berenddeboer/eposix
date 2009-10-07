@@ -1,3 +1,14 @@
+2009-10-07  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_10_CLIENT: Handle case where server doesn't send a
+	response phrase, only a response code.
+
+
+2009-10-07  Berend de Boer  <berend@pobox.com>
+
+	* Second beta release 3.1.4.
+
+
 2009-06-12  Berend de Boer  <berend@pobox.com>
 
 	* Second beta release 3.1.3.

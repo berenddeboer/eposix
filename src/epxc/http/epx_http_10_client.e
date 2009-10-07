@@ -243,7 +243,7 @@ feature -- Requests
 				request.append_string (once_colon_space)
 				request.append_string (host.name)
 				request.append_string (once_new_line)
-				append_other_fields (a_verb, a_request_uri, a_request_data, request)
+				append_other_fields (a_verb, a_request_uri, request)
 				if not reuse_connection then
 					request.append_string (once_connection_close)
 				end
@@ -372,7 +372,7 @@ feature -- Cookies
 
 feature {NONE} -- Request implementation
 
-	append_other_fields (a_verb, a_path: STRING; a_request_data: EPX_MIME_PART; request: STRING) is
+	append_other_fields (a_verb, a_path: STRING; request: STRING) is
 			-- Append any other field to `request'.
 		require
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
@@ -680,9 +680,15 @@ feature {NONE} -- Implementation
 				status_line.remove (status_line.count)
 			end
 
+			-- Start of response code code
 			p := status_line.index_of (' ', 1)
+			-- Detect start of response phrase. Some servers return no
+			-- phrase, sigh, so cope with that.
 			if p > 1 then
 				q := status_line.index_of (' ', p+1)
+			end
+			if q = 0 then
+				q := status_line.count + 1
 			end
 			if p > 1 and q > 1 then
 				server_version := status_line.substring (1, p-1)
@@ -694,8 +700,12 @@ feature {NONE} -- Implementation
 				else
 					response_code := 500
 				end
-				response_phrase := status_line.substring (q+1, status_line.count)
-				sh.trim (response_phrase)
+				if q < status_line.count then
+					response_phrase := status_line.substring (q+1, status_line.count)
+					sh.trim (response_phrase)
+				else
+					response_phrase := ""
+				end
 			else
 				-- Can we recover from garbage??
 				response_code := 500
