@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script
-AC_INIT(eposix-beta, 3.1.4)
+AC_INIT(eposix-beta, 3.1.5)
 AC_CONFIG_SRCDIR(src/supportc/c_support.c)
 AC_CONFIG_AUX_DIR(config)
 AC_DISABLE_SHARED
