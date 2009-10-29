@@ -80,6 +80,7 @@ feature -- Reading/writing commands
 	close is
 		do
 			fd_stdin.close
+			fd_stdout.close
 			wait_for (True)
 		end
 
