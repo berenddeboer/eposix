@@ -243,7 +243,7 @@ feature -- Requests
 				request.append_string (once_colon_space)
 				request.append_string (host.name)
 				request.append_string (once_new_line)
-				append_other_fields (a_verb, a_request_uri, request)
+				append_other_fields (a_verb, a_request_uri, a_request_data, request)
 				if not reuse_connection then
 					request.append_string (once_connection_close)
 				end
@@ -372,8 +372,10 @@ feature -- Cookies
 
 feature {NONE} -- Request implementation
 
-	append_other_fields (a_verb, a_path: STRING; request: STRING) is
+	append_other_fields (a_verb, a_path: STRING; a_request_data: EPX_MIME_PART; request: STRING) is
 			-- Append any other field to `request'.
+			-- `a_request_data' contains fields passed in by client and
+			-- can be modified before they are written.
 		require
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
 			path_not_empty: a_path /= Void and then not a_path.is_empty
