@@ -882,7 +882,7 @@ feature -- Conversion
 				until
 					i > Result.count
 				loop
-					if not is_char (Result.item (i).code) then
+					if not is_char (Result.item_code (i)) then
 						if s = Result then
 							Result := s.twin
 						end
