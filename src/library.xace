@@ -84,8 +84,9 @@
         <option name="link" value="-lrt"/>
       <!-- for FreeBSD you need this library -->
       <!-- There is also a libc_p library, which I used previously, but
-           libc_r includes the semaphore functions -->
-<!--        <option name="link" value="-lc_r"/> -->
+           libc_r includes the semaphore functions.
+           2009-11-20: switched to pthread. -->
+<!--        <option name="link" value="-lpthread"/> -->
       <!-- for QNX you need this library -->
 <!--        <option name="link" value="-lsocket"/> -->
       <!-- for Solaris 10 you need these options -->
