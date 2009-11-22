@@ -1,3 +1,9 @@
+2009-11-10  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.force_valid_string: Incorrect for character codes
+	> 255...
+
+
 2009-10-09  Berend de Boer  <berend@pobox.com>
 
 	* Beta release 3.1.5.
@@ -9,7 +15,8 @@
 2009-10-07  Berend de Boer  <berend@pobox.com>
 
 	* EPX_HTTP_10_CLIENT: Handle case where server doesn't send a
-	response phrase, only a response code.
+	response phrase, only a response code (i.e. only "HTTP/1.1 200"
+	instead of "HTTP/1.1 200 OK").
 
 
 2009-10-07  Berend de Boer  <berend@pobox.com>
