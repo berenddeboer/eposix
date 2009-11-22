@@ -58,7 +58,9 @@ feature -- Element change
 				compact_left
 				-- Read in more data.
 				bytes := max_bytes_to_read
-				file.read_buffer (content, count, bytes)
+				if not file.end_of_input then
+					file.read_buffer (content, count, bytes)
+				end
 				if not file.end_of_input then
 					count := count + file.last_read
 					filled := True
