@@ -14,6 +14,12 @@ deferred class
 
 inherit
 
+	STDC_BASE
+		export
+			{NONE} all;
+			{ANY} errno
+		end
+
 	KI_CHARACTER_INPUT_STREAM
 		undefine
 			close
