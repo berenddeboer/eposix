@@ -1236,7 +1236,9 @@ feature {NONE} -- Parse
 		do
 			set_start_condition (INITIAL)
 			do_parse
-			parse_body
+			if not syntax_error then
+				parse_body
+			end
 		end
 
 
