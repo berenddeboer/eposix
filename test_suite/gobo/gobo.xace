@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<library name="gobo">
+
+	<description>
+		description: "Xace file for the Gobo Eiffel Library libraries"
+		copyright: "Copyright (c) 2001-2002, Eric Bezault and others"
+		license: "MIT License (see LICENSE)"
+		date: "$Date: 2007/11/22 $"
+		revision: "$Revision: #2 $"
+	</description>
+
+	<mount location="${GOBO}/library/argument/library.xace"/>
+	<mount location="${EPOSIX}/test_suite/gobo/kernel.xace" if="${DEBUG}"/>
+	<mount location="${GOBO}/library/kernel/library.xace" unless="${DEBUG}"/>
+	<mount location="${GOBO}/library/lexical/library.xace"/>
+	<mount location="${GOBO}/library/math/library.xace"/>
+	<mount location="${GOBO}/library/parse/library.xace"/>
+	<mount location="${GOBO}/library/pattern/library.xace"/>
+	<mount location="${GOBO}/library/regexp/library.xace"/>
+	<mount location="${GOBO}/library/string/library.xace"/>
+	<mount location="${GOBO}/library/structure/library.xace"/>
+	<mount location="${GOBO}/library/test/library.xace"/>
+	<mount location="${GOBO}/library/time/library.xace"/>
+	<mount location="${GOBO}/library/tools/library.xace"/>
+	<mount location="${GOBO}/library/utility/library.xace"/>
+	<mount location="${GOBO}/library/xml/library.xace"/>
+</library>
