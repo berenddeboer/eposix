@@ -93,7 +93,7 @@ feature -- Buffer behaviour
 				-- is desirable. Because what do those characters after
 				-- Content-Length actually mean? Content-Length shouldn't
 				-- appear inside a multipart message, or can it?
-				fix_garbage_after_content_length (index + a_content_length)
+				fix_garbage_after_content_length (index + a_content_length - 1)
 				content_left_to_read := 0
 			else
 				content_left_to_read := a_content_length - remaining_characters_in_buffer
@@ -287,11 +287,11 @@ feature {NONE} -- Implementation
 	fix_garbage_after_content_length (a_new_count: INTEGER) is
 			-- There is some shit out there, guess the
 			-- manufacturer, that sends more than Content-Length.
-			-- That would cause `bytes_read' to become larger as
+			-- That would cause `bytes_read' to become larger than
 			-- `content_length'. If that is going to be the case, call
 			-- this routine.
 			-- Note that we assume that Content-Length is correct, and
-			-- that any more characters are garbage basically.
+			-- that any more characters are basically garbage.
 		require
 			newcount_less_than_count: a_new_count < count
 		do
