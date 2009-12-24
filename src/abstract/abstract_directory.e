@@ -236,7 +236,7 @@ feature -- Access
 
 feature -- Status report
 
-	exhausted: BOOLEAN is
+	after, exhausted: BOOLEAN is
 			-- Are there no more entries in this directory?
 		do
 			Result :=
