@@ -388,6 +388,20 @@ feature -- Tests
 			assert ("chunk5.msg parsed ok", not parser.syntax_error)
 		end
 
+	test_characters_after_content_length is
+			-- Test if characters after content length are ignored.
+		local
+			file: STDC_TEXT_FILE
+			parser: EPX_MIME_PARSER
+		do
+			create file.open_read ("http1.msg")
+			create parser.make_from_file (file)
+			parser.parse
+			assert ("http1.msg parsed ok", not parser.syntax_error)
+			assert_integers_equal ("Message length ok", 1209, parser.part.as_string.count)
+			assert_integers_equal ("Body length ok", 1070, parser.part.text_body.as_string.count)
+		end
+
 
 feature {NONE} -- Helpers
 
