@@ -58,10 +58,10 @@ feature -- Element change
 				compact_left
 				-- Read in more data.
 				bytes := max_bytes_to_read
-				if not file.end_of_input then
+				if not file.end_of_input and then file.errno.is_ok then
 					file.read_buffer (content, count, bytes)
 				end
-				if not file.end_of_input then
+				if not file.end_of_input and then file.errno.is_ok then
 					count := count + file.last_read
 					filled := True
 				else
