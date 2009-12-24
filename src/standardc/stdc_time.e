@@ -280,6 +280,8 @@ feature -- Make individual time fields valid
 			p := posix_gmtime (value)
 			tm.memory_copy (p, 0, 0, posix_tm_size)
 			my_time_zone := utc_time_zone
+			-- On FreeBSD 6.4 errno is set on first call???
+			errno.clear
 		ensure
 			utc_time: is_utc_time
 			time_zone_known: is_time_zone_known
