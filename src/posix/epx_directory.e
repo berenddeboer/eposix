@@ -19,4 +19,8 @@ inherit
 
 	ABSTRACT_DIRECTORY
 
+create
+
+	make
+
 end
