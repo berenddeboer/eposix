@@ -1,0 +1,7 @@
+Server: Sun-ONE-Web-Server/6.1
+Date: Thu, 24 Dec 2009 07:29:15 GMT
+Content-length: 1070
+Content-type: image/gif
+Connection: close
+
+<?xml version="1.0" encoding="UTF-8"?><FDXRateReply xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FDXRateReply.xsd"><ReplyHeader><CustomerTransactionIdentifier>quote 9888</CustomerTransactionIdentifier></ReplyHeader><EstimatedCharges><DimWeightUsed>false</DimWeightUsed><Oversize>false</Oversize><CurrencyCode>CAD</CurrencyCode><BilledWeight>20.0</BilledWeight><DimWeight>0.0</DimWeight><DiscountedCharges><BaseCharge>32.14</BaseCharge><TotalDiscount>0.00</TotalDiscount><Surcharges><DeclaredValue>6.00</DeclaredValue><DeliverySignatureOptions>0.00</DeliverySignatureOptions></Surcharges><TotalSurcharge>7.29</TotalSurcharge><NetCharge>39.43</NetCharge><ShipmentNetCharge>0.00</ShipmentNetCharge><EarnedDiscount>0.00</EarnedDiscount></DiscountedCharges><EffectiveNetDiscount>0.00</EffectiveNetDiscount><OversizeClass>0</OversizeClass></EstimatedCharges><SignatureOption>DIRECT</SignatureOption><IneligibleForMoneyBackGuarantee>true</IneligibleForMoneyBackGuarantee><Routing><TimeInTransit>4</TimeInTransit></Routing></FDXRateReply>c{.
