@@ -145,6 +145,11 @@ feature {NONE} -- Correct field list generation
 		require
 			line_not_void: line /= Void
 		do
+			-- We're assuming the name of the program is used as
+			-- identification so we don't need to write this
+			--append_field (program_name)
+			--append_separator
+
 			append_field (event)
 			append_separator
 
@@ -155,9 +160,6 @@ feature {NONE} -- Correct field list generation
 			append_separator
 
 			append_field (host)
-			append_separator
-
-			append_field (program_name)
 		ensure
 			line_not_empty: not line.is_empty
 		end
