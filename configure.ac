@@ -5,6 +5,7 @@ AC_CONFIG_AUX_DIR(config)
 AC_DISABLE_SHARED
 AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(src/supportc/config.h)
+AC_CONFIG_MACRO_DIR([m4])
 
 #
 # Checks for programs.
