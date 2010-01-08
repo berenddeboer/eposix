@@ -18,26 +18,52 @@ inherit
 	NET_LOGGER_LOG_HANDLER
 
 	SUS_SYSLOG_ACCESSOR
+		export
+			{NONE} all
+		end
+
+	EPX_CURRENT_PROCESS
+		export
+			{NONE} all
+		end
 
 	SUS_SYSTEM
+		export
+			{NONE} all
+		end
+
+	KL_SHARED_ARGUMENTS
+		export
+			{NONE} all
+		end
 
 
 create
 
-	make
+	make,
+	make_default
 
 
 feature -- Initialization
 
-	make (a_identification: STRING) is
-			-- If syslog isn't open, `a_identification' will be used to open it.
+	make_default is
+		local
+			path: STDC_PATH
+		do
+			create path.make_from_string (Arguments.program_name)
+			path.parse (Void)
+			make (path.basename + "[" + pid.out + "]")
+		end
+
+	make (an_identification: STRING) is
+			-- If syslog isn't open, `an_identification' will be used to open it.
 		require
 			valid_identification:
-				a_identification /= Void and then
-				not a_identification.is_empty
+				an_identification /= Void and then
+				not an_identification.is_empty
 		do
 			if not syslog.is_open then
-				syslog.open (a_identification, LOG_ODELAY, LOG_LOCAL3)
+				syslog.open (an_identification, LOG_ODELAY, LOG_LOCAL3)
 			end
 		end
 
