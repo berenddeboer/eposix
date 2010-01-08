@@ -1,12 +1,19 @@
+2010-01-09  Berend de Boer  <berend@pobox.com>
+
+	* Release 3.2.0.
+
+	* NET_LOGGER: format of log changed somewhat.
+
+
 2009-12-25  Berend de Boer  <berend@pobox.com>
 
-	* !STDC_TIME.to_utc: on FreeBSD errno was set after the first call,
+	* STDC_TIME.to_utc: on FreeBSD errno was set after the first call,
 	so explicitly reset errno.
 
 
 2009-12-24  Berend de Boer  <berend@pobox.com>
 
-	* !EPX_MIME_BUFFER: fix to handle case where body was larger than
+	* EPX_MIME_BUFFER: fix to handle case where body was larger than
 	Content-Length was incorrect: still 1 character too much was read.
 
 

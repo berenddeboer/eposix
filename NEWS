@@ -1,7 +1,7 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
-New in 3.1.3 - 2009-06-12
+New in 3.2.0 - 2010-01-09
 
 * 64 bit platforms: fixed various reported bugs for 64 bit platforms
   and 64 bit ISE (EPX_ARRAY_HELPER, STDC_TIME.to_utc).
@@ -29,6 +29,8 @@ New in 3.1.3 - 2009-06-12
 	set_throughput to minimize delay or maximise throughput
 * ABSTRACT_TCP_SOCKET.set_nodelay: new feature.
 * STDC_BUFFER: new 64 bit integer read and write routines
+* Mime parsing: fix where 1 more character than Content-Length was
+  read if the server erroneously send more.
 * EPX_MIME_EMAIL.attach_file: new feature to attach files to an email.
 * Child process/fork changes: should now work with fewer surprises.
 * Fixed all catcalls reported by gec.
@@ -50,6 +52,7 @@ New in 3.1.3 - 2009-06-12
    	change.
   - New NetLogger API classes for logging which replace the ULM
     classes.
+  - Format of logging changed so pid is logged as part of program name.
 * Signal and exit handling rewritten. cecil no longer used.
 * EPX_XML_WRITER: when a & is followed by a # it is assumed a
 	character reference follows, so the & is not replaced by &amp;
@@ -163,6 +166,7 @@ New in 3.0 - 2007-05-18
   	EWOULDBLOCK even when data is returned for FreeBSD 5 and higher. So
   	errno is now explictly reset when data is returned, so routines
 	  expecting errno to be set only on errors behave like expected.
+  - STDC_TIME.to_utc, gmtime(), would set errno on FreeBSD
 * proper multi-threading support for ISE Eiffel: all C calls which are
   potentially blocking are now marked as "C blocking". This required
   some heavy restructuring of the directory hierarchy and the
