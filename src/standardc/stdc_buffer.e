@@ -749,7 +749,7 @@ feature -- Set/get characters
 			-- inclusive to `dest'.
 		require
 			dest_not_void: dest /= Void
-			valid_index: is_valid_range (start_index, end_index)
+			valid_range: is_valid_range (start_index, end_index)
 		local
 			i: INTEGER
 		do
