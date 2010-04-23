@@ -6,7 +6,10 @@ indexing
 	standards: "CGI draft spec 1.2: http://hoohoo.ncsa.uiuc.edu/cgi/interface.html"
 
 	known_bugs:
-		"1. Does not handle inputs with same name (checkboxes) correctly."
+		"[
+1. Does not handle inputs with same name (checkboxes) correctly.
+2. When Content-Type is specified QUERY_STRING is ignored for GET (and possibly all verbs). Should always parse QUERY_STRING.
+]"
 
 	todo:
 		"1. should use binary search allowed_new_line_tag"
@@ -136,6 +139,7 @@ feature -- Error handling
 				header.set_status (401, Void)
 			end
 			finish_header
+			stdout.put_string (as_uc_string)
 		ensure
 			header_written: is_http_header_written
 		end
