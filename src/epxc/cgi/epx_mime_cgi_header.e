@@ -96,9 +96,26 @@ feature -- Access to well-known fields
 
 feature -- Change
 
-	set_content_type_text_xml is
-			-- Set Content-Type to text/html. Character set is set to
+	set_content_type_application_xml is
+			-- Set Content-Type to application/xml. Character set is set to
 			-- UTF-8.
+		do
+			set_content_type (mime_type_application, mime_subtype_xml, charset_utf8)
+		ensure
+			content_type_set: content_type /= Void
+			content_type_is_text_xml:
+				STRING_.same_string (content_type.type, mime_type_application) and then
+				STRING_.same_string (content_type.subtype, mime_subtype_xml)
+			charset_is_utf8:
+				content_type.parameters.has (parameter_name_charset) and then
+				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
+		end
+
+	set_content_type_text_xml is
+			-- Set Content-Type to text/xml. Character set is set to
+			-- UTF-8.
+		obsolete
+			"2010-03-20: please use `set_content_type_application_xml'"
 		do
 			set_content_type (mime_type_text, mime_subtype_xml, charset_utf8)
 		ensure
