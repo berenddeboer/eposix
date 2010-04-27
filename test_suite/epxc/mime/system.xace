@@ -13,15 +13,12 @@
 	<root class="EPOSIX_TEST" creation="make"/>
 
 	<option unless="${DEBUG}">
-    <!-- VE has a weird postcondition error -->
-		<option name="assertion" value="all" unless="${GOBO_EIFFEL}=ve"/>
-		<option name="assertion" value="require" if="${GOBO_EIFFEL}=ve"/>
+		<option name="assertion" value="all"/>
 		<option name="garbage_collector" value="none"/>
-		<option name="finalize" value="true" unless="${GOBO_EIFFEL}=ve"/>
+		<option name="finalize" value="true"/>
 	</option>
 	<option if="${DEBUG}">
-		<option name="assertion" value="all" unless="${GOBO_EIFFEL}=ve"/>
-		<option name="assertion" value="require" if="${GOBO_EIFFEL}=ve"/>
+		<option name="assertion" value="all"/>
 		<option name="garbage_collector" value="internal"/>
 		<option name="finalize" value="false"/>
 		<option name="debug" value="true"/>
@@ -33,9 +30,6 @@
 
   <option if="${GOBO_EIFFEL}=se">
     <option name="high_memory_compiler" value="true"/>
-  </option>
-  <option if="${GOBO_EIFFEL}=ve">
-  	<option name="linker" value="microsoft" if="${GOBO_OS}=windows"/>
   </option>
 
 	<cluster name="testgen" location="TESTGEN"/>

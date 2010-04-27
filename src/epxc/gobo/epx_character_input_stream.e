@@ -84,4 +84,25 @@ feature -- Input
 		end
 
 
+
+feature -- Debug
+
+	set_dump_input (a_file_name: STRING) is
+		do
+			debug ("dump-input")
+				create {STDC_TEXT_FILE} dump_input.open_write (a_file_name)
+			end
+		ensure
+			dump_input_set: dump_input /= Void
+		end
+
+
+feature {NONE} -- Debug
+
+	dump_input: EPX_TEXT_OUTPUT_STREAM
+			-- When the debug option "dump-input" is enabled and this is
+			-- set via `set_dump_input', all input is written to the
+			-- given stream immediately after reading.
+
+
 end

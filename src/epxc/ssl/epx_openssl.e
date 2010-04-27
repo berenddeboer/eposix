@@ -114,16 +114,31 @@ feature -- Reading/writing commands
 			-- Number of bytes actually read are available in `last_read'.
 		do
 			fd_stdout.read_buffer (buf, offset, nbytes)
+			debug ("dump-input")
+				if dump_input /= Void and then not end_of_input then
+					dump_input.put_buffer (buf, offset, last_read)
+				end
+			end
 		end
 
 	read_character is
 		do
 			fd_stdout.read_character
+			debug ("dump-input")
+				if dump_input /= Void and then not end_of_input then
+					dump_input.put_character (last_character)
+				end
+			end
 		end
 
 	read_line is
 		do
 			fd_stdout.read_line
+			debug ("dump-input")
+				if dump_input /= Void and then not end_of_input then
+					dump_input.put_line (last_string)
+				end
+			end
 		end
 
 	read_new_line is

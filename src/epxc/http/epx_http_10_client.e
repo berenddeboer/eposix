@@ -616,9 +616,9 @@ feature {NONE} -- Implementation
 	do_read_response (including_body: BOOLEAN) is
 		do
 			create parser.make_from_stream (http)
-			-- first line is HTTP version
+			-- First line contains status code and HTTP version.
 			read_and_parse_status_line
-			-- parse while reading.
+			-- Parse while reading.
 			if including_body then
 				if reuse_connection then
 					parser.parse_header

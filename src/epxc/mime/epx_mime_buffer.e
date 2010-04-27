@@ -42,6 +42,11 @@ feature -- Status
 	chunk_encoding_error: BOOLEAN
 			-- Was there an error decoding the chunks?
 
+	is_chunk_encoded: BOOLEAN is
+		do
+			Result := chunk_expect_size or else chunk_expect_end_of_chunk
+		end
+
 	is_valid_position (a_position: INTEGER): BOOLEAN is
 			-- Is `a_position' a valid position in this buffer?
 		do
@@ -61,6 +66,8 @@ feature -- Buffer behaviour
 			chunk_expect_end_of_chunk := False
 			chunk_start := 0
 		ensure
+			no_chunks_anymore: not chunk_expect_size
+			no_end_of_chunk_anymore: not chunk_expect_end_of_chunk
 			not_end_of_input: not end_of_file
 		end
 
@@ -196,7 +203,7 @@ feature -- Element change
 						-- already did so in `set_transfer_encoding_chunked'.
 						count := index + chunk_left_to_read - 1
 						-- `count' could now point the last character in our buffer.
-						if count >= saved_count then
+						if count > saved_count then
 							-- If so, set it to `saved_count' and we're done.
 							chunk_left_to_read := count - saved_count
 							count := saved_count
@@ -272,6 +279,9 @@ feature -- Element change
 			chunk_left_to_read := 0
 			content_left_to_read := 0
 			end_of_file_on_end_of_header := False
+			chunk_encoding_error := False
+		ensure then
+			no_error: not chunk_encoding_error
 		end
 
 
@@ -297,6 +307,9 @@ feature {NONE} -- Implementation
 		do
 			count := a_new_count
 			mark_end_of_input (count + 1)
+		ensure
+			end_marked: content.item (count + 1) =  End_of_buffer_character
+			end_marked: content.item (count + 2) =  End_of_buffer_character
 		end
 
 	mark_end_of_input (a_position: INTEGER) is
@@ -347,7 +360,7 @@ feature {NONE} -- Chunked encoding implementation
 			-- Last character returned by `chunk_read_character'
 
 	chunk_left_to_read: INTEGER
-			-- How many bytes are remaining in the input stream?
+			-- How many bytes are remaining in the input stream for the current chunk?
 
 	chunk_read_character is
 			-- Read a character from `content' or if that is empty, from `file'.
@@ -386,6 +399,7 @@ feature {NONE} -- Chunked encoding implementation
 				chunk_size := ""
 				chunk_read_character
 				-- There really should be a digit now if the stream is correct.
+				-- The last chunk has size 0.
 			until
 				chunk_end_of_input or else
 				chunk_last_character = '%N'
@@ -403,7 +417,7 @@ feature {NONE} -- Chunked encoding implementation
 						-- Set where the next chunk starts in our buffer
 						chunk_start := index + chunk_left_to_read
 						-- But that could be past the last character in our
-						-- buffer, in which case we can start relying in
+						-- buffer, in which case we can start relying on
 						-- `index' being correct again.
 						if chunk_start > count then
 							chunk_start := 0
@@ -416,6 +430,8 @@ feature {NONE} -- Chunked encoding implementation
 					chunk_left_to_read := 0
 				end
 			else
+				-- We should have gotten a size
+				chunk_encoding_error := True
 				chunk_left_to_read := 0
 			end
 			chunk_expect_size := False
@@ -423,6 +439,7 @@ feature {NONE} -- Chunked encoding implementation
 		ensure
 			no_size_expected: not chunk_expect_size
 			after_chunk_read_end_of_chunk_marker: chunk_expect_end_of_chunk
+			nothing_to_read_after_error: chunk_encoding_error implies chunk_left_to_read = 0
 		end
 
 	read_end_of_chunk_marker is

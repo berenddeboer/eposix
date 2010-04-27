@@ -1,3 +1,15 @@
+2010-04-27  Berend de Boer  <berend@pobox.com>
+
+	* EPX_HTTP_11_CLIENT: parsing HTTP responses when chunked encoding
+	was used, failed in about 1 out of 10 cases.
+
+
+2010-04-23  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CGI.error_unauthorized: also emit body if set, not only
+	header.
+
+
 2010-01-09  Berend de Boer  <berend@pobox.com>
 
 	* Release 3.2.0.
