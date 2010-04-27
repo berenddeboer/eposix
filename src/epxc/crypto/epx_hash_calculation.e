@@ -44,7 +44,8 @@ feature -- Access
 			binary_checksum_available: binary_checksum /= Void
 		deferred
 		ensure
-			valid_checksum_length: checksum /= Void implies checksum.count = hash_output_length * 2
+			checksum_not_void: checksum /= Void
+			valid_checksum_length: checksum.count = hash_output_length * 2
 		end
 
 	block_length: INTEGER is
