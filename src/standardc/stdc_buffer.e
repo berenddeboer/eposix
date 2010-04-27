@@ -758,7 +758,6 @@ feature -- Set/get characters
 			until
 				i > end_index
 			loop
-				--dest.append_character (peek_character (i))
 				dest.append_character (posix_peek_character (ptr, i))
 				i := i + 1
 			end
@@ -842,8 +841,6 @@ feature -- Set/get characters
 			until
 				i > end_index
 			loop
-				--dest.put (peek_character (i), j)
-				-- this inline is a lot faster
 				-- I expect inlined C to be even faster, perhaps
 				-- experiment with moving this entire loop to C?
 				dest.put (posix_peek_character (ptr, i), j)
@@ -913,7 +910,7 @@ feature -- Set/get characters
 			until
 				i > end_index
 			loop
-				Result.append_character (peek_character (i))
+				Result.append_character (posix_peek_character (ptr, i))
 				i := i + 1
 			end
 		ensure
@@ -954,7 +951,7 @@ feature -- Searching
 			until
 				Found or else i > capacity
 			loop
-				Found := peek_character (i) = other
+				Found := posix_peek_character (ptr, i) = other
 				i := i + 1
 			end
 			if Found then
@@ -1007,7 +1004,7 @@ feature -- Searching
 						until
 							stop
 						loop
-							if other.item (i3) /= peek_character (i2) then
+							if other.item (i3) /= posix_peek_character (ptr, i2) then
 								stop := True
 							else
 								i3 := i3 - 1
