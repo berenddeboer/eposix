@@ -1,3 +1,11 @@
+2010-09-21  Berend de Boer  <berend@pobox.com>
+
+	* STC_TIME.to_local: wrong C code for 64 bit environments.
+
+	* read_line: supports line length up to 8192 characters from 1024
+	before truncating.
+
+
 2010-05-01  Berend de Boer  <berend@pobox.com>
 
 	* STDC_FILE.max_line_length: increased from 1024 to 8192.
