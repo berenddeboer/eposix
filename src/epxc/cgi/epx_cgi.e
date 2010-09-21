@@ -389,9 +389,11 @@ feature -- Standard CGI variables
 		end
 
 	remote_user: STRING is
-			-- Name of the remote user that made the request
-		do
+			-- Name of the remote user, if any, that made the request
+		once
 			Result := env_remote_user.value
+		ensure
+			not_void: Result /= Void
 		end
 
 	request_method: STRING is
