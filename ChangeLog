@@ -1,3 +1,12 @@
+2010-05-01  Berend de Boer  <berend@pobox.com>
+
+	* STDC_FILE.max_line_length: increased from 1024 to 8192.
+
+2010-04-28  Berend de Boer  <berend@pobox.com>
+
+	* EPX_CRYPTO_FEATURES: easy access to md5 calculation.
+
+
 2010-04-27  Berend de Boer  <berend@pobox.com>
 
 	* EPX_HTTP_11_CLIENT: parsing HTTP responses when chunked encoding
