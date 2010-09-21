@@ -198,7 +198,7 @@ else
 	fi
 	if test "x$GOBO_EIFFEL" = "xge"
 	then
-		AC_PROG_EC(ge)
+		AC_PROG_EC(gec)
 	fi
 fi
 
