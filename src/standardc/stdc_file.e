@@ -46,6 +46,17 @@ inherit
 		end
 
 
+feature {NONE} -- Initialisation
+
+	make (a_path: STRING) is
+		require
+			path_not_empty: a_path /= Void and then not a_path.is_empty
+		do
+			do_make
+			set_portable_path (a_path)
+		end
+
+
 feature -- Initialization
 
 	create_read_write (path: STRING) is
@@ -458,7 +469,7 @@ feature -- Access
 	max_line_length: INTEGER is
 			-- Maximum line length used in `read_line'
 		do
-			Result := 1024
+			Result := 8192
 		ensure
 			max_line_length_positive: Result >= 1
 		end
