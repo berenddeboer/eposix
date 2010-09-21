@@ -15,9 +15,12 @@ deferred class
 inherit
 
 	ABSTRACT_TCP_SOCKET
+		export
+			{ANY} SOCK_STREAM, AF_INET, AF_INET6
+		end
 
 
-feature {NONE} -- Socket specific open functions
+feature -- Socket specific open functions
 
 	listen_by_address (hp: EPX_HOST_PORT) is
 			-- Listen on socket for address specified in `hp'.
@@ -178,6 +181,6 @@ feature {NONE} -- Socket options
 
 invariant
 
-	client_socket_address_not_void: client_socket_address /= Void
+	client_socket_address_not_void: is_open implies client_socket_address /= Void
 
 end
