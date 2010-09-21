@@ -27,14 +27,15 @@ EIF_DOUBLE posix_difftime(EIF_INTEGER time1, EIF_INTEGER time0)
 
 EIF_POINTER posix_gmtime(EIF_INTEGER timer)
 {
-  time_t time = timer;
-  return ((EIF_POINTER) gmtime((time_t *) &time));
+  time_t t = timer;
+  return ((EIF_POINTER) gmtime(&t));
 }
 
 
 EIF_POINTER posix_localtime(EIF_INTEGER timer)
 {
-  return ((EIF_POINTER) localtime((time_t *) &timer));
+  time_t t = timer;
+  return ((EIF_POINTER) localtime(&t));
 }
 
 
