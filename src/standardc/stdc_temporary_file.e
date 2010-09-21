@@ -15,8 +15,10 @@ class
 inherit
 
 	STDC_BINARY_FILE
+		rename
+			make as old_make
 		export
-			{NONE} create_read_write, create_write, open, open_append, open_read, open_read_write, attach_to_stream, name
+			{NONE} create_read_write, create_write, open, open_append, open_read, open_read_write, attach_to_stream, name, old_make
 		end
 
 

@@ -26,6 +26,7 @@ inherit
 
 create
 
+	make,
 	create_read_write,
 	create_write,
 	open,
