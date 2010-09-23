@@ -1,3 +1,8 @@
+2010-09-23  Berend de Boer  <berend@pobox.com>
+
+	* Release 3.2.1.
+
+
 2010-09-21  Berend de Boer  <berend@pobox.com>
 
 	* STC_TIME.to_local: wrong C code for 64 bit environments.

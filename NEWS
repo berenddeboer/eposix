@@ -1,6 +1,14 @@
 NEWS - list of user-visible changes between releases of eposix
 
 
+New in 3.2.1 - 2010-09-23
+
+* STDC_TIME.to_local: 64 bit platform fix.
+* read_line: feature now reads lines up to 8192 from 1024 characters.
+* EPX_CRYPTO_FEATURES: easy access to md5 calculations.
+* EPX_HTTP_11_CLIENT: chunked encoding fix.
+
+
 New in 3.2.0 - 2010-01-09
 
 * 64 bit platforms: fixed various reported bugs for 64 bit platforms
