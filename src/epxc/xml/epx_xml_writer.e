@@ -338,7 +338,7 @@ feature -- Commands that expand `xml'
 			-- Use `add_raw' if you don't want quoting.
 			-- This routine is not safe when writing data inside comments.
 		require
-			valid_point_for_data: is_tag_started
+			valid_point_for_data: is_fragment or else is_tag_started
 			valid_data: a_data = Void or else is_string (a_data)
 		local
 			uc: UC_STRING
