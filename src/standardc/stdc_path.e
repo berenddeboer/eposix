@@ -178,6 +178,13 @@ feature -- Change
 			if  found then
 				slash_position := slash_position + 1
 				create directory.make_from_string (substring (1, slash_position - 1))
+				-- If more than 1 slash used in directory name, strip those
+				from
+				until
+					directory.item (directory.count) /= '/'
+				loop
+					directory.remove_tail (1)
+				end
 			else
 				slash_position := 0
 				directory := ""
