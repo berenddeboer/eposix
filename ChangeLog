@@ -1,3 +1,21 @@
+2010-12-24  Berend de Boer  <berend@pobox.com>
+
+	* EPX_EXEC_PROCESS: when stdout is not captured, output is
+	redirected to /dev/null, necessary else child program might block
+	if its output is not read.
+
+2010-12-16  Berend de Boer  <berend@pobox.com>
+
+	* STDC_PATH.parse: postcondition failure if passed double slashes
+	before program name: /tmp//program
+
+
+2010-12-11  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.add_data: should allow adding data when building
+	a fragment without having to start a tag first.
+
+
 2010-09-23  Berend de Boer  <berend@pobox.com>
 
 	* Release 3.2.1.
