@@ -197,6 +197,7 @@ feature -- (re)set arguments
 		end
 
 	set_arguments (a_arguments: ARRAY[STRING]) is
+			-- Change `arguments'.
 		require
 			all_arguments_not_void: not has_void_argument (a_arguments)
 		do
