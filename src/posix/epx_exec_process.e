@@ -84,6 +84,7 @@ feature -- Execution
 			output_pipe,
 			error_pipe: POSIX_PIPE
 			in_child: BOOLEAN
+			dev_null: POSIX_FILE_DESCRIPTOR
 		do
 			if capture_input then
 				create input_pipe.make
@@ -117,9 +118,7 @@ feature -- Execution
 					if capture_input then
 						create fd_stdin.attach_to_fd (STDIN_FILENO, False)
 					end
-					if capture_output then
-						create fd_stdout.attach_to_fd (STDOUT_FILENO, False)
-					end
+					create fd_stdout.attach_to_fd (STDOUT_FILENO, False)
 					if capture_error then
 						create fd_stderr.attach_to_fd (STDERR_FILENO, False)
 					end
@@ -127,15 +126,19 @@ feature -- Execution
 					-- Close a captured standard file and attach it to the pipe.
 					if capture_input then
 						fd_stdin.make_as_duplicate (input_pipe.fdin)
-						check
-							fd_stdin.value = STDIN_FILENO
-						end
+							check
+								fd_stdin.value = STDIN_FILENO
+							end
 					end
 					if capture_output then
 						fd_stdout.make_as_duplicate (output_pipe.fdout)
-						check
-							fd_stdout.value = STDOUT_FILENO
-						end
+							check
+								fd_stdout.value = STDOUT_FILENO
+							end
+					else
+						create dev_null.open_write ("/dev/null")
+						fd_stdout.make_as_duplicate (dev_null)
+						fd_stdout := Void
 					end
 					if capture_error then
 						fd_stderr.make_as_duplicate (error_pipe.fdout)
@@ -192,7 +195,7 @@ feature -- Execution
 			end
 		rescue
 			if in_child then
-				child_stderr.puts (once "in child %N")
+				child_stderr.puts (once "Exception after forking into child %N")
 				handle_execute_failure
 			end
 		end
