@@ -535,9 +535,6 @@ feature -- Commands that expand `xml'
 		do
 			assure_last_tag_written (False)
 			new_line
-			is_element_with_data := True
-		ensure
-			data_added: is_element_with_data
 		end
 
 	set_attribute (an_attribute, a_value: STRING) is
