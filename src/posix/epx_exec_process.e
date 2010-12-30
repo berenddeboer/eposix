@@ -136,7 +136,7 @@ feature -- Execution
 								fd_stdout.value = STDOUT_FILENO
 							end
 					else
-						create dev_null.open_write ("/dev/null")
+						create dev_null.open_write (once "/dev/null")
 						fd_stdout.make_as_duplicate (dev_null)
 						fd_stdout := Void
 					end
