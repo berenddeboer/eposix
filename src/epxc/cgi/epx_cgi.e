@@ -983,8 +983,9 @@ feature {NONE} -- Cached key/value
 				fill_key_value_pairs_from_multipart_encoding
 			else
 				-- unrecognized encoding such as "application/xml" for
-				-- example; not sure what to do
+				-- example; in that case we only look at QUERY_STRING
 				create cgi_data.make (0)
+				add_new_key_value_pairs_from_query_string
 			end
 		ensure
 			cgi_data_not_void: cgi_data /= Void
@@ -1069,7 +1070,6 @@ feature {NONE} -- Standard or multipart key/value filling
 		local
 			parser: EPX_MIME_PARSER
 			input: STDC_TEXT_FILE
-			additional: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 		do
 			input := stdin
 			--create input.open_read ("test-input")
@@ -1084,17 +1084,7 @@ feature {NONE} -- Standard or multipart key/value filling
 				end
 				-- Add those key/value pairs from query string that do not
 				-- yet exist.
-				additional := url_encoder.url_encoded_to_field_name_value_pair (query_string)
-				from
-					additional.start
-				until
-					additional.after
-				loop
-					if not cgi_data.has (additional.key_for_iteration) then
-						cgi_data.force (additional.item_for_iteration, additional.key_for_iteration)
-					end
-					additional.forth
-				end
+				add_new_key_value_pairs_from_query_string
 			else
 				exceptions.raise ("Syntax error detected during parsing of POSTed data.")
 			end
@@ -1111,6 +1101,27 @@ feature {NONE} -- Standard or multipart key/value filling
 			end
 		ensure
 			cgi_data_not_void: cgi_data /= Void
+		end
+
+	add_new_key_value_pairs_from_query_string is
+			-- Add those key/value pairs from query string that do not
+			-- yet exist.
+		require
+			cgi_data_not_void: cgi_data /= Void
+		local
+			additional: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
+		do
+			additional := url_encoder.url_encoded_to_field_name_value_pair (query_string)
+			from
+				additional.start
+			until
+				additional.after
+			loop
+				if not cgi_data.has (additional.key_for_iteration) then
+					cgi_data.force (additional.item_for_iteration, additional.key_for_iteration)
+				end
+				additional.forth
+			end
 		end
 
 	mime_header: STRING is
