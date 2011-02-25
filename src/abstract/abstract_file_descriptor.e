@@ -64,6 +64,7 @@ feature -- Initialization
 		end
 
 	open_write (a_path: STRING) is
+			-- Open existing file for writing only.
 		require
 			closed: not is_open
 			a_path_not_empty: a_path /= Void and then not a_path.is_empty
