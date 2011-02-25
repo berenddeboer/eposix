@@ -1,3 +1,11 @@
+2010-12-30  Berend de Boer  <berend@pobox.com>
+
+	* EPX_XML_WRITER.put_new_line: can now be called without upsetting
+	indenting. Might give different output in case you are emitting
+	real documents, but this works much better for tree structured
+	output.
+
+
 2010-12-24  Berend de Boer  <berend@pobox.com>
 
 	* EPX_EXEC_PROCESS: when stdout is not captured, output is
