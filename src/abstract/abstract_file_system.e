@@ -372,7 +372,9 @@ feature -- File and string
 		do
 			remove_file (a_file_name)
 			create file.create_write (a_file_name)
-			file.put_string (s)
+			if s /= Void then
+				file.put_string (s)
+			end
 			file.close
 		end
 
