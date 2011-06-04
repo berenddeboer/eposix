@@ -239,7 +239,7 @@ feature {NONE}  -- various actions
 			-- `last_child_pid'. If `root' isn't the current process,
 			-- it's `pid' is set to `last_child_pid'.
 		require
-			valid_root: root /= Void
+			forked_root_not_void: root /= Void
 		local
 			in_child: BOOLEAN
 		do
