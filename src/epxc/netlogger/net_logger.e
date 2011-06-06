@@ -85,6 +85,13 @@ feature -- NetLogger normal usage API
 				default_fields_to_line
 				flatten_fields_to_line (an_event_attributes)
 				handler.log_event (a_level, line)
+				-- If debug level is enabled, write every message to the
+				-- debug log as well, else crucial events are not visible
+				-- if you just look at that log, which is annyoing, and it
+				-- is hard to splice together all events.
+				if level >= levels.debug0 then
+					handler.log_event (levels.debug0, line)
+				end
 			end
 		end
 
