@@ -89,7 +89,7 @@ feature -- NetLogger normal usage API
 				-- debug log as well, else crucial events are not visible
 				-- if you just look at that log, which is annyoing, and it
 				-- is hard to splice together all events.
-				if level >= levels.debug0 and then level < levels.debug0 then
+				if level >= levels.debug0 and then a_level < levels.debug0 then
 					handler.log_event (levels.debug0, line)
 				end
 			end
