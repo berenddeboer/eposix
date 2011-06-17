@@ -1063,6 +1063,20 @@ feature {NONE} -- Internal xml change
 						end
 						Result.insert_string (PartQuoteAmp, i + 1)
 						i := i + QuoteAmp.count
+					when '%N' then
+						if not cloned then
+							create {UC_STRING} Result.make_from_string (value)
+							cloned := True
+						end
+						Result.put ('&', i)
+						Result.insert_string (once "#x0a;", i + 1)
+						i := i + 6
+					when '%T', '%R' then
+						if not cloned then
+							create {UC_STRING} Result.make_from_string (value)
+							cloned := True
+						end
+						Result.put (' ', i)
 					else
 						i := i + 1
 					end
