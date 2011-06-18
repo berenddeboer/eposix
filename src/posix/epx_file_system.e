@@ -113,12 +113,12 @@ feature -- file system properties
 			tmpdir,
 			tmp: POSIX_ENV_VAR
 		once
-			create tmpdir.make ("TMPDIR")
+			create tmpdir.make (once "TMPDIR")
 			if tmpdir.exist then
 				Result := tmpdir.value
 			else
-				create tmp.make ("TMP")
-				if tmp.exist then
+				create tmp.make (once "TMP")
+				if tmp.is_set then
 					Result := tmp.value
 				end
 			end
