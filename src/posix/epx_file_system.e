@@ -114,7 +114,7 @@ feature -- file system properties
 			tmp: POSIX_ENV_VAR
 		once
 			create tmpdir.make (once "TMPDIR")
-			if tmpdir.exist then
+			if tmpdir.is_set then
 				Result := tmpdir.value
 			else
 				create tmp.make (once "TMP")
