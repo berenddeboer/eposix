@@ -52,6 +52,28 @@ create
 	make_from_command_line
 
 
+feature -- Access
+
+	new_uid: INTEGER
+			-- If set to a different value then 0, change `uid' before
+			-- executing `program_name';
+			-- Failure to do so is silently ignored, and you need to run
+			-- as root to be able to do this.
+
+
+feature -- Change
+
+	set_new_uid (a_uid: INTEGER) is
+			-- Set `new_uid'.
+		require
+			valid_uid: a_uid > 0
+		do
+			new_uid := a_uid
+		ensure
+			definition: new_uid = a_uid
+		end
+
+
 feature {NONE} -- i/o capturing, only visible at POSIX_EXEC_PROCESS level
 
 	stdin: POSIX_TEXT_FILE
@@ -85,6 +107,7 @@ feature -- Execution
 			error_pipe: POSIX_PIPE
 			in_child: BOOLEAN
 			dev_null: POSIX_FILE_DESCRIPTOR
+			fs: EPX_FILE_SYSTEM
 		do
 			if capture_input then
 				create input_pipe.make
@@ -156,6 +179,11 @@ feature -- Execution
 					end
 					if capture_error then
 						error_pipe.close
+					end
+
+					if working_directory /= Void then
+						create fs
+						fs.change_directory (working_directory)
 					end
 
 					do_execute
@@ -281,11 +309,14 @@ feature {NONE}
 				j := j + 1
 			end
 			cargv := ah.string_array_to_pointer_array (argv)
+			if new_uid > 0 then
+				r := posix_setuid (new_uid)
+			end
 			r := posix_execvp (
 				sh.string_to_pointer (program_name),
 				ah.pointer_array_to_pointer (cargv))
-			ah.unfreeze_all
-			sh.unfreeze_all
+			--ah.unfreeze_all
+			--sh.unfreeze_all
 
 			-- We should never return here,
 			-- but if we do, r = -1

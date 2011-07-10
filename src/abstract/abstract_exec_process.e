@@ -208,6 +208,11 @@ feature -- (re)set arguments
 			end
 		end
 
+	set_working_directory (a_directory: STRING) is
+		do
+			working_directory := a_directory
+		end
+
 
 feature -- i/o capturing
 
@@ -287,6 +292,8 @@ feature -- Access
 	arguments: ARRAY [STRING]
 			-- Arguments to pass to `program_name'
 
+	working_directory: STRING
+			-- If set, switch to `working_directory' before `program_name' is execute
 
 feature {NONE} -- Implementation
 
