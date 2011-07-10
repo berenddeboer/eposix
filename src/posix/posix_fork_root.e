@@ -34,7 +34,7 @@ inherit
 -- 			is_pid_valid,
 -- 			kill,
 -- 			terminate
--- 		end
+			-- 		end
 
 	PAPI_WAIT
 		export
@@ -61,11 +61,12 @@ feature -- Process properties
 feature {POSIX_CURRENT_PROCESS}
 
 	frozen start is
-			-- Called by the `fork' routine.
+			-- Called by the `fork' routine for child.
 			-- Makes sure child does never return.
 		do
 			after_fork
 			execute
+			after_execute
 			exit_with_success
 		ensure
 			does_not_return: false
@@ -83,6 +84,14 @@ feature {NONE} -- After fork routines
 		do
 			-- do nothing
 		end
+
+	after_execute is
+			-- Chance for code to do something after `execute' has
+			-- finished, but before child terminates.
+		do
+			-- do nothing
+		end
+
 
 	execute is
 			-- Start if child process.
