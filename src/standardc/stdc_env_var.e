@@ -37,6 +37,12 @@ feature -- Initialization
 feature -- Access
 
 	exist: BOOLEAN is
+		obsolete "2011-06-02 please use is_set"
+		do
+			Result := is_set
+		end
+
+	is_set: BOOLEAN is
 			-- Is this environment variable defined?
 		local
 			cvalue: POINTER
