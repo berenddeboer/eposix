@@ -81,6 +81,8 @@ feature -- Access
 			-- Used by `read_response_with_redirect' to properly redirect
 			-- a request.
 
+	max_redirects: INTEGER is 20
+
 
 feature -- Status
 
@@ -559,27 +561,32 @@ feature -- Response
 				read_response
 			until
 				response_code >= 500 or else
-				redirected_counter > 20 or else
+				redirected_counter > max_redirects or else
 				not is_redirect_response
 			loop
-				-- Redirect will still fail if returned Location includes
-				-- a username, as we don't pick that up.
-				new_location := location
-				create url.make (new_location)
-				if url.is_server_authority then
-					url.parse_authority (80)
-					if not STRING_.same_string (server_name, url.host) or http_service.port /= url.port then
-						make_with_port (url.host, url.port)
-					end
-					if response_code = reply_code_see_other then
-						send_request (http_method_GET, url.path, last_data)
-					else
+				if location /= Void then
+					-- Redirect will still fail if returned Location includes
+					-- a username, as we don't pick that up.
+					new_location := location
+					create url.make (new_location)
+					if url.is_server_authority then
+						url.parse_authority (80)
+						if not STRING_.same_string (server_name, url.host) or http_service.port /= url.port then
+							make_with_port (url.host, url.port)
+						end
+						if response_code = reply_code_see_other then
+							send_request (http_method_GET, url.path, last_data)
+						else
 						send_request (last_verb, url.path, last_data)
+						end
+						read_response
+						redirected_counter := redirected_counter + 1
+					else
+						response_code := 500
 					end
-					read_response
-					redirected_counter := redirected_counter + 1
 				else
-					response_code := 500
+					-- No location specified, bail
+					redirected_counter := max_redirects + 1
 				end
 			end
 		end
