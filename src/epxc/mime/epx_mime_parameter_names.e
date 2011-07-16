@@ -50,7 +50,19 @@ feature -- charset parameter
 
 feature -- WWW-Authenticate
 
+	parameter_name_algorithm: STRING is "algorithm"
+
+	parameter_name_nonce: STRING is "nonce"
+
+	parameter_name_opaque: STRING is "opaque"
+
 	parameter_name_realm: STRING is "realm"
+
+	parameter_name_qop: STRING is "qop"
+
+	parameter_name_stale: STRING is "stale"
+
+	parameter_name_uri: STRING is "uri"
 
 
 end

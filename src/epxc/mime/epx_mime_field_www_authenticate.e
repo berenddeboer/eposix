@@ -46,17 +46,84 @@ feature -- Initialization
 
 feature -- Access
 
-	scheme: STRING
-			-- Authentication scheme
+	algorithm: STRING is
+			-- Algorithm for Digest authentication
+		do
+			parameters.search (parameter_name_algorithm)
+			if parameters.found then
+				Result := parameters.found_item.value
+			end
+		ensure
+			void_or_not_empty: Result = Void or else not Result.is_empty
+		end
 
 	name: STRING is "WWW-Authenticate"
 			-- Authorative name
 
+	nonce: STRING is
+			-- Nonce value for Digest authentication
+		do
+			parameters.search (parameter_name_nonce)
+			if parameters.found then
+				Result := parameters.found_item.value
+			end
+		ensure
+			void_or_not_empty: Result = Void or else not Result.is_empty
+		end
+
+	opaque: STRING is
+			-- opaque value for Digest authentication
+		do
+			parameters.search (parameter_name_opaque)
+			if parameters.found then
+				Result := parameters.found_item.value
+			end
+		ensure
+			void_or_not_empty: Result = Void or else not Result.is_empty
+		end
+
+	qop: STRING is
+			-- qop value for Digest authentication
+		do
+			parameters.search (parameter_name_qop)
+			if parameters.found then
+				Result := parameters.found_item.value
+			end
+		ensure
+			void_or_not_empty: Result = Void or else not Result.is_empty
+		end
+
 	realm: STRING is
-			-- Realm if defined; According to the spec all authentication
-			-- schems should have one.
+			-- Realm if defined;
+			-- According to the spec all authentication schemes should
+			-- have one.
 		do
 			parameters.search (parameter_name_realm)
+			if parameters.found then
+				Result := parameters.found_item.value
+			end
+		ensure
+			void_or_not_empty: Result = Void or else not Result.is_empty
+		end
+
+	scheme: STRING
+			-- Authentication scheme
+
+	stale: STRING is
+			-- stale value for Digest authentication
+		do
+			parameters.search (parameter_name_stale)
+			if parameters.found then
+				Result := parameters.found_item.value
+			end
+		ensure
+			void_or_not_empty: Result = Void or else not Result.is_empty
+		end
+
+	uri: STRING is
+			-- uri value for Digest authentication
+		do
+			parameters.search (parameter_name_uri)
 			if parameters.found then
 				Result := parameters.found_item.value
 			end

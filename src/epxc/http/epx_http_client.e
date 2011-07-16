@@ -191,7 +191,6 @@ feature {NONE} -- Implementation
 
 	authenticate is
 		do
-			is_authenticated := True
 		end
 
 	assert_closed is

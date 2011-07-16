@@ -15,6 +15,8 @@ class
 inherit
 
 	EPX_HTTP_CLIENT
+		rename
+			authenticate as unsupported_authenticate
 		export
 			{ANY} response_code, http
 		end
@@ -81,7 +83,14 @@ feature -- Access
 			-- Used by `read_response_with_redirect' to properly redirect
 			-- a request.
 
+	last_uri: STRING
+			-- URI of last request
+
 	max_redirects: INTEGER is 20
+			-- How often we follow a Location field?
+
+	max_authentication_retries: INTEGER is 20
+			-- How often we retry authentication failures
 
 
 feature -- Status
@@ -295,43 +304,24 @@ feature -- Authentication response
 			Result := www_authenticate.realm
 		end
 
-	authentication_scheme: STRING is
-			-- Required authentication scheme
-		require
-			authentication_required: is_authentication_required
-		local
-			www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE
-		do
-			www_authenticate ?= response.header.fields.item (field_name_www_authenticate)
-			Result := www_authenticate.scheme
-		end
+	authentication_scheme: STRING
 
 
 feature -- Authentication setup
 
-	basic_authentication: STRING
-			-- Optional authentication header to send with a request
-
 	set_basic_authentication (a_user_name, a_password: STRING) is
 			-- Make sure the Authorization header is included in the
 			-- request.
+			-- Header will be appended when the first request is made, so
+			-- avoids a round-trip.
+			-- Use `set_user_name_and_password' to only send password
+			-- when authentication is required.
 		require
 			user_name_not_empty: a_user_name /= Void and then not a_user_name.is_empty
 			password_not_empty: a_password /= Void and then not a_password.is_empty
-		local
-			basic_credentials: STRING
-			base64_output: KL_STRING_OUTPUT_STREAM
-			base64_encoder: UT_BASE64_ENCODING_OUTPUT_STREAM
 		do
-			create basic_credentials.make (a_user_name.count + 1 + a_password.count)
-			basic_credentials.append_string (a_user_name)
-			basic_credentials.append_character (':')
-			basic_credentials.append_string (a_password)
-			create basic_authentication.make (32)
-			create base64_output.make(basic_authentication)
-			create base64_encoder.make (base64_output, False, False)
-			base64_encoder.put_string (basic_credentials)
-			base64_encoder.close
+			authentication_scheme := "Basic"
+			set_user_name_and_password (a_user_name, a_password)
 		end
 
 
@@ -384,6 +374,7 @@ feature {NONE} -- Request implementation
 			request_not_empty: request /= Void and then not request.is_empty
 		local
 			cookie: EPX_HTTP_COOKIE
+			authorization: STRING
 		do
 			request.append_string (once_mime_version)
 			if accept /= Void then
@@ -398,12 +389,11 @@ feature {NONE} -- Request implementation
 				request.append_string (user_agent)
 				request.append_string (once_new_line)
 			end
-			if basic_authentication /= Void then
+			if user_name /= Void and then password /= Void and then authentication_scheme /= Void then
+				authorization := authorization_value (a_verb, last_uri)
 				request.append_string (field_name_authorization)
 				request.append_string (once_colon_space)
-				request.append_string (once_basic)
-				request.append_character (' ')
-				request.append_string (basic_authentication)
+				request.append_string (authorization)
 				request.append_string (once_new_line)
 			end
 			if cookies /= Void then
@@ -496,9 +486,6 @@ feature -- Response
 			Result := response_code >= 200 and response_code <= 299
 		end
 
-	last_uri: STRING
-			-- URI of last request
-
 	part: EPX_MIME_PART is
 		obsolete "2006-10-28: use response instead"
 		do
@@ -577,7 +564,7 @@ feature -- Response
 						if response_code = reply_code_see_other then
 							send_request (http_method_GET, url.path, last_data)
 						else
-						send_request (last_verb, url.path, last_data)
+							send_request (last_verb, url.path, last_data)
 						end
 						read_response
 						redirected_counter := redirected_counter + 1
@@ -620,7 +607,72 @@ feature -- Individual response fields, Void if not available
 
 feature {NONE} -- Implementation
 
+	www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE
+			-- Authenticate field from last request, if any
+
+	authorization_value (a_verb, a_uri: STRING): STRING is
+			-- Value for Authorization field if `authentication_scheme' is basic
+		require
+			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
+			uri_not_empty: a_uri /= Void and then not a_uri.is_empty
+		do
+			if user_name /= Void and then password /= Void and then STRING_.same_string (authentication_scheme, once "Basic") then
+				Result := basic_authorization_value (user_name, password)
+			end
+		end
+
+	basic_authorization_value (a_user_name, a_password: STRING): STRING is
+		require
+			valid_user_name: is_valid_user_name (a_user_name)
+			valid_password: is_valid_password (a_password)
+		local
+			basic_credentials: STRING
+			base64_output: KL_STRING_OUTPUT_STREAM
+			base64_encoder: UT_BASE64_ENCODING_OUTPUT_STREAM
+			basic_authentication: STRING
+		do
+			create basic_credentials.make (a_user_name.count + 1 + a_password.count)
+			basic_credentials.append_string (a_user_name)
+			basic_credentials.append_character (':')
+			basic_credentials.append_string (a_password)
+			create basic_authentication.make (32)
+			create base64_output.make(basic_authentication)
+			create base64_encoder.make (base64_output, False, False)
+			base64_encoder.put_string (basic_credentials)
+			base64_encoder.close
+			Result := once_basic + " " + basic_authentication
+		ensure
+			not_empty: Result /= Void and then not Result.is_empty
+		end
+
 	do_read_response (including_body: BOOLEAN) is
+			-- Read response. If authentication is required, and
+			-- authentication `user_name' and `password' are available,
+			-- resend request with suitable authencation.
+		local
+			retries: INTEGER
+			stop: BOOLEAN
+		do
+			from
+			until
+				stop
+			loop
+				do_do_read_response (including_body)
+				stop :=
+					not is_authentication_required or else
+					user_name = Void or else
+					password = Void or else
+					(www_authenticate.stale /= Void and then STRING_.same_string (www_authenticate.stale, once "false")) or else
+					retries >= max_authentication_retries
+				if not stop then
+					-- Authentication scheme should now be set, so simply retry once
+					send_request (last_verb, last_uri, last_data)
+				end
+				retries := retries + 1
+			end
+		end
+
+	do_do_read_response (including_body: BOOLEAN) is
 		do
 			create parser.make_from_stream (http)
 			-- First line contains status code and HTTP version.
@@ -660,6 +712,19 @@ feature {NONE} -- Implementation
 				is_authentication_required :=
 					response_code = reply_code_unauthorized and then
 					response.header.has (field_name_www_authenticate)
+				if is_authentication_required then
+					www_authenticate ?= response.header.item (field_name_www_authenticate)
+					if www_authenticate /= Void then
+						authentication_scheme := www_authenticate.scheme
+						if www_authenticate.realm = Void then
+							-- Bad response
+							is_authentication_required := False
+						end
+					else
+						-- Bad response
+						is_authentication_required := False
+					end
+				end
 			end
 		end
 

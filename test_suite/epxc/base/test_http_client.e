@@ -142,24 +142,67 @@ feature
 			client.read_raw_response
 		end
 
-	test_authentication is
+	test_basic_authentication is
+		local
+			client: EPX_HTTP_10_CLIENT
+			s: STRING
+		do
+			create client.make ("call_center")
+			client.get ("/my/")
+			client.read_response_with_redirect
+			assert_integers_equal ("Response code", reply_code_unauthorized, client.response_code)
+			debug ("test-http")
+				create s.make_empty
+				client.response.header.append_fields_to_string (s)
+				print (s)
+			end
+			assert ("Have WWW-Authenticate header", client.response.header.fields.has (field_name_www_authenticate))
+			assert ("Authentication required", client.is_authentication_required)
+			assert ("Authentication type required", not client.authentication_scheme.is_empty)
+			client.set_user_name_and_password ("berend", "berend")
+			client.get ("/my/")
+			client.read_response
+			debug ("test-http")
+				print (client.response_code.out + " " + client.response_phrase + "%N")
+				create s.make_empty
+				client.response.header.append_fields_to_string (s)
+				print (s)
+			end
+			assert ("Validated", client.is_response_ok)
+		end
+
+	test_digest_authentication is
 		local
 			client: EPX_HTTP_11_CLIENT
 			s: STRING
 		do
-			create client.make ("www.pobox.com")
-			client.get ("/~berend/rest/site/.login")
-			--create client.make ("localhost")
-			--client.get ("/login/index.html")
-			client.read_response_with_redirect
+			create client.make ("www.berenddeboer.net")
+			client.get ("/rest/site/.login")
+			client.read_response
 			assert_integers_equal ("Response code", reply_code_unauthorized, client.response_code)
-			create s.make_empty
-			client.response.header.append_fields_to_string (s)
-			print (s)
+			debug ("test-http")
+				print (client.response_code.out + " " + client.response_phrase + "%N")
+				create s.make_empty
+				client.response.header.append_fields_to_string (s)
+				print (s)
+			end
 			assert ("Have WWW-Authenticate header", client.response.header.fields.has (field_name_www_authenticate))
 			assert ("Authentication required", client.is_authentication_required)
 			assert ("Authentication type required", not client.authentication_scheme.is_empty)
+			client.set_user_name_and_password ("myname", "test")
+			client.get ("/rest/site/.login")
+			-- Expect:
+			--   WWW-Authenticate: Digest realm="My Site" nonce="BOon8SqoBAA=02ea03afec907914d304788e559e1e6c9279801d" algorithm="MD5" qop="auth"
+			client.read_response
+			-- And send:
+			--   Authorization: Digest username="myname", realm="My Site", nonce="BOon8SqoBAA=02ea03afec907914d304788e559e1e6c9279801d", uri="/rest/site/.login", response="1754c90b74d609fe5e32604f3a0ca62b"
+			debug ("test-http")
+				print (client.response_code.out + " " + client.response_phrase + "%N")
+				create s.make_empty
+				client.response.header.append_fields_to_string (s)
+				print (s)
+			end
+			assert_integers_equal ("Validated", 302, client.response_code)
 		end
-
 
 end

@@ -144,11 +144,13 @@ feature -- Access
 		end
 
 	password: STRING
+			-- Optional password
 
 	server_name: STRING
 			-- Name of server that is being access
 
 	user_name: STRING
+			-- Optional user name
 
 
 feature -- Status
@@ -201,6 +203,19 @@ feature -- Status
 			-- Is `a_password' a valid password?
 		do
 			Result := a_password = Void or else not a_password.is_empty
+		end
+
+
+feature -- Change
+
+	set_user_name_and_password (a_user_name, a_password: STRING) is
+			-- Set both `user_name' and `password'.
+		require
+			valid_user_name: is_valid_user_name (a_user_name)
+			valid_password: is_valid_password (a_password)
+		do
+			user_name := a_user_name
+			password := a_password
 		end
 
 

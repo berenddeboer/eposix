@@ -23,7 +23,9 @@
 		<option name="finalize" value="false"/>
 		<option name="split" value="true"/>
 		<option name="debug" value="false"/>
-		<option name="debug_tag" value="md5"/>
+		<option name="debug_tag" value="http_client"/>
+		<!-- <option name="debug_tag" value="test-http"/> -->
+		<!-- <option name="debug_tag" value="md5"/> -->
 <!-- 		<option name="debug_tag" value="sha1"/> -->
 <!-- 		<option name="debug_tag" value="GELEX"/> -->
 <!-- 		<option name="debug_tag" value="GEYACC"/> -->
