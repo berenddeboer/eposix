@@ -51,6 +51,7 @@ create
 	make_date,
 	make_date_time,
 	make_from_dt_date_time,
+	make_from_utc_dt_date_time,
 	make_from_now,
 	make_from_unix_time,
 	make_time,
@@ -117,6 +118,18 @@ feature -- Initialization
 		ensure
 			time_zone_known: is_time_zone_known
 			local_time: is_local_time
+		end
+
+	make_from_utc_dt_date_time (a_date_time: DT_DATE_TIME_VALUE) is
+			-- Make from Gobo date time.
+			-- Date is assumed to be in UTC.
+		require
+			valid_year: is_valid_date_and_time (a_date_time.year, a_date_time.month, a_date_time.day, a_date_time.hour, a_date_time.minute, a_date_time.second)
+		do
+			make_utc_date_time (a_date_time.year, a_date_time.month, a_date_time.day, a_date_time.hour, a_date_time.minute, a_date_time.second)
+		ensure
+			time_zone_known: is_time_zone_known
+			utc_time: is_utc_time
 		end
 
 	make_from_now is
