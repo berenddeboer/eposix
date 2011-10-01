@@ -233,6 +233,8 @@ feature {NONE}  -- various actions
 	last_child_pid: INTEGER
 			-- pid of last forked (exec'd child)
 
+feature {POSIX_FORK_ROOT}  -- Forking
+
 	fork (root: POSIX_FORK_ROOT) is
 			-- Fork this process, parent continues normally, child
 			-- continues at root.execute. Child's pid is availabe in
