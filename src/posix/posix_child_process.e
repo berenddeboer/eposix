@@ -70,6 +70,48 @@ feature -- Actions that parent may execute
 			termination_info := stat_loc.peek_integer (0)
 		end
 
+	force_terminate (a_milliseconds: INTEGER) is
+			-- Try to terminate child with signal first, if child does
+			-- not terminate within `a_milliseconds' forcibly terminate
+			-- it.
+		require
+			a_milliseconds_positive: a_milliseconds > 0
+		do
+			if not is_terminated then
+				wait_for (False)
+				if not is_terminated then
+					terminate
+					wait_for_termination (a_milliseconds)
+					if not is_terminated then
+						kill (SIGKILL)
+						wait_for_termination (a_milliseconds)
+					end
+				end
+			end
+		ensure
+			terminated: is_terminated
+		end
+
+	wait_for_termination (a_milliseconds: INTEGER) is
+			-- Wait `a_time' milliseconds for `a_child' to terminate.
+		require
+			a_milliseconds_positive: a_milliseconds > 0
+		local
+			i: INTEGER
+			process: EPX_CURRENT_PROCESS
+		do
+			from
+				create process
+			until
+				is_terminated or else
+				i >= a_milliseconds
+			loop
+				process.millisleep (10)
+				wait_for (False)
+				i := i + 10
+			end
+		end
+
 
 feature -- Signal
 
