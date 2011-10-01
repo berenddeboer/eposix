@@ -301,6 +301,17 @@ feature -- Make individual time fields valid
 		end
 
 
+feature -- Change
+
+	add_seconds (a_seconds: INTEGER) is
+			-- Add `a_seconds' to current time.
+		do
+			value  := value + a_seconds
+		ensure
+			definition: value = old value + a_seconds
+		end
+
+
 feature -- Manually set individual time fields
 
 	set_date (a_year, a_month, a_day: INTEGER) is
