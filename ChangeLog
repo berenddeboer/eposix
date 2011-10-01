@@ -1,6 +1,21 @@
+2011-07-16  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_HTTP_11_CLIENT: digest authentication supported.
+
+
+2011-07-11  Berend de Boer  <berend@pobox.com>
+
+	* POSIX_FORK_ROOT.after_execute: new feature to do something after
+	`execute' but before process termination.
+
+	* EPX_ENV_VAR: I want to have EPX_XXXX classes for everything.
+
+	* STDC_ENV_VAR.exists: obsolete, use is_set.
+
+
 2010-12-30  Berend de Boer  <berend@pobox.com>
 
-	* EPX_XML_WRITER.put_new_line: can now be called without upsetting
+	* !EPX_XML_WRITER.put_new_line: can now be called without upsetting
 	indenting. Might give different output in case you are emitting
 	real documents, but this works much better for tree structured
 	output.
@@ -8,7 +23,7 @@
 
 2010-12-24  Berend de Boer  <berend@pobox.com>
 
-	* EPX_EXEC_PROCESS: when stdout is not captured, output is
+	* !EPX_EXEC_PROCESS: when stdout is not captured, output is
 	redirected to /dev/null, necessary else child program might block
 	if its output is not read.
 
