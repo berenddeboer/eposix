@@ -13,6 +13,7 @@ class
 
 
 inherit
+	ANY
 
 	WINDOWS_CONSTANTS
 		export

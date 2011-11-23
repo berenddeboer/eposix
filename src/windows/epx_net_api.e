@@ -71,7 +71,8 @@ inherit
 				posix_set_sockaddr_sa_family,
 				posix_timeval_size,
 				posix_timeval_tv_usec,
-				posix_timeval_tv_sec
+				posix_timeval_tv_sec,
+				winsock_initialized
 		end
 
 end

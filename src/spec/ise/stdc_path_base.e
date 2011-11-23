@@ -29,6 +29,9 @@ inherit
 			out
 		end
 
+create
+
+	make
 
 feature -- Comparison
 

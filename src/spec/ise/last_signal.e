@@ -9,23 +9,25 @@ indexing
 	date: "$Date: 2007/11/22 $";
 	revision: "$Revision: #3 $"
 
-class 
+class
 
 	LAST_SIGNAL
-	
-	
+
+
 inherit
-	
+
+	ANY
+
 	EXCEPTIONS
 		rename
 			raise as exceptions_raise
 		export
 			{NONE} all
 		end
-	
-	
+
+
 feature
-	
+
 	signal: INTEGER is
 			-- Last signal
 		local

@@ -20,6 +20,7 @@ class
 
 
 inherit
+	ANY
 
 	EPX_XML_WRITER
 		export

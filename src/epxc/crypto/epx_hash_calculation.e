@@ -19,6 +19,8 @@ deferred class
 
 inherit
 
+	ANY
+
 	KL_IMPORTED_CHARACTER_ROUTINES
 		export
 			{NONE} all

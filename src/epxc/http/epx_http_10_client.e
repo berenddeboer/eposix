@@ -826,5 +826,7 @@ invariant
 
 	have_www_authenticate_header_if_authentication_required:
 		is_authentication_required implies response.header.has (field_name_www_authenticate)
+	have_www_authenticate:
+		is_authentication_required implies www_authenticate /= Void
 
 end

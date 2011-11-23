@@ -18,6 +18,7 @@ class
 
 
 inherit
+	ANY
 
 	ARGUMENTS
 		export
