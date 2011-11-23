@@ -297,10 +297,7 @@ feature -- Authentication response
 			-- spec all schemes should have one.
 		require
 			authentication_required: is_authentication_required
-		local
-			www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE
 		do
-			www_authenticate ?= response.header.fields.item (field_name_www_authenticate)
 			Result := www_authenticate.realm
 		end
 
