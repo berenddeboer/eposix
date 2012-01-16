@@ -7,8 +7,7 @@ indexing
 	%Time resolutation is one second."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #15 $"
+
 
 class
 
