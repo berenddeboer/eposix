@@ -46,7 +46,8 @@ feature -- C binding miscellaneous
 		end
 
 	posix_fork: INTEGER is
-			-- Create a process.
+			-- Create a process. Returns the pid in the parent and 0 if
+			-- the child.
 #ifdef ISE
 		external "C blocking"
 #else
