@@ -93,8 +93,10 @@ feature {NONE} -- After fork routines
 		end
 
 
+feature -- After fork routines
+
 	execute is
-			-- Start if child process.
+			-- Code to run when this is the child process.
 		deferred
 		end
 
