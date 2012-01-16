@@ -14,7 +14,7 @@ class
 
 inherit
 
-	STDC_BUFFER
+	EPX_BUFFER
 		redefine
 			is_valid_index,
 			is_valid_range,
