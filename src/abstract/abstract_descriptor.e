@@ -894,11 +894,8 @@ feature {NONE} -- Low level handle functions
 			is_open_write := False
 		end
 
-	unassigned_value: INTEGER is
-			-- The value that indicates that `handle' is unassigned.
-		do
-			Result := -1
-		end
+	unassigned_value: INTEGER is -1
+			-- The value that indicates that `handle' is unassigned
 
 
 feature {NONE} -- Counting of allocated resource
