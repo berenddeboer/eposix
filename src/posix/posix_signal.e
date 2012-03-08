@@ -4,8 +4,7 @@ indexing
 	%query and determine how a signal is handled for the current process."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
+
 
 class
 

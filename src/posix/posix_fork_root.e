@@ -79,7 +79,7 @@ feature {POSIX_CURRENT_PROCESS}
 feature {NONE} -- After fork routines
 
 	after_fork is
-			-- chance for code to do something before the main execute
+			-- chance for code to do something after `fork', but before `execute';
 			-- mainly here for POSIX_DAEMON.
 		do
 			-- do nothing

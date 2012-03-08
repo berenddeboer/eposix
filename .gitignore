@@ -34,3 +34,4 @@ src/sapi/Makefile.c_sources
 src/supportc/config.h
 src/supportc/stamp-h1
 src/wapi/Makefile.c_sources
+util/
