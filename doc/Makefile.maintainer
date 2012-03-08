@@ -19,7 +19,7 @@ Makefile.e_sources: *.e
 	for i in $^; do echo `basename $$i .e`.bin: $$i '$$(ESRC)' >> Makefile.temp; echo >> Makefile.temp; done
 	mv Makefile.temp $@
 
-Makefile.short: short-classes
+Makefile.short:
 	rm -f $@ Makefile.temp
 	echo "# Generated Makefile, see Makefile.maintainer" > Makefile.temp
 	echo -n -e SHORTTEX = >> Makefile.temp
@@ -28,7 +28,7 @@ Makefile.short: short-classes
 	for i in `cat $<`; do echo `echo $$i.tex | tr '[:upper:]' '[:lower:]'`: 'compile_short.ace $$(ESRC)' >> Makefile.temp; echo -e '\tshort -short -no_style_warning compile_short.ace '$$i' > temp.tex\n\tmv temp.tex $$@\n' >> Makefile.temp; done
 	mv Makefile.temp $@
 
-Makefile.flat: flat-classes
+Makefile.flat:
 	rm -f $@ Makefile.temp
 	echo "# Generated Makefile, see Makefile.maintainer" > Makefile.temp
 	echo -n -e FLATTEX = >> Makefile.temp

@@ -53,3 +53,8 @@ aclocal -I config
 autoheader
 automake --foreign --add-missing --copy
 autoconf
+
+# 2012-03-09: bootstrapping is pretty hard now. Probably my code has become
+# quite obsolete.
+# Did "autoreconf -i" a few times, and ./configures before things
+# started to compile again.
