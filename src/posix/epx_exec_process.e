@@ -60,17 +60,35 @@ feature -- Access
 			-- Failure to do so is silently ignored, and you need to run
 			-- as root to be able to do this.
 
+	new_gid: INTEGER
+			-- If set to a different value then 0, change `gid' before
+			-- executing `program_name';
+			-- Failure to do so is silently ignored, and you need to run
+			-- as root to be able to do this.
+
 
 feature -- Change
 
 	set_new_uid (a_uid: INTEGER) is
 			-- Set `new_uid'.
+			-- To be executed program will run under this privileges. It
+			-- is strongly recommended to use `set_new_gid' to change the
+			-- group to the user's primary group as well.
 		require
 			valid_uid: a_uid > 0
 		do
 			new_uid := a_uid
 		ensure
 			definition: new_uid = a_uid
+		end
+
+	set_new_gid (a_gid: INTEGER) is
+		require
+			valid_uid: a_gid > 0
+		do
+			new_gid := a_gid
+		ensure
+			definition: new_gid = a_gid
 		end
 
 
@@ -309,6 +327,9 @@ feature {NONE}
 				j := j + 1
 			end
 			cargv := ah.string_array_to_pointer_array (argv)
+			if new_gid > 0 then
+				r := posix_setgid (new_gid)
+			end
 			if new_uid > 0 then
 				r := posix_setuid (new_uid)
 			end

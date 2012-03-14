@@ -73,9 +73,10 @@ feature -- Daemon specific actions
 			-- guarantee we cannot acquire a controlling terminal by
 			-- forking again
 			if posix_fork /= 0 then
-				-- let first child terminate
+				-- let parent (first child) terminate
 				exit (EXIT_SUCCESS)
 			end
+			-- but continue in the newly forked process.
 
 			-- change working directory to root, so volume can be unmounted
 			r := posix_chdir (sh.string_to_pointer ("/"))

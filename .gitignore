@@ -17,8 +17,9 @@ configure
 doc/Makefile.e_sources
 src/Makefile.e_sources
 src/capi/Makefile.c_sources
-src/epxc/imap4/epx_imap4_response_parser.e
 src/epxc/imap4/epx_imap4_response_tokens.e
+src/epxc/imap4/epx_imap4_response_scanner.e
+src/epxc/imap4/epx_imap4_response_parser.e
 src/epxc/imap4/verbose.txt
 src/epxc/ldap/epx_ldif_parser.e
 src/epxc/ldap/epx_ldif_scanner.e

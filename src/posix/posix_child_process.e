@@ -135,7 +135,7 @@ feature -- Signal
 feature {POSIX_CURRENT_PROCESS}
 
 	set_pid (a_pid: INTEGER) is
-			-- Initialize pid as seen by parent, just after a fork.
+			-- Initialize pid as seen by parent just after a fork.
 		do
 			my_pid := a_pid
 			running := True
