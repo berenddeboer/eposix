@@ -1,3 +1,13 @@
+2012-03-14  Berend de Boer  <berend@pobox.com>
+
+	* EPX_DAEMON: improvement upon POSIX_DAEMON with some useful
+	default capabilities like listening to stop signals.
+
+	* EPX_WATCHDOG_DAEMON: as EPX_DAEMON but will restart if
+	terminated unexpectedly, so useful for stuff that always needs to
+	run like system daemons are (web) app servers.
+
+
 2011-07-16  Berend de Boer  <berend@pobox.com>
 
 	* !EPX_HTTP_11_CLIENT: digest authentication supported.
