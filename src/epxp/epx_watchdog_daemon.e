@@ -39,7 +39,6 @@ feature -- Daemon specific actions
 			last_child_pid := posix_fork
 			is_parent := last_child_pid /= 0
 			if is_parent then
-				print ("in parent%N")
 				set_pid (last_child_pid)
 				from
 				until
@@ -48,7 +47,6 @@ feature -- Daemon specific actions
 					sleep (1)
 					wait_for (False)
 					if is_terminated then
-						print ("detected that child terminated%N")
 						respawn
 					end
 				end
@@ -58,12 +56,6 @@ feature -- Daemon specific actions
 			else
 				-- Let child continue to `execute'
 			end
-		rescue
-			print (exceptions.original_recipient_name + "%N")
-			print (exceptions.exception.out + "%N")
-			print (exceptions.meaning (exceptions.exception) +"%N")
-			print (exceptions.exception_trace)
-			print ("oops%N")
 		end
 
 
