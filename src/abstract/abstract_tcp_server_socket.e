@@ -81,7 +81,9 @@ feature -- Accept
 			-- completed connection queue. If there are no completed
 			-- connections, the process is put to sleep.
 			-- If the socket is non-blocking, Void will be returned and
-			-- the process is not put to sleep..
+			-- the process is not put to sleep.
+			-- If the current process is interrupted (signalled), Void
+			-- will be returned.
 		require
 			open: is_open
 		local
@@ -90,7 +92,7 @@ feature -- Accept
 			address_length := client_socket_address.capacity
 			client_fd := abstract_accept (fd, client_socket_address.ptr, $address_length)
 			if client_fd = unassigned_value then
-				if errno.is_not_ok and then errno.value /= EAGAIN then
+				if errno.is_not_ok and then errno.value /= EAGAIN and then errno.value /= EWOULDBLOCK and then errno.value /= EINTR  then
 					raise_posix_error
 				end
 			else
@@ -98,8 +100,7 @@ feature -- Accept
 				last_client_address := new_socket_address_in_from_pointer (client_socket_address, address_length)
 			end
 		ensure
-			socket_to_client_returned: raise_exception_on_error and then is_blocking_io implies Result /= Void
-			last_client_address_set: raise_exception_on_error and then is_blocking_io implies last_client_address /= Void
+			last_client_address_set: Result /= Void implies last_client_address /= Void
 		end
 
 	last_client_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE
