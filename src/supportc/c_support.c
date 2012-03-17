@@ -142,6 +142,10 @@ void posix_poke_uint8(EIF_POINTER ptr, EIF_INTEGER index, EIF_INTEGER value)
   ((unsigned char *) ptr)[index] = value;
 }
 
+void posix_poke_uint16_native(EIF_POINTER ptr, EIF_INTEGER index, EIF_INTEGER value)
+{
+  *((unsigned short *) ((char *)ptr + index)) = value;
+}
 
 
 /* pointer operations */

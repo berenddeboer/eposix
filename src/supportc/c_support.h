@@ -42,7 +42,7 @@ void posix_poke_character(EIF_POINTER ptr, EIF_INTEGER index, EIF_CHARACTER c);
 void posix_poke_int16_native(EIF_POINTER ptr, EIF_INTEGER index, EIF_INTEGER value);
 void posix_poke_int32_native(EIF_POINTER ptr, EIF_INTEGER index, EIF_INTEGER value);
 void posix_poke_uint8(EIF_POINTER ptr, EIF_INTEGER index, EIF_INTEGER value);
-
+void posix_poke_uint16_native(EIF_POINTER ptr, EIF_INTEGER index, EIF_INTEGER value);
 
 /* pointer operations */
 

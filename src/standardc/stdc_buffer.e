@@ -530,6 +530,54 @@ feature -- Set/get integers (16-bit data)
 			consistent: peek_int16_little_endian (index) = value
 		end
 
+	poke_uint16, poke_uint16_native (index: INTEGER; value: INTEGER) is
+			-- Write 16 bit value at offset `index', in native endian format.
+		require
+			valid_index: is_valid_range (index, index + 1)
+			valid_value: value >= -32768 and value <= 32767
+		do
+			posix_poke_uint16_native (ptr, index, value)
+		ensure
+			consistent: peek_uint16_native (index) = value
+		end
+
+
+	poke_uint16_little_endian (index: INTEGER; value: INTEGER) is
+			-- Write 16 bit value at offset `index', in little endian format.
+		require
+			valid_index: is_valid_range (index, index + 1)
+			valid_value: value >= -32768 and value <= 32767
+		local
+			i: INTEGER
+		do
+			if is_big_endian then
+				i := posix_swap16 (value)
+			else
+				i := value
+			end
+			posix_poke_uint16_native (ptr, index, i)
+		ensure
+			consistent: peek_uint16_little_endian (index) = value
+		end
+
+	poke_uint16_big_endian (index: INTEGER; value: INTEGER) is
+			-- Write 16 bit value at offset `index', in big endian format.
+		require
+			valid_index: is_valid_range (index, index + 1)
+			valid_value: value >= -32768 and value <= 32767
+		local
+			i: INTEGER
+		do
+			if is_little_endian then
+				i := posix_swap16 (value)
+			else
+				i := value
+			end
+			posix_poke_uint16_native (ptr, index, i)
+		ensure
+			consistent: peek_uint16_big_endian (index) = value
+		end
+
 
 feature -- Set/get integers (32-bit data)
 
@@ -1193,6 +1241,13 @@ feature {NONE} -- POSIX C interface
 
 	posix_poke_int16_native (p: POINTER; offset: INTEGER; value: INTEGER) is
 			-- Put a 16 bit integer at offset `offset'.
+		require
+			valid_memory: p /= default_pointer
+		external "C"
+		end
+
+	posix_poke_uint16_native (p: POINTER; index: INTEGER; value: INTEGER) is
+			-- Set byte at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"

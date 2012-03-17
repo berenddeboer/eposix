@@ -1,9 +1,21 @@
+2012-03-17  Berend de Boer  <berend@pobox.com>
+
+	* !STDC_BUFFER: new routines poke_uint16,
+	poke_uint16_little_endian, poke_uint16_big_endian
+
+
+2012-03-15  Berend de Boer  <berend@pobox.com>
+
+	* !ABSTRACT_TCP_SERVER_SOCKET.accept: when the process was
+	interrupted, this caused an exception. But receiving a signal is
+	not an error.
+
 2012-03-14  Berend de Boer  <berend@pobox.com>
 
-	* EPX_DAEMON: improvement upon POSIX_DAEMON with some useful
+	* !EPX_DAEMON: improvement upon POSIX_DAEMON with some useful
 	default capabilities like listening to stop signals.
 
-	* EPX_WATCHDOG_DAEMON: as EPX_DAEMON but will restart if
+	* !EPX_WATCHDOG_DAEMON: as EPX_DAEMON but will restart if
 	terminated unexpectedly, so useful for stuff that always needs to
 	run like system daemons are (web) app servers.
 
