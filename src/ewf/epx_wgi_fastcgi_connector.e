@@ -42,8 +42,6 @@ feature {NONE} -- Initialization
 			wgi_service := a_service
 			options := an_options
 			create tcp_service.make_from_port (options.port, once "tcp")
-			--create {EPX_WGI_FASTCGI_STREAM} input.make (fcgi)
-			--create {WGI_LIBFCGI_OUTPUT_STREAM} output.make (fcgi)
 		end
 
 
@@ -94,11 +92,9 @@ feature -- Server
 			loop
 				my_client := socket.accept
 				if my_client /= Void then
-					print ("incoming connection%N")
 					process_request (my_client)
 				end
 			end
-			print ("terminated%N")
 			stop_listening
 		end
 

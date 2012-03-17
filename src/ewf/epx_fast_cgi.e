@@ -236,7 +236,7 @@ feature {EPX_FAST_CGI} -- Record handlers
 		end
 
 
-feature -- Writing
+feature -- Writing to stdout
 
 	put_string (s: READABLE_STRING_8)
 			-- Write string to web server.
@@ -249,7 +249,26 @@ feature -- Writing
 					-- TODO: support large strings
 					put_record_header (Fcgi_stdout, last_request_id, s.count)
 					socket.put_string (s)
-					terminate_stdout_stream
+				end
+			end
+		end
+
+
+feature -- Writing to stderr
+
+	stderr_put_line (s: READABLE_STRING_8)
+			-- Write string to web server's stderr.
+		require
+			s_not_void: s /= Void
+			string_small_enough: s.count <= Fcgi_max_len
+		do
+			if socket.errno.is_ok then
+				if not s.is_empty then
+					-- TODO: support large strings
+					put_record_header (Fcgi_stderr, last_request_id, s.count + 1)
+					socket.put_string (s)
+					socket.put_character ('%N')
+					terminate_stream (Fcgi_stderr)
 				end
 			end
 		end
@@ -271,15 +290,20 @@ feature {NONE} -- Writing
 			socket.put_buffer (output_header_buf, 0, output_header_buf.capacity)
 		end
 
-	terminate_stdout_stream
+	terminate_stream (a_stream_type: INTEGER)
+			-- Indicate end of stream.
+		require
+			valid_stream_type: a_stream_type = Fcgi_stdout or else a_stream_type = Fcgi_stderr
 		do
-			put_record_header (Fcgi_stdout, last_request_id, 0)
+			put_record_header (a_stream_type, last_request_id, 0)
 		end
+
 
 feature -- Closing
 
 	close
 		do
+			terminate_stream (Fcgi_stdout)
 			put_record_header (Fcgi_end_request, last_request_id, Fcgi_end_req_body_len)
 			body_buf.poke_int32_big_endian (0, 0)
 			body_buf.poke_int8 (4, Fcgi_request_complete)
