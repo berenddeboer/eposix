@@ -19,10 +19,10 @@ inherit
 
 	WGI_OUTPUT_STREAM
 
+
+inherit {NONE}
+
 	HTTP_STATUS_CODE_MESSAGES
-		export
-			{NONE} all
-		end
 
 
 create
@@ -75,11 +75,18 @@ feature -- Status writing
 
 feature -- Basic operation
 
+	put_character (c: CHARACTER_8)
+			-- Send `c' to http client
+		do
+			fcgi.put_character (c)
+		end
+
 	put_string (s: READABLE_STRING_8)
 			-- Send `s' to http client
 		do
 			fcgi.put_string (s)
 		end
+
 
 feature -- Basic operations
 

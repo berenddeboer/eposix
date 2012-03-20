@@ -21,6 +21,8 @@ inherit {NONE}
 
 	KL_IMPORTED_STRING_ROUTINES
 
+	POSIX_CONSTANTS
+
 
 create
 
@@ -38,13 +40,20 @@ feature {NONE} -- Initialisation
 				socket.set_blocking_io (True)
 			end
 			socket.set_continue_on_error
-			socket.errno.clear
+			socket.errno.clear_all
 			create parameters.make (64)
 			create header_buf.allocate_and_clear (Fcgi_header_len)
 			create body_buf.allocate_and_clear (Fcgi_max_len)
 			create output_header_buf.allocate_and_clear (Fcgi_header_len)
 			output_header_buf.poke_int8 (0, Fcgi_version)
 		end
+
+
+feature -- Status
+
+	is_connection_terminated: BOOLEAN
+			-- Set if read or write to webserver has failed;
+			-- Can be used to abort request processing early
 
 
 feature -- Access
@@ -146,7 +155,7 @@ feature {NONE} -- Record reading
 			end
 		end
 
-	record_type_handlers: DS_HASH_TABLE [PROCEDURE [ANY, TUPLE [EPX_FAST_CGI, INTEGER, EPX_BUFFER]], INTEGER]
+	record_type_handlers: DS_HASH_TABLE [PROCEDURE [EPX_FAST_CGI, TUPLE [EPX_FAST_CGI, INTEGER, EPX_BUFFER]], INTEGER]
 		once
 			create Result.make (Fcgi_max_type)
 			Result.put (agent {EPX_FAST_CGI}.fcgi_begin_request_handler, Fcgi_begin_request)
@@ -238,17 +247,32 @@ feature {EPX_FAST_CGI} -- Record handlers
 
 feature -- Writing to stdout
 
+	put_character (c: CHARACTER_8)
+			-- Write `c' to web server.
+		do
+			if socket.errno.is_ok then
+				-- TODO: optimise!
+				put_record_header (Fcgi_stdout, last_request_id, 1)
+				socket.put_character (c)
+			end
+		end
+
 	put_string (s: READABLE_STRING_8)
-			-- Write string to web server.
+			-- Write `c' to web server.
 		require
 			s_not_void: s /= Void
 			string_small_enough: s.count <= Fcgi_max_len
 		do
-			if socket.errno.is_ok then
+			if not is_connection_terminated then
 				if not s.is_empty then
 					-- TODO: support large strings
+					-- TODO: optimise perhaps by caching small strings before writing?
 					put_record_header (Fcgi_stdout, last_request_id, s.count)
 					socket.put_string (s)
+					if socket.errno.is_not_ok then
+						--print ("ERRNO: " + socket.errno.value.out + "%N")
+						is_connection_terminated := True
+					end
 				end
 			end
 		end
@@ -262,14 +286,15 @@ feature -- Writing to stderr
 			s_not_void: s /= Void
 			string_small_enough: s.count <= Fcgi_max_len
 		do
-			if socket.errno.is_ok then
-				if not s.is_empty then
-					-- TODO: support large strings
-					put_record_header (Fcgi_stderr, last_request_id, s.count + 1)
-					socket.put_string (s)
-					socket.put_character ('%N')
-					terminate_stream (Fcgi_stderr)
+			if not s.is_empty then
+				-- TODO: support large strings
+				put_record_header (Fcgi_stderr, last_request_id, s.count + 1)
+				socket.put_string (s)
+				socket.put_character ('%N')
+				if socket.errno.is_not_ok then
+					is_connection_terminated := True
 				end
+				terminate_stream (Fcgi_stderr)
 			end
 		end
 
@@ -288,6 +313,10 @@ feature {NONE} -- Writing
 			output_header_buf.poke_uint16_big_endian (2, a_request_id)
 			output_header_buf.poke_uint16_big_endian (4, a_content_length)
 			socket.put_buffer (output_header_buf, 0, output_header_buf.capacity)
+			if socket.errno.is_not_ok then
+				--print ("ERRNO: " + socket.errno.value.out + "%N")
+				is_connection_terminated := True
+			end
 		end
 
 	terminate_stream (a_stream_type: INTEGER)
@@ -303,13 +332,15 @@ feature -- Closing
 
 	close
 		do
-			terminate_stream (Fcgi_stdout)
-			put_record_header (Fcgi_end_request, last_request_id, Fcgi_end_req_body_len)
-			body_buf.poke_int32_big_endian (0, 0)
-			body_buf.poke_int8 (4, Fcgi_request_complete)
-			socket.put_buffer (body_buf, 0, Fcgi_unknown_body_type_body_len)
+			if not is_connection_terminated then
+				terminate_stream (Fcgi_stdout)
+				put_record_header (Fcgi_end_request, last_request_id, Fcgi_end_req_body_len)
+				body_buf.poke_int32_big_endian (0, 0)
+				body_buf.poke_int8 (4, Fcgi_request_complete)
+				socket.put_buffer (body_buf, 0, Fcgi_unknown_body_type_body_len)
+			end
 			socket.close
-			socket.errno.clear
+			socket.errno.clear_all
 		ensure
 			closed: not socket.is_open
 		end
