@@ -534,7 +534,7 @@ feature -- Set/get integers (16-bit data)
 			-- Write 16 bit value at offset `index', in native endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
-			valid_value: value >= -32768 and value <= 32767
+			valid_value: value >= 0 and value <= 65535
 		do
 			posix_poke_uint16_native (ptr, index, value)
 		ensure
@@ -546,7 +546,7 @@ feature -- Set/get integers (16-bit data)
 			-- Write 16 bit value at offset `index', in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
-			valid_value: value >= -32768 and value <= 32767
+			valid_value: value >= 0 and value <= 65535
 		local
 			i: INTEGER
 		do
@@ -564,7 +564,7 @@ feature -- Set/get integers (16-bit data)
 			-- Write 16 bit value at offset `index', in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
-			valid_value: value >= -32768 and value <= 32767
+			valid_value: value >= 0 and value <= 65535
 		local
 			i: INTEGER
 		do
