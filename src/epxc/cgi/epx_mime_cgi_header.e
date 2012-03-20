@@ -46,7 +46,7 @@ create
 feature -- Access
 
 	status_code: INTEGER is
-			-- Three digit status code if any, else zero
+			-- Three digit status code if set, else zero
 		local
 			f: EPX_MIME_FIELD_STATUS
 		do
