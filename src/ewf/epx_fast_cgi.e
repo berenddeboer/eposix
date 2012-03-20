@@ -261,14 +261,43 @@ feature -- Writing to stdout
 			-- Write `c' to web server.
 		require
 			s_not_void: s /= Void
-			string_small_enough: s.count <= Fcgi_max_len
+		local
+			left: INTEGER
+			buf: STRING
+			bytes_to_write: INTEGER
+			start: INTEGER
 		do
 			if not is_connection_terminated then
 				if not s.is_empty then
 					-- TODO: support large strings
 					-- TODO: optimise perhaps by caching small strings before writing?
-					put_record_header (Fcgi_stdout, last_request_id, s.count)
-					socket.put_string (s)
+					if s.count <= Fcgi_max_len then
+						put_record_header (Fcgi_stdout, last_request_id, s.count)
+						socket.put_string (s)
+					else
+						from
+							start := 1
+							left := s.count
+							create buf.make (Fcgi_max_len)
+						until
+							left = 0 or else
+							socket.errno.is_not_ok
+						loop
+							if left > Fcgi_max_len then
+								bytes_to_write := Fcgi_max_len
+							else
+								bytes_to_write := left
+							end
+							buf.wipe_out
+							STRING_.append_substring_to_string (buf, s, start, start + bytes_to_write - 1)
+							put_record_header (Fcgi_stdout, last_request_id, bytes_to_write)
+							socket.put_string (buf)
+							left := left - bytes_to_write
+							start := start + bytes_to_write
+						variant
+							left + 1
+						end
+					end
 					if socket.errno.is_not_ok then
 						--print ("ERRNO: " + socket.errno.value.out + "%N")
 						is_connection_terminated := True
