@@ -601,7 +601,7 @@ feature -- HTTP headers
 			end
 		end
 
-		if_modified_since: STDC_TIME is
+	if_modified_since: STDC_TIME is
 			-- The contents of the If-Modified-Since header if set or if
 			-- made available by the server;
 			-- Void otherwise
