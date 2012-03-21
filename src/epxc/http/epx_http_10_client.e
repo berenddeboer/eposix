@@ -553,11 +553,17 @@ feature -- Response
 					-- a username, as we don't pick that up.
 					new_location := location
 					create url.make (new_location)
+
+					-- Support both absolute URL (as per spec) and relative
+					-- urls, as returning an absolute url from a server is
+					-- very hard to get right.
 					if url.is_server_authority then
 						url.parse_authority (80)
 						if not STRING_.same_string (server_name, url.host) or http_service.port /= url.port then
 							make_with_port (url.host, url.port)
 						end
+					end
+					if url.has_path then
 						if response_code = reply_code_see_other then
 							send_request (http_method_GET, url.path, last_data)
 						else
