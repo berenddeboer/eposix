@@ -29,6 +29,8 @@ inherit
 			make as make_service,
 			make_and_launch as make_and_launch_service,
 			make_and_launch_with_options as make_and_launch_service_with_options
+		redefine
+			wgi_execute
 		end
 
 inherit {NONE}
@@ -60,7 +62,7 @@ feature {NONE} -- Initialization
 			launch
 		end
 
-	 make_and_launch_with_options (a_terminate_signal: EPX_KILL_SIGNAL_HANDLER; a_action: like action; a_options: attached like options)
+	make_and_launch_with_options (a_terminate_signal: EPX_KILL_SIGNAL_HANDLER; a_action: like action; a_options: attached like options)
 		require
 			signal_handler_attached: a_terminate_signal /= Void
 			a_options_attached: a_options /= Void
@@ -78,6 +80,7 @@ feature {NONE} -- Initialization
 			create connector.make (terminate_signal, Current, options)
 		end
 
+
 feature -- Execution
 
 	launch
@@ -86,6 +89,28 @@ feature -- Execution
 				conn.launch
 			end
 		end
+
+
+feature {WGI_CONNECTOR} -- WGI Execution
+
+	wgi_execute (req: WGI_REQUEST; res: WGI_RESPONSE)
+		local
+			w_req: detachable EPX_WSF_REQUEST
+			w_res: detachable WSF_RESPONSE
+		do
+			create w_res.make_from_wgi (res)
+			create w_req.make_from_wgi (req)
+			execute (w_req, w_res)
+			w_req.destroy
+		rescue
+			if w_res /= Void then
+				w_res.flush
+			end
+			if w_req /= Void then
+				w_req.destroy
+			end
+		end
+
 
 feature -- Access
 

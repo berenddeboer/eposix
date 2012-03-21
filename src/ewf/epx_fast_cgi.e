@@ -42,10 +42,12 @@ feature {NONE} -- Initialisation
 			socket.set_continue_on_error
 			socket.errno.clear_all
 			create parameters.make (64)
+			parameters.compare_objects
 			create header_buf.allocate_and_clear (Fcgi_header_len)
 			create body_buf.allocate_and_clear (Fcgi_max_len)
 			create output_header_buf.allocate_and_clear (Fcgi_header_len)
 			output_header_buf.poke_int8 (0, Fcgi_version)
+			create last_string.make (1024)
 		end
 
 
@@ -54,6 +56,8 @@ feature -- Status
 	is_connection_terminated: BOOLEAN
 			-- Set if read or write to webserver has failed;
 			-- Can be used to abort request processing early
+
+	end_of_input: BOOLEAN
 
 
 feature -- Access
@@ -67,11 +71,63 @@ feature -- Access
 	last_character: CHARACTER
 			-- Last character read by `read_chacter'
 
+	last_read: INTEGER
+			-- How many characters were read by `read_buffer'
+
+	bytes_read: INTEGER
+			-- Total bytes read;
+			-- Should be less or equal than Content-Length
+
 	last_string: STRING
 			-- Last string read by `read_string'
 
 
 feature -- Reading
+
+	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
+			-- Read data into `buf' at `offset' for `nbytes' bytes.
+			-- Number of bytes actually read are available in `last_read'.
+		require
+			is_open_read: socket.is_open_read
+			not_end_of_input: not end_of_input
+			nbytes_not_negative: nbytes >= 0
+			offset_not_negative: offset >= 0
+			buf_not_void: buf /= Void
+			dont_overflow: buf.capacity >= offset + nbytes
+		local
+			done: BOOLEAN
+		do
+			end_of_input := bytes_read = content_length
+			last_read := 0
+			if not end_of_input then
+				if last_record_type = 0 then
+					read_record_header
+				end
+				from
+				until
+					socket.errno.is_not_ok or else
+					done
+				loop
+					if last_record_type = Fcgi_stdin then
+						-- We will always read an entire block as we don't cache
+							check
+								can_read_entire_block: nbytes >= last_content_length
+							end
+						do_read_record_body (buf, offset, last_content_length)
+						last_read := socket.last_read
+						done := True
+					else
+						read_record_body (last_content_length)
+						action_record_body (last_record_type, last_content_length, body_buf)
+						done := last_record_type = Fcgi_abort_request
+					end
+				end
+			end
+			last_record_type := 0
+		ensure
+			last_record_type_unset: last_record_type = 0
+			consistent: last_read > 0 implies not end_of_input
+		end
 
 	read_string
 		do
@@ -101,10 +157,16 @@ feature -- Reading
 				action_record_body (last_record_type, last_content_length, body_buf)
 				read_record_header
 			end
+			if parameters.has_key ({WGI_META_NAMES}.content_length) then
+				content_length := parameters.item ({WGI_META_NAMES}.content_length).to_integer
+			end
 		end
 
 
 feature {NONE} -- Record reading
+
+	content_length: INTEGER
+			-- Max input bytes to read from stdin
 
 	header_buf: attached EPX_BUFFER
 			-- Set by `read_record_header'
@@ -119,6 +181,7 @@ feature {NONE} -- Record reading
 			-- Set by `read_record_header'
 
 	last_content_length: INTEGER
+			-- Length of body content;
 			-- Set by `read_record_header'
 
 	read_record_header
@@ -137,7 +200,17 @@ feature {NONE} -- Record reading
 		require
 			content_fits: body_buf.capacity >= a_content_length
 		do
-			socket.read_buffer (body_buf, 0, a_content_length)
+			do_read_record_body (body_buf, 0, a_content_length)
+		end
+
+	do_read_record_body (buf: STDC_BUFFER; offset, nbytes: INTEGER)
+		require
+			content_fits: body_buf.capacity >= offset + nbytes
+		do
+			socket.read_buffer (buf, offset, nbytes)
+			if last_record_type = Fcgi_stdin then
+				bytes_read := bytes_read + socket.last_read
+			end
 		end
 
 	action_record_body (a_record_type, a_content_length: INTEGER; a_content: EPX_BUFFER)
@@ -227,7 +300,7 @@ feature {EPX_FAST_CGI} -- Record handlers
 			-- Most probably the web server just sends a block as soon as
 			-- it receives new data.
 			last_string.wipe_out
-			a_content.append_to_string (last_string, 0, a_content_length)
+			a_content.append_to_string (last_string, 0, a_content_length - 1)
 		ensure
 			correct_string_length: last_string.count = a_content_length
 		end
@@ -383,5 +456,7 @@ invariant
 	body_buf_large_enough: body_buf.capacity >= Fcgi_max_len
 	output_header_buf_not_void: output_header_buf /= Void
 	output_header_buf_large_enough: output_header_buf.capacity = Fcgi_header_len
+	last_string_not_void: last_string /= Void
+	never_read_too_much_from_stdin: bytes_read <= content_length
 
 end

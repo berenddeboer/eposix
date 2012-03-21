@@ -19,6 +19,13 @@ inherit
 
 	WGI_INPUT_STREAM
 
+	EPX_CHARACTER_INPUT_STREAM
+		undefine
+			read_to_string
+		redefine
+			valid_unread_character
+		end
+
 
 create
 
@@ -50,10 +57,44 @@ feature -- Status report
 			Result := fcgi.socket.is_open_read
 		end
 
+	is_streaming: BOOLEAN
+		do
+			Result := True
+		end
+
 	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 		do
-			Result := fcgi.socket.end_of_input
+			Result := fcgi.end_of_input
+		end
+
+	valid_unread_character (a_character: CHARACTER): BOOLEAN
+			-- Can `a_character' be put back in input stream?
+		do
+			Result := False
+		end
+
+
+feature -- Access
+
+	name: STRING
+			-- Name of input stream
+		once
+			Result := "fastcgi"
+		end
+
+	last_string: STRING
+			-- Last string read
+
+	last_character: CHARACTER_8
+			-- Last item read
+
+	last_read: INTEGER is
+			-- Last bytes read by `read_buffer'.
+			-- Can be less than requested for non-blocking input.
+			-- Check `last_blocked' in that case.
+		do
+			Result := fcgi.last_read
 		end
 
 
@@ -102,14 +143,27 @@ feature -- Input
 			end
 		end
 
+	unread_character (an_item: CHARACTER)
+			-- Put `an_item' back in input stream.
+			-- This item will be read first by the next
+			-- call to a read routine.
+		do
+			-- Unsupported
+		end
 
-feature -- Access
+	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
+			-- Read data into `buf' at `offset' for `nbytes' bytes.
+			-- Number of bytes actually read are available in `last_read'.
+		do
+			fcgi.read_buffer (buf, offset, nbytes)
+		end
 
-	last_string: STRING
-			-- Last string read
 
-	last_character: CHARACTER_8
-			-- Last item read
+feature -- Commands
+
+	close
+		do
+		end
 
 
 feature {NONE} -- Implementation
