@@ -24,25 +24,26 @@ inherit
 
 feature {NONE} -- Initialization
 
+	make_default (a_directory_name: STRING) is
+			-- Open directory `a_directory_name'. `a_directory_name' must
+			-- be an existing directory. Cursor is not positioned, use
+			-- `forth' to move the cursor to the first entry.
+		require
+			directory_name_not_empty: a_directory_name /= Void and then not a_directory_name.is_empty
+		do
+			create item.make (32)
+			create directory_name.make_from_string (a_directory_name)
+		end
+
 	make (a_directory_name: STRING) is
 			-- Open directory `a_directory_name'. `a_directory_name' must
 			-- be an existing directory. Cursor is not positioned, use
 			-- `forth' to move the cursor to the first entry.
 		require
 			directory_name_not_empty: a_directory_name /= Void and then not a_directory_name.is_empty
-		local
-			h: POINTER
 		do
-			create item.make (32)
-			create directory_name.make_from_string (a_directory_name)
-			h := abstract_opendir (sh.string_to_pointer (directory_name))
-			sh.unfreeze_all
-			if h = default_pointer then
-				raise_posix_error
-			else
-				capacity := 1
-				set_handle (h, True)
-			end
+			make_default (a_directory_name)
+			open
 		ensure
 			file_is_open: raise_exception_on_error implies is_open
 			owner_set: is_open implies is_owner
@@ -69,6 +70,29 @@ feature -- Status
 
 	after: BOOLEAN
 			-- Has the directory been traversed completely?
+
+
+feature -- Open
+
+	open is
+			-- Open directory `directory_name'.
+			-- Cursor is not positioned, use `forth' to move the cursor
+			-- to the first entry.
+		local
+			h: POINTER
+		do
+			h := abstract_opendir (sh.string_to_pointer (directory_name))
+			sh.unfreeze_all
+			if h = default_pointer then
+				raise_posix_error
+			else
+				capacity := 1
+				set_handle (h, True)
+			end
+		ensure
+			file_is_open: raise_exception_on_error implies is_open
+			owner_set: is_open implies is_owner
+		end
 
 
 feature -- Cursor movement

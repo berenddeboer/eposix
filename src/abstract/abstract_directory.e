@@ -71,9 +71,13 @@ feature -- Access
 		do
 			found := False
 			directory_entries.wipe_out
-			create entry.make (directory_name)
-			directory_entries.put_last (entry)
-			forth
+			create entry.make_default (directory_name)
+			entry.inherit_error_handling (Current)
+			entry.open
+			if entry.errno.is_ok then
+				directory_entries.put_last (entry)
+				forth
+			end
 		end
 
 	forth is

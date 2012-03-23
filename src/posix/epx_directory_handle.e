@@ -28,7 +28,8 @@ inherit
 
 create {ABSTRACT_DIRECTORY}
 
-	make
+	make,
+	make_default
 
 
 feature -- Access
