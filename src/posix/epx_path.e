@@ -25,6 +25,7 @@ create
 	copy, -- needed for SE, might not work for other compilers
 	make,
 	make_from_string,
+	make_from_raw_string,
 	make_expand
 
 

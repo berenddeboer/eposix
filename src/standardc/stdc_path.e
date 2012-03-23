@@ -35,7 +35,7 @@ feature -- Initialization
 
 	make_from_string (a_path: STRING) is
 			-- The new path contains the correct directory separator
-			-- independent of what is used in `s'
+			-- independent of what is passed in `a_path'.
 		require
 			a_path_not_void: a_path /= Void
 		do
@@ -43,6 +43,14 @@ feature -- Initialization
 			correct_directory_separator
 			-- support Windooze, which doesn't like a trailing slash
 			remove_trailing_slash
+		end
+
+	make_from_raw_string (a_path: STRING) is
+			-- As `make_from_string' but do not correct the directory separator.
+		require
+			a_path_not_void: a_path /= Void
+		do
+			org_make_from_string (a_path)
 		end
 
 	make_expand (s: STRING) is
