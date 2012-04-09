@@ -20,6 +20,7 @@ feature -- Access
 		port: INTEGER
 		bind: STRING
 		terminate_signal: EPX_KILL_SIGNAL_HANDLER
+		no_fork: BOOLEAN
 	]
 
 end

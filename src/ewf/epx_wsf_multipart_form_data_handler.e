@@ -26,7 +26,7 @@ feature -- Status report
 
 	valid_content_type (a_content_type: READABLE_STRING_8): BOOLEAN
 		do
-			Result := a_content_type.starts_with ({HTTP_MIME_TYPES}.multipart_form_data)
+			Result := a_content_type.same_string ({HTTP_MIME_TYPES}.multipart_form_data)
 		end
 
 

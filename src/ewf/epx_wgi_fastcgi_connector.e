@@ -34,13 +34,14 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_terminate_signal: attached EPX_KILL_SIGNAL_HANDLER; a_service: attached like wgi_service; an_options: attached like options_template)
+	make (a_service: attached like wgi_service; an_options: attached like options_template)
 		require
-			signal_handler_attached: a_terminate_signal /= Void
+			options_not_void: an_options /= Void
+			signal_handler_attached: an_options.terminate_signal /= Void
 		do
-			terminate_signal := a_terminate_signal
-			wgi_service := a_service
 			options := an_options
+			terminate_signal := options.terminate_signal
+			wgi_service := a_service
 			create tcp_service.make_from_port (options.port, once "tcp")
 		end
 
@@ -84,7 +85,9 @@ feature -- Server
 	launch
 		local
 			my_client: ABSTRACT_TCP_SOCKET
+			handler: EPX_WSF_REQUEST_HANDLER
 		do
+			create pending_handlers.make
 			from
 				begin_to_listen
 			until
@@ -92,49 +95,42 @@ feature -- Server
 			loop
 				my_client := socket.accept
 				if my_client /= Void then
-					process_request (my_client)
-				end
-			end
-			stop_listening
-		end
-
-
-feature -- Execution
-
-	process_request (a_socket: attached ABSTRACT_TCP_SOCKET)
-		local
-			rescued: BOOLEAN
-			fcgi: EPX_FAST_CGI
-			req: WGI_REQUEST_FROM_TABLE
-			res: WGI_RESPONSE_STREAM
-			input: WGI_INPUT_STREAM
-			output: WGI_OUTPUT_STREAM
-		do
-			if not rescued then
-				create fcgi.make (a_socket)
-				fcgi.read_all_parameters
-				create {EPX_WGI_FASTCGI_INPUT_STREAM} input.make (fcgi)
-				create {EPX_WGI_FASTCGI_OUTPUT_STREAM} output.make (fcgi)
-				create req.make (fcgi.parameters, input, Current)
-				create res.make (output)
-				wgi_service.execute (req, res)
-				fcgi.close
-			else
-				-- TODO: fix, don't write trace to browser
-				if attached (create {EXCEPTION_MANAGER}).last_exception as e and then attached e.exception_trace as l_trace then
-					if res /= Void then
-						if not res.status_is_set then
-							res.set_status_code ({HTTP_STATUS_CODE}.internal_server_error)
-						end
-						if res.message_writable then
-							res.put_string ("<pre>" + l_trace + "</pre>")
-						end
+					create handler.make (wgi_service, my_client)
+					if options.no_fork then
+						handler.execute
+					else
+						fork (handler)
+						wait_for_handlers
+						pending_handlers.put_last (handler)
 					end
 				end
 			end
-		-- rescue
-		-- 	rescued := True
-		-- 	retry
+			wait_for_handlers
+			stop_listening
+		end
+
+	pending_handlers: DS_LINKED_LIST [POSIX_CHILD_PROCESS]
+
+	wait_for_handlers
+		require
+			pending_handlers_not_void: pending_handlers /= Void
+		local
+			c: DS_LINKED_LIST_CURSOR [POSIX_CHILD_PROCESS]
+		do
+			from
+				c := pending_handlers.new_cursor
+				c.start
+			until
+				c.after
+			loop
+				c.item.wait_for (False)
+				if c.item.is_terminated then
+					c.remove
+				end
+				if not c.after then
+					c.forth
+				end
+			end
 		end
 
 

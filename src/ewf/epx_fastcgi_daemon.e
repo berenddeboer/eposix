@@ -33,6 +33,11 @@ inherit
 
 	WSF_HANDLER_HELPER
 
+	WSF_DEFAULT_SERVICE
+		rename
+			execute as execute_service
+		end
+
 
 inherit {NONE}
 
@@ -45,16 +50,20 @@ feature -- Execution
 			-- Call `service_execute' which will loop until a STOP signal
 			-- has been received.
 		local
-			s: DEFAULT_SERVICE_LAUNCHER
+			s: WSF_DEFAULT_SERVICE_LAUNCHER
 			options: like options_template
 		do
 			initialize_router
 			create options
+			options.terminate_signal := terminate_signal
 			options.port := port_option.parameter
 			if bind_option.was_found then
 				options.bind := bind_option.parameter
 			end
-			create s.make_and_launch_with_options (terminate_signal, agent execute_service, options)
+			if foreground_mode_flag.was_found then
+				options.no_fork := True
+			end
+			create s.make_and_launch_with_options (Current, agent execute_service, options)
 		end
 
 	execute_service_default (req: WSF_REQUEST; res: WSF_RESPONSE)
