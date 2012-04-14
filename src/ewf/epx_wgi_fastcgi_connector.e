@@ -105,8 +105,8 @@ feature -- Server
 					end
 				end
 			end
-			wait_for_handlers
 			stop_listening
+			wait_for_handlers
 		end
 
 	pending_handlers: DS_LINKED_LIST [POSIX_CHILD_PROCESS]
@@ -117,8 +117,8 @@ feature -- Server
 		local
 			c: DS_LINKED_LIST_CURSOR [POSIX_CHILD_PROCESS]
 		do
+			c := pending_handlers.new_cursor
 			from
-				c := pending_handlers.new_cursor
 				c.start
 			until
 				c.after
@@ -126,8 +126,7 @@ feature -- Server
 				c.item.wait_for (False)
 				if c.item.is_terminated then
 					c.remove
-				end
-				if not c.after then
+				else
 					c.forth
 				end
 			end

@@ -51,7 +51,7 @@ feature -- Status report
 
 feature -- Status writing
 
-	put_status_line (a_code: INTEGER)
+	put_status_line (a_code: INTEGER; a_reason_phrase: detachable READABLE_STRING_8)
 			-- Put status code line for `a_code'
 			--| Note this is a default implementation, and could be redefined
 			--| for instance in relation to NPH CGI script
@@ -65,9 +65,12 @@ feature -- Status writing
 				s.append ("Status:")
 				s.append_character (' ')
 				s.append_integer (a_code)
-				if attached http_status_code_message (a_code) as l_status_message then
-					--s.append_character (' ')
-					--s.append_string (l_status_message)
+				if attached a_reason_phrase as l_status_message then
+					s.append_character (' ')
+					s.append_string (l_status_message)
+				elseif attached http_status_code_message (a_code) as l_status_message then
+					s.append_character (' ')
+					s.append_string (l_status_message)
 				end
 				put_header_line (s)
 			end
