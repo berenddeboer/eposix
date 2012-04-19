@@ -37,6 +37,7 @@ feature {NONE} -- Initialization
 	make (a_service: attached like wgi_service; an_options: attached like options_template)
 		require
 			options_not_void: an_options /= Void
+			valid_port: an_options.port > 0 and then an_options.port <= 65535
 			signal_handler_attached: an_options.terminate_signal /= Void
 		do
 			options := an_options
