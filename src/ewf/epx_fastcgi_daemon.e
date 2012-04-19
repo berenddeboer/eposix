@@ -2,7 +2,7 @@ note
 
 	description:
 
-		"Stand-alone FastCGI daemon"
+		"External FastCGI daemon"
 
 	todo: "handale SIGPIPE and SIGUSR1"
 
@@ -56,7 +56,11 @@ feature -- Execution
 			initialize_router
 			create options
 			options.terminate_signal := terminate_signal
-			options.port := port_option.parameter
+			if port_option.was_found then
+				options.port := port_option.parameter
+			else
+				options.port := default_port
+			end
 			if bind_option.was_found then
 				options.bind := bind_option.parameter
 			end
@@ -109,6 +113,14 @@ feature -- Router
 	create_router
 		do
 			create router.make (2)
+		end
+
+
+feature -- Defaults
+
+	default_port: INTEGER
+		do
+			-- No default
 		end
 
 
