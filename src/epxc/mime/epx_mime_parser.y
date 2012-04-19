@@ -1014,13 +1014,6 @@ feature -- Initialization
 
 feature -- Character reading
 
-	eof: BOOLEAN is
-			-- True if `read_character' hits end-of-file.
-		obsolete "2006-04-03 use end_of_input instead"
-		do
-			Result := end_of_input
-		end
-
 	end_of_input: BOOLEAN is
 			-- Has `read_character' hit the end-of-file character?
 		do
