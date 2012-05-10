@@ -617,6 +617,16 @@ feature -- Time as string
 			rfc_date_string_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
+	as_iso_8601: STRING is
+			-- Date in ISO8601 (XML Schema dateTime) format
+		do
+			if is_utc_time then
+				Result := format (once_iso_8601_utc_format)
+			else
+				Result := format (once_iso_8601_format_with_tz)
+			end
+		end
+
 
 feature -- Date calculations
 
@@ -843,6 +853,8 @@ feature {NONE} -- Once strings
 	once_gmt: STRING is " GMT"
 	once_rfc_822_format_with_tz: STRING is "%%a, %%d %%b %%Y %%H:%%M:%%S %%z"
 	once_rfc_822_format: STRING is "%%a, %%d %%b %%Y %%H:%%M:%%S"
+	once_iso_8601_format_with_tz: STRING is "%%FT%%H:%%M:%%S%%z"
+	once_iso_8601_utc_format: STRING is "%%FT%%H:%%M:%%SZ"
 
 
 invariant
