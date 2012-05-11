@@ -25,6 +25,8 @@ inherit
 			is_blocking_io,
 			set_blocking_io,
 			supports_nonblocking_io
+		redefine
+			put_line
 		end
 
 
@@ -57,7 +59,7 @@ feature {NONE} -- Socket creation
 			Result := abstract_socket (
 				a_domain,
 				a_type,
-				0)
+				0) -- 0 is the default protocol for `a_type'
 			if Result = unassigned_value then
 				raise_posix_error
 			end
@@ -133,6 +135,25 @@ feature -- Change
 			safe_call (abstract_setsockopt (fd, SOL_SOCKET, SO_SNDBUF, $my_flag, 4))
 		ensure
 			size_set: send_buffer_size >= a_new_size
+		end
+
+
+feature -- Output
+
+	put_line (a_string: STRING)
+			-- Write `a_string' to output stream
+			-- followed by a line separator.
+		local
+			s: STRING
+		do
+			if is_streaming then
+				create s.make (a_string.count + eol.count)
+				s.append_string (a_string)
+				s.append_string (eol)
+				put_string (s)
+			else
+				precursor (a_string)
+			end
 		end
 
 
