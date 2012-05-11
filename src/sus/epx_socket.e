@@ -17,6 +17,8 @@ inherit
 	EPX_DESCRIPTOR
 		rename
 			attach_to_descriptor as attach_to_socket
+		undefine
+			put_line
 		redefine
 			abstract_read,
 			abstract_write
