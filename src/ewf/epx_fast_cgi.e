@@ -62,6 +62,10 @@ feature -- Status
 
 feature -- Access
 
+	content_length: INTEGER
+			-- Max input bytes to read from stdin as given by the
+			-- Content-Length parameter
+
 	parameters: attached HASH_TABLE [STRING, STRING]
 			-- Filled by `read_all_parameters'
 
@@ -75,8 +79,8 @@ feature -- Access
 			-- How many characters were read by `read_buffer'
 
 	bytes_read: INTEGER
-			-- Total bytes read;
-			-- Should be less or equal than Content-Length
+			-- Total stdin bytes read;
+			-- Should be less or equal than `content_length'
 
 	last_string: STRING
 			-- Last string read by `read_string'
@@ -130,7 +134,9 @@ feature -- Reading
 		end
 
 	read_string
+			-- If stdin input is pending, put this in `last_string'.
 		do
+			last_string.wipe_out
 			if last_record_type = 0 then
 				read_record_header
 			end
@@ -165,9 +171,6 @@ feature -- Reading
 
 feature {NONE} -- Record reading
 
-	content_length: INTEGER
-			-- Max input bytes to read from stdin
-
 	header_buf: attached EPX_BUFFER
 			-- Set by `read_record_header'
 
@@ -198,9 +201,28 @@ feature {NONE} -- Record reading
 
 	read_record_body (a_content_length: INTEGER)
 		require
+			content_length_not_negative: a_content_length >= 0
 			content_fits: body_buf.capacity >= a_content_length
+		local
+			pos: INTEGER
+			bytes_to_read: INTEGER
 		do
-			do_read_record_body (body_buf, 0, a_content_length)
+			from
+				bytes_to_read := a_content_length
+			until
+				bytes_to_read = 0
+			loop
+				do_read_record_body (body_buf, pos, bytes_to_read)
+				is_connection_terminated := socket.errno.is_not_ok
+				if not is_connection_terminated then
+					bytes_to_read := bytes_to_read - socket.last_read
+					pos := pos + socket.last_read
+				else
+					bytes_to_read := 0
+				end
+			variant
+				bytes_to_read
+			end
 		end
 
 	do_read_record_body (buf: STDC_BUFFER; offset, nbytes: INTEGER)
@@ -299,7 +321,6 @@ feature {EPX_FAST_CGI} -- Record handlers
 			-- all.
 			-- Most probably the web server just sends a block as soon as
 			-- it receives new data.
-			last_string.wipe_out
 			a_content.append_to_string (last_string, 0, a_content_length - 1)
 		ensure
 			correct_string_length: last_string.count = a_content_length
@@ -324,7 +345,7 @@ feature -- Writing to stdout
 			-- Write `c' to web server.
 		do
 			if socket.errno.is_ok then
-				-- TODO: optimise!
+				-- TODO: optimise by caching character writing!
 				put_record_header (Fcgi_stdout, last_request_id, 1)
 				socket.put_character (c)
 			end
@@ -433,13 +454,17 @@ feature {NONE} -- Writing
 feature -- Closing
 
 	close
+		local
+			application_status: INTEGER
 		do
 			if not is_connection_terminated then
+				socket.shutdown_read
 				terminate_stream (Fcgi_stdout)
 				put_record_header (Fcgi_end_request, last_request_id, Fcgi_end_req_body_len)
-				body_buf.poke_int32_big_endian (0, 0)
+				body_buf.poke_int32_big_endian (0, application_status)
 				body_buf.poke_int8 (4, Fcgi_request_complete)
 				socket.put_buffer (body_buf, 0, Fcgi_unknown_body_type_body_len)
+				socket.shutdown_write
 			end
 			socket.close
 			socket.errno.clear_all
