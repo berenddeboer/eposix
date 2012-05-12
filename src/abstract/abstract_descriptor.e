@@ -176,7 +176,7 @@ feature -- Read and write to memory block
 			-- `last_written'. `last_written' can be unequal to `nbytes'
 			-- if i/o is non-blocking or some error has occurred.
 		require
-			can_write: is_open
+			can_write: is_open_write
 			valid_buf: buf /= default_pointer
 			valid_size: nbytes >= 0
 		local
