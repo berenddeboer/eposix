@@ -92,17 +92,19 @@ feature -- Initialization
 		end
 
 	open_truncate (a_path: STRING) is
-			-- Open file, if it exists, truncate it first.
+			-- Create file for writing; if file exists, truncate it first.
 		require
 			closed: not is_open
 			a_path_not_empty: a_path /= Void and then not a_path.is_empty
 		do
-			open (a_path, abstract_O_TRUNC)
+			open (a_path, abstract_O_TRUNC + abstract_O_WRONLY)
 			if is_open then
 				is_open_read := False
 			end
 		ensure
 			is_opened: raise_exception_on_error implies is_open
+			not_readable: not is_open_read
+			writable: raise_exception_on_error implies is_open_write
 			open_files_increased_by_one:
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
