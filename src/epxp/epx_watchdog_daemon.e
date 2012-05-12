@@ -39,6 +39,7 @@ feature -- Daemon specific actions
 			last_child_pid := posix_fork
 			is_parent := last_child_pid /= 0
 			if is_parent then
+				write_pid
 				set_pid (last_child_pid)
 				from
 				until
