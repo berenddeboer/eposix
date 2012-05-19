@@ -63,6 +63,8 @@ feature -- Access
 
 	terminate_signal: attached EPX_KILL_SIGNAL_HANDLER
 
+	child_signal: attached EPX_SIGNALLED_SIGNAL_HANDLER
+
 
 feature {NONE} -- Access
 
@@ -95,6 +97,11 @@ feature -- Server
 				terminate_signal.should_stop
 			loop
 				my_client := socket.accept
+				if my_client = Void then
+					print ("client = Void%N")
+				else
+					print ("client /= Void%N")
+				end
 				if my_client /= Void then
 					create handler.make (wgi_service, my_client)
 					if options.no_fork then
@@ -104,6 +111,8 @@ feature -- Server
 						wait_for_handlers
 						pending_handlers.put_last (handler)
 					end
+				elseif not terminate_signal.should_stop and then not options.no_fork then
+					wait_for_handlers
 				end
 			end
 			stop_listening

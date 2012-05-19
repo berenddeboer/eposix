@@ -4,7 +4,7 @@ note
 
 		"External FastCGI daemon"
 
-	todo: "handale SIGPIPE and SIGUSR1"
+	todo: "handle SIGUSR1"
 
 	library: "eposix library"
 	author: "Berend de Boer <berend@pobox.com>"
@@ -86,7 +86,7 @@ feature -- Execution
 			create h.make
 			h.put_content_type_text_plain
 			l_api_doc := "%NPlease check the API%N"
-			l_description := req.request_method + " " +req.request_uri + " is not supported" + "%N" + l_api_doc
+			l_description := req.request_method + " " + req.request_uri + " is not supported" + "%N" + l_api_doc
 			h.put_content_length (l_description.count)
 			h.put_current_date
 			--h.put_header ({HTTP_HEADER_NAMES}.header_status + ": " + res.status_code.out)
@@ -97,13 +97,24 @@ feature -- Execution
 
 feature -- Signal handling
 
+	child_signal: EPX_SIGNALLED_SIGNAL_HANDLER
+
 	setup_signals
 		local
 			my_signal: EPX_SIGNAL
+			handler: EPX_SIGNALLED_SIGNAL_HANDLER
 		do
 			precursor
 			create my_signal.make (SIGPIPE)
 			my_signal.set_ignore_action
+			my_signal.apply
+			-- We don't really need to use this signal. Setting ourselves
+			-- up to receive the signal is enough to interrupt listening
+			-- to the socket, so we simply check for terminated children
+			-- every time we are interrupted, and no socket is returned.
+			create child_signal
+			create my_signal.make (SIGCHLD)
+			my_signal.set_handler (child_signal)
 			my_signal.apply
 		end
 

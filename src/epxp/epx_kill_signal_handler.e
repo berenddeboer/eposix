@@ -18,19 +18,9 @@ class
 
 inherit
 
-	STDC_SIGNAL_HANDLER
-
-
-feature -- Access
-
-	should_stop: BOOLEAN
-
-
-feature {STDC_SIGNAL_SWITCH} -- Signal callback
-
-	signalled (signal_value: INTEGER) is
-		do
-			should_stop := True
+	EPX_SIGNALLED_SIGNAL_HANDLER
+		rename
+			is_signalled as should_stop
 		end
 
 
