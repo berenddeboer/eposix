@@ -97,11 +97,6 @@ feature -- Server
 				terminate_signal.should_stop
 			loop
 				my_client := socket.accept
-				if my_client = Void then
-					print ("client = Void%N")
-				else
-					print ("client /= Void%N")
-				end
 				if my_client /= Void then
 					create handler.make (wgi_service, my_client)
 					if options.no_fork then
