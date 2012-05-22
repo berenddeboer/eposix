@@ -106,7 +106,7 @@ feature -- Server
 						wait_for_handlers
 						pending_handlers.put_last (handler)
 					end
-				elseif not terminate_signal.should_stop and then not options.no_fork then
+				elseif not options.no_fork and then not terminate_signal.should_stop then
 					wait_for_handlers
 				end
 			end
