@@ -36,16 +36,15 @@ feature {NONE} -- Initialisation
 		do
 			setup_signals
 			parse_arguments
+			if not is_writable (pid_file_name) then
+				stderr.put_line ("Cannot create or write to " + pid_file_name)
+				exit_with_failure
+			end
 			if foreground_mode_flag.was_found then
 				write_pid
 				execute
 			else
-				if is_writable (pid_file_name) then
-					detach
-				else
-					stderr.put_line ("Cannot create or write to " + pid_file_name)
-					exit_with_failure
-				end
+				detach
 			end
 		end
 
@@ -83,8 +82,6 @@ feature -- PID writing
 	pid_file_name: STRING is
 		require
 			pid_file_name_flag_not_void: pid_file_name_flag /= Void
-		local
-			path: EPX_PATH
 		once
 			if pid_file_name_flag.was_found then
 				Result := pid_file_name_flag.parameter
