@@ -124,23 +124,31 @@ feature -- Input
 			-- Read a string of at most `nb' bound characters
 			-- or until end of file.
 			-- Make result available in `last_string'.
+		local
+			next_index: INTEGER
 		do
-			if last_string_index = 0 or else last_string_index > last_string.count then
+			if last_string_index = 0 then
 				fcgi.read_string
 				if fcgi.last_string.count <= nb then
 					last_string := fcgi.last_string
 				else
-					-- TODO
-						check
-							todo: false
-						end
+					last_string := fcgi.last_string.substring (last_string_index + 1, last_string_index + nb)
+					last_string_index := last_string_index + nb
 				end
 			else
-				-- TODO
-						check
-							todo: false
-						end
+				next_index := last_string_index + nb
+				if next_index > fcgi.last_string.count then
+					next_index := fcgi.last_string.count
+				end
+				last_string := fcgi.last_string.substring (last_string_index + 1, next_index)
+				if next_index = fcgi.last_string.count then
+					last_string_index := 0
+				else
+					last_string_index := next_index
+				end
 			end
+		ensure then
+			last_index_in_bounds: last_string_index = 0 or else last_string_index <= fcgi.last_string.count
 		end
 
 	unread_character (an_item: CHARACTER)
@@ -173,5 +181,9 @@ feature {NONE} -- Implementation
 
 	fcgi: EPX_FAST_CGI
 			-- Bridge to Fast CGI world
+
+invariant
+
+	last_string_index_not_negative: last_string_index >= 0
 
 end
