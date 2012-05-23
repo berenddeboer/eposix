@@ -63,8 +63,6 @@ feature -- Access
 
 	terminate_signal: attached EPX_KILL_SIGNAL_HANDLER
 
-	child_signal: attached EPX_SIGNALLED_SIGNAL_HANDLER
-
 
 feature {NONE} -- Access
 
