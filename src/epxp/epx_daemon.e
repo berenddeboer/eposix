@@ -34,12 +34,12 @@ feature {NONE} -- Initialisation
 
 	make is
 		do
-			setup_signals
 			parse_arguments
 			if not is_writable (pid_file_name) then
 				stderr.put_line ("Cannot create or write to " + pid_file_name)
 				exit_with_failure
 			end
+			setup_signals
 			if foreground_mode_flag.was_found then
 				write_pid
 				execute
