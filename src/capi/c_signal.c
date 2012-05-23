@@ -1,6 +1,6 @@
 #include "c_signal.h"
 
-/* functions */
+/* C functions */
 
 EIF_POINTER posix_signal(EIF_INTEGER sig, void (*func)(int))
 {
@@ -10,6 +10,57 @@ EIF_POINTER posix_signal(EIF_INTEGER sig, void (*func)(int))
 EIF_INTEGER posix_raise(EIF_INTEGER sig)
 {
   return raise(sig);
+}
+
+
+/* custom signal handlers */
+
+int posix_custom_1_signalled = 0;
+int posix_custom_2_signalled = 0;
+
+void posix_sig_handler_1 (int signum) {
+  posix_custom_1_signalled = 1;
+}
+
+void posix_sig_handler_2 (int signum) {
+  posix_custom_1_signalled = 1;
+}
+
+void posix_enable_custom_signal_handler_1 (EIF_INTEGER sig) {
+  posix_custom_1_signalled = 1;
+  int *ptr;
+  struct sigaction new_action, old_action;
+  new_action.sa_handler = posix_sig_handler_1;
+  new_action.sa_flags = 0;
+  sigaction(sig, &new_action, NULL);
+}
+
+EIF_BOOLEAN posix_is_custom_signal_handler_1_signalled (EIF_INTEGER sig) {
+  int r;
+  // Retrieve value, then reset it. That is not completely signal safe I think.
+  // Not sure how to fix this properly. Need an atomitic reset.
+  r = posix_custom_1_signalled;
+  posix_custom_1_signalled = 0;
+  return (EIF_BOOLEAN) r;
+}
+
+
+void posix_enable_custom_signal_handler_2 (EIF_INTEGER sig) {
+  posix_custom_2_signalled = 1;
+  int *ptr;
+  struct sigaction new_action, old_action;
+  new_action.sa_handler = posix_sig_handler_2;
+  new_action.sa_flags = 0;
+  sigaction(sig, &new_action, NULL);
+}
+
+EIF_BOOLEAN posix_is_custom_signal_handler_2_signalled (EIF_INTEGER sig) {
+  int r;
+  // Retrieve value, then reset it. That is not completely signal safe I think.
+  // Not sure how to fix this properly. Need an atomitic reset.
+  r = posix_custom_2_signalled;
+  posix_custom_2_signalled = 0;
+  return (EIF_BOOLEAN) r;
 }
 
 

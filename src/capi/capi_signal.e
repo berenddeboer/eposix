@@ -1,31 +1,64 @@
 indexing
 
-   description: "Class that covers Standard C signal.h."
+	description: "Class that covers Standard C signal.h."
 
-   author: "Berend de Boer"
-   date: "$Date: 2007/11/22 $"
-   revision: "$Revision: #3 $"
+	author: "Berend de Boer"
+	date: "$Date: 2007/11/22 $"
+	revision: "$Revision: #3 $"
 
-class 
+class
 
-   CAPI_SIGNAL
+	CAPI_SIGNAL
 
 
 feature -- Standard C binding
 
-   posix_raise (sig: INTEGER): INTEGER is
-         -- Sends a signal
-      require
-         valid_signal: sig >= 0
-      external "C"
-      end
-   
-   posix_signal (sig: INTEGER; func: POINTER): POINTER is
-         -- Specifies signal handling
-      require
-         valid_signal: sig >= 0
-      external "C"
-      end
-   
+	posix_raise (a_sig: INTEGER): INTEGER is
+			-- Sends a signal
+		require
+			valid_signal: a_sig >= 0
+		external "C"
+		end
 
-end -- class CAPI_SIGNAL
+	posix_signal (a_sig: INTEGER; a_func: POINTER): POINTER is
+			-- Specifies signal handling
+		require
+			valid_signal: a_sig >= 0
+		external "C"
+		end
+
+	posix_enable_custom_signal_handler_1 (a_sig: INTEGER)
+			-- Listen to signal `a_sig'. Use
+			-- `posix_is_custom_signal_handler_1_signalled' to check if
+			-- it has been signalled.
+			-- Signal handlers in Eiffel don't really work, so it's
+			-- better to install a C based one. Listening for SIGTERM is
+			-- usually fine if you quit the app, anything you want to
+			-- listen to repeatedly, better use this.
+		require
+			valid_signal: a_sig >= 0
+		external "C"
+		end
+
+	posix_is_custom_signal_handler_1_signalled (a_sig: INTEGER): BOOLEAN
+		require
+			valid_signal: a_sig >= 0
+		external "C"
+		end
+
+	posix_enable_custom_signal_handler_2 (a_sig: INTEGER)
+			-- Listen to signal `a_sig'. Use
+			-- `posix_is_custom_signal_handler_2_signalled' to check if
+			-- it has been signalled.
+		require
+			valid_signal: a_sig >= 0
+		external "C"
+		end
+
+	posix_is_custom_signal_handler_2_signalled (a_sig: INTEGER): BOOLEAN
+		require
+			valid_signal: a_sig >= 0
+		external "C"
+		end
+
+end

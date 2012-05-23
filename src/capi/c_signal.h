@@ -12,10 +12,18 @@ Access to Standard C signal.h header
 #include <signal.h>
 
 
-/* functions */
+/* C functions */
 
 EIF_POINTER posix_signal(EIF_INTEGER sig, void (*func)(int));
 EIF_INTEGER posix_raise(EIF_INTEGER sig);
+
+
+/* custom signal handlers */
+
+void posix_enable_custom_signal_handler_1 (EIF_INTEGER sig);
+EIF_BOOLEAN posix_is_custom_signal_handler_1_signalled (EIF_INTEGER sig);
+void posix_enable_custom_signal_handler_2 (EIF_INTEGER sig);
+EIF_BOOLEAN posix_is_custom_signal_handler_2_signalled (EIF_INTEGER sig);
 
 
 /* constants */

@@ -102,7 +102,6 @@ feature -- Signal handling
 	setup_signals
 		local
 			my_signal: EPX_SIGNAL
-			handler: EPX_SIGNALLED_SIGNAL_HANDLER
 		do
 			precursor
 			create my_signal.make (SIGPIPE)
@@ -112,10 +111,7 @@ feature -- Signal handling
 			-- up to receive the signal is enough to interrupt listening
 			-- to the socket, so we simply check for terminated children
 			-- every time we are interrupted, and no socket is returned.
-			create child_signal
-			create my_signal.make (SIGCHLD)
-			my_signal.set_handler (child_signal)
-			my_signal.apply
+			posix_enable_custom_signal_handler_1 (SIGCHLD)
 		end
 
 
