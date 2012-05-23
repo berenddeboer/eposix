@@ -188,6 +188,9 @@ feature {NONE} -- Record reading
 			-- Set by `read_record_header'
 
 	read_record_header
+			-- Read the entire record header.
+			-- Set `last_record_type', `last_request_id', and
+			-- `last_content_length'.
 		do
 			socket.read_buffer (header_buf, 0, header_buf.capacity)
 			if socket.errno.is_ok then
