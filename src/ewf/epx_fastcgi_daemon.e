@@ -87,9 +87,7 @@ feature -- Execution
 			h.put_content_type_text_plain
 			l_api_doc := "%NPlease check the API%N"
 			l_description := req.request_method + " " + req.request_uri + " is not supported" + "%N" + l_api_doc
-			h.put_content_length (l_description.count)
 			h.put_current_date
-			--h.put_header ({HTTP_HEADER_NAMES}.header_status + ": " + res.status_code.out)
 			res.put_header_text (h.string)
 			res.put_string (l_description)
 		end
