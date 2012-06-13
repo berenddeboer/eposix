@@ -63,12 +63,14 @@ feature -- Execution
 			res: WGI_RESPONSE_STREAM
 			input: WGI_INPUT_STREAM
 			output: WGI_OUTPUT_STREAM
+			error: WGI_ERROR_STREAM
 		do
 			if not rescued then
 				create fcgi.make (socket)
 				fcgi.read_all_parameters
 				create {EPX_WGI_FASTCGI_INPUT_STREAM} input.make (fcgi)
 				create {EPX_WGI_FASTCGI_OUTPUT_STREAM} output.make (fcgi)
+				create {EPX_WGI_FASTCGI_ERROR_STREAM} error.make (fcgi)
 				create req.make (fcgi.parameters, input, Current)
 				-- TODO: pass error stream
 				create res.make (output, Void)
@@ -77,13 +79,16 @@ feature -- Execution
 			else
 				-- TODO: fix, don't write trace to browser
 				if attached (create {EXCEPTION_MANAGER}).last_exception as e and then attached e.exception_trace as l_trace then
+					if error /= Void then
+						error.put_error (l_trace)
+					end
 					stderr.put_string (l_trace)
 					if res /= Void then
 						if not res.status_is_set then
 							res.set_status_code ({HTTP_STATUS_CODE}.internal_server_error, Void)
 						end
 						if res.message_writable then
-							res.put_string ("<pre>" + l_trace + "</pre>")
+							res.put_string ("See server log for more details.")
 						end
 					end
 				end
