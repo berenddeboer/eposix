@@ -71,7 +71,7 @@ feature -- Change
 
 	set_new_uid (a_uid: INTEGER) is
 			-- Set `new_uid'.
-			-- To be executed program will run under this privileges. It
+			-- To be executed program will run with `new_uid' privileges. It
 			-- is strongly recommended to use `set_new_gid' to change the
 			-- group to the user's primary group as well.
 		require
@@ -83,6 +83,8 @@ feature -- Change
 		end
 
 	set_new_gid (a_gid: INTEGER) is
+			-- Set `new_gid'.
+			-- To be executed program will run with `new_gid' privileges.
 		require
 			valid_uid: a_gid > 0
 		do
@@ -313,6 +315,8 @@ feature {NONE}
 			cargv: ARRAY [POINTER]
 			i, j: INTEGER
 			r: INTEGER
+			user: POSIX_USER
+			env: SUS_ENV_VAR
 		do
 			create argv.make (0, arguments.count+1)
 			argv.put (program_name, 0)
@@ -327,11 +331,21 @@ feature {NONE}
 				j := j + 1
 			end
 			cargv := ah.string_array_to_pointer_array (argv)
+			if new_uid > 0 then
+				create user.make_from_uid (new_uid)
+			end
 			if new_gid > 0 then
 				r := posix_setgid (new_gid)
 			end
 			if new_uid > 0 then
 				r := posix_setuid (new_uid)
+				create env.make ("USER")
+				env.set_value (user.name)
+				create env.make ("LOGNAME")
+				env.set_value (user.name)
+				create env.make ("HOME")
+				env.set_value (user.home_directory)
+				-- What about MAIL ?
 			end
 			r := posix_execvp (
 				sh.string_to_pointer (program_name),
