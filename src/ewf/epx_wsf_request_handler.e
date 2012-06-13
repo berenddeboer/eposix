@@ -77,6 +77,7 @@ feature -- Execution
 			else
 				-- TODO: fix, don't write trace to browser
 				if attached (create {EXCEPTION_MANAGER}).last_exception as e and then attached e.exception_trace as l_trace then
+					stderr.put_string (l_trace)
 					if res /= Void then
 						if not res.status_is_set then
 							res.set_status_code ({HTTP_STATUS_CODE}.internal_server_error, Void)
@@ -87,9 +88,9 @@ feature -- Execution
 					end
 				end
 			end
-		-- rescue
-		-- 	rescued := True
-		-- 	retry
+		rescue
+			rescued := True
+			retry
 		end
 
 
