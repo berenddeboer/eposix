@@ -36,6 +36,8 @@ feature -- Commands
 			-- Change environment value. Repeatedly creating a new
 			-- SUS_ENV_VAR and calling `set_value' will lead to a memory
 			-- leak.
+		require
+			new_value_not_void: a_new_value /= Void
 		local
 			namevalue: STRING
 		do
