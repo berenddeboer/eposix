@@ -101,6 +101,8 @@ feature -- Server
 						handler.execute
 					else
 						fork (handler)
+						-- Parent has to close connection as well
+						my_client.close
 						wait_for_handlers
 						pending_handlers.put_last (handler)
 					end
