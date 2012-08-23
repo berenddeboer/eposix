@@ -92,7 +92,7 @@ feature -- Initialization
 		end
 
 	open_truncate (a_path: STRING) is
-			-- Create file for writing; if file exists, truncate it first.
+			-- Open existing file for writing; if file exists, truncate it first.
 		require
 			closed: not is_open
 			a_path_not_empty: a_path /= Void and then not a_path.is_empty
