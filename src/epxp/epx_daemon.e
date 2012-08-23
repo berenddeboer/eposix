@@ -35,7 +35,7 @@ feature {NONE} -- Initialisation
 	make is
 		do
 			parse_arguments
-			if not is_writable (pid_file_name) then
+			if not is_pid_writable then
 				stderr.put_line ("Cannot create or write to " + pid_file_name)
 				exit_with_failure
 			end
@@ -79,15 +79,17 @@ feature {NONE} -- Signal handling
 
 feature -- PID writing
 
-	pid_file_name: STRING is
+	pid_file_name: STDC_PATH is
+			-- Name of file where pid is stored
 		require
 			pid_file_name_flag_not_void: pid_file_name_flag /= Void
 		once
 			if pid_file_name_flag.was_found then
-				Result := pid_file_name_flag.parameter
+				create Result.make_from_string (pid_file_name_flag.parameter)
 			else
-				Result := default_pid_file_name
+				create Result.make_from_string (default_pid_file_name)
 			end
+			Result.parse (Void)
 		ensure
 			not_empty: Result /= Void and then not Result.is_empty
 		end
@@ -98,6 +100,24 @@ feature -- PID writing
 			string_to_file (pid.out, pid_file_name)
 		end
 
+	is_pid_writable: BOOLEAN is
+			-- Is `a_pid_file_name' writable?
+			-- Destructive test by truncating any existing `pid_file_name'
+		local
+			file: EPX_FILE_DESCRIPTOR
+		do
+			create file.make
+			file.errno.clear_all
+			file.set_continue_on_error
+			file.open_write (pid_file_name)
+			Result := file.is_open
+			if not Result then
+				file.create_write (pid_file_name)
+			end
+			if Result then
+				file.close
+			end
+		end
 
 feature -- Argument parsing
 
