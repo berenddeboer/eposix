@@ -370,7 +370,7 @@ feature -- File and string
 		local
 			file: EPX_FILE_DESCRIPTOR
 		do
-			create file.open_truncate (a_file_name)
+			create file.create_write (a_file_name)
 			if s /= Void then
 				file.put_string (s)
 			end
