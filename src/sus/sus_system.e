@@ -33,7 +33,7 @@ inherit
 
 feature -- Network related
 
-	host_name: STRING is
+	hostname, host_name: STRING is
 			-- The standard host name for the current machine
 		local
 			buf: POSIX_BUFFER
