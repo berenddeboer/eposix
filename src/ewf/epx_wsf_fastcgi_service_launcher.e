@@ -28,7 +28,8 @@ inherit
 		rename
 			make as make_service,
 			make_and_launch as make_and_launch_service,
-			make_and_launch_with_options as make_and_launch_service_with_options,
+			make_callback as make_callback_service,
+			make_callback_and_launch as make_callback_and_launch_service,
 			options as unsupported_string_options
 		end
 
@@ -46,29 +47,31 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_service: like service; a_callback: like {WSF_CALLBACK_SERVICE}.callback; an_options: like options)
-		require
-			a_options_attached: an_options /= Void
-			signal_handler_attached: an_options.terminate_signal /= Void
-			callback_not_void: a_callback /= Void
+	make (a_service: like service; a_options: like options)
 		do
-			options := an_options
-			make_service (a_service, Void)
+			make_from_service (a_service)
+			options := a_options
+			initialize
+		ensure
+			service_set: service = a_service
+			options_set: options = a_options
+			launchable: launchable
 		end
 
-	make_and_launch (a_service: like service; a_callback: like {WSF_CALLBACK_SERVICE}.callback)
+	make_and_launch (a_service: like service; a_options: like options)
 		do
-			make (a_service, a_callback, Void)
+			make (a_service, a_options)
 			launch
 		end
 
-	make_and_launch_with_options (a_service: like service; a_callback: like {WSF_CALLBACK_SERVICE}.callback; an_options: attached like options)
-		require
-			a_options_attached: an_options /= Void
-			signal_handler_attached: an_options.terminate_signal /= Void
+	make_callback (a_callback: like {WSF_CALLBACK_SERVICE}.callback; a_options: like options)
 		do
-			make (a_service, a_callback, an_options)
-			launch
+			make (create {WSF_CALLBACK_SERVICE}.make (a_callback), a_options)
+		end
+
+	make_callback_and_launch (a_callback: like {WSF_CALLBACK_SERVICE}.callback; a_options: like options)
+		do
+			make (create {WSF_CALLBACK_SERVICE}.make (a_callback), a_options)
 		end
 
 	initialize
@@ -87,7 +90,7 @@ feature -- Access
 			-- Default service name
 
 	options: like options_template
-			-- Custom options
+			-- Custom options; we want this to be type safe
 
 
 feature -- Execution

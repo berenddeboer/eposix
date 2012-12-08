@@ -29,6 +29,8 @@ inherit
 		rename
 			execute as execute_service,
 			execute_default as execute_service_default
+		redefine
+			execute_service_default
 		end
 
 	WSF_HANDLER_HELPER
@@ -67,7 +69,7 @@ feature -- Execution
 			if foreground_mode_flag.was_found then
 				options.no_fork := True
 			end
-			create s.make_and_launch_with_options (Current, agent execute_service, options)
+			create s.make_and_launch (Current, options)
 		end
 
 	execute_service_default (req: WSF_REQUEST; res: WSF_RESPONSE)
@@ -110,14 +112,6 @@ feature -- Signal handling
 			-- to the socket, so we simply check for terminated children
 			-- every time we are interrupted, and no socket is returned.
 			posix_enable_custom_signal_handler_1 (SIGCHLD)
-		end
-
-
-feature -- Router
-
-	create_router
-		do
-			create router.make (2)
 		end
 
 
