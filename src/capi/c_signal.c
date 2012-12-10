@@ -23,16 +23,20 @@ void posix_sig_handler_1 (int signum) {
 }
 
 void posix_sig_handler_2 (int signum) {
-  posix_custom_1_signalled = 1;
+  posix_custom_2_signalled = 1;
 }
 
 void posix_enable_custom_signal_handler_1 (EIF_INTEGER sig) {
-  posix_custom_1_signalled = 1;
+  posix_custom_1_signalled = 0;
+#ifdef _WIN32
+  signal (sig, posix_sig_handler_1);
+#else
   int *ptr;
-  struct sigaction new_action, old_action;
+  struct sigaction new_action;
   new_action.sa_handler = posix_sig_handler_1;
   new_action.sa_flags = 0;
   sigaction(sig, &new_action, NULL);
+#endif
 }
 
 EIF_BOOLEAN posix_is_custom_signal_handler_1_signalled (EIF_INTEGER sig) {
@@ -46,12 +50,16 @@ EIF_BOOLEAN posix_is_custom_signal_handler_1_signalled (EIF_INTEGER sig) {
 
 
 void posix_enable_custom_signal_handler_2 (EIF_INTEGER sig) {
-  posix_custom_2_signalled = 1;
+  posix_custom_2_signalled = 0;
+#ifdef _WIN32
+  signal (sig, posix_sig_handler_2);
+#else
   int *ptr;
-  struct sigaction new_action, old_action;
+  struct sigaction new_action;
   new_action.sa_handler = posix_sig_handler_2;
   new_action.sa_flags = 0;
   sigaction(sig, &new_action, NULL);
+#endif
 }
 
 EIF_BOOLEAN posix_is_custom_signal_handler_2_signalled (EIF_INTEGER sig) {

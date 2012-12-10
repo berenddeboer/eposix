@@ -6,14 +6,17 @@
 *.la
 test_suite/Makefile.sources
 Makefile
+Makefile.win
 spec/
 m4/
 *.[oa]
+*.obj
 libtool
 autom4te.cache
 config.log
 config.status
 configure
+lib/*.lib
 doc/Makefile.e_sources
 src/Makefile.e_sources
 src/capi/Makefile.c_sources
