@@ -4,6 +4,8 @@ It also contains Windows and Single Unix Specification support.
 This library allows you to write daemeons, networking code, do forks,
 use pipes, and start and communicate with child processes.
 
+See http://www.berenddeboer.net/eposix/ for more.
+
 Important files:
 - doc/eposix-manual.pdf, the manual
 - INSTALL, installation instructions
