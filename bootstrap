@@ -48,7 +48,10 @@ cd ..
 # if ltmain.sh does not exist:
 # libtoolize and move ltmain.sh, remove config.sub and config.guess
 # Also for updating config.sub and config.guess, run libtoolize
-#libtoolize
+if [ ! -f config/ltmain.sh ]
+then
+    libtoolize
+fi
 aclocal -I config
 autoheader
 automake --foreign --add-missing --copy
