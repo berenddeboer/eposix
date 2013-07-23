@@ -1,6 +1,9 @@
 Welcome to eposix, the complete Eiffel to Standard C and Posix binding.
 It also contains Windows and Single Unix Specification support.
 
+This library allows you to write daemeons, networking code, do forks,
+use pipes, and start and communicate with child processes.
+
 Important files:
 - doc/eposix-manual.pdf, the manual
 - INSTALL, installation instructions
