@@ -1,3 +1,11 @@
+2012-05-12  Berend de Boer  <berend@pobox.com>
+
+	* Eiffel Web Framework support: new fastcgi classes.
+
+	* !EPX_FILE_DESCRIPTOR: open_truncate did not open the file with
+	write permission, it only truncated it, but didn't allow read.
+
+
 2012-03-17  Berend de Boer  <berend@pobox.com>
 
 	* !STDC_BUFFER: new routines poke_uint16,

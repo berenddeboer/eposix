@@ -15,7 +15,6 @@ libtool
 autom4te.cache
 config.log
 config.status
-configure
 lib/*.lib
 doc/Makefile.e_sources
 src/Makefile.e_sources
