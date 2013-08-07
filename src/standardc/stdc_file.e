@@ -143,7 +143,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_read (path: STRING) is
+	open_read (path: READABLE_STRING_8) is
 			-- Open file for reading.
 		require
 			closed: not is_open
@@ -1071,7 +1071,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_open (a_path, a_mode: STRING) is
+	do_open (a_path, a_mode: READABLE_STRING_8) is
 			-- Internal open of stream, main entry point for all routines
 			-- that actually open the stream.
 		require
@@ -1117,7 +1117,7 @@ feature {NONE} -- Implementation
 			no_need_to_flush: not need_flush
 		end
 
-	set_mode (a_mode: STRING) is
+	set_mode (a_mode: READABLE_STRING_8) is
 			-- Use this routine to set the mode variable. It takes care
 			-- of adding the binary or text flag in its descendents.
 		require

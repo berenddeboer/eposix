@@ -34,13 +34,13 @@ feature -- Access
 
 feature -- Change
 
-	set_portable_path (a_path: STRING) is
+	set_portable_path (a_path: READABLE_STRING_8) is
 			-- Set `portable_path' to `a_path'.
 		do
 			if portable_path = Void then
-				create portable_path.make_from_string (a_path)
+				create portable_path.make_from_string (a_path.out)
 			else
-				portable_path.make_from_string (a_path)
+				portable_path.make_from_string (a_path.out)
 			end
 		end
 

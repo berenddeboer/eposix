@@ -113,7 +113,7 @@ feature -- Accessibility of files
 			retry
 		end
 
-	is_readable (a_path: STRING): BOOLEAN is
+	is_readable (a_path: READABLE_STRING_8): BOOLEAN is
 			-- Is `a_path' readable by this program?
 			-- Does this by attempting to open `a_path' file read-only.
 		require

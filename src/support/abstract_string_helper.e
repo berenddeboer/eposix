@@ -40,7 +40,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			empty_string: p = default_pointer implies s.count = 0
 		end
 
-	string_to_pointer (s: STRING): POINTER is
+	string_to_pointer (s: READABLE_STRING_8): POINTER is
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The area is zero-terminated.
 			-- `s' may contain '%U' characters, but you will have to be
