@@ -104,7 +104,7 @@ feature -- Input
 			-- Read the next character in input stream.
 			-- Make the result available in `last_character'.
 		do
-			if last_string_index = 0 then
+			if last_string_index = 0 or last_string_index > fcgi.last_string.count then
 				fcgi.read_string
 				if not fcgi.last_string.is_empty then
 					last_character := fcgi.last_string.item (1)
@@ -113,10 +113,8 @@ feature -- Input
 					last_character := '%U'
 				end
 			else
-				-- TODO
-						check
-							todo: false
-						end
+				last_character := fcgi.last_string.item (last_string_index)
+				last_string_index := last_string_index + 1
 			end
 		end
 
