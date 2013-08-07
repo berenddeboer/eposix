@@ -89,7 +89,10 @@ feature -- Reading
 
 	read_line is
 			-- Read the next non-comment line.
+			-- Parse into `key'/`value' by calling `split_on_equal_sign'.
 		do
+			key := Void
+			value := Void
 			from
 				do_read_line
 			until
@@ -102,6 +105,7 @@ feature -- Reading
 			end
 		ensure
 			not_comment: end_of_input or else not is_comment
+			key_value_reset: key = Void and then value = Void
 		end
 
 	split_on_equal_sign is
@@ -120,6 +124,9 @@ feature -- Reading
 			value := key_value_regexp.captured_substring (2)
 			value.right_adjust
 			key_value_regexp.wipe_out
+		ensure
+			key_not_empty: key /= Void and then not key.is_empty
+			value_not_void: value /= Void
 		end
 
 
@@ -167,6 +174,9 @@ feature {NONE} -- Implementation
 			if not is_blank then
 				file.last_string.keep_head (i + 1)
 			end
+		ensure
+			does_not_start_with_space: file.last_string.is_empty or else file.last_string.item (1) /= ' '
+			does_not_start_end_space: file.last_string.is_empty or else file.last_string.item (file.last_string.count) /= ' '
 		end
 
 	file: STDC_TEXT_FILE
