@@ -159,6 +159,8 @@ feature -- Argument parsing
 
 	parse_arguments is
 			-- Create parser, set arguments, and parse arguments.
+			-- To validate specific arguments, override this, and exit
+			-- the application if some argument has not been given.
 		local
 			parser: AP_PARSER
 		do
