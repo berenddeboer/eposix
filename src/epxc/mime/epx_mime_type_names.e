@@ -36,6 +36,7 @@ feature -- Subtype names
 	mime_subtype_rfc822: STRING is "rfc822"
 	mime_subtype_x_www_form_urlencoded: STRING is "x-www-form-urlencoded"
 	mime_subtype_x_javascript: STRING is "x-javascript"
+	mime_subtype_json: STRING is "json"
 	mime_subtype_x_tex: STRING is "x-tex"
 	mime_subtype_xml: STRING is "xml"
 
