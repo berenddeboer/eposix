@@ -257,6 +257,7 @@ feature -- Actions that parent may execute
 			-- else we return immediately.
 			-- If `suspend' is False, check `is_terminated' to see
 			-- if this child is really terminated.
+			-- If `is_terminated', you can check `exit_code' for example.
 		do
 			-- Close stdin if it is not closed. This will signal an
 			-- end-of-input to the child process.
