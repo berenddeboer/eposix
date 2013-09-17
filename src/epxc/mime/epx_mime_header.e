@@ -310,6 +310,13 @@ feature -- Change specific fields
 				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
+	set_content_type_application_json
+			-- Set Content-Type to application/json. Character set is set to
+			-- UTF-8.
+		do
+			set_content_type (mime_type_application, mime_subtype_json, charset_utf8)
+		end
+
 
 feature -- Output
 
