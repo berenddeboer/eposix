@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "POSIX child processes created by call to exec."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -26,7 +24,8 @@ create
 	make_capture_input,
 	make_capture_output,
 	make_capture_io,
-	make_capture_all
+	make_capture_all,
+	make_from_command_line
 
 
 end
