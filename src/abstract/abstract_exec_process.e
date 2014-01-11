@@ -28,6 +28,7 @@ feature {NONE} -- Initialization
 			program_name_not_empty: a_program /= Void and then not a_program.is_empty
 			all_arguments_not_void: not has_void_argument (a_arguments)
 		do
+			close_output := true
 			create program_name.make_from_string (a_program)
 			set_arguments (a_arguments)
 		end
@@ -225,6 +226,14 @@ feature -- i/o capturing
 	capture_error: BOOLEAN
 			-- is error captured on execute?
 
+	close_output: BOOLEAN
+			-- If stdout is not captured, redirect to /dev/null?
+			-- Default is True.
+
+	close_error: BOOLEAN
+			-- If stderr is not captured, redirect to /dev/null?
+			-- Default is False.
+
 	set_capture_input (on: BOOLEAN) is
 		do
 			capture_input := on
@@ -244,6 +253,22 @@ feature -- i/o capturing
 			capture_error := on
 		ensure
 			definition: capture_error = on
+		end
+
+	set_close_output (on: BOOLEAN)
+			-- Set `close_output' to `on'.
+		do
+			close_output := on
+		ensure
+			definition: close_output = on
+		end
+
+	set_close_error (on: BOOLEAN)
+			-- Set `close_error' to `on'.
+		do
+			close_error := on
+		ensure
+			definition: close_error = on
 		end
 
 	fd_stdin: ABSTRACT_FILE_DESCRIPTOR

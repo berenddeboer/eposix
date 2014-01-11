@@ -178,7 +178,7 @@ feature -- Execution
 							check
 								fd_stdout.value = STDOUT_FILENO
 							end
-					else
+					elseif close_output then
 						create dev_null.open_write (once "/dev/null")
 						fd_stdout.make_as_duplicate (dev_null)
 						fd_stdout := Void
@@ -188,6 +188,10 @@ feature -- Execution
 						check
 							fd_stderr.value = STDERR_FILENO
 						end
+					elseif close_error then
+						create dev_null.open_write (once "/dev/null")
+						fd_stderr.make_as_duplicate (dev_null)
+						fd_stderr := Void
 					end
 
 					-- Close left over file descriptors.
