@@ -1,12 +1,10 @@
-indexing
+note
 
 	description: "Basic configuration file reader. Configuration files%
 	%are text files with possible lines with comments in them.%
 	%Comment line (start with # or ;) are skipped by this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2002/02/06 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -31,7 +29,7 @@ create
 
 feature -- Initialization
 
-	make (a_filename: STRING) is
+	make (a_filename: STRING)
 			-- Open `a_filename' for reading.
 		require
 			readable: fs.is_readable (a_filename)
@@ -43,19 +41,19 @@ feature -- Initialization
 
 feature -- Status
 
-	eof: BOOLEAN is
+	eof: BOOLEAN
 		obsolete "2007-01-26: use `end_of_input' instead"
 		do
 			Result := end_of_input
 		end
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- End of input?
 		do
 			Result := not file.is_open or else file.end_of_input
 		end
 
-	is_key_value_line: BOOLEAN is
+	is_key_value_line: BOOLEAN
 			-- Does `last_line' look like "key = value"
 		require
 			not_end_of_input: not end_of_input
@@ -71,7 +69,7 @@ feature -- Access
 	key: STRING
 			-- Key found in line, set by `split_on_equal_sign'
 
-	last_line: STRING is
+	last_line: STRING
 		require
 			not_end_of_input: not end_of_input
 		do
@@ -87,7 +85,7 @@ feature -- Access
 
 feature -- Reading
 
-	read_line is
+	read_line
 			-- Read the next non-comment line.
 			-- Parse into `key'/`value' by calling `split_on_equal_sign'.
 		do
@@ -108,7 +106,7 @@ feature -- Reading
 			key_value_reset: key = Void and then value = Void
 		end
 
-	split_on_equal_sign is
+	split_on_equal_sign
 			-- Assume `last_line' is of the format 'key = value', and
 			-- split the line into its two components.
 		require
@@ -132,7 +130,7 @@ feature -- Reading
 
 feature {NONE} -- Implementation
 
-	do_read_line is
+	do_read_line
 		require
 			not_end_of_input: not end_of_input
 		local
@@ -182,7 +180,7 @@ feature {NONE} -- Implementation
 	file: STDC_TEXT_FILE
 			-- Configuration file
 
-	is_comment: BOOLEAN is
+	is_comment: BOOLEAN
 			-- Is last line read a comment?
 			-- Empty lines count as comment too.
 		do
@@ -192,7 +190,7 @@ feature {NONE} -- Implementation
 				file.last_string.item (1) = ';'
 		end
 
-	key_value_regexp: RX_PCRE_REGULAR_EXPRESSION is
+	key_value_regexp: RX_PCRE_REGULAR_EXPRESSION
 		-- regepx that matches "key = value" lines
 		once
 			create Result.make
