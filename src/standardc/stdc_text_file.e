@@ -69,7 +69,7 @@ feature -- Status
 
 feature {NONE}
 
-	set_mode (a_mode: STRING) is
+	set_mode (a_mode: READABLE_STRING_8) is
 			-- set text mode
 		local
 			c: CHARACTER
