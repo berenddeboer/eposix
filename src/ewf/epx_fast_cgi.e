@@ -157,11 +157,15 @@ feature -- Reading
 				socket.errno.is_not_ok or else
 				last_record_type = FCGI_STDIN or else
 				last_record_type = FCGI_ABORT_REQUEST or else
-				last_record_type = FCGI_END_REQUEST
+				last_record_type = FCGI_END_REQUEST or else
+				last_record_type = Fcgi_null_request_id
 			loop
 				read_record_body (last_content_length)
-				action_record_body (last_record_type, last_content_length, body_buf)
-				read_record_header
+				print ("type: " + last_record_type.out + "%N")
+				if not is_connection_terminated then
+					action_record_body (last_record_type, last_content_length, body_buf)
+					read_record_header
+				end
 			end
 			if parameters.has_key ({WGI_META_NAMES}.content_length) then
 				content_length := parameters.item ({WGI_META_NAMES}.content_length).to_integer
@@ -203,6 +207,7 @@ feature {NONE} -- Record reading
 		end
 
 	read_record_body (a_content_length: INTEGER)
+			-- Reads data, if there's an error setes `is_connection_terminated'.
 		require
 			content_length_not_negative: a_content_length >= 0
 			content_fits: body_buf.capacity >= a_content_length
@@ -213,7 +218,7 @@ feature {NONE} -- Record reading
 			from
 				bytes_to_read := a_content_length
 			until
-				bytes_to_read = 0
+				bytes_to_read <= 0
 			loop
 				do_read_record_body (body_buf, pos, bytes_to_read)
 				is_connection_terminated := socket.errno.is_not_ok
@@ -221,7 +226,7 @@ feature {NONE} -- Record reading
 					bytes_to_read := bytes_to_read - socket.last_read
 					pos := pos + socket.last_read
 				else
-					bytes_to_read := 0
+					bytes_to_read := -1
 				end
 			variant
 				bytes_to_read
