@@ -68,17 +68,19 @@ feature -- Execution
 			if not rescued then
 				create fcgi.make (socket)
 				fcgi.read_all_parameters
-				create {EPX_WGI_FASTCGI_INPUT_STREAM} input.make (fcgi)
-				create {EPX_WGI_FASTCGI_OUTPUT_STREAM} output.make (fcgi)
-				create {EPX_WGI_FASTCGI_ERROR_STREAM} error.make (fcgi)
-				create req.make (fcgi.parameters, input, Current)
-				-- TODO: pass error stream
-				create res.make (output, Void)
-				service.execute (req, res)
+				if fcgi.parameters.has ({WGI_META_NAMES}.server_name) then
+					create {EPX_WGI_FASTCGI_INPUT_STREAM} input.make (fcgi)
+					create {EPX_WGI_FASTCGI_OUTPUT_STREAM} output.make (fcgi)
+					create {EPX_WGI_FASTCGI_ERROR_STREAM} error.make (fcgi)
+					create req.make (fcgi.parameters, input, Current)
+					-- TODO: pass error stream
+					create res.make (output, Void)
+					service.execute (req, res)
+				end
 				fcgi.close
 			else
 				-- TODO: fix, don't write trace to browser
-				if attached (create {EXCEPTION_MANAGER}).last_exception as e and then attached e.exception_trace as l_trace then
+				if attached (create {EXCEPTION_MANAGER}).last_exception as e and then attached e.trace as l_trace then
 					if error /= Void then
 						error.put_error (l_trace)
 					end
