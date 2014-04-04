@@ -113,6 +113,7 @@ feature -- PID writing
 			Result := file.is_open
 			if not Result then
 				file.create_write (pid_file_name)
+				Result := file.is_open
 			end
 			if Result then
 				file.close
