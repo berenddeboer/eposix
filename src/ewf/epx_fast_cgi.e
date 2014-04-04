@@ -161,7 +161,6 @@ feature -- Reading
 				last_record_type = Fcgi_null_request_id
 			loop
 				read_record_body (last_content_length)
-				print ("type: " + last_record_type.out + "%N")
 				if not is_connection_terminated then
 					action_record_body (last_record_type, last_content_length, body_buf)
 					read_record_header
