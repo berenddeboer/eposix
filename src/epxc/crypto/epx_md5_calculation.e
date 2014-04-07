@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -10,8 +10,6 @@ indexing
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2008, Berend de Boer"
 	license: "MIT License (see LICENSE)"
-	date: "$Date$"
-	revision: "$Revision$"
 
 
 class
@@ -38,7 +36,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize.
 		do
 			create ABCD.allocate (hash_output_length)
@@ -49,7 +47,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	checksum: STRING is
+	checksum: STRING
 		local
 			j: INTEGER
 			hi: INTEGER
@@ -69,26 +67,22 @@ feature -- Access
 			Result := my_checksum
 		end
 
-	hash_output_length: INTEGER is 16
+	hash_output_length: INTEGER = 16
 			-- Byte length of the hash output function
 
 
 feature -- Operations
 
-	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER) is
+	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER)
 		local
 			j: INTEGER
 		do
 			from
 				j := start
-			variant
-				stop - j + 1
 			until
 				j > stop
 			loop
 				from
-				variant
-					block_length - block_index + 1
 				until
 					block_index = block_length or else
 					j > stop
@@ -96,11 +90,15 @@ feature -- Operations
 					block.put_character (buf.peek_character (j), block_index)
 					j := j + 1
 					block_index := block_index + 1
+				variant
+					block_length - block_index + 1
 				end
 				if block_index = block_length then
 					process_block
 					block_index := 0
 				end
+			variant
+				stop - j + 1
 			end
 			number_of_bits := number_of_bits + (stop - start + 1) * 8
 		ensure then
@@ -108,7 +106,7 @@ feature -- Operations
 			block_index_increased: block_index = (old block_index + (stop - start + 1)) \\ 64
 		end
 
-	put_character (c: CHARACTER) is
+	put_character (c: CHARACTER)
 		do
 			block.put_character (c, block_index)
 			block_index := block_index + 1
@@ -122,28 +120,24 @@ feature -- Operations
 			block_index_increased_by_one: block_index = (old block_index + 1) \\ 64
 		end
 
-	put_string (s: STRING) is
+	put_string (s: STRING)
 		do
 			precursor (s)
 		ensure then
-			number_of_bits_increased: number_of_bits = old number_of_bits + s.count * 8
-			block_index_increased: block_index = (old block_index + s.count) \\ 64
+			number_of_bits_increased: s /= Void implies number_of_bits = old number_of_bits + s.count * 8
+			block_index_increased: s /= Void implies block_index = (old block_index + s.count) \\ 64
 		end
 
-	put_substring (s: STRING; start, stop: INTEGER) is
+	put_substring (s: STRING; start, stop: INTEGER)
 		local
 			j: INTEGER
 		do
 			from
 				j := start
-			variant
-				stop - j + 1
 			until
 				j > stop
 			loop
 				from
-				variant
-					block_length - block_index + 1
 				until
 					block_index = block_length or else
 					j > stop
@@ -151,11 +145,15 @@ feature -- Operations
 					block.put_character (s.item (j), block_index)
 					j := j + 1
 					block_index := block_index + 1
+				variant
+					block_length - block_index + 1
 				end
 				if block_index = block_length then
 					process_block
 					block_index := 0
 				end
+			variant
+				stop - j + 1
 			end
 			number_of_bits := number_of_bits + (stop - start + 1) * 8
 		ensure then
@@ -163,7 +161,7 @@ feature -- Operations
 			block_index_increased: block_index = (old block_index + (stop - start + 1)) \\ 64
 		end
 
-	finalize is
+	finalize
 			-- Calculate checksum.
 		local
 			padding_length: INTEGER
@@ -191,7 +189,7 @@ feature -- Operations
 			is_checksum_available := True
 		end
 
-	secure_wipe_out is
+	secure_wipe_out
 		local
 			j: INTEGER
 		do
@@ -205,7 +203,7 @@ feature -- Operations
 			end
 		end
 
-	wipe_out is
+	wipe_out
 			-- Start a new calculation.
 		do
 			precursor
@@ -221,7 +219,7 @@ feature -- Operations
 
 feature {NONE} -- Implementation
 
-	block_length: INTEGER is 64
+	block_length: INTEGER = 64
 			-- Length of a single block
 
 	block_index: INTEGER
@@ -229,7 +227,7 @@ feature {NONE} -- Implementation
 	block: STDC_BUFFER
 			-- We process one block at a time
 
-	init_ABCD is
+	init_ABCD
 		do
 			ABCD.poke_int32_little_endian (0, 0x67452301)
 			ABCD.poke_int32_little_endian (4, 0xefcdab89)
@@ -237,7 +235,7 @@ feature {NONE} -- Implementation
 			ABCD.poke_int32_little_endian (12, 0x10325476)
 		end
 
-	message_length: STDC_BUFFER is
+	message_length: STDC_BUFFER
 			-- Temporary scratch buffer
 		once
 			create Result.allocate (8)
@@ -252,7 +250,7 @@ feature {NONE} -- Implementation
 	number_of_bits: INTEGER_64
 			-- Number of bits in message
 
-	padding: STRING is
+	padding: STRING
 		once
 			create Result.make_filled ('%U', 64)
 			Result.put ('%/128/', 1)
@@ -261,7 +259,7 @@ feature {NONE} -- Implementation
 			correct_length: Result.count = 64
 		end
 
-	process_block is
+	process_block
 			-- Process a single block.
 		require
 			buffer_full: block_index = block_length
@@ -416,7 +414,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- MD5 functions
 
-	FF (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER is
+	FF (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER
 			-- Let [abcd x s i] denote the operation
 			-- f() = b + ((a + F(b,c,d) + x + T[i]) unsigned_rotate_left s)
 		require
@@ -427,7 +425,7 @@ feature {NONE} -- MD5 functions
 			Result := Result + bb
 		end
 
-	GG (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER is
+	GG (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER
 			-- Let [abcd k s i] denote the operation
 			-- f() = b + ((a + G(b,c,d) + x + T[i]) unsigned_rotate_left s)
 		require
@@ -438,7 +436,7 @@ feature {NONE} -- MD5 functions
 			Result := Result + bb
 		end
 
-	HH (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER is
+	HH (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER
 			-- Let [abcd k s i] denote the operation
 			-- f() = b + ((a + H(b,c,d) + x + T[i]) unsigned_rotate_left s)
 		require
@@ -449,7 +447,7 @@ feature {NONE} -- MD5 functions
 			Result := Result + bb
 		end
 
-	II (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER is
+	II (aa, bb, cc, dd, x: INTEGER; s: INTEGER_8; ac: INTEGER): INTEGER
 			-- Let [abcd k s i] denote the operation
 			-- f() = b + ((a + I(b,c,d) + x + T[i]) unsigned_rotate_left s)
 		require
@@ -463,25 +461,25 @@ feature {NONE} -- MD5 functions
 
 feature {NONE} -- MD5 primitives
 
-	F (xx, yy, zz: INTEGER): INTEGER is
+	F (xx, yy, zz: INTEGER): INTEGER
 			-- F(X,Y,Z) = XY v not(X) Z.
 		do
 			Result := (xx & yy) | (xx.bit_not & zz)
 		end
 
-	G (xx, yy, zz: INTEGER): INTEGER is
+	G (xx, yy, zz: INTEGER): INTEGER
 			-- G(X,Y,Z) = XZ v Y not(Z).
 		do
 			Result := (xx & zz) | (yy & zz.bit_not)
 		end
 
-	H (xx, yy, zz: INTEGER): INTEGER is
+	H (xx, yy, zz: INTEGER): INTEGER
 			-- H(X,Y,Z) = X xor Y xor Z.
 		do
 			Result := xx.bit_xor (yy.bit_xor (zz))
 		end
 
-	I (xx, yy, zz: INTEGER): INTEGER is
+	I (xx, yy, zz: INTEGER): INTEGER
 			-- I(X,Y,Z) = Y xor (X | not(Z))
 		do
 			Result := yy.bit_xor (xx | zz.bit_not)
@@ -490,70 +488,70 @@ feature {NONE} -- MD5 primitives
 
 feature {NONE} -- MD5 sin table: T[i] = int part of 4294967296 * (abs(sin(i)))
 
-	sin_01: INTEGER is -680876936
-	sin_02: INTEGER is -389564586
-	sin_03: INTEGER is 606105819
-	sin_04: INTEGER is -1044525330
-	sin_05: INTEGER is -176418897
-	sin_06: INTEGER is 1200080426
-	sin_07: INTEGER is -1473231341
-	sin_08: INTEGER is -45705983
-	sin_09: INTEGER is 1770035416
-	sin_10: INTEGER is -1958414417
-	sin_11: INTEGER is -42063
-	sin_12: INTEGER is -1990404162
-	sin_13: INTEGER is 1804603682
-	sin_14: INTEGER is -40341101
-	sin_15: INTEGER is -1502002290
-	sin_16: INTEGER is 1236535329
-	sin_17: INTEGER is -165796510
-	sin_18: INTEGER is -1069501632
-	sin_19: INTEGER is 643717713
-	sin_20: INTEGER is -373897302
-	sin_21: INTEGER is -701558691
-	sin_22: INTEGER is 38016083
-	sin_23: INTEGER is -660478335
-	sin_24: INTEGER is -405537848
-	sin_25: INTEGER is 568446438
-	sin_26: INTEGER is -1019803690
-	sin_27: INTEGER is -187363961
-	sin_28: INTEGER is 1163531501
-	sin_29: INTEGER is -1444681467
-	sin_30: INTEGER is -51403784
-	sin_31: INTEGER is 1735328473
-	sin_32: INTEGER is -1926607734
-	sin_33: INTEGER is -378558
-	sin_34: INTEGER is -2022574463
-	sin_35: INTEGER is 1839030562
-	sin_36: INTEGER is -35309556
-	sin_37: INTEGER is -1530992060
-	sin_38: INTEGER is 1272893353
-	sin_39: INTEGER is -155497632
-	sin_40: INTEGER is -1094730640
-	sin_41: INTEGER is 681279174
-	sin_42: INTEGER is -358537222
-	sin_43: INTEGER is -722521979
-	sin_44: INTEGER is 76029189
-	sin_45: INTEGER is -640364487
-	sin_46: INTEGER is -421815835
-	sin_47: INTEGER is 530742520
-	sin_48: INTEGER is -995338651
-	sin_49: INTEGER is -198630844
-	sin_50: INTEGER is 1126891415
-	sin_51: INTEGER is -1416354905
-	sin_52: INTEGER is -57434055
-	sin_53: INTEGER is 1700485571
-	sin_54: INTEGER is -1894986606
-	sin_55: INTEGER is -1051523
-	sin_56: INTEGER is -2054922799
-	sin_57: INTEGER is 1873313359
-	sin_58: INTEGER is -30611744
-	sin_59: INTEGER is -1560198380
-	sin_60: INTEGER is 1309151649
-	sin_61: INTEGER is -145523070
-	sin_62: INTEGER is -1120210379
-	sin_63: INTEGER is 718787259
-	sin_64: INTEGER is -343485551
+	sin_01: INTEGER = -680876936
+	sin_02: INTEGER = -389564586
+	sin_03: INTEGER = 606105819
+	sin_04: INTEGER = -1044525330
+	sin_05: INTEGER = -176418897
+	sin_06: INTEGER = 1200080426
+	sin_07: INTEGER = -1473231341
+	sin_08: INTEGER = -45705983
+	sin_09: INTEGER = 1770035416
+	sin_10: INTEGER = -1958414417
+	sin_11: INTEGER = -42063
+	sin_12: INTEGER = -1990404162
+	sin_13: INTEGER = 1804603682
+	sin_14: INTEGER = -40341101
+	sin_15: INTEGER = -1502002290
+	sin_16: INTEGER = 1236535329
+	sin_17: INTEGER = -165796510
+	sin_18: INTEGER = -1069501632
+	sin_19: INTEGER = 643717713
+	sin_20: INTEGER = -373897302
+	sin_21: INTEGER = -701558691
+	sin_22: INTEGER = 38016083
+	sin_23: INTEGER = -660478335
+	sin_24: INTEGER = -405537848
+	sin_25: INTEGER = 568446438
+	sin_26: INTEGER = -1019803690
+	sin_27: INTEGER = -187363961
+	sin_28: INTEGER = 1163531501
+	sin_29: INTEGER = -1444681467
+	sin_30: INTEGER = -51403784
+	sin_31: INTEGER = 1735328473
+	sin_32: INTEGER = -1926607734
+	sin_33: INTEGER = -378558
+	sin_34: INTEGER = -2022574463
+	sin_35: INTEGER = 1839030562
+	sin_36: INTEGER = -35309556
+	sin_37: INTEGER = -1530992060
+	sin_38: INTEGER = 1272893353
+	sin_39: INTEGER = -155497632
+	sin_40: INTEGER = -1094730640
+	sin_41: INTEGER = 681279174
+	sin_42: INTEGER = -358537222
+	sin_43: INTEGER = -722521979
+	sin_44: INTEGER = 76029189
+	sin_45: INTEGER = -640364487
+	sin_46: INTEGER = -421815835
+	sin_47: INTEGER = 530742520
+	sin_48: INTEGER = -995338651
+	sin_49: INTEGER = -198630844
+	sin_50: INTEGER = 1126891415
+	sin_51: INTEGER = -1416354905
+	sin_52: INTEGER = -57434055
+	sin_53: INTEGER = 1700485571
+	sin_54: INTEGER = -1894986606
+	sin_55: INTEGER = -1051523
+	sin_56: INTEGER = -2054922799
+	sin_57: INTEGER = 1873313359
+	sin_58: INTEGER = -30611744
+	sin_59: INTEGER = -1560198380
+	sin_60: INTEGER = 1309151649
+	sin_61: INTEGER = -145523070
+	sin_62: INTEGER = -1120210379
+	sin_63: INTEGER = 718787259
+	sin_64: INTEGER = -343485551
 
 
 invariant
