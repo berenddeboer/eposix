@@ -74,7 +74,7 @@ feature -- Execution
 					create {EPX_WGI_FASTCGI_ERROR_STREAM} error.make (fcgi)
 					create req.make (fcgi.parameters, input, Current)
 					-- TODO: pass error stream
-					create res.make (output, Void)
+					create res.make (output, error)
 					service.execute (req, res)
 				end
 				fcgi.close
