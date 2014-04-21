@@ -1,13 +1,11 @@
 %{
-indexing
+note
 
 	description: "Parser for IMAP4 server responses."
 
 	standards: "Follows RFC 3501"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 class
@@ -17,7 +15,7 @@ class
 
 inherit
 
-	YY_OLD_PARSER_SKELETON [ANY]
+	YY_PARSER_SKELETON
 		rename
 			make as make_parser
 		end
@@ -28,7 +26,7 @@ inherit
 		end
 
 
-creation
+create
 
 	make
 
@@ -504,13 +502,13 @@ mailbox_data
 	| number IMAP4_EXISTS
 		{
 			if response.current_mailbox /= Void then
-				response.current_mailbox.set_count ($1.item)
+				response.current_mailbox.set_count ($1)
 			end
 		}
 	| number IMAP4_RECENT
 		{
 			if response.current_mailbox /= Void then
-				response.current_mailbox.set_recent ($1.item)
+				response.current_mailbox.set_recent ($1)
 			end
 		}
 	;
