@@ -1,6 +1,27 @@
+2013-08-07  Berend de Boer  <berend@pobox.com>
+
+	* !Suport READABLE_STRING_8: at some places the argument can now
+	be a READABLE_STRING_8, not just a STRING. This avoids copying and
+	allows people to use read-only strings.
+
+
+2013-08-02  Berend de Boer  <berend@pobox.com>
+
+	* !STC_PATH.parse: precondition failure parsing path in root,
+	i.e. like /tmp
+
+
+2013-07-26  Berend de Boer  <berend@pobox.com>
+
+	* !Two new SUSv3 functions supported: statvfs()/fstatvfs().
+
+	* !Started to use READABLE_STRING_GENERAL. This breaks any
+	compatibility with SmartEiffel eposix still might have had.
+
+
 2012-05-12  Berend de Boer  <berend@pobox.com>
 
-	* Eiffel Web Framework support: new fastcgi classes.
+	* !Eiffel Web Framework support: new fastcgi classes.
 
 	* !EPX_FILE_DESCRIPTOR: open_truncate did not open the file with
 	write permission, it only truncated it, but didn't allow read.
