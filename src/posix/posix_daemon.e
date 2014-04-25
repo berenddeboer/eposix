@@ -72,7 +72,7 @@ feature -- Daemon specific actions
 			-- forking again
 			if posix_fork /= 0 then
 				-- let parent (first child) terminate
-				exit (EXIT_SUCCESS)
+				exit_with_success
 			end
 			-- but continue in the newly forked process.
 
