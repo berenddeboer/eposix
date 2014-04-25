@@ -79,7 +79,7 @@ feature -- Daemon specific actions
 			-- but continue in the newly forked process.
 
 			-- change working directory to root, so volume can be unmounted
-			r := posix_chdir (sh.string_to_pointer ("/"))
+			r := posix_chdir (sh.string_to_pointer (once "/"))
 			sh.unfreeze_all
 
 			-- clear our file mode creation mask
