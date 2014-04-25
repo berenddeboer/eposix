@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "POSIX daemon class."
 
@@ -39,7 +39,7 @@ inherit
 
 feature -- Daemon specific actions
 
-	detach is
+	detach
 			-- detach from command-line, not very useful if you want to
 			-- spawn multiple daemons, but you can always pass daemons to
 			-- the fork routine yourself.
@@ -51,7 +51,7 @@ feature -- Daemon specific actions
 			wait_for (True)
 		end
 
-	after_fork is
+	after_fork
 			-- Code thanks to W. Richard Stevens.
 			-- If you are started from inetd, you're in big trouble
 			-- already and sinking deeper in the mud. For inetd there will
@@ -83,7 +83,9 @@ feature -- Daemon specific actions
 			sh.unfreeze_all
 
 			-- clear our file mode creation mask
-			r := posix_umask (0)
+			-- 2014-04-26: don't do that, all files will be readable and
+			-- writable by all.
+			-- r := posix_umask (0)
 
 			-- clear first 64 (open) file descriptors here.
 			-- However, SmartEiffel doesn't like that, we have to leave
