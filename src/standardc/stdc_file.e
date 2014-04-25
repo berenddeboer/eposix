@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -9,8 +9,6 @@ indexing
 	%destruction of the object. But you may close it earlier."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #19 $"
 
 
 deferred class
@@ -48,7 +46,7 @@ inherit
 
 feature {NONE} -- Initialisation
 
-	make (a_path: STRING) is
+	make (a_path: STRING)
 		require
 			path_not_empty: a_path /= Void and then not a_path.is_empty
 		do
@@ -59,7 +57,7 @@ feature {NONE} -- Initialisation
 
 feature -- Initialization
 
-	create_read_write (path: STRING) is
+	create_read_write (path: STRING)
 			-- Open file for update (reading and writing). If the file
 			-- already exists, it is truncated to zero length.
 			-- So permissions seem to remain.
@@ -67,7 +65,7 @@ feature -- Initialization
 			closed: not is_open
 		do
 			do_make
-			do_open (path, "w+")
+			do_open (path, once "w+")
 			if is_open then
 				is_open_read := True
 				is_open_write := True
@@ -81,7 +79,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	create_write (path: STRING) is
+	create_write (path: STRING)
 			-- Create new file for writing. If the file already exists,
 			-- it is truncated to zero length.
 			-- So permissions seem to remain.
@@ -90,7 +88,7 @@ feature -- Initialization
 			path_not_empty: path /= Void and then not path.is_empty
 		do
 			do_make
-			do_open (path, "w")
+			do_open (path, once "w")
 			if is_open then
 				is_open_write := True
 			end
@@ -103,7 +101,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open (path, a_mode: STRING) is
+	open (path, a_mode: STRING)
 			-- Open file in given `a_mode'.
 		require
 			closed: not is_open
@@ -123,14 +121,14 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_append (path: STRING) is
+	open_append (path: STRING)
 			-- Append to exiting file or create file if it does not exist.
 		require
 			closed: not is_open
 			path_not_empty: path /= Void and then not path.is_empty
 		do
 			do_make
-			do_open (path, "a")
+			do_open (path, once "a")
 			if is_open then
 				is_open_write := True
 			end
@@ -143,14 +141,14 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_read (path: READABLE_STRING_8) is
+	open_read (path: READABLE_STRING_8)
 			-- Open file for reading.
 		require
 			closed: not is_open
 			path_not_empty: path /= Void and then not path.is_empty
 		do
 			do_make
-			do_open (path, "r")
+			do_open (path, once "r")
 			if is_open then
 				is_open_read := True
 			end
@@ -163,7 +161,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_read_write (path: STRING) is
+	open_read_write (path: STRING)
 			-- Open file for reading and writing.
 		require
 			closed: not is_open
@@ -180,14 +178,14 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_write (path: STRING) is
+	open_write (path: STRING)
 			-- Open file for writing.
 		require
 			closed: not is_open
 			path_not_empty: path /= Void and then not path.is_empty
 		do
 			do_make
-			do_open (path, "w")
+			do_open (path, once "w")
 			if is_open then
 				is_open_write := True
 			end
@@ -203,7 +201,7 @@ feature -- Initialization
 
 feature -- Work with existing streams
 
-	attach_to_stream (a_stream: POINTER; a_mode: STRING) is
+	attach_to_stream (a_stream: POINTER; a_mode: STRING)
 			-- Attach to `a_stream'. Does not become owner of stream so
 			-- it will not close on `close' or when garbage collected.
 		require
@@ -233,7 +231,7 @@ feature -- Work with existing streams
 
 feature -- Reopen
 
-	reopen (a_path, a_mode: STRING) is
+	reopen (a_path, a_mode: STRING)
 			-- Closes and then opens a stream.
 		require
 			open: is_open
@@ -260,7 +258,7 @@ feature -- Reopen
 
 feature -- Control over buffering
 
-	flush is
+	flush
 			-- Updates this stream
 		local
 			i: INTEGER
@@ -271,7 +269,7 @@ feature -- Control over buffering
 			end
 		end
 
-	setbuf, set_buffer (buffer: POINTER) is
+	setbuf, set_buffer (buffer: POINTER)
 			-- Determines how the stream will be buffered
 			-- gives you a fully buffered input and output.
 			-- Not sure: buffer should have at least BUFSIZ bytes?
@@ -284,7 +282,7 @@ feature -- Control over buffering
 			posix_setbuf (stream, buffer)
 		end
 
-	set_full_buffering (buffer: POINTER; size: INTEGER) is
+	set_full_buffering (buffer: POINTER; size: INTEGER)
 			-- Determines buffering for a stream.
 			-- If `buffer' is `default_pointer', a buffer of `size' bytes
 			-- will be allocated by this routine.
@@ -299,7 +297,7 @@ feature -- Control over buffering
 			end
 		end
 
-	set_line_buffering (buffer: POINTER; size: INTEGER) is
+	set_line_buffering (buffer: POINTER; size: INTEGER)
 			-- Determines buffering for a stream.
 			-- If `buffer' is `default_pointer, a buffer of `size' bytes
 			-- will be allocated by this routine.
@@ -314,7 +312,7 @@ feature -- Control over buffering
 			end
 		end
 
-	set_no_buffering is
+	set_no_buffering
 			-- Turn buffering off.
 		require
 			open: is_open
@@ -334,7 +332,7 @@ feature -- read, C like
 			-- Last read character of `get_character'.
 			-- Can be negative, so is more a last_shortint or so!
 
-	getc, get_character is
+	getc, get_character
 			-- Reads a C unsigned char and converts it to an integer,
 			-- the result is left in `last_byte'.
 			-- This function probably can be used to read a single
@@ -349,7 +347,7 @@ feature -- read, C like
 			eof_set: last_byte = const_EOF implies end_of_input
 		end
 
-	read (buf: POINTER; offset, bytes: INTEGER) is
+	read (buf: POINTER; offset, bytes: INTEGER)
 			-- Read chunk, set `last_read'. `offset' determines how far
 			-- in `buf' you want to start writing.
 		require
@@ -398,7 +396,7 @@ feature {NONE} -- `gets' private state
 	gets_buf: STDC_BUFFER
 			-- Buffer used by `gets'
 
-	assert_buf_has_room (needed_size: INTEGER) is
+	assert_buf_has_room (needed_size: INTEGER)
 			-- Make sure `gets_buf' has enough room.
 		require
 			needed_size_positive: needed_size > 0
@@ -413,7 +411,7 @@ feature {NONE} -- `gets' private state
 
 feature -- Write, C like
 
-	putc (c: INTEGER) is
+	putc (c: INTEGER)
 			-- Write a single character.
 		require
 			open: is_open_write
@@ -430,7 +428,7 @@ feature -- Write, C like
 			need_flush_set: need_flush
 		end
 
-	write (buf: POINTER; offset, bytes: INTEGER) is
+	write (buf: POINTER; offset, bytes: INTEGER)
 			-- write `bytes' bytes from `buf' at offset `offset'
 			-- we do not really care if offset is positive or negative...
 		require
@@ -466,7 +464,7 @@ feature -- Access
 	last_real: REAL
 			-- last real read by `read_real'
 
-	max_line_length: INTEGER is
+	max_line_length: INTEGER
 			-- Maximum line length used in `read_line'
 		do
 			Result := 8192
@@ -477,7 +475,7 @@ feature -- Access
 	mode: STRING
 			-- Mode in which the file is opened/created.
 
-	frozen filename: STRING is
+	frozen filename: STRING
 		obsolete "2006-11-29: please use `name' instead"
 		do
 			Result := name
@@ -486,7 +484,7 @@ feature -- Access
 
 feature -- Input
 
-	read_boolean is
+	read_boolean
 			-- Attempt to read back a boolean written by `write_boolean'.
 		require
 			open: is_open_read
@@ -515,7 +513,7 @@ feature -- Input
 			end
 		end
 
-	read_buffer (buf: STDC_BUFFER; offset, bytes: INTEGER) is
+	read_buffer (buf: STDC_BUFFER; offset, bytes: INTEGER)
 			-- More safe version of `read' in case you have a
 			-- STDC_BUFFER object. Read starts at `offset' bytes in `buf'.
 			-- Check `last_read' for number of bytes actually read.
@@ -523,7 +521,7 @@ feature -- Input
 			read (buf.ptr, offset, bytes)
 		end
 
-	read_double is
+	read_double
 		require
 			open: is_open_read
 		do
@@ -531,7 +529,7 @@ feature -- Input
 			check_fscanf (posix_fscanf_double (stream, $last_double))
 		end
 
-	read_character is
+	read_character
 			-- Read a single character and set `last_character'.
 			-- If end-of-file encountered, `eof' is True.
 		do
@@ -545,7 +543,7 @@ feature -- Input
 			end
 		end
 
-	read_integer is
+	read_integer
 		require
 			open: is_open_read
 		do
@@ -553,7 +551,7 @@ feature -- Input
 			check_fscanf (posix_fscanf_integer (stream, $last_integer))
 		end
 
-	read_line is
+	read_line
 			-- Read characters from input stream until a line separator
 			-- or end of file is reached. Make the characters that have
 			-- been read available in `last_string' and discard the line
@@ -597,7 +595,7 @@ feature -- Input
 			end
 		end
 
-	read_new_line is
+	read_new_line
 			-- Read a line separator from input file.
 			-- Make the characters making up the recognized
 			-- line separator available in `last_string',
@@ -623,7 +621,7 @@ feature -- Input
 			eof_read := False
 		end
 
-	read_real is
+	read_real
 		require
 			open: is_open_read
 		do
@@ -631,7 +629,7 @@ feature -- Input
 			check_fscanf (posix_fscanf_real (stream, $last_real))
 		end
 
-	read_string (nb: INTEGER) is
+	read_string (nb: INTEGER)
 			-- Read at most `nb' characters from input stream.
 			-- Make the characters that have actually been read
 			-- available in `last_string'.
@@ -669,7 +667,7 @@ feature -- Input
 
 feature -- write, Eiffel like
 
-	put (any: ANY) is
+	put (any: ANY)
 			-- Write object as string.
 		require
 			open: is_open_write
@@ -682,7 +680,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_buffer, write_buffer (buf: STDC_BUFFER; offset, bytes: INTEGER) is
+	put_buffer, write_buffer (buf: STDC_BUFFER; offset, bytes: INTEGER)
 			-- more safe version of `write' in case you have a
 			-- STDC_BUFFER object
 			-- Check `last_written' for number of bytes actually written,
@@ -694,7 +692,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_boolean (b: BOOLEAN) is
+	put_boolean (b: BOOLEAN)
 			-- Write "True" to output stream if
 			-- `b' is true, "False" otherwise.
 		do
@@ -704,7 +702,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	write_boolean (b: BOOLEAN) is
+	write_boolean (b: BOOLEAN)
 		require
 			is_open_write: is_open_write
 		do
@@ -714,7 +712,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_character (c: CHARACTER) is
+	put_character (c: CHARACTER)
 			-- Write a single character.
 		do
 			putc (c.code)
@@ -724,7 +722,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	write_character (c: CHARACTER) is
+	write_character (c: CHARACTER)
 			-- Write a single character.
 		do
 			put_character (c)
@@ -733,7 +731,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_double (d: DOUBLE) is
+	put_double (d: DOUBLE)
 			-- Write a double in Standard C %f format.
 		require
 			open: is_open_write
@@ -743,7 +741,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	write_double (d: DOUBLE) is
+	write_double (d: DOUBLE)
 			-- Write a double in Standard C %f format.
 		require
 			open: is_open_write
@@ -753,7 +751,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_integer (i: INTEGER) is
+	put_integer (i: INTEGER)
 			-- Write an integer in Standard C %d format.
 		do
 			check_fprintf (posix_fprintf_int (stream, i))
@@ -761,7 +759,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	write_integer (i: INTEGER) is
+	write_integer (i: INTEGER)
 			-- Write an integer in Standard C %d format.
 		require
 			open: is_open_write
@@ -771,7 +769,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_real (r: REAL) is
+	put_real (r: REAL)
 			-- Write a real in Standard C %f format.
 		require
 			open: is_open_write
@@ -781,7 +779,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	write_real (r: REAL) is
+	write_real (r: REAL)
 			-- Write a real in Standard C %f format.
 		require
 			open: is_open_write
@@ -791,7 +789,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_string (a_string: STRING) is
+	put_string (a_string: STRING)
 			-- Write `a_string' to stream.
 			-- Because the way this feature is written (it supports
 			-- writing the NULL byte), it is probably a very good idea to
@@ -812,7 +810,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	write_string, puts (s: STRING) is
+	write_string, puts (s: STRING)
 		require
 			open_write: is_open_write
 			s_not_void: s /= Void
@@ -827,7 +825,7 @@ feature -- write, Eiffel like
 
 feature -- Unreading
 
-	ungetc (c: INTEGER) is
+	ungetc (c: INTEGER)
 			-- Pushes `c' back to the stream. Only one push back is guaranteed.
 			-- Note that file positioning functions discard any
 			-- pushed-back characters.
@@ -845,7 +843,7 @@ feature -- Unreading
 			end
 		end
 
-	unread_character (an_item: CHARACTER) is
+	unread_character (an_item: CHARACTER)
 			-- Put `an_item' back in input stream. Only one push back is
 			-- guaranteed.
 			-- This item will be read first by the next
@@ -859,13 +857,13 @@ feature -- Unreading
 
 feature -- File position
 
-	frozen getpos: STDC_FILE_POSITION is
+	frozen getpos: STDC_FILE_POSITION
 		obsolete "Use get_position instead."
 		do
 			Result := get_position
 		end
 
-	get_position: STDC_FILE_POSITION is
+	get_position: STDC_FILE_POSITION
 			-- Get the current position. Use `set_position' to return to
 			-- this saved position
 		require
@@ -879,7 +877,7 @@ feature -- File position
 			got_position: raise_exception_on_error implies Result /= Void
 		end
 
-	rewind is
+	rewind
 			-- Sets the file position to the beginning of the file.
 		do
 			posix_rewind (stream)
@@ -889,7 +887,7 @@ feature -- File position
 			no_need_to_flush: not need_flush
 		end
 
-	seek (offset: INTEGER) is
+	seek (offset: INTEGER)
 			-- Set file position to given absolute `offset'.
 		require
 			open: is_open
@@ -905,7 +903,7 @@ feature -- File position
 			no_need_to_flush: not need_flush
 		end
 
-	seek_from_current (offset: INTEGER) is
+	seek_from_current (offset: INTEGER)
 			-- Set file position relative to current position.
 		require
 			open: is_open
@@ -920,7 +918,7 @@ feature -- File position
 			no_need_to_flush: not need_flush
 		end
 
-	seek_from_end (offset: INTEGER) is
+	seek_from_end (offset: INTEGER)
 			-- Set file position relative to end of file.
 		require
 			open: is_open
@@ -936,13 +934,13 @@ feature -- File position
 			no_need_to_flush: not need_flush
 		end
 
-	frozen setpos (a_position: STDC_FILE_POSITION) is
+	frozen setpos (a_position: STDC_FILE_POSITION)
 		obsolete "Use set_position instead."
 		do
 			set_position (a_position)
 		end
 
-	set_position (a_position: STDC_FILE_POSITION) is
+	set_position (a_position: STDC_FILE_POSITION)
 			-- Set the current file position.
 		require
 			open: is_open
@@ -958,7 +956,7 @@ feature -- File position
 			no_need_to_flush: not need_flush
 		end
 
-	tell: INTEGER is
+	tell: INTEGER
 			-- The current position
 		require
 			open: is_open
@@ -969,7 +967,7 @@ feature -- File position
 
 feature -- Other
 
-	clearerr, clear_error is
+	clearerr, clear_error
 			-- Clears end-of-file and error indicators for a stream.
 		require
 			open: is_open
@@ -983,14 +981,14 @@ feature -- Other
 
 feature -- Status
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Is end-of-file encountered by getc or is the end-of-file indicator
 			-- is set?
 		do
 			Result := eof_read or else posix_feof (stream)
 		end
 
-	error: BOOLEAN is
+	error: BOOLEAN
 			-- Is the error indicator is set?
 		require
 			open: is_open
@@ -998,7 +996,7 @@ feature -- Status
 			Result := posix_ferror (stream)
 		end
 
-	is_binary_mode_specification (a_mode: STRING): BOOLEAN is
+	is_binary_mode_specification (a_mode: STRING): BOOLEAN
 			-- Is the last character of a_mode equal to 'b'?
 		local
 			last: CHARACTER
@@ -1010,7 +1008,7 @@ feature -- Status
 			end
 		end
 
-	is_text_mode_specification (a_mode: STRING): BOOLEAN is
+	is_text_mode_specification (a_mode: STRING): BOOLEAN
 			-- Is the last character of a_mode equal to 't'?
 		local
 			last: CHARACTER
@@ -1025,14 +1023,14 @@ feature -- Status
 			end
 		end
 
-	is_valid_mode (a_mode: STRING): BOOLEAN is
+	is_valid_mode (a_mode: STRING): BOOLEAN
 			-- Is `a_mode' a valid mode specification for `Current'?
 		deferred
 		ensure
 			not_empty: Result implies a_mode /= Void and then not a_mode.is_empty
 		end
 
-	resource_usage_can_be_increased: BOOLEAN is
+	resource_usage_can_be_increased: BOOLEAN
 			-- Is it allowed to open another file?
 		do
 			Result := security.files.open_files <= security.files.max_open_files
@@ -1041,7 +1039,7 @@ feature -- Status
 
 feature {NONE} -- Implementation
 
-	check_fprintf (res: INTEGER) is
+	check_fprintf (res: INTEGER)
 			-- Make sure the result of a fprintf is correctly handled.
 		do
 			if res < 0 then
@@ -1051,7 +1049,7 @@ feature {NONE} -- Implementation
 			last_written := res
 		end
 
-	check_fscanf (res: INTEGER) is
+	check_fscanf (res: INTEGER)
 			-- Make sure the result of a fscanf is correctly handled.
 		do
 			if res < 0 then
@@ -1059,7 +1057,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_make is
+	do_make
 			-- Make sure invariants are satisfied.
 		do
 			make_path
@@ -1071,7 +1069,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_open (a_path, a_mode: READABLE_STRING_8) is
+	do_open (a_path, a_mode: READABLE_STRING_8)
 			-- Internal open of stream, main entry point for all routines
 			-- that actually open the stream.
 		require
@@ -1104,7 +1102,7 @@ feature {NONE} -- Implementation
 			-- Need to be set after any write operation and
 			-- reset after any flush operation.
 
-	assert_input_ok is
+	assert_input_ok
 			-- ANSI C requires that after a write, a file positioning function
 			-- or flush is performed.
 		require
@@ -1117,7 +1115,7 @@ feature {NONE} -- Implementation
 			no_need_to_flush: not need_flush
 		end
 
-	set_mode (a_mode: READABLE_STRING_8) is
+	set_mode (a_mode: READABLE_STRING_8)
 			-- Use this routine to set the mode variable. It takes care
 			-- of adding the binary or text flag in its descendents.
 		require
@@ -1130,7 +1128,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in
@@ -1145,7 +1143,7 @@ feature {NONE} -- Low level handle functions
 			is_open_write := False
 		end
 
-	frozen unassigned_value: POINTER is
+	frozen unassigned_value: POINTER
 			-- The value that indicates that `handle' is unassigned.
 		do
 			Result := default_pointer
@@ -1154,7 +1152,7 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Counting of allocated resource
 
-	decrease_open_files is
+	decrease_open_files
 			-- Decreate the number of open files, does not access any
 			-- other object, so can be called from `dispose' if one
 			-- inherits from this class.
@@ -1162,7 +1160,7 @@ feature {NONE} -- Counting of allocated resource
 		alias "posix_decrease_open_files"
 		end
 
-	decrease_resource_count is
+	decrease_resource_count
 			-- Decrease number of allocated resource by `capacity'.
 			-- Due to limitations of certain Eiffel implementations, this
 			-- routine may not call any other object. Calling C code is safe.
@@ -1170,13 +1168,13 @@ feature {NONE} -- Counting of allocated resource
 			decrease_open_files
 		end
 
-	increase_resource_count is
+	increase_resource_count
 			-- Increase number of allocated resources by `capacity'.
 		do
 			security.files.increase_open_files
 		end
 
-	resource_count: INTEGER is
+	resource_count: INTEGER
 			-- Currently allocated number of resources. It's a global
 			-- number, counting the `capacity' of all owned resources of
 			-- this type.
