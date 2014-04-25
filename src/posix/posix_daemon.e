@@ -5,8 +5,6 @@ note
 	usage: "Inherit from this class, implement `execute' and call just `detach' in your creation routine (don't call `execute'). You can `execute' for the non-daemonised (interactive) version."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 deferred class
