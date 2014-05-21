@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -8,8 +8,6 @@ indexing
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -36,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_template: STRING) is
+	make (a_template: STRING)
 			-- Create a temporary file with the filename based on the
 			-- template `a_template'.
 		require
