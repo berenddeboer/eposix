@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Abstract file system that should work on POSIX and Windows platforms."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #15 $"
 
 
 deferred class
@@ -23,13 +21,13 @@ inherit
 
 feature -- Directory access
 
-	chdir (a_directory: STRING) is
+	chdir (a_directory: STRING)
 		obsolete "Use change_directory instead."
 		do
 			change_directory (a_directory)
 		end
 
-	change_directory (a_directory: STRING) is
+	change_directory (a_directory: STRING)
 			-- Changes the current working directory.
 		require
 			directory_not_empty: a_directory /= Void and then not a_directory.is_empty
@@ -39,13 +37,13 @@ feature -- Directory access
 			sh.unfreeze_all
 		end
 
-	getcwd, pwd: STRING is
+	getcwd, pwd: STRING
 		obsolete "Use current_directory instead."
 		do
 			Result := current_directory
 		end
 
-	current_directory: STRING is
+	current_directory: STRING
 			-- The current directory
 		local
 			buf: STDC_BUFFER
@@ -69,7 +67,7 @@ feature -- Directory access
 			directory_returned: Result /= Void
 		end
 
-	make_directory, mkdir (a_directory: STRING) is
+	make_directory, mkdir (a_directory: STRING)
 			-- Makes a directory, only accessible by owner.
 		require
 			directory_not_empty: a_directory /= Void and then not a_directory.is_empty
@@ -79,7 +77,7 @@ feature -- Directory access
 			sh.unfreeze_all
 		end
 
-	make_directories (a_path: STRING) is
+	make_directories (a_path: STRING)
 			-- Makes a directory, only accessible by owner.
 		require
 			path_not_empty: a_path /= Void and then not a_path.is_empty
@@ -114,7 +112,7 @@ feature -- Directory access
 			directory_exists: errno.is_ok implies is_directory (a_path)
 		end
 
-	remove_directory, rmdir (a_directory: STRING) is
+	remove_directory, rmdir (a_directory: STRING)
 			-- Removes an empty directory. See also `force_remove_directory'.
 		require
 			directory_not_empty: a_directory /= Void and then not a_directory.is_empty
@@ -125,7 +123,7 @@ feature -- Directory access
 			sh.unfreeze_all
 		end
 
-	force_remove_directory (a_directory: STRING) is
+	force_remove_directory (a_directory: STRING)
 			-- Removes a directory, even when not empty.
 			-- I suggest you do not have hard or symbolic links in `a_directory'...
 		require
@@ -172,7 +170,7 @@ feature -- Directory access
 
 feature -- File statistics
 
-	status (a_path: STRING): ABSTRACT_STATUS_PATH is
+	status (a_path: STRING): ABSTRACT_STATUS_PATH
 			-- Get information about a file.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
@@ -182,7 +180,7 @@ feature -- File statistics
 			status_returned: Result /= Void
 		end
 
-	status_may_fail (a_path: STRING): ABSTRACT_STATUS_PATH is
+	status_may_fail (a_path: STRING): ABSTRACT_STATUS_PATH
 			-- Retrieve status information for `a_path'. `a_path' may or
 			-- may not exist. Check `Result'.`found' to see if statistics
 			-- were retrieved.
@@ -196,7 +194,7 @@ feature -- File statistics
 
 feature -- Directory browsing
 
-	browse_directory (a_path: STRING): EPX_DIRECTORY is
+	browse_directory (a_path: STRING): EPX_DIRECTORY
 			-- Get information about a directory.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
@@ -206,7 +204,7 @@ feature -- Directory browsing
 			directory_returned: Result /= Void
 		end
 
-	find_program_in_path (a_filename: STRING; a_paths: ARRAY [STRING]): STRING is
+	find_program_in_path (a_filename: STRING; a_paths: ARRAY [STRING]): STRING
 			-- Look for `a_filename' in `a_paths', check if it is a
 			-- binary and return the full path to `a_filename' when
 			-- found. Return Void if not found.
@@ -252,7 +250,7 @@ feature -- Accessibility of files
 	last_access_result: INTEGER
 			-- value of last access test
 
-	is_accessible, access (a_path: STRING; a_mode: INTEGER): BOOLEAN is
+	is_accessible, access (a_path: STRING; a_mode: INTEGER): BOOLEAN
 			-- Is `a_path' accessibility using `a_mode'?
 		do
 			set_portable_path (a_path)
@@ -261,7 +259,7 @@ feature -- Accessibility of files
 			sh.unfreeze_all
 		end
 
-	is_directory (a_path: STRING): BOOLEAN is
+	is_directory (a_path: STRING): BOOLEAN
 			-- Does `a_path' exists and is it a directory?
 		do
 			Result :=
@@ -269,7 +267,7 @@ feature -- Accessibility of files
 				status (a_path).is_directory
 		end
 
-	is_existing (a_path: STRING): BOOLEAN is
+	is_existing (a_path: STRING): BOOLEAN
 			-- Is `a_path' an existing file, directory, whatever?
 			-- Tests if file does exist, not if it is readable or writable by
 			-- this program!
@@ -278,7 +276,7 @@ feature -- Accessibility of files
 			Result := is_accessible (a_path, abstract_F_OK)
 		end
 
-	is_empty (a_path: STRING): BOOLEAN is
+	is_empty (a_path: STRING): BOOLEAN
 			-- True if file exists and has a size equal to zero.
 		require
 			exists: is_existing (a_path)
@@ -286,13 +284,13 @@ feature -- Accessibility of files
 			Result := status (a_path).size = 0
 		end
 
-	is_executable (a_path: STRING): BOOLEAN is
+	is_executable (a_path: STRING): BOOLEAN
 			-- tests if file is executable by this program
 		do
 			Result := is_accessible (a_path, abstract_X_OK)
 		end
 
-	is_regular_file (a_path: STRING): BOOLEAN is
+	is_regular_file (a_path: STRING): BOOLEAN
 			-- Does `a_path' exists and is it a regular file?
 		do
 			Result :=
@@ -300,14 +298,14 @@ feature -- Accessibility of files
 				status (a_path).is_regular_file
 		end
 
-	is_modifiable (a_path: STRING): BOOLEAN is
+	is_modifiable (a_path: STRING): BOOLEAN
 			-- tests if file is readable and writable by this program
 			-- uses real user ID and real group ID instead of effective ones
 		do
 			Result := is_accessible (a_path, abstract_R_OK + abstract_W_OK)
 		end
 
-	is_readable (a_path: STRING): BOOLEAN is
+	is_readable (a_path: STRING): BOOLEAN
 			-- Tests if `a_path' is readable by this program. `a_path'
 			-- can be a file or a directory.
 			-- Uses real user ID and real group ID instead of effective
@@ -316,7 +314,7 @@ feature -- Accessibility of files
 			Result := is_accessible (a_path, abstract_R_OK)
 		end
 
-	is_writable (a_path: STRING): BOOLEAN is
+	is_writable (a_path: STRING): BOOLEAN
 			-- tests if file is writable by this program
 			-- uses real user ID and real group ID instead of effective ones
 		do
@@ -326,13 +324,13 @@ feature -- Accessibility of files
 
 feature -- File system properties
 
-	is_case_sensitive: BOOLEAN is
+	is_case_sensitive: BOOLEAN
 			-- is file system case sensitive or not?
 			-- This query is dedicated to jwz
 		deferred
 		end
 
-	path_separator: CHARACTER is
+	path_separator: CHARACTER
 			-- What is the path separator?
 		deferred
 		end
@@ -340,7 +338,7 @@ feature -- File system properties
 
 feature -- File and string
 
-	file_content_as_string (a_file_name: STRING): STRING is
+	file_content_as_string (a_file_name: STRING): STRING
 			-- Contents of `a_file_name' as a STRING
 		require
 			valid_path: a_file_name /= Void and then not a_file_name.is_empty
@@ -364,7 +362,7 @@ feature -- File and string
 			file_to_string_void: Result /= Void
 		end
 
-	string_to_file (s, a_file_name: STRING) is
+	string_to_file (s, a_file_name: STRING)
 			-- Create or overwrite a file `a_file_name' and make its
 			-- contents `s'.
 		local
@@ -380,7 +378,7 @@ feature -- File and string
 
 feature -- Path names
 
-	resolved_path_name (a_path: STRING): STRING is
+	resolved_path_name (a_path: STRING): STRING
 			-- Absolute pathname derived from `a_path' that names the
 			-- same file, whose resolution does not involve ".", "..", or
 			-- symbolic links
@@ -436,7 +434,7 @@ feature -- Path names
 			end
 		end
 
-	temporary_directory: STRING is
+	temporary_directory: STRING
 			-- The name of the temporary directory;
 			-- Name does not end with the directory separator.
 		deferred
@@ -450,21 +448,21 @@ feature -- Path names
 
 feature {NONE} -- Abstract C interface
 
-	abstract_access (a_path: POINTER; a_mode: INTEGER): INTEGER is
+	abstract_access (a_path: POINTER; a_mode: INTEGER): INTEGER
 			-- Tests for file accessibility
 		require
 			valid_path: a_path /= default_pointer
 		deferred
 		end
 
-	abstract_chdir (a_path: POINTER): INTEGER is
+	abstract_chdir (a_path: POINTER): INTEGER
 			-- Changes the current working directory
 		require
 			valid_path: a_path /= default_pointer
 		deferred
 		end
 
-	abstract_getcwd (buf: POINTER; size: INTEGER): POINTER is
+	abstract_getcwd (buf: POINTER; size: INTEGER): POINTER
 			-- Gets current working directory
 		require
 			buf_not_nil: buf /= default_pointer
@@ -472,36 +470,36 @@ feature {NONE} -- Abstract C interface
 		deferred
 		end
 
-	abstract_mkdir (a_path: POINTER): INTEGER is
+	abstract_mkdir (a_path: POINTER): INTEGER
 			-- Makes a directory
 		require
 			valid_path: a_path /= default_pointer
 		deferred
 		end
 
-	abstract_rmdir (a_path: POINTER): INTEGER is
+	abstract_rmdir (a_path: POINTER): INTEGER
 			-- Removes a directory
 		require
 			valid_path: a_path /= default_pointer
 		deferred
 		end
 
-	abstract_F_OK: INTEGER is
+	abstract_F_OK: INTEGER
 			-- existence
 		deferred
 		end
 
-	abstract_R_OK: INTEGER is
+	abstract_R_OK: INTEGER
 			-- read permission
 		deferred
 		end
 
-	abstract_W_OK: INTEGER is
+	abstract_W_OK: INTEGER
 			-- write permission
 		deferred
 		end
 
-	abstract_X_OK: INTEGER is
+	abstract_X_OK: INTEGER
 			-- execute permission
 		deferred
 		end

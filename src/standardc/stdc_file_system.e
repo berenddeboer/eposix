@@ -1,11 +1,9 @@
-indexing
+note
 
 	description: "Class that covers the Standard C file system code. %
 	%There was not much to cover..."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #8 $"
 
 class
 
@@ -29,7 +27,7 @@ inherit
 
 feature -- Path names
 
-	expand_path (a_path: STRING): STDC_PATH is
+	expand_path (a_path: STRING): STDC_PATH
 			-- returns a new path
 		do
 			create Result.make_expand (a_path)
@@ -38,7 +36,7 @@ feature -- Path names
 
 feature -- Rename files/directories, remove files/directories
 
-	remove_file (a_path: STRING) is
+	remove_file (a_path: STRING)
 			-- Removes a file from a directory.
 			-- For Standard C, it's implementation defined what
 			-- remove_file does if file is opened by some process
@@ -65,7 +63,7 @@ feature -- Rename files/directories, remove files/directories
 			end
 		end
 
-	rename_to (current_path, new_path: STRING) is
+	rename_to (current_path, new_path: STRING)
 			-- Rename a file or a directory.
 			-- `new_path' should not be an existing path.
 		require
@@ -92,7 +90,7 @@ feature -- Rename files/directories, remove files/directories
 
 feature -- Accessibility of files
 
-	is_modifiable (a_path: STRING): BOOLEAN is
+	is_modifiable (a_path: STRING): BOOLEAN
 			-- Is `a_path' readable and writable by this program?
 			-- Does this by attempting to open `a_path' file read/write.
 		require
@@ -113,7 +111,7 @@ feature -- Accessibility of files
 			retry
 		end
 
-	is_readable (a_path: READABLE_STRING_8): BOOLEAN is
+	is_readable (a_path: READABLE_STRING_8): BOOLEAN
 			-- Is `a_path' readable by this program?
 			-- Does this by attempting to open `a_path' file read-only.
 		require
@@ -137,7 +135,7 @@ feature -- Accessibility of files
 
 feature -- File and string
 
-	write_string_to_file (s, a_file_name: STRING) is
+	write_string_to_file (s, a_file_name: STRING)
 			-- Write `s' to file `a_file_name'.
 		require
 			valid_path: a_file_name /= Void and then not a_file_name.is_empty

@@ -1,10 +1,9 @@
-indexing
+note
 
 	description: "Abstraction for the descriptor sets used by the select() call."
 
+	library: "eposix"
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 deferred class
@@ -19,7 +18,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			create fd_set.allocate (abstract_api.posix_fd_set_size)
 			wipe_out
@@ -28,7 +27,7 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	is_set (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN is
+	is_set (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN
 			-- Is `a_descriptor' included in this set?
 		require
 			valid_descriptor: is_valid_descriptor (a_descriptor)
@@ -36,7 +35,7 @@ feature -- Status
 			Result := abstract_api.posix_fd_isset (a_descriptor.fd, fd_set.ptr)
 		end
 
-	is_valid_descriptor (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN is
+	is_valid_descriptor (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN
 			-- Is `a_descriptor' a descriptor that can be added or
 			-- removed from this set, or checked for its presence?
 			-- Precondition depends on platform, but for all platforms
@@ -47,7 +46,7 @@ feature -- Status
 
 feature -- Access
 
-	handle: POINTER is
+	handle: POINTER
 			-- Memory area where descriptor bits are stored
 		do
 			Result := fd_set.handle
@@ -62,7 +61,7 @@ feature -- Access
 
 feature -- Change
 
-	put (a_descriptor: ABSTRACT_DESCRIPTOR) is
+	put (a_descriptor: ABSTRACT_DESCRIPTOR)
 			-- Add `a_descriptor' to this set.
 		require
 			valid_descriptor: is_valid_descriptor (a_descriptor)
@@ -74,7 +73,7 @@ feature -- Change
 			highest_descriptor_value_updated: highest_descriptor_value >= a_descriptor.fd
 		end
 
-	remove (a_descriptor: ABSTRACT_DESCRIPTOR) is
+	remove (a_descriptor: ABSTRACT_DESCRIPTOR)
 			-- Remove `a_descriptor' from this set.
 		require
 			valid_descriptor: is_valid_descriptor (a_descriptor)
@@ -84,7 +83,7 @@ feature -- Change
 			unset: not is_set (a_descriptor)
 		end
 
-	wipe_out is
+	wipe_out
 			-- Remove all descriptors such that `is_set' returns False
 			-- for every descriptor.
 		do
