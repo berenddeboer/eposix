@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "SUSv3 descriptor sets have a slightly different precondition than the Windows descriptor sets."
-
+	library: "eposix"
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -24,7 +22,7 @@ create {ABSTRACT_SELECT}
 
 feature -- Status
 
-	is_valid_descriptor (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN is
+	is_valid_descriptor (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN
 			-- Is `a_descriptor' a descriptor that can be added or
 			-- removed from this set, or checked for its presence?
 			-- Descriptor should be open and its handle should be less
