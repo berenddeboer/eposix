@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Base class for all Standard C or POSIX classes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #10 $"
 
 class
 
@@ -29,7 +27,7 @@ inherit
 
 feature -- Access
 
-	errno: STDC_ERRNO is
+	errno: STDC_ERRNO
 			-- Access to the variable that contains the error that occurred.
 		once
 			create Result
@@ -40,7 +38,7 @@ feature -- Access
 
 feature -- Status
 
-	raise_exception_on_error: BOOLEAN is
+	raise_exception_on_error: BOOLEAN
 			-- Should an exception be raised when an error occurs?
 			-- If not, you have to check errno for any errors.
 		do
@@ -52,7 +50,7 @@ feature -- Status
 
 feature -- Change
 
-	set_default_action_on_error is
+	set_default_action_on_error
 			-- Use `security'.`error_handling.exceptions_enabled' to
 			-- determine if an exception should be raised when a C call
 			-- returns an error.
@@ -60,7 +58,7 @@ feature -- Change
 			error_action := 0
 		end
 
-	set_raise_exception_on_error is
+	set_raise_exception_on_error
 			-- Always raise an exception when a C call returns an error.
 		do
 			error_action := 1
@@ -68,7 +66,7 @@ feature -- Change
 			exception_raised: raise_exception_on_error
 		end
 
-	set_continue_on_error is
+	set_continue_on_error
 			-- Never raise an exception when a C call returns an error.
 		do
 			error_action := 2
@@ -76,7 +74,7 @@ feature -- Change
 			no_exception_raised: not raise_exception_on_error
 		end
 
-	inherit_error_handling (an_instance: STDC_BASE) is
+	inherit_error_handling (an_instance: STDC_BASE)
 			-- Handle errors like `an_instance'
 		require
 			instance_not_void: an_instance /= Void
@@ -98,18 +96,18 @@ feature {STDC_BASE} -- Exceptions
 
 feature {NONE} -- Exceptions
 
-	exceptions: EXCEPTIONS is
+	exceptions: EXCEPTIONS
 			-- Access to developer raised exceptions.
 		once
 			create Result
 		end
 
-	do_raise (name: STRING) is
+	do_raise (name: STRING)
 		do
 			exceptions.raise (name)
 		end
 
-	raise_posix_error is
+	raise_posix_error
 			-- Throws an exception when something that is considered
 			-- fatal has occurred.
 			-- Exception throwing can be disabled by calling
@@ -129,7 +127,7 @@ feature {NONE} -- Exceptions
 			end
 		end
 
-	safe_call (res: INTEGER) is
+	safe_call (res: INTEGER)
 			-- Raise an exception when value = -1.
 		do
 			if res = -1 then
@@ -140,7 +138,7 @@ feature {NONE} -- Exceptions
 
 feature {NONE} -- Test or set bits in an integer
 
-	flip_bits (bit_field, bits: INTEGER; on: BOOLEAN): INTEGER is
+	flip_bits (bit_field, bits: INTEGER; on: BOOLEAN): INTEGER
 			-- Change zero or more bits and return the result.
 		do
 			if on then
@@ -152,7 +150,7 @@ feature {NONE} -- Test or set bits in an integer
 			bits_flipped: (not on) or test_bits (Result, bits)
 		end
 
-	test_bits (bit_field, bits: INTEGER): BOOLEAN is
+	test_bits (bit_field, bits: INTEGER): BOOLEAN
 			-- Do all `bits' in `bit_field' have the value 1?
 		do
 			Result := posix_and (bit_field, bits) = bits
@@ -161,15 +159,15 @@ feature {NONE} -- Test or set bits in an integer
 
 feature {NONE} -- Make bit operations on integers possible
 
-	posix_and (op1, op2: INTEGER): INTEGER is
+	posix_and (op1, op2: INTEGER): INTEGER
 		external "C"
 		end
 
-	posix_not (op: INTEGER): INTEGER is
+	posix_not (op: INTEGER): INTEGER
 		external "C"
 		end
 
-	posix_or (op1, op2: INTEGER): INTEGER is
+	posix_or (op1, op2: INTEGER): INTEGER
 		external "C"
 		end
 
