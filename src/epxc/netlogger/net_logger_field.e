@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_name, a_value: STRING) is
+	make (a_name, a_value: READABLE_STRING_8) is
 		require
 			name_valid: is_valid_name (a_name)
 			value_valid: is_valid_value (a_value)
@@ -42,16 +42,16 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	name: STRING
+	name: READABLE_STRING_8
 			-- Event attribute name
 
-	value: STRING
+	value: READABLE_STRING_8
 			-- Event attribute value
 
 
 feature -- Change
 
-	set_value (a_value: STRING) is
+	set_value (a_value: READABLE_STRING_8) is
 		require
 			value_not_empty: a_value /= Void and then not a_value.is_empty
 		do

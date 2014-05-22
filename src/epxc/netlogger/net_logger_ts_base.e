@@ -18,6 +18,8 @@ inherit
 	NET_LOGGER_FIELD
 		rename
 			make as inherited_make
+		redefine
+			value
 		end
 
 
@@ -30,7 +32,7 @@ feature {NONE} -- Initialization
 		do
 			create names
 			name := names.timestamp
-			create value.make (expected_length)
+			create {STRING_8} value.make (expected_length)
 			refresh
 		end
 
@@ -39,6 +41,9 @@ feature -- Access
 
 	expected_length: INTEGER is 27
 			-- Length expected for a date field is up to microsecond precision
+
+	value: STRING_8
+			-- Event attribute value
 
 
 feature -- Change
