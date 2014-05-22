@@ -1,12 +1,10 @@
-indexing
+note
 
 	description: "Class that covers Standard C environment variable routines."
 
 	usage: "Models one (possibly existing) variable."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 class
 
@@ -25,7 +23,7 @@ create
 
 feature -- Initialization
 
-	make (a_name: STRING) is
+	make (a_name: STRING)
 		require
 			valid_name: a_name /= Void and then not a_name.is_empty
 			-- `a_name' doesn't have to be an existing variable
@@ -36,13 +34,13 @@ feature -- Initialization
 
 feature -- Access
 
-	exist: BOOLEAN is
+	exist: BOOLEAN
 		obsolete "2011-06-02 please use is_set"
 		do
 			Result := is_set
 		end
 
-	is_set: BOOLEAN is
+	is_set: BOOLEAN
 			-- Is this environment variable defined?
 		local
 			cvalue: POINTER
@@ -55,7 +53,7 @@ feature -- Access
 	name: STRING
 			-- Name of environment variable.
 
-	value: STRING is
+	value: STRING
 			-- Current value of environment variable.
 		local
 			cvalue: POINTER
