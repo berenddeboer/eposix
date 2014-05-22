@@ -90,7 +90,7 @@ feature -- Rename files/directories, remove files/directories
 
 feature -- Accessibility of files
 
-	is_modifiable (a_path: STRING): BOOLEAN
+	is_modifiable (a_path: READABLE_STRING_8): BOOLEAN
 			-- Is `a_path' readable and writable by this program?
 			-- Does this by attempting to open `a_path' file read/write.
 		require

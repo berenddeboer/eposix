@@ -250,7 +250,7 @@ feature -- Accessibility of files
 	last_access_result: INTEGER
 			-- value of last access test
 
-	is_accessible, access (a_path: STRING; a_mode: INTEGER): BOOLEAN
+	is_accessible, access (a_path: READABLE_STRING_8; a_mode: INTEGER): BOOLEAN
 			-- Is `a_path' accessibility using `a_mode'?
 		do
 			set_portable_path (a_path)
@@ -259,7 +259,7 @@ feature -- Accessibility of files
 			sh.unfreeze_all
 		end
 
-	is_directory (a_path: STRING): BOOLEAN
+	is_directory (a_path: READABLE_STRING_8): BOOLEAN
 			-- Does `a_path' exists and is it a directory?
 		do
 			Result :=
@@ -267,7 +267,7 @@ feature -- Accessibility of files
 				status (a_path).is_directory
 		end
 
-	is_existing (a_path: STRING): BOOLEAN
+	is_existing (a_path: READABLE_STRING_8): BOOLEAN
 			-- Is `a_path' an existing file, directory, whatever?
 			-- Tests if file does exist, not if it is readable or writable by
 			-- this program!
@@ -276,7 +276,7 @@ feature -- Accessibility of files
 			Result := is_accessible (a_path, abstract_F_OK)
 		end
 
-	is_empty (a_path: STRING): BOOLEAN
+	is_empty (a_path: READABLE_STRING_8): BOOLEAN
 			-- True if file exists and has a size equal to zero.
 		require
 			exists: is_existing (a_path)
@@ -284,13 +284,13 @@ feature -- Accessibility of files
 			Result := status (a_path).size = 0
 		end
 
-	is_executable (a_path: STRING): BOOLEAN
+	is_executable (a_path: READABLE_STRING_8): BOOLEAN
 			-- tests if file is executable by this program
 		do
 			Result := is_accessible (a_path, abstract_X_OK)
 		end
 
-	is_regular_file (a_path: STRING): BOOLEAN
+	is_regular_file (a_path: READABLE_STRING_8): BOOLEAN
 			-- Does `a_path' exists and is it a regular file?
 		do
 			Result :=
@@ -298,14 +298,14 @@ feature -- Accessibility of files
 				status (a_path).is_regular_file
 		end
 
-	is_modifiable (a_path: STRING): BOOLEAN
+	is_modifiable (a_path: READABLE_STRING_8): BOOLEAN
 			-- tests if file is readable and writable by this program
 			-- uses real user ID and real group ID instead of effective ones
 		do
 			Result := is_accessible (a_path, abstract_R_OK + abstract_W_OK)
 		end
 
-	is_readable (a_path: STRING): BOOLEAN
+	is_readable (a_path: READABLE_STRING_8): BOOLEAN
 			-- Tests if `a_path' is readable by this program. `a_path'
 			-- can be a file or a directory.
 			-- Uses real user ID and real group ID instead of effective
@@ -314,7 +314,7 @@ feature -- Accessibility of files
 			Result := is_accessible (a_path, abstract_R_OK)
 		end
 
-	is_writable (a_path: STRING): BOOLEAN
+	is_writable (a_path: READABLE_STRING_8): BOOLEAN
 			-- tests if file is writable by this program
 			-- uses real user ID and real group ID instead of effective ones
 		do
