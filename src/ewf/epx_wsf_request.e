@@ -2,7 +2,7 @@ note
 
 	description:
 
-		"WSF_REQUEST but with eposix MIME handling"
+		"WSF_REQUEST fixing the unsafe `save_uploaded_file'."
 
 	library: "eposix library"
 	author: "Berend de Boer <berend@pobox.com>"
