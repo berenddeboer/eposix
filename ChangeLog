@@ -1,3 +1,7 @@
+2014-08-21  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_IMAP4_RESPONSE_PARSER: now properly upgraded to latest geyacc/gelex.
+
 2013-08-07  Berend de Boer  <berend@pobox.com>
 
 	* !Suport READABLE_STRING_8: at some places the argument can now
