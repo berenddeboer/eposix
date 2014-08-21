@@ -1,5 +1,5 @@
 %{
-indexing
+note
 
 	description: "Scanner for IMAP4 server responses."
 
@@ -8,8 +8,6 @@ indexing
 	bugs: "Should return IMAP4_ATOM in more cases. Introduce more state for keywords that are only keywords in specific cases perhaps?"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 class
@@ -62,30 +60,30 @@ inherit
 
 ----------/** My Tag **/-------------------------------------------------------
 
-"A"[0-9]+      last_token := IMAP4_TAG; last_value := text
+"A"[0-9]+      last_token := IMAP4_TAG; last_string_value := text
 
 
 ----------/** flags **/--------------------------------------------------------
 -- both message and mailbox
 
-"\\ANSWERED"   last_token := FLAG_ANSWERED; last_value := text
-"\\FLAGGED"    last_token := FLAG_FLAGGED; last_value := text
-"\\DELETED"    last_token := FLAG_DELETED; last_value := text
-"\\SEEN"       last_token := FLAG_SEEN; last_value := text
-"\\DRAFT"      last_token := FLAG_DRAFT; last_value := text
-"\\Noselect"   last_token := FLAG_NOSELECT; last_value := text
-"\\Unmarked"   last_token := FLAG_UNMARKED; last_value := text
-"\\Recent"     last_token := FLAG_RECENT; last_value := text
-"\\*"          last_token := FLAG_STAR; last_value := text
+"\\ANSWERED"   last_token := FLAG_ANSWERED; last_string_value := text
+"\\FLAGGED"    last_token := FLAG_FLAGGED; last_string_value := text
+"\\DELETED"    last_token := FLAG_DELETED; last_string_value := text
+"\\SEEN"       last_token := FLAG_SEEN; last_string_value := text
+"\\DRAFT"      last_token := FLAG_DRAFT; last_string_value := text
+"\\Noselect"   last_token := FLAG_NOSELECT; last_string_value := text
+"\\Unmarked"   last_token := FLAG_UNMARKED; last_string_value := text
+"\\Recent"     last_token := FLAG_RECENT; last_string_value := text
+"\\*"          last_token := FLAG_STAR; last_string_value := text
 "\\"[^(){ \x00-\x1f%*\"\\]+ { --"
 					last_token := FLAG_ATOM
-					last_value := text
+					last_string_value := text
 					}
 
 
 ----------/** special mailbox names **/----------------------------------------
 
-"INBOX"       last_token := IMAP4_INBOX; last_value := text
+"INBOX"       last_token := IMAP4_INBOX; last_string_value := text
 
 
 ----------/** numbers **/------------------------------------------------------
@@ -97,13 +95,13 @@ inherit
 
 -- special case strings
 
-\""APPLICATION"\"   last_token := MEDIA_TYPE_APPLICATION; last_value := text
-\""AUDIO"\"         last_token := MEDIA_TYPE_AUDIO; last_value := text
-\""IMAGE"\"         last_token := MEDIA_TYPE_IMAGE; last_value := text
-\""MESSAGE"\"       last_token := MEDIA_TYPE_MESSAGE; last_value := text
-\""RFC822"\"        last_token := MEDIA_TYPE_RFC822; last_value := text
-\""TEXT"\"          last_token := MEDIA_TYPE_TEXT; last_value := text
-\""VIDEO"\"         last_token := MEDIA_TYPE_VIDEO; last_value := text
+\""APPLICATION"\"   last_token := MEDIA_TYPE_APPLICATION; last_string_value := text
+\""AUDIO"\"         last_token := MEDIA_TYPE_AUDIO; last_string_value := text
+\""IMAGE"\"         last_token := MEDIA_TYPE_IMAGE; last_string_value := text
+\""MESSAGE"\"       last_token := MEDIA_TYPE_MESSAGE; last_string_value := text
+\""RFC822"\"        last_token := MEDIA_TYPE_RFC822; last_string_value := text
+\""TEXT"\"          last_token := MEDIA_TYPE_TEXT; last_string_value := text
+\""VIDEO"\"         last_token := MEDIA_TYPE_VIDEO; last_string_value := text
 
 
 ----------/** strings **/------------------------------------------------------
@@ -121,39 +119,39 @@ inherit
 					}
 <SC_QUOTED_STRING>\" { --"
 					set_start_condition (INITIAL)
-					last_value := last_string
+					last_string_value := last_string
 					last_token := QUOTED_STRING
 					}
 
-"NIL"          last_token := IMAP4_NIL; last_value := text
+"NIL"          last_token := IMAP4_NIL; last_string_value := text
 
 
 ----------/** mailbox_data **/-------------------------------------------------
 
-"EXISTS"       last_token := IMAP4_EXISTS; last_value := text
-"FLAGS"        last_token := IMAP4_FLAGS; last_value := text
-"LIST"         last_token := IMAP4_LIST; last_value := text
-"LSUB"         last_token := IMAP4_LSUB; last_value := text
-"RECENT"       last_token := IMAP4_RECENT; last_value := text
+"EXISTS"       last_token := IMAP4_EXISTS; last_string_value := text
+"FLAGS"        last_token := IMAP4_FLAGS; last_string_value := text
+"LIST"         last_token := IMAP4_LIST; last_string_value := text
+"LSUB"         last_token := IMAP4_LSUB; last_string_value := text
+"RECENT"       last_token := IMAP4_RECENT; last_string_value := text
 
 
 ----------/** message_data **/-------------------------------------------------
 
-"EXPUNGE"      last_token := IMAP4_EXPUNGE; last_value := text
-"FETCH"        last_token := IMAP4_FETCH; last_value := text
+"EXPUNGE"      last_token := IMAP4_EXPUNGE; last_string_value := text
+"FETCH"        last_token := IMAP4_FETCH; last_string_value := text
 
 
 ----------/** msg_att **/------------------------------------------------------
 
-"BODY"              last_token := IMAP4_BODY; last_value := text
-"BODYSTRUCTURE"     last_token := IMAP4_BODYSTRUCTURE; last_value := text
-"ENVELOPE"          last_token := IMAP4_ENVELOPE; last_value := text
-"INTERNALDATE"      last_token := IMAP4_INTERNALDATE; last_value := text
-"RFC822"            last_token := IMAP4_RFC822; last_value := text
-"RFC822.HEADER"     last_token := IMAP4_RFC822_HEADER; last_value := text
-"RFC822.SIZE"       last_token := IMAP4_RFC822_SIZE; last_value := text
-"RFC822.TEXT"       last_token := IMAP4_RFC822_TEXT; last_value := text
-"UID"               last_token := IMAP4_UID; last_value := text
+"BODY"              last_token := IMAP4_BODY; last_string_value := text
+"BODYSTRUCTURE"     last_token := IMAP4_BODYSTRUCTURE; last_string_value := text
+"ENVELOPE"          last_token := IMAP4_ENVELOPE; last_string_value := text
+"INTERNALDATE"      last_token := IMAP4_INTERNALDATE; last_string_value := text
+"RFC822"            last_token := IMAP4_RFC822; last_string_value := text
+"RFC822.HEADER"     last_token := IMAP4_RFC822_HEADER; last_string_value := text
+"RFC822.SIZE"       last_token := IMAP4_RFC822_SIZE; last_string_value := text
+"RFC822.TEXT"       last_token := IMAP4_RFC822_TEXT; last_string_value := text
+"UID"               last_token := IMAP4_UID; last_string_value := text
 
 
 ----------/** date_time **/----------------------------------------------------
@@ -168,13 +166,13 @@ inherit
 <SC_DATE_TIME>"Mar"    set_last_integer (3)
 <SC_DATE_TIME>"Apr"    set_last_integer (4)
 <SC_DATE_TIME>"May"    set_last_integer (5)
-<SC_DATE_TIME>"Jun"    set_last_integer (5)
-<SC_DATE_TIME>"Jul"    set_last_integer (5)
-<SC_DATE_TIME>"Aug"    set_last_integer (5)
-<SC_DATE_TIME>"Sep"    set_last_integer (5)
-<SC_DATE_TIME>"Oct"    set_last_integer (5)
-<SC_DATE_TIME>"Nov"    set_last_integer (5)
-<SC_DATE_TIME>"Dec"    set_last_integer (5)
+<SC_DATE_TIME>"Jun"    set_last_integer (6)
+<SC_DATE_TIME>"Jul"    set_last_integer (7)
+<SC_DATE_TIME>"Aug"    set_last_integer (8)
+<SC_DATE_TIME>"Sep"    set_last_integer (9)
+<SC_DATE_TIME>"Oct"    set_last_integer (10)
+<SC_DATE_TIME>"Nov"    set_last_integer (11)
+<SC_DATE_TIME>"Dec"    set_last_integer (12)
 <SC_DATE_TIME>\+?[0-9]+ set_last_integer (text.to_integer)
 <SC_DATE_TIME>":"      last_token := Colon_code
 <SC_DATE_TIME>"-"      last_token := Minus_code
@@ -191,10 +189,10 @@ inherit
 
 ----------/** response condition **/-------------------------------------------
 
-"BAD"          last_token := IMAP4_BAD; last_value := text
-"BYE"          last_token := IMAP4_BYE; last_value := text
-"NO"           last_token := IMAP4_NO; last_value := text
-"OK"           last_token := IMAP4_OK; last_value := text
+"BAD"          last_token := IMAP4_BAD; last_string_value := text
+"BYE"          last_token := IMAP4_BYE; last_string_value := text
+"NO"           last_token := IMAP4_NO; last_string_value := text
+"OK"           last_token := IMAP4_OK; last_string_value := text
 
 
 ----------/** resp_text_code **/-----------------------------------------------
@@ -212,7 +210,7 @@ inherit
 <SC_RESP_TEXT_CODE>"UNSEEN"       last_token := IMAP4_UNSEEN
 <SC_RESP_TEXT_CODE>[^(){ \x00-\x1f%*\"\\\]]+ { --"
 					last_token := IMAP4_ATOM_WITHOUT_RIGHT_BRACKET
-					last_value := text
+					last_string_value := text
 					set_start_condition (SC_RESP_TEXT_CODE_TEXT)
 					}
 <SC_RESP_TEXT_CODE>[ \t]+ {
@@ -226,17 +224,17 @@ inherit
 
 ----------/** section_text **/-------------------------------------------------
 
-"HEADER"	           last_token := IMAP4_HEADER; last_value := text
-"HEADER.FIELDS"     last_token := IMAP4_HEADER_FIELDS; last_value := text
-"MIME"              last_token := IMAP4_MIME; last_value := text
-"NOT"               last_token := IMAP4_NOT; last_value := text
-"TEXT"              last_token := IMAP4_TEXT; last_value := text
+"HEADER"	           last_token := IMAP4_HEADER; last_string_value := text
+"HEADER.FIELDS"     last_token := IMAP4_HEADER_FIELDS; last_string_value := text
+"MIME"              last_token := IMAP4_MIME; last_string_value := text
+"NOT"               last_token := IMAP4_NOT; last_string_value := text
+"TEXT"              last_token := IMAP4_TEXT; last_string_value := text
 
 
 ----------/** TEXT_CHAR after resp_text_code atom **/--------------------------
 
 <SC_RESP_TEXT_CODE_TEXT>[^\n\r\]]+ {
-					last_value := text
+					last_string_value := text
 					set_start_condition (INITIAL)
 					last_token := IMAP4_TEXT_WITHOUT_RIGHT_BRACKET
 					}
@@ -254,7 +252,7 @@ inherit
 
 [^(){} \x00-\x1f%*\"\\\[\]]+ { --"
 					last_token := IMAP4_ATOM
-					last_value := text
+					last_string_value := text
 					}
 
 
@@ -289,7 +287,7 @@ inherit
 <SC_RESP_TEXT>[^\r\n]+ {
 					text.left_adjust
 					text.right_adjust
-					last_value := text
+					last_string_value := text
 					last_token := IMAP4_TEXT
 					set_start_condition (INITIAL)
 					}
@@ -302,11 +300,6 @@ inherit
 -------------------------------------------------------------------------------
 
 %%
-
-
-feature -- Last returned data
-
-	last_value: ANY
 
 
 feature -- Input
@@ -337,8 +330,6 @@ feature -- Input
 
 feature {NONE} -- Last returned data helpers
 
-	last_integer: INTEGER_REF
-
 	last_string: STRING
 			-- Building quoted string.
 
@@ -346,14 +337,10 @@ feature {NONE} -- Last returned data helpers
 			-- Set `last_integer', `last_token' is INT_NUMBER.
 		do
 			last_token := INT_NUMBER
-			create last_integer
-			last_integer.set_item (a_number)
-			last_value := last_integer
+			last_integer_value := a_number
 		ensure
 			last_token_is_number: last_token = INT_NUMBER
-			new_integer: last_integer /= old last_integer
-			value_set: last_integer.item = a_number
-			last_value_is_integer: last_value = last_integer
+			value_set: last_integer_value.item = a_number
 		end
 
 

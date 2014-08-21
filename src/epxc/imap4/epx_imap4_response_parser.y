@@ -44,7 +44,7 @@ create
 %token <STRING> IMAP4_NIL
 
 -- numbers
-%token <INTEGER_REF> INT_NUMBER
+%token <INTEGER> INT_NUMBER
 
 --- strings
 %token <STRING> QUOTED_STRING
