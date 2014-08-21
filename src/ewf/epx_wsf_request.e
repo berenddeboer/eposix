@@ -38,7 +38,7 @@ feature {WSF_MIME_HANDLER} -- Temporary File handling
 			p: PATH
 			bn: EPX_PATH
 		do
-			create t.make (fs.temporary_directory + "/" + a_up_file.filename + "-XXXXXX")
+			create t.make (fs.temporary_directory + "/" + a_up_file.filename + ".tmp-XXXXXX")
 			create p.make_from_string (t.name)
 			create bn.make_from_string (t.name)
 			bn.parse (Void)
