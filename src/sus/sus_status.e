@@ -36,7 +36,7 @@ feature -- stat members
 		end
 
 	is_symbolic_link: BOOLEAN
-			-- True if symbolic link.
+			-- Is this a symbolic link?
 		do
 			Result := posix_s_islnk (posix_st_mode (stat.ptr))
 		end
