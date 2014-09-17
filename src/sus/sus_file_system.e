@@ -28,6 +28,8 @@ feature -- File statistics
 
 	status (a_path: STRING): SUS_STATUS_PATH
 			-- Return information about path.
+			-- In case `a_path' is a symbolic link, the link is resolved,
+			-- so no information about the link itself is returned.
 		do
 			create {SUS_STATUS_PATH} Result.make (a_path)
 		end
@@ -36,15 +38,24 @@ feature -- File statistics
 			-- Retrieve status information for `a_path'. `a_path' may or
 			-- may not exist. Check `Result'.`found' to see if statistics
 			-- were retrieved.
+			-- In case `a_path' is a symbolic link, the link is resolved,
+			-- so no information about the link itself is returned.
 		do
 			create {SUS_STATUS_PATH} Result.make_may_fail (a_path)
 		end
 
-	symbolic_link_status (a_path: STRING): SUS_STATUS
+	symbolic_link_status (a_path: STRING): SUS_STATUS_PATH
 			-- Return information about path, but if it is a symbolic
 			-- link, about the symbolic link instead of the referenced path
 		do
 			create {SUS_STATUS_LINK} Result.make (a_path)
+		end
+
+	symbolic_link_status_may_fail (a_path: STRING): SUS_STATUS_PATH
+			-- Return information about path, but if it is a symbolic
+			-- link, about the symbolic link instead of the referenced path
+		do
+			create {SUS_STATUS_LINK} Result.make_may_fail (a_path)
 		end
 
 

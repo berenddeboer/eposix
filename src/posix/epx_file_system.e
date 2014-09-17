@@ -89,7 +89,9 @@ feature -- various queries
 feature -- file statistics
 
 	status (a_path: STRING): POSIX_STATUS_PATH
-			-- Gets information about a file
+			-- Information about a file;
+			-- In case `a_path' is a symbolic link, the link is resolved,
+			-- so no information about the link itself is returned.
 		do
 			create {POSIX_STATUS_PATH} Result.make (a_path)
 		end
@@ -98,6 +100,8 @@ feature -- file statistics
 			-- Retrieve status information for `a_path'. `a_path' may or
 			-- may not exist. Check `Result'.`found' to see if statistics
 			-- were retrieved.
+			-- In case `a_path' is a symbolic link, the link is resolved,
+			-- so no information about the link itself is returned.
 		do
 			create {POSIX_STATUS_PATH} Result.make_may_fail (a_path)
 		end
