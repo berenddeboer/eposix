@@ -171,7 +171,7 @@ feature -- Directory access
 feature -- File statistics
 
 	status (a_path: STRING): ABSTRACT_STATUS_PATH
-			-- Get information about a file.
+			-- Get information about a path.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
 			existing_file: is_existing (a_path)
@@ -218,8 +218,6 @@ feature -- Directory browsing
 		do
 			from
 				i := a_paths.lower
-			variant
-				a_paths.count - (i - a_paths.lower)
 			until
 				Result /= Void or else
 				i >= a_paths.upper
@@ -239,6 +237,8 @@ feature -- Directory browsing
 					Result := s
 				end
 				i := i + 1
+			variant
+				a_paths.count - (i - a_paths.lower)
 			end
 		ensure
 			found: Result /= Void implies is_executable (Result)

@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Single Unix Specification file system code."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 class
@@ -17,7 +15,8 @@ inherit
 	POSIX_FILE_SYSTEM
 		redefine
 			resolved_path_name,
-			status
+			status,
+			status_may_fail
 		end
 
 	SAPI_STDLIB
@@ -27,13 +26,21 @@ inherit
 
 feature -- File statistics
 
-	status (a_path: STRING): SUS_STATUS_PATH is
+	status (a_path: STRING): SUS_STATUS_PATH
 			-- Return information about path.
 		do
 			create {SUS_STATUS_PATH} Result.make (a_path)
 		end
 
-	symbolic_link_status (a_path: STRING): SUS_STATUS is
+	status_may_fail (a_path: STRING): SUS_STATUS_PATH
+			-- Retrieve status information for `a_path'. `a_path' may or
+			-- may not exist. Check `Result'.`found' to see if statistics
+			-- were retrieved.
+		do
+			create {SUS_STATUS_PATH} Result.make_may_fail (a_path)
+		end
+
+	symbolic_link_status (a_path: STRING): SUS_STATUS
 			-- Return information about path, but if it is a symbolic
 			-- link, about the symbolic link instead of the referenced path
 		do
@@ -43,8 +50,9 @@ feature -- File statistics
 
 feature -- Symbolic links
 
-	create_symbolic_link, symlink (old_path, new_path: STRING) is
-			-- Creates a symbolic link
+	create_symbolic_link, symlink (old_path, new_path: STRING)
+			-- Create a symbolic link  named `new_path' which contains the
+			-- string `old_path'.
 		require
 			valid_old: old_path /= Void and then not old_path.is_empty
 			valid_new: new_path /= Void and then not new_path.is_empty
@@ -59,13 +67,13 @@ feature -- Symbolic links
 
 feature -- File system properties
 
-	realpath (a_path: STRING): STRING is
+	realpath (a_path: STRING): STRING
 		obsolete" Use resolved_path_name instead."
 		do
 			Result := resolved_path_name (a_path)
 		end
 
-	resolved_path_name (a_path: STRING): STRING is
+	resolved_path_name (a_path: STRING): STRING
 			-- Derives from `a_path' an absolute pathname that names the
 			-- same file, whose resolution does not involve ".", "..", or
 			-- symbolic links.
