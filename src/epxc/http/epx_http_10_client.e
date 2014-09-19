@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that implements whatever an HTTP 1.0 client can do."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #12 $"
 
 
 class
@@ -67,7 +65,7 @@ create
 
 feature -- Access
 
-	client_version: STRING is
+	client_version: STRING
 			-- Client http version
 		once
 			Result := "HTTP/1.0"
@@ -86,10 +84,10 @@ feature -- Access
 	last_uri: STRING
 			-- URI of last request
 
-	max_redirects: INTEGER is 20
+	max_redirects: INTEGER = 20
 			-- How often we follow a Location field?
 
-	max_authentication_retries: INTEGER is 20
+	max_authentication_retries: INTEGER = 20
 			-- How often we retry authentication failures
 
 
@@ -101,7 +99,7 @@ feature -- Status
 
 feature -- Requests
 
-	delete (a_request_uri: STRING; a_delete_data: EPX_MIME_PART) is
+	delete (a_request_uri: STRING; a_delete_data: EPX_MIME_PART)
 			-- Send DELETE request to server.
 			-- Use `read_response' to fetch the response and actual response code.
 		require
@@ -110,7 +108,7 @@ feature -- Requests
 			send_request (http_method_DELETE, a_request_uri, a_delete_data)
 		end
 
-	get (a_request_uri: STRING) is
+	get (a_request_uri: STRING)
 			-- Send GET request to server.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
@@ -120,7 +118,7 @@ feature -- Requests
 			send_request (http_method_GET, a_request_uri, Void)
 		end
 
-	head (a_request_uri: STRING) is
+	head (a_request_uri: STRING)
 			-- Send HEAD request to server.
 			-- `a_request_uri' should not include http: and the host name, only
 			-- the page that is requested. Any query and fragment parts are ok.
@@ -134,7 +132,7 @@ feature -- Requests
 			send_request (http_method_HEAD, a_request_uri, Void)
 		end
 
-	options (a_request_uri: STRING) is
+	options (a_request_uri: STRING)
 			-- Get server options. `a_request_uri' is required when the
 			-- request is being made to a proxy.
 			-- Sets `response_code' to 200 if the request was send successfully.
@@ -149,7 +147,7 @@ feature -- Requests
 			end
 		end
 
-	put (a_request_uri: STRING; a_put_data: EPX_MIME_PART) is
+	put (a_request_uri: STRING; a_put_data: EPX_MIME_PART)
 			-- Put `a_put_data' to `host' using the HTTP PUT request.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
@@ -170,7 +168,7 @@ feature -- Requests
 			send_request (http_method_PUT, a_request_uri, a_put_data)
 		end
 
-	post (a_request_uri: STRING; a_post_data: EPX_MIME_PART) is
+	post (a_request_uri: STRING; a_post_data: EPX_MIME_PART)
 			-- Post `a_post_data' to `host' using the HTTP POST
 			-- request. `a_post_data' may be empty in which case no data
 			-- will be send with this POST request.
@@ -195,7 +193,7 @@ feature -- Requests
 			send_request (http_method_POST, a_request_uri, a_post_data)
 		end
 
-	post_xml (a_request_uri: STRING; a_post_data: STRING) is
+	post_xml (a_request_uri: STRING; a_post_data: STRING)
 			-- Post `a_post_data' to `host' using the HTTP POST request.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
@@ -215,7 +213,7 @@ feature -- Requests
 			send_request (http_method_POST, a_request_uri, msg)
 		end
 
-	send_request (a_verb, a_request_uri: STRING; a_request_data: EPX_MIME_PART) is
+	send_request (a_verb, a_request_uri: STRING; a_request_data: EPX_MIME_PART)
 			-- Send request `a_verb' with `a_request_uri' to `host'.
 			-- Additional header fields and an optional body can be passed in
 			-- `a_request_data'.
@@ -292,7 +290,7 @@ feature -- Authentication response
 			-- Set if response from server indicates that proper
 			-- authentication is required
 
-	authentication_realm: STRING is
+	authentication_realm: STRING
 			-- Realm of authentication if defined; but according to the
 			-- spec all schemes should have one.
 		require
@@ -306,7 +304,7 @@ feature -- Authentication response
 
 feature -- Authentication setup
 
-	set_basic_authentication (a_user_name, a_password: STRING) is
+	set_basic_authentication (a_user_name, a_password: STRING)
 			-- Make sure the Authorization header is included in the
 			-- request.
 			-- Header will be appended when the first request is made, so
@@ -327,7 +325,7 @@ feature -- Cookies
 	cookies: DS_HASH_TABLE [EPX_HTTP_COOKIE, STRING]
 			-- Cookies that will be sent with the request to the server
 
-	set_cookie (a_cookie_name, a_cookie_value: STRING) is
+	set_cookie (a_cookie_name, a_cookie_value: STRING)
 			-- Add or update a cookie that will be send to the browser
 			-- then `context_text_html' is called.
 		require
@@ -350,7 +348,7 @@ feature -- Cookies
 			cookie_value_set: cookies.item (a_cookie_name).value.is_equal (a_cookie_value)
 		end
 
-	wipe_out_cookies is
+	wipe_out_cookies
 			-- Remove all cookies
 		do
 			if cookies /= Void then
@@ -361,7 +359,7 @@ feature -- Cookies
 
 feature {NONE} -- Request implementation
 
-	append_other_fields (a_verb, a_path: STRING; a_request_data: EPX_MIME_PART; request: STRING) is
+	append_other_fields (a_verb, a_path: STRING; a_request_data: EPX_MIME_PART; request: STRING)
 			-- Append any other field to `request'.
 			-- `a_request_data' contains fields passed in by client and
 			-- can be modified before they are written.
@@ -426,7 +424,7 @@ feature -- Fields that are send with a request if set
 			--   Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.0.0) Gecko/20020529
 			--   Microsoft Internet Explorer
 
-	set_accept (value: STRING) is
+	set_accept (value: STRING)
 			-- Set the media types which are acceptable for the response.
 		require
 			value_void_or_not_empty: value = Void or else not value.is_empty
@@ -438,7 +436,7 @@ feature -- Fields that are send with a request if set
 				(accept.is_equal (value))
 		end
 
-	set_user_agent (value: STRING) is
+	set_user_agent (value: STRING)
 			-- Set the client identification.
 		require
 			value_void_or_not_empty: value = Void or else not value.is_empty
@@ -453,23 +451,25 @@ feature -- Fields that are send with a request if set
 
 feature -- Response
 
-	body: EPX_MIME_BODY_TEXT is
+	body: EPX_MIME_BODY_TEXT
 			-- Body as text, if applicable, else Void
 		local
 			stream: KI_CHARACTER_INPUT_STREAM
 		do
 			if response /= Void then
-				Result ?= response.body
-				if Result /= Void and then Result.stream.name.is_empty then
-					-- Set name of stream to full URI.
-					stream := Result.stream
-					stream.name.wipe_out
-					stream.name.append_string (last_uri)
+				if attached {EPX_MIME_BODY_TEXT} response.body as text_body then
+					Result := text_body
+					if Result.stream.name.is_empty then
+						-- Set name of stream to full URI.
+						stream := Result.stream
+						stream.name.wipe_out
+						stream.name.append_string (last_uri)
+					end
 				end
 			end
 		end
 
-	fields: DS_HASH_TABLE [EPX_MIME_FIELD, STRING] is
+	fields: DS_HASH_TABLE [EPX_MIME_FIELD, STRING]
 			-- Header fields of response
 		do
 			Result := response.header.fields
@@ -477,19 +477,19 @@ feature -- Response
 			fields_not_void: fields /= Void
 		end
 
-	is_response_ok: BOOLEAN is
+	is_response_ok: BOOLEAN
 			-- Does the returned `response_code' indicate success?
 		do
 			Result := response_code >= 200 and response_code <= 299
 		end
 
-	part: EPX_MIME_PART is
+	part: EPX_MIME_PART
 		obsolete "2006-10-28: use response instead"
 		do
 			Result := response
 		end
 
-	read_response is
+	read_response
 			-- Read entire response and make it available in
 			-- `response'. Header is available in `fields', and text body, if
 			-- any in `body'.
@@ -512,7 +512,7 @@ feature -- Response
 			do_read_response (True)
 		end
 
-	read_response_header is
+	read_response_header
 			-- Read the header and make it available in
 			-- `response'. Header is available in `fields'. Due to
 			-- buffering first part of body is usually also available in
@@ -527,7 +527,7 @@ feature -- Response
 			do_read_response (False)
 		end
 
-	read_response_with_redirect is
+	read_response_with_redirect
 			-- As `read_response', but if a redirect response code is
 			-- received, request is automatically redirected.
 			-- It assumes `last_verb' contains the verb of the last
@@ -596,7 +596,7 @@ feature -- Response
 
 feature -- Individual response fields, Void if not available
 
-	location: STRING is
+	location: STRING
 			-- The contents of the Location field in the header, if any
 		do
 			fields.search (field_name_location)
@@ -613,7 +613,7 @@ feature {NONE} -- Implementation
 	www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE
 			-- Authenticate field from last request, if any
 
-	authorization_value (a_verb, a_uri: STRING): STRING is
+	authorization_value (a_verb, a_uri: STRING): STRING
 			-- Value for Authorization field if `authentication_scheme' is basic
 		require
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
@@ -624,7 +624,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	basic_authorization_value (a_user_name, a_password: STRING): STRING is
+	basic_authorization_value (a_user_name, a_password: STRING): STRING
 		require
 			valid_user_name: is_valid_user_name (a_user_name)
 			valid_password: is_valid_password (a_password)
@@ -648,7 +648,7 @@ feature {NONE} -- Implementation
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	do_read_response (including_body: BOOLEAN) is
+	do_read_response (including_body: BOOLEAN)
 			-- Read response. If authentication is required, and
 			-- authentication `user_name' and `password' are available,
 			-- resend request with suitable authencation.
@@ -675,7 +675,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_do_read_response (including_body: BOOLEAN) is
+	do_do_read_response (including_body: BOOLEAN)
 		do
 			create parser.make_from_stream (http)
 			-- First line contains status code and HTTP version.
@@ -716,8 +716,8 @@ feature {NONE} -- Implementation
 					response_code = reply_code_unauthorized and then
 					response.header.has (field_name_www_authenticate)
 				if is_authentication_required then
-					www_authenticate ?= response.header.item (field_name_www_authenticate)
-					if www_authenticate /= Void then
+					if attached {EPX_MIME_FIELD_WWW_AUTHENTICATE} response.header.item (field_name_www_authenticate) as my_www_authenticate then
+						www_authenticate := my_www_authenticate
 						authentication_scheme := www_authenticate.scheme
 						if www_authenticate.realm = Void then
 							-- Bad response
@@ -731,7 +731,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	read_and_parse_status_line is
+	read_and_parse_status_line
 			-- First line is HTTP version and response.
 			-- But not always, there's some s**t out there that
 			-- immediately starts with the MIME headers. I don't try to
@@ -794,7 +794,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- MIME parser
 
-	escape_spaces (s: STRING): STRING is
+	escape_spaces (s: STRING): STRING
 		require
 			s_not_void: s /= Void
 		local
@@ -821,11 +821,11 @@ feature {NONE} -- MIME parser
 
 feature {NONE} -- Once strings
 
-	once_colon_space: STRING is ": "
-	once_connection_close: STRING is "Connection: close%R%N"
-	once_mime_version: STRING is "MIME-Version: 1.0%R%N"
-	once_new_line: STRING is "%R%N"
-	once_basic: STRING is "Basic"
+	once_colon_space: STRING = ": "
+	once_connection_close: STRING = "Connection: close%R%N"
+	once_mime_version: STRING = "MIME-Version: 1.0%R%N"
+	once_new_line: STRING = "%R%N"
+	once_basic: STRING = "Basic"
 
 
 invariant
