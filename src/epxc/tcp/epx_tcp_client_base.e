@@ -243,6 +243,8 @@ feature {NONE} -- Implementation
 
 	tcp_socket: ABSTRACT_TCP_CLIENT_SOCKET
 			-- `socket' cast to ABSTRACT_TCP_CLIENT_SOCKET
+		require
+			socket_not_void: socket /= Void
 		do
 			Result ?= socket
 		ensure

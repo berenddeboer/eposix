@@ -234,7 +234,7 @@ feature -- Requests
 			end
 			if not is_open then
 				open
-				if tcp_socket /= Void then
+				if is_open and then tcp_socket /= Void then
 					tcp_socket.set_throughput
 					tcp_socket.set_nodelay
 				end
