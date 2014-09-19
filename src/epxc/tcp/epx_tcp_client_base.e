@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -8,8 +8,6 @@ indexing
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -29,7 +27,7 @@ inherit
 
 feature {NONE} -- Initialisation
 
-	make (a_server_name, a_user_name, a_password: STRING) is
+	make (a_server_name, a_user_name, a_password: STRING)
 			-- Initialize.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
@@ -39,7 +37,7 @@ feature {NONE} -- Initialisation
 			make_with_port (a_server_name, 0, a_user_name, a_password)
 		end
 
-	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: STRING) is
+	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: STRING)
 			-- Initialize with a given port. If `a_port' is null the
 			-- `default_port' is taken.
 		require
@@ -61,7 +59,7 @@ feature {NONE} -- Initialisation
 
 feature -- Open and close
 
-	open is
+	open
 			-- Open connection to `server_name'. Check `is_open' if successful.
 			-- Check `last_reply_code' for details.
 		require
@@ -77,7 +75,7 @@ feature -- Open and close
 			end
 		end
 
-	close is
+	close
 			-- Close connection to server.
 		require
 			open: is_open
@@ -92,7 +90,7 @@ feature -- Open and close
 
 feature {NONE} -- Open
 
-	open_ssl is
+	open_ssl
 			-- Open secure connection to `server_name'.
 		require
 			closed: not is_open
@@ -107,7 +105,7 @@ feature {NONE} -- Open
 			socket := openssl
 		end
 
-	open_tcp is
+	open_tcp
 			-- Open connection to `server_name'.
 		require
 			closed: not is_open
@@ -129,14 +127,14 @@ feature {NONE} -- Open
 
 feature -- Access
 
-	default_port: INTEGER is
+	default_port: INTEGER
 			-- Default port for this protocol.
 		deferred
 		ensure
 			valid_port: Result >= 1 and then Result <= 65535
 		end
 
-	default_port_name: STRING is
+	default_port_name: STRING
 			-- Default port name for this protocol.
 		deferred
 		ensure
@@ -155,7 +153,7 @@ feature -- Access
 
 feature -- Status
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Has the end of input been reached? This indicates that the
 			-- server has closed the connection.
 		require
@@ -164,7 +162,7 @@ feature -- Status
 			Result := socket.end_of_input
 		end
 
-	is_authenticated: BOOLEAN is
+	is_authenticated: BOOLEAN
 			-- Has the user been authenticated?
 			-- This is an optional feature for certain implementation.
 		deferred
@@ -173,7 +171,7 @@ feature -- Status
 			only_when_open: not is_open implies not Result
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Is client connected to server?
 		do
 			Result := socket /= Void
@@ -181,7 +179,7 @@ feature -- Status
 			definition: Result implies socket /= Void
 		end
 
-	is_resolved: BOOLEAN is
+	is_resolved: BOOLEAN
 			-- Could host be found?
 			-- Set by `open'.
 		do
@@ -193,13 +191,13 @@ feature -- Status
 	is_secure_connection: BOOLEAN
 			-- Is SSL used to communicate with the server?
 
-	is_valid_user_name (a_user_name: STRING): BOOLEAN is
+	is_valid_user_name (a_user_name: STRING): BOOLEAN
 			-- Is `a_user_name' a valid user name?
 		do
 			Result := a_user_name = Void or else not a_user_name.is_empty
 		end
 
-	is_valid_password (a_password: STRING): BOOLEAN is
+	is_valid_password (a_password: STRING): BOOLEAN
 			-- Is `a_password' a valid password?
 		do
 			Result := a_password = Void or else not a_password.is_empty
@@ -208,7 +206,7 @@ feature -- Status
 
 feature -- Change
 
-	set_user_name_and_password (a_user_name, a_password: STRING) is
+	set_user_name_and_password (a_user_name, a_password: STRING)
 			-- Set both `user_name' and `password'.
 		require
 			valid_user_name: is_valid_user_name (a_user_name)
@@ -221,7 +219,7 @@ feature -- Change
 
 feature -- Commands
 
-	authenticate is
+	authenticate
 		-- Authenticate client with user `user_name' and password
 		-- `password'.
 		require
@@ -243,7 +241,7 @@ feature {NONE} -- Implementation
 			-- cannot be a ABSTRACT_TCP_CLIENT_SOCKET, which it would be
 			-- if ssl was natively supported.
 
-	tcp_socket: ABSTRACT_TCP_CLIENT_SOCKET is
+	tcp_socket: ABSTRACT_TCP_CLIENT_SOCKET
 			-- `socket' cast to ABSTRACT_TCP_CLIENT_SOCKET
 		do
 			Result ?= socket
