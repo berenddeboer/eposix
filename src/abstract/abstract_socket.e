@@ -1,12 +1,10 @@
-indexing
+note
 
 	description: "Base class for socket descriptors."
 
 	known_bugs: "Should inherit from ABSTRACT_DESCRIPTOPR, not from ABSTRACT_FILE_DESCRIPTOR."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 deferred class
@@ -32,7 +30,7 @@ inherit
 
 feature -- Status
 
-	supports_receive_buffer_size: BOOLEAN is
+	supports_receive_buffer_size: BOOLEAN
 			-- Does this socket implementation support querying and
 			-- setting the receive buffer size?
 			-- Supported on all platforms except BeOS
@@ -40,7 +38,7 @@ feature -- Status
 			Result := SO_RCVBUF /= 0
 		end
 
-	supports_send_buffer_size: BOOLEAN is
+	supports_send_buffer_size: BOOLEAN
 			-- Does this socket implementation support querying and
 			-- setting the send buffer size?
 			-- Supported on all platforms except BeOS
@@ -51,7 +49,7 @@ feature -- Status
 
 feature {NONE} -- Socket creation
 
-	new_socket (a_domain: INTEGER; a_type: INTEGER): INTEGER is
+	new_socket (a_domain: INTEGER; a_type: INTEGER): INTEGER
 			-- Return file descriptor for new socket. If error occurs, it
 			-- raises an exception when exceptions are enabled. If
 			-- exceptions are not enabled, it returns `unassigned_value'.
@@ -70,7 +68,7 @@ feature {NONE} -- Socket creation
 
 feature {NONE} -- Socket close
 
-	protected_close_socket (a_socket: INTEGER) is
+	protected_close_socket (a_socket: INTEGER)
 			-- Close `a_socket', but make sure errno is not reset by a
 			-- successful close. An exception will be raised if closing
 			-- the socket fails.
@@ -84,7 +82,7 @@ feature {NONE} -- Socket close
 
 feature -- Access
 
-	receive_buffer_size: INTEGER is
+	receive_buffer_size: INTEGER
 			-- Size of receive buffer;
 			-- Not supported on BeOS.
 		require
@@ -97,7 +95,7 @@ feature -- Access
 			positive: Result > 0
 		end
 
-	send_buffer_size: INTEGER is
+	send_buffer_size: INTEGER
 			-- Size of send buffer
 			-- Not supported on BeOS.
 		require
@@ -113,7 +111,7 @@ feature -- Access
 
 feature -- Change
 
-	set_receive_buffer_size (a_new_size: INTEGER) is
+	set_receive_buffer_size (a_new_size: INTEGER)
 			-- Set size of receive buffer to at least `a_new_size'.
 		require
 			can_set_receive_buffer_size: supports_receive_buffer_size
@@ -125,7 +123,7 @@ feature -- Change
 			size_set: receive_buffer_size >= a_new_size
 		end
 
-	set_send_buffer_size (a_new_size: INTEGER) is
+	set_send_buffer_size (a_new_size: INTEGER)
 			-- Set size of send buffer to at least `a_new_size'.
 		require
 			can_set_send_buffer_size: supports_send_buffer_size
@@ -176,7 +174,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API binding
 
-	abstract_getsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: POINTER): INTEGER is
+	abstract_getsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: POINTER): INTEGER
 			-- Get a socket option.
 		require
 			valid_socket: a_socket /= unassigned_value
@@ -187,7 +185,7 @@ feature {NONE} -- Abstract API binding
 			-- Result = -1 implies errno.value is set
 		end
 
-	abstract_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER is
+	abstract_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER
 			-- Set a socket option.
 		require
 			valid_socket: a_socket /= unassigned_value
@@ -198,7 +196,7 @@ feature {NONE} -- Abstract API binding
 			-- Result = -1 implies errno.value is set
 		end
 
-	abstract_socket (a_family, a_type, a_protocol: INTEGER): INTEGER is
+	abstract_socket (a_family, a_type, a_protocol: INTEGER): INTEGER
 			-- Create an endpoint for communication. When an error
 			-- occurs, `unassigned_value' is returned.
 		deferred
@@ -209,27 +207,27 @@ feature {NONE} -- Abstract API binding
 
 feature -- Callbacks for the Multiplexer
 
-	multiplexer_read_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER) is
+	multiplexer_read_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER)
 			-- callback for read
 		do
 		end
 
-	multiplexer_write_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER) is
+	multiplexer_write_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER)
 			-- callback for read
 		do
 		end
 
-	multiplexer_error_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER) is
+	multiplexer_error_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER)
 			-- callback for read
 		do
 		end
 
-	multiplexer_read_idle_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER) is
+	multiplexer_read_idle_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER)
 			-- callback for read
 		do
 		end
 
-	multiplexer_write_idle_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER) is
+	multiplexer_write_idle_callback (a_multiplexer: EPX_SOCKET_MULTIPLEXER)
 			-- callback for read
 		do
 		end

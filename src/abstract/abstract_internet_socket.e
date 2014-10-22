@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Base class for AF_INET/AF_INET6 sockets."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -22,7 +20,7 @@ inherit
 
 feature -- Change
 
-	set_low_delay is
+	set_low_delay
 			-- Minimize delay.
 		do
 			if IP_TOS /= 0 and then IPTOS_LOWDELAY /= 0 then
@@ -31,7 +29,7 @@ feature -- Change
 			end
 		end
 
-	set_throughput is
+	set_throughput
 			-- Maximize throughput.
 		do
 			if IP_TOS /= 0 and then IPTOS_THROUGHPUT /= 0 then
@@ -43,7 +41,7 @@ feature -- Change
 
 feature -- Local and remote addresses
 
-	local_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE is
+	local_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Return address used on this side to talk to remote.
 		require
 			open: is_open
@@ -61,7 +59,7 @@ feature -- Local and remote addresses
 			local_address_not_void: Result /= Void
 		end
 
-	remote_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE is
+	remote_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Return address used at remote side to talk to this side.
 		require
 			open: is_open
@@ -82,7 +80,7 @@ feature -- Local and remote addresses
 
 feature {NONE} -- Socket creation
 
-	new_socket (hp: EPX_HOST_PORT): INTEGER is
+	new_socket (hp: EPX_HOST_PORT): INTEGER
 			-- Return file descriptor for new socket. If error occurs, it
 			-- raises an exception when exceptions are enabled. If
 			-- exceptions are not enabled, it returns -1.
@@ -98,7 +96,7 @@ feature {NONE} -- Socket creation
 
 feature {NONE} -- Implementation
 
-	is_family_handled (a_family: INTEGER): BOOLEAN is
+	is_family_handled (a_family: INTEGER): BOOLEAN
 			-- Is family `a_family' correctly recognized by
 			-- `new_socket_address_in_from_pointer'?
 		do
@@ -107,7 +105,7 @@ feature {NONE} -- Implementation
 				a_family = AF_INET6
 		end
 
-	new_socket_address_in_from_pointer (buf: STDC_BUFFER; actual_length: INTEGER): ABSTRACT_SOCKET_ADDRESS_IN_BASE is
+	new_socket_address_in_from_pointer (buf: STDC_BUFFER; actual_length: INTEGER): ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Create a new ABSTRACT_SOCKET_ADDRESS_IN_BASE structure,
 			-- depending on the family found in `buf'.
 		require
@@ -133,7 +131,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API binding
 
-	abstract_getpeername (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER is
+	abstract_getpeername (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER
 			-- Retrieve the name of the peer to which a socket is connected.
 		require
 			valid_socket: a_socket /= unassigned_value
@@ -144,7 +142,7 @@ feature {NONE} -- Abstract API binding
 			-- Result = -1 implies errno.value is set
 		end
 
-	abstract_getsockname (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER is
+	abstract_getsockname (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER
 			-- Retrieve the local name for a socket.
 		require
 			valid_socket: a_socket /= unassigned_value

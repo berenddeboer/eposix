@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "AF_INET/AF_INET6 sockets, base class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class

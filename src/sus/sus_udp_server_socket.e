@@ -1,12 +1,10 @@
-indexing
+note
 
 	description: "UDP sockets for a client."
 
 	notes: "Currently, nothing distinguishes it from a TCP socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 class
@@ -26,7 +24,7 @@ create
 
 feature {NONE} -- Socket specific open functions
 
-	listen_by_address (sa: EPX_HOST_PORT) is
+	listen_by_address (sa: EPX_HOST_PORT)
 			-- Accept datagrams on socket for address specified in `sa'.
 		require
 			closed: not is_open

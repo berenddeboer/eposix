@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "SUSv3 portable implementation of a socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -34,7 +32,7 @@ create
 
 feature {NONE} -- Socket creation
 
-	new_socket (sa: EPX_HOST_PORT): INTEGER is
+	new_socket (sa: EPX_HOST_PORT): INTEGER
 			-- Return file descriptor for new socket. If error occurs, it
 			-- raises an exception when exceptions are enabled. If
 			-- exceptions are not enabled, it returns -1.
@@ -48,13 +46,13 @@ feature {NONE} -- Socket creation
 
 feature {NONE} -- Abstract API binding
 
-	abstract_getpeername (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER is
+	abstract_getpeername (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER
 			-- Retrieve the name of the peer to which a socket is connected.
 		do
 			Result := posix_getpeername (a_socket, a_address, a_address_length)
 		end
 
-	abstract_getsockname (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER is
+	abstract_getsockname (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER
 			-- Retrieve the local name for a socket.
 		do
 			Result := posix_getsockname (a_socket, a_address, a_address_length)

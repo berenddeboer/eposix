@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Windows portable implementation of a server side TCP socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -31,7 +29,7 @@ create
 
 feature {NONE} -- Socket options
 
-	reuse_address (a_socket: INTEGER): BOOLEAN is
+	reuse_address (a_socket: INTEGER): BOOLEAN
 			-- Can socket reuse address in the TIME_WAIT state?
 		do
 			my_flag_length := 4
@@ -39,8 +37,8 @@ feature {NONE} -- Socket options
 			Result := my_flag /= 0
 		end
 
-	set_reuse_address (a_socket: INTEGER; enable: BOOLEAN) is
-			-- Make it possible to bind to socket `a_scoket' even if it
+	set_reuse_address (a_socket: INTEGER; enable: BOOLEAN)
+			-- Make it possible to bind to socket `a_socket' even if it
 			-- is in the TIME_WAIT state.
 		do
 			if enable then
@@ -56,7 +54,7 @@ feature {NONE} -- Socket options
 
 feature {NONE} -- Abstract API binding
 
-	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER is
+	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER
 			-- Accept a connection on a socket.
 			-- The `an_address_length' argument is a value-result
 			-- parameter: it should initially contain the size of the
@@ -68,13 +66,13 @@ feature {NONE} -- Abstract API binding
 			Result := posix_accept (a_socket, an_address, an_address_length)
 		end
 
-	abstract_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER is
+	abstract_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER
 			-- Associate a local address with a socket.
 		do
 			Result := posix_bind (a_socket, an_address, an_address_len)
 		end
 
-	abstract_listen (a_socket, a_backlog: INTEGER): INTEGER is
+	abstract_listen (a_socket, a_backlog: INTEGER): INTEGER
 			-- Listen for socket connections and limit the queue of
 			-- incoming connections. Returns 0 on success, -1 on error.
 		do

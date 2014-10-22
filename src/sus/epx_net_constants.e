@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "SUSv3 specific network constants portable at the ABSTRACT_XXXX layer."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
