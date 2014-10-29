@@ -92,6 +92,34 @@ AC_STRUCT_ST_BLOCKS
 AC_HEADER_TIME
 
 #
+# Check for struct ip_mreqn
+#
+AC_MSG_CHECKING(for struct ip_mreqn)
+AC_TRY_COMPILE([#include <netinet/in.h>], [
+    struct ip_mreqn mreq;
+    mreq.imr_address.s_addr = 0;
+], [
+    # Yes, we have it...
+    AC_MSG_RESULT(yes)
+    AC_DEFINE([HAVE_STRUCT_IP_MREQN],[],[Support for struct ip_mreqn])
+], [
+    # We'll just have to try and use struct ip_mreq
+    AC_MSG_RESULT(no)
+    AC_MSG_CHECKING(for struct ip_mreq)
+    AC_TRY_COMPILE([#include <netinet/in.h>], [
+        struct ip_mreq mreq;
+        mreq.imr_interface.s_addr = 0;
+    ], [
+        # Yes, we have it...
+        AC_MSG_RESULT(yes)
+        AC_DEFINE([HAVE_STRUCT_IP_MREQ],[],[Support for struct ip_mreq])
+    ], [
+        # No multicast support
+        AC_MSG_ERROR([No multicast support])
+    ])
+])
+
+#
 # Checks for library functions.
 #
 # if a test is commented out this means autoscan has detected it,

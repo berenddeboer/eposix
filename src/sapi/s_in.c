@@ -81,7 +81,7 @@ EIF_INTEGER const_ip_tos() {
   return IP_TOS;
 #else
   return 0;
-#endif;
+#endif
 }
 
 EIF_INTEGER const_ip_ttl() {
@@ -89,7 +89,69 @@ EIF_INTEGER const_ip_ttl() {
   return IP_TTL;
 #else
   return 0;
-#endif;
+#endif
+}
+
+
+/* Multicast extensions, not in SUS */
+
+EIF_INTEGER const_ip_multicast_ttl() {
+#ifdef IP_MULTICAST_TTL
+  return IP_MULTICAST_TTL;
+#else
+  return 0;
+#endif
+}
+
+EIF_INTEGER const_ip_multicast_if() {
+#ifdef IP_MULTICAST_IF
+  return IP_MULTICAST_IF;
+#else
+  return 0;
+#endif
+}
+
+EIF_INTEGER const_ip_multicast_loop() {
+#ifdef IP_MULTICAST_LOOP
+  return IP_MULTICAST_LOOP;
+#else
+  return 0;
+#endif
+}
+
+
+/* RFC3768 socket level options */
+
+EIF_INTEGER const_ip_add_membership() {
+#ifdef IP_ADD_MEMBERSHIP
+  return IP_ADD_MEMBERSHIP;
+#else
+  return 0;
+#endif
+}
+
+EIF_INTEGER const_ip_block_source() {
+#ifdef IP_BLOCK_SOURCE
+  return IP_BLOCK_SOURCE;
+#else
+  return 0;
+#endif
+}
+
+EIF_INTEGER const_ip_unblock_source() {
+#ifdef IP_UNBLOCK_SOURCE
+  return IP_UNBLOCK_SOURCE;
+#else
+  return 0;
+#endif
+}
+
+EIF_INTEGER const_ip_drop_membership() {
+#ifdef IP_DROP_MEMBERSHIP
+  return IP_DROP_MEMBERSHIP;
+#else
+  return 0;
+#endif
 }
 
 
@@ -126,7 +188,7 @@ EIF_POINTER posix_in6_addr_s6_addr(struct in6_addr *p)
 
 void posix_set_in6_addr_s6_addr(struct in6_addr *p, EIF_POINTER my_s6_addr)
 {
-  memmove (p->s6_addr, my_s6_addr, (sizeof (struct in6_addr)));
+  memmove (&p->s6_addr, my_s6_addr, (sizeof (struct in6_addr)));
 }
 #else
 EIF_INTEGER posix_in6_addr_size()
@@ -265,4 +327,63 @@ void posix_set_sockaddr_in6_sin6_port(EIF_POINTER p, EIF_INTEGER sin_port)
 void posix_set_sockaddr_in6_sin6_addr(EIF_POINTER p, EIF_POINTER sin_addr)
 {
 }
+#endif
+
+
+/* struct ip_mreq */
+
+EIF_INTEGER posix_ip_mreq_size()
+{
+#ifdef HAVE_STRUCT_IP_MREQN
+   return (sizeof (struct ip_mreqn));
+#elif HAVE_STRUCT_IP_MREQ
+   return (sizeof (struct ip_mreq));
+#else
+   return 0;
+#endif
+}
+
+#ifdef HAVE_STRUCT_IP_MREQN
+EIF_POINTER posix_ip_mreq_imr_multiaddr(struct ip_mreqn *p) {
+  return &p->imr_multiaddr;
+}
+
+EIF_POINTER posix_ip_mreq_imr_interface(struct ip_mreqn *p) {
+  return &p->imr_address;
+}
+
+
+void posix_set_ip_mreq_imr_multiaddr(struct ip_mreqn *p, EIF_POINTER imr_multiaddr)
+{
+  memmove (&p->imr_multiaddr, imr_multiaddr, (sizeof (struct in_addr)));
+}
+
+void posix_set_ip_mreq_imr_interface(struct ip_mreqn *p, EIF_POINTER imr_interface)
+{
+  memmove (&p->imr_address, imr_interface, (sizeof (struct in_addr)));
+}
+
+#else
+
+EIF_POINTER posix_ip_mreq_imr_multiaddr(struct ip_mreq *p)
+{
+  return (EIF_POINTER) p->imr_multiaddr;
+}
+
+EIF_POINTER posix_ip_mreq_imr_interface(struct ip_mreq *p)
+{
+  return (EIF_POINTER) p->imr_interface;
+}
+
+
+void posix_set_ip_mreq_imr_multiaddr(struct ip_mreq *p, EIF_POINTER imr_multiaddr)
+{
+  p->imr_multiaddr = (in_addr) imr_multiaddr;
+}
+
+void posix_set_ip_mreq_imr_interface(struct ip_mreq *p, EIF_POINTER imr_interface)
+{
+  p->imr_interface = (in_addr) imr_interface;
+}
+
 #endif

@@ -2,6 +2,8 @@
 
 Access to Single Unix Specification netinet/in.h.
 
+It also adds support for rfc3678 extensions.
+
 */
 
 #ifndef _S_IN_H_
@@ -9,8 +11,14 @@ Access to Single Unix Specification netinet/in.h.
 
 #include "s_defs.h"
 
+#ifdef HAVE_STRUCT_IP_MREQN
+#undef _XOPEN_SOURCE
+#endif
+
 /* FreeBSD likes sys/stat.h */
 #include <sys/stat.h>
+/* Linux likes <string.h> */
+#include <string.h>
 #include <netinet/in.h>
 #include "../supportc/eiffel.h"
 
@@ -38,6 +46,21 @@ EIF_INTEGER const_ipproto_udp();
 
 EIF_INTEGER const_ip_tos();
 EIF_INTEGER const_ip_ttl();
+
+
+/* Multicast extensions, not in SUS */
+
+EIF_INTEGER const_ip_multicast_ttl();
+EIF_INTEGER const_ip_multicast_if();
+EIF_INTEGER const_ip_multicast_loop();
+
+
+/* RFC3768, not available on all platforms */
+
+EIF_INTEGER const_ip_add_membership();
+EIF_INTEGER const_ip_block_source();
+EIF_INTEGER const_ip_unblock_source();
+EIF_INTEGER const_ip_drop_membership();
 
 
 /* struct in_addr */
@@ -104,6 +127,34 @@ EIF_INTEGER posix_sockaddr_in6_sin6_scope_id(EIF_POINTER p);
 void posix_set_sockaddr_in6_sin6_family(EIF_POINTER p, EIF_INTEGER sin_family);
 void posix_set_sockaddr_in6_sin6_port(EIF_POINTER p, EIF_INTEGER sin_port);
 void posix_set_sockaddr_in6_sin6_addr(EIF_POINTER p, EIF_POINTER sin_addr);
+#endif
+
+
+/* struct ip_mreq */
+
+EIF_INTEGER posix_ip_mreq_size();
+
+#ifndef HAVE_STRUCT_IP_MREQN
+#ifndef HAVE_STRUCT_IP_MREQ
+struct ip_mreq {
+      struct in_addr imr_multiaddr;  /* IP address of group */
+      struct in_addr imr_interface;  /* IP address of interface */
+   };
+#endif
+#endif
+
+#ifdef HAVE_STRUCT_IP_MREQN
+EIF_POINTER posix_ip_mreq_imr_multiaddr(struct ip_mreqn *p);
+EIF_POINTER posix_ip_mreq_imr_interface(struct ip_mreqn *p);
+
+void posix_set_ip_mreq_imr_multiaddr(struct ip_mreqn *p, EIF_POINTER imr_multiaddr);
+void posix_set_ip_mreq_imr_interface(struct ip_mreqn *p, EIF_POINTER imr_interface);
+#else
+EIF_POINTER posix_ip_mreq_imr_multiaddr(struct ip_mreq *p);
+EIF_POINTER posix_ip_mreq_imr_interface(struct ip_mreq *p);
+
+void posix_set_ip_mreq_imr_multiaddr(struct ip_mreq *p, EIF_POINTER imr_multiaddr);
+void posix_set_ip_mreq_imr_interface(struct ip_mreq *p, EIF_POINTER imr_interface);
 #endif
 
 
