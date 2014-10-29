@@ -27,31 +27,6 @@ create
 	listen_by_address
 
 
-feature {NONE} -- Socket options
-
-	reuse_address (a_socket: INTEGER): BOOLEAN
-			-- Can socket reuse address in the TIME_WAIT state?
-		do
-			my_flag_length := 4
-			safe_call (abstract_getsockopt (a_socket, SOL_SOCKET, SO_REUSEADDR, $my_flag, $my_flag_length))
-			Result := my_flag /= 0
-		end
-
-	set_reuse_address (a_socket: INTEGER; enable: BOOLEAN)
-			-- Make it possible to bind to socket `a_socket' even if it
-			-- is in the TIME_WAIT state.
-		do
-			if enable then
-				my_flag := 1
-			else
-				my_flag := 0
-			end
-			safe_call (abstract_setsockopt (a_socket, SOL_SOCKET, SO_REUSEADDR, $my_flag, 4))
-		ensure then
-			reuse_address_set: enable = reuse_address (a_socket)
-		end
-
-
 feature {NONE} -- Abstract API binding
 
 	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER

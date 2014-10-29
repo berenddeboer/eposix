@@ -120,9 +120,6 @@ feature {NONE} -- Implementation
 	client_socket_address: STDC_BUFFER
 			-- Memory area where details of accepted connection are stored.
 
-	my_flag_length:  INTEGER
-			-- Variable to receive returned length of option in `getsockopt'.
-
 
 feature {NONE} -- Abstract API binding
 

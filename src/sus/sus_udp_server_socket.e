@@ -38,6 +38,7 @@ feature {NONE} -- Socket specific open functions
 			do_make
 			a_fd := new_socket (sa)
 			if a_fd /= -1 then
+				set_default_socket_options (a_fd)
 				r := posix_bind (a_fd, sa.socket_address.ptr, sa.socket_address.length)
 				if r /= -1 then
 					capacity := 1
@@ -58,6 +59,15 @@ feature {NONE} -- Socket specific open functions
 			open_files_increased_by_one:
 				is_owner implies
 					security.files.open_files = old security.files.open_files + 1
+		end
+
+
+feature {NONE} -- Implementation
+
+	set_default_socket_options (a_socket: like fd)
+			-- Set default options for a newly created socket.
+		do
+			-- set_reuse_address (a_socket, true)
 		end
 
 
