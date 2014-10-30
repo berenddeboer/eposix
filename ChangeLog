@@ -1,3 +1,10 @@
+2014-10-30  Berend de Boer  <berend@pobox.com>
+
+	* !Sockets: renamed `fd' to `socket' for socket classes.
+
+	* !Multicast: added multicast support for UDP sockets.
+
+
 2014-08-21  Berend de Boer  <berend@pobox.com>
 
 	* !EPX_IMAP4_RESPONSE_PARSER: now properly upgraded to latest geyacc/gelex.
