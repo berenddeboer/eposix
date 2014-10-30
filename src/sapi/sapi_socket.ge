@@ -122,6 +122,22 @@ feature {NONE} -- Functions
 #endif
 		end
 
+	posix_recvfrom (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER; a_src_addr: detachable POINTER; an_addrlen: POINTER): INTEGER
+			-- Receives data from a connected or bound socket and in
+			-- addition returns the sender's address.
+			-- Behaves like `posix_recv' if `a_src_addr' is Void.
+		require
+			valid_socket: a_socket > 0
+			valid_buf: buf /= default_pointer
+			valid_bytes: nbyte >= 0
+			an_addrlen_not_void: a_src_addr /= Void = an_addrlen /= Void
+#ifdef ISE
+		external "C blocking"
+#else
+		external "C"
+#endif
+		end
+
 	posix_send (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER): INTEGER
 			-- Sends data on a connected socket.
 		require

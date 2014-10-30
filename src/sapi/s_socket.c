@@ -43,6 +43,11 @@ EIF_INTEGER posix_recv(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF
   return recv (socket, buf, len, flags);
 }
 
+EIF_INTEGER posix_recvfrom(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags, EIF_POINTER src_addr, EIF_POINTER addrlen)
+{
+  return recvfrom (socket, buf, len, flags, src_addr, addrlen);
+}
+
 EIF_INTEGER posix_send(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags)
 {
   return send (socket, buf, len, flags);

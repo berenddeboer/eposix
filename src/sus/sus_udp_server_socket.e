@@ -97,6 +97,8 @@ feature -- Socket options
 			-- If `a_local_interface_address' is not set, the system will
 			-- pick a suitable local interface.
 			-- See RFC 3678.
+		require
+			multicast_supported: is_multicast_supported
 		local
 			imr: EPX_BUFFER
 		do
