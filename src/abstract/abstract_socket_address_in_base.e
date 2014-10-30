@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Base class for classes that describe sockaddr_in and sockaddr_in6. Basically this is a struct with an address family, an IP address, and a port."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 deferred class
@@ -24,7 +22,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make (an_ip_address: ABSTRACT_IP_ADDRESS; a_port: INTEGER) is
+	make (an_ip_address: ABSTRACT_IP_ADDRESS; a_port: INTEGER)
 			-- Initialize sockaddr_in from `an_address'.
 		require
 			an_ip_address_not_void: an_ip_address /= Void
@@ -40,7 +38,7 @@ feature {NONE} -- Initialization
 			port_set: port = a_port
 		end
 
-	make_from_pointer (an_address: POINTER; a_size: INTEGER) is
+	make_from_pointer (an_address: POINTER; a_size: INTEGER)
 			-- Initialize a socket address by passing it a memory
 			-- location where the information is stored. The information
 			-- in `an_address' is copied.
@@ -48,6 +46,7 @@ feature {NONE} -- Initialization
 			-- family supported by this class.
 		require
 			a_size_equal_to_length: a_size = length
+			inet_or_inet6_address_family: true
 		do
 			create buf.allocate (length)
 			buf.memory_copy (an_address, 0, 0, a_size)
@@ -66,19 +65,19 @@ feature -- Access
 	address: ABSTRACT_IP_ADDRESS
 			-- IP address.
 
-	address_family: INTEGER is
+	address_family: INTEGER
 			-- Family, probably AF_INET or AF_INET6.
 		deferred
 		end
 
-	port: INTEGER is
+	port: INTEGER
 			-- 16-bit TCP or UDP port number.
 		deferred
 		ensure
 			valid_port_number: port >= 0 and port <= 65535
 		end
 
-	supported_family: INTEGER is
+	supported_family: INTEGER
 			-- Family supported by this struct.
 			-- Should be hard coded to return the family supported by the struct.
 		deferred
@@ -87,7 +86,7 @@ feature -- Access
 
 feature -- Status
 
-	is_ip_address_family: BOOLEAN is
+	is_ip_address_family: BOOLEAN
 			-- Is `address_family' the IPv4 or IPv6 protocol?
 		deferred
 		ensure
@@ -97,7 +96,7 @@ feature -- Status
 
 feature {NONE} -- Access
 
-	sin_addr: POINTER is
+	sin_addr: POINTER
 			-- Pointer to sin_addr (or sin6_addr) field.
 		deferred
 		ensure
@@ -107,7 +106,7 @@ feature {NONE} -- Access
 
 feature -- Set
 
-	set_address (an_ip_address: ABSTRACT_IP_ADDRESS) is
+	set_address (an_ip_address: ABSTRACT_IP_ADDRESS)
 			-- Set `address_family' and `address'.
 		require
 			an_ip_address_not_void: an_ip_address /= Void
@@ -118,7 +117,7 @@ feature -- Set
 			address_family_set: address_family = an_ip_address.address_family
 		end
 
-	set_port (a_port: INTEGER) is
+	set_port (a_port: INTEGER)
 			-- Set `port'.
 		require
 			valid_port: a_port >= 0 and a_port <= 65535
@@ -130,14 +129,14 @@ feature -- Set
 
 feature -- Features the C API calls like
 
-	length: INTEGER is
+	length: INTEGER
 			-- Size of my struct (sockaddr_in or sockaddr_in6).
 		deferred
 		ensure
 			length_positive: length > 0
 		end
 
-	frozen ptr: POINTER is
+	frozen ptr: POINTER
 			-- Points to struct sockaddr_in or sockaddr_in6.
 		do
 			Result := buf.ptr
