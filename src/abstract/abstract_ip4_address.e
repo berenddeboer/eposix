@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "IPv4 address at the ABSTRACT_XXXX level."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 class
@@ -22,7 +20,7 @@ inherit
 
 feature -- Initialization
 
-	make_from_any is
+	make_from_any
 			-- Initialize using the any address (i.e. 0.0.0.0).
 		do
 			make_from_integer (INADDR_ANY)
@@ -30,7 +28,7 @@ feature -- Initialization
 			any_address: value= INADDR_ANY
 		end
 
-	make_from_integer (a_value: INTEGER) is
+	make_from_integer (a_value: INTEGER)
 			-- Initialize ip address from 32-bit integer.
 		do
 			if buf = Void then
@@ -41,7 +39,7 @@ feature -- Initialization
 			value_set: a_value = value
 		end
 
-	make_from_loopback is
+	make_from_loopback
 			-- Initialize using the loopback address (i.e. 127.0.0.1).
 		do
 			make_from_integer (INADDR_LOOPBACK)
@@ -49,7 +47,7 @@ feature -- Initialization
 			loopback: is_loopback_address
 		end
 
-	make_from_components (a1, a2, a3, a4: INTEGER) is
+	make_from_components (a1, a2, a3, a4: INTEGER)
 			-- Make IP4 address given the four individual fields of an IP
 			-- 4 address.
 		require
@@ -74,7 +72,7 @@ feature -- Initialization
 			make_from_integer (a)
 		end
 
-	make_from_pointer (a_ptr: POINTER) is
+	make_from_pointer (a_ptr: POINTER)
 			-- Initialize ip address from 32-bit integer pointed to by `a_ptr'.
 			-- We assume `a_ptr' points to a value in network byte order.
 		local
@@ -90,7 +88,7 @@ feature -- Initialization
 
 feature -- Status
 
-	is_loopback_address: BOOLEAN is
+	is_loopback_address: BOOLEAN
 			-- Does this IP address refer to the loopback address?
 		do
 			Result := value = INADDR_LOOPBACK
@@ -101,7 +99,7 @@ feature -- Status
 
 feature -- Access
 
-	value: INTEGER is
+	value: INTEGER
 			-- IPv4 address as 32-bit integer.
 			-- Value is in host byte order.
 		local
@@ -114,7 +112,7 @@ feature -- Access
 
 feature -- Change
 
-	set_value (new_value: INTEGER) is
+	set_value (new_value: INTEGER)
 			-- Change IP address `value' to `new_value'.
 		local
 			n: INTEGER
@@ -128,7 +126,7 @@ feature -- Change
 
 feature -- Comparison
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Is `other' IP4 address equal to this IP address?
 		do
 			Result := value = other.value
@@ -137,7 +135,7 @@ feature -- Comparison
 
 feature -- Output
 
-	out: STRING is
+	out: STRING
 			-- Friendly out
 		do
 			Result := sh.pointer_to_string (abstract_api.posix_inet_ntoa (buf.ptr))
@@ -146,10 +144,10 @@ feature -- Output
 
 feature -- General ip address features
 
-	address_length: INTEGER is 4
+	address_length: INTEGER = 4
 			-- Length of an IPv4 address is 4.
 
-	address_family: INTEGER is
+	address_family: INTEGER
 			-- Is it an ip4 or ip6 address.
 		do
 			Result := AF_INET
@@ -158,7 +156,7 @@ feature -- General ip address features
 
 feature {NONE} -- Implementation
 
-	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER
 			-- Read integer at position `index'.
 		require
 			valid_memory: p /= default_pointer
