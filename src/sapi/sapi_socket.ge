@@ -130,7 +130,7 @@ feature {NONE} -- Functions
 			valid_socket: a_socket > 0
 			valid_buf: buf /= default_pointer
 			valid_bytes: nbyte >= 0
-			an_addrlen_not_void: a_src_addr /= Void = an_addrlen /= Void
+			an_addrlen_not_void: (a_src_addr = default_pointer) = (an_addrlen = default_pointer)
 #ifdef ISE
 		external "C blocking"
 #else
