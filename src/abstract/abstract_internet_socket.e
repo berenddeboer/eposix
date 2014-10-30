@@ -22,19 +22,23 @@ feature -- Change
 
 	set_low_delay
 			-- Minimize delay.
+		require
+			open: is_open
 		do
 			if IP_TOS /= 0 and then IPTOS_LOWDELAY /= 0 then
 				my_flag := IPTOS_LOWDELAY
-				safe_call (abstract_setsockopt (fd, IPPROTO_IP, IP_TOS, $my_flag, 4))
+				safe_call (abstract_setsockopt (socket, IPPROTO_IP, IP_TOS, $my_flag, 4))
 			end
 		end
 
 	set_throughput
 			-- Maximize throughput.
+		require
+			open: is_open
 		do
 			if IP_TOS /= 0 and then IPTOS_THROUGHPUT /= 0 then
 				my_flag := IPTOS_THROUGHPUT
-				safe_call (abstract_setsockopt (fd, IPPROTO_IP, IP_TOS, $my_flag, 4))
+				safe_call (abstract_setsockopt (socket, IPPROTO_IP, IP_TOS, $my_flag, 4))
 			end
 		end
 
@@ -51,7 +55,7 @@ feature -- Local and remote addresses
 			if my_local_address = Void then
 				create buf.allocate_and_clear (256)
 				address_length := buf.capacity
-				safe_call (abstract_getsockname (fd, buf.ptr, $address_length))
+				safe_call (abstract_getsockname (socket, buf.ptr, $address_length))
 				my_local_address := new_socket_address_in_from_pointer (buf, address_length)
 			end
 			Result := my_local_address
@@ -69,7 +73,7 @@ feature -- Local and remote addresses
 			if my_remote_address = Void then
 				create buf.allocate_and_clear (256)
 				address_length := buf.capacity
-				safe_call (abstract_getpeername (fd, buf.ptr, $address_length))
+				safe_call (abstract_getpeername (socket, buf.ptr, $address_length))
 				my_remote_address := new_socket_address_in_from_pointer (buf, address_length)
 			end
 			Result := my_remote_address

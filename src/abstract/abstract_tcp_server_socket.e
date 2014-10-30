@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Platform independent base class for TCP/SOCK_STREAM sockets, server side."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 deferred class
@@ -22,7 +20,7 @@ inherit
 
 feature -- Socket specific open functions
 
-	listen_by_address (hp: EPX_HOST_PORT) is
+	listen_by_address (hp: EPX_HOST_PORT)
 			-- Listen on socket for address specified in `hp'.
 			-- It uses a backlog of `backlog_default' maximum pending
 			-- connections.
@@ -43,15 +41,15 @@ feature -- Socket specific open functions
 			abstract_api.posix_set_sockaddr_sa_family (client_socket_address.ptr, AF_INET)
 			a_fd := new_socket (hp)
 			if a_fd /= -1 then
+				capacity := 1
+				set_handle (a_fd, True)
 				if SO_REUSEADDR /= 0 then
-					set_reuse_address (a_fd, True)
+					set_reuse_address (True)
 				end
 				r := abstract_bind (a_fd, hp.socket_address.ptr, hp.socket_address.length)
 				if r /= -1 then
 					r := abstract_listen (a_fd, backlog_default)
 					if r /= -1 then
-						capacity := 1
-						set_handle (a_fd, True)
 						-- Optimize for streaming reads/writes.
 						set_streaming (True)
 						is_open_read := True
@@ -76,7 +74,7 @@ feature -- Socket specific open functions
 
 feature -- Accept
 
-	accept: ABSTRACT_TCP_SOCKET is
+	accept: ABSTRACT_TCP_SOCKET
 			-- Return the next completed connection from the front of the
 			-- completed connection queue. If there are no completed
 			-- connections, the process is put to sleep.
@@ -90,7 +88,7 @@ feature -- Accept
 			client_fd: INTEGER
 		do
 			address_length := client_socket_address.capacity
-			client_fd := abstract_accept (fd, client_socket_address.ptr, $address_length)
+			client_fd := abstract_accept (socket, client_socket_address.ptr, $address_length)
 			if client_fd = unassigned_value then
 				if errno.is_not_ok and then errno.value /= EAGAIN and then errno.value /= EWOULDBLOCK and then errno.value /= EINTR  then
 					raise_posix_error
@@ -109,7 +107,7 @@ feature -- Accept
 
 feature {NONE} -- Implementation
 
-	backlog_default: INTEGER is
+	backlog_default: INTEGER
 			-- While there is no good definition of backlog, it indicates
 			-- the maximum length the queue of pending connections may
 			-- grow to. Whatever that may mean.
@@ -123,7 +121,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API binding
 
-	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER is
+	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER
 			-- Accept a connection on a socket.
 			-- The `an_address_length' argument is a value-result
 			-- parameter: it should initially contain the size of the
@@ -139,7 +137,7 @@ feature {NONE} -- Abstract API binding
 			-- Result = unassigned_value implies errno.value is set
 		end
 
-	abstract_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER is
+	abstract_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER
 			-- Associate a local address with a socket.
 		require
 			valid_socket: a_socket /= unassigned_value
@@ -150,7 +148,7 @@ feature {NONE} -- Abstract API binding
 			-- Result = -1 implies errno.value is set
 		end
 
-	abstract_listen (a_socket, a_backlog: INTEGER): INTEGER is
+	abstract_listen (a_socket, a_backlog: INTEGER): INTEGER
 			-- Listen for socket connections and limit the queue of
 			-- incoming connections. Returns 0 on success, -1 on error.
 		require
@@ -163,7 +161,7 @@ feature {NONE} -- Abstract API binding
 
 feature {NONE} -- Socket options
 
-	set_reuse_address (a_socket: INTEGER; enable: BOOLEAN) is
+	set_reuse_address (enable: BOOLEAN)
 			-- Make it possible to bind to socket `a_scoket' even if it
 			-- is in the TIME_WAIT state.
 			-- This option should not call set SO_REUSEADDR on Windows,
@@ -173,6 +171,7 @@ feature {NONE} -- Socket options
 			-- http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winsock/winsock/using_so_reuseaddr_and_so_exclusiveaddruse.asp
 		require
 			SO_REUSEADDR_available: SO_REUSEADDR /= 0
+			open: is_open
 		deferred
 		end
 

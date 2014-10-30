@@ -18,7 +18,8 @@ inherit
 
 	ABSTRACT_DESCRIPTOR
 		rename
-			attach_to_descriptor as attach_to_socket
+			attach_to_descriptor as attach_to_socket,
+			fd as socket
 		undefine
 			is_blocking_io,
 			set_blocking_io,
@@ -86,10 +87,11 @@ feature -- Access
 			-- Size of receive buffer;
 			-- Not supported on BeOS.
 		require
+			open: is_open
 			can_query_receive_buffer_size: supports_receive_buffer_size
 		do
 			address_length := 4
-			safe_call (abstract_getsockopt (fd, SOL_SOCKET, SO_RCVBUF, $my_flag, $address_length))
+			safe_call (abstract_getsockopt (socket, SOL_SOCKET, SO_RCVBUF, $my_flag, $address_length))
 			Result := my_flag
 		ensure
 			positive: Result > 0
@@ -99,10 +101,11 @@ feature -- Access
 			-- Size of send buffer
 			-- Not supported on BeOS.
 		require
+			open: is_open
 			can_query_send_buffer_size: supports_send_buffer_size
 		do
 			address_length := 4
-			safe_call (abstract_getsockopt (fd, SOL_SOCKET, SO_SNDBUF, $my_flag, $address_length))
+			safe_call (abstract_getsockopt (socket, SOL_SOCKET, SO_SNDBUF, $my_flag, $address_length))
 			Result := my_flag
 		ensure
 			positive: Result > 0
@@ -114,11 +117,12 @@ feature -- Change
 	set_receive_buffer_size (a_new_size: INTEGER)
 			-- Set size of receive buffer to at least `a_new_size'.
 		require
+			open: is_open
 			can_set_receive_buffer_size: supports_receive_buffer_size
 			size_positive: a_new_size > 0
 		do
 			my_flag := a_new_size
-			safe_call (abstract_setsockopt (fd, SOL_SOCKET, SO_RCVBUF, $my_flag, 4))
+			safe_call (abstract_setsockopt (socket, SOL_SOCKET, SO_RCVBUF, $my_flag, 4))
 		ensure
 			size_set: receive_buffer_size >= a_new_size
 		end
@@ -126,11 +130,12 @@ feature -- Change
 	set_send_buffer_size (a_new_size: INTEGER)
 			-- Set size of send buffer to at least `a_new_size'.
 		require
+			open: is_open
 			can_set_send_buffer_size: supports_send_buffer_size
 			size_positive: a_new_size > 0
 		do
 			my_flag := a_new_size
-			safe_call (abstract_setsockopt (fd, SOL_SOCKET, SO_SNDBUF, $my_flag, 4))
+			safe_call (abstract_setsockopt (socket, SOL_SOCKET, SO_SNDBUF, $my_flag, 4))
 		ensure
 			size_set: send_buffer_size >= a_new_size
 		end

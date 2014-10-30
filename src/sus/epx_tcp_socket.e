@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "SUSv3 portable implementation of a TCP socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -30,10 +28,10 @@ create
 
 feature {NONE} -- Shutdown
 
-	shutdown (a_how: INTEGER) is
+	shutdown (a_how: INTEGER)
 			-- Shut down part of a full-duplex connection.
 		do
-			safe_call (posix_shutdown (fd, a_how))
+			safe_call (posix_shutdown (socket, a_how))
 		end
 
 end

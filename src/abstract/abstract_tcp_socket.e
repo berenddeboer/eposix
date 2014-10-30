@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Base class for TCP/SOCK_STREAM sockets."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 deferred class
@@ -19,7 +17,7 @@ inherit
 
 feature -- Shutdown
 
-	shutdown_read is
+	shutdown_read
 			-- The read-half of the connection is closed. No more data
 			-- can be received on the socket and any data currently in
 			-- the socket receive buffer is discarded. The process can no
@@ -36,7 +34,7 @@ feature -- Shutdown
 			not_readable: not is_open_read
 		end
 
-	shutdown_read_write is
+	shutdown_read_write
 			-- The read-half and write-half of the connection are both
 			-- closed. This is equivalent to calling `shutdown-read' and
 			-- `shutdown_write'.
@@ -52,7 +50,7 @@ feature -- Shutdown
 			not_writable: not is_open_write
 		end
 
-	shutdown_write is
+	shutdown_write
 			-- The write-half of the connection is closed. In the case of
 			-- TCP, this is called a half-close. Any data currently in
 			-- the socket send buffer will be sent, followed by TCP's
@@ -71,18 +69,20 @@ feature -- Shutdown
 
 feature -- Socket options
 
-	set_nodelay is
+	set_nodelay
 			-- Disable TCP's Nagle algorithm. By default this algorithm
 			-- is enabled.
+		require
+			open: is_open
 		do
 			my_flag := 1
-			safe_call (abstract_setsockopt (fd, IPPROTO_TCP, TCP_NODELAY, $my_flag, 4))
+			safe_call (abstract_setsockopt (socket, IPPROTO_TCP, TCP_NODELAY, $my_flag, 4))
 		end
 
 
 feature {NONE} -- Shutdown
 
-	shutdown (a_how: INTEGER) is
+	shutdown (a_how: INTEGER)
 			-- Shut down part of a full-duplex connection.
 		require
 			open: is_open
