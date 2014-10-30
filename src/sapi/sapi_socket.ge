@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers the Single Unix Spec sys/socket.h header."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -14,7 +12,7 @@ class
 
 feature {NONE} -- Functions
 
-	posix_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER is
+	posix_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER
 			-- Accept a connection on a socket.
 			-- The `an_address_length' argument is a value-result
 			-- parameter: it should initially contain the size of the
@@ -36,7 +34,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER is
+	posix_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER
 			-- Bind a socket.
 		require
 			valid_socket: a_socket >= 0
@@ -51,7 +49,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_connect (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER is
+	posix_connect (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER
 			-- Connect a socket.
 		require
 			valid_socket: a_socket >= 0
@@ -66,7 +64,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_getpeername (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER is
+	posix_getpeername (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER
 			-- Get name of connected peer.
 		require
 			valid_socket: a_socket >= 0
@@ -77,7 +75,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_getsockname (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER is
+	posix_getsockname (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER
 			-- Get socket name.
 		require
 			valid_socket: a_socket >= 0
@@ -88,7 +86,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_getsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: POINTER): INTEGER is
+	posix_getsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: POINTER): INTEGER
 			-- Get a socket option.
 		require
 			valid_socket: a_socket >= 0
@@ -99,7 +97,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_listen (a_socket, a_backlog: INTEGER): INTEGER is
+	posix_listen (a_socket, a_backlog: INTEGER): INTEGER
 			-- Listen for socket connections and limit the queue of
 			-- incoming connections. Returns 0 on success, -1 on error.
 #ifdef ISE
@@ -111,7 +109,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_recv (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER): INTEGER is
+	posix_recv (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER): INTEGER
 			-- Receives data from a connected or bound socket.
 		require
 			valid_socket: a_socket >= 0
@@ -124,7 +122,7 @@ feature {NONE} -- Functions
 #endif
 		end
 
-	posix_send (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER): INTEGER is
+	posix_send (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER): INTEGER
 			-- Sends data on a connected socket.
 		require
 			valid_socket: a_socket >= 0
@@ -137,7 +135,7 @@ feature {NONE} -- Functions
 #endif
 		end
 
-	posix_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER is
+	posix_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER
 			-- Set the socket options.
 		require
 			valid_socket: a_socket >= 0
@@ -148,7 +146,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_shutdown (a_socket: INTEGER; a_how: INTEGER): INTEGER is
+	posix_shutdown (a_socket: INTEGER; a_how: INTEGER): INTEGER
 			-- Shut down part of a full-duplex connection.
 		require
 			valid_socket: a_socket >= 0
@@ -161,7 +159,7 @@ feature {NONE} -- Functions
 			-- Result = -1 implies errno is set
 		end
 
-	posix_socket (a_family, a_type, a_protocol: INTEGER): INTEGER is
+	posix_socket (a_family, a_type, a_protocol: INTEGER): INTEGER
 			-- Create an endpoint for communication.
 		external "C"
 		ensure
@@ -171,21 +169,21 @@ feature {NONE} -- Functions
 
 feature -- C binding for members of sockaddr
 
-	posix_sockaddr_size: INTEGER is
+	posix_sockaddr_size: INTEGER
 		external "C"
 		end
 
-	posix_sockaddr_sa_family (a_sockaddr: POINTER): INTEGER is
+	posix_sockaddr_sa_family (a_sockaddr: POINTER): INTEGER
 			-- address family: AF_xxx value
 		external "C"
 		end
 
-	posix_sockaddr_sa_data (a_sockaddr: POINTER): POINTER is
+	posix_sockaddr_sa_data (a_sockaddr: POINTER): POINTER
 			-- ptr to protocol-specific address buffer
 		external "C"
 		end
 
-	posix_set_sockaddr_sa_family (a_sockaddr: POINTER; sa_family: INTEGER) is
+	posix_set_sockaddr_sa_family (a_sockaddr: POINTER; sa_family: INTEGER)
 		external "C"
 		end
 
