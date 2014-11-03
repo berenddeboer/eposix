@@ -43,7 +43,7 @@ feature -- Socket specific open functions
 					is_open_write := True
 				else
 					protected_close_socket (a_fd)
-					fd := unassigned_value
+					socket := unassigned_value
 					raise_posix_error
 				end
 			end
