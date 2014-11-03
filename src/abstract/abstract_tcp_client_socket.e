@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Base class for TCP/SOCK_STREAM sockets, client side."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 deferred class
@@ -19,7 +17,7 @@ inherit
 
 feature -- Socket specific open functions
 
-	open_by_address (hp: EPX_HOST_PORT) is
+	open_by_address (hp: EPX_HOST_PORT)
 			-- Open socket to server specified in `hp'.
 		require
 			closed: not is_open
@@ -55,7 +53,7 @@ feature -- Socket specific open functions
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_by_name_and_port (a_host_name: STRING; a_port: INTEGER) is
+	open_by_name_and_port (a_host_name: STRING; a_port: INTEGER)
 			-- Initialize given a server name and port.
 			-- If `a_host_name' is an ip address, the result is unspecified.
 			-- If `a_host_name' cannot be resolved, an exception is thrown.
@@ -84,7 +82,7 @@ feature -- Socket specific open functions
 
 feature {NONE} -- Abstract API binding
 
-	abstract_connect (a_socket: INTEGER; an_address: POINTER; an_address_length: INTEGER): INTEGER is
+	abstract_connect (a_socket: INTEGER; an_address: POINTER; an_address_length: INTEGER): INTEGER
 			-- Connect a socket.
 		require
 			valid_socket: a_socket /= unassigned_value
@@ -96,7 +94,7 @@ feature {NONE} -- Abstract API binding
 
 feature {NONE} -- Once strings
 
-	once_tcp: STRING is "tcp"
+	once_tcp: STRING = "tcp"
 
 
 end
