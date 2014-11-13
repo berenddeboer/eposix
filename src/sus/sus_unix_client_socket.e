@@ -37,7 +37,7 @@ feature {NONE} -- Socket specific open functions
 			socket_address: SUS_SOCKET_ADDRESS_UN
 		do
 			-- is_existing test creates `path' so is_open is True...
-			fd := unassigned_value
+			socket := unassigned_value
 			do_make
 			a_fd := new_socket (AF_UNIX, a_socket_type)
 			if a_fd /= -1 then
