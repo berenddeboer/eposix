@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "AF_UNIX (AF_LOCAL) SOCK_STREAM/SOCK_DGRAM sockets, client side."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -24,7 +22,7 @@ create
 
 feature {NONE} -- Socket specific open functions
 
-	open_by_path (a_path_name: STRING; a_socket_type: INTEGER) is
+	open_by_path (a_path_name: STRING; a_socket_type: INTEGER)
 			-- Open socket to local name `a_path_name'.
 		require
 			closed: not is_open
