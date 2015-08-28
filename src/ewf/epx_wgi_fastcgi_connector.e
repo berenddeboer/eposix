@@ -12,7 +12,7 @@ note
 
 class
 
-	EPX_WGI_FASTCGI_CONNECTOR
+	EPX_WGI_FASTCGI_CONNECTOR [G -> WGI_EXECUTION create make end]
 
 
 inherit
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_service: attached like wgi_service; an_options: attached like options_template)
+	make (an_options: attached like options_template)
 		require
 			options_not_void: an_options /= Void
 			valid_port: an_options.port > 0 and then an_options.port <= 65535
@@ -42,7 +42,6 @@ feature {NONE} -- Initialization
 		do
 			options := an_options
 			terminate_signal := options.terminate_signal
-			wgi_service := a_service
 			create tcp_service.make_from_port (options.port, once "tcp")
 		end
 
@@ -66,9 +65,6 @@ feature -- Access
 
 feature {NONE} -- Access
 
-	wgi_service: WGI_SERVICE
-			-- Gateway Service
-
 	options: attached like options_template
 
 
@@ -86,7 +82,7 @@ feature -- Server
 	launch
 		local
 			my_client: ABSTRACT_TCP_SOCKET
-			handler: EPX_WSF_REQUEST_HANDLER
+			handler: EPX_WSF_REQUEST_HANDLER [G]
 		do
 			create pending_handlers.make
 			from
@@ -96,7 +92,7 @@ feature -- Server
 			loop
 				my_client := socket.accept
 				if my_client /= Void then
-					create handler.make (wgi_service, my_client)
+					create handler.make (my_client)
 					if options.no_fork then
 						handler.execute
 					else

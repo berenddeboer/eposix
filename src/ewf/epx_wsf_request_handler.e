@@ -12,7 +12,7 @@ note
 
 class
 
-	EPX_WSF_REQUEST_HANDLER
+	EPX_WSF_REQUEST_HANDLER [G -> WGI_EXECUTION create make end]
 
 
 inherit
@@ -29,12 +29,11 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_service: attached like service; a_socket: attached ABSTRACT_TCP_SOCKET)
+	make (a_socket: attached ABSTRACT_TCP_SOCKET)
 		require
 			socket_not_void: a_socket /= Void
 			open: a_socket.is_open
 		do
-			service := a_service
 			socket := a_socket
 		end
 
@@ -49,9 +48,6 @@ feature -- Access
 
 	socket: attached ABSTRACT_TCP_SOCKET
 
-	service: WGI_SERVICE
-			-- Gateway Service
-
 
 feature -- Execution
 
@@ -64,6 +60,7 @@ feature -- Execution
 			input: WGI_INPUT_STREAM
 			output: WGI_OUTPUT_STREAM
 			error: WGI_ERROR_STREAM
+			exec: detachable WGI_EXECUTION
 		do
 			if not rescued then
 				create fcgi.make (socket)
@@ -75,7 +72,9 @@ feature -- Execution
 					create req.make (fcgi.parameters, input, Current)
 					-- TODO: pass error stream
 					create res.make (output, error)
-					service.execute (req, res)
+					create {G} exec.make (req, res)
+					exec.execute
+					exec.clean
 				end
 				fcgi.close
 			else
@@ -104,6 +103,5 @@ feature -- Execution
 invariant
 
 	socket_not_void: socket /= Void
-	service_not_void: service /= Void
 
 end

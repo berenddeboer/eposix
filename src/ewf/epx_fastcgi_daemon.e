@@ -14,7 +14,7 @@ note
 
 deferred class
 
-	EPX_FASTCGI_DAEMON
+	EPX_FASTCGI_DAEMON [G -> WSF_EXECUTION create make end]
 
 
 inherit
@@ -25,20 +25,7 @@ inherit
 			setup_signals
 		end
 
-	WSF_URI_TEMPLATE_ROUTED_SERVICE
-		rename
-			execute as execute_service,
-			execute_default as execute_service_default
-		redefine
-			execute_service_default
-		end
-
-	WSF_HANDLER_HELPER
-
-	WSF_DEFAULT_SERVICE
-		rename
-			execute as execute_service
-		end
+	WSF_DEFAULT_SERVICE [G]
 
 
 inherit {NONE}
@@ -51,25 +38,20 @@ feature -- Execution
 	execute
 			-- Call `service_execute' which will loop until a STOP signal
 			-- has been received.
-		local
-			s: WSF_DEFAULT_SERVICE_LAUNCHER
-			options: like options_template
 		do
-			initialize_router
-			create options
-			options.terminate_signal := terminate_signal
+			set_service_option ("terminate_signal", terminate_signal)
 			if port_option.was_found then
-				options.port := port_option.parameter
+				set_service_option ("port", port_option.parameter)
 			else
-				options.port := default_port
+				set_service_option ("port", default_port)
 			end
 			if bind_option.was_found then
-				options.bind := bind_option.parameter
+				set_service_option ("bind", bind_option.parameter)
 			end
 			if foreground_mode_flag.was_found then
-				options.no_fork := True
+				set_service_option ("no_fork", True)
 			end
-			create s.make_and_launch (Current, options)
+			launch (service_options)
 		end
 
 	execute_service_default (req: WSF_REQUEST; res: WSF_RESPONSE)

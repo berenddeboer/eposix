@@ -4,17 +4,15 @@ note
 
 class
 
-	WSF_DEFAULT_SERVICE_LAUNCHER
+	WSF_DEFAULT_SERVICE_LAUNCHER [G -> WSF_EXECUTION create make end]
 
 inherit
 
-	EPX_WSF_FASTCGI_SERVICE_LAUNCHER
+	EPX_WSF_FASTCGI_SERVICE_LAUNCHER [G]
 
 create
+
 	make,
-	make_and_launch,
-	make_callback,
-	make_callback_and_launch,
-	make_and_launch_service -- obsolete
+	make_and_launch
 
 end

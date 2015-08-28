@@ -48,6 +48,11 @@ feature -- Status report
 			Result := fcgi.socket.is_open_write
 		end
 
+	is_available: BOOLEAN
+		do
+			Result := is_open_write
+		end
+
 
 feature -- Status writing
 
