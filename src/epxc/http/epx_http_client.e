@@ -37,7 +37,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make (a_server_name: STRING) is
+	make (a_server_name: STRING)
 			-- Prepare for request to `a_server_name'.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
@@ -45,13 +45,13 @@ feature {NONE} -- Initialization
 			make_with_port (a_server_name, 0)
 		end
 
-	make_from_port (a_server_name: STRING; a_port: INTEGER) is
+	make_from_port (a_server_name: STRING; a_port: INTEGER)
 		obsolete "2004-12-16 use make_with_port instead."
 		do
 			make_with_port (a_server_name, a_port)
 		end
 
-	make_with_port (a_server_name: STRING; a_port: INTEGER) is
+	make_with_port (a_server_name: STRING; a_port: INTEGER)
 			-- Prepare for request.
 			-- Use `port' is 0 to use the default port (80).
 		require
@@ -61,7 +61,7 @@ feature {NONE} -- Initialization
 			make_authenticate_with_port (a_server_name, a_port, Void, Void)
 		end
 
-	make_from_host (a_host: EPX_HOST) is
+	make_from_host (a_host: EPX_HOST)
 			-- Prepare for request to resolved `a_host'. If `port' is 0,
 			-- the default port is taken, else the port can be overruled.
 		require
@@ -70,7 +70,7 @@ feature {NONE} -- Initialization
 			make_from_host_and_port (a_host, 0)
 		end
 
-	make_from_host_and_port (a_host: EPX_HOST; a_port: INTEGER) is
+	make_from_host_and_port (a_host: EPX_HOST; a_port: INTEGER)
 			-- Prepare for request to `a_host'. If `port' is 0, the
 			-- default port is taken, else the port can be overruled.
 		require
@@ -81,7 +81,7 @@ feature {NONE} -- Initialization
 			host := a_host
 		end
 
-	make_secure (a_server_name: STRING) is
+	make_secure (a_server_name: STRING)
 			-- Prepare for secure (SSL) request to `a_host'.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
@@ -91,7 +91,7 @@ feature {NONE} -- Initialization
 			https: is_secure_connection
 		end
 
-	make_secure_with_port (a_server_name: STRING; a_port: INTEGER) is
+	make_secure_with_port (a_server_name: STRING; a_port: INTEGER)
 			-- Prepare for secure (SSL) request to `a_host'.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
@@ -106,7 +106,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	default_port: INTEGER is
+	default_port: INTEGER
 			-- Default port for this protocol.
 		do
 			if is_secure_connection then
@@ -116,7 +116,7 @@ feature -- Access
 			end
 		end
 
-	default_port_name: STRING is
+	default_port_name: STRING
 			-- Default port name for this protocol.
 		do
 			if is_secure_connection then
@@ -132,7 +132,7 @@ feature -- Access
 
 feature -- Open and close
 
-	close is
+	close
 		do
 			is_authenticated := False
 			precursor
@@ -141,7 +141,7 @@ feature -- Open and close
 
 feature -- Requests
 
-	get (path: STRING) is
+	get (path: STRING)
 			-- Send GET request to server. Use `read_response' to fetch
 			-- the response.
 		require
@@ -152,7 +152,7 @@ feature -- Requests
 
 feature -- Response
 
-	read_response is
+	read_response
 			-- Read entire response and make it available in
 			-- `response'.
 		require
@@ -160,7 +160,7 @@ feature -- Response
 		deferred
 		end
 
-	read_raw_response is
+	read_raw_response
 			-- Read entire resonse, but don't parse or interpret it in
 			-- any way. Put the response in `raw_response'.
 		require
@@ -180,7 +180,7 @@ feature -- Response
 
 feature -- Client http version
 
-	client_version: STRING is
+	client_version: STRING
 			-- Client's version of the http protocol
 		deferred
 		ensure
@@ -190,11 +190,11 @@ feature -- Client http version
 
 feature {NONE} -- Implementation
 
-	authenticate is
+	authenticate
 		do
 		end
 
-	assert_closed is
+	assert_closed
 			-- Make sure http is no longer connected.
 		do
 			if is_open then
