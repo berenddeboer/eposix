@@ -357,6 +357,8 @@ feature -- File and string
 				Result := buffer.substring (0, file.last_read - 1)
 				file.close
 				buffer.deallocate
+			else
+				Result := ""
 			end
 		ensure
 			file_to_string_void: Result /= Void
