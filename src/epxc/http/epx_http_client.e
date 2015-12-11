@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements the basics of an HTTP client."
 
@@ -6,8 +6,6 @@ indexing
 		"1. raise exception when Content-Length and number of octects in message body do not match (RFC2616, section 4.4.)."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 deferred class
