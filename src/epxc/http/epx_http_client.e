@@ -153,7 +153,8 @@ feature -- Requests
 feature -- Response
 
 	read_response is
-			-- Read entire resonse.
+			-- Read entire response and make it available in
+			-- `response'.
 		require
 			open: is_open
 		deferred
