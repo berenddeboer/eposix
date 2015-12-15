@@ -10,9 +10,9 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES)
 
 epx_ldif_scanner.e: epx_ldif_scanner.l
-	gelex -o temp.e epx_ldif_scanner.l
-	mv temp.e $@
+	gelex -o $@.tmp epx_ldif_scanner.l
+	mv $@.tmp $@
 
 epx_ldif_parser.e: epx_ldif_parser.y
-	geyacc --new_typing -t EPX_LDIF_TOKENS -v verbose.txt -o temp.e epx_ldif_parser.y
-	mv temp.e $@
+	geyacc --new_typing -t EPX_LDIF_TOKENS -v verbose.txt -o $@.tmp epx_ldif_parser.y
+	mv $@.tmp $@
