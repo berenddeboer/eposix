@@ -367,23 +367,23 @@ void posix_set_ip_mreq_imr_interface(struct ip_mreqn *p, EIF_POINTER imr_interfa
 
 EIF_POINTER posix_ip_mreq_imr_multiaddr(struct ip_mreq *p)
 {
-  return (EIF_POINTER) p->imr_multiaddr;
+  return (EIF_POINTER) &p->imr_multiaddr;
 }
 
 EIF_POINTER posix_ip_mreq_imr_interface(struct ip_mreq *p)
 {
-  return (EIF_POINTER) p->imr_interface;
+  return (EIF_POINTER) &p->imr_interface;
 }
 
 
 void posix_set_ip_mreq_imr_multiaddr(struct ip_mreq *p, EIF_POINTER imr_multiaddr)
 {
-  p->imr_multiaddr = (in_addr) imr_multiaddr;
+  memmove (&p->imr_multiaddr, imr_multiaddr, (sizeof (struct in_addr)));
 }
 
 void posix_set_ip_mreq_imr_interface(struct ip_mreq *p, EIF_POINTER imr_interface)
 {
-  p->imr_interface = (in_addr) imr_interface;
+  memmove (&p->imr_interface, imr_interface, (sizeof (struct in_addr)));
 }
 
 #endif

@@ -15,6 +15,7 @@ It also adds support for rfc3678 extensions.
 #undef _XOPEN_SOURCE
 #endif
 
+#include <arpa/inet.h>
 /* FreeBSD likes sys/stat.h */
 #include <sys/stat.h>
 /* Linux likes <string.h> */
