@@ -167,7 +167,7 @@ feature {NONE} -- Socket options
 			-- This option should not call set SO_REUSEADDR on Windows,
 			-- as Windows does something completely different. On Windows
 			-- SO_REUSEADDR will hijack the port and give indeterminate
-			-- results. That's propbably a common option on Windows... See
+			-- results. That's propably a common option on Windows... See
 			-- http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winsock/winsock/using_so_reuseaddr_and_so_exclusiveaddruse.asp
 		require
 			SO_REUSEADDR_available: SO_REUSEADDR /= 0
