@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Headers for a MIME message or MIME part."
 
@@ -6,8 +6,6 @@ indexing
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 class
@@ -34,6 +32,8 @@ inherit
 			{NONE} all
 		end
 
+	EPX_MIME_ROUTINES
+
 	KL_IMPORTED_STRING_ROUTINES
 		export
 			{NONE} all
@@ -46,11 +46,13 @@ create
 
 feature -- Initialization
 
-	make_default is
+	make_default
 			-- Make MIME header with no fields. Useful during parsing to
 			-- construct the message gradually.
 		local
 			equality_tester: KL_STRING_EQUALITY_TESTER
+			-- Doesn't work:
+			-- equality_tester: KL_CASE_INSENSITIVE_STRING_EQUALITY_TESTER
 		do
 			create all_fields.make
 			create fields.make (64)
@@ -61,7 +63,7 @@ feature -- Initialization
 
 feature -- Measurement
 
-	count: INTEGER is
+	count: INTEGER
 			-- The number of fields in this header.
 		do
 			Result := all_fields.count
@@ -70,13 +72,13 @@ feature -- Measurement
 
 feature -- Status report
 
-	found: BOOLEAN is
+	found: BOOLEAN
 			-- Did last call to `search' succeed?
 		do
 			Result := fields.found
 		end
 
-	found_item: EPX_MIME_FIELD is
+	found_item: EPX_MIME_FIELD
 			-- Item found by last call to `search'
 		require
 			found: found
@@ -84,9 +86,9 @@ feature -- Status report
 			Result := fields.found_item
 		end
 
-	has (a_field_name: STRING): BOOLEAN is
+	has (a_field_name: STRING): BOOLEAN
 			-- Does `a_field_name' exists just once in the header?
-			-- Be aware that the comparison is case-sensitive unfortunately.
+			-- Comparison is case-sensitive unfortunately at the moment.
 		require
 			a_field_name_not_empty: a_field_name /= Void and then not a_field_name.is_empty
 		do
@@ -105,7 +107,7 @@ feature -- Access
 			-- Add/delete fields by calling `add_field' and
 			-- `delete_field'. Never modify this structure directly!
 
-	item (a_field_name: STRING): EPX_MIME_FIELD is
+	item (a_field_name: STRING): EPX_MIME_FIELD
 			-- Field corresponding to `a_field_name' if it exists
 			-- just once in the header
 		require
@@ -118,6 +120,8 @@ feature -- Access
 
 
 feature -- Access to well-known fields
+
+	cache_control: EPX_MIME_UNSTRUCTURED_FIELD
 
 	content_length: EPX_MIME_FIELD_CONTENT_LENGTH
 			-- Field `Content-Length' if it exists, else Void
@@ -135,9 +139,23 @@ feature -- Access to well-known fields
 			-- Field `Transfer-Encoding' if it exists, else Void
 
 
+feature -- Access to well-known fields
+
+	cache_control_field: EPX_MIME_FIELD
+			-- Field `Cache-Control' if it exists, else Void.
+		do
+			fields.search (field_name_cache_control)
+			if fields.found then
+				Result := fields.found_item
+			end
+		ensure
+			definition: fields.has (field_name_cache_control) = (Result /= Void)
+		end
+
+
 feature -- Change
 
-	set_content_length (a_bytes: INTEGER) is
+	set_content_length (a_bytes: INTEGER)
 			-- Set Content-Length.
 		require
 			bytes_not_negative: a_bytes >= 0
@@ -158,7 +176,7 @@ feature -- Change
 
 feature {NONE} -- Set well-known fields
 
-	set_cached_field (a_field: EPX_MIME_FIELD) is
+	set_cached_field (a_field: EPX_MIME_FIELD)
 			-- Make some often used fields more easily available.
 		do
 			if STRING_.same_string (a_field.name, field_name_content_length) then
@@ -177,7 +195,7 @@ feature {NONE} -- Set well-known fields
 
 feature -- Search
 
-	search (a_field_name: STRING) is
+	search (a_field_name: STRING)
 			-- Search if `a_field_name' is a unique field name.
 			-- If found, set `found' to true, and set
 			-- `found_item' to the found field.
@@ -190,7 +208,7 @@ feature -- Search
 
 feature -- Change
 
-	add_field (a_field: EPX_MIME_FIELD) is
+	add_field (a_field: EPX_MIME_FIELD)
 			-- Append `a_field' to header. `a_field' must not already exist.
 		require
 			a_field_not_void: a_field /= Void
@@ -205,7 +223,20 @@ feature -- Change
 			field_is_last: all_fields.last = a_field
 		end
 
-	add_non_unique_field (a_field: EPX_MIME_FIELD) is
+	add_new_field (a_name, a_value: STRING)
+			-- Add new unstructured field.
+		require
+			valid_name: is_valid_mime_name (a_name)
+			value_not_void: a_value /= Void
+			field_not_exists: not has (a_name)
+		local
+			field: EPX_MIME_UNSTRUCTURED_FIELD
+		do
+			create field.make (a_name, a_value)
+			add_field (field)
+		end
+
+	add_non_unique_field (a_field: EPX_MIME_FIELD)
 			-- Append `a_field' to header. There may already exist a
 			-- field with this name.
 		require
@@ -220,7 +251,7 @@ feature -- Change
 			field_is_last: all_fields.last = a_field
 		end
 
-	delete_field (a_field_name: STRING) is
+	delete_field (a_field_name: STRING)
 			-- Remove the unique field with name `a_field_name'.
 		require
 			has_field: has (a_field_name)
@@ -248,7 +279,7 @@ feature -- Change
 
 feature -- Change specific fields
 
-	set_content_type (a_type, a_subtype, a_charset: STRING) is
+	set_content_type (a_type, a_subtype, a_charset: STRING)
 			-- Set `content_type' to `a_type'/`a_subtype'.
 			-- Optionally set the the character set of `a_charset' is not
 			-- Void or not empty.
@@ -274,7 +305,7 @@ feature -- Change specific fields
 				STRING_.same_string (content_type.subtype, a_subtype)
 		end
 
-	set_content_type_text_html_utf8 is
+	set_content_type_text_html_utf8
 			-- Set Content-Type to text/html. Character set is set to
 			-- UTF-8.
 		do
@@ -289,13 +320,13 @@ feature -- Change specific fields
 				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
-	set_content_type_text_plain is
+	set_content_type_text_plain
 		obsolete "2008-03-17: please use set_content_type_text_plain_utf8"
 		do
 			set_content_type_text_plain_utf8
 		end
 
-	set_content_type_text_plain_utf8 is
+	set_content_type_text_plain_utf8
 			-- Set Content-Type to text/plain. Character set is set to
 			-- UTF-8.
 		do
@@ -317,10 +348,51 @@ feature -- Change specific fields
 			set_content_type (mime_type_application, mime_subtype_json, charset_utf8)
 		end
 
+	set_cache_control (a_cache_directives: ARRAY [STRING])
+			-- The Cache-Control general-header field is used to specify
+			-- directives that MUST be obeyed by all caching mechanisms
+			-- along the request/response chain. The directives specify
+			-- behavior intended to prevent caches from adversely
+			-- interfering with the request or response. These directives
+			-- typically override the default caching algorithms. Cache
+			-- directives are unidirectional in that the presence of a
+			-- directive in a request does not imply that the same
+			-- directive is to be given in the response.
+			-- See RFC 2616, section 14.9 for more details
+		require
+			at_least_one_directive: a_cache_directives /= Void and then a_cache_directives.count > 0
+		local
+			field: EPX_MIME_UNSTRUCTURED_FIELD
+			serialization: STRING
+			i: INTEGER
+		do
+			create serialization.make (a_cache_directives.item (a_cache_directives.lower).count * a_cache_directives.count)
+			from
+				i := a_cache_directives.lower
+			until
+				i > a_cache_directives.upper
+			loop
+				serialization.append_string (a_cache_directives.item (i))
+				if i < a_cache_directives.upper then
+					serialization.append_character (',')
+					serialization.append_character (' ')
+				end
+				i := i + 1
+			end
+			if field = Void then
+				create field.make (field_name_cache_control, serialization)
+				add_field (field)
+			else
+				field.set_value (serialization)
+			end
+		ensure
+			cache_control_field_set: cache_control_field /= Void
+		end
+
 
 feature -- Output
 
-	append_fields_to_string (s: STRING) is
+	append_fields_to_string (s: STRING)
 			-- Stream `fields' to `s' Does not add the body separator.
 		require
 			s_not_void: s /= Void
@@ -335,7 +407,7 @@ feature -- Output
 			end
 		end
 
-	as_string: STRING is
+	as_string: STRING
 			-- Header in readable format;
 			--  Does not include the body separator.
 		do
@@ -348,7 +420,7 @@ feature -- Output
 
 feature {NONE} -- Implementation
 
-	fields_and_all_fields_are_in_sync: BOOLEAN is
+	fields_and_all_fields_are_in_sync: BOOLEAN
 			-- Are `all_fields' and `fields' synchronized?
 			-- Every field in `fields' should appear in `all_fields' and
 			-- every field name in `all_fields' should appear in
