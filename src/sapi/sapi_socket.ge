@@ -151,6 +151,21 @@ feature {NONE} -- Functions
 #endif
 		end
 
+	posix_sendto (a_socket: INTEGER; buf: POINTER; nbyte: INTEGER; flags: INTEGER; a_dest_addr: POINTER; an_addrlen: INTEGER): INTEGER
+			-- Sends data on a connected socket.
+		require
+			valid_socket: a_socket >= 0
+			valid_buf: buf /= default_pointer
+			valid_bytes: nbyte >= 0
+			valid_destination: a_dest_addr /= default_pointer
+			valid_address_length: an_addrlen > 0
+#ifdef ISE
+		external "C blocking"
+#else
+		external "C"
+#endif
+		end
+
 	posix_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER
 			-- Set the socket options.
 		require

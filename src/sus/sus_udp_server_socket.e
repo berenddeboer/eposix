@@ -13,6 +13,9 @@ class
 inherit
 
 	SUS_UDP_SOCKET
+		rename
+			put_string as not_yet_applicable_put_string
+		end
 
 	SAPI_IN
 		export

@@ -27,6 +27,7 @@ EIF_INTEGER posix_listen(EIF_INTEGER socket, EIF_INTEGER backlog);
 EIF_INTEGER posix_recv(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags);
 EIF_INTEGER posix_recvfrom(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags, EIF_POINTER src_addr, EIF_POINTER addrlen);
 EIF_INTEGER posix_send(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags);
+EIF_INTEGER posix_sendto(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags, EIF_POINTER dest_addr, EIF_INTEGER addrlen);
 EIF_INTEGER posix_setsockopt(EIF_INTEGER socket, EIF_INTEGER level, EIF_INTEGER option_name, EIF_POINTER option_value, EIF_INTEGER option_len);
 EIF_INTEGER posix_shutdown (EIF_INTEGER sockfd, EIF_INTEGER howto);
 EIF_INTEGER posix_socket (EIF_INTEGER family, EIF_INTEGER type, EIF_INTEGER protocol);

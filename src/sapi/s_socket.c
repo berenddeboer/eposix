@@ -53,6 +53,10 @@ EIF_INTEGER posix_send(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF
   return send (socket, buf, len, flags);
 }
 
+EIF_INTEGER posix_sendto(EIF_INTEGER socket, EIF_POINTER buf, EIF_INTEGER len, EIF_INTEGER flags, EIF_POINTER dest_addr, EIF_INTEGER addrlen) {
+  return sendto (socket, buf, len, flags, dest_addr, addrlen);
+}
+
 EIF_INTEGER posix_setsockopt(EIF_INTEGER socket, EIF_INTEGER level, EIF_INTEGER option_name, EIF_POINTER option_value, EIF_INTEGER option_len)
 {
   return setsockopt(socket, level, option_name, option_value, option_len);
