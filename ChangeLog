@@ -1,3 +1,8 @@
+2016-01-14  Berend de Boer  <berend@pobox.com>
+
+	* !Add sendto() API call. Still needs better support in UDP server socket.
+
+
 2015-08-28  Berend de Boer  <berend@pobox.com>
 
 	* Make EWF code work against latest Eiffel-Web-Framework.
