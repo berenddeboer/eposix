@@ -60,6 +60,7 @@
 			</condition>
 			<file_rule>
 				<exclude>/epxw$</exclude>
+        <exclude>/ewf$</exclude>
 				<exclude>/capi/spec/ge$</exclude>
 				<exclude>/capi/spec/se$</exclude>
 				<exclude>/capi/spec/ve$</exclude>
@@ -86,6 +87,7 @@
 				<platform value="windows"/>
 			</condition>
 			<file_rule>
+        <exclude>/ewf$</exclude>
 				<exclude>/epxp$</exclude>
 				<exclude>/epxs$</exclude>
 				<exclude>/papi$</exclude>
