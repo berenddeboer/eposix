@@ -1,9 +1,7 @@
-indexing
+note
 
 	description: "GEC conversion of strings to pointers and vice versa."
 
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 class
 
@@ -20,7 +18,7 @@ inherit
 
 feature -- GE specific conversions
 
-	pointer_to_string (p: POINTER): STRING is
+	pointer_to_string (p: POINTER): STRING
 		do
 			if p = default_pointer then
 				Result := ""
@@ -29,16 +27,16 @@ feature -- GE specific conversions
 			end
 		end
 
-	set_string_from_pointer (s: STRING; p: POINTER) is
+	set_string_from_pointer (s: STRING; p: POINTER)
 		do
 			if p = default_pointer then
-				s.clear_all
+				s.wipe_out
 			else
 				s.make_from_c (p)
 			end
 		end
 
-	string_to_pointer (s: STRING): POINTER is
+	string_to_pointer (s: detachable STRING): POINTER
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The area is zero-terminated.
 			-- `s' may contain '%U' characters, but you will have to be
@@ -51,9 +49,8 @@ feature -- GE specific conversions
 		local
 			uc: UC_STRING
 		do
-			if s /= Void then
-				uc ?= s
-				if uc = Void or else uc.count = uc.byte_count then
+			if attached s then
+				if not attached {UC_STRING} s as uc or else uc.count = uc.byte_count then
 					Result := do_string_to_pointer (s)
 				else
 					Result := do_uc_string_to_pointer (uc)
@@ -61,7 +58,7 @@ feature -- GE specific conversions
 			end
 		end
 
-	uc_string_to_pointer (s: UC_STRING): POINTER is
+	uc_string_to_pointer (s: UC_STRING): POINTER
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The string is encoded in UTF-8. The area is
 			-- zero-terminated.
@@ -73,7 +70,7 @@ feature -- GE specific conversions
 			-- The returned pointer is read-only, it probably does not
 			-- point to `s' because a new string is created!
 		do
-			if s /= Void then
+			if attached s then
 				if s.count /= s.byte_count then
 					Result := do_uc_string_to_pointer (s)
 				else
@@ -82,7 +79,7 @@ feature -- GE specific conversions
 			end
 		end
 
-	unfreeze_all is
+	unfreeze_all
 		do
 			-- Nothing to do
 		end
@@ -90,7 +87,7 @@ feature -- GE specific conversions
 
 feature {NONE} -- Implementation
 
-	do_string_to_pointer (s: STRING): POINTER is
+	do_string_to_pointer (s: STRING): POINTER
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The area is zero-terminated.
 		local
@@ -104,7 +101,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_uc_string_to_pointer (s: UC_STRING): POINTER is
+	do_uc_string_to_pointer (s: UC_STRING): POINTER
 			-- Return a pointer to a linear area containing all the data
 			-- in the Unicode string `s'.
 		local

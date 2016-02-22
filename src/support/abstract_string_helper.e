@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,8 +6,6 @@ indexing
 
 	thanks: "The mico/E team for the idea."
 
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #15 $"
 
 deferred class
 
@@ -40,7 +38,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			empty_string: p = default_pointer implies s.count = 0
 		end
 
-	string_to_pointer (s: READABLE_STRING_8): POINTER is
+	string_to_pointer (s: detachable READABLE_STRING_8): POINTER is
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The area is zero-terminated.
 			-- `s' may contain '%U' characters, but you will have to be
@@ -55,7 +53,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			definition: (s = Void) = (Result = default_pointer)
 		end
 
-	uc_string_to_pointer (s: UC_STRING): POINTER is
+	uc_string_to_pointer (s: detachable UC_STRING): POINTER is
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The string is encoded in UTF-8. The area is
 			-- zero-terminated.
