@@ -495,12 +495,6 @@ feature -- Condition setting
 			set_start_condition (DATE)
 		end
 
-	reset_start_condition is
-			-- Used in error recovery to return to start condition.
-		do
-			set_start_condition (INITIAL)
-		end
-
 	start_parameter is
 		do
 			to_condition := PARAMETER
