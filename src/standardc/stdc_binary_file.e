@@ -1,10 +1,9 @@
-indexing
+note
 
 	description: "Binary file."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
+
 
 class
 
@@ -32,7 +31,7 @@ create
 
 feature -- Status
 
-	is_valid_mode (a_mode: STRING): BOOLEAN is
+	is_valid_mode (a_mode: STRING): BOOLEAN
 			-- Is `a_mode' a valid binary open mode?
 		do
 			Result :=
@@ -44,7 +43,7 @@ feature -- Status
 
 feature {NONE}
 
-	set_mode (a_mode: STRING) is
+	set_mode (a_mode: READABLE_STRING_8)
 			-- set text mode
 		local
 			c: CHARACTER
