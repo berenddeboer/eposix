@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Lexical analyzer input file buffers for descendants of EPX_CHARACTER_INPUT_STREAMs."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -19,7 +17,8 @@ inherit
 			content,
 			file,
 			fill,
-			new_default_buffer
+			new_default_buffer,
+			set_string
 		end
 
 
@@ -40,7 +39,7 @@ feature -- Access
 
 feature -- Element change
 
-	fill is
+	fill
 			-- Fill buffer with characters from `file'.
 			-- Do not lose unprocessed characters in buffer.
 			-- Resize buffer if necessary. Set `filled' to True if
@@ -76,9 +75,20 @@ feature -- Element change
 		end
 
 
+feature -- Setting
+
+	set_string (a_string: STRING)
+			-- Not supported.
+		do
+			end_of_file := True
+			-- Precursor {YY_BUFFER} (a_string)
+			filled := False
+		end
+
+
 feature {NONE} -- Implementation
 
-	max_bytes_to_read: INTEGER is
+	max_bytes_to_read: INTEGER
 			-- The maximum number of bytes that should be read by `fill'
 		do
 			Result := capacity - count
@@ -94,7 +104,7 @@ feature {NONE} -- Implementation
 			enough_capacity: Result <= capacity - count
 		end
 
-	new_default_buffer (a_number_of_bytes: INTEGER): like content is
+	new_default_buffer (a_number_of_bytes: INTEGER): like content
 			-- Create a new buffer that is like `content'.
 		do
 			create Result.make (a_number_of_bytes)
