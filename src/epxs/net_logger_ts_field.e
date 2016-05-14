@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Microsecond precision date for the NetLogger API on Unix."
 
@@ -27,7 +27,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make  is
+	make
 			-- Make sure date field has a value.
 		do
 			create timeofday.make_from_now
@@ -43,18 +43,19 @@ feature -- Access
 	timeofday: SUS_TIME_VALUE
 			-- Current time, set by `refresh'
 
+
 feature -- Commands
 
-	refresh is
+	refresh
 			-- Make `value' equal to current time.
 		do
 			timeofday.make_from_now
 			date.make_from_unix_time (timeofday.seconds)
 			date.to_utc
-			value.wipe_out
-			value.append_string (date.format (once "%%Y-%%m-%%dT%%H-%%M-%%S."))
+			writable_value.wipe_out
+			writable_value.append_string (date.format (once "%%Y-%%m-%%dT%%H-%%M-%%S."))
 			sh.append_integer (value, timeofday.microseconds, 6)
-			value.append_character ('Z')
+			writable_value.append_character ('Z')
 		end
 
 invariant

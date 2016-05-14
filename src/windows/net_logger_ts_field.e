@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Second only precision date for the NetLogger API on Windows."
 
@@ -27,7 +27,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make  is
+	make
 			-- Make sure date field has a value.
 		do
 			create date.make_from_now
@@ -41,14 +41,14 @@ feature -- Access
 
 feature -- Commands
 
-	refresh is
+	refresh
 			-- Make `value' equal to current time.
 		do
 			date.make_from_now
 			date.to_utc
-			value.wipe_out
-			value.append_string (date.format (once "%%Y-%%m-%%dT%%H-%%M-%%S"))
-			value.append_character ('Z')
+			writable_value.wipe_out
+			writable_value.append_string (date.format (once "%%Y-%%m-%%dT%%H-%%M-%%S"))
+			writable_value.append_character ('Z')
 		end
 
 invariant
