@@ -46,8 +46,6 @@ feature -- GE specific conversions
 			-- `unfreeze_all', else memory will not be freed.
 			-- The returned pointer is read-only, it probably does not
 			-- point to `s' because a new string is created!
-		local
-			uc: UC_STRING
 		do
 			if attached s then
 				if not attached {UC_STRING} s as uc or else uc.count = uc.byte_count then
