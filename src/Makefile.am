@@ -25,13 +25,6 @@ eposix_la_list = \
 	sapi/libsapi.la
 endif
 
-if SE
-lib_LTLIBRARIES = libeposix_se.la
-libeposix_se_la_SOURCES =
-libeposix_se_la_LDFLAGS = -no-undefined -version-info 0:0:0
-libeposix_se_la_LIBADD = ${eposix_la_list}
-endif
-
 if GE
 lib_LTLIBRARIES = libeposix_ge.la
 libeposix_ge_la_SOURCES =

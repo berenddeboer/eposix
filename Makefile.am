@@ -2,6 +2,8 @@
 
 SUBDIRS = src test_suite doc ise_precompile
 
+ACLOCAL_AMFLAGS = -I m4
+
 EXTRA_DIST = \
 	LICENSE \
 	config/myrules.mak \

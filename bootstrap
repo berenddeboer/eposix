@@ -52,7 +52,8 @@ if [ ! -f config/ltmain.sh ]
 then
     libtoolize
 fi
-aclocal -I config
+# Note, the -I config is to pickup my config/eiffel.m4 file.
+autoreconf -i -I config
 autoheader
 automake --foreign --add-missing --copy
 autoconf

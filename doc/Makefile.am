@@ -5,8 +5,6 @@
 include $(top_srcdir)/config/myrules.mak
 
 
-# redefine clean to remove SE files.
-
 mostlyclean-generic:
 	geant clean
 	rm -f compile_short.ace
@@ -87,10 +85,6 @@ if ISE
 	ec -finalize -config compile_${GOBO_EIFFEL}.ecf
 	cd EIFGENs/eposix_test/F_code && finish_freezing
 	mv EIFGENs/eposix_test/F_code/eposix_test $@
-endif
-if SE
-	compile compile_${GOBO_EIFFEL}.ace
-	mv eposix_test $@
 endif
 if GE
 	mv compile_${GOBO_EIFFEL}.ace compile_${GOBO_EIFFEL}.xace
