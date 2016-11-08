@@ -17,20 +17,8 @@
 			</condition>
 		</external_object>
 		<!-- Or use location="${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix_ise.a" -->
-    <!-- concurrency conditional doesn't seem to work, always pick mt library -->
-		<external_object location="${EPOSIX}/lib/libeposixmt_ise.a">
-			<condition>
-				<platform excluded_value="windows"/>
-				<concurrency value="none"/>
-			</condition>
-		</external_object>
-		<external_object location="-pthread">
-			<condition>
-				<platform excluded_value="windows"/>
-				<concurrency value="none"/>
-			</condition>
-		</external_object>
-		<external_object location="-lrt">
+    <!-- Make sure the concurrency setting of your app and any precompile match, else you won't get the right library -->
+		<external_object location="${EPOSIX}/lib/libeposix_ise.a">
 			<condition>
 				<platform excluded_value="windows"/>
 				<concurrency value="none"/>
