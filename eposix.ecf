@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-0-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-0-0 http://www.eiffel.com/developers/xml/configuration-1-0-0.xsd" name="eposix" uuid="70ED4FF9-249E-42E0-B9EC-F424CFA5FB89" library_target="eposix">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="eposix" uuid="70ED4FF9-249E-42E0-B9EC-F424CFA5FB89" library_target="eposix">
 	<target name="eposix">
 		<root all_classes="true"/>
+		<option warning="true" full_class_checking="true" void_safety="none" syntax="transitional">
+    </option>
 		<external_object location="${EPOSIX}\lib\libeposix.lib">
 			<condition>
 				<platform value="windows"/>
-				<multithreaded value="false"/>
+				<concurrency value="none"/>
 			</condition>
 		</external_object>
 		<external_object location="${EPOSIX}\lib\libeposixmt.lib">
 			<condition>
 				<platform value="windows"/>
-				<multithreaded value="true"/>
+				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<!-- Or use location="${ISE_LIBRARY}/lib/${ISE_PLATFORM}/libeposix_ise.a" -->
 		<external_object location="${EPOSIX}/lib/libeposix_ise.a">
 			<condition>
 				<platform excluded_value="windows"/>
-				<multithreaded value="false"/>
+				<concurrency value="none"/>
 			</condition>
 		</external_object>
 		<external_object location="${EPOSIX}/lib/libeposixmt_ise.a">
 			<condition>
 				<platform excluded_value="windows"/>
-				<multithreaded value="true"/>
+				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<external_object location="-lpthread">
 			<condition>
 				<platform excluded_value="windows"/>
-				<multithreaded value="true"/>
+				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<external_object location="-lrt">
 			<condition>
 				<platform excluded_value="windows"/>
-				<multithreaded value="true"/>
+				<concurrency value="thread"/>
 			</condition>
 		</external_object>
-		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
-		<library name="gobo_argument" location="$ISE_LIBRARY\library\gobo\gobo_argument.ecf"/>
+		<library name="base" location="$ISE_LIBRARY/library/base/base.ecf"/>
 		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
+		<library name="gobo_argument" location="$ISE_LIBRARY\library\gobo\gobo_argument.ecf"/>
 		<library name="gobo_lexical" location="$ISE_LIBRARY\library\gobo\gobo_lexical.ecf"/>
 		<library name="gobo_math" location="$ISE_LIBRARY\library\gobo\gobo_math.ecf"/>
 		<library name="gobo_parse" location="$ISE_LIBRARY\library\gobo\gobo_parse.ecf"/>
@@ -62,17 +64,9 @@
 				<exclude>/epxw$</exclude>
         <exclude>/ewf$</exclude>
 				<exclude>/capi/spec/ge$</exclude>
-				<exclude>/capi/spec/se$</exclude>
-				<exclude>/capi/spec/ve$</exclude>
 				<exclude>/papi/spec/ge$</exclude>
-				<exclude>/papi/spec/se$</exclude>
-				<exclude>/papi/spec/ve$</exclude>
 				<exclude>/sapi/spec/ge$</exclude>
-				<exclude>/sapi/spec/se$</exclude>
-				<exclude>/sapi/spec/ve$</exclude>
 				<exclude>/spec/ge$</exclude>
-				<exclude>/spec/se$</exclude>
-				<exclude>/spec/ve$</exclude>
 				<exclude>/spec/lapi$</exclude>
 				<exclude>/supportc$</exclude>
 				<exclude>/wapi$</exclude>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="eposix_ewf" uuid="794e8539-d902-4f9c-980c-fa43b0332e07" library_target="eposix_ewf">
+	<target name="eposix_ewf">
+		<root all_classes="true"/>
+		<option warning="true" full_class_checking="true" void_safety="none" syntax="transitional" is_obsolete_routine_type="true">
+    </option>
+
+		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<library name="wsf" location="${EWF}/library/server/wsf/wsf.ecf"/>
+		<library name="wsgi" location="${EWF}/library/server/ewsgi/ewsgi.ecf"/>
+		<library name="http" location="${EWF}/library/network/protocol/http/http.ecf"/>
+		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
+		<library name="gobo_structure" location="$ISE_LIBRARY\library\gobo\gobo_structure.ecf"/>
+		<library name="gobo_argument" location="$ISE_LIBRARY\library\gobo\gobo_argument.ecf"/>
+		<library name="eposix" location="${EPOSIX}/eposix.ecf"/>
+
+		<cluster name="eposix_ewf" location="${EPOSIX}/src/ewf">
+		</cluster>
+	</target>
+</system>
