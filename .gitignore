@@ -5,6 +5,7 @@
 *.lo
 *.la
 test_suite/Makefile.sources
+configure
 Makefile
 Makefile.win
 spec/
