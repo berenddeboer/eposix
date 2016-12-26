@@ -12,7 +12,7 @@ This document is in Adobe PDF format, see http://www.adobe.com/acrobat.
 
 On Unix type:
 
-  ./configure --with-compiler=se|ise|ve --prefix=$EPOSIX
+  ./configure --with-compiler=ge|ise --prefix=$EPOSIX
   make
 
 to build it. On older systems try to use 'gmake' instead of 'make'.
@@ -26,7 +26,7 @@ If you have not specified the prefix, the libraries will go in
 
 If you develop multi-thread applications, perform the following steps:
 
-  ./configure --with-compiler=se|ise|ve --prefix=$EPOSIX --enable-threads
+  ./configure --with-compiler=ge|ise --prefix=$EPOSIX --enable-threads
   make clean
   make
   make install
