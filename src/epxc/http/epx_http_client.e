@@ -139,7 +139,7 @@ feature -- Open and close
 
 feature -- Requests
 
-	get (path: STRING)
+	get (path: READABLE_STRING_GENERAL)
 			-- Send GET request to server. Use `read_response' to fetch
 			-- the response.
 		require

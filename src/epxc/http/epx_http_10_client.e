@@ -108,14 +108,14 @@ feature -- Requests
 			send_request (http_method_DELETE, a_request_uri, a_delete_data)
 		end
 
-	get (a_request_uri: STRING)
+	get (a_request_uri: READABLE_STRING_GENERAL)
 			-- Send GET request to server.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
 			-- the connection), 503 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 		do
-			send_request (http_method_GET, a_request_uri, Void)
+			send_request (http_method_GET, a_request_uri.out, Void)
 		end
 
 	head (a_request_uri: STRING)
