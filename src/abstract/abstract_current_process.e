@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the common POSIX and Windows %
 	%current process related routines."
@@ -25,7 +25,7 @@ inherit
 
 feature -- Access
 
-	effective_user_name: STRING is
+	effective_user_name: STRING
 			-- Name of the user currently associated with the current
 			-- thread
 		deferred
@@ -33,7 +33,7 @@ feature -- Access
 			name_not_void: Result /= Void
 		end
 
-	full_command_name: STRING is
+	full_command_name: STRING
 			-- `command_name' with fully qualified path;
 			-- An empty string is returned in case `command_name' is
 			-- empty. As any program can setup the arguments passed to
@@ -51,7 +51,7 @@ feature -- Access
 			full_command_name_not_void: Result /= Void
 		end
 
-	pid: INTEGER is
+	pid: INTEGER
 			-- Process identifier, unique for this process
 		do
 			Result := abstract_getpid
@@ -60,7 +60,7 @@ feature -- Access
 
 feature {NONE} -- Access (but only when inheriting)
 
-	environment_variables: ARRAY [STRING] is
+	environment_variables: ARRAY [STRING]
 			-- List of environment variables passed to this process;
 			-- Be aware that a name can actually be empty!
 			-- A new list is returned every time this feature is called.
@@ -94,7 +94,7 @@ feature {NONE} -- Access (but only when inheriting)
 			environment_variables_not_void: Result /= Void
 		end
 
-	raw_environment_variables: ARRAY [STRING] is
+	raw_environment_variables: ARRAY [STRING]
 			-- The raw list of name=value pairs of environment
 			-- variables passed to this process
 			-- A new list is created every time this feature is accessed.
@@ -108,21 +108,21 @@ feature {NONE} -- Access (but only when inheriting)
 
 feature -- Every process also has standard file descriptors which might not be compatible with stdin/stdout/stderr (Windows)
 
-	fd_stdin: ABSTRACT_FILE_DESCRIPTOR is
+	fd_stdin: ABSTRACT_FILE_DESCRIPTOR
 		deferred
 		ensure
 			fd_stdin_not_void: Result /= Void
 			not_owner: not Result.is_owner
 		end
 
-	fd_stdout: ABSTRACT_FILE_DESCRIPTOR is
+	fd_stdout: ABSTRACT_FILE_DESCRIPTOR
 		deferred
 		ensure
 			fd_stdout_not_void: Result /= Void
 			not_owner: not Result.is_owner
 		end
 
-	fd_stderr: ABSTRACT_FILE_DESCRIPTOR is
+	fd_stderr: ABSTRACT_FILE_DESCRIPTOR
 		deferred
 		ensure
 			fd_stderr_not_void: Result /= Void
@@ -132,7 +132,7 @@ feature -- Every process also has standard file descriptors which might not be c
 
 feature -- Sleeping
 
-	millisleep (a_milliseconds: INTEGER) is
+	millisleep (a_milliseconds: INTEGER)
 			-- Sleep for `a_milliseconds' milliseconds. Due to timer
 			-- resolution issues, the minimum resolution might be in the
 			-- order of 10ms or higher.
@@ -141,7 +141,7 @@ feature -- Sleeping
 		deferred
 		end
 
-	sleep (seconds: INTEGER) is
+	sleep (seconds: INTEGER)
 			-- Delays process execution up to `seconds'. Can return early
 			-- if interrupted. Check `unslect_seconds'
 		require
@@ -164,11 +164,11 @@ feature -- Sleeping
 
 feature {NONE} -- Abstract API
 
-	abstract_getpid: INTEGER is
+	abstract_getpid: INTEGER
 		deferred
 		end
 
-	abstract_sleep (a_seconds: INTEGER): INTEGER is
+	abstract_sleep (a_seconds: INTEGER): INTEGER
 		require
 			a_seconds_not_negative: a_seconds >= 0
 		deferred

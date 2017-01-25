@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Describes the AF_UNIX protocol sockaddr_un."
 
@@ -31,7 +31,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_path_name: STRING) is
+	make (a_path_name: STRING)
 			-- Initialize sockaddr_un from `a_path_name'.
 		require
 			path_name_not_empty: a_path_name /= Void and then not a_path_name.is_empty
@@ -44,7 +44,7 @@ feature {NONE} -- Initialization
 			path_name_set: path_name.is_equal (a_path_name)
 		end
 
-	make_from_pointer (an_address: POINTER; a_size: INTEGER) is
+	make_from_pointer (an_address: POINTER; a_size: INTEGER)
 			-- Initialize a socket address by passing it a memory
 			-- location where the information is stored. The information
 			-- in `an_address' is copied.
@@ -60,13 +60,13 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	address_family: INTEGER is
+	address_family: INTEGER
 			-- Family, AF_UNIX.
 		do
 			Result := AF_UNIX
 		end
 
-	path_name: STRING is
+	path_name: STRING
 			-- Path name.
 		do
 			Result := sh.pointer_to_string (posix_sockaddr_un_sun_path (buf.ptr))
@@ -74,7 +74,7 @@ feature -- Access
 			path_name_not_void: Result /= Void
 		end
 
-	supported_family: INTEGER is
+	supported_family: INTEGER
 			-- Family supported by this struct.
 			-- Should be hard coded to return the family supported by the struct.
 		do
@@ -84,7 +84,7 @@ feature -- Access
 
 feature -- Set
 
-	set_path_name (a_path_name: STRING) is
+	set_path_name (a_path_name: STRING)
 			-- Set `port'.
 		require
 			path_name_valid: is_valid_path_name (a_path_name)
@@ -98,7 +98,7 @@ feature -- Set
 
 feature -- Features the C API calls like
 
-	length: INTEGER is
+	length: INTEGER
 			-- Size of my struct (sockaddr_in or sockaddr_in6).
 		do
 			Result := posix_sockaddr_un_size
@@ -106,7 +106,7 @@ feature -- Features the C API calls like
 			length_positive: length > 0
 		end
 
-	frozen ptr: POINTER is
+	frozen ptr: POINTER
 			-- Points to struct sockaddr_in or sockaddr_in6.
 		do
 			Result := buf.ptr

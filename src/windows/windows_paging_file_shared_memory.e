@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements memory sharing between different%
 	%processes on Windows. There is no file underlying this sharing, %
@@ -44,7 +44,7 @@ create
 
 feature -- Initialization
 
-	create_read_write (a_name: STRING; a_size: INTEGER) is
+	create_read_write (a_name: STRING; a_size: INTEGER)
 			-- Create memory mapping without underlying file. Memory map
 			-- is only accessible to processes using the current security
 			-- account.
@@ -60,7 +60,7 @@ feature -- Initialization
 			open: raise_exception_on_error implies is_open
 		end
 
-	create_read_write_with_security (a_name: STRING; a_size: INTEGER; a_security_attributes: WINDOWS_SECURITY_ATTRIBUTES) is
+	create_read_write_with_security (a_name: STRING; a_size: INTEGER; a_security_attributes: WINDOWS_SECURITY_ATTRIBUTES)
 			-- Create memory mapping without underlying file using the
 			-- given security attributes.
 			-- If `name' is Void or empty, the mapping is anonymous.
@@ -92,7 +92,7 @@ feature -- Initialization
 			open: raise_exception_on_error implies is_open
 		end
 
-	open_read (a_name: STRING; a_size: INTEGER) is
+	open_read (a_name: STRING; a_size: INTEGER)
 			-- Open a memory mapping to a named file mapping object.
 		require
 			name_not_empty: a_name /= Void and then not a_name.is_empty
@@ -118,7 +118,7 @@ feature -- Initialization
 
 feature {NONE} -- Removal
 
-	dispose is
+	dispose
 		local
 			b: BOOLEAN
 		do
@@ -136,7 +136,7 @@ feature {NONE} -- Removal
 
 feature -- Close
 
-	close is
+	close
 		do
 			safe_win_call (posix_unmapviewoffile (ptr))
 			safe_win_call (posix_closehandle (map_handle))

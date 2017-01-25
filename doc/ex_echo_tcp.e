@@ -10,7 +10,7 @@ create
 
 feature
 
-	make is
+	make
 			-- Echo client and server, tcp style.
 		local
 			host: SUS_HOST
@@ -47,10 +47,10 @@ feature
 
 feature {NONE} -- Implementation
 
-	port: INTEGER is 9877
+	port: INTEGER = 9877
 			-- Thanks to W. Richard Stevens
 
-	hello: STRING is "Hello World.%N"
-	berend: STRING is "hello berend%N"
+	hello: STRING = "Hello World.%N"
+	berend: STRING = "hello berend%N"
 
 end

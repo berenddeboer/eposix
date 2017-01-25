@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Stack, what do we miss a portable EiffelBase."
 
@@ -22,7 +22,7 @@ create
 
 feature -- creation
 
-	make (suggested_capacity: INTEGER) is
+	make (suggested_capacity: INTEGER)
 		require
 			valid_capacity: suggested_capacity >= 0
 		do
@@ -32,19 +32,19 @@ feature -- creation
 
 feature -- usual stack features
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 		do
 			Result := count = 0
 		end
 
-	pop is
+	pop
 		require
 			can_pop: not is_empty
 		do
 			count := count - 1
 		end
 
-	push (a_item: G) is
+	push (a_item: G)
 		do
 			assert_has_room (count)
 			items.put (a_item, count)
@@ -58,7 +58,7 @@ feature -- usual stack features
 	count: INTEGER
 			-- number of entries on stack
 
-	top: G is
+	top: G
 			-- item on stack
 		require
 			has_items: not is_empty
@@ -66,7 +66,7 @@ feature -- usual stack features
 			Result := items.item (count - 1)
 		end
 
-	clear is
+	clear
 			-- remove all entries from stack
 		do
 			count := 0
@@ -78,7 +78,7 @@ feature -- usual stack features
 
 feature -- more unusual features
 
-	exists_on_stack (a_item: G): BOOLEAN is
+	exists_on_stack (a_item: G): BOOLEAN
 			-- Returns true if an exact copy of `a_item' is somewhere on
 			-- the stack
 		local
@@ -94,7 +94,7 @@ feature -- more unusual features
 			end
 		end
 
-	remove (a_item: G) is
+	remove (a_item: G)
 			-- removes the first occurence of this item
 		require
 			really_on_stack: exists_on_stack (a_item)
@@ -130,7 +130,7 @@ feature {NONE} -- private state
 
 	items: ARRAY[G]
 
-	assert_has_room (needed_capacity: INTEGER) is
+	assert_has_room (needed_capacity: INTEGER)
 		do
 			if items.upper < needed_capacity then
 				items.resize (items.lower, items.upper * 2)

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -18,28 +18,28 @@ class
 
 feature -- Access
 
-	cdup: STRING is "CDUP"
-	cwd: STRING is "CWD"
-	dele: STRING is "DELE"
-	help: STRING is "HELP"
-	list: STRING is "LIST"
-	nlst: STRING is "NLST"
-	logout: STRING is "QUIT"
-	mkd: STRING is "MKD"
-	mode: STRING is "MODE"
-	noop: STRING is "NOOP"
-	passive: STRING is "PASV"
-	password: STRING is "PASS"
-	port: STRING is "PORT"
-	quit: STRING is "QUIT"
-	retr: STRING is "RETR"
-	rmd: STRING is "RMD"
-	rnfr: STRING is "RNFR"
-	rnto: STRING is "RNTO"
-	stat: STRING is "STAT"
-	stor: STRING is "STOR"
-	syst: STRING is "SYST"
-	type: STRING is "TYPE"
-	user: STRING is "USER"
+	cdup: STRING = "CDUP"
+	cwd: STRING = "CWD"
+	dele: STRING = "DELE"
+	help: STRING = "HELP"
+	list: STRING = "LIST"
+	nlst: STRING = "NLST"
+	logout: STRING = "QUIT"
+	mkd: STRING = "MKD"
+	mode: STRING = "MODE"
+	noop: STRING = "NOOP"
+	passive: STRING = "PASV"
+	password: STRING = "PASS"
+	port: STRING = "PORT"
+	quit: STRING = "QUIT"
+	retr: STRING = "RETR"
+	rmd: STRING = "RMD"
+	rnfr: STRING = "RNFR"
+	rnto: STRING = "RNTO"
+	stat: STRING = "STAT"
+	stor: STRING = "STOR"
+	syst: STRING = "SYST"
+	type: STRING = "TYPE"
+	user: STRING = "USER"
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX message queue."
 
@@ -21,7 +21,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		do
 			if supports_message_passing then
 				print ("Message passing supported.%N")

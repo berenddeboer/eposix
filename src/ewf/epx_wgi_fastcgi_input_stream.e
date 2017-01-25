@@ -89,7 +89,7 @@ feature -- Access
 	last_character: CHARACTER_8
 			-- Last item read
 
-	last_read: INTEGER is
+	last_read: INTEGER
 			-- Last bytes read by `read_buffer'.
 			-- Can be less than requested for non-blocking input.
 			-- Check `last_blocked' in that case.

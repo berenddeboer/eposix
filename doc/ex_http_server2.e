@@ -10,7 +10,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			server: EPX_HTTP_SERVER
 			servlet: EX_HTTP_SERVLET2
@@ -28,6 +28,6 @@ feature
 			end
 		end
 
-	port_to_listen_on: INTEGER is 5566
+	port_to_listen_on: INTEGER = 5566
 
 end

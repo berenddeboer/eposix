@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,7 +19,7 @@ class
 
 feature -- Jobs
 
-	posix_createjobobject (lpJobAttributes, lpName: POINTER): INTEGER is
+	posix_createjobobject (lpJobAttributes, lpName: POINTER): INTEGER
 			-- Create or opens a job object.
 		external "C"
 		end

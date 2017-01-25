@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Character utilities such as converting integers to%
 	%characters and vice versa."
@@ -20,7 +20,7 @@ inherit
 
 feature -- Contracts for platform specific CHARACTER_HELPER
 
-	frozen from_integer (code: INTEGER): CHARACTER is
+	frozen from_integer (code: INTEGER): CHARACTER
 		require
 			valid_code: code >= 0 and code <= 255
 		do

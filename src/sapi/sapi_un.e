@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Single Unix Spec sys/un.h header. It contains definitions for UNIX domain sockets."
 
@@ -14,31 +14,31 @@ class
 
 feature -- C binding for members of sockaddr_un
 
-	posix_sockaddr_un_size: INTEGER is
+	posix_sockaddr_un_size: INTEGER
 		external "C"
 		end
 
-	posix_sockaddr_un_sun_family (a_sockaddr_un: POINTER): INTEGER is
+	posix_sockaddr_un_sun_family (a_sockaddr_un: POINTER): INTEGER
 			-- AF_UNET
 		require
 			valid_sockaddr_un: a_sockaddr_un /= default_pointer
 		external "C"
 		end
 
-	posix_sockaddr_un_sun_path (a_sockaddr_un: POINTER): POINTER is
+	posix_sockaddr_un_sun_path (a_sockaddr_un: POINTER): POINTER
 			-- Socket pathname.
 		require
 			valid_sockaddr_un: a_sockaddr_un /= default_pointer
 		external "C"
 		end
 
-	posix_set_sockaddr_un_sun_family (a_sockaddr_un: POINTER; sin_family: INTEGER) is
+	posix_set_sockaddr_un_sun_family (a_sockaddr_un: POINTER; sin_family: INTEGER)
 		require
 			valid_sockaddr_un: a_sockaddr_un /= default_pointer
 		external "C"
 		end
 
-	posix_set_sockaddr_un_sun_path (a_sockaddr_un: POINTER; a_sun_path: POINTER) is
+	posix_set_sockaddr_un_sun_path (a_sockaddr_un: POINTER; a_sun_path: POINTER)
 			-- Set sun_path by moving bytes from `a_sun_path'.
 		require
 			valid_sockaddr_un: a_sockaddr_un /= default_pointer
@@ -49,7 +49,7 @@ feature -- C binding for members of sockaddr_un
 
 feature -- Queries
 
-	is_valid_path_name (a_path_name: STRING): BOOLEAN is
+	is_valid_path_name (a_path_name: STRING): BOOLEAN
 			-- Is `a_path_name' a valid unix domain path name?
 			-- It's valid if it's not empty and its size is less than 100
 			-- characters.

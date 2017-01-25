@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -55,7 +55,7 @@ create
 
 feature -- Initialisation
 
-	make_from_now is
+	make_from_now
 			-- Make `value' equal to current unix time and `nano_value'
 			-- equal to the nanoseconds elapsed since `value'.
 			-- Afterwards call `to_local' or `to_utc' to turn individual
@@ -68,13 +68,13 @@ feature -- Initialisation
 			make_from_nano_time (posix_timespec_tv_sec (tp.ptr), posix_timespec_tv_nsec (tp.ptr))
 		end
 
-	make_from_nano_time (a_seconds, a_nano_seconds: INTEGER) is
+	make_from_nano_time (a_seconds, a_nano_seconds: INTEGER)
 		do
 			make_from_unix_time (a_seconds)
 			nano_value := a_nano_seconds
 		end
 
-	make_from_unix_time (a_value: INTEGER) is
+	make_from_unix_time (a_value: INTEGER)
 		do
 			precursor (a_value)
 			nano_value := 0
@@ -89,12 +89,12 @@ feature -- Access
 
 feature -- Date calculations
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 		do
 			Result := other.value = value and then other.nano_value = nano_value
 		end
 
-	infix "-" (other: like Current): like Current is
+	infix "-" (other: like Current): like Current
 			-- Creates a new time which is the difference between
 			-- `Current' and `Other'
 		local
@@ -112,7 +112,7 @@ feature -- Date calculations
 			create Result.make_from_nano_time (seconds, nano_seconds)
 		end
 
-	infix "<" (other: like Current): BOOLEAN is
+	infix "<" (other: like Current): BOOLEAN
 			-- Is current object less than `other'?
 		local
 			diff: DOUBLE

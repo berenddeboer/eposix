@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test for EPX_MIME classes."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Tests
 
-	test_mail1 is
+	test_mail1
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
@@ -55,7 +55,7 @@ feature -- Tests
 			assert ("test1.msg parsed ok", not parser.syntax_error)
 		end
 
-	test_mail2 is
+	test_mail2
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
@@ -72,7 +72,7 @@ feature -- Tests
 			end
 		end
 
-	test_mail3 is
+	test_mail3
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
@@ -86,7 +86,7 @@ feature -- Tests
 			end
 		end
 
-	test_mail4 is
+	test_mail4
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
@@ -113,7 +113,7 @@ feature -- Tests
 			assert_integers_equal ("First part has one field.", 1, parser.part.body.part (1).header.count)
 		end
 
-	test_base64_encoding is
+	test_base64_encoding
 			-- Test if base64 encoding is done ok.
 		local
 			file: STDC_TEXT_FILE
@@ -132,7 +132,7 @@ feature -- Tests
 			end
 		end
 
-	test_quoted_printable_encoding is
+	test_quoted_printable_encoding
 			-- Test if quoted-printable encoding is done ok.
 			-- This really complex message tests a lot more though.
 		local
@@ -169,7 +169,7 @@ feature -- Tests
 			end
 		end
 
-	test_rfc2047_encodings is
+	test_rfc2047_encodings
 			-- Test RFC 2047 B and Q encodings in header fields.
 		local
 			file: STDC_TEXT_FILE
@@ -209,7 +209,7 @@ feature -- Tests
 			assert ("rfc2047_example_4 parsed ok", not parser.syntax_error)
 		end
 
-	test_parsing_cgi_input is
+	test_parsing_cgi_input
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
@@ -235,7 +235,7 @@ feature -- Tests
 			assert_equal ("Contents of uid", "1804289383", string_body.as_string)
 		end
 
-	test_bad_date is
+	test_bad_date
 			-- Test email with date past 2038.
 		local
 			file: STDC_TEXT_FILE
@@ -253,7 +253,7 @@ feature -- Tests
 			end
 		end
 
-	test_content_disposition is
+	test_content_disposition
 			-- Test email with Content-Disposition with file name with
 			-- directory part.
 		local
@@ -273,7 +273,7 @@ feature -- Tests
 			assert_equal ("Content of parameter filename of field Content-Disposition", "fname.ext", cd.parameters.found_item.value)
 		end
 
-	test_multipart_form_data_with_content_length is
+	test_multipart_form_data_with_content_length
 			-- Content-Length fields shouldn't normally appear inside
 			-- multipart/form/data. It's not forbidden, but when they
 			-- appear, they should be ignored.
@@ -288,7 +288,7 @@ feature -- Tests
 			assert_integers_equal ("Two fields", 2, parser.part.multipart_body.parts_count)
 		end
 
-	test_simple_multipart_form_data is
+	test_simple_multipart_form_data
 			-- Content-Length fields shouldn't normally appear inside
 			-- multipart/form/data. It's not forbidden, but when they
 			-- appear, they should be ignored.
@@ -303,7 +303,7 @@ feature -- Tests
 			assert_integers_equal ("One field", 1, parser.part.multipart_body.parts_count)
 		end
 
-	test_chunked_encoding is
+	test_chunked_encoding
 			-- Test parsing a MIME message which uses Transfer-Encoding:
 			-- chunked. Can happen with HTTP requests and responses.
 		local
@@ -388,7 +388,7 @@ feature -- Tests
 			assert ("chunk5.msg parsed ok", not parser.syntax_error)
 		end
 
-	test_characters_after_content_length is
+	test_characters_after_content_length
 			-- Test if characters after content length are ignored.
 		local
 			file: STDC_TEXT_FILE
@@ -405,7 +405,7 @@ feature -- Tests
 
 feature {NONE} -- Helpers
 
-	print_body (body: EPX_MIME_BODY) is
+	print_body (body: EPX_MIME_BODY)
 		require
 			not_multipart: not body.is_multipart
 		local
@@ -420,25 +420,25 @@ feature {NONE} -- Helpers
 
 feature {NONE} -- Examples from RFC 2047
 
-	rfc2047_example_1: STRING is "%
+	rfc2047_example_1: STRING = "%
 	%From: =?US-ASCII?Q?Keith_Moore?= <moore@cs.utk.edu>%R%N%
 	%To: =?ISO-8859-1?Q?Keld_J=F8rn_Simonsen?= <keld@dkuug.dk>%R%N%
 	%CC: =?ISO-8859-1?Q?Andr=E9?= Pirard <PIRARD@vm1.ulg.ac.be>%R%N%
 	%Subject: =?ISO-8859-1?B?SWYgeW91IGNhbiByZWFkIHRoaXMgeW8=?=%R%N%
 	% =?ISO-8859-2?B?dSB1bmRlcnN0YW5kIHRoZSBleGFtcGxlLg==?=%R%N%R%N"
 
-	rfc2047_example_2: STRING is "%
+	rfc2047_example_2: STRING = "%
 	%From: =?ISO-8859-1?Q?Olle_J=E4rnefors?= <ojarnef@admin.kth.se>%R%N%
 	%To: ietf-822@dimacs.rutgers.edu, ojarnef@admin.kth.se%R%N%
 	%Subject: Time for ISO 10646?%R%N%R%N"
 
-	rfc2047_example_3: STRING is "%
+	rfc2047_example_3: STRING = "%
 	%To: Dave Crocker <dcrocker@mordor.stanford.edu>%R%N%
 	%Cc: ietf-822@dimacs.rutgers.edu, paf@comsol.se%R%N%
 	%From: =?ISO-8859-1?Q?Patrik_F=E4ltstr=F6m?= <paf@nada.kth.se>%R%N%
 	%Subject: Re: RFC-HDR care and feeding%R%N%R%N"
 
-	rfc2047_example_4: STRING is "%
+	rfc2047_example_4: STRING = "%
 	%From: Nathaniel Borenstein <nsb@thumper.bellcore.com>%R%N%
 	%      (=?iso-8859-8?b?7eXs+SDv4SDp7Oj08A==?=)%R%N%
 	%To: Greg Vaudreuil <gvaudre@NRI.Reston.VA.US>, Ned Freed%R%N%

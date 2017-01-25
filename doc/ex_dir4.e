@@ -10,7 +10,7 @@ create
    
 feature
 
-   make is
+   make
       local
          stat: POSIX_STATUS
       do

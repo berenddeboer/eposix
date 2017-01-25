@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes the ULM LVL field."
 
@@ -28,7 +28,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_level: INTEGER)  is
+	make (a_level: INTEGER)
 		require
 			valid_level: is_valid_log_level (a_level)
 		do
@@ -38,7 +38,7 @@ feature {NONE} -- Initialization
 
 feature -- Set level
 
-	set_level (a_level: INTEGER) is
+	set_level (a_level: INTEGER)
 		require
 			valid_level: is_valid_log_level (a_level)
 		do

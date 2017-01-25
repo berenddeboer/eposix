@@ -12,7 +12,7 @@ create
 
 feature
 
-	execute is
+	execute
 		do
 			assert_key_value_pairs_created
 			save_values
@@ -22,7 +22,7 @@ feature
 			new_line
 		end
 
-	save_values is
+	save_values
 		local
 			fout: STDC_TEXT_FILE
 			kv: EPX_KEY_VALUE

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "eposix's file and socket classes (STDC_FILE, POSIX_FILE_DESCRIPTOR, SUS_SOCKET) all inherit from this class. This makes eposix plug compatible with Gobo and any other library using a KI_CHARACTER_INPUT_STREAM."
 
@@ -31,14 +31,14 @@ inherit
 
 feature -- Access
 
-	is_rewindable: BOOLEAN is
+	is_rewindable: BOOLEAN
 			-- Can current input stream be rewound to return input from
 			-- the beginning of the stream?
 		once
 			Result := True
 		end
 
-	is_streaming: BOOLEAN is
+	is_streaming: BOOLEAN
 			-- Is data coming from a network stream?
 		require
 			open: is_open_read
@@ -48,14 +48,14 @@ feature -- Access
 
 feature -- Input
 
-	last_read: INTEGER is
+	last_read: INTEGER
 			-- Last bytes read by `read_buffer'.
 			-- Can be less than requested for non-blocking input.
 			-- Check `last_blocked' in that case.
 		deferred
 		end
 
-	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER) is
+	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
 			-- Read data into `buf' at `offset' for `nbytes' bytes.
 			-- Number of bytes actually read are available in `last_read'.
 		require
@@ -70,7 +70,7 @@ feature -- Input
 			read_no_more_than_requested: last_read <= nbytes
 		end
 
-	read_to_string (a_string: STRING; pos, nb: INTEGER): INTEGER is
+	read_to_string (a_string: STRING; pos, nb: INTEGER): INTEGER
 			-- Fill `a_string', starting at position `pos', with
 			-- at most `nb' characters read from input stream.
 			-- Return the number of characters actually read.
@@ -87,7 +87,7 @@ feature -- Input
 
 feature -- Debug
 
-	set_dump_input (a_file_name: STRING) is
+	set_dump_input (a_file_name: STRING)
 		do
 			debug ("dump-input")
 				create {STDC_TEXT_FILE} dump_input.open_write (a_file_name)

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that reads a character from a stream,%
 	%waiting a given number of seconds for that character, or else returns."
@@ -27,7 +27,7 @@ create
 
 feature -- Initialization
 
-	make (a_seconds: INTEGER; a_stream: POSIX_FILE) is
+	make (a_seconds: INTEGER; a_stream: POSIX_FILE)
 		require
 			valid_seconds: a_seconds >= 1 and a_seconds <= 65535
 			stream_not_void: a_stream /= Void
@@ -44,7 +44,7 @@ feature -- Access
 
 feature {NONE}
 
-	do_execute is
+	do_execute
 		do
 			-- stream.read_string (256)
 			stream.read_character

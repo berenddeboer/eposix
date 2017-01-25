@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Generates SOAP messages."
 
@@ -25,7 +25,7 @@ create
 
 feature -- SOAP specific calls
 
-	start_envelope is
+	start_envelope
 		require
 			this_is_root_tag: not is_tag_started
 		do
@@ -34,35 +34,35 @@ feature -- SOAP specific calls
 			set_ns_attribute (soap_env, encodingstyle, soap_default_encoding)
 		end
 
-	stop_envelope is
+	stop_envelope
 		require
 			envelope_started: is_envelope_started
 		do
 			stop_tag
 		end
 
-	start_header is
+	start_header
 		require
 			envelope_started: is_envelope_started
 		do
 			start_tag (soap_env_header)
 		end
 
-	stop_header is
+	stop_header
 		require
 			header_started: is_header_started
 		do
 			stop_tag
 		end
 
-	start_body is
+	start_body
 		require
 			envelope_started: is_envelope_started
 		do
 			start_tag (soap_env_body)
 		end
 
-	stop_body is
+	stop_body
 		require
 			body_started: is_body_started
 		do
@@ -72,7 +72,7 @@ feature -- SOAP specific calls
 
 feature -- SOAP header attributes
 
-	set_must_understand (value: BOOLEAN) is
+	set_must_understand (value: BOOLEAN)
 			-- Set the SOAP-Env:mustUnderstand attribute to `value'.
 		require
 			header_started: is_a_parent (soap_env_header)
@@ -87,17 +87,17 @@ feature -- SOAP header attributes
 
 feature -- Queries if tags started
 
-	is_envelope_started: BOOLEAN is
+	is_envelope_started: BOOLEAN
 		do
 			Result := is_started (soap_env_envelope)
 		end
 
-	is_header_started: BOOLEAN is
+	is_header_started: BOOLEAN
 		do
 			Result := is_started (soap_env_header)
 		end
 
-	is_body_started: BOOLEAN is
+	is_body_started: BOOLEAN
 		do
 			Result := is_started (soap_env_body)
 		end
@@ -105,30 +105,30 @@ feature -- Queries if tags started
 
 feature -- SOAP tags
 
-	soap_env_body: STRING is "SOAP-ENV:Body"
-	soap_env_envelope: STRING is "SOAP-ENV:Envelope"
-	soap_env_header: STRING is "SOAP-ENV:Header"
+	soap_env_body: STRING = "SOAP-ENV:Body"
+	soap_env_envelope: STRING = "SOAP-ENV:Envelope"
+	soap_env_header: STRING = "SOAP-ENV:Header"
 
 
 feature {NONE} -- SOAP attributes
 
-	encodingStyle: STRING is "encodingStyle"
-	mustUnderstand: STRING is "mustUnderstand"
+	encodingStyle: STRING = "encodingStyle"
+	mustUnderstand: STRING = "mustUnderstand"
 
 feature -- SOAP name space
 
-	soap_env: STRING is "SOAP-ENV"
+	soap_env: STRING = "SOAP-ENV"
 
-	soap_name_space: STRING is "http://schemas.xmlsoap.org/soap/envelope/"
+	soap_name_space: STRING = "http://schemas.xmlsoap.org/soap/envelope/"
 
 
 feature {NONE} -- SOAP encodings
 
-	soap_default_encoding: STRING is "http://schemas.xmlsoap.org/soap/encoding/"
+	soap_default_encoding: STRING = "http://schemas.xmlsoap.org/soap/encoding/"
 
 feature {NONE} -- Attribute values
 
-	zero_string: STRING is "0"
-	one_string: STRING is "1"
+	zero_string: STRING = "0"
+	one_string: STRING = "1"
 
 end

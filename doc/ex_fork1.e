@@ -14,7 +14,7 @@ create
 
 feature
 
-   make is
+   make
       local
          reader: POSIX_TEXT_FILE
          stop_sign: BOOLEAN

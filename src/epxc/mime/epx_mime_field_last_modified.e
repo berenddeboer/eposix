@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ create
 
 feature -- Access
 
-	name: STRING is "Last-Modified"
+	name: STRING = "Last-Modified"
 
 
 end

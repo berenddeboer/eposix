@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for MIME single and multipart bodies."
 
@@ -14,14 +14,14 @@ deferred class
 
 feature -- Access to body content
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
 		require
 			s_not_void: s /= Void
 		deferred
 		end
 
-	as_plain_text: STRING is
+	as_plain_text: STRING
 			-- Return the contents of the body as 8bit text/plain data.
 			-- It is not checked if the resulting string does contain
 			-- NULL characters.
@@ -34,7 +34,7 @@ feature -- Access to body content
 			as_string_not_void: Result /= Void
 		end
 
-	as_string: STRING is
+	as_string: STRING
 			-- Return body as STRING.
 			-- If body is multipart, it is returned as a MIME structure.
 			-- If the body is encoded in a certain way (BASE64 for
@@ -50,30 +50,30 @@ feature -- Access to body content
 
 feature -- Queries
 
-	has_every_part_a_form_content_disposition_field: BOOLEAN is
+	has_every_part_a_form_content_disposition_field: BOOLEAN
 			-- Does every part have a Content-Disposition field?
 			-- Necessary in case the MIME structure describes HTML form data.
 		deferred
 		end
 
-	has_parts_with_multipart_bodies: BOOLEAN is
+	has_parts_with_multipart_bodies: BOOLEAN
 			-- Is one of the bodies itself multipart?
 		deferred
 		ensure
 			self_is_multipart: not is_multipart implies not Result
 		end
 
-	is_multipart: BOOLEAN is
+	is_multipart: BOOLEAN
 			-- True if body is multipart.
 		deferred
 		end
 
-	parts_count: INTEGER is
+	parts_count: INTEGER
 		-- The number of parts if is_multipart.
 		deferred
 		end
 
-	part (index: INTEGER): EPX_MIME_PART is
+	part (index: INTEGER): EPX_MIME_PART
 			-- Part number `index' if this is a multipart body.
 		require
 			multipart: is_multipart

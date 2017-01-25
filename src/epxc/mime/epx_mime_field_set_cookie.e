@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -38,7 +38,7 @@ create
 
 feature -- Initialization
 
-	make (a_cookie_name, a_cookie_value: STRING) is
+	make (a_cookie_name, a_cookie_value: STRING)
 			-- Initialize Set-Cookie.
 		require
 			cookie_name_not_empty: a_cookie_name /= Void and then not a_cookie_name.is_empty
@@ -51,9 +51,9 @@ feature -- Initialization
 
 feature -- Access
 
-	name: STRING is "Set-Cookie"
+	name: STRING = "Set-Cookie"
 
-	value: STRING is
+	value: STRING
 		do
 			create Result.make (cookie_name.count + 1 + cookie_value.count)
 			Result.append_string (cookie_name)

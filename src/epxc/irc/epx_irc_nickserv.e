@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create
 
 feature {EPX_IRC_CLIENT} -- Handling
 
-	handle (a_message: EPX_IRC_MESSAGE) is
+	handle (a_message: EPX_IRC_MESSAGE)
 			-- Respond to message if this is a message this instance can handle.
 		local
 			password_request,
@@ -77,16 +77,16 @@ feature -- Status
 
 feature -- Access
 
-	NickServ: STRING is "NICKSERV"
+	NickServ: STRING = "NICKSERV"
 			-- the NickServ nick name
 
 
 feature {NONE} -- Once strings
 
-	once_password_accepted: STRING is "Password accepted"
+	once_password_accepted: STRING = "Password accepted"
 
-	once_msg_command: STRING is "/msg"
+	once_msg_command: STRING = "/msg"
 
-	once_identify: STRING is "IDENTIFY"
+	once_identify: STRING = "IDENTIFY"
 
 end

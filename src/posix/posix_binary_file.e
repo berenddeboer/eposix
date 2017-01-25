@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes a  POSIX binary file. POSIX doesn't %
 	%have a distinction between text and binary files, but code ported to %

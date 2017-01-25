@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "The exit handler that calls all other exit handlers."
 
@@ -33,7 +33,7 @@ create {STDC_EXIT_SWITCH_ACCESSOR}
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			create {DS_LINKED_STACK [STDC_EXIT_HANDLER]} exit_handlers.make
 			epx_set_exit_switch (any_to_pointer (Current), $at_exit)
@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- gc
 
-	dispose is
+	dispose
 			-- Make sure remaining handlers are made harmless.
 		do
 			epx_clear_exit_switch
@@ -52,14 +52,14 @@ feature {NONE} -- gc
 
 feature -- install/uninstall handlers
 
-	is_installed (handler: STDC_EXIT_HANDLER): BOOLEAN is
+	is_installed (handler: STDC_EXIT_HANDLER): BOOLEAN
 		require
 			handler_not_void: handler /= Void
 		do
 			Result := exit_handlers.has (handler)
 		end
 
-	install (handler: STDC_EXIT_HANDLER) is
+	install (handler: STDC_EXIT_HANDLER)
 		require
 			valid_handler: handler /= Void
 			handler_not_installed: not is_installed (handler)
@@ -69,7 +69,7 @@ feature -- install/uninstall handlers
 			handler_installed: is_installed (handler)
 		end
 
-	uninstall (handler: STDC_EXIT_HANDLER) is
+	uninstall (handler: STDC_EXIT_HANDLER)
 		require
 			valid_handler: handler /= Void
 			handler_installed: is_installed (handler)
@@ -82,7 +82,7 @@ feature -- install/uninstall handlers
 
 feature {NONE} -- Callback
 
-	at_exit is
+	at_exit
 			-- Callback routine, is called when program terminates.
 		do
 			from
@@ -102,18 +102,18 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- C binding
 
-	epx_clear_exit_switch is
+	epx_clear_exit_switch
 		external "C"
 		end
 
-	epx_set_exit_switch (an_object, an_address: POINTER) is
+	epx_set_exit_switch (an_object, an_address: POINTER)
 		external "C"
 		end
 
 
 feature {NONE} -- Implementation
 
-	frozen singleton: EPX_SINGLETON is
+	frozen singleton: EPX_SINGLETON
 		once
 			Result := Current
 		end

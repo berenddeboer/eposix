@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Single Unix Spec current system %
 	%info related routines."
@@ -33,7 +33,7 @@ inherit
 
 feature -- Network related
 
-	hostname, host_name: STRING is
+	hostname, host_name: STRING
 			-- The standard host name for the current machine
 		local
 			buf: POSIX_BUFFER
@@ -45,13 +45,13 @@ feature -- Network related
 
 feature -- Clocks
 
-	have_realtime_clock: BOOLEAN is
+	have_realtime_clock: BOOLEAN
 			-- Does the current system have a real-time clock?
 		do
 			Result := posix_have_realtime_clock
 		end
 
-	real_time_clock_resolution: SUS_TIME is
+	real_time_clock_resolution: SUS_TIME
 			-- NEW object indicating the resolution of the real time clock;
 			-- On POSIX compliant systems the resolution is 1,000,000,000
 			-- nanoseconds.
@@ -67,7 +67,7 @@ feature -- Clocks
 			resolution_not_void: Result /= Void
 		end
 
-	real_time_clock: SUS_TIME is
+	real_time_clock: SUS_TIME
 			-- NEW object indicating the current system time down to a
 			-- resolution of one nanosecond
 		require

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Posix file permission."
 	usage: "You can set the permissions, call apply to make them permanent."
@@ -30,7 +30,7 @@ create
 
 feature {POSIX_FILE_SYSTEM} -- creation
 
-	make (a_status: POSIX_STATUS_PATH) is
+	make (a_status: POSIX_STATUS_PATH)
 		do
 			status := a_status
 			update_from_status
@@ -40,7 +40,7 @@ feature {POSIX_FILE_SYSTEM} -- creation
 feature {NONE}
 
 
-	apply_mode is
+	apply_mode
 			-- make mode change permanent
 		local
 			cpath: POINTER
@@ -50,7 +50,7 @@ feature {NONE}
 			sh.unfreeze_all
 		end
 
-	apply_owner_and_group is
+	apply_owner_and_group
 			-- make owner and group change permanent
 		local
 			cpath: POINTER

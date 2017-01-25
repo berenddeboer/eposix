@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test HTTP client by connecting to an HTTP server."
 
@@ -31,7 +31,7 @@ inherit
 
 feature
 
-	test_get is
+	test_get
 		local
 			client: EPX_HTTP_10_CLIENT
 			content_length: EPX_MIME_FIELD_CONTENT_LENGTH
@@ -62,7 +62,7 @@ feature
 			client.read_response
 		end
 
-	test_non_existing is
+	test_non_existing
 		local
 			client: EPX_HTTP_10_CLIENT
 		do
@@ -74,7 +74,7 @@ feature
 			assert_equal ("Response phrase", "Not Found", client.response_phrase)
 		end
 
-	test_head is
+	test_head
 			-- test HEAD command.
 		local
 			client: EPX_HTTP_10_CLIENT
@@ -102,7 +102,7 @@ feature
 			assert ("Content-Length positive", content_length.length > 0)
 		end
 
-	test_options is
+	test_options
 			-- test OPTIONS command.
 		local
 			client: EPX_HTTP_11_CLIENT
@@ -117,7 +117,7 @@ feature
 			assert ("Has Allow", client.fields.has (field_name_allow))
 		end
 
-	test_transfer_encoding_chunked is
+	test_transfer_encoding_chunked
 			-- Test if chunked response is handled correctly.
 		local
 			client: EPX_HTTP_11_CLIENT
@@ -131,7 +131,7 @@ feature
 -- 			print (client.raw_response)
 		end
 
-	test_transfer_encoding_chunked2 is
+	test_transfer_encoding_chunked2
 		local
 			client: EPX_HTTP_11_CLIENT
 		do
@@ -142,7 +142,7 @@ feature
 			client.read_raw_response
 		end
 
-	test_basic_authentication is
+	test_basic_authentication
 		local
 			client: EPX_HTTP_10_CLIENT
 			s: STRING
@@ -171,7 +171,7 @@ feature
 			assert ("Validated", client.is_response_ok)
 		end
 
-	test_digest_authentication is
+	test_digest_authentication
 		local
 			client: EPX_HTTP_11_CLIENT
 			s: STRING

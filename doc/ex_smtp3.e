@@ -6,7 +6,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			type_names: expanded EPX_MIME_TYPE_NAMES
 			message: EPX_MIME_EMAIL
@@ -49,15 +49,15 @@ feature
 			smtp.close
 		end
 
-	my_domain: STRING is "nederware.nl"
+	my_domain: STRING = "nederware.nl"
 
-	smtp_server_name: STRING is "localhost"
+	smtp_server_name: STRING = "localhost"
 
-	sender_mailbox: STRING is "berend"
+	sender_mailbox: STRING = "berend"
 
-	recipient_mailbox: STRING is "berend"
+	recipient_mailbox: STRING = "berend"
 
-	html: STRING is "[
+	html: STRING = "[
 <html>
 <head>
   <title>EX_SMTP3</title>
@@ -68,6 +68,6 @@ feature
 </body>
 ]"
 
-	text: STRING is "Hello%N%NHTML email, brought to you by eposix."
+	text: STRING = "Hello%N%NHTML email, brought to you by eposix."
 
 end

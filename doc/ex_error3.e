@@ -12,7 +12,7 @@ create
 
 feature
    
-   make is
+   make
       local
          fd: POSIX_FILE_DESCRIPTOR
       do
@@ -20,7 +20,7 @@ feature
          fd := attempt_create_file
       end
    
-   attempt_create_file: POSIX_FILE_DESCRIPTOR is
+   attempt_create_file: POSIX_FILE_DESCRIPTOR
       require
          manual_error: not security.error_handling.exceptions_enabled
       local

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix time related routines."
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class to converts arrays to pointers."
 
@@ -27,7 +27,7 @@ inherit
 
 feature -- String array to pointer and vice versa conversion
 
-	string_array_to_pointer_array (a: ARRAY [STRING]): ARRAY [POINTER] is
+	string_array_to_pointer_array (a: ARRAY [STRING]): ARRAY [POINTER]
 			-- Convert ARRAY[STRING] to char ** (ARRAY[POINTER]).
 			-- Resulting array is null terminated.
 			-- Result of this can be passed to `pointer_array_to_pointer'.
@@ -68,7 +68,7 @@ feature -- String array to pointer and vice versa conversion
 			null_terminated: Result.item (Result.upper) = default_pointer
 		end
 
-	pointer_to_string_array (p: POINTER): ARRAY [STRING] is
+	pointer_to_string_array (p: POINTER): ARRAY [STRING]
 			-- Convert char ** to ARRAY[STRING];
 			-- Returns an empty array if p = default_pointer.
 		local
@@ -98,7 +98,7 @@ feature -- String array to pointer and vice versa conversion
 
 feature -- Contracts for platform specific EPX_ARRAY_HELPER
 
-	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER is
+	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER
 			-- Convert to int ** (??).
 			-- The returned pointer is for read-only use. Modifications
 			-- made are not reflected in `a'.
@@ -109,7 +109,7 @@ feature -- Contracts for platform specific EPX_ARRAY_HELPER
 			valid_result: Result /= default_pointer
 		end
 
-	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER is
+	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER
 			-- Convert to void **.
 			-- The returned pointer is for read-only use. Modifications
 			-- made are not reflected in `a'.
@@ -120,7 +120,7 @@ feature -- Contracts for platform specific EPX_ARRAY_HELPER
 			valid_result: Result /= default_pointer
 		end
 
-	unfreeze_all is
+	unfreeze_all
 			-- After having called `array_to_pointer' or
 			-- `integer_array_to_pointer', regularly call `unfreeze_all'
 			-- to make objects available to the garbage collector again.

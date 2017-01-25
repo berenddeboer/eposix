@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Windows child processes."
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- actions that parent may execute
 
-	wait_for (suspend: BOOLEAN) is
+	wait_for (suspend: BOOLEAN)
 			-- wait for this process to terminate. If `suspend' then we
 			-- wait until the information about this process is available,
 			-- else we return immediately.

@@ -10,7 +10,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			message: EPX_MIME_EMAIL
 			ct: EPX_MIME_FIELD_CONTENT_TYPE
@@ -48,7 +48,7 @@ feature
 			send_message (message)
 		end
 
-	send_message (a_message: EPX_MIME_EMAIL) is
+	send_message (a_message: EPX_MIME_EMAIL)
 		local
 			mail: EPX_SMTP_MAIL
 			smtp: EPX_SMTP_CLIENT
@@ -62,19 +62,19 @@ feature
 			smtp.close
 		end
 
-	my_domain: STRING is "example.com"
+	my_domain: STRING = "example.com"
 
-	smtp_server_name: STRING is "localhost"
+	smtp_server_name: STRING = "localhost"
 
-	sender_mailbox: STRING is "berend"
+	sender_mailbox: STRING = "berend"
 
-	recipient_mailbox: STRING is "berend@bmach"
+	recipient_mailbox: STRING = "berend@bmach"
 
-	type_names: EPX_MIME_TYPE_NAMES is
+	type_names: EPX_MIME_TYPE_NAMES
 		do
 			create Result
 		end
 
-	filename: STRING is "test_bon.pdf"
+	filename: STRING = "test_bon.pdf"
 
 end

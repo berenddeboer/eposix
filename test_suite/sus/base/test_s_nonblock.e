@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -28,7 +28,7 @@ inherit
 
 feature
 
-	test_read_line is
+	test_read_line
 			-- Test non-blocking `read_line'.
 		local
 			host: SUS_HOST
@@ -59,8 +59,8 @@ feature
 
 feature {NONE} -- Implementation
 
-	hello_lf: STRING is "Hello World.%N"
-	hello: STRING is "Hello World."
+	hello_lf: STRING = "Hello World.%N"
+	hello: STRING = "Hello World."
 
 
 end

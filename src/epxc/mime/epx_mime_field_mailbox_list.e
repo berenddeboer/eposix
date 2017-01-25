@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ create
 
 feature -- Initialization
 
-	make (a_name: STRING; an_mailbox_list: DS_LINKABLE [EPX_MIME_MAILBOX]) is
+	make (a_name: STRING; an_mailbox_list: DS_LINKABLE [EPX_MIME_MAILBOX])
 			-- Initialize unstructured field.
 		require
 			valid_name: is_valid_mime_name (a_name)
@@ -57,7 +57,7 @@ feature -- Access
 			-- Name of MIME field;
 			-- Names are case-insensitive.
 
-	value: STRING is
+	value: STRING
 			-- Contents of this field
 		local
 			mailbox: EPX_MIME_MAILBOX
@@ -88,8 +88,8 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	once_comma_space: STRING is ", "
-	once_double_quote_space: STRING is "%" "
+	once_comma_space: STRING = ", "
+	once_double_quote_space: STRING = "%" "
 
 
 invariant

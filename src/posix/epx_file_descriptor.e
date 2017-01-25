@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements the portable file descriptor routines in POSIX."
 
@@ -52,7 +52,7 @@ create
 
 feature {NONE} -- Implementation
 
-	make_status is
+	make_status
 		do
 			create {POSIX_STATUS_FILDES} my_status.make (Current)
 		end
@@ -60,20 +60,20 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API binding
 
-	abstract_create (a_path: POINTER; oflag, mode: INTEGER): INTEGER is
+	abstract_create (a_path: POINTER; oflag, mode: INTEGER): INTEGER
 			-- Creates a new file or rewrites an existing one
 			-- does not call `creat' but `open'!
 		do
 			Result := posix_create (a_path, oflag, mode)
 		end
 
-	abstract_lseek (fildes: INTEGER; offset, whence: INTEGER): INTEGER is
+	abstract_lseek (fildes: INTEGER; offset, whence: INTEGER): INTEGER
 			-- Repositions read/write file offset
 		do
 			Result := posix_lseek (fildes, offset, whence)
 		end
 
-	abstract_open (a_path: POINTER; oflag: INTEGER): INTEGER is
+	abstract_open (a_path: POINTER; oflag: INTEGER): INTEGER
 			-- Opens a file
 		do
 			Result := posix_open (a_path, oflag)
@@ -82,13 +82,13 @@ feature {NONE} -- Abstract API binding
 
 feature {NONE} -- open constants
 
-	abstract_O_APPEND: INTEGER is
+	abstract_O_APPEND: INTEGER
 			-- Set the file offset to the end-of-file prior to each write
 		do
 			Result := O_APPEND
 		end
 
-	abstract_O_CREAT: INTEGER is
+	abstract_O_CREAT: INTEGER
 			-- If the file does not exist, allow it to be created. This
 			-- flag indicates that the mode argument is present in the
 			-- call to open.
@@ -96,26 +96,26 @@ feature {NONE} -- open constants
 			Result := O_CREAT
 		end
 
-	abstract_O_RDONLY: INTEGER is
+	abstract_O_RDONLY: INTEGER
 			-- Open for reading only
 		do
 			Result := O_RDONLY
 		end
 
-	abstract_O_RDWR: INTEGER is
+	abstract_O_RDWR: INTEGER
 			-- Open fo reading and writing
 		do
 			Result := O_RDWR
 		end
 
-	abstract_O_TRUNC: INTEGER is
+	abstract_O_TRUNC: INTEGER
 			-- Use only on ordinary files opened for writing. It causes
 			-- the file to be truncated to zero length.
 		do
 			Result := O_TRUNC
 		end
 
-	abstract_O_WRONLY: INTEGER is
+	abstract_O_WRONLY: INTEGER
 			-- Open for writing only
 		do
 			Result := O_WRONLY
@@ -124,12 +124,12 @@ feature {NONE} -- open constants
 
 feature {NONE} -- permission constants
 
-	abstract_S_IREAD: INTEGER is
+	abstract_S_IREAD: INTEGER
 		do
 			Result := S_IREAD
 		end
 
-	abstract_S_IWRITE: INTEGER is
+	abstract_S_IWRITE: INTEGER
 		do
 			Result := S_IWRITE
 		end

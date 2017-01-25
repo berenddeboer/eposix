@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstract class that covers Posix semaphore routines."
 

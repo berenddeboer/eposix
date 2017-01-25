@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -39,7 +39,7 @@ create {EPX_IRC_CLIENT}
 
 feature {NONE} -- Initialization
 
-	make (a_client: EPX_IRC_CLIENT; a_channel_name: STRING) is
+	make (a_client: EPX_IRC_CLIENT; a_channel_name: STRING)
 		require
 			client_not_void: a_client /= Void
 			valid_channel_name: a_client.is_valid_channel_name (a_channel_name)
@@ -61,7 +61,7 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	is_message_for_channel (a_message: EPX_IRC_MESSAGE): BOOLEAN is
+	is_message_for_channel (a_message: EPX_IRC_MESSAGE): BOOLEAN
 			-- Is `a_message' send to this channel?
 		require
 			message_not_void: a_message /= Void
@@ -115,7 +115,7 @@ feature -- Access
 
 feature -- Sending messages
 
-	notice (a_text: STRING) is
+	notice (a_text: STRING)
 			-- Send a message to this channel. Automatic replies will
 			-- never be send in response to `notice', this is the main
 			-- difference with `privmsg'.
@@ -125,7 +125,7 @@ feature -- Sending messages
 			client.notice (channel_name, a_text)
 		end
 
-	privmsg (a_text: STRING) is
+	privmsg (a_text: STRING)
 			-- Send a message to this channel.
 		require
 			is_valid_text: client.is_valid_text (a_text)
@@ -136,7 +136,7 @@ feature -- Sending messages
 
 feature {EPX_IRC_CLIENT} -- Handling
 
-	handle (a_message: EPX_IRC_MESSAGE) is
+	handle (a_message: EPX_IRC_MESSAGE)
 			-- Respond to message if this is a message destined for this channel.
 		do
 			if is_message_for_channel (a_message) then
@@ -182,7 +182,7 @@ feature {EPX_IRC_CLIENT} -- Handling
 
 feature {NONE} -- Events
 
-	after_open is
+	after_open
 			-- Called if joining this channel was successful. Override if
 			-- you want to do something immediately after joining a
 			-- channel.
@@ -194,7 +194,7 @@ feature {NONE} -- Events
 
 feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Events
 
-	user_in_channel (a_nick_name: STRING) is
+	user_in_channel (a_nick_name: STRING)
 			-- Called in response to /names (or when channel first joined).
 		require
 			nick_name_not_empty: a_nick_name /= Void and then not a_nick_name.is_empty
@@ -210,7 +210,7 @@ feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Events
 			nick_name_added_as_user: users.has (a_nick_name)
 		end
 
-	user_joined (a_message: EPX_IRC_MESSAGE) is
+	user_joined (a_message: EPX_IRC_MESSAGE)
 			-- Called if a user has joined the channel.
 		require
 			message_not_void: a_message /= Void
@@ -221,7 +221,7 @@ feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Events
 			users.force (user, user.nick_name)
 		end
 
-	user_left (a_message: EPX_IRC_MESSAGE) is
+	user_left (a_message: EPX_IRC_MESSAGE)
 			-- Called if a user has left the channel.
 		require
 			message_not_void: a_message /= Void
@@ -231,7 +231,7 @@ feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Events
 			users.remove_found_item
 		end
 
-	user_nick_name_change (a_message: EPX_IRC_MESSAGE) is
+	user_nick_name_change (a_message: EPX_IRC_MESSAGE)
 			-- Called if a user has left the channel.
 		require
 			message_not_void: a_message /= Void
@@ -250,7 +250,7 @@ feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Events
 
 feature {NONE} -- Factory
 
-	new_user (a_nick_name: STRING): EPX_IRC_CHANNEL_USER is
+	new_user (a_nick_name: STRING): EPX_IRC_CHANNEL_USER
 			-- A new EPX_IRC_CHANNEL_USER object
 		require
 			nick_name_not_empty: a_nick_name /= Void and then not a_nick_name.is_empty

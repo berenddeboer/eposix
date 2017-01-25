@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows file descriptor set."
 
@@ -24,7 +24,7 @@ create {ABSTRACT_SELECT}
 
 feature -- Status
 
-	is_valid_descriptor (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN is
+	is_valid_descriptor (a_descriptor: ABSTRACT_DESCRIPTOR): BOOLEAN
 			-- Is `a_descriptor' a descriptor that can be added or
 			-- removed from this set, or checked for its presence?
 			-- Descriptor should be open and for Windows it must be a socket.

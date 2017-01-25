@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test HTTP client by connecting to an HTTP server."
 
@@ -18,7 +18,7 @@ inherit
 
 feature
 
-	test_basics is
+	test_basics
 		do
 			-- Create webserver
 			create server.make (port, ".")
@@ -59,7 +59,7 @@ feature
 			server.shutdown
 		end
 
-	test_builtin_resources is
+	test_builtin_resources
 			-- Test resources with a fixed path.
 		local
 			my_servlet: MY_HTTP_SERVLET
@@ -138,7 +138,7 @@ feature
 			server.shutdown
 		end
 
-	test_dynamic_resources is
+	test_dynamic_resources
 		local
 			my_servlet: MY_HTTP_SERVLET
 		do
@@ -190,7 +190,7 @@ feature
 			server.shutdown
 		end
 
-	test_robustness is
+	test_robustness
 			-- Test robustness of server against wrong URLs.
 		do
 			create server.make (port, ".")
@@ -219,7 +219,7 @@ feature
 
 feature {NONE} -- Test helpers
 
-	do_test_url (a_path: STRING; test_msg: STRING; expected_response: INTEGER) is
+	do_test_url (a_path: STRING; test_msg: STRING; expected_response: INTEGER)
 		require
 			server_not_void: server /= Void
 			client_not_void: client /= Void
@@ -237,7 +237,7 @@ feature {NONE} -- Implementation
 	server: EPX_HTTP_SERVER
 	client: EPX_HTTP_11_CLIENT
 
-	port: INTEGER is 9877
+	port: INTEGER = 9877
 			-- Thanks to W. Richard Stevens
 
 end

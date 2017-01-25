@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test EPX layer tcp/udp sockets by being an echo server and client."
 
@@ -19,7 +19,7 @@ inherit
 
 feature
 
-	test_tcp is
+	test_tcp
 			-- Echo client and server, tcp style.
 		local
 			host: EPX_HOST
@@ -67,10 +67,10 @@ feature
 
 feature {NONE} -- Implementation
 
-	port: INTEGER is 9877
+	port: INTEGER = 9877
 			-- Thanks to W. Richard Stevens
 
-	hello: STRING is "Hello World.%N"
-	berend1: STRING is "hello berend%N"
+	hello: STRING = "Hello World.%N"
+	berend1: STRING = "hello berend%N"
 
 end

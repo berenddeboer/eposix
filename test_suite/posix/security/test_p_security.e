@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX securiy class."
 
@@ -25,7 +25,7 @@ inherit
 
 feature -- Security tests
 
-	test_exception_handling is
+	test_exception_handling
 			-- No exception should occur in this test.
 		local
 			file: STDC_BINARY_FILE

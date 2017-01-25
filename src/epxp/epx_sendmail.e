@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Access to the sendmail (or compatible) program and use it to send email."
 
@@ -36,7 +36,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Set `sendmail' to the location of the sendmail binary by
 			-- looking in a few well-defined places. For security reasons
 			-- we don't use the PATH.
@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 		end
 
 
-	make_use_path is
+	make_use_path
 			-- Set `sendmail' to the location of the sendmail binary and
 			-- assume the binary can be found in the PATH.
 			-- @@BdB: does looking in PATH work??
@@ -62,7 +62,7 @@ feature {NONE} -- Initialization
 			create message.make
 		end
 
-	make_with_path (a_path: STRING) is
+	make_with_path (a_path: STRING)
 		require
 			executable: fs.is_executable (a_path)
 		do
@@ -70,7 +70,7 @@ feature {NONE} -- Initialization
 			create message.make
 		end
 
-	make_from_command_line (a_command_line: STRING) is
+	make_from_command_line (a_command_line: STRING)
 			-- Give path and options to sendmail. Does not necessarily
 			-- have to be the full path, will look in PATH otherwise.
 			-- @@BdB: does looking in PATH work??
@@ -89,7 +89,7 @@ feature -- Access
 
 feature -- Output
 
-	send is
+	send
 			-- Send `message; using `sendmail'
 		require
 			iput_captured: capture_input
@@ -108,7 +108,7 @@ feature -- Output
 
 feature {NONE} -- Implementation
 
-	sendmail_options: ARRAY [STRING] is
+	sendmail_options: ARRAY [STRING]
 			-- Default options to pass to sendmail. Must include -t and -i.
 		once
 			-- -i     When reading a message from standard  input,  don´t

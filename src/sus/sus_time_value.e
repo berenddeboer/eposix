@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 enhancements on the timeval structure."
 
@@ -32,7 +32,7 @@ create
 
 feature -- Initialization
 
-	make_from_now is
+	make_from_now
 			-- Set time to current time.
 		do
 			make

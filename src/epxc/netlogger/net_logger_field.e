@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes a single field in a NetLogger log line."
 
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_name, a_value: READABLE_STRING_8) is
+	make (a_name, a_value: READABLE_STRING_8)
 		require
 			name_valid: is_valid_name (a_name)
 			value_valid: is_valid_value (a_value)
@@ -51,7 +51,7 @@ feature -- Access
 
 feature -- Change
 
-	set_value (a_value: READABLE_STRING_8) is
+	set_value (a_value: READABLE_STRING_8)
 		require
 			value_not_empty: a_value /= Void and then not a_value.is_empty
 		do

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -32,7 +32,7 @@ inherit
 
 feature -- Test
 
-	test_ise is
+	test_ise
 			-- Test precompilation with ISE Eiffel.
 		do
 			if eiffel_compiler.is_ise then
@@ -40,7 +40,7 @@ feature -- Test
 			end
 		end
 
-	test_ise_base is
+	test_ise_base
 			-- Test precompilation with ISE Eiffel using Gobo's
 			-- EiffelBase emulation instead of ISE's EiffelBase.
 		do
@@ -49,7 +49,7 @@ feature -- Test
 			end
 		end
 
-	test_hact is
+	test_hact
 			-- Test precompilation with Halstenach.
 		do
 			if eiffel_compiler.is_hact then
@@ -57,7 +57,7 @@ feature -- Test
 			end
 		end
 
-	test_ve is
+	test_ve
 			-- Test precompilation with Visual Eiffel.
 		do
 			if eiffel_compiler.is_ve then
@@ -65,7 +65,7 @@ feature -- Test
 			end
 		end
 
-	test_se is
+	test_se
 			-- Test precompilation with SmartEiffel.
 		do
 			if eiffel_compiler.is_se then
@@ -75,7 +75,7 @@ feature -- Test
 
 feature -- Execution
 
-	tear_down is
+	tear_down
 			-- Tear down after a test.
 		do
 			if old_cwd /= Void then
@@ -90,7 +90,7 @@ feature -- Execution
 
 feature {NONE} -- Precompilation
 
-	precomp_ise (base: BOOLEAN) is
+	precomp_ise (base: BOOLEAN)
 			-- Test precompilation with ISE Eiffel. If `base' is true then
 			-- use Gobo's EiffelBase emulation instead of ISE's EiffelBase.
 		local
@@ -135,7 +135,7 @@ feature {NONE} -- Precompilation
 			file_system.recursive_delete_directory (testdir)
 		end
 
-	precomp_hact is
+	precomp_hact
 			-- Test precompilation with Halstenbach.
 		do
 			old_cwd := file_system.cwd
@@ -153,7 +153,7 @@ feature {NONE} -- Precompilation
 			assert ("driver_exists", file_system.file_exists ("driver" + file_system.exe_extension))
 		end
 
-	precomp_ve is
+	precomp_ve
 			-- Test precompilation with Visual Eiffel.
 		do
 			old_cwd := file_system.cwd
@@ -169,7 +169,7 @@ feature {NONE} -- Precompilation
 			assert_execute ("vec -no -dc -y" + output_log)
 		end
 
-	precomp_se is
+	precomp_se
 			-- Test precompilation with SmartEiffel.
 		local
 			a_file: KL_TEXT_INPUT_FILE
@@ -189,9 +189,9 @@ feature {NONE} -- Precompilation
 			else
 				define_option := ""
 			end
-			assert_execute ("gexace " + define_option + "--library=se " + xace_filename + output_log)
+			assert_execute ("gexace " + define_option + "--library=se " + xace_filename + output_log) 
 				-- Eiffel precompilation.
-			!! a_file.make ("loadpath.se")
+			create a_file.make ("loadpath.se")
 			a_file.open_read
 			if a_file.is_open_read then
 				from
@@ -200,8 +200,8 @@ feature {NONE} -- Precompilation
 					a_file.end_of_file
 				loop
 					a_dirname := file_system.pathname_from_file_system (a_file.last_string, unix_file_system)
-					a_dirname := Execution_environment.interpreted_string (a_dirname)
-					!! a_dir.make (a_dirname)
+					a_dirname := Execution_environment.interpreted_string (a_dirname) 
+					create a_dir.make (a_dirname)
 					a_dir.open_read
 					if a_dir.is_open_read then
 						from
@@ -231,7 +231,7 @@ feature {NONE} -- Precompilation
 
 feature {NONE} -- Implementation
 
-	xace_filename: STRING is
+	xace_filename: STRING
 			-- Name of Xace file used for precompilation
 		once
 			Result := file_system.nested_pathname ("${EPOSIX}", <<"test_suite", "precomp", "precomp.xace">>)
@@ -241,17 +241,17 @@ feature {NONE} -- Implementation
 			xace_filename_not_empty: Result.count > 0
 		end
 
-	testdir: STRING is "Tprecomp"
+	testdir: STRING = "Tprecomp"
 			-- Name of temporary directory where to launch
 			-- the precompilation
 
-	output_log_filename: STRING is "output.log"
+	output_log_filename: STRING = "output.log"
 			-- Output log filename
 
-	error_log_filename: STRING is "error.log"
+	error_log_filename: STRING = "error.log"
 			-- Error log filename
 
-	output_log: STRING is
+	output_log: STRING
 			-- Where and how to redirect output logs
 		once
 			Result := " > " + output_log_filename + " 2> " + error_log_filename

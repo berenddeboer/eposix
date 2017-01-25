@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Certain eposix classes can read lines. They will inherit from this class as well as from EPX_CHARACTER_INPUT_STREAM"
 
@@ -26,7 +26,7 @@ inherit
 
 feature -- Access
 
-	eol: STRING is "%N"
+	eol: STRING = "%N"
 			-- Line separator;
 			-- EPX classes do not distinguish between a %R%N or just %N
 			-- end-of-line. The platform may though.

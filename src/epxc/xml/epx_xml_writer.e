@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that lets you safely create an XML document."
 
@@ -40,7 +40,7 @@ create
 
 feature -- Initialization
 
-	make is
+	make
 			-- Create an XML document with initial capacity of 1024 characters.
 		do
 			make_with_capacity (1024)
@@ -52,7 +52,7 @@ feature -- Initialization
 			not_fragment: not is_fragment
 		end
 
-	make_fragment is
+	make_fragment
 			-- Create an XML fragment (document without header) with
 			-- initial capacity of 1024 characters.
 		do
@@ -65,7 +65,7 @@ feature -- Initialization
 			fragment: is_fragment
 		end
 
-	make_with_capacity (a_capacity: INTEGER) is
+	make_with_capacity (a_capacity: INTEGER)
 			-- Create an XML document with initial capacity of
 			-- `a_capacity' characters.
 		local
@@ -91,7 +91,7 @@ feature -- Initialization
 			not_fragment: not is_fragment
 		end
 
-	make_fragment_with_capacity (a_capacity: INTEGER) is
+	make_fragment_with_capacity (a_capacity: INTEGER)
 			-- Create an XML fragment (document without header) with
 			-- initial capacity of `a_capacity' characters.
 		do
@@ -109,7 +109,7 @@ feature -- Initialization
 
 feature -- Status
 
-	can_add_attributes: BOOLEAN is
+	can_add_attributes: BOOLEAN
 			-- Can attributes be added to the current tag?
 		do
 			Result := tag_state = tag_pending or else tag_state = tag_started
@@ -117,7 +117,7 @@ feature -- Status
 			tag_must_be_started: Result implies is_tag_started
 		end
 
-	is_a_parent (a_tag: STRING): BOOLEAN is
+	is_a_parent (a_tag: STRING): BOOLEAN
 			-- Is `tag' the current element, or is it a parent of the
 			-- current tag at some point?
 		do
@@ -126,7 +126,7 @@ feature -- Status
 			started_implies_parent: is_started (a_tag) implies Result
 		end
 
-	is_attribute_set (a_name_space, an_attribute: STRING): BOOLEAN is
+	is_attribute_set (a_name_space, an_attribute: STRING): BOOLEAN
 			-- Has `an_attribute' been given a value?
 		require
 			valid_attribute_name: is_ncname (an_attribute)
@@ -159,7 +159,7 @@ feature -- Status
 			-- invalid XML, because the schema is not known. It also
 			-- slows down writing the XML.
 
-	is_ns_started (a_name_space, a_tag: STRING): BOOLEAN is
+	is_ns_started (a_name_space, a_tag: STRING): BOOLEAN
 			-- Is name_space:tag the current element?
 		require
 			a_tag_not_void: a_tag /= Void
@@ -176,7 +176,7 @@ feature -- Status
 			end
 		end
 
-	is_started (a_tag: STRING): BOOLEAN is
+	is_started (a_tag: STRING): BOOLEAN
 			-- Is `tag' the current element?
 		require
 			a_tag_not_void: a_tag /= Void
@@ -189,7 +189,7 @@ feature -- Status
 				Result = (not tags.is_empty and then STRING_.same_string (tags.item, a_tag))
 		end
 
-	is_tag_started: BOOLEAN is
+	is_tag_started: BOOLEAN
 			-- Is there an unclosed element?
 		do
 			Result := not tags.is_empty
@@ -198,7 +198,7 @@ feature -- Status
 
 feature -- Access
 
-	as_string: STRING is
+	as_string: STRING
 			-- The result as plain STRING
 		require
 			building_finished: not is_tag_started
@@ -208,7 +208,7 @@ feature -- Access
 			result_not_void: Result /= Void
 		end
 
-	as_uc_string: UC_STRING is
+	as_uc_string: UC_STRING
 			-- The result as Unicode string, i.e. UC_STRING
 		require
 			building_finished: not is_tag_started
@@ -218,7 +218,7 @@ feature -- Access
 			result_not_void: Result /= Void
 		end
 
-	tag (i: INTEGER): STRING is
+	tag (i: INTEGER): STRING
 			-- Retrieve current or parents of current tag
 		require
 			valid_index: i >= 1 and then i <= tag_depth
@@ -228,7 +228,7 @@ feature -- Access
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	tag_depth: INTEGER is
+	tag_depth: INTEGER
 			-- Number of tags that have been started, but not stopped
 		do
 			Result := tags.count
@@ -237,7 +237,7 @@ feature -- Access
 			consistent: is_tag_started = (Result /= 0)
 		end
 
-	unfinished_xml: STRING is
+	unfinished_xml: STRING
 			-- The `xml' in progress
 		do
 			Result := my_xml
@@ -245,7 +245,7 @@ feature -- Access
 			unfinished_xml_not_void: Result /= Void
 		end
 
-	xml: STRING is
+	xml: STRING
 			-- The result
 		obsolete "Use either as_string or as_uc_string"
 		do
@@ -255,7 +255,7 @@ feature -- Access
 
 feature -- Change
 
-	clear is
+	clear
 			-- Start fresh.
 -- 		local
 -- 			s: STRING
@@ -274,7 +274,7 @@ feature -- Change
 			header_written: is_fragment = is_header_written
 		end
 
-	set_indenting (an_indenting: BOOLEAN) is
+	set_indenting (an_indenting: BOOLEAN)
 		do
 			is_indenting := an_indenting
 		ensure
@@ -283,7 +283,7 @@ feature -- Change
 
 feature -- Commands that expand `xml'
 
-	add_attribute (an_attribute, a_value: STRING) is
+	add_attribute (an_attribute, a_value: STRING)
 			-- Add an attribute of the current tag. Attribute cannot be
 			-- modified later unlike `set_attribute' and `a_value' does
 			-- not have to be cloned if you want to reuse that STRING.
@@ -301,7 +301,7 @@ feature -- Commands that expand `xml'
 			end
 		end
 
-	add_a_name_space (a_prefix, a_uri: STRING) is
+	add_a_name_space (a_prefix, a_uri: STRING)
 			-- Define a name space.
 		require
 			can_add_attributes: can_add_attributes
@@ -311,7 +311,7 @@ feature -- Commands that expand `xml'
 			add_name_space (a_prefix, a_uri)
 		end
 
-	add_cdata (a_data: STRING) is
+	add_cdata (a_data: STRING)
 			-- Add data within a CDATA tag. With CDATA much less
 			-- meta-characters have to be quoted in case `a_data' is
 			-- itself XML.
@@ -332,7 +332,7 @@ feature -- Commands that expand `xml'
 					is_element_with_data
 		end
 
-	add_data, puts (a_data: STRING) is
+	add_data, puts (a_data: STRING)
 			-- Write data in the current tag.
 			-- Invalid characters like < or > are quoted.
 			-- Use `add_raw' if you don't want quoting.
@@ -368,7 +368,7 @@ feature -- Commands that expand `xml'
 					is_element_with_data
 		end
 
-	add_entity (an_entity_name: STRING) is
+	add_entity (an_entity_name: STRING)
 			-- Write entity `name' as element data.
 		require
 			entity_name_not_empty:
@@ -384,7 +384,7 @@ feature -- Commands that expand `xml'
 			data_added: is_element_with_data
 		end
 
-	add_header (encoding: STRING) is
+	add_header (encoding: STRING)
 			-- Add the XML header, document is encoded in
 			-- `encoding'. Making sure this encoding is followed, is the
 			-- responsibility of the client.
@@ -400,7 +400,7 @@ feature -- Commands that expand `xml'
 			header_written: is_header_written
 		end
 
-	add_header_iso_8859_1_encoding is
+	add_header_iso_8859_1_encoding
 			-- Document is iso-8859-1 encoded.
 		require
 			valid_point_for_header: not is_header_written
@@ -410,7 +410,7 @@ feature -- Commands that expand `xml'
 			header_written: is_header_written
 		end
 
-	add_header_utf_8_encoding is
+	add_header_utf_8_encoding
 			-- Document is utf8 encoded.
 		require
 			valid_point_for_header: not is_header_written
@@ -420,7 +420,7 @@ feature -- Commands that expand `xml'
 			header_written: is_header_written
 		end
 
-	add_name_space (a_prefix, a_uri: STRING) is
+	add_name_space (a_prefix, a_uri: STRING)
 			-- Define a name space.
 		require
 			can_add_attributes: can_add_attributes
@@ -430,7 +430,7 @@ feature -- Commands that expand `xml'
 			do_add_attribute (xmlns, a_prefix, a_uri)
 		end
 
-	add_ns_attribute (a_name_space, an_attribute, a_value: STRING) is
+	add_ns_attribute (a_name_space, an_attribute, a_value: STRING)
 			-- Add an attribute to the current tag. This attribute cannot
 			-- be changed later, use `set_ns_attribute' for that.
 			--  `a_value' does not have to be cloned if you want to reuse
@@ -451,7 +451,7 @@ feature -- Commands that expand `xml'
 			end
 		end
 
-	add_raw (raw_data: STRING) is
+	add_raw (raw_data: STRING)
 			-- Write `raw_data' straight in the current tag, meta
 			-- characters are not quoted, control characters are not
 			-- checked, etc.
@@ -467,7 +467,7 @@ feature -- Commands that expand `xml'
 			data_added: is_element_with_data
 		end
 
-	add_system_doctype (root_tag, system_id: STRING) is
+	add_system_doctype (root_tag, system_id: STRING)
 			-- Add a <!DOCTYPE element.
 			-- Only allowed when no tags have been written.
 		require
@@ -484,7 +484,7 @@ feature -- Commands that expand `xml'
 			new_line
 		end
 
-	add_tag (a_tag, a_data: STRING) is
+	add_tag (a_tag, a_data: STRING)
 			-- Shortcut for `add_tag', `add_data' and `stop_tag'.
 		require
 			have_header: is_header_written
@@ -496,7 +496,7 @@ feature -- Commands that expand `xml'
 			stop_tag
 		end
 
-	add_ns_tag (name_space, a_tag, a_data: STRING) is
+	add_ns_tag (name_space, a_tag, a_data: STRING)
 			-- Shortcut for `add_ns_tag', `add_data' and `stop_tag'.
 		require
 			have_header: is_header_written
@@ -512,7 +512,7 @@ feature -- Commands that expand `xml'
 			stop_tag
 		end
 
-	get_attribute (an_attribute: STRING): STRING is
+	get_attribute (an_attribute: STRING): STRING
 			-- Get contents of attribute `attribute' for
 			-- current tag. `attribute' may include a name space.
 			-- Returns Void if attribute doesn't exist
@@ -522,7 +522,7 @@ feature -- Commands that expand `xml'
 			end
 		end
 
-	put (a: ANY) is
+	put (a: ANY)
 			-- Write data within the current tag.
 		do
 			add_data (a.out)
@@ -530,14 +530,14 @@ feature -- Commands that expand `xml'
 			data_added: is_element_with_data
 		end
 
-	put_new_line is
+	put_new_line
 			-- Add a new line in the current tag.
 		do
 			assure_last_tag_written (False)
 			new_line
 		end
 
-	set_attribute (an_attribute, a_value: STRING) is
+	set_attribute (an_attribute, a_value: STRING)
 			-- Set an attribute of the current tag.
 			-- `attribute' must be name-space less, else use `set_ns_attribute'.
 			-- `value' may not contain an entity reference.
@@ -557,7 +557,7 @@ feature -- Commands that expand `xml'
 			end
 		end
 
-	set_a_name_space (a_prefix, a_uri: STRING) is
+	set_a_name_space (a_prefix, a_uri: STRING)
 			-- Define a name space.
 			-- As the attribute is not immediately written, make sure
 			-- `a_prefix' and `a_uri' do not change (ie are cloned or
@@ -570,7 +570,7 @@ feature -- Commands that expand `xml'
 			do_set_attribute (xmlns, a_prefix, a_uri)
 		end
 
-	set_default_name_space (uri: STRING) is
+	set_default_name_space (uri: STRING)
 			-- Set the default name space.
 		require
 			can_add_attributes: can_add_attributes
@@ -579,7 +579,7 @@ feature -- Commands that expand `xml'
 			do_set_attribute (Void, xmlns, uri)
 		end
 
-	set_ns_attribute (name_space, an_attribute, value: STRING) is
+	set_ns_attribute (name_space, an_attribute, value: STRING)
 			-- Set an attribute of the current tag.  `value' may not
 			-- contain an entity reference. `name_space' is the optional
 			-- prefix to be used, not the actual URI.
@@ -597,7 +597,7 @@ feature -- Commands that expand `xml'
 			end
 		end
 
-	start_ns_tag (name_space, a_tag: STRING) is
+	start_ns_tag (name_space, a_tag: STRING)
 			-- Start a new tag in the given `name_space'. `name_space' is
 			-- a prefix only, not the actual URI. If `name_space' is Void
 			-- or empty, the tag will not get a prefix.
@@ -629,7 +629,7 @@ feature -- Commands that expand `xml'
 			tag_not_written: tag_state = tag_pending
 		end
 
-	start_tag (a_tag: STRING) is
+	start_tag (a_tag: STRING)
 			-- Start a new tag.
 			-- As the tag is not immediately written, make sure `a_tag'
 			-- does not change (ie is cloned or immutable).
@@ -644,7 +644,7 @@ feature -- Commands that expand `xml'
 			tag_not_written: tag_state = tag_pending
 		end
 
-	stop_tag is
+	stop_tag
 			-- Stop last started tag.
 		require
 			tag_is_started: is_tag_started
@@ -678,7 +678,7 @@ feature -- Commands that expand `xml'
 
 feature {NONE} -- The only methods that operate directly on `my_xml'
 
-	extend_character (c: CHARACTER) is
+	extend_character (c: CHARACTER)
 			-- Add `c' to `my_xml'.
 		do
 			my_xml.append_character (c)
@@ -686,7 +686,7 @@ feature {NONE} -- The only methods that operate directly on `my_xml'
 			c_added: my_xml.item (my_xml.count) = c
 		end
 
-	extend (a_data: STRING) is
+	extend (a_data: STRING)
 			-- Add anything to the current `xml' string, you're on your own here!
 			-- All changes to `my_xml' are made from here.
 		require
@@ -695,7 +695,7 @@ feature {NONE} -- The only methods that operate directly on `my_xml'
 			my_xml.append_string (a_data)
 		end
 
-	extend_with_cdata (a_data: STRING) is
+	extend_with_cdata (a_data: STRING)
 			-- Extend `my_xml' with `a_data', but quote all >>] occurrences.
 			-- Assumes a CDATA section has been started.
 		require
@@ -734,7 +734,7 @@ feature {NONE} -- The only methods that operate directly on `my_xml'
 			end
 		end
 
-	extend_with_comment (a_data: STRING) is
+	extend_with_comment (a_data: STRING)
 			-- Extend `my_xml' with `a_data', but quote all --> occurrences.
 			-- Assumes a comment section has been started.
 		require
@@ -767,7 +767,7 @@ feature {NONE} -- The only methods that operate directly on `my_xml'
 			end
 		end
 
-	extend_with_data (data: STRING) is
+	extend_with_data (data: STRING)
 			-- Extend `my_xml' with `data', but quote any meta characters
 			-- that occur in `data'.
 		require
@@ -812,7 +812,7 @@ feature {NONE} -- The only methods that operate directly on `my_xml'
 
 feature -- Quote unsafe characters
 
-	replace_content_meta_characters (s: STRING) is
+	replace_content_meta_characters (s: STRING)
 			-- Replace all characters in `s' that have a special meaning in
 			-- XML. These characters are '<' and '&' and the sequence "]]>".
 			-- This routine is slow when `data' is actually a UC_STRING
@@ -866,7 +866,7 @@ feature -- Quote unsafe characters
 
 feature -- Conversion
 
-	force_valid_string (s: STRING): STRING is
+	force_valid_string (s: STRING): STRING
 			-- `'s' with all invalid characters replaced by spaces; if
 			-- there are no changes `s' is returned, else a new string
 		local
@@ -895,7 +895,7 @@ feature -- Conversion
 
 feature -- Comments
 
-	add_comment (a_comment: STRING) is
+	add_comment (a_comment: STRING)
 			-- Add a comment.
 			-- This routine does not yet quote meta data properly. Need a
 			-- separate comment state to properly quote meta data inside
@@ -909,7 +909,7 @@ feature -- Comments
 		end
 
 
-	start_comment is
+	start_comment
 			-- Write the XML comment start tag.
 		do
 			assure_last_tag_written (False)
@@ -917,7 +917,7 @@ feature -- Comments
 			-- need to set I believe: is_element_with_data := False
 		end
 
-	stop_comment is
+	stop_comment
 			-- Stop a started XML comment.
 		do
 			extend (stop_comment_string)
@@ -926,7 +926,7 @@ feature -- Comments
 
 feature {NONE} -- Internal xml change
 
-	assure_last_tag_started is
+	assure_last_tag_started
 			-- Make sure the current tag is written to the XML
 			-- stream. Closing character '>' is not yet written, call
 			-- `assure_last_tag_written' for that.
@@ -950,7 +950,7 @@ feature {NONE} -- Internal xml change
 			data_written_is_reset: old tag_state = tag_pending implies not is_element_with_data
 		end
 
-	assure_last_tag_written (may_close_tag: BOOLEAN) is
+	assure_last_tag_written (may_close_tag: BOOLEAN)
 			-- Starting a tag is a delayed activity. This routine makes
 			-- sure the tag is really written.
 		do
@@ -994,7 +994,7 @@ feature {NONE} -- Internal xml change
 			data_written_is_reset: (old tag_state = tag_pending or else old tag_state = tag_started) implies not is_element_with_data
 		end
 
-	empty_tag_closing_chars: STRING is
+	empty_tag_closing_chars: STRING
 			-- Which characters to use for an empty tag?
 			-- XHTML applications like an additional space.
 		once
@@ -1003,7 +1003,7 @@ feature {NONE} -- Internal xml change
 			empty_tag_closing_chars_not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	indent is
+	indent
 			-- Indent to two spaces under parent.
 		local
 			spaces: STRING
@@ -1021,7 +1021,7 @@ feature {NONE} -- Internal xml change
 			end
 		end
 
-	make_valid_attribute_value (value: STRING): STRING is
+	make_valid_attribute_value (value: STRING): STRING
 			-- Convert value to something that is ok within an attribute.
 			-- `value' should not contain an entity reference, because it
 			-- will be quoted.
@@ -1084,7 +1084,7 @@ feature {NONE} -- Internal xml change
 			end
 		end
 
-	new_line is
+	new_line
 			-- Write a new line now.
 			-- Cannot be called indiscriminately, but only when a pending
 			-- tag has been written. Use `put_new_line' for a safe variant.
@@ -1094,7 +1094,7 @@ feature {NONE} -- Internal xml change
 			cursor_on_new_line: on_new_line
 		end
 
-	new_line_after_closing_tag (a_tag: STRING) is
+	new_line_after_closing_tag (a_tag: STRING)
 			-- Outputs a new line, called when `a_tag' is closed
 			-- can be overridden to start a new line only occasionally
 			-- For XHTML documents a new line is treated as a single
@@ -1105,7 +1105,7 @@ feature {NONE} -- Internal xml change
 			new_line
 		end
 
-	new_line_before_starting_tag (a_tag: STRING) is
+	new_line_before_starting_tag (a_tag: STRING)
 			-- Outputs a new line, called when `a_tag' is about to begin.
 		require
 			valid_tag: a_tag /= Void and then not a_tag.is_empty
@@ -1128,7 +1128,7 @@ feature {NONE} -- Tag attributes
 	values: DS_HASH_TABLE [STRING, STRING]
 			-- Attribute values
 
-	clear_attributes is
+	clear_attributes
 		do
 			attributes.wipe_out
 			values.wipe_out
@@ -1136,7 +1136,7 @@ feature {NONE} -- Tag attributes
 			no_attributes: attributes.is_empty
 		end
 
-	do_add_attribute (a_name_space, an_attribute, a_value: STRING) is
+	do_add_attribute (a_name_space, an_attribute, a_value: STRING)
 			-- Raw write attribute for current tag including optional name space.
 			-- Assumes all checks have been done, so `a_value' is
 			-- properly quoted for example.
@@ -1160,7 +1160,7 @@ feature {NONE} -- Tag attributes
 			extend_character ('"')
 		end
 
-	do_set_attribute (a_name_space, an_attribute, a_value: STRING) is
+	do_set_attribute (a_name_space, an_attribute, a_value: STRING)
 			-- Raw set attribute for current tag including optional name space.
 			-- Assumes all checks have been done, so `a_value' is
 			-- properly quoted for example.
@@ -1197,7 +1197,7 @@ feature {NONE} -- Tag attributes
 				(a_name_space /= Void implies values.has (a_name_space + ":" + an_attribute))
 		end
 
-	exist_attribute (an_attribute: STRING): BOOLEAN is
+	exist_attribute (an_attribute: STRING): BOOLEAN
 			-- Has the current tag the attribute `an_attribute'?
 			-- `an_attribute' may contain a name space. If true,
 			-- `get_value' may be called.
@@ -1210,7 +1210,7 @@ feature {NONE} -- Tag attributes
 			found_set: Result implies values.found
 		end
 
-	get_value: STRING is
+	get_value: STRING
 			-- Return the contents of the last searched for attribute
 			-- value. A value can be Void.
 		require
@@ -1225,7 +1225,7 @@ feature {NONE} -- Internal state
 	my_xml: UC_STRING
 			-- The string builded as we go.
 
-	on_new_line: BOOLEAN is
+	on_new_line: BOOLEAN
 			-- Is cursor on a new line?
 		local
 			c: INTEGER
@@ -1243,90 +1243,90 @@ feature {NONE} -- Internal state
 
 	tag_state: INTEGER
 
-	tag_pending: INTEGER is 1
+	tag_pending: INTEGER = 1
 			-- Is there a new tag that must be written?
 
-	tag_started: INTEGER is 2
+	tag_started: INTEGER = 2
 			-- Is the '<' + tag name written?
 
-	tag_written: INTEGER is 3
+	tag_written: INTEGER = 3
 			-- Is the currently started tag written to the stream?
 			-- We employ lazy writing so we can output <a/> when there is
 			-- no data for example.
 
-	tag_closed: INTEGER is 4
+	tag_closed: INTEGER = 4
 			-- Is tag closed?
 			-- This means the '/>' part is written.
 
 
 feature {NONE} -- Other once strings
 
-	start_comment_string: UC_UTF8_STRING is
+	start_comment_string: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("<!--")
 		end
 
-	stop_comment_string: UC_UTF8_STRING is
+	stop_comment_string: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("-->")
 		end
 
-	start_cdata_string: UC_UTF8_STRING is
+	start_cdata_string: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("<![CDATA[")
 		end
 
-	stop_cdata_string: UC_UTF8_STRING is
+	stop_cdata_string: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("]]>")
 		end
 
-	xmlns: UC_UTF8_STRING is
+	xmlns: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("xmlns")
 		end
 
-	xml_header_start: UC_UTF8_STRING is
+	xml_header_start: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("<?xml version=%"1.0%" encoding=%"")
 		end
 
-	xml_header_stop: UC_UTF8_STRING is
+	xml_header_stop: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("%" ?>")
 		end
 
-	once_iso_8859_1: UC_UTF8_STRING is
+	once_iso_8859_1: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("ISO-8859-1")
 		end
 
-	once_utf8: UC_UTF8_STRING is
+	once_utf8: UC_UTF8_STRING
 		once
 			create Result.make_from_string ("UTF-8")
 		end
 
-	two_spaces: UC_UTF8_STRING is
+	two_spaces: UC_UTF8_STRING
 		once
 			create Result.make_filled (' ', 2)
 		end
 
-	four_spaces: UC_UTF8_STRING is
+	four_spaces: UC_UTF8_STRING
 		once
 			create Result.make_filled (' ', 4)
 		end
 
-	six_spaces: UC_UTF8_STRING is
+	six_spaces: UC_UTF8_STRING
 		once
 			create Result.make_filled (' ', 6)
 		end
 
-	eight_spaces: UC_UTF8_STRING is
+	eight_spaces: UC_UTF8_STRING
 		once
 			create Result.make_filled (' ', 8)
 		end
 
-	ten_spaces: UC_UTF8_STRING is
+	ten_spaces: UC_UTF8_STRING
 		once
 			create Result.make_filled (' ', 10)
 		end

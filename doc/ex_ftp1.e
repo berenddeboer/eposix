@@ -6,7 +6,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			ftp: EPX_FTP_CLIENT
 		do
@@ -28,7 +28,7 @@ feature
 			end
 		end
 
-	dump_data_connection (stream: KI_CHARACTER_INPUT_STREAM) is
+	dump_data_connection (stream: KI_CHARACTER_INPUT_STREAM)
 			-- Dump stream input.
 		require
 			stream_not_void: stream /= Void
@@ -46,10 +46,10 @@ feature
 
 feature -- Access
 
-	directory_name: STRING is "/pub/FreeBSD"
+	directory_name: STRING = "/pub/FreeBSD"
 
-	file_name: STRING is "README.TXT"
+	file_name: STRING = "README.TXT"
 
-	server_name: STRING is "ftp.freebsd.org"
+	server_name: STRING = "ftp.freebsd.org"
 
 end

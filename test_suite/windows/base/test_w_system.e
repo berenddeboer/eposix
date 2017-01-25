@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Tests
 
-	test_clock is
+	test_clock
 			-- Test high performance timers.
 		local
 			i1, i2: INTEGER_64

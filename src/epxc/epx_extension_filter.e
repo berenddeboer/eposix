@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Filters files based on extension."
 
@@ -27,7 +27,7 @@ create
 
 feature -- Initialization
 
-	make (a_extension: STRING) is
+	make (a_extension: STRING)
 			-- `a_extension' includes the '.', so should be something
 			-- like ".e".
 		require
@@ -45,7 +45,7 @@ feature -- Access
 
 feature -- Validation
 
-	validate_directory: BOOLEAN is
+	validate_directory: BOOLEAN
 			-- When encountering a directory, pass it to `is_valid' for
 			-- validation or recurse immediately into that directory
 			-- without ever passing the directory to `is_valid'?
@@ -53,7 +53,7 @@ feature -- Validation
 			Result := False
 		end
 
-	is_valid (status: ABSTRACT_STATUS; path_name: STRING): BOOLEAN is
+	is_valid (status: ABSTRACT_STATUS; path_name: STRING): BOOLEAN
 		local
 			i, j: INTEGER
 		do
@@ -78,7 +78,7 @@ feature -- Validation
 			end
 		end
 
-	require_status: BOOLEAN is
+	require_status: BOOLEAN
 			-- Should `is_valid' be suppied with status?
 			-- Getting a status is expensive, and is best be avoided.
 		do

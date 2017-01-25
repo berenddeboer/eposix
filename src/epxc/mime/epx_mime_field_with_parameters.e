@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base for structured fields with parameters."
 
@@ -28,7 +28,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make_parameters is
+	make_parameters
 			-- Initialize MIME field that has optional parameters.
 		local
 			equality_tester: UC_STRING_EQUALITY_TESTER
@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 
 feature -- Output
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
 		do
 			s.append_string (name)
@@ -67,7 +67,7 @@ feature -- State
 
 feature -- Parameter change
 
-	add_parameter (a_parameter: EPX_MIME_PARAMETER) is
+	add_parameter (a_parameter: EPX_MIME_PARAMETER)
 			-- Append `a_parameter' to `parameters'.
 		require
 			a_parameter_not_void: a_parameter /= Void
@@ -79,7 +79,7 @@ feature -- Parameter change
 			parameter_is_last: parameters.last =  a_parameter
 		end
 
-	set_parameter (a_name, a_value: STRING) is
+	set_parameter (a_name, a_value: STRING)
 			-- Add parameter with name `a_name' if it does not exist, or
 			-- else set the value of the existing parameter to `a_value'.
 		require
@@ -103,7 +103,7 @@ feature -- Parameter change
 
 feature {NONE} -- Implementation
 
-	is_every_parameter_in_parameters: BOOLEAN is
+	is_every_parameter_in_parameters: BOOLEAN
 			-- Does every parameter in `parameters' have a name that can
 			-- be found in `parameters'?
 		local

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,7 +19,7 @@ deferred class
 
 feature {EPX_CGI_KEY_VALUE_CURSOR} -- Callback
 
-	on_match (a_cursor: EPX_CGI_KEY_VALUE_CURSOR): BOOLEAN is
+	on_match (a_cursor: EPX_CGI_KEY_VALUE_CURSOR): BOOLEAN
 			-- Callback when `a_cursor'.`key_re' and
 			-- `a_cursor'.`value_re' has matched and should return True
 			-- if match is valid

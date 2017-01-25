@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that gets Posix stat structure through fstat call."
 
@@ -28,7 +28,7 @@ create {EPX_FILE_DESCRIPTOR}
 
 feature -- stat members
 
-   permissions: POSIX_PERMISSIONS is
+   permissions: POSIX_PERMISSIONS
          -- file permissions
       do
          if my_permissions = Void then
@@ -40,7 +40,7 @@ feature -- stat members
 
 feature -- state change commands
 
-   refresh is
+   refresh
          -- Refresh the cached status information
       do
          precursor
@@ -57,7 +57,7 @@ feature {NONE} -- state
 
 feature {NONE} -- abstract API
 
-   abstract_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER is
+   abstract_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER
          -- Gets information about a file
       do
          Result := posix_fstat (fildes, a_stat)

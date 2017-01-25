@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Windows file system class."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Tests
 
-	test_drive is
+	test_drive
 		do
 			print ("Current drive: ")
 			print (current_drive)
@@ -29,7 +29,7 @@ feature -- Tests
 		end
 
 
-	test_directory is
+	test_directory
 			-- Test directory functions.
 		local
 			dir: STRING

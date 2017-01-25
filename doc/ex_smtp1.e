@@ -12,7 +12,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			message: EPX_MIME_EMAIL
 			mail: EPX_SMTP_MAIL
@@ -37,7 +37,7 @@ feature
 			smtp.close
 		end
 
-	smtp_server_name: STRING is "localhost"
+	smtp_server_name: STRING = "localhost"
 			-- Should work on every Unix system
 
 end

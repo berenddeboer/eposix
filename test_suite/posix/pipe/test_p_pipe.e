@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix pipe."
 
@@ -25,7 +25,7 @@ feature
 
 	pipe: POSIX_PIPE
 
-	test_all is
+	test_all
 		local
 			stop_sign: Boolean
 			word: INTEGER
@@ -70,7 +70,7 @@ feature
 
 feature -- forked child
 
-	execute is
+	execute
 		do
 			pipe.fdin.close
 			pipe.fdout.write_string (first_word)
@@ -84,9 +84,9 @@ feature -- forked child
 
 feature {NONE} -- Once strings
 
-	first_word: STRING is "hello "
-	second_word: STRING is "world.%N"
-	third_word: STRING is "stop"
-	sentence: STRING is "hello world."
+	first_word: STRING = "hello "
+	second_word: STRING = "world.%N"
+	third_word: STRING = "stop"
+	sentence: STRING = "hello world."
 
 end

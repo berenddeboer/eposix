@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_name: STRING; an_options: DS_LINKABLE [STRING]; a_value: STRING) is
+	make (a_name: STRING; an_options: DS_LINKABLE [STRING]; a_value: STRING)
 		require
 			name_not_empty: a_name /= Void and then not a_name.is_empty
 		do
@@ -50,7 +50,7 @@ feature -- Access
 
 feature -- Change
 
-	add_value (a_value: STRING) is
+	add_value (a_value: STRING)
 		do
 			values.put_last (a_value)
 		end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Deferred class that implements POSIX semaphores on top of ABSTRACT_SEMAPHORE."
 
@@ -26,7 +26,7 @@ inherit
 
 feature -- Commands
 
-	attempt_acquire is
+	attempt_acquire
 			-- Lock the semaphore only if it is not locked. If it is locked
 			-- by some process, this command returns immediately and the
 			-- semaphore is not locked
@@ -40,7 +40,7 @@ feature -- Commands
 			end
 		end
 
-	acquire is
+	acquire
 			-- Lock the semaphore.
 		local
 			r: INTEGER
@@ -53,7 +53,7 @@ feature -- Commands
 			end
 		end
 
-	release is
+	release
 			-- Unlock the semaphore.
 		do
 			safe_win_call (posix_releasesemaphore (handle, 1, default_pointer))
@@ -63,13 +63,13 @@ feature -- Commands
 
 feature -- Status
 
-	supports_semaphores: BOOLEAN is True
+	supports_semaphores: BOOLEAN = True
 			-- Does this Operating System supports semaphores?
 
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in
@@ -83,13 +83,13 @@ feature {NONE} -- Low level handle functions
 			end
 		end
 
-	unassigned_value: INTEGER is 0
+	unassigned_value: INTEGER = 0
 			-- The value that indicates that `handle' is unassigned.
 
 
 feature {NONE} -- Abstract API
 
-	abstract_sem_value_max: INTEGER is
+	abstract_sem_value_max: INTEGER
 			-- Maximum initial value for a semaphore.
 		do
 			Result := Maximum_integer

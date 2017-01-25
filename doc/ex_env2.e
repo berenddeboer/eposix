@@ -6,7 +6,7 @@ create
    
 feature
    
-   make is
+   make
       local
          env: STDC_ENV_VAR
       do

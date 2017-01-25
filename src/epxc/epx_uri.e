@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that splits an URI into its components."
 

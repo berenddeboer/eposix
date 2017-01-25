@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "ISE routines to access its garbage collector."
 
@@ -13,7 +13,7 @@ class
 
 feature -- Unfreezing
 
-	unfreeze_objects is
+	unfreeze_objects
 			-- Unfreeze the objects in `frozen_objects'.
 		do
 			from
@@ -32,7 +32,7 @@ feature -- Unfreezing
 
 feature {NONE} -- Frozen object remembering
 
-	frozen_objects: DS_LINKED_LIST [STDC_BUFFER] is
+	frozen_objects: DS_LINKED_LIST [STDC_BUFFER]
 			-- All frozen objects are stored in this buffer. Call
 			-- `unfreeze_objects' to free them.
 			-- Actually the objects are not frozen, but copied to a

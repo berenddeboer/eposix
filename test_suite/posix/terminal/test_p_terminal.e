@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix terminal access classes."
 
@@ -23,7 +23,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 			-- Testing Posix terminal interface.
 		do
 			stdout.write_string ("Password: ")

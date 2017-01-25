@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix pause."
 
@@ -21,7 +21,7 @@ inherit
 
 feature
 
-	test_sighup is
+	test_sighup
 		local
 			child: TEST_P_PAUSE_CHILD
 		do

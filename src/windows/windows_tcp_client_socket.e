@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows TCP client side socket."
 

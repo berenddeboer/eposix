@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that can execute something that should take %
 	%X seconds to complete. If it takes more than X seconds, the command is%
@@ -29,7 +29,7 @@ inherit
 
 feature -- Initialization
 
-	make (a_seconds: INTEGER) is
+	make (a_seconds: INTEGER)
 		require
 			valid_seconds: a_seconds >= 1 and a_seconds <= 65535
 		do
@@ -41,7 +41,7 @@ feature -- Initialization
 
 feature -- Execution
 
-	execute: BOOLEAN is
+	execute: BOOLEAN
 			-- Did `do_execute' complete its task within `seconds' seconds?
 		require
 			signal_alarm_causes_an_exception: is_signal_alarm_handled
@@ -73,7 +73,7 @@ feature -- Execution
 
 feature {NONE} -- Alarm
 
-	alarm_on is
+	alarm_on
 			-- Turns on alarm request at `seconds' real seconds.  You can
 			-- check `remaining_seconds' > 0 if a previous alarm was
 			-- scheduled.
@@ -81,14 +81,14 @@ feature {NONE} -- Alarm
 			remaining_seconds := posix_alarm (seconds)
 		end
 
-	alarm_off is
+	alarm_off
 			-- Turns off alarm request.
 			-- Remaining seconds are in `remaining_seconds'.
 		do
 			remaining_seconds := posix_alarm (0)
 		end
 
-	do_execute is
+	do_execute
 			-- does the real work
 		deferred
 		end
@@ -96,7 +96,7 @@ feature {NONE} -- Alarm
 
 feature -- Access
 
-	is_signal_alarm_handled: BOOLEAN is
+	is_signal_alarm_handled: BOOLEAN
 			-- Does the signal SIGNAL_ALARM cause an Eiffel exception?
 		local
 			my_signal: POSIX_SIGNAL
@@ -114,7 +114,7 @@ feature -- State
 	seconds: INTEGER
 			-- the number of seconds available to execute the command
 
-	set_seconds (a_seconds: INTEGER) is
+	set_seconds (a_seconds: INTEGER)
 		do
 			seconds := a_seconds
 		end

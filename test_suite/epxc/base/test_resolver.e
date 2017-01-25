@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_http is
+	test_http
 		local
 			resolver: EPX_HTTP_URI_RESOLVER
 			uri: UT_URI
@@ -37,7 +37,7 @@ feature
 			assert ("Resolved", not resolver.has_error)
 		end
 
-	test_https is
+	test_https
 		local
 			resolver: EPX_HTTPS_URI_RESOLVER
 			uri: UT_URI

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test HTTP servlet."
 
@@ -30,7 +30,7 @@ create
 
 feature -- Access
 
-	allowed_methods: STRING is "GET, POST"
+	allowed_methods: STRING = "GET, POST"
 			-- What methods does the resource captured by this servlet
 			-- allow?
 
@@ -39,14 +39,14 @@ feature -- Access
 
 feature {EPX_HTTP_SERVER} -- Servlet implementation
 
-	get_header is
+	get_header
 			-- Write response body.
 		do
 			write_default_header
 			last_request_form_fields := connection.request_form_fields
 		end
 
-	post_header is
+	post_header
 			-- Write response header to POST request. You have to
 			-- write everything, including the response code.
 		do
@@ -54,7 +54,7 @@ feature {EPX_HTTP_SERVER} -- Servlet implementation
 			last_request_form_fields := connection.request_form_fields
 		end
 
-	post_body is
+	post_body
 		do
 			doctype_strict
 			b_html

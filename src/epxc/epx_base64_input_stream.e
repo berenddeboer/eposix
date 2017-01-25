@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Stream that gets base64 data from another stream and emits decoded characters."
 
@@ -47,7 +47,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			precursor
 			create codes.make (1, 4)
@@ -58,7 +58,7 @@ feature {NONE} -- Initialization
 
 feature -- Input
 
-	read_character is
+	read_character
 			-- Read the next item in input stream.
 			-- Make the result available in `last_item'.
 		do
@@ -77,7 +77,7 @@ feature -- Status report
 	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 
-	valid_unread_item (an_item: CHARACTER): BOOLEAN is
+	valid_unread_item (an_item: CHARACTER): BOOLEAN
 			-- Can `an_item' be put back in input stream?
 		do
 			Result := False
@@ -94,7 +94,7 @@ feature {NONE} -- Decoding
 
 	codes: ARRAY [INTEGER]
 
-	read_24_bits is
+	read_24_bits
 			-- Read the next four characters, decode them, and make the
 			-- decoded characters available in `decoded'.
 			-- Sets `end_of_input' if premature end of input reached.

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -60,7 +60,7 @@ create {EPX_HTTP_SERVER}
 
 feature {NONE} -- Initialisation
 
-	make (a_server: EPX_HTTP_SERVER; a_client: ABSTRACT_TCP_SOCKET) is
+	make (a_server: EPX_HTTP_SERVER; a_client: ABSTRACT_TCP_SOCKET)
 			-- Initialisation.
 		require
 			server_not_void: a_server /= Void
@@ -117,7 +117,7 @@ feature -- Access
 	server: EPX_HTTP_SERVER
 			-- Server which accepted this connection
 
-	user_agent: EPX_MIME_FIELD is
+	user_agent: EPX_MIME_FIELD
 			-- User-Agent field if present, Void otherwise
 		require
 			have_request_fields: request_fields /= Void
@@ -133,7 +133,7 @@ feature -- Access
 
 feature -- Status
 
-	has_client_disconnected: BOOLEAN is
+	has_client_disconnected: BOOLEAN
 			-- Has client decided to disconnect?
 		do
 			-- If connection is not persistent, it means that when the
@@ -141,7 +141,7 @@ feature -- Status
 			Result := not is_persistent and then is_readable
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Is connection to client open?
 		do
 			Result := client.is_open
@@ -151,7 +151,7 @@ feature -- Status
 			-- Has client not signalled that it wants to close the
 			-- connection after processing?
 
-	is_readable: BOOLEAN is
+	is_readable: BOOLEAN
 			-- Has client send new data?
 		do
 			select_readable.check_for_reading.wipe_out
@@ -169,7 +169,7 @@ feature -- Status
 	is_header_send: BOOLEAN
 			-- Is `response_header' send to `client'?
 
-	is_request_parsed: BOOLEAN is
+	is_request_parsed: BOOLEAN
 			-- Was `parse_request' successful?
 		do
 			Result :=
@@ -182,7 +182,7 @@ feature -- Status
 	is_http_09_request: BOOLEAN
 			-- Old style HTTP 0.9 request?
 
-	response_header_ends_with_body_separator: BOOLEAN is
+	response_header_ends_with_body_separator: BOOLEAN
 			-- Does `response_header' end with the header/body separator?
 		do
 			Result :=
@@ -198,7 +198,7 @@ feature -- Status
 
 feature -- Change
 
-	clear_request_state is
+	clear_request_state
 			-- Reset state variables build/maintained when handling a
 			-- request in `parse_request'.
 		do
@@ -220,7 +220,7 @@ feature -- Change
 			no_response_code: response_code = 0
 		end
 
-	close is
+	close
 		do
 			if client.is_open then
 				-- Windows doesn't do a shutdown when closing the descriptor,
@@ -235,7 +235,7 @@ feature -- Change
 
 feature -- Parsing
 
-	parse_request is
+	parse_request
 			-- Parse the request in `client'.
 		require
 			client_open: client.is_open
@@ -371,7 +371,7 @@ feature -- Parsing
 			last_request_receive_time_not_void: last_request_receive_time /= Void
 		end
 
-	read_request_line: STRING is
+	read_request_line: STRING
 			-- Read Request-Line from client.
 		require
 			client_open: client /= Void and then client.is_open
@@ -411,7 +411,7 @@ feature -- Access that you probably shouldn't use
 
 feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Redirects
 
-	respond_see_other (a_location: STRING) is
+	respond_see_other (a_location: STRING)
 			-- Send a 303 (or 302 for older clients) after a successful
 			-- PUT/POST/DELETE.
 		require
@@ -431,7 +431,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Redirects
 
 feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 
-	error_reasons: DS_HASH_TABLE [STRING, INTEGER] is
+	error_reasons: DS_HASH_TABLE [STRING, INTEGER]
 			-- Slightly more verbose errors than the reason phrase.
 		once
 			create Result.make (16)
@@ -447,7 +447,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			error_reasons_not_void: Result /= Void
 		end
 
-	report_bad_request (a_request: STRING) is
+	report_bad_request (a_request: STRING)
 			-- Return 400 to client.
 			-- The request could not be understood by the server due to
 			-- malformed syntax. The client SHOULD NOT repeat the request
@@ -461,7 +461,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_conflict (a_message: STRING) is
+	report_conflict (a_message: STRING)
 			-- Return 409 to client.
 			-- The request could not be completed due to a conflict with
 			-- the current state of the resource. This code is only
@@ -481,7 +481,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_content_length_required is
+	report_content_length_required
 			-- The server refuses to accept the request without a defined
 			-- Content-Length. The client MAY repeat the request if it
 			-- adds a valid Content-Length header field containing the
@@ -494,7 +494,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_expectation_failed (an_expectation: STRING) is
+	report_expectation_failed (an_expectation: STRING)
 			-- The expectation given in an Expect request-header field
 			-- could not be met by this server.
 		require
@@ -505,7 +505,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_forbidden (a_file: STRING) is
+	report_forbidden (a_file: STRING)
 			-- Return 403 to the client.
 			-- The server understood the request, but is refusing to
 			-- fulfill it.  Authorization will not help and the request
@@ -519,7 +519,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_gateway_timeout is
+	report_gateway_timeout
 		require
 			header_not_send: not is_header_send
 		do
@@ -529,7 +529,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_internal_server_error (a_message: STRING) is
+	report_internal_server_error (a_message: STRING)
 		require
 			header_not_send: not is_header_send
 		do
@@ -539,7 +539,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_method_not_allowed (a_method, a_allowed_methods: STRING) is
+	report_method_not_allowed (a_method, a_allowed_methods: STRING)
 			-- The method specified in the Request-Line is not allowed
 			-- for the resource identified by the Request-URI. The
 			-- response MUST include an Allow header containing a list of
@@ -556,7 +556,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_not_found (a_uri: STRING) is
+	report_not_found (a_uri: STRING)
 			-- Return 404 to the client.
 			-- The server has not found anything matching the Request-URI.
 		require
@@ -568,7 +568,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_not_implemented (a_method: STRING) is
+	report_not_implemented (a_method: STRING)
 			-- Return 501 to client.
 			-- The server does not support the functionality required to
 			-- fulfill the request. This is the appropriate response when
@@ -582,7 +582,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	report_unmodified is
+	report_unmodified
 			-- Resource is not modified, respond with 304.
 		require
 			header_not_send: not is_header_send
@@ -602,7 +602,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 		end
 
 
-	write_report (a_code: INTEGER; a_parameter: STRING) is
+	write_report (a_code: INTEGER; a_parameter: STRING)
 			-- Send an error report to `client'.
 		require
 			header_not_send: not is_header_send
@@ -614,7 +614,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			body_send: is_body_send
 		end
 
-	write_report_header (a_code: INTEGER) is
+	write_report_header (a_code: INTEGER)
 			-- Generate header of an error report to `client'.
 			-- Header will be send by `write_report_body'.
 		require
@@ -625,7 +625,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 			write_mime_header (Void)
 		end
 
-	write_report_body (a_code: INTEGER; a_parameter: STRING) is
+	write_report_body (a_code: INTEGER; a_parameter: STRING)
 			-- Assumes header is in `response_header' and not yet send.
 		require
 			three_digit_response: is_three_digit_response (a_code)
@@ -697,7 +697,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Report errors to client
 
 feature {EPX_HTTP_SERVLET,EPX_HTTP_SERVER} -- Response and headers to client
 
-	write_mime_header (content_type: STRING) is
+	write_mime_header (content_type: STRING)
 			-- Add default mime header fields for this server. Result is
 			-- not written immediately to client. Call `send_header' to do that.
 		require
@@ -739,7 +739,7 @@ feature {EPX_HTTP_SERVLET,EPX_HTTP_SERVER} -- Response and headers to client
 			end
 		end
 
-	write_response_code (a_code: INTEGER) is
+	write_response_code (a_code: INTEGER)
 			-- Add HTTP response status line to `response_header'.
 		require
 			response_header_empty: response_header.is_empty
@@ -764,9 +764,9 @@ feature {EPX_HTTP_SERVLET,EPX_HTTP_SERVER} -- Response and headers to client
 
 feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 
-	ie_error_treshold: INTEGER is 512
+	ie_error_treshold: INTEGER = 512
 
-	reach_ie_error_treshold (xml: EPX_XML_WRITER) is
+	reach_ie_error_treshold (xml: EPX_XML_WRITER)
 			-- Horror, horror, overcome IE ErrorTresholds...
 			-- You need this if the body of a response is less than
 			-- 128..512 bytes and you have a response code >= 400 and you
@@ -788,7 +788,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 			end
 		end
 
-	send_body (a_body: STRING) is
+	send_body (a_body: STRING)
 			-- Assume `a_body' is the entire body.
 			-- If there is an error sending `s' to the client, the
 			-- connection will be closed.
@@ -807,7 +807,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 			last_response_send_time_not_void: last_response_send_time /= Void
 		end
 
-	send_expect_continue is
+	send_expect_continue
 			-- Immediately send a 100 Continue response to the client.
 			-- If there is an error sending `s' to the client, the
 			-- connection will be closed.
@@ -821,7 +821,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 			response_header_empty: response_header.is_empty
 		end
 
-	send_header is
+	send_header
 			-- Send `response_header' to client.
 			-- If there is an error sending `s' to the client, the
 			-- connection will be closed.
@@ -837,7 +837,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 			last_response_send_time_not_void: last_response_send_time /= Void
 		end
 
-	send_string (s: STRING) is
+	send_string (s: STRING)
 			-- Write `s' to `client'.
 			-- Using this routine has the advantage that output to client
 			-- can be written to `stderr', if you desire to do so.
@@ -860,7 +860,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 			end
 		end
 
-	add_field (a_field_name, a_content: STRING) is
+	add_field (a_field_name, a_content: STRING)
 			-- Add a MIME field to `report_header'.
 		require
 			header_not_ended: not response_header_ends_with_body_separator
@@ -874,7 +874,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 			add_new_line
 		end
 
-	add_new_line is
+	add_new_line
 			-- Add a new line to `response_header'.
 		require
 			header_not_ended: not response_header_ends_with_body_separator
@@ -886,7 +886,7 @@ feature {EPX_HTTP_SERVER, EPX_HTTP_SERVLET} -- Client output helpers
 
 feature {NONE} -- Conversion of MIME body to form fields
 
-	mime_body_to_form_fields is
+	mime_body_to_form_fields
 			-- Convert a multipart/form-data body to key/value pairs.
 			-- If a body is not of the proper format, it is not returned.
 		require
@@ -906,7 +906,7 @@ feature {NONE} -- Conversion of MIME body to form fields
 			not_too_many_request_form_fields: request_form_fields.count <= request_body.parts_count
 		end
 
-	query_to_form_fields (a_uri: UT_URI)	is
+	query_to_form_fields (a_uri: UT_URI)
 			-- Translate the query part of a URL to `request_form_fields'.
 		require
 			uri_not_void: a_uri /= Void
@@ -924,7 +924,7 @@ feature {NONE} -- Conversion of MIME body to form fields
 			request_form_fields_not_void: request_form_fields /= Void
 		end
 
-	urlencoded_to_form_fields is
+	urlencoded_to_form_fields
 			-- Convert a form-urlencoded body to key/value pairs.
 		require
 			request_body_set: request_body /= Void
@@ -938,7 +938,7 @@ feature {NONE} -- Conversion of MIME body to form fields
 
 feature {NONE} -- Implementation
 
-	remap_http_method (a_method: STRING): STRING is
+	remap_http_method (a_method: STRING): STRING
 			-- Returns the HTTP method to use if `a_method' is POST and one
 			-- of the variables starts with "http-method:". The string
 			-- after "http-method:" is used as the method the user
@@ -973,7 +973,7 @@ feature {NONE} -- Implementation
 			remapped_method_not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	select_readable: EPX_SELECT is
+	select_readable: EPX_SELECT
 			-- Test if `client' socket becomes readable
 		once
 			create Result.make
@@ -981,7 +981,7 @@ feature {NONE} -- Implementation
 			select_readable_not_void: Result /= Void
 		end
 
-	select_timeout: EPX_TIME_VALUE is
+	select_timeout: EPX_TIME_VALUE
 			-- Immediate timeout for `select_readable'
 		do
 			create Result.make
@@ -996,7 +996,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Debugging
 
-	dump_request is
+	dump_request
 			-- Debug helper, dumps raw client request to stdout.
 		do
 			from
@@ -1009,7 +1009,7 @@ feature {NONE} -- Debugging
 			end
 		end
 
-	dump_request_header is
+	dump_request_header
 			-- Dump some header fields from the request.
 		do
 			stderr.put_string (field_name_user_agent)
@@ -1050,17 +1050,17 @@ feature {NONE} -- Debugging
 
 feature {NONE} -- Once STRINGs, Eiffel's worst feature
 
-	once_http_1_0: STRING is "HTTP/1.0"
-	once_http_1_1: STRING is "HTTP/1.1"
-	once_100_continue: STRING is "100-continue"
-	once_close: STRING is "close"
-	once_colon: STRING is ": "
-	once_http_version: STRING is "HTTP/1.1 "
-	once_keep_alive: STRING is "keep-alive"
-	once_mime_version: STRING is "1.0"
-	once_none: STRING is "none"
-	once_opera_7: STRING is "Opera/7."
-	once_http_method: STRING is "http-method:"
+	once_http_1_0: STRING = "HTTP/1.0"
+	once_http_1_1: STRING = "HTTP/1.1"
+	once_100_continue: STRING = "100-continue"
+	once_close: STRING = "close"
+	once_colon: STRING = ": "
+	once_http_version: STRING = "HTTP/1.1 "
+	once_keep_alive: STRING = "keep-alive"
+	once_mime_version: STRING = "1.0"
+	once_none: STRING = "none"
+	once_opera_7: STRING = "Opera/7."
+	once_http_method: STRING = "http-method:"
 
 
 invariant

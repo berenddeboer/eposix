@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -18,20 +18,20 @@ class
 
 feature -- ioctl status retrieval constants
 
-	SNDCTL_DSP_GETBLKSIZE: INTEGER is
+	SNDCTL_DSP_GETBLKSIZE: INTEGER
 			-- Get current block size.
 		external "C"
 		alias "const_sndctl_dsp_getblksize"
 		end
 
-	SNDCTL_DSP_GETCAPS: INTEGER is
+	SNDCTL_DSP_GETCAPS: INTEGER
 			-- Get capabilities into 32-bit integer. Bits indicate what
 			-- is supported.
 		external "C"
 		alias "const_sndctl_dsp_getcaps"
 		end
 
-	SNDCTL_DSP_GETFMTS: INTEGER is
+	SNDCTL_DSP_GETFMTS: INTEGER
 			-- Get supported formats into 32-bit integer. Bits indicate
 			-- what is supported.
 		external "C"
@@ -53,25 +53,25 @@ feature -- ioctl change constants
 -- 		alias "const_sndctl_dsp_channels"
 -- 		end
 
-	SNDCTL_DSP_CHANNELS: INTEGER is
+	SNDCTL_DSP_CHANNELS: INTEGER
 			-- Set number of output channels.
 		external "C"
 		alias "const_sndctl_dsp_channels"
 		end
 
-	SNDCTL_DSP_SETFMT: INTEGER is
+	SNDCTL_DSP_SETFMT: INTEGER
 			-- Set number of bits per sample.
 		external "C"
 		alias "const_sndctl_dsp_setfmt"
 		end
 
-	SNDCTL_DSP_SETFRAGMENT: INTEGER is
+	SNDCTL_DSP_SETFRAGMENT: INTEGER
 			-- Set number of fragments and fragment size.
 		external "C"
 		alias "const_sndctl_dsp_setfragment"
 		end
 
-	SNDCTL_DSP_SPEED: INTEGER is
+	SNDCTL_DSP_SPEED: INTEGER
 			-- Set sampling rate.
 		external "C"
 		alias "const_sndctl_dsp_speed"
@@ -80,54 +80,54 @@ feature -- ioctl change constants
 
 feature -- Audio device capabilities
 
-	DSP_CAP_DUPLEX: INTEGER is 256
+	DSP_CAP_DUPLEX: INTEGER = 256
 			-- Full duplex record/playback
 
-	DSP_CAP_REALTIME: INTEGER is 512
+	DSP_CAP_REALTIME: INTEGER = 512
 			-- Real time capability
 
-	DSP_CAP_BATCH: INTEGER is 1024
+	DSP_CAP_BATCH: INTEGER = 1024
 			-- Device has some kind of internal buffers which may cause
 			-- some delays and decrease precision of timing
 
-	DSP_CAP_COPROC: INTEGER is 2048
+	DSP_CAP_COPROC: INTEGER = 2048
 			-- Has a coprocessor
 			-- Sometimes it's a DSP, but usually not.
 
 
 feature -- Audio data formats
 
-	AFMT_QUERY: INTEGER is 0
+	AFMT_QUERY: INTEGER = 0
 			-- Return currently used format
 
-	AFMT_MU_LAW: INTEGER is 1
+	AFMT_MU_LAW: INTEGER = 1
 
-	AFMT_A_LAW: INTEGER is 2
+	AFMT_A_LAW: INTEGER = 2
 
-	AFMT_IMA_ADPCM: INTEGER is 4
+	AFMT_IMA_ADPCM: INTEGER = 4
 
-	AFMT_U8: INTEGER is 8
+	AFMT_U8: INTEGER = 8
 			-- Unsigned 8 bits
 
-	AFMT_S16_LE: INTEGER is 16
+	AFMT_S16_LE: INTEGER = 16
 			-- Signed 16 bits, little endian
 
-	AFMT_S16_BE: INTEGER is 32
+	AFMT_S16_BE: INTEGER = 32
 			-- Signed 16 bits, big endian
 
-	AFMT_S8: INTEGER is 64
+	AFMT_S8: INTEGER = 64
 			-- Signed 8 bits
 
-	AFMT_U16_LE: INTEGER is 128
+	AFMT_U16_LE: INTEGER = 128
 			-- Unsigned 16 bits, little endian
 
-	AFMT_U16_BE: INTEGER is 256
+	AFMT_U16_BE: INTEGER = 256
 			-- Unsigned 16 bits, big endian
 
-	AFMT_MPEG: INTEGER is 512
+	AFMT_MPEG: INTEGER = 512
 			-- MPEG (2) audio
 
-	AFMT_AC3: INTEGER is 1024
+	AFMT_AC3: INTEGER = 1024
 			-- Dolby Digital AC3
 
 end

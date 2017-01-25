@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows portable implementation of a service name."
 
@@ -32,14 +32,14 @@ create
 
 feature {NONE} -- Abstract API
 
-	abstract_getservbyname (a_name, a_proto: POINTER): POINTER is
+	abstract_getservbyname (a_name, a_proto: POINTER): POINTER
 			-- Lookup service given its name and optional protocol.
 		do
 			assert_winsock_initialized
 			Result := posix_getservbyname (a_name, a_proto)
 		end
 
-	abstract_getservbyport (a_port: INTEGER; a_proto: POINTER): POINTER is
+	abstract_getservbyport (a_port: INTEGER; a_proto: POINTER): POINTER
 			-- Lookup service given its port number and optional protocol.
 		do
 			assert_winsock_initialized

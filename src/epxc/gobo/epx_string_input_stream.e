@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Stream that returns the contents of a string."
 
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_value: STRING) is
+	make (a_value: STRING)
 			-- Initialize stream to return `a_value'.
 		require
 			value_not_void: a_value /= Void
@@ -44,7 +44,7 @@ feature {NONE} -- Initialization
 
 feature -- Input
 
-	read_character is
+	read_character
 			-- Read the next item in input stream.
 			-- Make the result available in `last_item'.
 		do
@@ -54,7 +54,7 @@ feature -- Input
 			end
 		end
 
-	read_string (nb: INTEGER) is
+	read_string (nb: INTEGER)
 		local
 			end_pos: INTEGER
 		do
@@ -73,7 +73,7 @@ feature -- Input
 			end
 		end
 
-	rewind is
+	rewind
 			-- Return input from beginning of stream, if applicable.
 		do
 			position := 0
@@ -82,12 +82,12 @@ feature -- Input
 
 feature -- Unreading
 
-	unread_character (an_item: CHARACTER) is
+	unread_character (an_item: CHARACTER)
 		do
 			-- ignore, not supported.
 		end
 
-	valid_unread_character (a_character: CHARACTER): BOOLEAN is
+	valid_unread_character (a_character: CHARACTER): BOOLEAN
 			-- Can `a_character' be put back in input stream?
 		once
 			-- We don't allow unreading.
@@ -97,16 +97,16 @@ feature -- Unreading
 
 feature -- Status report
 
-	is_rewindable: BOOLEAN is True
+	is_rewindable: BOOLEAN = True
 			-- Can this stream be restarted to return input from the beginning?
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 		do
 			Result := position > value.count
 		end
 
-	is_open_read: BOOLEAN is True
+	is_open_read: BOOLEAN = True
 			-- Can items be read from input stream?
 
 

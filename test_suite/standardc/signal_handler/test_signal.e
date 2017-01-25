@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C signal class."
 
@@ -24,7 +24,7 @@ feature
 
 	got_signal: BOOLEAN
 
-	test_signal is
+	test_signal
 		local
 			signal: STDC_SIGNAL
 			start, now: STDC_TIME
@@ -52,7 +52,7 @@ feature
 			assert ("Signalled.", got_signal)
 		end
 
-	signalled (signal_value: INTEGER) is
+	signalled (signal_value: INTEGER)
 		do
 			got_signal := True
 		end

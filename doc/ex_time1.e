@@ -6,7 +6,7 @@ create
    
 feature
 
-   make is
+   make
       local
          time1,
          time2: POSIX_TIME
@@ -29,7 +29,7 @@ feature
          end
       end
    
-   print_time (time: POSIX_TIME) is
+   print_time (time: POSIX_TIME)
       do
          print ("Date: ")
          print (time.year)

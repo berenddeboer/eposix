@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test EPX_CURRENT_PROCESS class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		do
 			millisleep (0)
 			millisleep (150)

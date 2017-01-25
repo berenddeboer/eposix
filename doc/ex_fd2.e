@@ -6,7 +6,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			fd: POSIX_FILE_DESCRIPTOR
 			file: POSIX_TEXT_FILE

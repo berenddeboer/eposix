@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Describes Windows PROCESS_INFORMATION struct."
 
@@ -26,7 +26,7 @@ create
 
 feature -- creation
 
-	make is
+	make
 		do
 			create ppi.allocate_and_clear (posix_process_information_size)
 		end
@@ -34,34 +34,34 @@ feature -- creation
 
 feature -- state
 
-	pid: INTEGER is
+	pid: INTEGER
 		do
 			Result := posix_process_information_dwprocessid (ptr)
 		end
 
-	dwProcessId: INTEGER is
+	dwProcessId: INTEGER
 		obsolete "Use pid instead."
 		do
 			Result := pid
 		end
 
-	process_handle: INTEGER is
+	process_handle: INTEGER
 		do
 			Result := posix_process_information_hprocess (ptr)
 		end
 
-	hProcess: INTEGER is
+	hProcess: INTEGER
 		obsolete "Use process_handle instead."
 		do
 			Result := process_handle
 		end
 
-	thread_handle: INTEGER is
+	thread_handle: INTEGER
 		do
 			Result := posix_process_information_hthread (ptr)
 		end
 
-	hThread: INTEGER is
+	hThread: INTEGER
 		obsolete "Use thread_handle instead."
 		do
 			Result := thread_handle
@@ -70,7 +70,7 @@ feature -- state
 
 feature -- Pointer to state
 
-	ptr: POINTER is
+	ptr: POINTER
 			-- Pointer to the process struct.
 		do
 			Result := ppi.ptr

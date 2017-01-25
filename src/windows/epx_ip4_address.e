@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows implementation of a portable IPv4 address."
 

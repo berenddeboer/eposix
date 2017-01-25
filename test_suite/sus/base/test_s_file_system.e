@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS file system class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		local
 			stat: SUS_STATUS
 			f: STDC_TEXT_FILE

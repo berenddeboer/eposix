@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -36,7 +36,7 @@ inherit
 
 feature {NONE} -- Resources retrieved from other applications
 
-	attach_to_handle (a_handle: H; a_become_owner: BOOLEAN) is
+	attach_to_handle (a_handle: H; a_become_owner: BOOLEAN)
 			-- This class will give access to `a_handle'. It will become
 			-- the owner of it if `a_become_owner'. If not
 			-- `a_become_owner', the handle will not be automatically
@@ -57,7 +57,7 @@ feature {NONE} -- Resources retrieved from other applications
 
 feature -- Access
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Does `handle' contain an open handle?
 		do
 			Result := handle /= unassigned_value
@@ -69,7 +69,7 @@ feature -- Access
 			-- Does this object close the stream on `close' or `dispose'?
 			-- Only for resources that are owned, are resource limits checked.
 
-	resource_usage_can_be_increased: BOOLEAN is
+	resource_usage_can_be_increased: BOOLEAN
 			-- Can the number of allocated resources increased with `capacity'?
 		require
 			capacity_set: capacity > 0
@@ -79,7 +79,7 @@ feature -- Access
 
 feature -- Influence ownership of the handle. Can help to influence subtile garbage collector problems
 
-	become_owner is
+	become_owner
 			-- This class will own its handle. This is the only function
 			-- that actually increases the resource count.
 		require
@@ -97,7 +97,7 @@ feature -- Influence ownership of the handle. Can help to influence subtile garb
 			open_resources_increased: is_resource_count_incremented (old resource_count)
 		end
 
-	unown is
+	unown
 			-- Resource will not be closed on dispose. Calling close will
 			-- be forbidden. This routine may not call any other object,
 			-- else it cannot be called from within dispose.
@@ -114,7 +114,7 @@ feature -- Influence ownership of the handle. Can help to influence subtile garb
 
 feature -- Close
 
-	close is
+	close
 			-- Close the resource.
 		require
 			owner: is_owner
@@ -138,7 +138,7 @@ feature -- Close
 			resource_accounted_for: is_resource_count_decremented (old is_owner, old resource_count, old capacity)
 		end
 
-	detach is
+	detach
 			-- Forget the resource. Resource is not closed.
 		require
 			open: is_open
@@ -153,7 +153,7 @@ feature -- Close
 
 feature -- Cleanup
 
-	dispose is
+	dispose
 			-- Close handle if owner.
 		local
 			success: BOOLEAN
@@ -178,7 +178,7 @@ feature -- Resource
 
 feature {NONE} -- Low level handle functions
 
-	clear_handle is
+	clear_handle
 			-- Give handle its default value. This is the only function
 			-- that may do so, else resource counting may be
 			-- incorrect. This routine may never call another object,
@@ -195,7 +195,7 @@ feature {NONE} -- Low level handle functions
 			resource_accounted_for: is_resource_count_decremented (old is_owner, old resource_count, old capacity)
 		end
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in
@@ -214,7 +214,7 @@ feature {NONE} -- Low level handle functions
 			resource_accounted_for: is_resource_count_decremented (old is_owner, old resource_count, old capacity)
 		end
 
-	set_handle (a_handle: H; a_become_owner: BOOLEAN) is
+	set_handle (a_handle: H; a_become_owner: BOOLEAN)
 			-- Only function that sets `handle'. Should only be called
 			-- with a valid handle, call `clear_handle' to reset the
 			-- handle.
@@ -235,7 +235,7 @@ feature {NONE} -- Low level handle functions
 			resource_accounted_for: is_resource_count_incremented (old resource_count)
 		end
 
-	unassigned_value: H is
+	unassigned_value: H
 			-- The value that indicates that `handle' is unassigned.
 		deferred
 		end
@@ -243,7 +243,7 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Counting of allocated resource
 
-	decrease_resource_count is
+	decrease_resource_count
 			-- Decrease number of allocated resource by `capacity'.
 			-- Due to limitations of certain Eiffel implementations, this
 			-- routine may not call any other object. Calling C code is safe.
@@ -256,7 +256,7 @@ feature {NONE} -- Counting of allocated resource
 				resource_count = old resource_count - capacity
 		end
 
-	increase_resource_count is
+	increase_resource_count
 			-- Increase number of allocated resources by `capacity'.
 		require
 			capacity_set: capacity > 0
@@ -268,7 +268,7 @@ feature {NONE} -- Counting of allocated resource
 				resource_count = old resource_count + capacity
 		end
 
-	is_resource_count_decremented (old_is_owner: BOOLEAN; old_resource_count, old_capacity: INTEGER): BOOLEAN is
+	is_resource_count_decremented (old_is_owner: BOOLEAN; old_resource_count, old_capacity: INTEGER): BOOLEAN
 			-- Is `resource_count' correctly decremented depending on
 			-- `is_owner' given old `resource_count'?
 			-- Routine to be used in postconditions.
@@ -286,7 +286,7 @@ feature {NONE} -- Counting of allocated resource
 			no_test_when_gc_enabled: memory.collecting implies Result
 		end
 
-	is_resource_count_incremented (old_resource_count: INTEGER): BOOLEAN is
+	is_resource_count_incremented (old_resource_count: INTEGER): BOOLEAN
 			-- Is `resource_count' correctly incremented depending on
 			-- `is_owner' given old `resource_count'?
 			-- Routine to be used in postconditions.
@@ -304,7 +304,7 @@ feature {NONE} -- Counting of allocated resource
 			no_test_when_gc_enabled: memory.collecting implies Result
 		end
 
-	memory: MEMORY is
+	memory: MEMORY
 			-- Ensuring that resource counting is correct, works only
 			-- when garbage collector doesn't kick in to dispose handles.
 			-- Need to test if garbage collector enabled or not.
@@ -312,7 +312,7 @@ feature {NONE} -- Counting of allocated resource
 			create Result
 		end
 
-	resource_count: INTEGER is
+	resource_count: INTEGER
 			-- Currently allocated number of resources. It's a global
 			-- number, counting the `capacity' of all owned resources of
 			-- this type.

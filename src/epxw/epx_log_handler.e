@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements NetLogger logging on top of NT event log."
 
@@ -44,7 +44,7 @@ create
 
 feature -- Initialization
 
-	make (a_source_name: STRING) is
+	make (a_source_name: STRING)
 			-- Source name must be a subkey of a logfile entry under the
 			-- EventLog key in the registry.
 		require
@@ -60,7 +60,7 @@ feature -- Initialization
 
 feature -- Logging
 
-	log_event (level: INTEGER; line: STRING) is
+	log_event (level: INTEGER; line: STRING)
 			-- Write a single event with `fields' to the host logging system.
 			-- It is somewhat unclear how authentication and security
 			-- events are to be logged.
@@ -77,9 +77,9 @@ feature -- Logging
 
 feature {NONE} -- NT logging
 
-	category: INTEGER is 0
+	category: INTEGER = 0
 
-	do_log_event (event_type: INTEGER; level: INTEGER; line: STRING) is
+	do_log_event (event_type: INTEGER; level: INTEGER; line: STRING)
 			-- Log event to NT event log, truncate `line' if necessary.
 		require
 			valid_level: is_valid_level (level)
@@ -107,7 +107,7 @@ feature {NONE} -- NT logging
 			sh.unfreeze_all
 		end
 
-	maximum_insertion_string_size: INTEGER is 32766
+	maximum_insertion_string_size: INTEGER = 32766
 			-- 32KB - 2 is the best that works.
 
 	my_lpStrings: ARRAY [POINTER]
@@ -116,37 +116,37 @@ feature {NONE} -- NT logging
 
 feature {NONE} -- The event ids which we log
 
-	event_id_emergency: INTEGER is -1073741823
+	event_id_emergency: INTEGER = -1073741823
 			-- 0xC0000001L
 
-	event_id_alert: INTEGER is -1073741822
+	event_id_alert: INTEGER = -1073741822
 			-- 0xC0000002L
 
-	event_id_error: INTEGER is -1073741821
+	event_id_error: INTEGER = -1073741821
 			-- 0xC0000003L
 
-	event_id_warning: INTEGER is -2147483644
+	event_id_warning: INTEGER = -2147483644
 			-- 0x80000004L
 
-	event_id_authentication: INTEGER is 1073741829
+	event_id_authentication: INTEGER = 1073741829
 			-- 0x40000005L
 
-	event_id_security: INTEGER is -2147483642
+	event_id_security: INTEGER = -2147483642
 			-- 0x80000006L
 
-	event_id_usage: INTEGER is 1073741831
+	event_id_usage: INTEGER = 1073741831
 			-- 0x40000007L
 
-	event_id_system_usage: INTEGER is 8
+	event_id_system_usage: INTEGER = 8
 			-- 0x00000008L
 
-	event_id_important: INTEGER is 1073741833
+	event_id_important: INTEGER = 1073741833
 			-- 0x40000009L
 
-	event_id_debugging: INTEGER is 1073741840
+	event_id_debugging: INTEGER = 1073741840
 			-- 0x40000010L
 
-	event_ids: ARRAY [INTEGER] is
+	event_ids: ARRAY [INTEGER]
 		once
 			create Result.make (fatal, trace)
 			Result.put (event_id_emergency, fatal)
@@ -165,7 +165,7 @@ feature {NONE} -- The event ids which we log
 				is_valid_level (Result.upper)
 		end
 
-	map_level_to_event_id (level: INTEGER): INTEGER is
+	map_level_to_event_id (level: INTEGER): INTEGER
 		require
 			valid_level: is_valid_level (level)
 		do
@@ -181,7 +181,7 @@ feature {NONE} -- Private state
 
 feature {NONE} -- Shutdown
 
-	dispose is
+	dispose
 		local
 			success: BOOLEAN
 		do

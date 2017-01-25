@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (an_attribute_type: STRING; an_options: DS_LINKABLE [STRING]) is
+	make (an_attribute_type: STRING; an_options: DS_LINKABLE [STRING])
 		require
 			attribute_type_not_empty: an_attribute_type /= Void and then not an_attribute_type.is_empty
 		do

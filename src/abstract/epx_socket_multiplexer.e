@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -45,7 +45,7 @@ create
 
 feature -- Initialize
 
-	make is
+	make
 			-- create an empty multiplexer
 		do
 			make_select
@@ -63,7 +63,7 @@ feature -- Options
 			-- should read and write sockets get a idle_callback when
 			-- no bytes can be read or written respectivily
 
-	set_idle_callbeack (new_value: BOOLEAN) is
+	set_idle_callbeack (new_value: BOOLEAN)
 			-- set the `idle_callback'
 		do
 			idle_callback := new_value
@@ -71,7 +71,7 @@ feature -- Options
 			idle_callback_set: idle_callback = new_value
 		end
 
-	set_timeout (a_timeout: EPX_TIME_VALUE) is
+	set_timeout (a_timeout: EPX_TIME_VALUE)
 			-- set the timeout
 		require
 			a_timeout_not_void: a_timeout /= Void
@@ -84,7 +84,7 @@ feature -- Options
 
 feature -- Multiplex
 
-	multiplex  is
+	multiplex
 			-- Go through all registered sockets.
 			-- for read sockets
 			--    call multiplexer_read_callback if bytes can be read
@@ -147,7 +147,7 @@ feature -- Multiplex
 
 feature -- Change Sockets
 
-	add_read_socket (a_socket: ABSTRACT_SOCKET) is
+	add_read_socket (a_socket: ABSTRACT_SOCKET)
 			-- register a read socket to be handled by the multiplexer
 		require
 			a_socket_not_void: a_socket /= Void
@@ -157,7 +157,7 @@ feature -- Change Sockets
 			a_socket_added: has_read_socket (a_socket)
 		end
 
-	remove_read_socket (a_socket: ABSTRACT_SOCKET) is
+	remove_read_socket (a_socket: ABSTRACT_SOCKET)
 			-- register a read socket to be handled by the multiplexer
 		require
 			a_socket_not_void: a_socket /= Void
@@ -168,7 +168,7 @@ feature -- Change Sockets
 		end
 
 
-	add_write_socket (a_socket: ABSTRACT_SOCKET) is
+	add_write_socket (a_socket: ABSTRACT_SOCKET)
 			-- register a write socket to be handled by the multiplexer
 		require
 			a_socket_not_void: a_socket /= Void
@@ -178,7 +178,7 @@ feature -- Change Sockets
 			a_socket_added: has_write_socket (a_socket)
 		end
 
-	remove_write_socket (a_socket: ABSTRACT_SOCKET) is
+	remove_write_socket (a_socket: ABSTRACT_SOCKET)
 			-- register a write socket to be handled by the multiplexer
 		require
 			a_socket_not_void: a_socket /= Void
@@ -189,7 +189,7 @@ feature -- Change Sockets
 		end
 
 
-	add_error_socket (a_socket: ABSTRACT_SOCKET) is
+	add_error_socket (a_socket: ABSTRACT_SOCKET)
 			-- register a error socket to be handled by the multiplexer
 		require
 			a_socket_not_void: a_socket /= Void
@@ -199,7 +199,7 @@ feature -- Change Sockets
 			a_socket_removed: not has_error_socket (a_socket)
 		end
 
-	remove_error_socket (a_socket: ABSTRACT_SOCKET) is
+	remove_error_socket (a_socket: ABSTRACT_SOCKET)
 			-- register a error socket to be handled by the multiplexer
 		require
 			a_socket_not_void: a_socket /= Void
@@ -212,7 +212,7 @@ feature -- Change Sockets
 
 feature -- Query Sockets
 
-	has_read_socket (a_socket: ABSTRACT_SOCKET): BOOLEAN is
+	has_read_socket (a_socket: ABSTRACT_SOCKET): BOOLEAN
 			-- returns true if `a_socket' is registered for managing reads
 		require
 			a_socket_not_void: a_socket /= Void
@@ -220,7 +220,7 @@ feature -- Query Sockets
 			Result := check_for_reading.has (a_socket)
 		end
 
-	has_write_socket (a_socket: ABSTRACT_SOCKET): BOOLEAN is
+	has_write_socket (a_socket: ABSTRACT_SOCKET): BOOLEAN
 			-- returns true if `a_socket' is registered for managing reads
 		require
 			a_socket_not_void: a_socket /= Void
@@ -228,7 +228,7 @@ feature -- Query Sockets
 			Result := check_for_writing.has (a_socket)
 		end
 
-	has_error_socket (a_socket: ABSTRACT_SOCKET): BOOLEAN is
+	has_error_socket (a_socket: ABSTRACT_SOCKET): BOOLEAN
 			-- returns true if `a_socket' is registered for managing reads
 		require
 			a_socket_not_void: a_socket /= Void
@@ -236,19 +236,19 @@ feature -- Query Sockets
 			Result := check_for_exception_conditions.has (a_socket)
 		end
 
-	num_read_sockets: INTEGER is
+	num_read_sockets: INTEGER
 			-- get the numbr of registered read sockets
 		do
 			Result := check_for_reading.count
 		end
 
-	num_write_sockets: INTEGER is
+	num_write_sockets: INTEGER
 			-- get the numbr of registered write sockets
 		do
 			Result := check_for_writing.count
 		end
 
-	num_error_sockets: INTEGER is
+	num_error_sockets: INTEGER
 			-- get the numbr of registered error sockets
 		do
 			Result := check_for_exception_conditions.count

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers (ahem) the POSIX group database (/etc/group)."
 
@@ -23,7 +23,7 @@ inherit
 
 feature -- Queries
 
-	is_existing_gid (gid: INTEGER): BOOLEAN is
+	is_existing_gid (gid: INTEGER): BOOLEAN
 			-- Does this gid exist in /etc/passwd?
 			-- (or through NIS or whatever mechanisms that might be in use)
 		local
@@ -33,7 +33,7 @@ feature -- Queries
 			Result := p /= default_pointer
 		end
 
-	is_existing_group (group: STRING): BOOLEAN is
+	is_existing_group (group: STRING): BOOLEAN
 			-- Does this name exists in /etc/group?
 			-- (or through NIS or whatever mechanisms that might be in use)
 		local

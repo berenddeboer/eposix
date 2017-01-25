@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix dynamic memory class."
 
@@ -16,7 +16,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		local
 			buf: POSIX_BUFFER
 		do

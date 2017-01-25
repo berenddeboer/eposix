@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes a single ULM field."
 
@@ -16,7 +16,7 @@ create
 
 feature -- Initialization
 
-	make (a_name, a_value: STRING) is
+	make (a_name, a_value: STRING)
 		require
 			name_not_empty: a_name /= Void and then not a_name.is_empty
 			value_not_empty: a_value /= Void and then not a_value.is_empty
@@ -40,7 +40,7 @@ feature -- State
 
 feature -- Commands
 
-	set_value (a_value: STRING) is
+	set_value (a_value: STRING)
 		require
 			value_not_empty: a_value /= Void and then not a_value.is_empty
 		do

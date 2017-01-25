@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix time class."
 
@@ -18,7 +18,7 @@ inherit
 
 feature -- Tests
 
-	test_all is
+	test_all
 			-- Tests thanks to Jacques Bouchard.
 		local
 			t1, t2: POSIX_TIME

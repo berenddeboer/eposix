@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test creating RFC 2822 email."
 
@@ -18,7 +18,7 @@ inherit
 
 feature -- Tests
 
-	test_basic_email is
+	test_basic_email
 		local
 			email: EPX_MIME_EMAIL
 		do
@@ -45,15 +45,15 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	body_text: STRING is "Hi Berend,%N%NNice testing?%N"
+	body_text: STRING = "Hi Berend,%N%NNice testing?%N"
 
-	subject: STRING is "Test"
-	subject2: STRING is "Hello World"
+	subject: STRING = "Test"
+	subject2: STRING = "Hello World"
 
-	to_name: STRING is "Berend de Boer"
-	to_email: STRING is "berend@pobox.com"
+	to_name: STRING = "Berend de Boer"
+	to_email: STRING = "berend@pobox.com"
 
-	from_name: STRING is "Berend de Boer"
-	from_email: STRING is "berend@pobox.com"
+	from_name: STRING = "Berend de Boer"
+	from_email: STRING = "berend@pobox.com"
 
 end

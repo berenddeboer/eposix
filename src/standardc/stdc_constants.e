@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Standard C symbolic constants."
 
@@ -16,19 +16,19 @@ class
 
 feature -- Error codes
 
-	EDOM: INTEGER is
+	EDOM: INTEGER
 		-- Math argument out of domain of function
 		external "C"
 		alias "const_edom"
 		end
 
-	ERANGE: INTEGER is
+	ERANGE: INTEGER
 		-- Math result not representable
 		external "C"
 		alias "const_erange"
 		end
 
-	EMFILE: INTEGER is
+	EMFILE: INTEGER
 			-- Too many open files
 		external "C"
 		alias "const_emfile"
@@ -37,22 +37,22 @@ feature -- Error codes
 
 feature -- Standard streams
 
-	stream_stdin: POINTER is
+	stream_stdin: POINTER
 		external "C"
 		end
 
-	stream_stdout: POINTER is
+	stream_stdout: POINTER
 		external "C"
 		end
 
-	stream_stderr: POINTER is
+	stream_stderr: POINTER
 		external "C"
 		end
 
 
 feature -- Special characters
 
-  const_EOF: INTEGER is
+  const_EOF: INTEGER
 			-- signals EOF
 		external "C"
 		alias "const_eof"
@@ -61,19 +61,19 @@ feature -- Special characters
 
 feature -- I/O buffering
 
-  IOFBF: INTEGER is
+  IOFBF: INTEGER
 			-- full buffering
 		external "C"
 		alias "const_iofbf"
 		end
 
-  IOLBF: INTEGER is
+  IOLBF: INTEGER
 			-- line buffering
 		external "C"
 		alias "const_iolbf"
 		end
 
-  IONBF: INTEGER is
+  IONBF: INTEGER
 			-- no buffering
 		external "C"
 		alias "const_ionbf"
@@ -82,17 +82,17 @@ feature -- I/O buffering
 
 feature -- file positioning
 
-	SEEK_SET: INTEGER is
+	SEEK_SET: INTEGER
 		external "C"
 		alias "const_seek_set"
 		end
 
-	SEEK_CUR: INTEGER is
+	SEEK_CUR: INTEGER
 		external "C"
 		alias "const_seek_cur"
 		end
 
-	SEEK_END: INTEGER is
+	SEEK_END: INTEGER
 		external "C"
 		alias "const_seek_end"
 		end
@@ -100,17 +100,17 @@ feature -- file positioning
 
 feature -- Signal related constants
 
-	SIG_DFL: POINTER is
+	SIG_DFL: POINTER
 		external "C"
 		alias "const_sig_dfl"
 		end
 
-	SIG_ERR: POINTER is
+	SIG_ERR: POINTER
 		external "C"
 		alias "const_sig_err"
 		end
 
-	SIG_IGN: POINTER is
+	SIG_IGN: POINTER
 		external "C"
 		alias "const_sig_ign"
 		end
@@ -118,37 +118,37 @@ feature -- Signal related constants
 
 feature -- Signals
 
-	SIGABRT: INTEGER is
+	SIGABRT: INTEGER
 		external "C"
 		alias "const_sigabrt"
 		end
 
-	SIGFPE: INTEGER is
+	SIGFPE: INTEGER
 			-- erroneous arithmetic operation, such as zero divide or an
 			-- operation resulting in overflow
 		external "C"
 		alias "const_sigfpe"
 		end
 
-	SIGILL: INTEGER is
+	SIGILL: INTEGER
 			-- illegal instruction
 		external "C"
 		alias "const_sigill"
 		end
 
-	SIGINT: INTEGER is
+	SIGINT: INTEGER
 			-- receipt of an interactive attention signal
 		external "C"
 		alias "const_sigint"
 		end
 
-	SIGSEGV: INTEGER is
+	SIGSEGV: INTEGER
 			-- invalid access to storage
 		external "C"
 		alias "const_sigsegv"
 		end
 
-	SIGTERM: INTEGER is
+	SIGTERM: INTEGER
 			-- Request process to terminate; can be caught or ignored
 		external "C"
 		alias "const_sigterm"
@@ -157,7 +157,7 @@ feature -- Signals
 
 feature -- random numbers
 
-	RAND_MAX: INTEGER is
+	RAND_MAX: INTEGER
 			-- maximum value returned by the `random' function
 		external "C"
 		alias "const_rand_max"
@@ -166,32 +166,32 @@ feature -- random numbers
 
 feature -- category constants
 
-	LC_CTYPE: INTEGER is
+	LC_CTYPE: INTEGER
 		external "C"
 		alias "const_lc_ctype"
 		end
 
-	LC_NUMERIC: INTEGER is
+	LC_NUMERIC: INTEGER
 		external "C"
 		alias "const_lc_numeric"
 		end
 
-	LC_TIME: INTEGER is
+	LC_TIME: INTEGER
 		external "C"
 		alias "const_lc_time"
 		end
 
-	LC_COLLATE: INTEGER is
+	LC_COLLATE: INTEGER
 		external "C"
 		alias "const_lc_collate"
 		end
 
-	LC_MONETARY: INTEGER is
+	LC_MONETARY: INTEGER
 		external "C"
 		alias "const_lc_monetary"
 		end
 
-	LC_ALL: INTEGER is
+	LC_ALL: INTEGER
 		external "C"
 		alias "const_lc_all"
 		end
@@ -199,7 +199,7 @@ feature -- category constants
 
 feature -- various
 
-	CLOCKS_PER_SEC: INTEGER is
+	CLOCKS_PER_SEC: INTEGER
 		external "C"
 		alias "const_clocks_per_sec"
 		end
@@ -207,13 +207,13 @@ feature -- various
 
 feature -- exit codes
 
-	EXIT_FAILURE: INTEGER is
+	EXIT_FAILURE: INTEGER
 			-- exit status when something has gone wrong
 		external "C"
 		alias "const_exit_failure"
 		end
 
-	EXIT_SUCCESS: INTEGER is
+	EXIT_SUCCESS: INTEGER
 			-- exit status upon success
 		external "C"
 		alias "const_exit_success"

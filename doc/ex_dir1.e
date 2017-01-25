@@ -10,7 +10,7 @@ create
    
 feature
 
-   make is
+   make
       do
          change_directory (expand_path ("~"))
          make_directory ("qqtest.xyz.tmp")

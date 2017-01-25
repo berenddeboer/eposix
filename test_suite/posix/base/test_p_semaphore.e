@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX semaphore classes."
 
@@ -25,7 +25,7 @@ inherit
 
 feature
 
-	test_unnamed is
+	test_unnamed
 		local
 			unnamed,
 			unnamed2: POSIX_UNNAMED_SEMAPHORE
@@ -56,7 +56,7 @@ feature
 			unnamed2.close
 		end
 
-	test_named is
+	test_named
 			-- Create a named semaphore.
 		local
 			--named: POSIX_NAMED_SEMAPHORE
@@ -65,7 +65,7 @@ feature
 			--create named.create_exclusive ("berend", 0)
 		end
 
-	test_acquire is
+	test_acquire
 			-- Attempt to acquire a semaphore for 3 seconds.
 		local
 			unnamed: POSIX_UNNAMED_SEMAPHORE

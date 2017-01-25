@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Routines to encode and decode octets as in quoted-printable encoding for example."
 
@@ -23,7 +23,7 @@ inherit
 
 feature -- Routines
 
-	from_hex_characters (first, second: CHARACTER): CHARACTER is
+	from_hex_characters (first, second: CHARACTER): CHARACTER
 			-- Given two hex digits, convert it to a character.
 		require
 			valid_first_digit: is_valid_hex_digit (first)
@@ -37,7 +37,7 @@ feature -- Routines
 			Result := INTEGER_.to_character (mya)
 		end
 
-	from_hex_string (in: STRING): CHARACTER is
+	from_hex_string (in: STRING): CHARACTER
 			-- Take a two digit hex string, and convert it to a character.
 		require
 			in_not_void: in /= Void
@@ -48,7 +48,7 @@ feature -- Routines
 			Result := from_hex_characters (in.item (1), in.item (2))
 		end
 
-	hex_digit (c: CHARACTER): INTEGER is
+	hex_digit (c: CHARACTER): INTEGER
 			-- Convert the hex digit ("0123456789ABCDEF") to an integer value.
 		require
 			valid_hex_digit: is_valid_hex_digit (c)
@@ -65,7 +65,7 @@ feature -- Routines
 			hex_value_returned: Result >= 0 and then Result <= 15
 		end
 
-	is_valid_hex_digit (digit: CHARACTER): BOOLEAN is
+	is_valid_hex_digit (digit: CHARACTER): BOOLEAN
 			-- Is `digit' an hexadecimal digit?
 		do
 			inspect digit
@@ -76,7 +76,7 @@ feature -- Routines
 			end
 		end
 
-	to_hex (c: CHARACTER): STRING is
+	to_hex (c: CHARACTER): STRING
 			-- Take a character and return a two digit hex string.
 		local
 			mya, myb: CHARACTER
@@ -97,7 +97,7 @@ feature -- Routines
 
 feature {NONE} -- Once strings
 
-	hex_map: STRING is "0123456789ABCDEF"
+	hex_map: STRING = "0123456789ABCDEF"
 
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers (ahem) the POSIX user database (passwd)."
 
@@ -19,7 +19,7 @@ inherit
 
 feature -- Access
 
-	is_existing_uid (uid: INTEGER): BOOLEAN is
+	is_existing_uid (uid: INTEGER): BOOLEAN
 			-- Returns True if this uid exists in /etc/passwd
 			-- (or through NIS or whatever mechanisms that might be in use)
 		local
@@ -29,7 +29,7 @@ feature -- Access
 			Result := p /= default_pointer
 		end
 
-	is_existing_login (login: STRING): BOOLEAN is
+	is_existing_login (login: STRING): BOOLEAN
 			-- Returns True if this login exists in /etc/passwd
 			-- (or through NIS or whatever mechanisms that might be in use)
 		local

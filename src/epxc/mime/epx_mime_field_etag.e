@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ create
 
 feature -- Initialization
 
-	make (an_entity_tag: STRING) is
+	make (an_entity_tag: STRING)
 		require
 			an_entity_tag_not_empty: an_entity_tag /= Void and then not an_entity_tag.is_empty
 		do
@@ -39,7 +39,7 @@ feature -- Initialization
 	
 feature -- Access
 
-	name: STRING is "ETag"
+	name: STRING = "ETag"
 
 	value: STRING	
 

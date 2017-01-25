@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class that covers all generic descriptor routines."
 
@@ -43,7 +43,7 @@ inherit
 
 feature -- Initialization
 
-	make is
+	make
 		do
 			do_make
 		end
@@ -51,7 +51,7 @@ feature -- Initialization
 
 feature {NONE} -- Initialization
 
-	do_make is
+	do_make
 		require
 			closed: not is_open
 		do
@@ -64,7 +64,7 @@ feature {NONE} -- Initialization
 
 feature -- Special creation
 
-	attach_to_descriptor (a_fd: INTEGER; a_become_owner: BOOLEAN) is
+	attach_to_descriptor (a_fd: INTEGER; a_become_owner: BOOLEAN)
 			-- Create descriptor with value `a_fd'. Descriptor will close
 			-- it when `a_become_owner'.
 		require
@@ -84,7 +84,7 @@ feature -- Special creation
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	make_as_duplicate (another: ABSTRACT_DESCRIPTOR) is
+	make_as_duplicate (another: ABSTRACT_DESCRIPTOR)
 			-- On creation, create a duplicate from another descriptor.
 			-- As normal call, closes its own descriptor first (if open) and
 			-- duplicates next.
@@ -130,7 +130,7 @@ feature -- Read and write to memory block
 	last_blocked: BOOLEAN
 			-- Would last call to `read' or `write' block?
 
-	read (buf: POINTER; offset, nbytes: INTEGER) is
+	read (buf: POINTER; offset, nbytes: INTEGER)
 			-- Read data into `buf' at `offset' for `nbytes' bytes.
 			-- The number of bytes actually read, is available in `last_read'.
 		require
@@ -170,7 +170,7 @@ feature -- Read and write to memory block
 				(end_of_input implies not last_blocked) and (last_blocked implies not end_of_input)
 		end
 
-	write (buf: POINTER; offset, nbytes: INTEGER) is
+	write (buf: POINTER; offset, nbytes: INTEGER)
 			-- Write given data from `buf' at `offset', for `nbytes'
 			-- bytes. Number of actually written bytes are in
 			-- `last_written'. `last_written' can be unequal to `nbytes'
@@ -233,7 +233,7 @@ feature -- Read and write to memory block
 
 feature {NONE} -- Raw read
 
-	do_read (buf: POINTER; offset, nbytes: INTEGER) is
+	do_read (buf: POINTER; offset, nbytes: INTEGER)
 			-- Read data into `buf' at `offset' for `nbytes' bytes.
 			-- The number of bytes actually read are available in `last_read'.
 			-- Don't mix this routine with `read_string' or `read_character'!
@@ -317,7 +317,7 @@ feature {NONE} -- Raw read
 
 feature -- Read/write to/from STDC_BUFFER
 
-	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER) is
+	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
 			-- Read data into `buf' at `offset' for `nbytes' bytes.
 			-- Number of bytes actually read are available in `last_read'.
 			-- This is a more safe version of `read' in case you have a
@@ -326,7 +326,7 @@ feature -- Read/write to/from STDC_BUFFER
 			read (buf.ptr, offset, nbytes)
 		end
 
-	put_buffer, write_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER) is
+	put_buffer, write_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
 			-- More safe version of `write' in case you have a
 			-- STDC_BUFFER object.
 		do
@@ -336,7 +336,7 @@ feature -- Read/write to/from STDC_BUFFER
 
 feature -- Eiffel like output
 
-	put (a: ANY) is
+	put (a: ANY)
 			-- Write any Eiffel object as string using its `out' value.
 		do
 			if a /= Void then
@@ -344,14 +344,14 @@ feature -- Eiffel like output
 			end
 		end
 
-	put_character (c: CHARACTER) is
+	put_character (c: CHARACTER)
 			-- Write a character.
 		do
 			temp_character := c
 			write ($temp_character, 0, 1)
 		end
 
-	write_character (c: CHARACTER) is
+	write_character (c: CHARACTER)
 			-- Write a character.
 		require
 			is_open_write: is_open_write
@@ -359,7 +359,7 @@ feature -- Eiffel like output
 			put_character (c)
 		end
 
-	write_string, puts (a_string: STRING) is
+	write_string, puts (a_string: STRING)
 			-- Write `a_string' to output stream.
 		require
 			is_open_write: is_open_write
@@ -368,7 +368,7 @@ feature -- Eiffel like output
 			put_string (a_string)
 		end
 
-	put_string (a_string: STRING) is
+	put_string (a_string: STRING)
 			-- Write `a_string' to output stream.
 		local
 			p: POINTER
@@ -388,7 +388,7 @@ feature -- Eiffel like output
 
 feature -- Buffered input
 
-	non_blocking_read_to_buffer (a_buffer: KI_BUFFER [CHARACTER]; pos, nb: INTEGER): INTEGER is
+	non_blocking_read_to_buffer (a_buffer: KI_BUFFER [CHARACTER]; pos, nb: INTEGER): INTEGER
 			-- Fill `a_buffer', starting at position `pos', with
 			-- at most `nb' items read from input stream.
 			-- Return the number of items actually read.
@@ -410,7 +410,7 @@ feature -- Buffered input
 			end
 		end
 
-	non_blocking_read_character is
+	non_blocking_read_character
 			-- Read the next item in input stream.
 			-- Make the result available in `last_item'.
 		local
@@ -431,7 +431,7 @@ feature -- Buffered input
 			end
 		end
 
-	non_blocking_read_string (nb: INTEGER) is
+	non_blocking_read_string (nb: INTEGER)
 			-- Read at most `nb' characters from input stream.
 			-- Make the characters that have actually been read
 			-- available in `last_string'.
@@ -453,7 +453,7 @@ feature -- Buffered input
 			end
 		end
 
-	non_blocking_read_to_string (a_string: STRING; pos, nb: INTEGER): INTEGER is
+	non_blocking_read_to_string (a_string: STRING; pos, nb: INTEGER): INTEGER
 			-- Fill `a_string', starting at position `pos', with
 			-- at most `nb' characters read from input stream.
 			-- Return the number of characters actually read.
@@ -475,7 +475,7 @@ feature -- Buffered input
 			end
 		end
 
-	read_character is
+	read_character
 			-- Sets `last_character'.
 			-- If this routine blocks, `last_character' has the value
 			-- '%U'. Therefore, if non-blocking is enabled, always check
@@ -501,7 +501,7 @@ feature -- Buffered input
 			zero_character_on_block: last_blocked implies last_character = '%U'
 		end
 
-	read_line is
+	read_line
 			-- Read characters from input stream until a line separator
 			-- or end of file is reached. Make the characters that have
 			-- been read available in `last_string' and discard the line
@@ -568,7 +568,7 @@ feature -- Buffered input
 			empty_if_blocked: last_blocked implies last_string.is_empty
 		end
 
-	read_new_line is
+	read_new_line
 			-- Read a line separator from input file.
 			-- Make the characters making up the recognized
 			-- line separator available in `last_string',
@@ -580,7 +580,7 @@ feature -- Buffered input
 			STRING_.wipe_out (last_string)
 		end
 
-	read_string (nb: INTEGER) is
+	read_string (nb: INTEGER)
 			-- Read at most `nb' characters from input stream.
 			-- Make the characters that have actually been read
 			-- available in `last_string'.
@@ -707,7 +707,7 @@ feature {NONE} -- Buffered reading support
 	line_buffer_index: INTEGER
 			-- Offset to unread content in `line_buffer'
 
-	line_buffer_must_be_refilled: BOOLEAN is
+	line_buffer_must_be_refilled: BOOLEAN
 			-- Does `line_buffer_index' indicate that the end of
 			-- `line_buffer' is reached?
 		require
@@ -716,7 +716,7 @@ feature {NONE} -- Buffered reading support
 			Result := line_buffer_index >= line_buffer.count
 		end
 
-	assert_have_line_buffer is
+	assert_have_line_buffer
 			-- Make sure `line_buffer' is created.
 		do
 			if line_buffer = Void then
@@ -726,7 +726,7 @@ feature {NONE} -- Buffered reading support
 			line_buffer_not_void: line_buffer /= Void
 		end
 
-	assert_string_buffer_has_capacity (a_size: INTEGER) is
+	assert_string_buffer_has_capacity (a_size: INTEGER)
 			-- Make sure `string_buffer' is created.
 		require
 			size_positive: a_size > 0
@@ -744,7 +744,7 @@ feature {NONE} -- Buffered reading support
 
 feature -- Unreading
 
-	valid_unread_character (a_character: CHARACTER): BOOLEAN is
+	valid_unread_character (a_character: CHARACTER): BOOLEAN
 			-- Can `a_character' be put back in input stream?
 		do
 			-- Unreading not supported.
@@ -754,7 +754,7 @@ feature -- Unreading
 
 feature {NONE} -- Unreading
 
-	unread_character (an_item: CHARACTER) is
+	unread_character (an_item: CHARACTER)
 		do
 			-- ignore, not supported.
 			-- We can support it, and should, else the implementation of
@@ -767,13 +767,13 @@ feature -- Status report
 	end_of_input: BOOLEAN
 			-- Has end-of-file been reached?
 
-	isatty: BOOLEAN is
+	isatty: BOOLEAN
 		obsolete "Use is_attached_to_terminal instead."
 		do
 			Result := is_attached_to_terminal
 		end
 
-	is_attached_to_terminal: BOOLEAN is
+	is_attached_to_terminal: BOOLEAN
 			-- Is the handle associated with character device?
 		require
 			open: is_open
@@ -781,7 +781,7 @@ feature -- Status report
 			Result := abstract_isatty (fd)
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Does `handle' contain an open handle?
 		do
 			-- Also return False of name = Void. When object is
@@ -791,7 +791,7 @@ feature -- Status report
 				name /= Void
 		end
 
-	resource_usage_can_be_increased: BOOLEAN is
+	resource_usage_can_be_increased: BOOLEAN
 			-- Is it allowed to open another file?
 		do
 			Result := security.files.open_files <= security.files.max_open_files
@@ -800,7 +800,7 @@ feature -- Status report
 
 feature -- Access
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 			-- Hash code value
 		do
 			if fd >= 0 then
@@ -811,7 +811,7 @@ feature -- Access
 			end
 		end
 
-	value: INTEGER is
+	value: INTEGER
 			-- The actual file descriptor value
 		require
 			valid_file_descriptor: is_open
@@ -822,7 +822,7 @@ feature -- Access
 
 feature -- non-blocking i/o
 
-	is_blocking_io: BOOLEAN is
+	is_blocking_io: BOOLEAN
 			-- Is blocking i/o enabled?
 			-- Blocking i/o is the default.
 			-- If false, calls like `read' and `write' will never wait
@@ -833,7 +833,7 @@ feature -- non-blocking i/o
 			Result := True
 		end
 
-	set_blocking_io (enable: BOOLEAN) is
+	set_blocking_io (enable: BOOLEAN)
 			-- Set `is_blocking_io'.
 		require
 			supports_nonblocking_io: not enable implies supports_nonblocking_io
@@ -844,7 +844,7 @@ feature -- non-blocking i/o
 			blocking_set: enable = is_blocking_io
 		end
 
-	supports_nonblocking_io: BOOLEAN is
+	supports_nonblocking_io: BOOLEAN
 			-- Does this descriptor support non-blocking input/output?
 			-- On POSIX systems, any descriptor does.
 			-- On Windows, sockets and pipes do.
@@ -855,7 +855,7 @@ feature -- non-blocking i/o
 
 feature -- Gobo stream specifics
 
-	flush is
+	flush
 		do
 			-- no meaning
 		end
@@ -863,7 +863,7 @@ feature -- Gobo stream specifics
 
 feature {NONE} -- Implementation
 
-	reset_eof is
+	reset_eof
 			-- Reset notion that end of file has been reached.
 		do
 			end_of_input := False
@@ -877,7 +877,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in
@@ -894,13 +894,13 @@ feature {NONE} -- Low level handle functions
 			is_open_write := False
 		end
 
-	unassigned_value: INTEGER is -1
+	unassigned_value: INTEGER = -1
 			-- The value that indicates that `handle' is unassigned
 
 
 feature {NONE} -- Counting of allocated resource
 
-	decrease_open_files is
+	decrease_open_files
 			-- Decreate the number of open files, does not access any
 			-- other object, so can be called from `dispose' if one
 			-- inherits from this class.
@@ -908,7 +908,7 @@ feature {NONE} -- Counting of allocated resource
 		alias "posix_decrease_open_files"
 		end
 
-	decrease_resource_count is
+	decrease_resource_count
 			-- Decrease number of allocated resource by `capacity'.
 			-- Due to limitations of certain Eiffel implementations, this
 			-- routine may not call any other object. Calling C code is safe.
@@ -916,13 +916,13 @@ feature {NONE} -- Counting of allocated resource
 			decrease_open_files
 		end
 
-	increase_resource_count is
+	increase_resource_count
 			-- Increase number of allocated resources by `capacity'.
 		do
 			security.files.increase_open_files
 		end
 
-	resource_count: INTEGER is
+	resource_count: INTEGER
 			-- Currently allocated number of resources. It's a global
 			-- number, counting the `capacity' of all owned resources of
 			-- this type.
@@ -933,31 +933,31 @@ feature {NONE} -- Counting of allocated resource
 
 feature {NONE} -- Abstract API binding
 
-	abstract_close (fildes: INTEGER): INTEGER is
+	abstract_close (fildes: INTEGER): INTEGER
 			-- Closes a a file. Returns -1 on error.
 		deferred
 		end
 
-	abstract_dup (fildes: INTEGER): INTEGER is
+	abstract_dup (fildes: INTEGER): INTEGER
 			-- Duplicates an open file descriptor.
 		deferred
 		ensure
 			-- Result = -1 implies errno.value is set
 		end
 
-	abstract_dup2 (fildes, fildes2: INTEGER): INTEGER is
+	abstract_dup2 (fildes, fildes2: INTEGER): INTEGER
 			-- Duplicates an open file descriptor.
 			-- fildes is the file descriptor to duplicate, fildes2 is the
 			-- desired new file descriptor.
 		deferred
 		end
 
-	abstract_isatty (fildes: INTEGER): BOOLEAN is
+	abstract_isatty (fildes: INTEGER): BOOLEAN
 			-- Determines if a file descriptor is associated with a terminal.
 		deferred
 		end
 
-	abstract_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	abstract_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Read from a file.
 		require
 			valid_fildes: fildes /= unassigned_value
@@ -968,7 +968,7 @@ feature {NONE} -- Abstract API binding
 			-- Result = -1 implies errno.value is set
 		end
 
-	abstract_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	abstract_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Write to a file.
 		require
 			valid_fildes: fildes /= unassigned_value
@@ -982,12 +982,12 @@ feature {NONE} -- Abstract API binding
 
 feature {NONE} -- Error codes
 
-	abstract_EWOULDBLOCK: INTEGER is
+	abstract_EWOULDBLOCK: INTEGER
 			-- The process would be delayed in the I/O operation.
 		deferred
 		end
 
-	abstract_EINTR: INTEGER is
+	abstract_EINTR: INTEGER
 			-- Read/write was interrupted.
 		deferred
 		end

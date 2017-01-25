@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C string.h."
 
@@ -13,7 +13,7 @@ class
 
 feature -- C binding
 
-	posix_memcmp (a_s1, a_s2: POINTER; a_size: INTEGER): INTEGER is
+	posix_memcmp (a_s1, a_s2: POINTER; a_size: INTEGER): INTEGER
 			-- Compare two memory areas. It returns an integer less than,
 			-- equal to, or greater than zero if s1 is found,
 			-- respectively, to be less than, to match, or be greater
@@ -25,7 +25,7 @@ feature -- C binding
 		external "C"
 		end
 
-	posix_memcpy (dest, src: POINTER; a_size: INTEGER) is
+	posix_memcpy (dest, src: POINTER; a_size: INTEGER)
 			-- Copy non-overlapping memory objects.
 		require
 			valid_pointers: dest /= default_pointer and src /= default_pointer
@@ -36,7 +36,7 @@ feature -- C binding
 			-- a_size = 0 implies Result = default_pointer
 		end
 
-	posix_memmove (dest, src: POINTER; a_size: INTEGER) is
+	posix_memmove (dest, src: POINTER; a_size: INTEGER)
 			-- Copies (possibly overlapping) memory objects
 		require
 			valid_pointers: dest /= default_pointer and src /= default_pointer
@@ -44,7 +44,7 @@ feature -- C binding
 		external "C"
 		end
 
-	posix_memset (p: POINTER; byte, a_size: INTEGER) is
+	posix_memset (p: POINTER; byte, a_size: INTEGER)
 			-- Fill memory with a constant byte
 		require
 			valid_ptr: p /= default_pointer
@@ -53,7 +53,7 @@ feature -- C binding
 		external "C"
 		end
 
-	posix_strerror (errnum: INTEGER): POINTER is
+	posix_strerror (errnum: INTEGER): POINTER
 			-- Converts an error number to a string
 		external "C"
 		end

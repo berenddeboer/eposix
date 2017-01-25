@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers POSIX user routines."
 
@@ -29,7 +29,7 @@ create
 
 feature -- creation
 
-	make_from_name (a_name: STRING) is
+	make_from_name (a_name: STRING)
 		require
 			valid_name: a_name /= Void and then not a_name.is_empty
 		do
@@ -37,7 +37,7 @@ feature -- creation
 			refresh
 		end
 
-	make_from_uid (a_uid: INTEGER) is
+	make_from_uid (a_uid: INTEGER)
 		require
 			valid_uid: a_uid >= 0
 		do
@@ -52,7 +52,7 @@ feature -- creation
 
 feature -- Base commands
 
-	refresh is
+	refresh
 			-- Refresh cache with latest info from user database.
 		do
 			passwd := posix_getpwnam (sh.string_to_pointer (name))
@@ -68,25 +68,25 @@ feature -- Access
 	name: STRING
 			-- login name
 
-	uid: INTEGER is
+	uid: INTEGER
 			-- ID number
 		do
 			Result := posix_pw_uid (passwd)
 		end
 
-	gid: INTEGER is
+	gid: INTEGER
 			-- group ID number
 		do
 			Result := posix_pw_gid (passwd)
 		end
 
-	home_directory: STRING is
+	home_directory: STRING
 			-- initial working directory
 		do
 			Result := sh.pointer_to_string (posix_pw_dir (passwd))
 		end
 
-	shell: STRING is
+	shell: STRING
 			-- initial user program
 		do
 			Result := sh.pointer_to_string (posix_pw_shell (passwd))

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test common file system class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		local
 			name1,
 			name2: STRING

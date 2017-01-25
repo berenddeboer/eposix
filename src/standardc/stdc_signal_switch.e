@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Main switch for every handled signal."
 
@@ -33,7 +33,7 @@ create {STDC_SIGNAL_SWITCH_ACCESSOR}
 
 feature -- Initialization
 
-	make is
+	make
 		do
 			create switched_signals.make (1, 32)
 		end
@@ -41,7 +41,7 @@ feature -- Initialization
 
 feature -- Commands
 
-	default_all_changed_handlers is
+	default_all_changed_handlers
 			-- Make sure any installed handlers return to their default
 			-- action.
 		local
@@ -71,7 +71,7 @@ feature -- Commands
 
 feature {NONE} -- Garbage collection
 
-	dispose is
+	dispose
 		do
 			epx_clear_signal_switch
 			precursor
@@ -80,7 +80,7 @@ feature {NONE} -- Garbage collection
 
 feature {STDC_SIGNAL} -- signals to catch or ignore
 
-	catch (a_signal: STDC_SIGNAL; a_handler: STDC_SIGNAL_HANDLER) is
+	catch (a_signal: STDC_SIGNAL; a_handler: STDC_SIGNAL_HANDLER)
 			-- Make this a caught signal.
 		require
 			signal_not_void: a_signal /= Void
@@ -91,7 +91,7 @@ feature {STDC_SIGNAL} -- signals to catch or ignore
 			handler_set: switched_signals.item (a_signal.value) = a_handler
 		end
 
-	ignore (a_signal: STDC_SIGNAL) is
+	ignore (a_signal: STDC_SIGNAL)
 			-- This signal is no longer handled.
 		require
 			signal_not_void: a_signal /= Void
@@ -102,7 +102,7 @@ feature {STDC_SIGNAL} -- signals to catch or ignore
 
 feature {STDC_SIGNAL,STDC_SIGNAL_HANDLER} -- lowest level C signal handler
 
-	handler: POINTER is
+	handler: POINTER
 			-- Pointer to C routine that is called on signal
 		once
 			epx_set_signal_switch (any_to_pointer (Current), $switcher)
@@ -112,7 +112,7 @@ feature {STDC_SIGNAL,STDC_SIGNAL_HANDLER} -- lowest level C signal handler
 
 feature {NONE} -- core switch
 
-	switcher (a_signal: INTEGER) is
+	switcher (a_signal: INTEGER)
 			-- Core routine, is called from C when a signal occurs for a
 			-- handled signal.
 		local
@@ -132,7 +132,7 @@ feature {NONE} -- state
 
 	switched_signals: ARRAY [STDC_SIGNAL_HANDLER]
 
-	assert_can_store_signal (a_signal: STDC_SIGNAL) is
+	assert_can_store_signal (a_signal: STDC_SIGNAL)
 			-- Make sure `signal' can be stored in `switched_signals'.
 		require
 			signal_not_void: a_signal /= Void
@@ -149,15 +149,15 @@ feature {NONE} -- state
 
 feature {NONE} -- C binding
 
-	epx_clear_signal_switch is
+	epx_clear_signal_switch
 		external "C"
 		end
 
-	epx_set_signal_switch (an_object, an_address: POINTER) is
+	epx_set_signal_switch (an_object, an_address: POINTER)
 		external "C"
 		end
 
-	epx_signal_handler: POINTER is
+	epx_signal_handler: POINTER
 			-- Address of the e-POSIX global signal handler
 		external "C"
 		ensure
@@ -167,7 +167,7 @@ feature {NONE} -- C binding
 
 feature {NONE} -- Implementation
 
-	frozen singleton: EPX_SINGLETON is
+	frozen singleton: EPX_SINGLETON
 		once
 			Result := Current
 		end

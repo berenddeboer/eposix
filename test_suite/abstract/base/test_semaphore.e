@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX semaphore classes."
 
@@ -19,7 +19,7 @@ inherit
 
 feature
 
-	test_unnamed is
+	test_unnamed
 			-- Test portable unnamed semaphores.
 		local
 			unnamed,
@@ -45,7 +45,7 @@ feature
 			unnamed2.close
 		end
 
-	test_named is
+	test_named
 			-- Create a named semaphore.
 			-- Not supported by Linux/FreeBSD
 		local
@@ -104,7 +104,7 @@ feature
 
 feature {NONE} -- Implementation
 
-	is_windows: BOOLEAN is
+	is_windows: BOOLEAN
 			-- Are we running on the Windows platform?
 		external "C"
 		end

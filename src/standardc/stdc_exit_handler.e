@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class for handling Standard C on exit calls."
 
@@ -21,7 +21,7 @@ inherit
 
 feature {STDC_EXIT_SWITCH} -- main function
 
-	execute is
+	execute
 			-- Callback when program exitst normally.
 			-- To be implemented in descendents.
 		deferred

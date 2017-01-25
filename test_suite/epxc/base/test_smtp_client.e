@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Tests
 
-	test_open is
+	test_open
 		local
 			smtp: EPX_SMTP_CLIENT
 		do
@@ -36,7 +36,7 @@ feature -- Tests
 			smtp.close
 		end
 
-	test_sending_email is
+	test_sending_email
 		local
 			smtp: EPX_SMTP_CLIENT
 			message: EPX_MIME_EMAIL
@@ -66,7 +66,7 @@ feature -- Tests
 			smtp.close
 		end
 
-	test_various is
+	test_various
 			-- Test help, verify and such.
 		local
 			smtp: EPX_SMTP_CLIENT
@@ -83,7 +83,7 @@ feature -- Tests
 			smtp.close
 		end
 
-	test_multiple_recipients is
+	test_multiple_recipients
 		local
 			smtp: EPX_SMTP_CLIENT
 			message: EPX_MIME_EMAIL

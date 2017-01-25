@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -28,7 +28,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_stack: DS_STACK [UT_URI]) is
+	make (a_stack: DS_STACK [UT_URI])
 			-- establish invariant.
 		require
 			uri_stack_exists: a_stack /= Void
@@ -40,17 +40,17 @@ feature {NONE} -- Initialization
 
 feature -- Operation(s)
 
-	default_port: INTEGER is
+	default_port: INTEGER
 		once
 			Result := 80
 		end
 
-	scheme: STRING is
+	scheme: STRING
 		once
 			Result := "http"
 		end
 
-	resolve (a_uri: UT_URI) is
+	resolve (a_uri: UT_URI)
 			-- Resolve URI to stream.
 		local
 			a_path: STRING
@@ -133,13 +133,13 @@ feature -- Operation(s)
 
 feature -- Result
 
-	has_error: BOOLEAN is
+	has_error: BOOLEAN
 			-- Did the last resolution attempt succeed?
 		do
 			Result := has_local_error or else not client.is_response_ok
 		end
 
-	last_error: STRING is
+	last_error: STRING
 		local
 			a_message: STRING
 		do
@@ -170,7 +170,7 @@ feature -- Authentication setup
 	password: STRING
 			-- Password for HTTP Basic authentication
 
-	set_basic_authentication (a_user_name, a_password: STRING) is
+	set_basic_authentication (a_user_name, a_password: STRING)
 			-- Make sure the Authorization header is included in the
 			-- request.
 		require
@@ -197,29 +197,29 @@ feature {NONE} -- Implementation
 	uri_stack: DS_STACK [UT_URI]
 			-- Resolver's URI stack
 
-	Content_type: STRING is "Content-Type"
+	Content_type: STRING = "Content-Type"
 			-- Name of content type header
 
-	Location: STRING is "Location"
+	Location: STRING = "Location"
 			-- Name of Location response field
 
-	Sc_ok: INTEGER is 200
+	Sc_ok: INTEGER = 200
 			-- Request succeeded normally
 
-	Sc_moved_permanently: INTEGER is 301
+	Sc_moved_permanently: INTEGER = 301
 			-- Requested resource assigned new permanent URI.
 
-	Sc_found: INTEGER is 302
+	Sc_found: INTEGER = 302
 			-- Resource has been moved temporarily
 
-	Sc_see_other: INTEGER is 303
+	Sc_see_other: INTEGER = 303
 			-- Response to request can be found under a different URI, and
 			--  SHOULD be retrieved using a GET method on that resource.
 
-	Sc_temporary_redirect: INTEGER is 307
+	Sc_temporary_redirect: INTEGER = 307
 			-- Requested resource resides temporarily under a different URI.
 
-	is_redirect (a_response_code: INTEGER): BOOLEAN is
+	is_redirect (a_response_code: INTEGER): BOOLEAN
 			-- Does `a_response_code' indicate a re-direct status?
 		do
 			Result := a_response_code = Sc_moved_permanently
@@ -228,7 +228,7 @@ feature {NONE} -- Implementation
 				or else a_response_code = Sc_temporary_redirect
 		end
 
-	new_client (a_uri_to_use: UT_URI): EPX_HTTP_11_CLIENT is
+	new_client (a_uri_to_use: UT_URI): EPX_HTTP_11_CLIENT
 		require
 			a_uri_to_use_not_void: a_uri_to_use /= Void
 		do
@@ -241,7 +241,7 @@ feature {NONE} -- Implementation
 			not_void: Result /= Void
 		end
 
-	set_local_error (an_error_string: STRING) is
+	set_local_error (an_error_string: STRING)
 			-- Set a local error.
 		require
 			error_string_not_void: an_error_string /= Void
@@ -252,7 +252,7 @@ feature {NONE} -- Implementation
 			error_set: has_local_error and then STRING_.same_string (an_error_string, last_local_error)
 		end
 
-	handle_success (a_uri: UT_URI) is
+	handle_success (a_uri: UT_URI)
 			-- Handle `Sc_ok'.
 		require
 			sucessful_response: client.response_code = Sc_ok and then client.is_response_ok
@@ -273,7 +273,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	set_media_type (a_content_type: STRING) is
+	set_media_type (a_content_type: STRING)
 			-- Set `last_media_type'
 		require
 			content_type_not_void: a_content_type /= Void
@@ -319,7 +319,7 @@ feature {NONE} -- Implementation
 			error_or_media_type_set: not has_error implies has_media_type = True and then last_media_type /= Void
 		end
 
-	set_basic_authentication_from_user_info (a_user_info: STRING) is
+	set_basic_authentication_from_user_info (a_user_info: STRING)
 			-- Set basic authentication on `client' from `a_user_info'.
 		require
 			a_user_info_not_void: a_user_info /= Void

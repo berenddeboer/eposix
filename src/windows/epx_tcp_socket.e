@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows portable implementation of a TCP socket."
 
@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Shutdown
 
-	shutdown (a_how: INTEGER) is
+	shutdown (a_how: INTEGER)
 			-- Shut down part of a full-duplex connection.
 		do
 			assert_winsock_initialized

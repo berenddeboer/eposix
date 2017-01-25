@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that makes it appear if Windows supports file %
 	%descriptors. Windows doesn't. The few functions it has are not compatible%
@@ -39,7 +39,7 @@ create
 
 feature {NONE} -- Abstract API binding
 
-	abstract_close (fildes: INTEGER): INTEGER is
+	abstract_close (fildes: INTEGER): INTEGER
 			-- Closes a a file descriptor.
 		do
 			if not posix_closehandle (fildes) then
@@ -47,14 +47,14 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_dup (fildes: INTEGER): INTEGER is
+	abstract_dup (fildes: INTEGER): INTEGER
 			-- Duplicates an open file descriptor
 		do
 			safe_win_call (posix_duplicatehandle (posix_getcurrentprocess, fildes, posix_getcurrentprocess, $temp_int, 0, False, DUPLICATE_SAME_ACCESS))
 			Result := temp_int
 		end
 
-	abstract_dup2 (fildes, fildes2: INTEGER): INTEGER is
+	abstract_dup2 (fildes, fildes2: INTEGER): INTEGER
 			-- Duplicates an open file descriptor.
 			-- Works only as expected for the standard i/o handles
 		local
@@ -100,7 +100,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_isatty (fildes: INTEGER): BOOLEAN is
+	abstract_isatty (fildes: INTEGER): BOOLEAN
 			-- Determines if a file descriptor is associated with a terminal
 		local
 			type: INTEGER
@@ -109,7 +109,7 @@ feature {NONE} -- Abstract API binding
 			Result := type = FILE_TYPE_CHAR
 		end
 
-	abstract_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	abstract_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Read `nbyte's from `fildes' into `buf'.
 		local
 			success: BOOLEAN
@@ -139,7 +139,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	abstract_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Write `nbyte's from `buf' to `fildes'.
 		local
 			success: BOOLEAN
@@ -167,7 +167,7 @@ feature {NONE} -- Abstract API binding
 
 feature {NONE} -- error codes
 
-	abstract_EWOULDBLOCK: INTEGER is
+	abstract_EWOULDBLOCK: INTEGER
 			-- The process would be delayed in the I/O operation
 		do
 			-- Windows also does have EGAIN, but it's meaning is
@@ -176,7 +176,7 @@ feature {NONE} -- error codes
 			Result := ERROR_NO_DATA
 		end
 
-	abstract_EINTR: INTEGER is
+	abstract_EINTR: INTEGER
 			-- read/write was interrupted
 		do
 			Result := EINTR

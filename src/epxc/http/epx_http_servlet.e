@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that can produce output for a certain resource (url). Like a CIG program, but compiled into the HTTP server."
 
@@ -39,7 +39,7 @@ feature -- Access
 	allow_cached_content: BOOLEAN
 			-- Can content in `as_string' survive an activate/deactivate sequence?
 
-	allowed_methods: STRING is
+	allowed_methods: STRING
 			-- What methods does the resource captured by this servlet
 			-- allow?
 			-- This is a comma-separated list, for example "HEAD,DELETE,GET,PUT"
@@ -56,7 +56,7 @@ feature -- Access
 
 feature -- Status
 
-	is_activated: BOOLEAN is
+	is_activated: BOOLEAN
 			-- Has `activate' been called?
 		do
 			Result := connection /= Void
@@ -65,31 +65,31 @@ feature -- Status
 
 feature {EPX_HTTP_SERVER} -- Status
 
-	are_request_form_fields_valid_for_delete (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN is
+	are_request_form_fields_valid_for_delete (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN
 			-- Is data passed to this servlet enough to perform the delete request?
 		do
 			Result := True
 		end
 
-	are_request_form_fields_valid_for_get (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN is
+	are_request_form_fields_valid_for_get (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN
 			-- Is data passed to this servlet enough to perform the get request?
 		do
 			Result := True
 		end
 
-	are_request_form_fields_valid_for_head (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN is
+	are_request_form_fields_valid_for_head (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN
 			-- Is data passed to this servlet enough to perform the head request?
 		do
 			Result := True
 		end
 
-	are_request_form_fields_valid_for_post (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN is
+	are_request_form_fields_valid_for_post (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN
 			-- Is data passed to this servlet enough to perform the post request?
 		do
 			Result := True
 		end
 
-	are_request_form_fields_valid_for_put (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN is
+	are_request_form_fields_valid_for_put (a_request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]): BOOLEAN
 			-- Is data passed to this servlet enough to perform the post request?
 		do
 			Result := True
@@ -98,7 +98,7 @@ feature {EPX_HTTP_SERVER} -- Status
 
 feature -- Start/stop
 
-	shutdown is
+	shutdown
 			-- Send to every servlet when server goes down.
 		do
 			-- do nothing
@@ -107,7 +107,7 @@ feature -- Start/stop
 
 feature {EPX_HTTP_SERVER} -- Execution
 
-	activate (a_connection: EPX_HTTP_CONNECTION; a_http_method, a_resource: STRING) is
+	activate (a_connection: EPX_HTTP_CONNECTION; a_http_method, a_resource: STRING)
 			-- Called before the servlet is asked to produce output.
 			-- Servlet is asked to act upon `a_resource' with method
 			-- `a_http_method'.
@@ -127,7 +127,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			activated: is_activated
 		end
 
-	deactivate is
+	deactivate
 			-- Called after servlet has done its work.
 		require
 			activated: is_activated
@@ -144,7 +144,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			empty_body: not allow_cached_content implies as_string.is_empty
 		end
 
-	delete_body is
+	delete_body
 			-- Write response body to DELETE request.
 		require
 			activated: is_activated
@@ -154,7 +154,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			-- not implemented
 		end
 
-	delete_header is
+	delete_header
 			-- Write response header to DELETE request. You have to
 			-- write everything, including the response code.
 		require
@@ -164,7 +164,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			connection.report_method_not_allowed (http_method_DELETE, allowed_methods)
 		end
 
-	get_body is
+	get_body
 			-- Write response body to GET request.
 		require
 			activated: is_activated
@@ -174,7 +174,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			-- not implemented
 		end
 
-	get_header is
+	get_header
 			-- Write response header to GET request. You have to
 			-- write everything, including the response code.
 		require
@@ -188,7 +188,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 					not connection.response_header_ends_with_body_separator
 		end
 
-	head_header is
+	head_header
 			-- Write response header to HEAD request. You have to
 			-- write everything, including the response code.
 		require
@@ -198,7 +198,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			connection.report_method_not_allowed (http_method_HEAD, allowed_methods)
 		end
 
-	post_body is
+	post_body
 			-- Write response body to POST request.
 		require
 			activated: is_activated
@@ -208,7 +208,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			-- not implemented
 		end
 
-	post_header is
+	post_header
 			-- Write response header to POST request. You have to
 			-- write everything, including the response code.
 		require
@@ -218,7 +218,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			connection.report_method_not_allowed (http_method_POST, allowed_methods)
 		end
 
-	put_body is
+	put_body
 			-- Write response body to PUT request.
 		require
 			activated: is_activated
@@ -228,7 +228,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 			-- not implemented
 		end
 
-	put_header is
+	put_header
 			-- Write response header to PUT request. You have to
 			-- write everything, including the response code.
 		require
@@ -245,7 +245,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 	connection: EPX_HTTP_CONNECTION
 			-- Connection which this servlet  currently serves
 
-	server: EPX_HTTP_CONNECTION is
+	server: EPX_HTTP_CONNECTION
 		obsolete "2006-02-06: Use `connection' instead"
 		do
 			Result := connection
@@ -254,7 +254,7 @@ feature {EPX_HTTP_SERVER} -- Execution
 
 feature {NONE} -- Header
 
-	add_content_length is
+	add_content_length
 			-- Add a Content-Length header based on the currently
 			-- generated XML in `as_uc_string'.
 			-- Assume output is written as UTF-8.
@@ -264,7 +264,7 @@ feature {NONE} -- Header
 			connection.add_field (field_name_content_length, as_uc_string.byte_count.out)
 		end
 
-	write_default_header is
+	write_default_header
 			-- If you implement an XXXX_header method, a call to this
 			-- routine will suffice in most cases.
 			-- The header will not add the separator and is not send to
@@ -285,7 +285,7 @@ feature {NONE} -- Header
 
 feature {NONE} -- Values
 
-	adjusted_item (a_key: STRING): STRING is
+	adjusted_item (a_key: STRING): STRING
 			-- Value defined for `a_key' if it exists, else the empty string.
 			-- Item is left and right trimmed for spaces, tabs, LF's and CR's.
 		require
@@ -336,7 +336,7 @@ feature {NONE} -- Values
 			does_not_end_with_a_blank: not Result.is_empty implies not blanks.has (Result.item (Result.count))
 		end
 
-	item (a_key: STRING): STRING is
+	item (a_key: STRING): STRING
 			-- Value defined for `a_key' if it exists, else the empty string.
 		require
 			key_not_empty: a_key /= Void and then not a_key.is_empty
@@ -360,9 +360,9 @@ feature {NONE} -- Values
 
 feature {NONE} -- Once strings
 
-	once_empty_string: STRING is ""
+	once_empty_string: STRING = ""
 
-	blanks: STRING is " %T%N%R"
+	blanks: STRING = " %T%N%R"
 
 
 invariant

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SHELL_COMMAND class."
 
@@ -16,7 +16,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 			-- Test executing shell commands.
 		local
 			command: STDC_SHELL_COMMAND

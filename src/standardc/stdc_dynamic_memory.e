@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C dynamic memory routines."
 

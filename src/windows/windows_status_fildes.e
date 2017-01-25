@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that gets Windows stat structure through fstat call."
 
@@ -30,7 +30,7 @@ create {EPX_FILE_DESCRIPTOR}
 
 feature {NONE} -- abstract API
 
-	abstract_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER is
+	abstract_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER
 			-- Gets information about a file
 			-- contains awful workaround if fildes is a pipe...
 		local
@@ -55,48 +55,48 @@ feature {NONE} -- abstract API
 
 feature {NONE} -- portable API functions
 
-	abstract_st_atime (a_stat: POINTER): INTEGER is
+	abstract_st_atime (a_stat: POINTER): INTEGER
 			-- time of last access
 		do
 			Result := posix_by_handle_file_information_ftlastaccesstime (a_stat)
 		end
 
-	abstract_st_ctime (a_stat: POINTER): INTEGER is
+	abstract_st_ctime (a_stat: POINTER): INTEGER
 			-- time of last status change
 		do
 			Result := posix_by_handle_file_information_ftlastwritetime (a_stat)
 		end
 
-	abstract_st_dev (a_stat: POINTER): INTEGER is
+	abstract_st_dev (a_stat: POINTER): INTEGER
 			-- Drive number of the disk containing the file
 		do
 			Result := posix_by_handle_file_information_dwvolumeserialnumber (a_stat)
 		end
 
-	abstract_st_mode (a_stat: POINTER): INTEGER is
+	abstract_st_mode (a_stat: POINTER): INTEGER
 		do
 			Result := posix_by_handle_file_information_dwfileattributes (a_stat)
 		end
 
-	abstract_st_mtime (a_stat: POINTER): INTEGER is
+	abstract_st_mtime (a_stat: POINTER): INTEGER
 			-- time of last data modification
 		do
 			Result := posix_by_handle_file_information_ftlastwritetime (a_stat)
 		end
 
-	abstract_st_nlink (a_stat: POINTER): INTEGER is
+	abstract_st_nlink (a_stat: POINTER): INTEGER
 			-- number of hard links
 		do
 			Result := posix_by_handle_file_information_nnumberoflinks (a_stat)
 		end
 
-	abstract_st_size (a_stat: POINTER): INTEGER is
+	abstract_st_size (a_stat: POINTER): INTEGER
 			-- total size, in bytes
 		do
 			Result := posix_by_handle_file_information_nfilesizelow (a_stat)
 		end
 
-	abstract_stat_size: INTEGER is
+	abstract_stat_size: INTEGER
 			-- return size of struct stat
 		do
 			Result := posix_by_handle_file_information_size
@@ -105,22 +105,22 @@ feature {NONE} -- portable API functions
 
 feature {NONE} -- test file type bits
 
-	abstract_s_ischr (m: INTEGER): BOOLEAN is
+	abstract_s_ischr (m: INTEGER): BOOLEAN
 		do
 			Result := True
 		end
 
-	abstract_s_isdir (m: INTEGER): BOOLEAN is
+	abstract_s_isdir (m: INTEGER): BOOLEAN
 		do
 			Result := test_bits (m, FILE_ATTRIBUTE_DIRECTORY)
 		end
 
-	abstract_s_isfifo (m: INTEGER): BOOLEAN is
+	abstract_s_isfifo (m: INTEGER): BOOLEAN
 		do
 			Result := my_is_fifo
 		end
 
-	abstract_s_isreg (m: INTEGER): BOOLEAN is
+	abstract_s_isreg (m: INTEGER): BOOLEAN
 		do
 			Result := not test_bits (m, FILE_ATTRIBUTE_DIRECTORY)
 		end

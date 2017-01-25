@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Standard C system command, %
 	%i.e. interaction with the shell."
@@ -29,7 +29,7 @@ create
 
 feature -- Initialization
 
-	make (a_command: STRING) is
+	make (a_command: STRING)
 			-- Set command to execute. Command is not subject to expansion.
 		require
 			valid_command: a_command /= Void and then not a_command.is_empty
@@ -40,7 +40,7 @@ feature -- Initialization
 
 feature -- Execute the command
 
-	execute is
+	execute
 			-- Execute `command'. Error reporting is system dependent.
 		do
 			running := True

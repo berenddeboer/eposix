@@ -303,10 +303,10 @@ feature -- h_errno values
 
 feature -- Lengths of string forms of ip addresses
 
-	INET_ADDRSTRLEN: INTEGER is 16
+	INET_ADDRSTRLEN: INTEGER = 16
 			-- Length of an IPv4 string.
 
-	INET6_ADDRSTRLEN: INTEGER is 46
+	INET6_ADDRSTRLEN: INTEGER = 46
 			-- Length of an IPv6 string.
 
 
@@ -460,13 +460,13 @@ feature -- RFC3768
 
 feature -- Special IPv4 addresses
 
-	INADDR_ANY: INTEGER is 0
+	INADDR_ANY: INTEGER = 0
 			-- 0.0.0.0
 
-	INADDR_BROADCAST: INTEGER is -1
+	INADDR_BROADCAST: INTEGER = -1
 			-- 255.255.255.255
 
-	INADDR_LOOPBACK: INTEGER is 2130706433
+	INADDR_LOOPBACK: INTEGER = 2130706433
 		-- 127.0.0.1
 
 

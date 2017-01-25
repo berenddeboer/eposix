@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C buffer class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_buffer is
+	test_buffer
 		local
 			buf,
 			buf2: STDC_BUFFER
@@ -109,7 +109,7 @@ feature
 			buf.deallocate
 		end
 
-	test_make_from_pointer is
+	test_make_from_pointer
 		local
 			buf1,
 			buf2: STDC_BUFFER
@@ -122,7 +122,7 @@ feature
 			buf2.deallocate
 		end
 
-	test_locate is
+	test_locate
 		local
 			buf: STDC_BUFFER
 			i: INTEGER
@@ -142,7 +142,7 @@ feature
 			assert_integers_equal ("Not found.", -1, i)
 		end
 
-	test_integer_64 is
+	test_integer_64
 		local
 			buf: STDC_BUFFER
 			i: INTEGER_64
@@ -178,7 +178,7 @@ feature
 
 feature {NONE} -- Implementation
 
-	hello: STRING is "Hello World!"
+	hello: STRING = "Hello World!"
 
 
 end

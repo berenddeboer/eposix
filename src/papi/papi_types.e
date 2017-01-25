@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that covers POSIX sys/types.h header."
 
@@ -13,7 +13,7 @@ class
 
 feature {NONE} -- POSIX C binding
    
-   posix_gid_t_size: INTEGER is
+   posix_gid_t_size: INTEGER
          -- size of gid_t
       external "C"
       end

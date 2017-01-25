@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX nonblocking i/o."
 
@@ -30,7 +30,7 @@ inherit
 
 feature
 
-	test_stdin is
+	test_stdin
 			-- Test non-blocking i/o on `fd_stdin'.
 		local
 			i: INTEGER

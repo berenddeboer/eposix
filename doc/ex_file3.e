@@ -10,7 +10,7 @@ create
    
 feature
 
-   make is
+   make
       local
          file: POSIX_BINARY_FILE
       do

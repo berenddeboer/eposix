@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,7 +19,7 @@ class
 
 feature -- Status
 
-	is_valid_channel_name (a_channel_name: STRING): BOOLEAN is
+	is_valid_channel_name (a_channel_name: STRING): BOOLEAN
 			-- Is `a_channel_name' a valid channel name?
 			-- Channels names are strings (beginning with a '&', '#', '+'
 			-- or '!'  character) of length up to fifty (50) characters.
@@ -38,7 +38,7 @@ feature -- Status
 				not a_channel_name.has (control_g)
 		end
 
-	is_valid_command (a_command: STRING): BOOLEAN is
+	is_valid_command (a_command: STRING): BOOLEAN
 		do
 			Result :=
 				a_command /= Void and then
@@ -48,7 +48,7 @@ feature -- Status
 				not a_command.has ('%R')
 		end
 
-	is_valid_nick_name (a_nick_name: STRING): BOOLEAN is
+	is_valid_nick_name (a_nick_name: STRING): BOOLEAN
 			-- Is `a_nick_name' a valid nick name?
 			-- `a_nick_name' should have a maximum length of 9
 			-- characters, but this is not checked.
@@ -64,7 +64,7 @@ feature -- Status
 			valid_implies_not_void: Result implies a_nick_name /= Void
 		end
 
-	is_valid_text (a_text: STRING): BOOLEAN is
+	is_valid_text (a_text: STRING): BOOLEAN
 			-- Can `a_text' be send as a message to a channel or a user?
 			-- It must not be empty and not contain the NULL, CR or LF
 			-- characters.
@@ -80,11 +80,11 @@ feature -- Status
 
 feature -- Access
 
-	channel_first_characters: STRING is "#&+!"
+	channel_first_characters: STRING = "#&+!"
 			-- Channel names must begin with one of the characters listed
 			-- here
 
-	control_g: CHARACTER is '%/007/'
+	control_g: CHARACTER = '%/007/'
 		-- control G (ASCII 7)
 
 end

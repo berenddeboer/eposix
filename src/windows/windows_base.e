@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for WINDOWS classes."
 
@@ -36,7 +36,7 @@ inherit
 
 feature {NONE} -- Windows specific exceptions
 
-	raise_posix_error is
+	raise_posix_error
 			-- Throws an exception when something that is considered
 			-- fatal has occurred.
 			-- Exception throwing can be disabled by calling
@@ -56,7 +56,7 @@ feature {NONE} -- Windows specific exceptions
 			end
 		end
 
-	raise_windows_error is
+	raise_windows_error
 			-- Windows specific variant of `raise_posix_error'
 			-- Uses GetLastError for error handling.
 		do
@@ -73,7 +73,7 @@ feature {NONE} -- Windows specific exceptions
 			end
 		end
 
-	safe_win_call (success: BOOLEAN) is
+	safe_win_call (success: BOOLEAN)
 			-- If not `success', raise an exception if exceptions are
 			-- enabled.
 		do
@@ -82,7 +82,7 @@ feature {NONE} -- Windows specific exceptions
 			end
 		end
 
-	raise_wsa_error is
+	raise_wsa_error
 			-- Windows sockets specific variant of `raise_posix_error'.
 			-- Uses GetLastError for error handling.
 		do
@@ -99,7 +99,7 @@ feature {NONE} -- Windows specific exceptions
 			end
 		end
 
-	safe_wsa_call (return_code: INTEGER) is
+	safe_wsa_call (return_code: INTEGER)
 			-- If `return_code' is `SOCKET_ERROR', raise an exception if
 			-- exceptions are enabled.
 		do
@@ -111,6 +111,6 @@ feature {NONE} -- Windows specific exceptions
 
 feature {NONE} -- Implementation
 
-	once_wsa_error_message: STRING is "WSAGetLastError: "
+	once_wsa_error_message: STRING = "WSAGetLastError: "
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Describes NT STARTUPINFO struct."
 
@@ -26,7 +26,7 @@ create
 
 feature -- creation
 
-   make is
+   make
       do
          create psi.allocate_and_clear (posix_startupinfo_size)
          posix_set_startupinfo_cb (ptr, posix_startupinfo_size)
@@ -35,27 +35,27 @@ feature -- creation
 
 feature -- state
 
-   set_dwFlags (value: INTEGER) is
+   set_dwFlags (value: INTEGER)
       do
          posix_set_startupinfo_dwflags (ptr, value)
       end
 
-   set_wShowWindow (value: INTEGER) is
+   set_wShowWindow (value: INTEGER)
       do
          posix_set_startupinfo_wshowwindow (ptr, value)
       end
 
-   set_hStdOutput (value: INTEGER) is
+   set_hStdOutput (value: INTEGER)
       do
          posix_set_startupinfo_hstdoutput (ptr, value)
       end
 
-   set_hStdInput (value: INTEGER) is
+   set_hStdInput (value: INTEGER)
       do
          posix_set_startupinfo_hstdinput (ptr, value)
       end
 
-   set_hStdError (value: INTEGER) is
+   set_hStdError (value: INTEGER)
       do
          posix_set_startupinfo_hstderror (ptr, value)
       end
@@ -63,7 +63,7 @@ feature -- state
 
 feature -- pointer to state
 
-   ptr: POINTER is
+   ptr: POINTER
       do
          Result := psi.ptr
       end

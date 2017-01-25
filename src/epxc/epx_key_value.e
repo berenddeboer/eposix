@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "key=value pairs as used in HTML forms. Used for CGI programs and the HTTP server."
 
@@ -18,7 +18,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_key, a_value: STRING) is
+	make (a_key, a_value: STRING)
 			-- Initialize.
 		require
 			has_key: a_key /= Void and then not a_key.is_empty
@@ -52,7 +52,7 @@ feature -- Access
 
 feature -- Change state
 
-	set_file (a_file: EPX_CHARACTER_IO_STREAM) is
+	set_file (a_file: EPX_CHARACTER_IO_STREAM)
 			-- Set `file'.
 		require
 			filename_known: not value.is_empty
@@ -61,7 +61,7 @@ feature -- Change state
 			file := a_file
 		end
 
-	set_value (a_value: STRING) is
+	set_value (a_value: STRING)
 			-- Set `value'.
 		require
 			a_value_not_void: a_value /= Void

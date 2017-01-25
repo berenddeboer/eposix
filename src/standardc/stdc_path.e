@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a path on the file system.%
 	%Also makes possible to use either a / or \ as directory separator%
@@ -33,7 +33,7 @@ create
 
 feature -- Initialization
 
-	make_from_string (a_path: STRING) is
+	make_from_string (a_path: STRING)
 			-- The new path contains the correct directory separator
 			-- independent of what is passed in `a_path'.
 		require
@@ -45,7 +45,7 @@ feature -- Initialization
 			remove_trailing_slash
 		end
 
-	make_from_raw_string (a_path: STRING) is
+	make_from_raw_string (a_path: STRING)
 			-- As `make_from_string' but do not correct the directory separator.
 		require
 			a_path_not_void: a_path /= Void
@@ -53,7 +53,7 @@ feature -- Initialization
 			org_make_from_string (a_path)
 		end
 
-	make_expand (s: STRING) is
+	make_expand (s: STRING)
 			-- The new path is the expanded contents of `s'.
 		require
 			s_void: s /= Void
@@ -66,7 +66,7 @@ feature -- Initialization
 
 feature -- Status
 
-	is_absolute: BOOLEAN is
+	is_absolute: BOOLEAN
 			-- Does the path start with a '/' or drive letter?
 		do
 			if is_windows then
@@ -87,7 +87,7 @@ feature -- Status
 				not is_empty implies (item (1) = directory_separator implies Result)
 		end
 
-	is_portable_character (c: CHARACTER): BOOLEAN is
+	is_portable_character (c: CHARACTER): BOOLEAN
 			-- Is c a POSIX portable character?
 			--  i.e. can it safely be used in file names.
 		do
@@ -100,7 +100,7 @@ feature -- Status
 				(c = '-')
 		end
 
-	is_portable: BOOLEAN is
+	is_portable: BOOLEAN
 			-- Return True if this path is portable
 		local
 			i: INTEGER
@@ -117,7 +117,7 @@ feature -- Status
 			end
 		end
 
-	is_resolved: BOOLEAN is
+	is_resolved: BOOLEAN
 			-- Does the path contain no relative components, i.e. a ".."
 			-- somewhere?
 		do
@@ -138,7 +138,7 @@ feature -- Access
 			-- Not automagically updated when path is changed, you have
 			-- to call `parse' again.
 
-	directory_separator: CHARACTER is
+	directory_separator: CHARACTER
 			-- The platform specific directory separator
 			-- Or at least an attempt to return one.
 		once
@@ -152,7 +152,7 @@ feature -- Access
 
 feature -- Compare to string
 
-	is_equal_to_string (s: STRING): BOOLEAN is
+	is_equal_to_string (s: STRING): BOOLEAN
 		require
 			s_not_void: s /= Void
 		do
@@ -162,7 +162,7 @@ feature -- Compare to string
 
 feature -- Change
 
-	parse (suffix_list: ARRAY [STRING]) is
+	parse (suffix_list: ARRAY [STRING])
 			-- Set `directory', `basename', and `suffix'.
 			-- The suffix should be in `suffix_list' if it needs to be stripped.
 			-- Suffix comparison is case-insensitive.
@@ -238,7 +238,7 @@ feature -- Change
 			only_suffix_when_needed: suffix_list = Void implies suffix.is_empty
 		end
 
-	remove_trailing_slash is
+	remove_trailing_slash
 			-- Remove last slash. Useful when path is a directory.
 		local
 			has_trailing_slash: BOOLEAN
@@ -253,7 +253,7 @@ feature -- Change
 				item (count) /= directory_separator
 		end
 
-	set_basename (new_basename: STRING) is
+	set_basename (new_basename: STRING)
 			-- Set `basename' from path.
 		require
 			new_basename_not_empty: new_basename /= Void and then not new_basename.is_empty
@@ -264,7 +264,7 @@ feature -- Change
 			basename_set: STRING_.same_string (basename, new_basename)
 		end
 
-	set_directory (new_directory: STRING) is
+	set_directory (new_directory: STRING)
 			-- Build new path from `new_directory', `basename' and `suffix'
 		require
 			basename_not_empty: basename /= Void and then not basename.is_empty
@@ -279,7 +279,7 @@ feature -- Change
 			directory_set: new_directory /= Void implies STRING_.same_string (directory, new_directory)
 		end
 
-	set_suffix (new_suffix: STRING) is
+	set_suffix (new_suffix: STRING)
 			-- Build new path from current `directory', `basename' and
 			-- `new_suffix'
 		require
@@ -296,7 +296,7 @@ feature -- Change
 
 feature {NONE} -- Implementation
 
-	correct_directory_separator is
+	correct_directory_separator
 			-- turn a '/' into a '\' or vice versa depending on the
 			-- current platform
 		local
@@ -318,7 +318,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	normalize_path (s: STRING): STRING is
+	normalize_path (s: STRING): STRING
 			-- Expand environment variables in `s'.
 		require
 			s_not_void: s /= Void
@@ -399,7 +399,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	env_value (env_name: STRING): STRING is
+	env_value (env_name: STRING): STRING
 			-- Value of environment variable `env_name'
 		local
 			e: STDC_ENV_VAR
@@ -408,7 +408,7 @@ feature {NONE} -- Implementation
 			Result := e.value
 		end
 
-	home_directory: STRING is
+	home_directory: STRING
 			-- Home directory, according to environment variable "HOME".
 		local
 			env_home: STDC_ENV_VAR
@@ -419,14 +419,14 @@ feature {NONE} -- Implementation
 			home_directory_not_void: Result /= Void
 		end
 
-	is_digit (c: CHARACTER): BOOLEAN is
+	is_digit (c: CHARACTER): BOOLEAN
 			-- return True if c is a digit, it seems with Eiffel you can
 			-- write every shitty routine yourself it you want compatibility
 		do
 			Result := (c >= '0') and (c <= '9')
 		end
 
-	is_env_character (c: CHARACTER): BOOLEAN is
+	is_env_character (c: CHARACTER): BOOLEAN
 			-- return True if c can be used in an environment variable
 			-- used by our expansion routine.
 		do
@@ -437,7 +437,7 @@ feature {NONE} -- Implementation
 				(c = '_')
 		end
 
-	rebuild_path is
+	rebuild_path
 			-- Rebuild path from components `directory', `basename' and
 			-- `suffix'.
 		require
@@ -461,7 +461,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Implementation
 
-	is_windows: BOOLEAN is
+	is_windows: BOOLEAN
 			-- Are we running on the Windows platform?
 		external "C"
 		end
@@ -469,7 +469,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
-	once_dotdot: STRING is "/../"
+	once_dotdot: STRING = "/../"
 
 
 end

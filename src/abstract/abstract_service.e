@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes service names, i.e. an entry %
 	%in /etc/services."
@@ -20,7 +20,7 @@ inherit
 
 feature -- Initialization
 
-	make_from_name (a_name, a_protocol: STRING) is
+	make_from_name (a_name, a_protocol: STRING)
 			-- Retrieve service information with `a_name' and optional
 			-- `a_protocol' from services database.
 			-- If service not found, an exception is raised.
@@ -41,7 +41,7 @@ feature -- Initialization
 			end
 		end
 
-	make_from_name_with_default (a_name, a_protocol: STRING; a_default_port: INTEGER) is
+	make_from_name_with_default (a_name, a_protocol: STRING; a_default_port: INTEGER)
 			-- Retrieve service information with `a_name' and optional
 			-- `a_protocol' from services database.
 			-- If service not found, `a_default_port' is used for `port'.
@@ -65,7 +65,7 @@ feature -- Initialization
 			end
 		end
 
-	make_from_ephemeral_port (a_protocol: STRING) is
+	make_from_ephemeral_port (a_protocol: STRING)
 			-- Initialize service, but let kernel choose a port at bind time.
 			-- Provide a `a_protocol' if necessary.
 		do
@@ -76,7 +76,7 @@ feature -- Initialization
 			create aliases.make (0, -1)
 		end
 
-	make_from_port (a_port: INTEGER; a_protocol: STRING) is
+	make_from_port (a_port: INTEGER; a_protocol: STRING)
 			-- Initialize service from given a_port.
 			-- Make sure to provide a `a_protocol' if necessary!
 		require
@@ -112,7 +112,7 @@ feature -- Access
 
 feature -- Status
 
-	is_tcp: BOOLEAN is
+	is_tcp: BOOLEAN
 			-- Is `protocol_type' the tcp protocl?
 		do
 			Result := protocol_type = SOCK_STREAM
@@ -120,7 +120,7 @@ feature -- Status
 			definition: protocol_type = SOCK_STREAM
 		end
 
-	is_udp: BOOLEAN is
+	is_udp: BOOLEAN
 			-- Is `protocol_type' the datagram protocl?
 		do
 			Result := protocol_type = SOCK_DGRAM
@@ -131,7 +131,7 @@ feature -- Status
 
 feature {NONE} -- Implementation
 
-	guess_protocol_type is
+	guess_protocol_type
 			-- Guess value for `protocol_type' based on `protocol'.
 		do
 			if protocol /= Void then
@@ -151,7 +151,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	set_members_from_struct (p: POINTER; a_port: INTEGER; a_protocol: STRING) is
+	set_members_from_struct (p: POINTER; a_port: INTEGER; a_protocol: STRING)
 			-- Initialize attributes of object from struct in `p'. If p =
 			-- default_pointer we assume service does not exist in
 			-- /etc/services and give some dummy values.
@@ -176,14 +176,14 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API
 
-	abstract_getservbyname (a_name, a_proto: POINTER): POINTER is
+	abstract_getservbyname (a_name, a_proto: POINTER): POINTER
 			-- Lookup service given its name and optional protocol.
 		require
 			valid_name: a_name /= default_pointer
 		deferred
 		end
 
-	abstract_getservbyport (a_port: INTEGER; a_proto: POINTER): POINTER is
+	abstract_getservbyport (a_port: INTEGER; a_proto: POINTER): POINTER
 			-- Lookup service given its port number and optional protocol.
 		require
 			valid_port: a_port >= 0
@@ -193,8 +193,8 @@ feature {NONE} -- Abstract API
 
 feature {NONE} -- Once strings
 
-	once_tcp: STRING is "tcp"
-	once_udp: STRING is "udp"
+	once_tcp: STRING = "tcp"
+	once_udp: STRING = "udp"
 
 
 invariant

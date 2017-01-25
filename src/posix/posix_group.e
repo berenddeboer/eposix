@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers POSIX group routines."
 
@@ -39,13 +39,13 @@ create
 
 feature -- Initialization
 
-	make_from_name (a_name: STRING) is
+	make_from_name (a_name: STRING)
 		do
 			name := a_name
 			refresh
 		end
 
-	make_from_gid (a_gid: INTEGER) is
+	make_from_gid (a_gid: INTEGER)
 		do
 			group := posix_getgrgid (a_gid)
 			if group = default_pointer then
@@ -57,7 +57,7 @@ feature -- Initialization
 
 feature -- Commands
 
-	refresh is
+	refresh
 			-- Refresh cache with latest info from user database.
 		do
 			group := posix_getgrnam (sh.string_to_pointer (name))
@@ -70,7 +70,7 @@ feature -- Commands
 
 feature -- Status
 
-	is_member (a_name: STRING): BOOLEAN is
+	is_member (a_name: STRING): BOOLEAN
 			-- Is user `a_name' a member of this group?
 			-- Only checks secondary membership, so will return false if
 			-- this group is the user's primary group
@@ -96,7 +96,7 @@ feature -- Access
 	name: STRING
 			-- Group name
 
-	gid: INTEGER is
+	gid: INTEGER
 			-- ID number
 		do
 			Result := posix_gr_gid (group)

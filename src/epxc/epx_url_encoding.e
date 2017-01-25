@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Routines to encode and decode the mime and x-www-form-urlencoded key/value pairs."
 
@@ -40,7 +40,7 @@ inherit
 
 feature -- Encode/decode field name/value pairs
 
-	mime_encoded_to_field_name_value_pair (name: STRING; body: EPX_MIME_BODY): DS_HASH_TABLE [EPX_KEY_VALUE, STRING] is
+	mime_encoded_to_field_name_value_pair (name: STRING; body: EPX_MIME_BODY): DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			-- Transform a multipart/form-data body to a hash table of
 			-- field-names and values.
 			-- If a body is not of the proper format, it is skipped.
@@ -136,7 +136,7 @@ feature -- Encode/decode field name/value pairs
 			end
 		end
 
-	url_encoded_to_field_name_value_pair (urlencoded: STRING): DS_HASH_TABLE [EPX_KEY_VALUE, STRING] is
+	url_encoded_to_field_name_value_pair (urlencoded: STRING): DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			-- Transform a form-urlencoded string to a hash table of
 			-- field-names and values. Invalid entries are skipped silently.
 		require
@@ -148,7 +148,7 @@ feature -- Encode/decode field name/value pairs
 			key_value_pair_not_filled: urlencoded.is_empty implies Result.is_empty
 		end
 
-	do_url_encoded_to_field_name_value_pair (urlencoded: STRING; a_split_on: CHARACTER): DS_HASH_TABLE [EPX_KEY_VALUE, STRING] is
+	do_url_encoded_to_field_name_value_pair (urlencoded: STRING; a_split_on: CHARACTER): DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			-- Transform a form-urlencoded string to a hash table of
 			-- field-names and values. Invalid entries are skipped silently.
 		require
@@ -198,7 +198,7 @@ feature -- Encode/decode field name/value pairs
 
 feature {NONE} -- Microsoft Internet Explorer stuff
 
-	remove_directory_part (filename: STRING): STRING is
+	remove_directory_part (filename: STRING): STRING
 			-- IE sends full path instead of just filename as everybody
 			-- else does. Of course, that isn't a security hole...
 		require
@@ -217,6 +217,6 @@ feature {NONE} -- Microsoft Internet Explorer stuff
 
 feature {NONE} -- Once strings
 
-	once_form_data: STRING is "form-data"
+	once_form_data: STRING = "form-data"
 
 end

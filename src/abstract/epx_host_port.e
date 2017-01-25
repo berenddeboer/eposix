@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Combination of a resolved EPX_HOST and EPX_SERVICE. Depending on the addres_family, makes a sockaddr_in or sockaddr_in6 available in `socket_address'."
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_host: EPX_HOST; a_service: EPX_SERVICE) is
+	make (a_host: EPX_HOST; a_service: EPX_SERVICE)
 			-- Initialize socket for resolved host, using its first ip
 			-- address.
 		require
@@ -54,7 +54,7 @@ feature -- Access
 
 feature -- Fill socket structure, so `ptr' returns something valid
 
-	set_address (item: INTEGER) is
+	set_address (item: INTEGER)
 			-- Use the ip address at `item' of `host' as the socket
 			-- address.
 		require

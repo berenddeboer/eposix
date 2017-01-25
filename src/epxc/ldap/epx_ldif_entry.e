@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make_from_linkables (a_distinguished_name: STRING; a_controls: ANY; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE]) is
+	make_from_linkables (a_distinguished_name: STRING; a_controls: ANY; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE])
 			-- Initialise by putting the values of multiple valued
 			-- attributes into a single EPX_LDIF_ATTRIBUTE class.
 		require
@@ -64,7 +64,7 @@ feature -- Access
 
 feature -- Change
 
-	add_value (an_attribute_name, a_value: STRING) is
+	add_value (an_attribute_name, a_value: STRING)
 		require
 			an_attribute_name_not_empty: an_attribute_name /= Void and then not an_attribute_name.is_empty
 		local

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes the ULM DATE field."
 	usage: "Implement refresh to set value to current date."
@@ -23,7 +23,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Make sure date field has a value.
 		do
 			create value.make (expected_length)
@@ -33,7 +33,7 @@ feature {NONE} -- Initialization
 
 feature -- Query
 
-	expected_length: INTEGER is
+	expected_length: INTEGER
 			-- Length expected for a date field
 		deferred
 		ensure
@@ -42,7 +42,7 @@ feature -- Query
 
 feature -- Commands
 
-	refresh is
+	refresh
 			-- Make `value' equal to current time.
 		deferred
 		ensure

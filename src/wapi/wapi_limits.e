@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Windows <limits.h>."
 
@@ -13,22 +13,22 @@ class
 
 feature {NONE} -- C binding for constants
 
-	ARG_MAX: INTEGER is
+	ARG_MAX: INTEGER
 		external "C"
 		alias "const_arg_max"
 		end
 
-	OPEN_MAX: INTEGER is
+	OPEN_MAX: INTEGER
 		external "C"
 		alias "const_open_max"
 		end
 
-	STREAM_MAX: INTEGER is
+	STREAM_MAX: INTEGER
 		external "C"
 		alias "const_stream_max"
 		end
 
-	TZNAME_MAX: INTEGER is
+	TZNAME_MAX: INTEGER
 		external "C"
 		alias "const_tzname_max"
 		end

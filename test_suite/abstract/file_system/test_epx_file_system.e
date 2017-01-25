@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test portable file system class."
 
@@ -26,9 +26,9 @@ inherit
 
 feature -- Tests
 
-	file_name: STRING is "tmp.tmp"
+	file_name: STRING = "tmp.tmp"
 
-	test_file_system is
+	test_file_system
 		local
 			stat: EPX_STATUS
 			tmpfile: STDC_BINARY_FILE
@@ -78,7 +78,7 @@ feature -- Tests
 			assert ("I am an executable file.", is_executable (command_name))
 		end
 
-	test_accessibility is
+	test_accessibility
 		local
 			tmpfile: STDC_BINARY_FILE
 		do
@@ -90,7 +90,7 @@ feature -- Tests
 			assert ("Is empty file.", is_empty (file_name))
 		end
 
-	test_directory is
+	test_directory
 			-- Test directory functions.
 		local
 			dir: STRING
@@ -109,7 +109,7 @@ feature -- Tests
 		end
 
 
-	test_directory_reading is
+	test_directory_reading
 		local
 			dir: ABSTRACT_DIRECTORY
 			i: INTEGER
@@ -131,7 +131,7 @@ feature -- Tests
 			assert ("At least one entry.", i > 0)
 		end
 
-	test_resolved_path is
+	test_resolved_path
 		local
 			rpath: STRING
 		do

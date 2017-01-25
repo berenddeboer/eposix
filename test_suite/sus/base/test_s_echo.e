@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS tcp sockets by using the echo service."
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Tests
 
-	test_tcp is
+	test_tcp
 		local
 			host: SUS_HOST
 			service: SUS_SERVICE
@@ -54,7 +54,7 @@ feature -- Tests
 			echo_socket.close
 		end
 
-	test_udp is
+	test_udp
 		local
 			host: SUS_HOST
 			service: SUS_SERVICE
@@ -87,9 +87,9 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	hello: STRING is "Hello World.%N"
-	berend1: STRING is "hello berend%N"
-	berend2: STRING is "hello berend"
+	hello: STRING = "Hello World.%N"
+	berend1: STRING = "hello berend%N"
+	berend2: STRING = "hello berend"
 
 
 end

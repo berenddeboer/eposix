@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C child process."
 
@@ -19,19 +19,19 @@ inherit
 
 feature -- Termination info
 
-	has_exit_code: BOOLEAN is
+	has_exit_code: BOOLEAN
 			-- Does `exit_code' return a valid value?
 		do
 			Result := is_terminated
 		end
 
-	is_terminated: BOOLEAN is
+	is_terminated: BOOLEAN
 			-- Is child not running any more?
 		do
 			Result := not running
 		end
 
-	exit_code: INTEGER is
+	exit_code: INTEGER
 			-- Exit code of process.
 		require
 			valid_status_info: has_exit_code

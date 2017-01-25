@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers POSIX current process related routines."
 	usage: "Just inherit from this class."
@@ -34,17 +34,17 @@ inherit
 
 feature -- my standard input/output/error
 
-	stdin: POSIX_TEXT_FILE is
+	stdin: POSIX_TEXT_FILE
 		once
 			create Result.attach_to_stream (stream_stdin, "r")
 		end
 
-	stdout: POSIX_TEXT_FILE is
+	stdout: POSIX_TEXT_FILE
 		once
 			create Result.attach_to_stream (stream_stdout, "w")
 		end
 
-	stderr: POSIX_TEXT_FILE is
+	stderr: POSIX_TEXT_FILE
 		once
 			create Result.attach_to_stream (stream_stderr, "w")
 		end
@@ -52,7 +52,7 @@ feature -- my standard input/output/error
 
 feature -- signal this process
 
-	kill (a_signal_code: INTEGER) is
+	kill (a_signal_code: INTEGER)
 			-- Send signal `signal_code' to current process.
 		require
 			valid_signal: a_signal_code >= 0
@@ -63,7 +63,7 @@ feature -- signal this process
 
 feature {NONE} -- Various access
 
-	getlogin: STRING is
+	getlogin: STRING
 			-- Name of the user logged in on the controlling terminal of
 			-- the process, or an empty string if this information cannot
 			-- be determined.
@@ -74,19 +74,19 @@ feature {NONE} -- Various access
 			login_name_not_void: Result /= Void
 		end
 
-	parent_pid: INTEGER is
+	parent_pid: INTEGER
 			-- Parent process id
 		do
 			Result := posix_getppid
 		end
 
-	frozen getppid: INTEGER is
+	frozen getppid: INTEGER
 		obsolete "2008-11-03: please use `parent_pid'"
 		do
 			Result := parent_pid
 		end
 
-	login_name: STRING is
+	login_name: STRING
 			-- Name of effective user of this process
 		obsolete	"2005-11-12: Use effective_user_name instead"
 		do
@@ -96,7 +96,7 @@ feature {NONE} -- Various access
 
 feature {NONE} -- ways to exit a program
 
-	minimal_exit (a_status: INTEGER) is
+	minimal_exit (a_status: INTEGER)
 			-- terminate this process with exit code `a_status'.
 			-- `_exit' does not call any exit handlers registered with
 			-- STDC_EXIT_SWITCH.install
@@ -107,7 +107,7 @@ feature {NONE} -- ways to exit a program
 
 feature {NONE} -- Owner/group queries
 
-	real_user: POSIX_USER is
+	real_user: POSIX_USER
 			-- Real user of this process
 		do
 			create Result.make_from_uid (effective_user_id)
@@ -115,7 +115,7 @@ feature {NONE} -- Owner/group queries
 			real_user_not_void: Result /= Void
 		end
 
-	is_in_group (a_gid: INTEGER): BOOLEAN is
+	is_in_group (a_gid: INTEGER): BOOLEAN
 			-- Is this process in group `a_gid'?
 			-- `a_gid' is either a primary or supplementary group.
 		require
@@ -154,31 +154,31 @@ feature {NONE} -- Owner/group queries
 
 feature {NONE} -- owner/group queries, unix style
 
-	getegid, effective_group_id: INTEGER is
+	getegid, effective_group_id: INTEGER
 			-- effective group id
 		do
 			Result := posix_getegid
 		end
 
-	geteuid, effective_user_id: INTEGER is
+	geteuid, effective_user_id: INTEGER
 			-- Effective user id
 		do
 			Result := posix_geteuid
 		end
 
-	getgid, gid, real_group_id: INTEGER is
+	getgid, gid, real_group_id: INTEGER
 			-- real group id
 		do
 			Result := posix_getgid
 		end
 
-	getpgrp, process_group_id: INTEGER is
+	getpgrp, process_group_id: INTEGER
 			-- process group id
 		do
 			Result := posix_getpgrp
 		end
 
-	getuid, uid, real_user_id: INTEGER is
+	getuid, uid, real_user_id: INTEGER
 			-- real user id
 		do
 			Result := posix_getuid
@@ -187,25 +187,25 @@ feature {NONE} -- owner/group queries, unix style
 
 feature {NONE} -- Security related commands
 
-	restore_group_id is
+	restore_group_id
 			-- Sets group id back to the real or saved value.
 		do
 			safe_call (posix_setgid (real_group_id))
 		end
 
-	restore_user_id is
+	restore_user_id
 			-- Sets user id back to the real or saved value.
 		do
 			safe_call (posix_setuid (real_user_id))
 		end
 
-	set_group_id (new_gid: INTEGER) is
+	set_group_id (new_gid: INTEGER)
 			-- Set group id to `new_gid`.
 		do
 			safe_call (posix_setgid (new_gid))
 		end
 
-	set_user_id (new_uid: INTEGER) is
+	set_user_id (new_uid: INTEGER)
 			-- Set user id to `new_uid`.
 		do
 			safe_call (posix_setuid (new_uid))
@@ -214,7 +214,7 @@ feature {NONE} -- Security related commands
 
 feature {NONE}  -- various actions
 
-	alarm (seconds: INTEGER) is
+	alarm (seconds: INTEGER)
 			-- Schedules an alarm to arrive as signal in `seconds' seconds
 		local
 			remaining: INTEGER
@@ -222,7 +222,7 @@ feature {NONE}  -- various actions
 			remaining := posix_alarm (seconds)
 		end
 
-	cancel_alarm is
+	cancel_alarm
 			-- cancel an outstanding alarm, if any
 		local
 			remaining: INTEGER
@@ -235,7 +235,7 @@ feature {NONE}  -- various actions
 
 feature {POSIX_FORK_ROOT}  -- Forking
 
-	fork (root: POSIX_FORK_ROOT) is
+	fork (root: POSIX_FORK_ROOT)
 			-- Fork this process, parent continues normally, child
 			-- continues at root.execute. Child's pid is availabe in
 			-- `last_child_pid'. If `root' isn't the current process,
@@ -272,7 +272,7 @@ feature {POSIX_FORK_ROOT}  -- Forking
 
 feature {NONE} -- signal related routines
 
-	ignore_child_stop_signal is
+	ignore_child_stop_signal
 			-- Do not generate SIGCHLD when children stop
 		local
 			signal: POSIX_SIGNAL
@@ -283,7 +283,7 @@ feature {NONE} -- signal related routines
 			signal.apply
 		end
 
-	pause is
+	pause
 			-- Wait for signal.
 			-- Only works if you have installed you're own signal handler!
 		require
@@ -300,7 +300,7 @@ feature {NONE} -- child process related routines
 	waited_child_pid: INTEGER
 			-- id of child that `wait' waited for
 
-	wait is
+	wait
 			-- Suspend execution until status information of one of its
 			-- terminated children is available, or until delivery of a
 			-- signal whose action is either to execute a signal-catching
@@ -318,7 +318,7 @@ feature {NONE} -- child process related routines
 
 feature -- POSIX locale specifics
 
-	set_native_messages is
+	set_native_messages
 			-- Select native language as the language in which messages
 			-- are displayed.
 		do

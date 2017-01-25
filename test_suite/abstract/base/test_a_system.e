@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX system class."
 
@@ -22,7 +22,7 @@ inherit
 
 feature
 
-	test_methods is
+	test_methods
 		do
 			print ("sysname      : ")
 			print (system_name)

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -35,7 +35,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize.
 		do
 			create H.allocate (hash_output_length)
@@ -46,7 +46,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	checksum: STRING is
+	checksum: STRING
 		local
 			i: INTEGER
 			hi: INTEGER
@@ -66,13 +66,13 @@ feature -- Access
 			Result := my_checksum
 		end
 
-	hash_output_length: INTEGER is 20
+	hash_output_length: INTEGER = 20
 			-- Byte length of the hash output function
 
 
 feature -- Operations
 
-	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER) is
+	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER)
 		local
 			j: INTEGER
 		do
@@ -105,7 +105,7 @@ feature -- Operations
 			block_index_increased: block_index = (old block_index + (stop - start + 1)) \\ 64
 		end
 
-	put_character (c: CHARACTER) is
+	put_character (c: CHARACTER)
 		do
 			block.put_character (c, block_index)
 			block_index := block_index + 1
@@ -119,7 +119,7 @@ feature -- Operations
 			block_index_increased_by_one: block_index = (old block_index + 1) \\ 64
 		end
 
-	put_string (s: STRING) is
+	put_string (s: STRING)
 		do
 			precursor (s)
 		ensure then
@@ -127,7 +127,7 @@ feature -- Operations
 			block_index_increased: block_index = (old block_index + s.count) \\ 64
 		end
 
-	put_substring (s: STRING; start, stop: INTEGER) is
+	put_substring (s: STRING; start, stop: INTEGER)
 		local
 			j: INTEGER
 		do
@@ -160,7 +160,7 @@ feature -- Operations
 			block_index_increased: block_index = (old block_index + (stop - start + 1)) \\ 64
 		end
 
-	finalize is
+	finalize
 			-- Calculate checksum.
 		local
 			padding_length: INTEGER
@@ -188,7 +188,7 @@ feature -- Operations
 			is_checksum_available := True
 		end
 
-	secure_wipe_out is
+	secure_wipe_out
 		local
 			i: INTEGER
 		do
@@ -202,7 +202,7 @@ feature -- Operations
 			end
 		end
 
-	wipe_out is
+	wipe_out
 			-- Start a new calculation.
 		do
 			precursor
@@ -218,10 +218,10 @@ feature -- Operations
 
 feature {NONE} -- Implementation
 
-	block_length: INTEGER is 64
+	block_length: INTEGER = 64
 			-- Length of a single block
 
-	W_count: INTEGER is 320
+	W_count: INTEGER = 320
 			-- Room for 80 32-bit words
 
 	block_index: INTEGER
@@ -229,7 +229,7 @@ feature {NONE} -- Implementation
 	block: STDC_BUFFER
 			-- We process one block at a time
 
-	init_H is
+	init_H
 		do
 			H.poke_int32_big_endian (0, 0x67452301)
 			H.poke_int32_big_endian (4, 0xEFCDAB89)
@@ -238,7 +238,7 @@ feature {NONE} -- Implementation
 			H.poke_int32_big_endian (16, 0xC3D2E1F0)
 		end
 
-	message_length: STDC_BUFFER is
+	message_length: STDC_BUFFER
 			-- Temporary scratch buffer
 		once
 			create Result.allocate (8)
@@ -253,7 +253,7 @@ feature {NONE} -- Implementation
 	number_of_bits: INTEGER_64
 			-- Number of bits in message
 
-	padding: STRING is
+	padding: STRING
 		once
 			create Result.make_filled ('%U', 64)
 			Result.put ('%/128/', 1)
@@ -262,7 +262,7 @@ feature {NONE} -- Implementation
 			correct_length: Result.count = 64
 		end
 
-	process_block is
+	process_block
 		require
 			buffer_full: block_index = block_length
 		local

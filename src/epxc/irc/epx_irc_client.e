@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -49,7 +49,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: STRING) is
+	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: STRING)
 			-- Initialize with a given port. If `a_port' is null the
 			-- `default_port' is taken.
 			-- `a_user_name' is set as the default nick name if it is a
@@ -85,10 +85,10 @@ feature {NONE} -- Initialisation
 
 feature -- Access
 
-	default_port: INTEGER is 6667
+	default_port: INTEGER = 6667
 			-- Default IRCD port
 
-	default_port_name: STRING is
+	default_port_name: STRING
 		do
 			Result := once_ircd
 		end
@@ -132,7 +132,7 @@ feature -- Status
 
 	is_authenticated: BOOLEAN
 
-	is_blocking_io: BOOLEAN is
+	is_blocking_io: BOOLEAN
 			-- Is blocking i/o enabled?
 		require
 			open: is_open
@@ -144,7 +144,7 @@ feature -- Status
 			-- Is current nick name already in use on the server?
 			-- Set if reply received from server.
 
-	log_response: BOOLEAN is
+	log_response: BOOLEAN
 			-- Should received responses to written to `log_filename'?
 		do
 			Result := log_file /= Void
@@ -166,7 +166,7 @@ feature -- Modes
 
 feature -- Change
 
-	set_nick_name (a_nick_name: STRING) is
+	set_nick_name (a_nick_name: STRING)
 			-- Set `nick_name'.
 		require
 			valid_nick_name: is_valid_nick_name (a_nick_name)
@@ -177,7 +177,7 @@ feature -- Change
 			end
 		end
 
-	set_nick_name_password (a_nick_name, a_password: STRING) is
+	set_nick_name_password (a_nick_name, a_password: STRING)
 			-- Remember the `a_password' for `a_nick_name' such that when
 			-- NickServ asks for one, it can be automatically sent.
 		require
@@ -189,7 +189,7 @@ feature -- Change
 			password_set_for_this_nick_name: nickserv_passwords.has (a_nick_name)
 		end
 
-	set_log_filename (a_filename: STRING) is
+	set_log_filename (a_filename: STRING)
 			-- Set `log_filename', create the file with that name and
 			-- start writing responses to that file.
 			-- We assume the file can be created...
@@ -199,7 +199,7 @@ feature -- Change
 			logging_responses: log_response
 		end
 
-	set_print_response (a_print_response: BOOLEAN) is
+	set_print_response (a_print_response: BOOLEAN)
 			-- Set `print_response'.
 		do
 			print_response := a_print_response
@@ -207,7 +207,7 @@ feature -- Change
 			set: print_response = a_print_response
 		end
 
-	set_real_name (a_real_name: STRING) is
+	set_real_name (a_real_name: STRING)
 			-- Set `real_name', do before `open'.
 		require
 			not_authenticated: not is_authenticated
@@ -218,7 +218,7 @@ feature -- Change
 
 feature -- Open/close
 
-	open is
+	open
 			-- Open connection and set non-blocking i/o.
 		do
 			precursor
@@ -227,7 +227,7 @@ feature -- Open/close
 			end
 		end
 
-	close is
+	close
 			-- Close connection to server.
 		do
 			is_authenticated := False
@@ -237,7 +237,7 @@ feature -- Open/close
 
 feature -- Reading
 
-	handle_system_responses is
+	handle_system_responses
 			-- Respond to an incoming message.
 		require
 			open: is_open
@@ -253,7 +253,7 @@ feature -- Reading
 			end
 		end
 
-	handle_user_responses is
+	handle_user_responses
 			-- Call user defined handles for the incoming message.
 		require
 			open: is_open
@@ -269,7 +269,7 @@ feature -- Reading
 			end
 		end
 
-	read_all is
+	read_all
 			-- Read all available responses. If i/o is blocking, this
 			-- routine will never return unless the server closed the
 			-- connection.
@@ -284,7 +284,7 @@ feature -- Reading
 			end
 		end
 
-	read is
+	read
 			-- Read a single response. Returns immediately of
 			-- non-blocking i/o is enabled (the default), else it waits
 			-- until a line of input has been read.
@@ -320,7 +320,7 @@ feature -- Reading
 			end
 		end
 
-	set_blocking_io (enable: BOOLEAN) is
+	set_blocking_io (enable: BOOLEAN)
 			-- Set `is_blocking_io'.
 		require
 			open: is_open
@@ -333,7 +333,7 @@ feature -- Reading
 
 feature -- Connection registration
 
-	authenticate is
+	authenticate
 		local
 			user_param: STRING
 			mode: INTEGER
@@ -356,7 +356,7 @@ feature -- Connection registration
 			put_message (commands.user, user_param)
 		end
 
-	quit (a_message: STRING) is
+	quit (a_message: STRING)
 			-- Quit with optional reason.
 			-- A server usually allows only one quit message per 5
 			-- minutes or so, to avoid being it used to spam people. If
@@ -372,13 +372,13 @@ feature -- Connection registration
 
 feature -- Channel operations
 
-	all_names is
+	all_names
 			-- List all visible nick names.
 		do
 			put_message (commands.names, Void)
 		end
 
-	join (a_channel_name: STRING) is
+	join (a_channel_name: STRING)
 			-- Join a channel. Sets `last_joined_channel', a class which
 			-- makes working with a channel or multiple channels must
 			-- easier.
@@ -390,13 +390,13 @@ feature -- Channel operations
 			system_handlers.put_last (last_joined_channel)
 		end
 
-	list_all is
+	list_all
 			-- List all channels.
 		do
 			put_message (commands.list, Void)
 		end
 
-	names (a_channel_name: STRING) is
+	names (a_channel_name: STRING)
 			-- List all visible nick names in channel `a_channel_name'.
 		require
 			valid_channel_name: is_valid_channel_name (a_channel_name)
@@ -404,7 +404,7 @@ feature -- Channel operations
 			put_message (commands.names, a_channel_name)
 		end
 
-	part (a_channel_name, a_part_message: STRING) is
+	part (a_channel_name, a_part_message: STRING)
 			-- Leave channel `a_channel_name' while sending optional
 			-- message `a_part_message'.
 		require
@@ -414,13 +414,13 @@ feature -- Channel operations
 			put_message (commands.part, combine_param_and_full_text (a_channel_name, a_part_message))
 		end
 
-	part_all is
+	part_all
 			-- Leave all channels.
 		do
 			put_message (commands.join, "0")
 		end
 
-	set_topic (a_channel_name, a_topic: STRING) is
+	set_topic (a_channel_name, a_topic: STRING)
 			-- Set topic for channel `a_channel_name' to `a_topic'.
 			-- You must have channel operator privileges for this.
 		require
@@ -433,7 +433,7 @@ feature -- Channel operations
 
 feature -- Sending messages
 
-	ctcp (a_nick_name, a_text: STRING) is
+	ctcp (a_nick_name, a_text: STRING)
 			-- Send a message to `a_nick_name' using the CTCP
 			-- protocol. CTCP is the client-to-client protocol and it
 			-- uses a special form of `privmsg' to communicate with
@@ -448,7 +448,7 @@ feature -- Sending messages
 			put_message (commands.privmsg, combine_param_and_ctcp_text (a_nick_name, a_text))
 		end
 
-	notice (a_target, a_text: STRING) is
+	notice (a_target, a_text: STRING)
 			-- Send a message to a channel or a nick name. Automatic
 			-- replies will never be send in response to `notice', this
 			-- is the main difference with `privmsg'.
@@ -459,7 +459,7 @@ feature -- Sending messages
 			put_message (commands.notice, combine_param_and_full_text (a_target, a_text))
 		end
 
-	privmsg (a_target, a_text: STRING) is
+	privmsg (a_target, a_text: STRING)
 			-- Send `a_text' to a channel or a nick name. It is equal to
 			-- the /msg command.
 		require
@@ -477,7 +477,7 @@ feature -- DCC
 			-- If not 'is_open', it means the request has not yet been
 			-- accepted or the session has been closed.
 
-	dcc_chat (a_nick_name: STRING) is
+	dcc_chat (a_nick_name: STRING)
 			-- Attempt to initiate a chat connection with `a_nick_name'.
 			-- It is equal to /dcc chat a_nick_name.
 			-- Only supports IPv4. Probably does not work behind firewall.
@@ -507,7 +507,7 @@ feature -- DCC
 
 feature {EPX_IRC_PONG} -- Miscellaneous
 
-	pong (a_server: STRING) is
+	pong (a_server: STRING)
 			-- Reply to ping message.
 		require
 			a_server_not_empty: a_server /= Void and then not a_server.is_empty
@@ -518,7 +518,7 @@ feature {EPX_IRC_PONG} -- Miscellaneous
 
 feature {NONE} -- Implementation
 
-	combine_param_and_ctcp_text (a_param, a_text: STRING): STRING is
+	combine_param_and_ctcp_text (a_param, a_text: STRING): STRING
 			-- Combine `a_param' and the CTCP marked and encoded `a_text'
 		require
 			param_not_empty: a_param /= Void and then not a_param.is_empty
@@ -536,7 +536,7 @@ feature {NONE} -- Implementation
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	combine_param_and_full_text (a_param, a_text: STRING): STRING is
+	combine_param_and_full_text (a_param, a_text: STRING): STRING
 		require
 			param_not_empty: a_param /= Void and then not a_param.is_empty
 			is_valid_text: is_valid_text (a_text)
@@ -550,7 +550,7 @@ feature {NONE} -- Implementation
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	commands: EPX_IRC_COMMANDS is
+	commands: EPX_IRC_COMMANDS
 		once
 			create Result
 		ensure
@@ -561,7 +561,7 @@ feature {NONE} -- Implementation
 			-- If set, session requests and responses are written to this
 			-- file
 
-	put_message (a_command, a_parameter: STRING) is
+	put_message (a_command, a_parameter: STRING)
 			-- Send `a_message' and optional `a_parameter' to server.
 		require
 			command_valid: is_valid_command (a_command)
@@ -599,7 +599,7 @@ feature {NONE} -- Implementation
 			socket.put_string (cmd)
 		end
 
-	reply_codes: EPX_IRC_REPLY_CODES is
+	reply_codes: EPX_IRC_REPLY_CODES
 			-- Standard reply codes
 		once
 			create Result

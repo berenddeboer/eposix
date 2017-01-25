@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test the syslog facilities."
 
@@ -25,7 +25,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		do
 			syslog.open ("test", LOG_ODELAY + LOG_PID, LOG_USER)
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a single Posix asynchronous i/o request."
 
@@ -33,7 +33,7 @@ create
 
 feature -- creation
 
-	make (a_fd: POSIX_FILE_DESCRIPTOR) is
+	make (a_fd: POSIX_FILE_DESCRIPTOR)
 		require
 			valid_fd: a_fd /= Void and then a_fd.is_open
 		do
@@ -47,20 +47,20 @@ feature -- creation
 
 feature -- request properties
 
-	raw_pointer: POINTER is
+	raw_pointer: POINTER
 			-- Location for read or written data, usually `buffer' is a
 			-- better idea.
 		do
 			Result := posix_aiocb_aio_buf (aiocb.ptr)
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- number of bytes to read/write
 		do
 			Result := posix_aiocb_aio_nbytes (aiocb.ptr)
 		end
 
-	offset: INTEGER is
+	offset: INTEGER
 			-- file offset
 		do
 			Result := posix_aiocb_aio_offset (aiocb.ptr)
@@ -69,7 +69,7 @@ feature -- request properties
 
 feature -- set request properties
 
-	set_buffer (a_buffer: STDC_BUFFER) is
+	set_buffer (a_buffer: STDC_BUFFER)
 			-- set memory location to read/write from.
 		require
 			nothing_pending: not is_pending
@@ -82,7 +82,7 @@ feature -- set request properties
 			raw_pointer_set: raw_pointer = a_buffer.ptr
 		end
 
-	set_count (a_count: INTEGER) is
+	set_count (a_count: INTEGER)
 			-- set number of bytes to read/write
 		require
 			nothing_pending: not is_pending
@@ -90,14 +90,14 @@ feature -- set request properties
 			posix_set_aiocb_aio_nbytes (aiocb.ptr, a_count)
 		end
 
-	set_offset (a_offset: INTEGER) is
+	set_offset (a_offset: INTEGER)
 		require
 			nothing_pending: not is_pending
 		do
 			posix_set_aiocb_aio_offset (aiocb.ptr, a_offset)
 		end
 
-	set_raw_pointer (a_pointer: POINTER) is
+	set_raw_pointer (a_pointer: POINTER)
 			-- set memory location to read/write from. Make sure you have
 			-- called `set_count' first!
 		require
@@ -115,7 +115,7 @@ feature -- set request properties
 
 feature -- basic read/write requests
 
-	read is
+	read
 			-- execute async read request
 		require
 			is_open: fd.is_open
@@ -127,7 +127,7 @@ feature -- basic read/write requests
 			safe_call (posix_aio_read (aiocb.ptr))
 		end
 
-	write is
+	write
 			-- execute async write request
 		require
 			is_open: fd.is_open
@@ -142,7 +142,7 @@ feature -- basic read/write requests
 
 feature -- Eiffel friendly reads and writes
 
-	last_string: STRING is
+	last_string: STRING
 			-- attempt to return buffer as an Eiffel string
 			-- buffer should have a terminating byte!
 		require
@@ -151,7 +151,7 @@ feature -- Eiffel friendly reads and writes
 			Result := sh.pointer_to_string (buffer.ptr)
 		end
 
-	read_string is
+	read_string
 		require
 			is_open: fd.is_open
 			nothing_pending: not is_pending
@@ -165,7 +165,7 @@ feature -- Eiffel friendly reads and writes
 			read
 		end
 
-	put_string, write_string (text: STRING) is
+	put_string, write_string (text: STRING)
 		require
 			is_open: fd.is_open
 			nothing_pending: not is_pending
@@ -196,7 +196,7 @@ feature -- other operations
 			-- set by cancel, True if cancel request failed, probably
 			-- because operation was already performed
 
-	cancel is
+	cancel
 			-- cancel request
 		local
 			r: INTEGER
@@ -208,7 +208,7 @@ feature -- other operations
 			cancel_failed := r = AIO_NOTCANCELED
 		end
 
-	synchronize is
+	synchronize
 			-- force all i/o operations queued for the file descriptor
 			-- associated with this request to the synchronous state.
 			-- Function returns when the request has been initiated or
@@ -218,7 +218,7 @@ feature -- other operations
 			safe_call (posix_aio_fsync (O_SYNC, aiocb.ptr))
 		end
 
-	synchronize_data is
+	synchronize_data
 			-- force all i/o operations queued for the file descriptor
 			-- associated with this request to the synchronous state.
 			-- Function returns when the request has been initiated or
@@ -228,7 +228,7 @@ feature -- other operations
 			safe_call (posix_aio_fsync (O_DSYNC, aiocb.ptr))
 		end
 
-	wait_for is
+	wait_for
 			-- suspend process, until request completed
 		local
 			list: ARRAY [POINTER]
@@ -248,13 +248,13 @@ feature -- Access
 
 	fd: POSIX_FILE_DESCRIPTOR
 
-	is_pending: BOOLEAN is
+	is_pending: BOOLEAN
 			-- Is io request still pending?
 		do
 			Result := posix_aio_error (aiocb.ptr) = EINPROGRESS
 		end
 
-	return_status: INTEGER is
+	return_status: INTEGER
 			-- Return status of asynchronous i/o operation, equal to what
 			-- the synchronous read, write of fsync would have returned
 		require

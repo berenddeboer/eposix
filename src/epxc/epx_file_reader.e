@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Reader for STDC_TEXT_FILE class."
 
@@ -24,7 +24,7 @@ create
 
 feature -- creation
 
-	make (a_input: STDC_TEXT_FILE) is
+	make (a_input: STDC_TEXT_FILE)
 		require
 			is_a_file: a_input /= Void
 		do
@@ -35,12 +35,12 @@ feature -- creation
 feature -- state
 
 
-	last_character: CHARACTER is
+	last_character: CHARACTER
 		do
 			Result := file.last_character
 		end
 
-	last_string: STRING is
+	last_string: STRING
 		do
 			Result := file.last_string
 		end
@@ -48,7 +48,7 @@ feature -- state
 
 feature -- queries
 
-	eof: BOOLEAN is
+	eof: BOOLEAN
 		do
 			Result := file.eof
 		end
@@ -56,29 +56,29 @@ feature -- queries
 
 feature -- commands
 
-	chop_last_string is
+	chop_last_string
 		obsolete "Not needed anymore. last_string does not have end-of-line characters."
 		do
 			-- not needed anymore
 			--file.chop_last_string
 		end
 
-	read (buf: POINTER; bytes: INTEGER) is
+	read (buf: POINTER; bytes: INTEGER)
 		do
 			file.read (buf, 0, bytes)
 		end
 
-	read_character is
+	read_character
 		do
 			file.read_character
 		end
 
-	read_string (bytes: INTEGER) is
+	read_string (bytes: INTEGER)
 		do
 			file.read_line
 		end
 
-	set_buffer (size: INTEGER) is
+	set_buffer (size: INTEGER)
 		do
 			file.set_full_buffering (default_pointer, size)
 		end

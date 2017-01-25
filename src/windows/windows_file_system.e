@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Windows file system code."
 
@@ -25,7 +25,7 @@ inherit
 
 feature -- windows drive letters...
 
-	current_drive: CHARACTER is
+	current_drive: CHARACTER
 			-- return a drive letter like A or C
 		local
 			r: INTEGER

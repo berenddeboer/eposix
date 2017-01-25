@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that abstracts POSIX and Windows child processes."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Access
 
-	pid: INTEGER is
+	pid: INTEGER
 			-- The process identifier
 		require
 			valid_pid: is_pid_valid
@@ -33,7 +33,7 @@ feature -- Access
 
 feature -- Status
 
-	is_pid_valid: BOOLEAN is
+	is_pid_valid: BOOLEAN
 			-- Is `pid' valid?
 		deferred
 		end
@@ -41,7 +41,7 @@ feature -- Status
 
 feature -- Signal
 
-	terminate is
+	terminate
 			-- Attempt to gracefully terminate the child.
 		require
 			valid_pid: is_pid_valid
@@ -51,7 +51,7 @@ feature -- Signal
 
 feature -- Actions that parent may execute
 
-	wait_for (suspend: BOOLEAN) is
+	wait_for (suspend: BOOLEAN)
 			-- Wait for process to terminate if `suspend', else just get
 			-- status info.
 		require

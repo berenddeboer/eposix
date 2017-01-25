@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that gets windows stat structure through stat call."
 
@@ -36,7 +36,7 @@ create {EPX_FILE_SYSTEM}
 
 feature -- State change commands
 
-	set_path (a_path: STRING) is
+	set_path (a_path: STRING)
 			-- Change for which filename the statistics are
 			-- kept. Statistics are immediately refreshed.
 		do
@@ -55,7 +55,7 @@ feature -- State change commands
 
 feature {NONE} -- abstract API
 
-	abstract_stat (a_path: POINTER; a_stat: POINTER): INTEGER is
+	abstract_stat (a_path: POINTER; a_stat: POINTER): INTEGER
 			-- Gets information about a file.
 		local
 			ignore: BOOLEAN
@@ -89,7 +89,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- abstract stat member functions
 
-	abstract_st_atime (a_stat: POINTER): INTEGER is
+	abstract_st_atime (a_stat: POINTER): INTEGER
 			-- Time of last access.
 		do
 			if find_data /= Void then
@@ -99,7 +99,7 @@ feature {NONE} -- abstract stat member functions
 			end
 		end
 
-	abstract_st_ctime (a_stat: POINTER): INTEGER is
+	abstract_st_ctime (a_stat: POINTER): INTEGER
 			-- Time of last status change.
 		do
 			if find_data /= Void then
@@ -109,18 +109,18 @@ feature {NONE} -- abstract stat member functions
 			end
 		end
 
-	abstract_st_dev (a_stat: POINTER): INTEGER is
+	abstract_st_dev (a_stat: POINTER): INTEGER
 			-- Drive number of the disk containing the file
 		do
 			Result := posix_st_dev (a_stat)
 		end
 
-	abstract_st_mode (a_stat: POINTER): INTEGER is
+	abstract_st_mode (a_stat: POINTER): INTEGER
 		do
 			Result := posix_st_mode (a_stat)
 		end
 
-	abstract_st_mtime (a_stat: POINTER): INTEGER is
+	abstract_st_mtime (a_stat: POINTER): INTEGER
 			-- time of last data modification
 		do
 			if find_data /= Void then
@@ -130,19 +130,19 @@ feature {NONE} -- abstract stat member functions
 			end
 		end
 
-	abstract_st_nlink (a_stat: POINTER): INTEGER is
+	abstract_st_nlink (a_stat: POINTER): INTEGER
 			-- number of hard links
 		do
 			Result := posix_st_nlink (a_stat)
 		end
 
-	abstract_st_size (a_stat: POINTER): INTEGER is
+	abstract_st_size (a_stat: POINTER): INTEGER
 			-- total size, in bytes
 		do
 			Result := posix_st_size (a_stat)
 		end
 
-	abstract_stat_size: INTEGER is
+	abstract_stat_size: INTEGER
 			-- return size of struct stat
 		do
 			Result := posix_stat_size
@@ -151,22 +151,22 @@ feature {NONE} -- abstract stat member functions
 
 feature {NONE} -- test file type bits
 
-	abstract_s_ischr (m: INTEGER): BOOLEAN is
+	abstract_s_ischr (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_ischr (m)
 		end
 
-	abstract_s_isdir (m: INTEGER): BOOLEAN is
+	abstract_s_isdir (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_isdir (m)
 		end
 
-	abstract_s_isfifo (m: INTEGER): BOOLEAN is
+	abstract_s_isfifo (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_isfifo (m)
 		end
 
-	abstract_s_isreg (m: INTEGER): BOOLEAN is
+	abstract_s_isreg (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_isreg (m)
 		end

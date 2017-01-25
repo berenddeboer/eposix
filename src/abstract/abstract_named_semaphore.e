@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -23,7 +23,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	create_nonexclusive (a_name: STRING; a_value: INTEGER) is
+	create_nonexclusive (a_name: STRING; a_value: INTEGER)
 			-- Create a named semaphore with initial value `a_value'. If
 			-- `a_value' is zero, the semaphore is created in the
 			-- acquired state.
@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 			acquired: is_open implies ((a_value = 0) = is_acquired)
 		end
 
-	open (a_name: STRING) is
+	open (a_name: STRING)
 			-- Open the existing semaphore with name `a_name'.
 		require
 			uninitialized: not is_open
@@ -63,7 +63,7 @@ feature -- Access
 
 feature -- Status
 
-	is_valid_name (a_name: STRING): BOOLEAN is
+	is_valid_name (a_name: STRING): BOOLEAN
 			-- Is `a_name' a valid semaphore name?
 			-- Operating Systems have many different rules for valid
 			-- names, some require a slash and some forbid it.

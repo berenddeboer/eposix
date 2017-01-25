@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -30,9 +30,9 @@ inherit
 
 feature -- Operation(s)
 
-	scheme: STRING is "ftp"
+	scheme: STRING = "ftp"
 
-	resolve (a_uri: UT_URI) is
+	resolve (a_uri: UT_URI)
 			-- Resolve URI to stream.
 		local
 			a_user_name, a_password: STRING
@@ -88,7 +88,7 @@ feature -- Operation(s)
 
 feature -- Result
 
-	has_error: BOOLEAN is
+	has_error: BOOLEAN
 			-- Did the last resolution attempt succeed?
 		do
 			Result := has_local_error or else is_retrieving and then client.last_reply_code /= 150
@@ -97,7 +97,7 @@ feature -- Result
 	is_retrieving: BOOLEAN
 			-- Is the file being retrieved?
 
-	last_error: STRING is
+	last_error: STRING
 		local
 			a_message: STRING
 		do
@@ -114,13 +114,13 @@ feature -- Result
 	last_stream: KI_CHARACTER_INPUT_STREAM
 			-- Matching stream
 
-	has_media_type: BOOLEAN is
+	has_media_type: BOOLEAN
 			-- Is the media type available.
 		do
 			Result := False
 		end
 
-	last_media_type: UT_MEDIA_TYPE is
+	last_media_type: UT_MEDIA_TYPE
 			-- Media type, if available.
 		do
 			-- pre-condition is never met
@@ -137,7 +137,7 @@ feature {NONE} -- Implementation
 
 	last_uri: UT_URI
 
-	set_local_error (an_error_string: STRING) is
+	set_local_error (an_error_string: STRING)
 			-- Set a local error.
 		require
 			error_string_not_void: an_error_string /= Void
@@ -148,7 +148,7 @@ feature {NONE} -- Implementation
 			error_set: has_local_error and then STRING_.same_string (an_error_string, last_local_error)
 		end
 
-	parse_path (a_uri: UT_URI) is
+	parse_path (a_uri: UT_URI)
 			-- Parse path component
 		require
 			uri_not_void: a_uri /= Void
@@ -211,7 +211,7 @@ feature {NONE} -- Implementation
 			if not has_local_error then prepare_retrieval (a_path, a_typecode) end
 		end
 
-	prepare_retrieval (a_path, a_typecode: STRING) is
+	prepare_retrieval (a_path, a_typecode: STRING)
 			-- Prepare to retrieve file.
 		require
 			path_not_void: a_path /= Void
@@ -273,7 +273,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	retrieve_file (a_file_name, a_typecode: STRING) is
+	retrieve_file (a_file_name, a_typecode: STRING)
 			-- Retrieve `a_file_name'.
 		require
 			file_not_empty: a_file_name /= Void and then a_file_name.count > 0

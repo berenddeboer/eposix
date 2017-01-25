@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -25,7 +25,7 @@ inherit
 
 feature -- Daemon specific actions
 
-	after_fork is
+	after_fork
 			-- If child terminates, restart it.
 		local
 			--child_pid: INTEGER
@@ -60,7 +60,7 @@ feature -- Daemon specific actions
 		end
 
 
-	respawn is
+	respawn
 			-- Respawn
 		require
 			terminated: is_terminated

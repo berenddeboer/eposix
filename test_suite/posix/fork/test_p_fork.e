@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix mkfifo and forking."
 
@@ -36,7 +36,7 @@ inherit
 
 feature -- Tests
 
-	test_fork is
+	test_fork
 		do
 			if system_name.substring_index ("CYGWIN", 1) = 0 then
 				do_test_fork
@@ -48,7 +48,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	do_test_fork is
+	do_test_fork
 		local
 			reader: POSIX_TEXT_FILE
 			stop_sign: BOOLEAN

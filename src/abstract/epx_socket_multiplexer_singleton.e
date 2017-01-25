@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Singleton for EPX_SOCKET_MULTIPLEXER"
 
@@ -15,7 +15,7 @@ class
 
 feature
 
-	socket_multiplexer: EPX_SOCKET_MULTIPLEXER is
+	socket_multiplexer: EPX_SOCKET_MULTIPLEXER
 			-- The one and only socket multiplexer
 		once
 			create Result.make

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the timeval structure such that it is portable between Unix and Windows."
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize to zero.
 		do
 			if tp = Void then
@@ -35,7 +35,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	handle: POINTER is
+	handle: POINTER
 			-- Raw pointer to the timeval structure
 		do
 			Result := tp.handle
@@ -43,7 +43,7 @@ feature -- Access
 			handle_not_nil: Result /= default_pointer
 		end
 
-	microseconds: INTEGER is
+	microseconds: INTEGER
 			-- Microseconds elapsed since `seconds'
 		do
 			Result := abstract_api.posix_timeval_tv_usec (tp.ptr)
@@ -51,7 +51,7 @@ feature -- Access
 			in_range: Result >= 0 and Result <= 999999
 		end
 
-	seconds: INTEGER is
+	seconds: INTEGER
 			-- Seconds since 0:00, 1970 UTC
 		do
 			Result := abstract_api.posix_timeval_tv_sec (tp.ptr)
@@ -62,14 +62,14 @@ feature -- Access
 
 feature -- Change
 
-	set_microseconds (a_microseconds: INTEGER) is
+	set_microseconds (a_microseconds: INTEGER)
 		require
 			valid_microseconds: a_microseconds >= 0 and then a_microseconds <= 999999
 		do
 			abstract_api.posix_set_timeval_tv_usec (tp.ptr, a_microseconds)
 		end
 
-	set_seconds (a_seconds: INTEGER) is
+	set_seconds (a_seconds: INTEGER)
 		require
 			valid_seconds: seconds >= 0
 		do

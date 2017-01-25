@@ -10,7 +10,7 @@ create
 
 feature
    
-   make is
+   make
       local
          modem: POSIX_FILE_DESCRIPTOR
          term: POSIX_TERMIOS

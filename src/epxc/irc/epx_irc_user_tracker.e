@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create
 
 feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Handling
 
-	handle (a_message: EPX_IRC_MESSAGE) is
+	handle (a_message: EPX_IRC_MESSAGE)
 			-- Respond to message if this is a message this instance can handle.
 			-- `a_message' is always destined for `channel'.
 		local

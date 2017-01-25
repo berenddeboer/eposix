@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -39,7 +39,7 @@ inherit
 
 feature -- Stream i/o
 
-	stream_put_string (a_stream: POINTER; a_string: STRING): INTEGER is
+	stream_put_string (a_stream: POINTER; a_string: STRING): INTEGER
 			-- Number of bytes written if writing `a_string' to
 			-- `a_stream' was successful, `const_EOF' otherwise.
 			-- It is probably a very good idea to turn on buffering for

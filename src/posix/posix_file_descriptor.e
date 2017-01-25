@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix file descriptor routines."
 
@@ -45,7 +45,7 @@ create
 
 feature -- Initialization
 
-	make_from_file (file: STDC_FILE) is
+	make_from_file (file: STDC_FILE)
 			-- Create file descriptor from given stream
 			-- The stream is leading, so this file descriptor will
 			-- never close itself, unless it is made an owner.
@@ -83,7 +83,7 @@ feature -- Initialization
 
 feature -- Status
 
-	is_closed_on_execute: BOOLEAN is
+	is_closed_on_execute: BOOLEAN
 			-- Is this descriptor closed when the process executes or
 			-- spawns a child process?
 		require
@@ -95,7 +95,7 @@ feature -- Status
 
 feature -- Close
 
-	close_on_execute is
+	close_on_execute
 			-- Close this descriptor in the child process after a spawn
 			-- or execute has happened. Important if you don't
 			-- inadvertedly want to leak important sockets to a client.
@@ -113,7 +113,7 @@ feature -- Close
 
 feature -- Synchronisation
 
-	supports_file_synchronization: BOOLEAN is
+	supports_file_synchronization: BOOLEAN
 			-- Do we support synchronization?
 		local
 			psystem: POSIX_SYSTEM
@@ -122,7 +122,7 @@ feature -- Synchronisation
 			Result := psystem.supports_file_synchronization
 		end
 
-	supports_data_synchronization: BOOLEAN is
+	supports_data_synchronization: BOOLEAN
 			-- Do we support synchronization of data without metadata?
 		local
 			psystem: POSIX_SYSTEM
@@ -131,7 +131,7 @@ feature -- Synchronisation
 			Result := psystem.supports_synchronized_io
 		end
 
-	synchronize is
+	synchronize
 			-- Synchronize the state of a file (includes synchronize_data).
 		require
 			synchronize_valid: supports_file_synchronization
@@ -139,13 +139,13 @@ feature -- Synchronisation
 			safe_call (posix_fsync (value))
 		end
 
-	fsync is
+	fsync
 		obsolete "Use synchronize instead."
 		do
 			synchronize
 		end
 
-	synchronize_data is
+	synchronize_data
 			-- Synchronize the data of a file. Cheaper than
 			-- `synchronize', but not always supported.
 		require
@@ -154,7 +154,7 @@ feature -- Synchronisation
 			safe_call (posix_fdatasync (value))
 		end
 
-	fdatasync is
+	fdatasync
 		obsolete "Use synchronize_data instead."
 		do
 			synchronize_data
@@ -163,7 +163,7 @@ feature -- Synchronisation
 
 feature -- Locking
 
-	get_lock (lock_to_test: POSIX_LOCK): POSIX_LOCK is
+	get_lock (lock_to_test: POSIX_LOCK): POSIX_LOCK
 			-- Gets lock information, returns True if a lock is set on
 			-- the region in a_lock. a_lock is overwritten with that lock.
 		do
@@ -178,7 +178,7 @@ feature -- Locking
 	set_lock_failed: BOOLEAN
 			-- Did set_lock obtain a lock?
 
-	attempt_lock (a_lock: POSIX_LOCK) is
+	attempt_lock (a_lock: POSIX_LOCK)
 			-- Attempt to set lock, if not possible, set
 			-- `set_lock_failed'.
 		local
@@ -193,7 +193,7 @@ feature -- Locking
 			end
 		end
 
-	set_lock (a_lock: POSIX_LOCK) is
+	set_lock (a_lock: POSIX_LOCK)
 			-- Attempt to set lock, wait if necessary.
 		do
 			safe_call (posix_fcntl_lock (value, F_SETLKW, a_lock.buf.ptr))
@@ -202,13 +202,13 @@ feature -- Locking
 
 feature -- Access
 
-	file_descriptor_flags: INTEGER is
+	file_descriptor_flags: INTEGER
 			-- All file descriptor bits associated with this handle.
 		do
 			Result := posix_fcntl (value, F_GETFD)
 		end
 
-	status: POSIX_STATUS is
+	status: POSIX_STATUS
 			-- The status for this file descriptor. Cached value,
 			-- refreshed only when file reopened.
 		do
@@ -218,7 +218,7 @@ feature -- Access
 			Result := my_status
 		end
 
-	terminal: POSIX_TERMIOS is
+	terminal: POSIX_TERMIOS
 			-- Terminal settings.
 		require
 			valid_file_descriptor: is_attached_to_terminal
@@ -231,7 +231,7 @@ feature -- Access
 			valid_result: Result /= Void
 		end
 
-	ttyname: STRING is
+	ttyname: STRING
 			-- Terminal path name, or empty if this file descriptor does
 			-- not refer to a terminal
 		do
@@ -241,7 +241,7 @@ feature -- Access
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in

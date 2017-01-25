@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that gets stat structure through stat call."
 
@@ -25,7 +25,7 @@ inherit
 
 feature {ABSTRACT_FILE_SYSTEM} -- Initializiation
 
-	make (a_path: STRING) is
+	make (a_path: STRING)
 			-- Retrieve status for `a_path'. `a_path' must be an existing
 			-- file.
 		require
@@ -35,7 +35,7 @@ feature {ABSTRACT_FILE_SYSTEM} -- Initializiation
 			set_path (a_path)
 		end
 
-	make_may_fail (a_path: STRING) is
+	make_may_fail (a_path: STRING)
 			-- Retrieve status for `a_path'. Check `found' to see if
 			-- there was an error retrieving the status of `a_path'.
 		require
@@ -48,7 +48,7 @@ feature {ABSTRACT_FILE_SYSTEM} -- Initializiation
 
 feature -- Status
 
-	is_open: BOOLEAN is True
+	is_open: BOOLEAN = True
 			-- Can status be refreshed?
 
 	found: BOOLEAN
@@ -57,7 +57,7 @@ feature -- Status
 
 feature -- State change commands
 
-	refresh is
+	refresh
 			-- Refresh the cached status information.
 		do
 			refresh_may_fail
@@ -68,7 +68,7 @@ feature -- State change commands
 			found: found
 		end
 
-	refresh_may_fail is
+	refresh_may_fail
 			-- Refresh the cached status information. Check `found' to
 			-- see if retrieving the statistics was successful.
 		local
@@ -79,13 +79,13 @@ feature -- State change commands
 			sh.unfreeze_all
 		end
 
-	set_filename (a_path: STRING) is
+	set_filename (a_path: STRING)
 		obsolete	"use set_path instead"
 		do
 			set_path (a_path)
 		end
 
-	set_path (a_path: STRING) is
+	set_path (a_path: STRING)
 			-- Change for which path (file/directory) the statistics are
 			-- kept. `a_path' should be an existing path.
 			-- Statistics are immediately refreshed.
@@ -98,7 +98,7 @@ feature -- State change commands
 			found: found
 		end
 
-	set_path_may_fail (a_path: STRING) is
+	set_path_may_fail (a_path: STRING)
 			-- Change for which path (file/directory) the statistics are
 			-- kept. Check `found' to see if statistics could be retrieved.
 			-- Statistics are immediately refreshed.
@@ -112,7 +112,7 @@ feature -- State change commands
 
 feature {NONE} -- abstract API
 
-	abstract_stat (a_path: POINTER; a_stat: POINTER): INTEGER is
+	abstract_stat (a_path: POINTER; a_stat: POINTER): INTEGER
 			-- Gets information about a path.
 		require
 			valid_path: a_path /= default_pointer

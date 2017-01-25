@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Content-Transfer-Encoding"
 
@@ -28,7 +28,7 @@ create
 
 feature -- Initialization
 
-	make (a_mechanism: STRING) is
+	make (a_mechanism: STRING)
 			-- Initialize Content-Transfer-Encoding.
 		require
 			mechanism_not_empty: a_mechanism /= Void and then not a_mechanism.is_empty
@@ -36,7 +36,7 @@ feature -- Initialization
 			mechanism := a_mechanism
 		end
 
-	make_base64 is
+	make_base64
 		do
 			mechanism := once_base64
 		end
@@ -47,13 +47,13 @@ feature -- Access
 	mechanism: STRING
 			-- Type of encoding
 
-	name: STRING is "Content-Transfer-Encoding"
+	name: STRING = "Content-Transfer-Encoding"
 			-- Authorative name
 
 
 feature -- Encoding and decoding
 
-	new_decoder: EPX_STREAM_INPUT_STREAM [CHARACTER] is
+	new_decoder: EPX_STREAM_INPUT_STREAM [CHARACTER]
 			-- Return a new decoder that can decode text encoded
 			-- according to `mechanism'.
 			-- Returns Void if there is no known encoder.
@@ -70,7 +70,7 @@ feature -- Encoding and decoding
 			end
 		end
 
-	new_encoder (a_from_stream: KI_CHARACTER_OUTPUT_STREAM): KL_PROXY_CHARACTER_OUTPUT_STREAM is
+	new_encoder (a_from_stream: KI_CHARACTER_OUTPUT_STREAM): KL_PROXY_CHARACTER_OUTPUT_STREAM
 			-- Return a new encoder that can encode text encoded
 			-- according to `mechanism'.
 			-- Returns Void if there is no known encoder.
@@ -87,8 +87,8 @@ feature -- Encoding and decoding
 
 feature {NONE} -- Known encodings
 
-	once_base64: STRING is "base64"
-	once_quoted_printable: STRING is "quoted-printable"
+	once_base64: STRING = "base64"
+	once_quoted_printable: STRING = "quoted-printable"
 
 
 invariant

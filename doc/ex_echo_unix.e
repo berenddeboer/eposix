@@ -12,7 +12,7 @@ create
 
 feature
 
-	make is
+	make
 			-- Echo client and server, unix style.
 		local
 			client_socket: SUS_UNIX_CLIENT_SOCKET
@@ -47,7 +47,7 @@ feature
 
 feature {NONE} -- Implementation
 
-	hello: STRING is "Hello World.%N"
-	berend: STRING is "hello berend%N"
+	hello: STRING = "Hello World.%N"
+	berend: STRING = "hello berend%N"
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements NetLogger logging on top of syslog."
 
@@ -46,7 +46,7 @@ create
 
 feature -- Initialization
 
-	make_default is
+	make_default
 		local
 			path: STDC_PATH
 		do
@@ -55,7 +55,7 @@ feature -- Initialization
 			make (path.basename + "[" + pid.out + "]")
 		end
 
-	make (an_identification: STRING) is
+	make (an_identification: STRING)
 			-- If syslog isn't open, `an_identification' will be used to open it.
 		require
 			valid_identification:
@@ -69,7 +69,7 @@ feature -- Initialization
 
 feature -- Logging
 
-	log_event (level: INTEGER; line: STRING) is
+	log_event (level: INTEGER; line: STRING)
 			-- Write a single event with `fields' to the host logging system.
 			-- It is somewhat unclear how authentication and security
 			-- events are to be logged.

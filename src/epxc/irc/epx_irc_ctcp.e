@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -44,7 +44,7 @@ create
 
 feature -- Status
 
-	is_extended_message (a_message: EPX_IRC_MESSAGE): BOOLEAN is
+	is_extended_message (a_message: EPX_IRC_MESSAGE): BOOLEAN
 			-- Does `a_message' have CTCP encoded data?
 		do
 			Result :=
@@ -58,7 +58,7 @@ feature -- Status
 
 feature {EPX_IRC_CLIENT} -- Handling
 
-	handle (a_message: EPX_IRC_MESSAGE) is
+	handle (a_message: EPX_IRC_MESSAGE)
 			-- Respond to message if this is a message this instance can handle.
 		local
 			extended_messages: DS_LIST [EPX_IRC_CTCP_MESSAGE]

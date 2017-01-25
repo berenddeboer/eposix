@@ -6,9 +6,9 @@ create
 
 feature
 
-	chunk_size: INTEGER is 512
+	chunk_size: INTEGER = 512
 
-	make is
+	make
 		local
 			file: POSIX_BINARY_FILE
 			buffer: POSIX_BUFFER

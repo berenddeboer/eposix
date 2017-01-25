@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 portable implementation of a service name."
 
@@ -32,13 +32,13 @@ create
 
 feature {NONE} -- Abstract API
 
-	abstract_getservbyname (a_name, a_proto: POINTER): POINTER is
+	abstract_getservbyname (a_name, a_proto: POINTER): POINTER
 			-- Lookup service given its name and optional protocol.
 		do
 			Result := posix_getservbyname (a_name, a_proto)
 		end
 
-	abstract_getservbyport (a_port: INTEGER; a_proto: POINTER): POINTER is
+	abstract_getservbyport (a_port: INTEGER; a_proto: POINTER): POINTER
 			-- Lookup service given its port number and optional protocol.
 		do
 			Result := posix_getservbyport (a_port, a_proto)

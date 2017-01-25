@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix shared memory routines."
 
@@ -38,7 +38,7 @@ create
 
 feature {NONE} -- Internal open/create
 
-	do_open (a_path: STRING; flags: INTEGER) is
+	do_open (a_path: STRING; flags: INTEGER)
 		local
 			cpath: POINTER
 			a_fd: INTEGER
@@ -56,7 +56,7 @@ feature {NONE} -- Internal open/create
 			-- file offset is unspecified, do a seek?
 		end
 
-	do_create (a_path: STRING; flags, mode: INTEGER) is
+	do_create (a_path: STRING; flags, mode: INTEGER)
 		local
 			cpath: POINTER
 			a_fd: INTEGER

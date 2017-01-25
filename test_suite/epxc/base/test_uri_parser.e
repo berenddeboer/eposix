@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test URI parsing."
 
@@ -17,7 +17,7 @@ inherit
 
 feature -- Tests
 
-	test_parsing is
+	test_parsing
 		local
 			uri: UT_URI
 		do
@@ -43,7 +43,7 @@ feature -- Tests
 			check_uri (uri, "http", "ad.doubleclick.net", "/adj/reuters.com.dart/news/usnews/article;type=interstitial;articleID=5901464;sz=1x1;dcopt=ist;ord=498688466", "", Void)
 		end
 
-	test_abnormal_cases is
+	test_abnormal_cases
 		local
 			uri: UT_URI
 		do
@@ -54,7 +54,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	check_uri (uri: UT_URI; scheme, authority, path, query, fragment: STRING) is
+	check_uri (uri: UT_URI; scheme, authority, path, query, fragment: STRING)
 		require
 			ur_not_void: uri /= Void
 		do
@@ -77,7 +77,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_check (what, s1, s2: STRING) is
+	do_check (what, s1, s2: STRING)
 		do
 			assert_equal (what, s1, s2)
 		end

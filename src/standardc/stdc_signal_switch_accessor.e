@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that makes the singleton STDC_SIGNAL_SWITCH available."
 
@@ -15,7 +15,7 @@ class
 
 feature -- Access
 
-	signal_switch: STDC_SIGNAL_SWITCH is
+	signal_switch: STDC_SIGNAL_SWITCH
 			-- singleton entry point for all catched signals
 		once
 			create Result.make
@@ -26,7 +26,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	signal_switch_is_real_singleton: BOOLEAN is
+	signal_switch_is_real_singleton: BOOLEAN
 			-- Do multiple calls to `singleton' return the same result?
 		do
 			Result := signal_switch = signal_switch

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test various Eiffel structure to pointer and vice versa routines."
 
@@ -32,7 +32,7 @@ inherit
 
 feature
 
-	test_string is
+	test_string
 			-- Test getting pointers to normal strings and vice versa.
 		local
 			p: POINTER
@@ -49,7 +49,7 @@ feature
 			assert ("Empty string for nil pointer.", s.is_empty)
 		end
 
-	test_string_without_gc is
+	test_string_without_gc
 			-- As `test_string' but with gc disabled.
 		local
 			p: POINTER
@@ -69,7 +69,7 @@ feature
 			full_collect
 		end
 
-	test_uc_string is
+	test_uc_string
 			-- Unicode strings
 		local
 			p: POINTER
@@ -100,9 +100,9 @@ feature
 
 feature {NONE} -- Implementation
 
-	hello: STRING is "Hello World!"
+	hello: STRING = "Hello World!"
 
-	uc_hello: UC_STRING is
+	uc_hello: UC_STRING
 		once
 			create Result.make_from_string ("Hello World!")
 		ensure
@@ -111,7 +111,7 @@ feature {NONE} -- Implementation
 			count_correct: Result.count = hello.count
 		end
 
-	uc_hello2: UC_STRING is
+	uc_hello2: UC_STRING
 		once
 			create Result.make_from_string ("Hello World!")
 			Result.put_item_code (9878, 2)

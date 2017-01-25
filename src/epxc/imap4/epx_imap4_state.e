@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "IMAP4rev1 client state and state changes."
 
@@ -19,7 +19,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			item := Not_authenticated_state
 		end
@@ -27,14 +27,14 @@ feature {NONE} -- Initialization
 
 feature -- Change state
 
-	set_not_authenticated is
+	set_not_authenticated
 		do
 			item := Not_authenticated_state
 		ensure
 			not_authenticated: is_not_authenticated
 		end
 
-	set_authenticated is
+	set_authenticated
 		require
 			unauthenticated_or_selected:
 				is_not_authenticated or else
@@ -45,7 +45,7 @@ feature -- Change state
 			authenticated: is_authenticated
 		end
 
-	set_selected is
+	set_selected
 		require
 			authenticated_or_selected:
 				is_authenticated or else
@@ -56,7 +56,7 @@ feature -- Change state
 			selected: is_selected
 		end
 
-	set_logged_out is
+	set_logged_out
 		require
 			not_logged_out: not is_logged_out
 		do
@@ -68,25 +68,25 @@ feature -- Change state
 
 feature -- Status
 
-	is_not_authenticated: BOOLEAN is
+	is_not_authenticated: BOOLEAN
 			-- Is client not-authenticated?
 		do
 			Result := item = Not_authenticated_state
 		end
 
-	is_authenticated: BOOLEAN is
+	is_authenticated: BOOLEAN
 			-- Is client authenticated?
 		do
 			Result := item = Authenticated_state
 		end
 
-	is_selected: BOOLEAN is
+	is_selected: BOOLEAN
 			-- Has client selected a mailbox?
 		do
 			Result := item = Selected_state
 		end
 
-	is_logged_out: BOOLEAN is
+	is_logged_out: BOOLEAN
 			-- Is client logged out?
 		do
 			Result := item = Logout_state
@@ -98,10 +98,10 @@ feature {NONE} -- Implementation
 	Not_authenticated_state,
 	Authenticated_state,
 	Selected_state,
-	Logout_state: INTEGER is unique
+	Logout_state: INTEGER = unique
 			-- IMAP4rev1 has four states.
 
-	is_valid_state (a_state: INTEGER): BOOLEAN is
+	is_valid_state (a_state: INTEGER): BOOLEAN
 		-- Is `a_state' a valid IMAP state?
 		do
 			Result :=

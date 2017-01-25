@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -42,12 +42,12 @@ feature -- Status
 	chunk_encoding_error: BOOLEAN
 			-- Was there an error decoding the chunks?
 
-	is_chunk_encoded: BOOLEAN is
+	is_chunk_encoded: BOOLEAN
 		do
 			Result := chunk_expect_size or else chunk_expect_end_of_chunk
 		end
 
-	is_valid_position (a_position: INTEGER): BOOLEAN is
+	is_valid_position (a_position: INTEGER): BOOLEAN
 			-- Is `a_position' a valid position in this buffer?
 		do
 			Result := a_position >= 1 and then a_position <= count + 1
@@ -56,7 +56,7 @@ feature -- Status
 
 feature -- Buffer behaviour
 
-	read_headers_after_chunk is
+	read_headers_after_chunk
 			-- Reset state so we can pick up the headers after all chunks
 			-- have been read.
 		do
@@ -71,7 +71,7 @@ feature -- Buffer behaviour
 			not_end_of_input: not end_of_file
 		end
 
-	set_end_of_file_on_end_of_header (enable: BOOLEAN) is
+	set_end_of_file_on_end_of_header (enable: BOOLEAN)
 			-- Set `end_of_file_on_end_of_header'.
 		do
 			end_of_file_on_end_of_header := enable
@@ -82,7 +82,7 @@ feature -- Buffer behaviour
 			not_end_of_input: not end_of_file
 		end
 
-	set_end_of_file_on_content_length (a_content_length: INTEGER) is
+	set_end_of_file_on_content_length (a_content_length: INTEGER)
 			-- Set `end_of_file_on_content_length'.
 			-- Buffer may already contain characters that have to be
 			-- returned first, so `index' should indicate the position in
@@ -114,7 +114,7 @@ feature -- Buffer behaviour
 			end_of_file_on_content_length: content_left_to_read <= a_content_length
 		end
 
-	set_transfer_encoding_chunked is
+	set_transfer_encoding_chunked
 			-- Assume the message body is encoded to the "chunked"
 			-- Transfer-Encoding.
 			-- `index' should point to the first character in the buffer
@@ -136,7 +136,7 @@ feature -- Buffer behaviour
 
 feature -- Element change
 
-	fill is
+	fill
 			-- Read next data from buffer. Also handle chunks, if chunked
 			-- transfer encoding is used. Also don't read more than
 			-- Content-Length if this has been set.
@@ -272,7 +272,7 @@ feature -- Element change
 			end
 		end
 
-	wipe_out is
+	wipe_out
 		do
 			precursor
 			chunk_expect_size := False
@@ -294,7 +294,7 @@ feature {NONE} -- Implementation
 	content_left_to_read: INTEGER
 			-- How many bytes are remaining in the input stream?
 
-	fix_garbage_after_content_length (a_new_count: INTEGER) is
+	fix_garbage_after_content_length (a_new_count: INTEGER)
 			-- There is some shit out there, guess the
 			-- manufacturer, that sends more than Content-Length.
 			-- That would cause `bytes_read' to become larger than
@@ -312,7 +312,7 @@ feature {NONE} -- Implementation
 			end_marked: content.item (count + 2) =  End_of_buffer_character
 		end
 
-	mark_end_of_input (a_position: INTEGER) is
+	mark_end_of_input (a_position: INTEGER)
 			-- Mark `a_position' as the end of input, see comment in
 			-- YY_BUFFER.`flush'.
 		do
@@ -320,7 +320,7 @@ feature {NONE} -- Implementation
 			content.put (End_of_buffer_character, a_position + 1)
 		end
 
-	max_bytes_to_read: INTEGER is
+	max_bytes_to_read: INTEGER
 			-- The maximum number of bytes that should be read by `fill'
 		do
 			Result := precursor
@@ -342,7 +342,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Chunked encoding implementation
 
-	chunk_end_of_input: BOOLEAN is
+	chunk_end_of_input: BOOLEAN
 			-- Is there no more input data in `content' nor in `file'?
 		do
 			Result :=
@@ -362,7 +362,7 @@ feature {NONE} -- Chunked encoding implementation
 	chunk_left_to_read: INTEGER
 			-- How many bytes are remaining in the input stream for the current chunk?
 
-	chunk_read_character is
+	chunk_read_character
 			-- Read a character from `content' or if that is empty, from `file'.
 		require
 			not_end_of_input: not chunk_end_of_input
@@ -382,7 +382,7 @@ feature {NONE} -- Chunked encoding implementation
 			-- Where in buffer does chunk start?
 
 
-	read_chunk_size is
+	read_chunk_size
 			-- Read the chunk size for Transfer-Encoding chunked.
 			-- TODO: should quit early when reading a size that is
 			-- clearly out of bounds.
@@ -442,7 +442,7 @@ feature {NONE} -- Chunked encoding implementation
 			nothing_to_read_after_error: chunk_encoding_error implies chunk_left_to_read = 0
 		end
 
-	read_end_of_chunk_marker is
+	read_end_of_chunk_marker
 			-- Read the CRLF after the chunk data.
 		do
 			from

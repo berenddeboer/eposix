@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that covers Posix sys/utsname.h."
 
@@ -13,39 +13,39 @@ class
    
 feature {NONE} -- POSIX C interface
    
-   posix_uname (name: POINTER): INTEGER is
+   posix_uname (name: POINTER): INTEGER
          -- Gets system name
       require
          valid_name: name /= default_pointer
       external "C"
       end
 
-   posix_uname_machine (name: POINTER): POINTER is
+   posix_uname_machine (name: POINTER): POINTER
          -- Gets system name
       external "C"
       end
 
-   posix_uname_nodename (name: POINTER): POINTER is
+   posix_uname_nodename (name: POINTER): POINTER
          -- Gets system name
       external "C"
       end
 
-   posix_uname_release (name: POINTER): POINTER is
+   posix_uname_release (name: POINTER): POINTER
          -- Gets system name
       external "C"
       end
 
-   posix_uname_sysname (name: POINTER): POINTER is
+   posix_uname_sysname (name: POINTER): POINTER
          -- Gets system name
       external "C"
       end
 
-   posix_uname_version (name: POINTER): POINTER is
+   posix_uname_version (name: POINTER): POINTER
          -- Gets system name
       external "C"
       end
    
-   posix_utsname_size: INTEGER is
+   posix_utsname_size: INTEGER
          -- size of struct utsname
       external "C"
       end

@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that the portable stat structure."
 

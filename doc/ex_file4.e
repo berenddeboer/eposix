@@ -6,7 +6,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			file: STDC_TEXT_FILE
 		do

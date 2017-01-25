@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -21,18 +21,18 @@ class
 
 feature -- Protocol strings
 
-	once_tcp: STRING is "tcp"
+	once_tcp: STRING = "tcp"
 
-	once_udp: STRING is "udp"
+	once_udp: STRING = "udp"
 
 
 feature -- Port names as listed in /etc/services
 
-	once_ftp: STRING is "ftp"
-	once_http: STRING is "http"
-	once_https: STRING is "https"
-	once_ircd: STRING is "ircd"
-	once_smtp: STRING is "smtp"
+	once_ftp: STRING = "ftp"
+	once_http: STRING = "http"
+	once_https: STRING = "https"
+	once_ircd: STRING = "ircd"
+	once_smtp: STRING = "smtp"
 
 
 end

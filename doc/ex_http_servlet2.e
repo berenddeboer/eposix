@@ -13,7 +13,7 @@ create
 
 feature {EPX_HTTP_SERVER} -- Execution
 
-	get_header is
+	get_header
 		do
 			doctype
 			b_html

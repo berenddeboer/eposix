@@ -10,7 +10,7 @@ create
    
 feature
 
-   make is
+   make
       do
          print ("Password: ")
          stdout.flush

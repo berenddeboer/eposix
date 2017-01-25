@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -32,7 +32,7 @@ create
 
 feature -- Change
 
-	flush is
+	flush
 		do
 			if triplet_count /= 0 then
 				-- Padding will take place.

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,45 +19,45 @@ class
 
 feature -- Access
 
-	nolog: INTEGER is 0
+	nolog: INTEGER = 0
 			-- Log nothing
 
-	fatal: INTEGER is 1
+	fatal: INTEGER = 1
 			-- Component cannot continue, or system is unusable
 
-	error: INTEGER is 2
+	error: INTEGER = 2
 			-- Action must be taken immediately
 
-	warning: INTEGER is 3
+	warning: INTEGER = 3
 			-- Problems that are recovered from, usually
 
-	info: INTEGER is 4
+	info: INTEGER = 4
 			-- Normal but significant condition
 
-	debug0: INTEGER is 5
+	debug0: INTEGER = 5
 			-- Lower level information concerning program logic
 			-- decisions, internal state, etc.
 
-	debug1: INTEGER is 6
+	debug1: INTEGER = 6
 			-- More detailed debugging.
 
-	debug2: INTEGER is 7
+	debug2: INTEGER = 7
 			-- Even more detailed debugging.
 
-	debug3: INTEGER is 8
+	debug3: INTEGER = 8
 			-- Even more detailed debugging.
 
-	debug4: INTEGER is 9
+	debug4: INTEGER = 9
 			-- Even more detailed debugging.
 
-	trace: INTEGER is 10
+	trace: INTEGER = 10
 			-- Finest granularity, similar to “stepping through” the
 			-- component or system.
 
 
 feature -- Status
 
-	is_valid_level (a_level: INTEGER): BOOLEAN is
+	is_valid_level (a_level: INTEGER): BOOLEAN
 		do
 			Result := a_level >= fatal and then a_level <= trace
 		end

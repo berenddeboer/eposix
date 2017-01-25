@@ -6,7 +6,7 @@ create
    
 feature
 
-   make is
+   make
       local
          mem: POSIX_BUFFER
          byte: INTEGER

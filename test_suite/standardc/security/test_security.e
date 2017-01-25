@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C securiy class."
 
@@ -25,7 +25,7 @@ inherit
 
 feature -- Security tests
 
-	test_cpu_time is
+	test_cpu_time
 		local
 			rescued: BOOLEAN
 		do
@@ -39,7 +39,7 @@ feature -- Security tests
 			retry
 		end
 
-	test_max_memory is
+	test_max_memory
 		local
 			rescued: BOOLEAN
 			buf1, buf2: STDC_DYNAMIC_MEMORY
@@ -56,7 +56,7 @@ feature -- Security tests
 			retry
 		end
 
-	test_memory_dispose is
+	test_memory_dispose
 		require
 			gc_enabled_and_working: collecting
 		local
@@ -74,7 +74,7 @@ feature -- Security tests
 			assert_equal ("Allocated memory decremented by dispose.", base_line, security.memory.allocated_memory)
 		end
 
-	test_max_open_files is
+	test_max_open_files
 			-- Test if maximum allowed number of files is properly
 			-- detected. This test does not work with SmartEiffel (tested
 			-- with 1.2b5, it core dumps).
@@ -102,7 +102,7 @@ feature -- Security tests
 			retry
 		end
 
-	test_file_close_and_dispose is
+	test_file_close_and_dispose
 		require
 			gc_enabled_and_working: collecting
 		local
@@ -118,7 +118,7 @@ feature -- Security tests
 			assert_equal ("Open files decremented by dispose.", base_line, security.files.open_files)
 		end
 
-	test_exception_handling is
+	test_exception_handling
 			-- No exception should occur in this test.
 		local
 			file: STDC_BINARY_FILE
@@ -137,7 +137,7 @@ feature -- Security tests
 
 feature {NONE} -- Implementation
 
-	create_a_file (base_line: INTEGER) is
+	create_a_file (base_line: INTEGER)
 		local
 			file: STDC_TEXT_FILE
 		do
@@ -151,7 +151,7 @@ feature {NONE} -- Implementation
 		end
 
 
-	create_buffer (base_line: INTEGER) is
+	create_buffer (base_line: INTEGER)
 		local
 			buffer: STDC_BUFFER
 		do

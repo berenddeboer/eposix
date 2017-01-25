@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C current process class."
 
@@ -23,7 +23,7 @@ inherit
 
 feature -- Tests
 
-	test_various is
+	test_various
 		do
 			debug
 				print ("A random number: ")

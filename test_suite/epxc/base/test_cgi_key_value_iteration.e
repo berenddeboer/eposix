@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test cgi form input iteration."
 
@@ -32,7 +32,7 @@ inherit
 
 feature -- Initialization
 
-	initialize is
+	initialize
 		do
 			make_xhtml_writer
 			create header.make_default
@@ -41,12 +41,12 @@ feature -- Initialization
 
 feature -- Test
 
-	set_up is
+	set_up
 		do
 			clear
 		end
 
-	test_execute is
+	test_execute
 		local
 			c: EPX_CGI_KEY_VALUE_CURSOR
 		do
@@ -76,7 +76,7 @@ feature -- Test
 
 feature {EPX_CGI_KEY_VALUE_CURSOR} -- Callback
 
-	on_match (a_cursor: EPX_CGI_KEY_VALUE_CURSOR): BOOLEAN is
+	on_match (a_cursor: EPX_CGI_KEY_VALUE_CURSOR): BOOLEAN
 			-- Callback when `a_cursor'.`key_re' and
 			-- `a_cursor'.`value_re' has matched and should return True
 			-- if match is valid

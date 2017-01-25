@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix memory mapping class."
 
@@ -26,7 +26,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		local
 			fd: POSIX_FILE_DESCRIPTOR
 			map: POSIX_MEMORY_MAP

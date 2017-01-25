@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstraction upon the select() call."
 
@@ -19,7 +19,7 @@ inherit
 
 feature {NONE} -- Initialize
 
-	make is
+	make
 			-- Initialize class. Preallocates its arrays, you don't want
 			-- to create hundreds of EPX_SELECTs I suppose.
 		do
@@ -42,7 +42,7 @@ feature -- Status
 	is_interrupted: BOOLEAN
 			-- Was `execute' interrupted?
 
-	is_valid_descriptor_set (a_set: DS_SET [ABSTRACT_DESCRIPTOR]): BOOLEAN is
+	is_valid_descriptor_set (a_set: DS_SET [ABSTRACT_DESCRIPTOR]): BOOLEAN
 			-- Does `a_set' contain only valid descriptors so it can be
 			-- used in `execute'?
 		local
@@ -69,7 +69,7 @@ feature -- Status
 
 feature -- Change
 
-	set_timeout (a_timeout: EPX_TIME_VALUE) is
+	set_timeout (a_timeout: EPX_TIME_VALUE)
 			-- Set `timeout'. Pass Void to wait infinitely.
 		do
 			timeout := a_timeout
@@ -95,7 +95,7 @@ feature -- Access
 			-- on the descriptor type. For sockets it is out-of-band data
 			-- for example.
 
-	maximum_descriptors: INTEGER is
+	maximum_descriptors: INTEGER
 			-- The maximum descriptors that can be checked at a given
 			-- time. Recompile the eposix C binding library if you
 			-- want to change this value.
@@ -122,7 +122,7 @@ feature -- Access
 
 feature -- Check for readiness
 
-	execute is
+	execute
 			-- Test all descriptors set in the `check_for_XXXX' sets and
 			-- put the descriptors that were set into
 			-- `exception_conditions', `ready_for_reading' and
@@ -232,7 +232,7 @@ feature -- Check for readiness
 
 feature {NONE} -- Implementation
 
-	assign_from_fd_set (a_from_set: EPX_DESCRIPTOR_SET; checked_set: DS_SET [ABSTRACT_DESCRIPTOR]; a_to_set: DS_SET [ABSTRACT_DESCRIPTOR]) is
+	assign_from_fd_set (a_from_set: EPX_DESCRIPTOR_SET; checked_set: DS_SET [ABSTRACT_DESCRIPTOR]; a_to_set: DS_SET [ABSTRACT_DESCRIPTOR])
 			-- Make sure `a_to_set' contains only the descriptors in
 			-- `a_from_set'.
 		require
@@ -255,7 +255,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	assign_to_fd_set (a_from_set: DS_SET [ABSTRACT_DESCRIPTOR]; a_to_set: EPX_DESCRIPTOR_SET) is
+	assign_to_fd_set (a_from_set: DS_SET [ABSTRACT_DESCRIPTOR]; a_to_set: EPX_DESCRIPTOR_SET)
 			-- Make sure `a_to_set' contains only the descriptors in
 			-- `a_from_set'.
 		require
@@ -286,7 +286,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API
 
-	abstract_select (a_maxfdp1: INTEGER; a_readset, a_writeset, an_exceptset: POINTER; a_timeout: POINTER): INTEGER is
+	abstract_select (a_maxfdp1: INTEGER; a_readset, a_writeset, an_exceptset: POINTER; a_timeout: POINTER): INTEGER
 			-- Wait for a number of descriptors to change status.
 			-- `a_maxfdp`' is the highest-numbered descriptor in any of
 			-- the three sets, plus 1.

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test for Windows paging-file backed shared memory."
 
@@ -17,7 +17,7 @@ inherit
 
 feature -- Tests
 
-	test_basics is
+	test_basics
 		local
 			shm: WINDOWS_PAGING_FILE_SHARED_MEMORY
 			shm_client: WINDOWS_PAGING_FILE_SHARED_MEMORY

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Tests
 
-	test_md5 is
+	test_md5
 			-- All test cases from RFC 1321
 		do
 			do_test_md5 ("", "d41d8cd98f00b204e9800998ecf8427e")
@@ -41,7 +41,7 @@ feature -- Tests
 			do_test_md5 ("12345678901234567890123456789012345678901234567890123456789012345678901234567890", "57edf4a22be3c955ac49da2e2107b67a")
 		end
 
-	test_sha1 is
+	test_sha1
 		do
 			do_test_sha1 ("test", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")
 			do_test_sha1 ("abc", "a9993e364706816aba3e25717850c26c9cd0d89d")
@@ -52,7 +52,7 @@ feature -- Tests
 			do_repeat_test_sha1 ("01234567012345670123456701234567" + "01234567012345670123456701234567", "dea356a2cddd90c7a7ecedc5ebb563934f460452", 10)
 		end
 
-	test_hmac is
+	test_hmac
 			-- Includes all test-cases from RFC 2202.
 		local
 			sha1: EPX_SHA1_CALCULATION
@@ -85,7 +85,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	pack (s: STRING): STRING is
+	pack (s: STRING): STRING
 		local
 			i: INTEGER
 		do
@@ -100,7 +100,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_test_md5 (value, checksum: STRING) is
+	do_test_md5 (value, checksum: STRING)
 		require
 			value_not_void: value /= Void
 			checksum_not_empty: checksum /= Void and then not checksum.is_empty
@@ -118,7 +118,7 @@ feature {NONE} -- Implementation
 			assert_equal ("Checksum for '" + value + "' correct", checksum, md5.checksum)
 		end
 
-	do_test_sha1 (value, checksum: STRING) is
+	do_test_sha1 (value, checksum: STRING)
 		require
 			value_not_empty: value /= Void and then not value.is_empty
 			checksum_not_empty: checksum /= Void and then not checksum.is_empty
@@ -136,7 +136,7 @@ feature {NONE} -- Implementation
 			assert_equal ("Checksum for '" + value + "' correct", checksum, sha1.checksum)
 		end
 
-	do_repeat_test_sha1 (value, checksum: STRING; a_repeat_count: INTEGER) is
+	do_repeat_test_sha1 (value, checksum: STRING; a_repeat_count: INTEGER)
 		require
 			value_not_empty: value /= Void and then not value.is_empty
 			checksum_not_empty: checksum /= Void and then not checksum.is_empty
@@ -157,7 +157,7 @@ feature {NONE} -- Implementation
 			assert_equal ("Checksum for '" + value + "' correct", checksum, sha1.checksum)
 		end
 
-	do_test_hmac (a_test_case, a_key, a_data, a_checksum: STRING) is
+	do_test_hmac (a_test_case, a_key, a_data, a_checksum: STRING)
 		require
 			a_test_case_not_empty: a_test_case /= Void and then not a_test_case.is_empty
 			a_key_not_empty: a_key /= Void and then not a_key.is_empty
@@ -177,9 +177,9 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Implementation
 
-	character_aa: CHARACTER is '%/170/'
+	character_aa: CHARACTER = '%/170/'
 			-- '%/0xaa/'
-	character_dd: CHARACTER is '%/221/'
+	character_dd: CHARACTER = '%/221/'
 		-- '%/0xdd/'
 
 end

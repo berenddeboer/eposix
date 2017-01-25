@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test for writing XML messages."
 
@@ -17,7 +17,7 @@ inherit
 
 feature -- Tests
 
-	test_tags is
+	test_tags
 		local
 			xml: EPX_XML_WRITER
 		do
@@ -33,7 +33,7 @@ feature -- Tests
 			assert_equal ("XML correct", test_tags_result, xml.as_string)
 		end
 
-	test_comments is
+	test_comments
 		local
 			xml: EPX_XML_WRITER
 		do
@@ -55,7 +55,7 @@ feature -- Tests
 			assert_equal ("XML correct", test_comments_result2, xml.as_string)
 		end
 
-	test_attributes is
+	test_attributes
 		local
 			xml: EPX_XML_WRITER
 		do
@@ -71,7 +71,7 @@ feature -- Tests
 			assert_equal ("XML correct", test_attributes_result, xml.as_string)
 		end
 
-	test_streaming_attributes is
+	test_streaming_attributes
 		local
 			xml: EPX_XML_WRITER
 		do
@@ -99,7 +99,7 @@ feature -- Tests
 			--assert_equal ("XML correct", test_attributes_result, xml.as_string)
 		end
 
-	test_escape is
+	test_escape
 		local
 			xml: EPX_XML_WRITER
 		do
@@ -146,7 +146,7 @@ feature -- Tests
 			assert_equal ("Escaped content treated correctly.", "<a>]]&gt;ab</a>%N", xml.as_string)
 		end
 
-	test_cdata is
+	test_cdata
 		local
 			xml: EPX_XML_WRITER
 		do
@@ -170,7 +170,7 @@ feature -- Tests
 
 		end
 
-	test_incremental is
+	test_incremental
 		local
 			xml: EPX_INCREMENTAL_XML_WRITER
 		do
@@ -210,11 +210,11 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	test_tags_result: STRING is "<?xml version=%"1.0%" encoding=%"UTF-8%" ?>%N<a>%N  <b/>%N</a>%N"
+	test_tags_result: STRING = "<?xml version=%"1.0%" encoding=%"UTF-8%" ?>%N<a>%N  <b/>%N</a>%N"
 
-	test_comments_result1: STRING is "<a><!--test--></a>%N"
-	test_comments_result2: STRING is "<b><!--<!--test--&gt;--></b>%N"
+	test_comments_result1: STRING = "<a><!--test--></a>%N"
+	test_comments_result2: STRING = "<b><!--<!--test--&gt;--></b>%N"
 
-	test_attributes_result: STRING is "<a b=%"%" c=%"%" d=%"a%"/>%N"
+	test_attributes_result: STRING = "<a b=%"%" c=%"%" d=%"a%"/>%N"
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a portable directory. Main use is to be %
 	%able to loop (recursively) through a directory."
@@ -30,7 +30,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make (a_directory_name: STRING) is
+	make (a_directory_name: STRING)
 			-- Initialize for browsing `a_directory_name'.
 		require
 			directory_name_not_empty: a_directory_name /= Void and then not a_directory_name.is_empty
@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	close is
+	close
 			-- Close directory entry (save resources now, don't wait for
 			-- garbage collection). If you call start it will automatically
 			-- reopen.
@@ -64,7 +64,7 @@ feature -- Access
 			status_cleared: my_status = Void
 		end
 
-	start is
+	start
 			-- Start directory traversal.
 		local
 			entry: EPX_DIRECTORY_HANDLE
@@ -80,7 +80,7 @@ feature -- Access
 			end
 		end
 
-	forth is
+	forth
 			-- Get the next directory entry.
 			-- It skips entries for which the filter returns false or bad
 			-- entries (soft links pointing to unexisting files).
@@ -130,7 +130,7 @@ feature -- Influence browsing
 	filter: ABSTRACT_PATH_FILTER
 			-- Optional filter
 
-	set_filter (a_filter: ABSTRACT_PATH_FILTER) is
+	set_filter (a_filter: ABSTRACT_PATH_FILTER)
 			-- Change the filter which determines which entries are returned.
 		do
 			filter := a_filter
@@ -138,7 +138,7 @@ feature -- Influence browsing
 			filter_set: filter = a_filter
 		end
 
-	set_extension_filter (extension: STRING) is
+	set_extension_filter (extension: STRING)
 			-- Create and set filter, `extension' is like ".e".
 			-- `extension' shouldn't contain any wildcards
 		require
@@ -158,7 +158,7 @@ feature -- Influence browsing
 			-- Recursion doesn't work well with hard or symbolic links. Use
 			-- SUS_DIRECTORY instead.
 
-	set_recursive (enable: BOOLEAN) is
+	set_recursive (enable: BOOLEAN)
 			-- Enable recursive directory browsing.
 		do
 			recursive := enable
@@ -172,7 +172,7 @@ feature -- Access
 	directory_name: STDC_PATH
 			-- Directory that is browsed
 
-	full_name: STDC_PATH is
+	full_name: STDC_PATH
 			-- Combination of `directory_name' and `item'
 		require
 			opened: is_open
@@ -200,7 +200,7 @@ feature -- Access
 			not_void: Result /= Void
 		end
 
-	item: STRING is
+	item: STRING
 			-- The current entry, i.e. the path name;
 			-- Even for recursive browsing, this entry is just the path
 			-- name without any preceding sub directory name.
@@ -212,7 +212,7 @@ feature -- Access
 			item_not_void: item /= Void
 		end
 
-	max_filename_length: INTEGER is
+	max_filename_length: INTEGER
 			-- Maximum length of a file in the currently traversed
 			-- (sub)directory
 		require
@@ -223,7 +223,7 @@ feature -- Access
 			positive_length: Result > 0
 		end
 
-	status: ABSTRACT_STATUS_PATH is
+	status: ABSTRACT_STATUS_PATH
 			-- The status object for `item'. Check `Result'.`found' to
 			-- see if status could indeed by retrieved.
 		require
@@ -240,7 +240,7 @@ feature -- Access
 
 feature -- Status report
 
-	after, exhausted: BOOLEAN is
+	after, exhausted: BOOLEAN
 			-- Are there no more entries in this directory?
 		do
 			Result :=
@@ -249,7 +249,7 @@ feature -- Status report
 			definition: directory_entries.is_empty = exhausted
 		end
 
-	is_dot: BOOLEAN is
+	is_dot: BOOLEAN
 			-- Is `item' equal to "."?
 		require
 			have_entry: not exhausted
@@ -259,7 +259,7 @@ feature -- Status report
 			is_dot: Result = directory_entries.last.item.is_equal (".")
 		end
 
-	is_dotdot: BOOLEAN is
+	is_dotdot: BOOLEAN
 			-- Is `item' is equal to ".."??
 		require
 			have_entry: not exhausted
@@ -269,7 +269,7 @@ feature -- Status report
 			is_dot: Result = directory_entries.last.item.is_equal ("..")
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Is directory opened for traversal?
 		do
 			Result := not directory_entries.is_empty
@@ -278,7 +278,7 @@ feature -- Status report
 
 feature {NONE} -- directory browsing primitives
 
-	forth_recursive is
+	forth_recursive
 			-- Next entry in current (sub)directory if not recursive.
 			-- First entry in subdirectory if current entry is a subdirectory.
 		require
@@ -320,7 +320,7 @@ feature {NONE} -- directory browsing primitives
 			end
 		end
 
-	forth_single is
+	forth_single
 			-- Go to next entry. Set `is_dot' and `is_dotdot'.
 		require
 			opened: is_open
@@ -333,7 +333,7 @@ feature {NONE} -- directory browsing primitives
 			my_status_unset: my_status = Void
 		end
 
-	is_item_valid: BOOLEAN is
+	is_item_valid: BOOLEAN
 			-- Is the current entry valid?
 		local
 			optional_status: ABSTRACT_STATUS_PATH

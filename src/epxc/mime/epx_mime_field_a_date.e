@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Initialization
 
-	make (a_date_time: STDC_TIME) is
+	make (a_date_time: STDC_TIME)
 		require
 			date_time_not_void: a_date_time /= Void
 			time_zone_known: a_date_time.is_time_zone_known
@@ -38,7 +38,7 @@ feature -- Access
 	date_time: STDC_TIME
 			-- date-time contents of field.
 
-	value: STRING is
+	value: STRING
 			-- Value of a field.
 		do
 			Result := date_time.rfc_date_string

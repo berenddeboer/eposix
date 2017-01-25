@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "POSIX pause child."
 
@@ -28,14 +28,14 @@ create
 
 feature
 
-	make is
+	make
 		do
 		end
 
 
 feature -- forked child
 
-	execute is
+	execute
 		local
 			signal: POSIX_SIGNAL
 		do
@@ -52,7 +52,7 @@ feature -- forked child
 
 feature {NONE} -- Signal handler
 
-	signalled (signal_value: INTEGER) is
+	signalled (signal_value: INTEGER)
 		do
 			-- do nothing
 		end

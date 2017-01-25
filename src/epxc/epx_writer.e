@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Abstract writer (output) class."
    
@@ -13,20 +13,20 @@ deferred class
    
 feature -- commands
    
-   write (a: ANY) is
+   write (a: ANY)
       do
          write_string (a.out)
       end
    
-   write_character (c: CHARACTER) is
+   write_character (c: CHARACTER)
       deferred
       end
    
-   write_pointer (p: POINTER; size: INTEGER) is
+   write_pointer (p: POINTER; size: INTEGER)
       deferred
       end
 
-   write_string (s: STRING) is
+   write_string (s: STRING)
       deferred
       end
 

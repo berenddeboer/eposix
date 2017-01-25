@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -28,7 +28,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_nick_name: STRING; an_ip4_address: EPX_IP4_ADDRESS; a_port: INTEGER) is
+	make (a_nick_name: STRING; an_ip4_address: EPX_IP4_ADDRESS; a_port: INTEGER)
 			-- Prepare to `open' chat to `a_nick_name' at the given ip
 			-- address and port.
 		require
@@ -53,7 +53,7 @@ feature -- Access
 
 feature -- Open
 
-	open is
+	open
 			-- Accept chat request by connect to server.
 			-- Check `is_open' if `open' was successful.
 		local

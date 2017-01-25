@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that lists the ULM log levels."
 
@@ -43,14 +43,14 @@ feature -- Log levels, values for the LVL field
 	Important,
 			-- Information which could become criticial, but is not yet. A
 			-- configuration change may be important information.
-	Debugging: INTEGER is UNIQUE
+	Debugging: INTEGER = UNIQUE
 			-- Not interesting in the normal course of life, they add no
 			-- information when everything is in order.
 
 
 feature -- Log levels description
 
-	log_level_text: ARRAY [STRING] is
+	log_level_text: ARRAY [STRING]
 		once
 			create Result.make (Emergency, Debugging)
 			Result.put ("Emergency", Emergency)
@@ -67,7 +67,7 @@ feature -- Log levels description
 
 feature -- Queries
 
-	is_valid_log_level (level: INTEGER): BOOLEAN is
+	is_valid_log_level (level: INTEGER): BOOLEAN
 			-- Returns True if `level' is a recognized log level.
 		do
 			Result := level >= Emergency and level <= Debugging

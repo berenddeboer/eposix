@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX signal class."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Tests
 
-	test_all is
+	test_all
 		do
 			create signal.make (SIGTERM)
 			signal.set_ignore_action
@@ -45,7 +45,7 @@ feature -- Tests
 			signal := Void
 		end
 
-	test_pause is
+	test_pause
 			-- Test sending a signal to a paused child.
 		do
 			create signal.make (SIGTERM)
@@ -60,7 +60,7 @@ feature -- Tests
 			signal := Void
 		end
 
-	test_signal_set is
+	test_signal_set
 		local
 			signal_set: POSIX_SIGNAL_SET
 		do
@@ -109,7 +109,7 @@ feature {NONE} -- Implementation
 
 	b: BOOLEAN
 
-	signalled (signal_value: INTEGER) is
+	signalled (signal_value: INTEGER)
 		do
 			handled := True
 -- 			-- print ("signalled.%N")
@@ -122,7 +122,7 @@ feature {NONE} -- Implementation
 -- 			end
 		end
 
-	execute is
+	execute
 			-- Pause until signal delivered.
 		do
 			--print ("In child, before pause.%N")

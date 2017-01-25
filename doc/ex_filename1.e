@@ -6,7 +6,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			path: STDC_PATH
 		do
@@ -19,7 +19,7 @@ feature
 			print_path (path)
 		end
 
-	print_path (a_path: STDC_PATH) is
+	print_path (a_path: STDC_PATH)
 		do
 			print ("Directory: ")
 			print (a_path.directory)

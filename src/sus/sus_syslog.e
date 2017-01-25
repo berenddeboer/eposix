@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Single Unix Specification syslog API."
 
@@ -34,7 +34,7 @@ create {SUS_SYSLOG_ACCESSOR}
 
 feature {SUS_SYSLOG_ACCESSOR}
 
-	make is
+	make
 		do
 			-- do nothing
 		end
@@ -42,7 +42,7 @@ feature {SUS_SYSLOG_ACCESSOR}
 
 feature -- open and close
 
-	open (a_identification: STRING; a_format, a_facility: INTEGER) is
+	open (a_identification: STRING; a_format, a_facility: INTEGER)
 			-- start logging with the given identification
 		require
 			valid_identification:
@@ -61,7 +61,7 @@ feature -- open and close
 			opened: is_open
 		end
 
-	close is
+	close
 			-- stop logging
 		require
 			opened: is_open
@@ -74,7 +74,7 @@ feature -- open and close
 
 feature {NONE} -- garbage collector
 
-	dispose is
+	dispose
 		do
 			if is_open then
 				close
@@ -85,56 +85,56 @@ feature {NONE} -- garbage collector
 
 feature -- Write log messages, will auto-open if not is_open
 
-	emergency (msg: STRING) is
+	emergency (msg: STRING)
 			-- the system is unusable
 		do
 			posix_syslog (LOG_EMERG, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	alert (msg: STRING) is
+	alert (msg: STRING)
 			-- action must be taken immediately
 		do
 			posix_syslog (LOG_ALERT, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	critical (msg: STRING) is
+	critical (msg: STRING)
 			-- critical conditions
 		do
 			posix_syslog (LOG_CRIT, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	error (msg: STRING) is
+	error (msg: STRING)
 			-- error conditions
 		do
 			posix_syslog (LOG_ERR, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	warning (msg: STRING) is
+	warning (msg: STRING)
 			-- warning conditions
 		do
 			posix_syslog (LOG_WARNING, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	notice (msg: STRING) is
+	notice (msg: STRING)
 			-- normal but significant condition
 		do
 			posix_syslog (LOG_NOTICE, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	info (msg: STRING) is
+	info (msg: STRING)
 			-- informational
 		do
 			posix_syslog (LOG_INFO, sh.string_to_pointer (msg))
 			sh.unfreeze_all
 		end
 
-	debug_dump (msg: STRING) is
+	debug_dump (msg: STRING)
 			-- Debug-level messages.
 		do
 			posix_syslog (LOG_DEBUG, sh.string_to_pointer (msg))
@@ -156,7 +156,7 @@ feature {NONE} -- Implementation
 
 	identification_buffer: STDC_BUFFER
 
-	frozen singleton: EPX_SINGLETON is
+	frozen singleton: EPX_SINGLETON
 		once
 			Result := Current
 		end

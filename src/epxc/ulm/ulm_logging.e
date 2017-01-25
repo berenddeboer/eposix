@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements ULM logging, see url."
 
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_handler: ULM_LOG_HANDLER; a_program_name: STRING) is
+	make (a_handler: ULM_LOG_HANDLER; a_program_name: STRING)
 			-- Start logging for `program'. The host name is derived from
 			-- an OS specific call through `a_handler'.
 		require
@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 			create my_lvl.make (Emergency)
 		end
 
-	create_my_date is
+	create_my_date
 			-- Create the `my_date' field.
 		do
 			create {ULM_STDC_DATE_FIELD} my_date.make
@@ -59,7 +59,7 @@ feature {NONE} -- Initialization
 
 feature -- Log methods
 
-	log_error (level: INTEGER; subsystem: STRING; error_number: INTEGER; error_message: STRING) is
+	log_error (level: INTEGER; subsystem: STRING; error_number: INTEGER; error_message: STRING)
 			-- Useful for logging errors.
 		require
 			valid_level: is_valid_log_level (level)
@@ -79,7 +79,7 @@ feature -- Log methods
 			log_event (level, subsystem, fields)
 		end
 
-	log_event (level: INTEGER; subsystem: STRING; fields: ARRAY [ULM_FIELD]) is
+	log_event (level: INTEGER; subsystem: STRING; fields: ARRAY [ULM_FIELD])
 			-- Log event, consisting of one or more fields. It is the
 			-- responsibility of the client to make sure the values are
 			-- proper for each field.
@@ -96,7 +96,7 @@ feature -- Log methods
 			handler.log_event (level, line)
 		end
 
-	log_single_field (level: INTEGER; subsystem, field_name, value: STRING) is
+	log_single_field (level: INTEGER; subsystem, field_name, value: STRING)
 			-- Log `value' for `field_name'. `value' will be properly
 			-- quoted if necessary. `value' should be in the proper
 			-- format for `field_name'.
@@ -119,7 +119,7 @@ feature -- Log methods
 			log_event (level, subsystem, fields)
 		end
 
-	log_message (level: INTEGER; subsystem, value: STRING) is
+	log_message (level: INTEGER; subsystem, value: STRING)
 			-- Log a simple message with the MSG field.
 			-- This function adds any ULM required field.
 			-- `subsystem', if present is appended with a dot to
@@ -134,7 +134,7 @@ feature -- Log methods
 
 feature -- Queries
 
-	is_valid_field_name (field_name: STRING): BOOLEAN is
+	is_valid_field_name (field_name: STRING): BOOLEAN
 			-- Returns True if `field_name' is valid according to ULM spec.
 			-- Basically it should consist of one or more letters and have
 			-- no spaces.
@@ -175,7 +175,7 @@ feature -- Queries
 			end
 		end
 
-	is_valid_partial_field_list (fields: ARRAY [ULM_FIELD]): BOOLEAN is
+	is_valid_partial_field_list (fields: ARRAY [ULM_FIELD]): BOOLEAN
 			-- Contains True if `fields' contains at least one item, and
 			-- if every item in `fields' is not Void and if `fields'does
 			-- not contain a duplicate field and if `fields' does not
@@ -209,7 +209,7 @@ feature {NONE} -- Field name checking
 
 	FN_Start,
 	FN_Next,
-	FN_Dot: INTEGER is UNIQUE
+	FN_Dot: INTEGER = UNIQUE
 
 feature {NONE} -- Correct field list generation
 
@@ -237,7 +237,7 @@ feature {NONE} -- Correct field list generation
 	my_lvl: ULM_LVL_FIELD
 			-- Default LVL field
 
-	flatten_fields (level: INTEGER; subsystem: STRING; fields: ARRAY [ULM_FIELD]) is
+	flatten_fields (level: INTEGER; subsystem: STRING; fields: ARRAY [ULM_FIELD])
 			-- Makes sure `line' contains all required fields, and
 			-- all other fields present in `fields'. If `fields' does not
 			-- contain a require field, a default is added.
@@ -316,7 +316,7 @@ feature {NONE} -- Correct field list generation
 			line_not_empty: not line.is_empty
 		end
 
-	append_field (f: ULM_FIELD) is
+	append_field (f: ULM_FIELD)
 			-- Append `f' in the correct format to `line'
 		require
 			field_not_void: f /= Void
@@ -335,7 +335,7 @@ feature {NONE} -- Correct field list generation
 			line_greater: line.count >= old line.count + f.name.count + 1 + f.value.count
 		end
 
-	append_separator is
+	append_separator
 			-- Append separator to `line'
 		require
 			line_not_void: line /= Void
@@ -343,7 +343,7 @@ feature {NONE} -- Correct field list generation
 			line.append_character (' ')
 		end
 
-	find_field (field_name: STRING; fields: ARRAY [ULM_FIELD]): BOOLEAN is
+	find_field (field_name: STRING; fields: ARRAY [ULM_FIELD]): BOOLEAN
 			-- Return True if `fields' contains a field `field_name'.
 			-- If True, set found_field.
 		require
@@ -357,7 +357,7 @@ feature {NONE} -- Correct field list generation
 			found_index_set: Result = (found_index >= fields.lower and found_index <= fields.upper)
 		end
 
-	do_find_field (field_name: STRING; fields: ARRAY [ULM_FIELD]; skip_index: INTEGER): BOOLEAN is
+	do_find_field (field_name: STRING; fields: ARRAY [ULM_FIELD]; skip_index: INTEGER): BOOLEAN
 			-- Return True if `fields' contains a field `field_name' in
 			-- another position than `skip_index'.
 			-- If True, set found_field.
@@ -394,7 +394,7 @@ feature {NONE} -- Correct field list generation
 			found_index_not_skip_index: Result implies (found_index /= skip_index)
 		end
 
-	is_alphaext (value: STRING): BOOLEAN is
+	is_alphaext (value: STRING): BOOLEAN
 			-- Is `value' an ALPHAEXT according to the ULM spec?
 		require
 			value_not_void: value /= Void
@@ -420,7 +420,7 @@ feature {NONE} -- Correct field list generation
 			end
 		end
 
-	make_string (value: STRING): STRING is
+	make_string (value: STRING): STRING
 			-- Return `value' properly quoted. Return value does not
 			-- include the quotes it self.
 		require
@@ -451,140 +451,140 @@ feature {NONE} -- Correct field list generation
 
 feature -- Standard field names
 
-	LVL: STRING is
+	LVL: STRING
 			-- Importance and category of the ULM.
 		do
 			Result :=  "LVL"
 		end
 
-	HOST: STRING is
+	HOST: STRING
 			-- Name of software component which issues the ULM
 		do
 			Result := "HOST"
 		end
 
-	PROG: STRING is
+	PROG: STRING
 			-- Name of the software component which issued the ULM
 		do
 			Result := "PROG"
 		end
 
-	DATE: STRING is
+	DATE: STRING
 			-- Instantaneous date of the event
 		do
 			Result := "DATE"
 		end
 
-	LANG: STRING is "LANG"
+	LANG: STRING = "LANG"
 			-- Language used for text fields. Default is english (EN).
 
-	DUR: STRING is "DUR"
+	DUR: STRING = "DUR"
 			-- Indicates duration (in seconds) of the event.
 
-	PS: STRING is "PS"
+	PS: STRING = "PS"
 			-- Process id which issued the ULM.
 
-	ID: STRING is "ID"
+	ID: STRING = "ID"
 			-- System reference to the concerned document.
 
-	SRC_IP: STRING is "SRC.IP"
+	SRC_IP: STRING = "SRC.IP"
 			-- The IP number of the source host.
 
-	SRC_FQDN: STRING is "SRC.FDQN"
+	SRC_FQDN: STRING = "SRC.FDQN"
 			-- Fully qualified Domain Name for the source host.
 
-	SRC_NAME: STRING is "SRC.NAME"
+	SRC_NAME: STRING = "SRC.NAME"
 			-- Generic name qualifying the source.
 
-	SRC_PORT: STRING is "SRC.PORT"
+	SRC_PORT: STRING = "SRC.PORT"
 			-- Port number for TCP, UDP or other protocol.
 
-	SRC_USR: STRING is "SRC.USR"
+	SRC_USR: STRING = "SRC.USR"
 			-- User name or user id.
 
-	SRC_MAIL: STRING is "SRC.MAIL"
+	SRC_MAIL: STRING = "SRC.MAIL"
 			-- Email address.
 
-	DST_IP: STRING is "DST.IP"
+	DST_IP: STRING = "DST.IP"
 			-- The IP number of the destination host.
 
-	DST_FQDN: STRING is "DST.FDQN"
+	DST_FQDN: STRING = "DST.FDQN"
 			-- Fully qualified Domain Name for the destination host.
 
-	DST_NAME: STRING is "DST.NAME"
+	DST_NAME: STRING = "DST.NAME"
 			-- Generic name qualifying the destination.
 
-	DST_PORT: STRING is "DST.PORT"
+	DST_PORT: STRING = "DST.PORT"
 			-- Port number for TCP, UDP or other protocol.
 
-	DST_USR: STRING is "DST.USR"
+	DST_USR: STRING = "DST.USR"
 			-- User name or user id.
 
-	DST_MAIL: STRING is "DST.MAIL"
+	DST_MAIL: STRING = "DST.MAIL"
 			-- Email address.
 
-	REL_IP: STRING is "REL.IP"
+	REL_IP: STRING = "REL.IP"
 			-- The IP number of the proxy/relayer host.
 
-	REL_FQDN: STRING is "REL.FDQN"
+	REL_FQDN: STRING = "REL.FDQN"
 			-- Fully qualified Domain Name for the proxy/relayer host.
 
-	REL_NAME: STRING is "REL.NAME"
+	REL_NAME: STRING = "REL.NAME"
 			-- Generic name qualifying the proxy/relayer.
 
-	REL_PORT: STRING is "REL.PORT"
+	REL_PORT: STRING = "REL.PORT"
 			-- Port number for TCP, UDP or other protocol.
 
-	REL_USR: STRING is "REL.USR"
+	REL_USR: STRING = "REL.USR"
 			-- User name or user id.
 
-	REL_MAIL: STRING is "REL.MAIL"
+	REL_MAIL: STRING = "REL.MAIL"
 			-- Email address.
 
-	VOL: STRING is "VOL"
+	VOL: STRING = "VOL"
 			-- Volume (number of bytes) sent and received from the source
 			-- point of view.
 
-	VOL_SENT: STRING is "VOL.SENT"
+	VOL_SENT: STRING = "VOL.SENT"
 			-- Volume (number of bytes) sent from the source point of view.
 
-	VOL_RCVD: STRING is "VOL.RCVD"
+	VOL_RCVD: STRING = "VOL.RCVD"
 			-- Volume (number of bytes) received from the source point of view.
 
-	CNT: STRING is "CNT"
+	CNT: STRING = "CNT"
 			-- Count (of articles, files, events) sent and received from
 			-- the source point of view.
 
-	CNT_SENT: STRING is "CNT.SENT"
+	CNT_SENT: STRING = "CNT.SENT"
 			-- Count (of articles, files, events) sent from the source
 			-- point of view.
 
-	CNT_RCVD: STRING is "CNT.RCVD"
+	CNT_RCVD: STRING = "CNT.RCVD"
 			-- Count (of articles, files, events) received from the
 			-- source point of view.
 
-	PROG_FILE: STRING is "PROG.FILE"
+	PROG_FILE: STRING = "PROG.FILE"
 			-- Name of the program source file from which the ULM was generated.
 
-	STAT: STRING is "STAT"
+	STAT: STRING = "STAT"
 			-- State or status of the designed process. Possible values
 			-- for this field may include "Failure", "Success", "Start",
 			-- "End".
 
-	TTY: STRING is "TTY"
+	TTY: STRING = "TTY"
 			-- User's physical connection to the host.
 
-	DOC: STRING is "DOC"
+	DOC: STRING = "DOC"
 			-- Name of accessed document like the path of an ftp file,
 			-- the name of a newsgroup, or the non-host part of an URL.
 
-	PROT: STRING is "PROT"
+	PROT: STRING = "PROT"
 			-- Protocol used.
 
-	CMD: STRING is "CMD"
+	CMD: STRING = "CMD"
 			-- Issued command.
 
-	MSG: STRING is
+	MSG: STRING
 			-- The only field which should contain arbitrary data
 		do
 			Result := "MSG"
@@ -593,13 +593,13 @@ feature -- Standard field names
 
 feature -- Public state
 
-	host_name: STRING is
+	host_name: STRING
 			-- Name of the host which issues the ULM.
 		do
 			Result := my_host.value
 		end
 
-	program_name: STRING is
+	program_name: STRING
 			-- Name of the software component which issues the ULM.
 		do
 			Result := my_prog.value

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make_initiate (a_nick_name: STRING; an_ip4_address: EPX_IP4_ADDRESS) is
+	make_initiate (a_nick_name: STRING; an_ip4_address: EPX_IP4_ADDRESS)
 			-- Begin to offer a DCC chat connection to `a_nick_name' at
 			-- address `an_ip_address'. The port is automatically
 			-- choosen, see `local_address'.`port'.
@@ -61,7 +61,7 @@ feature -- Access
 
 feature -- Status
 
-	is_accepted: BOOLEAN is
+	is_accepted: BOOLEAN
 			-- Has client accepted the DCC chat offer?
 			-- If the client has accepted the socket, the socket is put
 			-- into non-blocking mode, but this can be changed later if

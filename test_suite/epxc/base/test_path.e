@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test STDC_PATH class."
 
@@ -30,14 +30,14 @@ inherit
 
 feature -- Tests
 
-	test_portable_path is
+	test_portable_path
 		do
 			if not is_windows then
 				do_test_portable_path
 			end
 		end
 
-	do_test_portable_path is
+	do_test_portable_path
 			-- Test portable path handling.
 		local
 			env_home: STDC_ENV_VAR
@@ -76,7 +76,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	path_ok (path, expected: STRING) is
+	path_ok (path, expected: STRING)
 		require
 			path_not_void: path /= Void
 			expected_not_void: expected /= Void
@@ -89,7 +89,7 @@ feature {NONE} -- Implementation
 			assert_equal ("Path is as expected.", expected, s)
 		end
 
-	check_parse (p: STDC_PATH; a_dir, a_name, a_suffix: STRING) is
+	check_parse (p: STDC_PATH; a_dir, a_name, a_suffix: STRING)
 		require
 			p_not_void: p /= Void
 			dir_not_void: a_dir /= Void

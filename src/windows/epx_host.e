@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows portable implementation of host on the network."
 
@@ -32,7 +32,7 @@ create
 
 feature {NONE} -- Abstract API
 
-	abstract_gethostbyaddr (an_addr: POINTER; a_len, a_type: INTEGER): POINTER is
+	abstract_gethostbyaddr (an_addr: POINTER; a_len, a_type: INTEGER): POINTER
 			-- Retrieve host information corresponding to address
 			-- `an_addr' If returned pointer is default_pointer, check
 			-- `abstract_h_errno' for the error reason.
@@ -46,7 +46,7 @@ feature {NONE} -- Abstract API
 			end
 		end
 
-	abstract_gethostbyname (a_hostname: POINTER): POINTER is
+	abstract_gethostbyname (a_hostname: POINTER): POINTER
 			-- Retrieve host information corresponding to `a_hostname'
 			-- from a host database. If returned pointer is
 			-- default_pointer, check `abstract_h_errno' for the error

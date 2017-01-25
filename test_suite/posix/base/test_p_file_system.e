@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix file system class."
 
@@ -36,7 +36,7 @@ inherit
 
 feature -- The tests
 
-	test_unlinking is
+	test_unlinking
 		do
 			unlink (file_name)
 			assert (file_name + " is removed.", not is_existing (file_name))
@@ -45,7 +45,7 @@ feature -- The tests
 			assert (file_name + " is removed.", not is_existing (file_name))
 		end
 
-	test_file_system is
+	test_file_system
 		local
 			stat: POSIX_STATUS
 			tmpfile: POSIX_BINARY_FILE
@@ -109,7 +109,7 @@ feature -- The tests
 			assert ("/bin/sh is executable file.", is_executable ("/bin/sh"))
 		end
 
-	test_accessibility is
+	test_accessibility
 		local
 			tmpfile: POSIX_BINARY_FILE
 		do
@@ -121,7 +121,7 @@ feature -- The tests
 			assert ("Is empty file.", is_empty (file_name))
 		end
 
-	test_permissions is
+	test_permissions
 		local
 			tmpfile: POSIX_BINARY_FILE
 			perm: POSIX_PERMISSIONS
@@ -149,7 +149,7 @@ feature -- The tests
 			perm.apply
 		end
 
-	test_permissions_cache is
+	test_permissions_cache
 		local
 			tmpfile: POSIX_BINARY_FILE
 			perm: POSIX_PERMISSIONS
@@ -178,7 +178,7 @@ feature -- The tests
 			unlink (file_name)
 		end
 
-	test_directory is
+	test_directory
 			-- Test directory functions.
 		local
 			dir: STRING
@@ -197,7 +197,7 @@ feature -- The tests
 		end
 
 
-	test_directory_reading is
+	test_directory_reading
 		local
 			dir: POSIX_DIRECTORY
 			i: INTEGER
@@ -219,7 +219,7 @@ feature -- The tests
 			assert ("At least one entry.", i > 0)
 		end
 
-	test_hard_link is
+	test_hard_link
 		do
 			remove_file ("link.tmp")
 			touch ("file.tmp")
@@ -230,7 +230,7 @@ feature -- The tests
 			assert ("file.tmp is not a readable file.", not is_readable ("file.tmp"))
 		end
 
-	test_fifo is
+	test_fifo
 		do
 			-- fifo not supported on cygwin
 			if system_name.substring_index ("CYGWIN", 1) = 0 then
@@ -248,6 +248,6 @@ feature -- The tests
 
 feature {NONE} -- Implementation
 
-	file_name: STRING is "tmp.tmp"
+	file_name: STRING = "tmp.tmp"
 
 end

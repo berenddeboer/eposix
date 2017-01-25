@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Email message in MIME format. Make creating MIME email slightly easier than using a plain EPX_MIME_PART."
 
@@ -39,7 +39,7 @@ feature -- Access
 
 feature -- Change
 
-	attach_file (a_type, a_subtype, a_file_name: STRING; an_inline: BOOLEAN) is
+	attach_file (a_type, a_subtype, a_file_name: STRING; an_inline: BOOLEAN)
 			-- Attach file `a_file_name' to the email using the given
 			-- mime types.
 			-- Use inline to tell the user agement that it would be nice

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Child for Posix fork test."
 
@@ -18,7 +18,7 @@ inherit
 
 feature
 
-	execute is
+	execute
 		local
 			writer: POSIX_TEXT_FILE
 		do

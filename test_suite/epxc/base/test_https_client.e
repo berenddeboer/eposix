@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test HTTPS client by connecting to an HTTP server."
 
@@ -29,7 +29,7 @@ inherit
 
 feature
 
-	test_get is
+	test_get
 		local
 			client: EPX_HTTP_11_CLIENT
 		do
@@ -40,7 +40,7 @@ feature
 			assert_equal ("Response phrase", "OK", client.response_phrase)
 		end
 
-	test_non_existing is
+	test_non_existing
 		local
 			client: EPX_HTTP_11_CLIENT
 		do

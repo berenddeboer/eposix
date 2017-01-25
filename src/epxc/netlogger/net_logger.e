@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements the NetLogger API."
 
@@ -32,7 +32,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_handler: NET_LOGGER_LOG_HANDLER; a_program_name: READABLE_STRING_8) is
+	make (a_handler: NET_LOGGER_LOG_HANDLER; a_program_name: READABLE_STRING_8)
 		require
 			handler_not_void: a_handler /= Void
 			program_name_not_empty: a_program_name /= Void and then not a_program_name.is_empty
@@ -53,7 +53,7 @@ feature -- Access
 	level: INTEGER
 			-- Everything lower or equal to this level will be logged
 
-	levels: NET_LOGGER_LEVELS is
+	levels: NET_LOGGER_LEVELS
 			-- The available NetLogger levels
 		once
 			create Result
@@ -62,7 +62,7 @@ feature -- Access
 
 feature -- NetLogger normal usage API
 
-	set_level (a_new_level: INTEGER) is
+	set_level (a_new_level: INTEGER)
 			-- Change the level at which logging will occur.
 		require
 			new_level_valid: a_new_level = 0 or else levels.is_valid_level (a_new_level)
@@ -72,7 +72,7 @@ feature -- NetLogger normal usage API
 			level_set: level = a_new_level
 		end
 
-	write (a_level: INTEGER; an_event_name: STRING; an_event_attributes: DS_LINEAR [NET_LOGGER_FIELD]) is
+	write (a_level: INTEGER; an_event_name: STRING; an_event_attributes: DS_LINEAR [NET_LOGGER_FIELD])
 			-- Write an event if `a_level' >= `level'.
 		require
 			valid_level: levels.is_valid_level (a_level)
@@ -88,7 +88,7 @@ feature -- NetLogger normal usage API
 			end
 		end
 
-	write_msg (a_level: INTEGER; an_event_name: STRING; a_msg: STRING) is
+	write_msg (a_level: INTEGER; an_event_name: STRING; a_msg: STRING)
 			-- Write one event if `a_level' >= `level'.
 		require
 			valid_level: levels.is_valid_level (a_level)
@@ -111,7 +111,7 @@ feature -- NetLogger normal usage API
 
 feature -- Reserved field names
 
-	names: NET_LOGGER_RESERVED_NAMES is
+	names: NET_LOGGER_RESERVED_NAMES
 		once
 			create Result
 		ensure
@@ -139,7 +139,7 @@ feature {NONE} -- Correct field list generation
 	line: STRING
 			-- Buffer written to by `flatten_fields'.
 
-	default_fields_to_line is
+	default_fields_to_line
 			-- Write the default fields to `line'. Assumes all values in
 			-- the default fields have been set.
 		require
@@ -164,7 +164,7 @@ feature {NONE} -- Correct field list generation
 			line_not_empty: not line.is_empty
 		end
 
-	flatten_fields_to_line (a_fields: DS_LINEAR [NET_LOGGER_FIELD]) is
+	flatten_fields_to_line (a_fields: DS_LINEAR [NET_LOGGER_FIELD])
 			-- Append `fields' to `line'.
 		do
 			if a_fields /= Void then
@@ -182,7 +182,7 @@ feature {NONE} -- Correct field list generation
 			line_not_empty: not line.is_empty
 		end
 
-	append_field (f: NET_LOGGER_FIELD) is
+	append_field (f: NET_LOGGER_FIELD)
 			-- Append `f' in the correct format to `line'.
 		require
 			field_not_void: f /= Void
@@ -210,7 +210,7 @@ feature {NONE} -- Correct field list generation
 			line_greater: line.count >= old line.count + f.name.count + 1
 		end
 
-	append_separator is
+	append_separator
 			-- Append separator to `line'
 		require
 			line_not_void: line /= Void
@@ -218,7 +218,7 @@ feature {NONE} -- Correct field list generation
 			line.append_character (' ')
 		end
 
-	escape_quote (a_value: STRING): STRING is
+	escape_quote (a_value: STRING): STRING
 			-- `a_value' with every double quote preceded by a '\'
 		require
 			value_not_void: a_value /= Void
@@ -242,7 +242,7 @@ feature {NONE} -- Correct field list generation
 			result_not_void: Result /= Void
 		end
 
-	reset_line is
+	reset_line
 			-- Assert `line' has enough capacity
 		do
 			if line = Void then

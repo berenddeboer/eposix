@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for STDC_PATH. As inheriting from STRING is non-portable, this base class is compiler specific"
 
@@ -32,7 +32,7 @@ inherit
 
 feature -- Comparison
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Is the path name equal to `other'?
 		do
 			if other = Current then

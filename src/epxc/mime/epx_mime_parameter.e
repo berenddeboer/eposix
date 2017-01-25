@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "A single MIME parameter as it occurs in a MIME header field."
 
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_name, a_value: STRING) is
+	make (a_name, a_value: STRING)
 		require
 			valid_name: is_valid_parameter_name (a_name.as_lower)
 			valid_value: a_value /= Void
@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 
 feature -- Output
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
 		require
 			s_not_void: s /= Void
@@ -69,7 +69,7 @@ feature -- Access
 
 feature -- Change
 
-	set_value (a_value: STRING) is
+	set_value (a_value: STRING)
 			-- Set `value'.
 		do
 			value := a_value
@@ -78,7 +78,7 @@ feature -- Change
 
 feature {NONE} -- Once strings
 
-	once_semicolon_space: STRING is "; "
+	once_semicolon_space: STRING = "; "
 
 
 invariant

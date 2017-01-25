@@ -10,7 +10,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			ls: EPX_EXEC_PROCESS
 		do

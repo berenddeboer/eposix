@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that reads a string from a stream,%
    %waiting a given number of seconds for that string, or else returns."
@@ -27,7 +27,7 @@ create
 
 feature -- creation
 
-   make (a_seconds: INTEGER; a_stream: POSIX_FILE) is
+   make (a_seconds: INTEGER; a_stream: POSIX_FILE)
       do
          inherited_make (a_seconds)
          stream := a_stream
@@ -41,7 +41,7 @@ feature -- state
 
 feature {NONE}
 
-   do_execute is
+   do_execute
       do
          -- stream.read_string (256)
          stream.read_character

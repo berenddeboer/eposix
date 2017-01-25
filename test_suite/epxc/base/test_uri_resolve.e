@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test resolving using examples from RFC2396, appendix C"
 
@@ -19,14 +19,14 @@ inherit
 
 feature -- Setup
 
-	set_up is
+	set_up
 		do
 			create base.make ("http://a/b/c/d;p?q")
 		end
 
 feature -- Tests
 
-	test_normal_cases is
+	test_normal_cases
 		local
 			uri: UT_URI
 		do
@@ -98,7 +98,7 @@ feature -- Tests
 			check_uri (uri, "http", "a", "/g", Void, Void, "http://a/g")
 		end
 
-	test_rfc293_bis_cases is
+	test_rfc293_bis_cases
 			-- See http://www.apache.org/~fielding/uri/rev-2002/rfc2396bis.html
 		local
 			my_base: UT_URI
@@ -109,7 +109,7 @@ feature -- Tests
 			check_uri (uri, "http", "a", "/b", Void, Void, "http://a/b")
 		end
 
-	test_abnormal_cases is
+	test_abnormal_cases
 		local
 			uri: UT_URI
 		do
@@ -181,7 +181,7 @@ feature {NONE} -- Implementation
 
 	base: UT_URI
 
-	check_uri (uri: UT_URI; a_scheme, an_authority, a_path, a_query, a_fragment, a_reference: STRING) is
+	check_uri (uri: UT_URI; a_scheme, an_authority, a_path, a_query, a_fragment, a_reference: STRING)
 		require
 			have_uri: uri /= Void
 		do
@@ -205,7 +205,7 @@ feature {NONE} -- Implementation
 			do_check ("reference", uri.full_reference, a_reference)
 		end
 
-	do_check (what, got, expected: STRING) is
+	do_check (what, got, expected: STRING)
 		do
 			assert_equal(what, expected, got)
 		end

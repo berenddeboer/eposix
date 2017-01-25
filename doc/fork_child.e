@@ -6,7 +6,7 @@ inherit
    
 feature
    
-   execute is
+   execute
       local
          writer: POSIX_TEXT_FILE
       do

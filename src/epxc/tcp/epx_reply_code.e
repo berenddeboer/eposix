@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -26,7 +26,7 @@ feature -- Access
 
 feature -- Status
 
-	is_line_with_reply_code (a_line: STRING): BOOLEAN is
+	is_line_with_reply_code (a_line: STRING): BOOLEAN
 			-- Does `line' start with a reply code?
 		require
 			line_not_void: a_line /= Void
@@ -53,7 +53,7 @@ feature -- Status
 
 feature -- Status for first digit of reply code
 
-	is_positive_preliminary_reply: BOOLEAN is
+	is_positive_preliminary_reply: BOOLEAN
 			-- Is `reply_code' a Positive Preliminary reply?
 			-- The requested action is being initiated; expect another
 			-- reply before proceeding with a new command.
@@ -63,7 +63,7 @@ feature -- Status for first digit of reply code
 			definition: Result implies reply_code >= 100 and then reply_code <= 199
 		end
 
-	is_positive_completion_reply: BOOLEAN is
+	is_positive_completion_reply: BOOLEAN
 			-- Is `reply_code' a Positive Completion reply?
 			-- The requested action has been successfully completed. A
 			-- new request may be initiated.
@@ -73,7 +73,7 @@ feature -- Status for first digit of reply code
 			definition: Result implies reply_code >= reply_code_ok and then reply_code <= 299
 		end
 
-	is_positive_intermediate_reply: BOOLEAN is
+	is_positive_intermediate_reply: BOOLEAN
 			-- Is `reply_code' a Positive Intermediate reply?
 			-- The command has been accepted, but the requested action is
 			-- being held in abeyance, pending receipt of further
@@ -86,7 +86,7 @@ feature -- Status for first digit of reply code
 			definition: Result implies reply_code >= 300 and then reply_code <= 399
 		end
 
-	is_transient_negative_completion_reply: BOOLEAN is
+	is_transient_negative_completion_reply: BOOLEAN
 			-- Is `reply_code' a Transient Negative Completion reply?
 			-- The command was not accepted and the requested action did
 			-- not take place, but the error condition is temporary and
@@ -98,7 +98,7 @@ feature -- Status for first digit of reply code
 			definition: Result implies reply_code >= 400 and then reply_code <= 499
 		end
 
-	is_permanent_negative_completion_reply: BOOLEAN is
+	is_permanent_negative_completion_reply: BOOLEAN
 			-- Is `reply_code' a Permanent Negative Completion reply?
 			-- The command was not accepted and the requested action did
 			-- not take place. The User-process is discouraged from
@@ -112,7 +112,7 @@ feature -- Status for first digit of reply code
 
 feature -- Constants for reply codes that are shared among all protocols
 
-	reply_code_ok: INTEGER is 200
+	reply_code_ok: INTEGER = 200
 
 
 invariant

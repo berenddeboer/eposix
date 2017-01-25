@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Certain eposix classes can write lines."
 

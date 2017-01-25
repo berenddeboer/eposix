@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create
 
 feature -- Initialization
 
-	make (a_scheme: STRING) is
+	make (a_scheme: STRING)
 			-- Initialize WWW-Authenticate field
 		require
 			scheme_not_empty: a_scheme /= Void and then not a_scheme.is_empty
@@ -46,7 +46,7 @@ feature -- Initialization
 
 feature -- Access
 
-	algorithm: STRING is
+	algorithm: STRING
 			-- Algorithm for Digest authentication
 		do
 			parameters.search (parameter_name_algorithm)
@@ -57,10 +57,10 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	name: STRING is "WWW-Authenticate"
+	name: STRING = "WWW-Authenticate"
 			-- Authorative name
 
-	nonce: STRING is
+	nonce: STRING
 			-- Nonce value for Digest authentication
 		do
 			parameters.search (parameter_name_nonce)
@@ -71,7 +71,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	opaque: STRING is
+	opaque: STRING
 			-- opaque value for Digest authentication
 		do
 			parameters.search (parameter_name_opaque)
@@ -82,7 +82,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	qop: STRING is
+	qop: STRING
 			-- qop value for Digest authentication
 		do
 			parameters.search (parameter_name_qop)
@@ -93,7 +93,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	realm: STRING is
+	realm: STRING
 			-- Realm if defined;
 			-- According to the spec all authentication schemes should
 			-- have one.
@@ -109,7 +109,7 @@ feature -- Access
 	scheme: STRING
 			-- Authentication scheme
 
-	stale: STRING is
+	stale: STRING
 			-- stale value for Digest authentication
 		do
 			parameters.search (parameter_name_stale)
@@ -120,7 +120,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	uri: STRING is
+	uri: STRING
 			-- uri value for Digest authentication
 		do
 			parameters.search (parameter_name_uri)
@@ -134,7 +134,7 @@ feature -- Access
 
 feature -- Output
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
 		do
 			s.append_string (name)

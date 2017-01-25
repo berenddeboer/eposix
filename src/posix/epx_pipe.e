@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "portable layer Windows pipe implementation."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Initialization
 
-	make is
+	make
 			-- Create pipe.
 		local
 			fildes: STDC_BUFFER

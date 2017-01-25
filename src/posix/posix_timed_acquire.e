@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Given a semaphare, attempts for given seconds to acquire it."
 
@@ -27,7 +27,7 @@ create
 
 feature -- Initialization
 
-	make (a_seconds: INTEGER; a_semaphore: POSIX_SEMAPHORE) is
+	make (a_seconds: INTEGER; a_semaphore: POSIX_SEMAPHORE)
 		require
 			valid_seconds: a_seconds >= 1 and a_seconds <= 65535
 			semaphore_not_void: a_semaphore /= Void
@@ -47,7 +47,7 @@ feature -- State
 
 feature {NONE} -- Execution
 
-	do_execute is
+	do_execute
 		do
 			semaphore.acquire
 		end

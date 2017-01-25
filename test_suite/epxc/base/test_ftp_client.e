@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -31,7 +31,7 @@ inherit
 
 feature -- Tests
 
-	test_login is
+	test_login
 		local
 			ftp: EPX_FTP_CLIENT
 		do
@@ -43,7 +43,7 @@ feature -- Tests
 			ftp.close
 		end
 
-	test_list is
+	test_list
 			-- Test the LIST and NLIST commands.
 		local
 			ftp: EPX_FTP_CLIENT
@@ -84,7 +84,7 @@ feature -- Tests
 			ftp.close
 		end
 
-	test_retrieve is
+	test_retrieve
 		local
 			ftp: EPX_FTP_CLIENT
 		do
@@ -113,7 +113,7 @@ feature -- Tests
 			ftp.close
 		end
 
-	test_store is
+	test_store
 		local
 			ftp: EPX_FTP_CLIENT
 			s: STRING
@@ -144,7 +144,7 @@ feature -- Tests
 			ftp.close
 		end
 
-	test_status is
+	test_status
 			-- Test various info and status commands.
 		local
 			ftp: EPX_FTP_CLIENT
@@ -170,7 +170,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	dump_data_connection (stream: KI_CHARACTER_INPUT_STREAM) is
+	dump_data_connection (stream: KI_CHARACTER_INPUT_STREAM)
 			-- Dump stream input.
 		require
 			stream_not_void: stream /= Void

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test EPX exec process class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature
 
-	test_output is
+	test_output
 			-- Test exec process itself by just doing an ls.
 		local
 			ls: EPX_EXEC_PROCESS
@@ -57,7 +57,7 @@ feature
 			ls.wait_for (True)
 		end
 
-	test_input is
+	test_input
 			-- test input capturing
 			-- more.com seems to be very unreliable...
 		local
@@ -88,7 +88,7 @@ feature
 			more.wait_for (True)
 		end
 
-	test_pipe is
+	test_pipe
 			-- Execute ls and pipe output to more
 		local
 			ls,
@@ -123,7 +123,7 @@ feature
 			more.wait_for (True)
 		end
 
-	test_exit_code is
+	test_exit_code
 		local
 			ls: EPX_EXEC_PROCESS
 		do
@@ -134,7 +134,7 @@ feature
 			assert_not_equal ("Exit failure.", EXIT_SUCCESS, ls.exit_code)
 		end
 
-	test_wait_for is
+	test_wait_for
 		local
 			ls: EPX_EXEC_PROCESS
 		do
@@ -153,7 +153,7 @@ feature
 			assert_not_equal ("Exit failure.", EXIT_SUCCESS, ls.exit_code)
 		end
 
-	test_fail is
+	test_fail
 		local
 			rescued: BOOLEAN
 			exec: EPX_EXEC_PROCESS

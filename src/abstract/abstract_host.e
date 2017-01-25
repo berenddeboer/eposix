@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes a host on the network including the local machine. Contains the common functionality between Unix and Windows"
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Initialization
 
-	make_from_name (a_name: STRING) is
+	make_from_name (a_name: STRING)
 			-- Initialize host from `name'. If `name' is numerical, the
 			-- behaviour is not specified.
 		require
@@ -34,7 +34,7 @@ feature -- Initialization
 			find_by_name
 		end
 
-	make_from_address (an_address: ABSTRACT_IP_ADDRESS) is
+	make_from_address (an_address: ABSTRACT_IP_ADDRESS)
 			-- Initialize host from ip address `an_address'.
 			-- An attempt is made to resolve the host name using this address.
 			-- Status is always found, even when reverse lookup failed.
@@ -56,7 +56,7 @@ feature -- Initialization
 			always_found: found
 		end
 
-	make_from_ip4_any is
+	make_from_ip4_any
 			-- IP address that refers to all local interfaces.
 		local
 			any_ip_address: EPX_IP4_ADDRESS
@@ -70,7 +70,7 @@ feature -- Initialization
 			one_address: addresses.count = 1
 		end
 
-	make_from_ip4_loopback is
+	make_from_ip4_loopback
 			-- IP address that refers to the loopback device.
 			-- No attempt at resolving is done.
 		local
@@ -89,7 +89,7 @@ feature -- Initialization
 
 feature {NONE} -- Initialization
 
-	make_from_unresolved_address  (an_address: ABSTRACT_IP_ADDRESS) is
+	make_from_unresolved_address  (an_address: ABSTRACT_IP_ADDRESS)
 			-- Initialize host from ip address `an_address'.
 			-- No attempt is made to resolve the ip address.
 			-- `name'
@@ -114,7 +114,7 @@ feature {NONE} -- Initialization
 
 feature -- Command
 
-	find_by_address is
+	find_by_address
 			-- Attempt to lookup up the host by first ip address in
 			-- `addresses'. Sets `found' if host could be found.
 			-- If found, sets `canonical_name', `aliases',
@@ -130,7 +130,7 @@ feature -- Command
 			set_from_hostent (p)
 		end
 
-	find_by_name is
+	find_by_name
 			-- Attempt to lookup up the host given in `name'. Sets
 			-- `found' if host could be found.
 			-- If found, sets `canonical_name', `aliases',
@@ -148,7 +148,7 @@ feature -- Command
 
 feature -- Status
 
-	found: BOOLEAN is
+	found: BOOLEAN
 			-- Does this class contain a resolved host?
 			-- If False, `not_found_reason' contains the reason.
 		do
@@ -162,7 +162,7 @@ feature -- Access
 			-- Name as given to `make_from_name' or else equal to
 			-- `canonical_name'
 
-	not_found_reason: INTEGER is
+	not_found_reason: INTEGER
 			-- Reason why `found' is False;
 			--  The interpretation of this value depends on the platform.
 		require
@@ -192,7 +192,7 @@ feature {NONE} -- Implementation
 	my_not_found_reason: INTEGER
 			-- Private variable containting code of not found.
 
-	is_every_address_not_void: BOOLEAN is
+	is_every_address_not_void: BOOLEAN
 			-- Is every address in `addresses' not Void?
 		require
 			found: found
@@ -211,7 +211,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	set_from_hostent (p: POINTER) is
+	set_from_hostent (p: POINTER)
 			-- Set fields assuming `p' is a pointer to a hostent struct.
 		local
 			pptr: POINTER
@@ -258,7 +258,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API
 
-	abstract_gethostbyaddr (an_addr: POINTER; a_len, a_type: INTEGER): POINTER is
+	abstract_gethostbyaddr (an_addr: POINTER; a_len, a_type: INTEGER): POINTER
 			-- Retrieve host information corresponding to address
 			-- `an_addr'. If returned pointer is default_pointer, check
 			-- `abstract_h_errno' for the error reason.
@@ -270,7 +270,7 @@ feature {NONE} -- Abstract API
 			-- Result = default_pointer implies h_errno set.
 		end
 
-	abstract_gethostbyname (a_hostname: POINTER): POINTER is
+	abstract_gethostbyname (a_hostname: POINTER): POINTER
 			-- Retrieve host information corresponding to `a_hostname'
 			-- from a host database. If returned pointer is
 			-- default_pointer, check `abstract_h_errno' for the error
@@ -282,7 +282,7 @@ feature {NONE} -- Abstract API
 			-- Result = default_pointer implies h_errno set.
 		end
 
-	abstract_h_errno: INTEGER is
+	abstract_h_errno: INTEGER
 			-- Last error set by `abstract_gethostbyname'.
 		deferred
 		end

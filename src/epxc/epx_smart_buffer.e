@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Smart buffer that has the notion of fill, because it %
 	%has a `count'. It can grow if needed."
@@ -25,7 +25,7 @@ create
 
 feature -- append things and manage `count'
 
-	append_character (c: CHARACTER) is
+	append_character (c: CHARACTER)
 		do
 			assure_has_room (count + 1)
 			poke_character (count, c)
@@ -34,14 +34,14 @@ feature -- append things and manage `count'
 			count_greater: count = old count + 1
 		end
 
-	clear is
+	clear
 		do
 			count := 0
 		ensure
 			empty: count = 0
 		end
 
-	remove_last_character is
+	remove_last_character
 		require
 			there_is_something: count > 0
 		do
@@ -50,7 +50,7 @@ feature -- append things and manage `count'
 			count_lesser: count = old count - 1
 		end
 
-	set_count (new_count: INTEGER) is
+	set_count (new_count: INTEGER)
 		require
 			valid_new_count: new_count >= 0 and new_count <= capacity
 		do
@@ -60,7 +60,7 @@ feature -- append things and manage `count'
 
 feature -- queries
 
-	has_substring (other: STRING): BOOLEAN is
+	has_substring (other: STRING): BOOLEAN
 			-- Does buffer contain 'other'?
 			-- Checks contents up to `count'
 		require
@@ -127,7 +127,7 @@ feature -- state
 
 feature {NONE} -- grow buf
 
-	assure_has_room (needed_capacity: INTEGER) is
+	assure_has_room (needed_capacity: INTEGER)
 		local
 			new_capacity: INTEGER
 		do

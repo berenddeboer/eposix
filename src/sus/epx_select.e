@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 select() call."
 
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Abstract API
 
-	abstract_select (a_maxfdp1: INTEGER; a_readset, a_writeset, an_exceptset: POINTER; a_timeout: POINTER): INTEGER is
+	abstract_select (a_maxfdp1: INTEGER; a_readset, a_writeset, an_exceptset: POINTER; a_timeout: POINTER): INTEGER
 			-- Wait for a number of descriptors to change status.
 			-- `a_maxfdp`' is the highest-numbered descriptor in any of
 			-- the three sets, plus 1.

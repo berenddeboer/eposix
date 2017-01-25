@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -39,7 +39,7 @@ create
 
 feature -- DSML specific calls
 
-	start_dsml is
+	start_dsml
 		require
 			have_header: is_header_written
 			this_is_root_tag: not is_tag_started
@@ -50,14 +50,14 @@ feature -- DSML specific calls
 			set_default_name_space (dsml_name_space)
 		end
 
-	start_directory_entries is
+	start_directory_entries
 		require
 			dsml_started: is_dsml_started
 		do
 			start_tag (dsml_directory_entries)
 		end
 
-	start_entry (a_distinguished_name: STRING) is
+	start_entry (a_distinguished_name: STRING)
 		require
 			directory_entries_started: is_directory_entries_started
 		do
@@ -65,21 +65,21 @@ feature -- DSML specific calls
 			set_attribute(dsml_dn, a_distinguished_name)
 		end
 
-	start_objectclass is
+	start_objectclass
 		require
 			dsml_started: is_entry_started
 		do
 			start_tag (dsml_objectclass)
 		end
 
-	add_oc_value (a_value: STRING) is
+	add_oc_value (a_value: STRING)
 		require
 			objectclass_started: is_objectclass_started
 		do
 			add_tag (dsml_oc_value, a_value)
 		end
 
-	start_attr (a_name: STRING) is
+	start_attr (a_name: STRING)
 		require
 			entry_started: is_entry_started
 			name_not_empty: a_name /= Void and then not a_name.is_empty
@@ -88,7 +88,7 @@ feature -- DSML specific calls
 			set_attribute (dsml_name, a_name)
 		end
 
-	add_attr (a_name, a_value: STRING) is
+	add_attr (a_name, a_value: STRING)
 		require
 			entry_started: is_entry_started
 			name_not_empty: a_name /= Void and then not a_name.is_empty
@@ -101,7 +101,7 @@ feature -- DSML specific calls
 			stop_tag
 		end
 
-	add_value (a_value: STRING) is
+	add_value (a_value: STRING)
 		require
 			attr_started: is_attr_started
 			no_invalid_control_characters: is_string (a_value)
@@ -111,35 +111,35 @@ feature -- DSML specific calls
 			stop_tag
 		end
 
-	stop_dsml is
+	stop_dsml
 		require
 			dsml_started: is_dsml_started
 		do
 			stop_tag
 		end
 
-	stop_directory_entries is
+	stop_directory_entries
 		require
 			directory_entries_started: is_directory_entries_started
 		do
 			stop_tag
 		end
 
-	stop_entry is
+	stop_entry
 		require
 			entry_started: is_entry_started
 		do
 			stop_tag
 		end
 
-	stop_objectclass is
+	stop_objectclass
 		require
 			objectclass_started: is_objectclass_started
 		do
 			stop_tag
 		end
 
-	stop_attr is
+	stop_attr
 		require
 			attr_started: is_attr_started
 		do
@@ -149,28 +149,28 @@ feature -- DSML specific calls
 
 feature -- Queries if tags started
 
-	is_dsml_started: BOOLEAN is
+	is_dsml_started: BOOLEAN
 		do
 			Result := is_started (dsml_dsml)
 		end
 
-	is_directory_entries_started: BOOLEAN is
+	is_directory_entries_started: BOOLEAN
 		do
 			Result := is_started (dsml_directory_entries)
 		end
 
-	is_entry_started: BOOLEAN is
+	is_entry_started: BOOLEAN
 		do
 			Result := is_started (dsml_entry)
 		end
 
 
-	is_objectclass_started: BOOLEAN is
+	is_objectclass_started: BOOLEAN
 		do
 			Result := is_started (dsml_objectclass)
 		end
 
-	is_attr_started: BOOLEAN is
+	is_attr_started: BOOLEAN
 		do
 			Result := is_started (dsml_attr)
 		end
@@ -178,26 +178,26 @@ feature -- Queries if tags started
 
 feature -- DSML tags
 
-	dsml_dsml: STRING is "dsml"
-	dsml_directory_entries: STRING is "directory-entries"
-	dsml_entry: STRING is "entry"
-	dsml_objectclass: STRING is "objectclass"
-	dsml_oc_value: STRING is "oc-value"
-	dsml_attr: STRING is "attr"
-	dsml_value: STRING is "value"
+	dsml_dsml: STRING = "dsml"
+	dsml_directory_entries: STRING = "directory-entries"
+	dsml_entry: STRING = "entry"
+	dsml_objectclass: STRING = "objectclass"
+	dsml_oc_value: STRING = "oc-value"
+	dsml_attr: STRING = "attr"
+	dsml_value: STRING = "value"
 
 
 feature -- DSML attributes
 
-	dsml_complete: STRING is "complete"
-	dsml_dn: STRING is "dn"
-	dsml_name: STRING is "name"
+	dsml_complete: STRING = "complete"
+	dsml_dn: STRING = "dn"
+	dsml_name: STRING = "name"
 
 
 feature -- DSML name spaces
 
-	dsml_prefix: STRING is "dsml"
+	dsml_prefix: STRING = "dsml"
 
-	dsml_name_space: STRING is "http://www.dsml.org/DSML"
+	dsml_name_space: STRING = "http://www.dsml.org/DSML"
 
 end

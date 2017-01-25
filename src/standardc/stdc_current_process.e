@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers current process related routines."
 	usage: "Just inherit from this class."
@@ -39,7 +39,7 @@ inherit
 
 feature -- Process standard input/output/error
 
-	stdin: STDC_TEXT_FILE is
+	stdin: STDC_TEXT_FILE
 		once
 			create Result.attach_to_stream (stream_stdin, "r")
 		ensure
@@ -47,7 +47,7 @@ feature -- Process standard input/output/error
 			open_read: Result.is_open_read
 		end
 
-	stdout: STDC_TEXT_FILE is
+	stdout: STDC_TEXT_FILE
 		once
 			create Result.attach_to_stream (stream_stdout, "w")
 		ensure
@@ -55,7 +55,7 @@ feature -- Process standard input/output/error
 			open_read: Result.is_open_write
 		end
 
-	stderr: STDC_TEXT_FILE is
+	stderr: STDC_TEXT_FILE
 		once
 			create Result.attach_to_stream (stream_stderr, "w")
 		ensure
@@ -66,7 +66,7 @@ feature -- Process standard input/output/error
 
 feature {NONE} -- Features to exit a program
 
-	abort is
+	abort
 			-- Causes abnormal process termination.
 			-- On many systems, dumps core.
 		do
@@ -76,19 +76,19 @@ feature {NONE} -- Features to exit a program
 		end
 
 
-	exit (a_status: INTEGER) is
+	exit (a_status: INTEGER)
 			-- Terminate this process with exit code `a_status'.
 		do
 			posix_exit (a_status)
 		end
 
-	exit_with_failure is
+	exit_with_failure
 			-- Exit program immediately with OS dependent failure code.
 		do
 			exit (EXIT_FAILURE)
 		end
 
-	exit_with_success is
+	exit_with_success
 			-- Exit program immediately with OS dependent OK code.
 		do
 			exit (EXIT_SUCCESS)
@@ -97,7 +97,7 @@ feature {NONE} -- Features to exit a program
 
 feature -- Various
 
-	clock: INTEGER is
+	clock: INTEGER
 			-- Approximation of processor time used by the program, or -1
 			-- if unknown
 		do
@@ -107,7 +107,7 @@ feature -- Various
 
 feature -- Random numbers
 
-	random: INTEGER is
+	random: INTEGER
 			-- Returns a pseudo-random integer between 0 and `RAND_MAX'.
 		do
 			Result := posix_rand
@@ -115,13 +115,13 @@ feature -- Random numbers
 			random_in_range: random >= 0 and random <= RAND_MAX
 		end
 
-	rand: INTEGER is
+	rand: INTEGER
 		obsolete "use random instead."
 		do
 			Result := random
 		end
 
-	set_random_seed (a_seed: INTEGER) is
+	set_random_seed (a_seed: INTEGER)
 			-- Sets `a_seed' as the seed for a new sequence of
 			-- pseudo-random integers to be returned by `random'. These
 			-- sequences are repeatable by calling `set_random_seed' with
@@ -134,7 +134,7 @@ feature -- Random numbers
 			posix_srand (a_seed)
 		end
 
-	srandom (a_seed: INTEGER) is
+	srandom (a_seed: INTEGER)
 		obsolete "Use set_random_seed instead."
 		do
 			set_random_seed (a_seed)
@@ -143,13 +143,13 @@ feature -- Random numbers
 
 feature -- Global locale
 
-	locale: STRING is
+	locale: STRING
 			-- Current locale
 		do
 			Result := sh.pointer_to_string (posix_setlocale (LC_ALL, default_pointer))
 		end
 
-	numeric_format: STDC_LOCALE_NUMERIC is
+	numeric_format: STDC_LOCALE_NUMERIC
 			-- Various information for formatting numbers and monetary
 			-- quantities
 		once
@@ -158,7 +158,7 @@ feature -- Global locale
 			numeric_format_not_void: Result /= Void
 		end
 
-	set_locale (category: INTEGER; new_locale: STRING) is
+	set_locale (category: INTEGER; new_locale: STRING)
 			-- Set given locale to `new_locale'. `new_locale' is either a
 			-- well-known constant like "C" or "da_DK" or an opaque
 			-- string that was returned by another call of `setlocale'.
@@ -172,20 +172,20 @@ feature -- Global locale
 			end
 		end
 
-	set_c_locale is
+	set_c_locale
 			-- Set locale to the Standard C locale (the default).
 		do
 			set_locale (LC_ALL, "C")
 		end
 
-	set_native_decimal_point is
+	set_native_decimal_point
 			-- Set the decimal point character using the LC_NUMERIC
 			-- environment variable.
 		do
 			set_locale (LC_NUMERIC, "")
 		end
 
-	set_native_locale is
+	set_native_locale
 			-- Set entire locale to the native's setting which is
 			-- determend by environment variables like LC_NUMERIC,
 			-- LC_COLLATE, LC_CTYPE etc.
@@ -193,7 +193,7 @@ feature -- Global locale
 			set_locale (LC_ALL, "")
 		end
 
-	set_native_time is
+	set_native_time
 			-- Set time display to the native's setting using the LC_TIME
 			-- environment variable.
 		do

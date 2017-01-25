@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the POSIX stream code."
 
@@ -24,7 +24,7 @@ feature  -- special makes
 
 	make_from_file_descriptor (
 			a_file_descriptor: ABSTRACT_FILE_DESCRIPTOR;
-			a_mode: STRING) is
+			a_mode: STRING)
 			-- Open a stream from a given file descriptor.
 			-- The stream will become leading so when the file
 			-- descriptor is closed, it will not close, you have to close

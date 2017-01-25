@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows portable implementation of a socket."
 
@@ -33,7 +33,7 @@ create
 
 feature {NONE} -- Abstract API binding
 
-	abstract_getpeername (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER is
+	abstract_getpeername (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER
 			-- Retrieve the name of the peer to which a socket is connected.
 		do
 			assert_winsock_initialized
@@ -43,7 +43,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_getsockname (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER is
+	abstract_getsockname (a_socket: INTEGER; a_address: POINTER; a_address_length: POINTER): INTEGER
 			-- Retrieve the local name for a socket.
 		do
 			assert_winsock_initialized

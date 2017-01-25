@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes a host on the network."
 

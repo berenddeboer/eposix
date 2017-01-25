@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make_default (a_directory_name: STRING) is
+	make_default (a_directory_name: STRING)
 			-- Open directory `a_directory_name'. `a_directory_name' must
 			-- be an existing directory. Cursor is not positioned, use
 			-- `forth' to move the cursor to the first entry.
@@ -35,7 +35,7 @@ feature {NONE} -- Initialization
 			create directory_name.make_from_string (a_directory_name)
 		end
 
-	make (a_directory_name: STRING) is
+	make (a_directory_name: STRING)
 			-- Open directory `a_directory_name'. `a_directory_name' must
 			-- be an existing directory. Cursor is not positioned, use
 			-- `forth' to move the cursor to the first entry.
@@ -58,7 +58,7 @@ feature -- Access
 	item: STRING
 			-- The current entry, i.e. the path name.
 
-	max_filename_length: INTEGER is
+	max_filename_length: INTEGER
 			-- Maximum length of a file in this directory.
 		deferred
 		ensure
@@ -74,7 +74,7 @@ feature -- Status
 
 feature -- Open
 
-	open is
+	open
 			-- Open directory `directory_name'.
 			-- Cursor is not positioned, use `forth' to move the cursor
 			-- to the first entry.
@@ -97,7 +97,7 @@ feature -- Open
 
 feature -- Cursor movement
 
-	forth is
+	forth
 			-- Go to next entry. Set `is_dot' and `is_dotdot'.
 		require
 			not_after: not after
@@ -136,13 +136,13 @@ feature -- Access
 	is_dotdot: BOOLEAN
 			-- If `item' is equal to "..".
 
-	resource_usage_can_be_increased: BOOLEAN is True
+	resource_usage_can_be_increased: BOOLEAN = True
 			-- Can the number of allocated resources increased with `capacity'?
 
 
 feature {NONE} -- Counting of allocated resource
 
-	decrease_resource_count is
+	decrease_resource_count
 			-- Decrease number of allocated resource by `capacity'.
 			-- Due to limitations of certain Eiffel implementations, this
 			-- routine may not call any other object. Calling C code is safe.
@@ -150,13 +150,13 @@ feature {NONE} -- Counting of allocated resource
 			my_resource_count.set_item (my_resource_count.item - 1)
 		end
 
-	increase_resource_count is
+	increase_resource_count
 			-- Increase number of allocated resources by `capacity'.
 		do
 			my_resource_count.set_item (my_resource_count.item + 1)
 		end
 
-	my_resource_count: INTEGER_REF is
+	my_resource_count: INTEGER_REF
 			-- Track opened directory handles.
 			-- Implementation is currently not really safe.
 		once
@@ -165,7 +165,7 @@ feature {NONE} -- Counting of allocated resource
 			my_resource_count_not_void: my_resource_count /= Void
 		end
 
-	resource_count: INTEGER is
+	resource_count: INTEGER
 			-- Currently allocated number of resources. It's a global
 			-- number, counting the `capacity' of all owned resources of
 			-- this type.
@@ -176,7 +176,7 @@ feature {NONE} -- Counting of allocated resource
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in
@@ -191,7 +191,7 @@ feature {NONE} -- Low level handle functions
 			clear_handle
 		end
 
-	frozen unassigned_value: POINTER is
+	frozen unassigned_value: POINTER
 			-- The value that indicates that `handle' is unassigned.
 		do
 			Result := default_pointer
@@ -200,35 +200,35 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Abstract API
 
-	abstract_closedir (a_dirp: POINTER): INTEGER is
+	abstract_closedir (a_dirp: POINTER): INTEGER
 			-- Ends directory read operation
 		require
 			valid_dirp: a_dirp /= default_pointer
 		deferred
 		end
 
-	abstract_opendir (a_dirname: POINTER): POINTER is
+	abstract_opendir (a_dirname: POINTER): POINTER
 			-- Opens a directory
 		require
 			valid_dirp: a_dirname /= default_pointer
 		deferred
 		end
 
-	abstract_readdir (a_dirp: POINTER): POINTER is
+	abstract_readdir (a_dirp: POINTER): POINTER
 			-- Reads a directory
 		require
 			valid_dirp: a_dirp /= default_pointer
 		deferred
 		end
 
-	abstract_rewinddir (a_dirp: POINTER) is
+	abstract_rewinddir (a_dirp: POINTER)
 			-- Reset the readdir pointer.
 		require
 			valid_dirp: a_dirp /= default_pointer
 		deferred
 		end
 
-	abstract_d_name (a_dirent: POINTER): POINTER is
+	abstract_d_name (a_dirent: POINTER): POINTER
 		require
 			valid_dirp: a_dirent /= default_pointer
 		deferred

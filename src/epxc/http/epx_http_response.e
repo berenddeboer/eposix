@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Response codes and reason phrases."
 
@@ -14,7 +14,7 @@ class
 
 feature -- Status
 
-	is_three_digit_response (a_code: INTEGER): BOOLEAN is
+	is_three_digit_response (a_code: INTEGER): BOOLEAN
 			-- Is `a_code' a three digit response code?
 		do
 			Result := a_code >= 100 and a_code <= 999
@@ -25,7 +25,7 @@ feature -- Status
 
 feature -- Reason phrase
 
-	reason_phrase (a_code: INTEGER): STRING is
+	reason_phrase (a_code: INTEGER): STRING
 			-- Give the reason phrase given `a_code'.
 			-- Empty string if there is no reason phrase.
 		require
@@ -40,7 +40,7 @@ feature -- Reason phrase
 			reason_phrase_not_void: Result /= Void
 		end
 
-	reason_phrases: DS_HASH_TABLE [STRING, INTEGER] is
+	reason_phrases: DS_HASH_TABLE [STRING, INTEGER]
 			-- RFC 26116 reason phrases.
 		once
 			create Result.make (128)

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -23,7 +23,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	create_unshared (a_value: INTEGER) is
+	create_unshared (a_value: INTEGER)
 			-- Create an unnamed semaphore with initial value
 			-- `a_value'. The semaphore handle cannot be given to
 			-- processes.
@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	shared: BOOLEAN is
+	shared: BOOLEAN
 			-- Can this semaphore be shared between processes?
 		deferred
 		end

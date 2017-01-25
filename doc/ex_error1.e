@@ -10,14 +10,14 @@ create
 
 feature
 
-   make is
+   make
       local
          fd: POSIX_FILE_DESCRIPTOR
       do
          fd := attempt_create_file
       end
 
-   attempt_create_file: POSIX_FILE_DESCRIPTOR is
+   attempt_create_file: POSIX_FILE_DESCRIPTOR
       local
          attempt: INTEGER
          still_exists: BOOLEAN

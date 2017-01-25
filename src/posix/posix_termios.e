@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix terminal settings."
 
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialize
 
-	make (a_fd: POSIX_FILE_DESCRIPTOR) is
+	make (a_fd: POSIX_FILE_DESCRIPTOR)
 		require
 			file_descriptor_not_void: a_fd /= Void
 			valid_file_descriptor: a_fd.is_attached_to_terminal
@@ -39,25 +39,25 @@ feature {NONE} -- Initialize
 
 feature -- Access, raw individual fields
 
-	iflag: INTEGER is
+	iflag: INTEGER
 			-- Input mode flags
 		do
 			Result := posix_termios_cflag (attr.ptr)
 		end
 
-	oflag: INTEGER is
+	oflag: INTEGER
 			-- output mode flags
 		do
 			Result := posix_termios_cflag (attr.ptr)
 		end
 
-	cflag: INTEGER is
+	cflag: INTEGER
 			-- control mode flags
 		do
 			Result := posix_termios_cflag (attr.ptr)
 		end
 
-	lflag: INTEGER is
+	lflag: INTEGER
 			-- local mode flags
 		do
 			Result := posix_termios_lflag (attr.ptr)
@@ -66,54 +66,54 @@ feature -- Access, raw individual fields
 
 feature -- More friendly settings
 
-	is_input_echoed: BOOLEAN is
+	is_input_echoed: BOOLEAN
 			-- are input characters echoed back to the terminal?
 		do
 			Result := test_bits (lflag, ECHO)
 		end
 
-	is_receiving: BOOLEAN is
+	is_receiving: BOOLEAN
 			-- If false, no characters are received
 		do
 			Result := test_bits (cflag, CREAD)
 		end
 
-	set_echo_input (enable: BOOLEAN) is
+	set_echo_input (enable: BOOLEAN)
 		do
 			posix_set_termios_lflag (attr.ptr, flip_bits (lflag, ECHO, enable))
 		end
 
-	set_echo_new_line (enable: BOOLEAN) is
+	set_echo_new_line (enable: BOOLEAN)
 		do
 			posix_set_termios_lflag (attr.ptr, flip_bits (lflag, ECHONL, enable))
 		end
 
-	set_input_control (enable: BOOLEAN) is
+	set_input_control (enable: BOOLEAN)
 			-- enable start/stop input control
 		do
 			posix_set_termios_iflag (attr.ptr, flip_bits (iflag, IXOFF, enable))
 		end
 
-	set_receive (enable: BOOLEAN) is
+	set_receive (enable: BOOLEAN)
 		do
 			posix_set_termios_cflag (attr.ptr, flip_bits (cflag, CREAD, enable))
 		end
 
 feature -- line control functions
 
-	flush_input is
+	flush_input
 			-- Discards all data that has been received but not read.
 		do
 			safe_call (posix_tcflush (fd.value, TCIFLUSH))
 		end
 
-	drain is
+	drain
 			-- Wait for all output to be transmitted to the terminal.
 		do
 			-- not yet implemented
 		end
 
-	send_break is
+	send_break
 			-- sends a break to the terminal
 		do
 			-- not yet implemented
@@ -122,26 +122,26 @@ feature -- line control functions
 
 feature -- Get/set baudrates as symbols
 
-	input_speed: INTEGER is
+	input_speed: INTEGER
 			-- The terminal input baud rate as symbolic value.
 		do
 			Result := posix_cfgetispeed (attr.ptr)
 		end
 
-	output_speed: INTEGER is
+	output_speed: INTEGER
 			-- The terminal output baud rate as symbolic value.
 		do
 			Result := posix_cfgetospeed (attr.ptr)
 		end
 
-	set_input_speed (new_rate: INTEGER) is
+	set_input_speed (new_rate: INTEGER)
 			-- Set terminal input baud rate, `new_rate' is one of the
 			-- BXXXX constants
 		do
 			safe_call (posix_cfsetispeed (attr.ptr, new_rate))
 		end
 
-	set_output_speed (new_rate: INTEGER) is
+	set_output_speed (new_rate: INTEGER)
 			-- Set terminal output baud rate, `new_rate' is one of the
 			-- BXXXX constants
 		do
@@ -151,7 +151,7 @@ feature -- Get/set baudrates as symbols
 
 feature -- symbol to baud rate conversions
 
-	speed_to_baud_rate (symbol: INTEGER): INTEGER is
+	speed_to_baud_rate (symbol: INTEGER): INTEGER
 			-- Given a baud rate symbol, the real baud rate is returned.
 		do
 			if symbol = B0 then
@@ -200,14 +200,14 @@ feature -- symbol to baud rate conversions
 
 feature -- Apply/refresh state
 
-	apply_now is
+	apply_now
 			-- Change occurs immediately.
 		do
 			safe_call (posix_tcsetattr (fd.value, Tcsanow, attr.ptr))
 			refresh
 		end
 
-	apply_drain is
+	apply_drain
 			-- Change occurs after all output written to `fd' has been
 			-- transmitted. This function should be used when changing
 			-- parameters that affect output.
@@ -216,7 +216,7 @@ feature -- Apply/refresh state
 			refresh
 		end
 
-	apply_flush is
+	apply_flush
 			-- Change occurs after all output written to `fd' has been
 			-- transmitted. All input that has been received but not
 			-- read, is discarded before the change is made.
@@ -225,7 +225,7 @@ feature -- Apply/refresh state
 			refresh
 		end
 
-	refresh is
+	refresh
 			-- Get terminal settings currently in effect.
 		do
 			-- tcdrain here?

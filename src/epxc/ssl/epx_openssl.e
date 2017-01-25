@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that uses the openssl command-line tool to open a generic SSL/TLS connection to a server. It also implements the EPX_TEXT_IO_STREAM, so it can be used as a bidirectional socket instead of a network socket."
 
@@ -31,13 +31,13 @@ create
 
 feature {NONE} -- Initialization.
 
-	make_ssl3 (a_host: STRING; a_port: INTEGER) is
+	make_ssl3 (a_host: STRING; a_port: INTEGER)
 		obsolete "2004-03-13: use make_ssl3_client instead."
 		do
 			make_ssl3_client (a_host, a_port)
 		end
 
-	make_ssl3_client (a_host: STRING; a_port: INTEGER) is
+	make_ssl3_client (a_host: STRING; a_port: INTEGER)
 			-- Use SSLv3 to connect to `a_host' at `a_port'.
 		require
 			host_not_empty: a_host /= Void and then not a_host.is_empty
@@ -54,7 +54,7 @@ feature {NONE} -- Initialization.
 
 feature -- Status
 
-	is_streaming: BOOLEAN is
+	is_streaming: BOOLEAN
 			-- Is data coming through a network stream?
 		do
 			Result := fd_stdout.is_streaming
@@ -66,7 +66,7 @@ feature -- Access
 	host: STRING
 			-- Host to connect to
 
-	name: STRING is
+	name: STRING
 		do
 			Result := host + ":" + port.out
 		end
@@ -77,39 +77,39 @@ feature -- Access
 
 feature -- Reading/writing commands
 
-	close is
+	close
 		do
 			fd_stdin.close
 			fd_stdout.close
 			wait_for (True)
 		end
 
-	flush is
+	flush
 		do
 			fd_stdin.flush
 		end
 
-	put_buffer, write_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER) is
+	put_buffer, write_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
 		do
 			fd_stdin.put_buffer (buf, offset, nbytes)
 		end
 
-	put_character (v: CHARACTER) is
+	put_character (v: CHARACTER)
 		do
 			fd_stdin.put_character (v)
 		end
 
-	put_string (a_string: STRING) is
+	put_string (a_string: STRING)
 		do
 			fd_stdin.put_string (a_string)
 		end
 
-	read is
+	read
 		do
 			fd_stdout.read_character
 		end
 
-	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER) is
+	read_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
 			-- Read data into `buf' at `offset' for `nbytes' bytes.
 			-- Number of bytes actually read are available in `last_read'.
 		do
@@ -121,7 +121,7 @@ feature -- Reading/writing commands
 			end
 		end
 
-	read_character is
+	read_character
 		do
 			fd_stdout.read_character
 			debug ("dump-input")
@@ -131,7 +131,7 @@ feature -- Reading/writing commands
 			end
 		end
 
-	read_line is
+	read_line
 		do
 			fd_stdout.read_line
 			debug ("dump-input")
@@ -141,7 +141,7 @@ feature -- Reading/writing commands
 			end
 		end
 
-	read_new_line is
+	read_new_line
 			-- Read a line separator from input file.
 			-- Make the characters making up the recognized
 			-- line separator available in `last_string',
@@ -152,7 +152,7 @@ feature -- Reading/writing commands
 			fd_stdout.read_new_line
 		end
 
-	read_string (nb: INTEGER) is
+	read_string (nb: INTEGER)
 		do
 			fd_stdout.read_string (nb)
 		end
@@ -160,7 +160,7 @@ feature -- Reading/writing commands
 
 feature {NONE} -- Unreading
 
-	unread_character (an_item: CHARACTER) is
+	unread_character (an_item: CHARACTER)
 		do
 			-- not supported
 		end
@@ -168,17 +168,17 @@ feature {NONE} -- Unreading
 
 feature -- Reading/writing access
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 		do
 			Result := fd_stdout.end_of_input
 		end
 
-	last_character: CHARACTER is
+	last_character: CHARACTER
 		do
 			Result := fd_stdout.last_character
 		end
 
-	last_read: INTEGER is
+	last_read: INTEGER
 			-- Last bytes read by `read_buffer';
 			-- Can be less than requested for non-blocking input.
 			-- Check `last_blocked' in that case.
@@ -186,7 +186,7 @@ feature -- Reading/writing access
 			Result := fd_stdout.last_read
 		end
 
-	last_string: STRING is
+	last_string: STRING
 			-- Last string read;
 			-- (Note: this query always return the same object.
 			-- Therefore a clone should be used if the result
@@ -196,7 +196,7 @@ feature -- Reading/writing access
 			Result := fd_stdout.last_string
 		end
 
-	last_written: INTEGER is
+	last_written: INTEGER
 			-- How many bytes were written by the last call to a routine;
 			-- Can be less than requested for non-blocking output.
 			-- Check `last_blocked' in that case.
@@ -204,27 +204,27 @@ feature -- Reading/writing access
 			Result := fd_stdin.last_written
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 		do
 			Result := not is_terminated
 		end
 
-	is_open_read: BOOLEAN is
+	is_open_read: BOOLEAN
 		do
 			Result := fd_stdout /= Void and then fd_stdout.is_open_read
 		end
 
-	is_open_write: BOOLEAN is
+	is_open_write: BOOLEAN
 		do
 			Result := fd_stdin /= Void and then fd_stdin.is_open_write
 		end
 
-	is_owner: BOOLEAN is True
+	is_owner: BOOLEAN = True
 
 
 feature {NONE} -- Implementation
 
-	openssl: STRING is "openssl"
+	openssl: STRING = "openssl"
 			-- Path to the openssl program
 
 

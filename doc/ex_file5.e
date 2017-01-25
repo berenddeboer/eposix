@@ -6,7 +6,7 @@ create
 
 feature
 
-   make is
+   make
       local
          file: POSIX_BINARY_FILE
          pos1: INTEGER

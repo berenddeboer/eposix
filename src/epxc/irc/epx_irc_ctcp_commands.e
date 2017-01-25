@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,26 +19,26 @@ class
 
 feature -- Known requests
 
-  ctcp_finger: STRING is "FINGER"
+  ctcp_finger: STRING = "FINGER"
 		-- Obsolete
 
-  ctcp_version: STRING is "VERSION"
+  ctcp_version: STRING = "VERSION"
 		-- This is used to get information about the name of the other
 		-- client and the version of it.
 
-  ctcp_time: STRING is "TIME"
+  ctcp_time: STRING = "TIME"
 
 
 feature -- Known extended data
 
-	ctcp_dcc: STRING is "DCC"
+	ctcp_dcc: STRING = "DCC"
 
 
 feature -- DCC specifics
 
-	ctcp_dcc_type_chat: STRING is "CHAT"
-	ctcp_dcc_type_send: STRING is "SEND"
+	ctcp_dcc_type_chat: STRING = "CHAT"
+	ctcp_dcc_type_send: STRING = "SEND"
 
-	ctcp_dcc_chat_argument: STRING is "chat"
+	ctcp_dcc_chat_argument: STRING = "chat"
 
 end

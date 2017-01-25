@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -45,7 +45,7 @@ create
 
 feature -- Access
 
-	status_code: INTEGER is
+	status_code: INTEGER
 			-- Three digit status code if set, else zero
 		local
 			f: EPX_MIME_FIELD_STATUS
@@ -59,7 +59,7 @@ feature -- Access
 
 feature -- Access to well-known fields
 
-	last_modified_field: EPX_MIME_FIELD_LAST_MODIFIED is
+	last_modified_field: EPX_MIME_FIELD_LAST_MODIFIED
 			-- Field `Last_Modified' if it exists, else Void.
 		do
 			fields.search (field_name_last_modified)
@@ -70,7 +70,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_last_modified) = (Result /= Void)
 		end
 
-	location_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	location_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field `Location' if it exists, else Void.
 		do
 			fields.search (field_name_location)
@@ -81,7 +81,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_location) = (Result /= Void)
 		end
 
-	status_field: EPX_MIME_FIELD_STATUS is
+	status_field: EPX_MIME_FIELD_STATUS
 			-- Field `Status' if it exists, else Void.
 		do
 			fields.search (field_name_status)
@@ -96,7 +96,7 @@ feature -- Access to well-known fields
 
 feature -- Change
 
-	set_content_type_application_xml is
+	set_content_type_application_xml
 			-- Set Content-Type to application/xml. Character set is set to
 			-- UTF-8.
 		do
@@ -111,7 +111,7 @@ feature -- Change
 				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
-	set_content_type_text_xml is
+	set_content_type_text_xml
 			-- Set Content-Type to text/xml. Character set is set to
 			-- UTF-8.
 		obsolete
@@ -128,7 +128,7 @@ feature -- Change
 				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
-	set_last_modified (a_dt: STDC_TIME) is
+	set_last_modified (a_dt: STDC_TIME)
 		require
 			dt_not_void: a_dt /= Void
 		local
@@ -143,7 +143,7 @@ feature -- Change
 			end
 		end
 
-	set_location (a_url: STRING) is
+	set_location (a_url: STRING)
 			-- Redirect to `a_url' by emitting a Location header.
 			-- This is used to specify to the server that you are
 			-- returning a reference to a document rather than an actual
@@ -173,7 +173,7 @@ feature -- Change
 			location_set: STRING_.same_string (location_field.value, a_url)
 		end
 
-	set_status (a_status_code: INTEGER; a_reason: STRING) is
+	set_status (a_status_code: INTEGER; a_reason: STRING)
 			-- Set the status code sent back to the client.
 			-- This is used to give the server an HTTP/1.0 status line to
 			-- send to the client. The format is nnn xxxxx, where nnn is

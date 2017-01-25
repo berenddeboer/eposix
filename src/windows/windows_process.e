@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers MS Windows process related routines."
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Signal this process
 
-	Terminate_exit_code: INTEGER is 1
+	Terminate_exit_code: INTEGER = 1
 
 
 end

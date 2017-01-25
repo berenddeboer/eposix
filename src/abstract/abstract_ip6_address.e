@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstract level IPv6 address."
 
@@ -30,7 +30,7 @@ inherit
 
 feature -- Initialization
 
-	make_from_pointer (a_ptr: POINTER) is
+	make_from_pointer (a_ptr: POINTER)
 			-- Initialize ip address from 32-bit integer.
 		do
 			if buf = Void then
@@ -42,7 +42,7 @@ feature -- Initialization
 
 feature -- Comparison
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Is `other' IP4 address equal to this IP address?
 		do
 			Result := posix_memcmp (ptr, other.ptr, address_length) = 0
@@ -51,7 +51,7 @@ feature -- Comparison
 
 feature -- Output
 
-	out: STRING is
+	out: STRING
 			-- Friendly out
 		do
 			Result := sh.pointer_to_string (abstract_api.posix_inet_ntop (address_family, buf.ptr, dest.ptr, dest.capacity))
@@ -61,7 +61,7 @@ feature -- Output
 
 feature -- Status
 
-	is_loopback_address: BOOLEAN is
+	is_loopback_address: BOOLEAN
 			-- Does this IP address refer to the loopback address?
 		do
 			-- @@BdB: Ehh, does this actually work??
@@ -71,23 +71,23 @@ feature -- Status
 
 feature -- General ip address features
 
-	address_length: INTEGER is 16
+	address_length: INTEGER = 16
 			-- Length of an IPv6 address is 16.
 
-	address_family: INTEGER is
+	address_family: INTEGER
 			-- Is it an ip4 or ip6 address.
 		do
 			Result := AF_INET6
 		end
 
-	scope_id: INTEGER is
+	scope_id: INTEGER
 		deferred
 		end
 
 
 feature {NONE} -- Implementation
 
-	dest: STDC_BUFFER is
+	dest: STDC_BUFFER
 		once
 			create Result.allocate (INET6_ADDRSTRLEN)
 		ensure
@@ -95,7 +95,7 @@ feature {NONE} -- Implementation
 			dest_capacity_large_enough: dest.capacity >= INET6_ADDRSTRLEN
 		end
 
-	set_address (a_ptr: POINTER) is
+	set_address (a_ptr: POINTER)
 			-- Set IPv6 address to address pointed to by `a_ptr'.
 		require
 			a_ptr_not_nil: a_ptr /= default_pointer
@@ -103,7 +103,7 @@ feature {NONE} -- Implementation
 			abstract_api.posix_set_in6_addr_s6_addr (buf.ptr, a_ptr)
 		end
 
-	once_in6addr_loopback: STRING is "::1"
+	once_in6addr_loopback: STRING = "::1"
 			-- Loopback address as string.
 
 

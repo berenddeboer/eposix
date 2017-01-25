@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows child processes created by call to CreateProcess."
 

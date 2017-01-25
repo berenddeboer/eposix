@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Body that is stored in a file."
 
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize text body.
 		do
 			file := new_file
@@ -36,7 +36,7 @@ feature {NONE} -- Initialization
 
 feature -- Access to body content
 
-	as_string: STRING is
+	as_string: STRING
 			-- Contents of `file'.
 		local
 			buf: STDC_BUFFER
@@ -66,14 +66,14 @@ feature -- Access to body content
 			-- file_position_at_beginning: file.tell = 0
 		end
 
-	rewind_stream is
+	rewind_stream
 			-- Make sure `stream' starts returning character the
 			-- beginning of the body.
 		do
 			file.rewind
 		end
 
-	stream: EPX_CHARACTER_INPUT_STREAM is
+	stream: EPX_CHARACTER_INPUT_STREAM
 			-- Return a stream to the actual body.
 		do
 			Result := file
@@ -88,7 +88,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	new_file: like file is
+	new_file: like file
 		do
 			create {STDC_TEMPORARY_FILE} Result.make
 		ensure

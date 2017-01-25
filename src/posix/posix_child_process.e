@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers POSIX child process."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Child's pid
 
-	pid: INTEGER is
+	pid: INTEGER
 		do
 			Result := my_pid
 		end
@@ -29,7 +29,7 @@ feature -- Child's pid
 
 feature -- Status
 
-	is_pid_valid: BOOLEAN is
+	is_pid_valid: BOOLEAN
 			-- Is `pid' valid?
 		do
 			Result := my_pid > 0
@@ -38,7 +38,7 @@ feature -- Status
 
 feature -- Actions that parent may execute
 
-	wait_for (suspend: BOOLEAN) is
+	wait_for (suspend: BOOLEAN)
 			-- Wait for this process to terminate. If `suspend' then we
 			-- wait until the information about this process is available,
 			-- else we return immediately.
@@ -70,7 +70,7 @@ feature -- Actions that parent may execute
 			termination_info := stat_loc.peek_integer (0)
 		end
 
-	force_terminate (a_milliseconds: INTEGER) is
+	force_terminate (a_milliseconds: INTEGER)
 			-- Try to terminate child with signal first, if child does
 			-- not terminate within `a_milliseconds' forcibly terminate
 			-- it.
@@ -92,7 +92,7 @@ feature -- Actions that parent may execute
 			terminated: is_terminated
 		end
 
-	wait_for_termination (a_milliseconds: INTEGER) is
+	wait_for_termination (a_milliseconds: INTEGER)
 			-- Wait `a_time' milliseconds for `a_child' to terminate.
 		require
 			a_milliseconds_positive: a_milliseconds > 0
@@ -115,7 +115,7 @@ feature -- Actions that parent may execute
 
 feature -- Signal
 
-	kill (a_signal_code: INTEGER) is
+	kill (a_signal_code: INTEGER)
 			-- Send signal `signal_code' to the process.
 		require
 			valid_pid: is_pid_valid
@@ -125,7 +125,7 @@ feature -- Signal
 			safe_call (posix_kill (pid, a_signal_code))
 		end
 
-	terminate is
+	terminate
 			-- Attempt to gracefully terminate the process.
 		do
 			safe_call (posix_kill (pid, SIGTERM))
@@ -134,7 +134,7 @@ feature -- Signal
 
 feature {POSIX_CURRENT_PROCESS}
 
-	set_pid (a_pid: INTEGER) is
+	set_pid (a_pid: INTEGER)
 			-- Initialize pid as seen by parent just after a fork.
 		do
 			my_pid := a_pid

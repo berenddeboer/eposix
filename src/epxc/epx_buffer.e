@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Standard C linear piece of memory, starting with index 0. Memory is dynamically allocated. Size should be at least 1 byte%
 	%large. 0 size memory is not supported."

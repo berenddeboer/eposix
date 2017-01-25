@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS system class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Tests
 
-	test_various is
+	test_various
 		do
 			assert ("Have host name.", not host_name.is_empty)
 			debug ("test")
@@ -34,7 +34,7 @@ feature -- Tests
 			end
 		end
 
-	test_clock is
+	test_clock
 			-- Test real time clock functions.
 		local
 			time,

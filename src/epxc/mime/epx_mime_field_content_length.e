@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Content-Length"
 
@@ -25,7 +25,7 @@ create
 
 feature -- Initialization
 
-	make (a_length: INTEGER) is
+	make (a_length: INTEGER)
 			-- Initialize Content-Length.
 		require
 			length_not_negative: a_length >= 0
@@ -38,13 +38,13 @@ feature -- Initialization
 
 feature -- Access
 
-	name: STRING is "Content-Length"
+	name: STRING = "Content-Length"
 			-- Authorative name
 
 	length: INTEGER
 			-- Number of bytes in body
 
-	value: STRING is
+	value: STRING
 			-- Value of a field
 		do
 			Result := length.out
@@ -53,7 +53,7 @@ feature -- Access
 
 feature -- Change
 
-	set_length (a_length: INTEGER) is
+	set_length (a_length: INTEGER)
 			-- Set `a_length'.
 		require
 			length_not_negative: a_length >= 0

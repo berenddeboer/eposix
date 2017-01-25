@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a POSIX directory. Main use is to be %
 	%able to loop through a single directory."

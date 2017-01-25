@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Describes NT SECURITY_ATTRIBUTES struct."
 
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialiation
 
-	make is
+	make
 			-- Create default security attribute structure. Handle
 			-- is not inherited and security descriptor is not set.
 		do
@@ -40,12 +40,12 @@ feature {NONE} -- Initialiation
 
 feature -- Access
 
-	inherit_handle: BOOLEAN is
+	inherit_handle: BOOLEAN
 		do
 			Result := posix_security_attributes_binherithandle (ptr)
 		end
 
-	ptr: POINTER is
+	ptr: POINTER
 			-- Pointer to allocated memory block
 		do
 			Result := psa.ptr
@@ -53,7 +53,7 @@ feature -- Access
 			ptr_not_nil: Result /= default_pointer
 		end
 
-	security_descriptor: POINTER is
+	security_descriptor: POINTER
 			-- Security descriptor for an object, coctrolling how it is
 			-- shared.
 		do
@@ -63,14 +63,14 @@ feature -- Access
 
 feature -- Change
 
-	set_inherit_handle (value: BOOLEAN) is
+	set_inherit_handle (value: BOOLEAN)
 		do
 			posix_set_security_attributes_binherithandle (ptr, value)
 		ensure
 			inherit_handle_set: inherit_handle = value
 		end
 
-	set_security_descriptor (a_descriptor: WINDOWS_SECURITY_DESCRIPTOR) is
+	set_security_descriptor (a_descriptor: WINDOWS_SECURITY_DESCRIPTOR)
 		do
 			posix_set_security_attributes_lpsecuritydescriptor (ptr, a_descriptor.ptr)
 		ensure

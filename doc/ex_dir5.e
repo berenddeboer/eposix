@@ -10,7 +10,7 @@ create
    
 feature
 
-   make is
+   make
       do
          rename_to ("qqtest.abc.tmp", "qqtest.xyz.tmp")
          remove_file ("qqtest.xyz.tmp")

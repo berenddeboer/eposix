@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Portable child processes for POSIX."
 
@@ -69,7 +69,7 @@ feature -- Access
 
 feature -- Change
 
-	set_new_uid (a_uid: INTEGER) is
+	set_new_uid (a_uid: INTEGER)
 			-- Set `new_uid'.
 			-- To be executed program will run with `new_uid' privileges. It
 			-- is strongly recommended to use `set_new_gid' to change the
@@ -82,7 +82,7 @@ feature -- Change
 			definition: new_uid = a_uid
 		end
 
-	set_new_gid (a_gid: INTEGER) is
+	set_new_gid (a_gid: INTEGER)
 			-- Set `new_gid'.
 			-- To be executed program will run with `new_gid' privileges.
 		require
@@ -114,7 +114,7 @@ feature -- i/o capturing
 
 feature -- Execution
 
-	execute is
+	execute
 			-- Execute `program_name' with arguments `arguments'. After
 			-- execution, at some point in time, you have to `wait' or
 			-- `wait_for' for this process to terminate.
@@ -255,7 +255,7 @@ feature -- Execution
 
 feature -- Actions that parent may execute
 
-	wait_for (suspend: BOOLEAN) is
+	wait_for (suspend: BOOLEAN)
 			-- Wait for this process to terminate. If `suspend' then we
 			-- wait until the information about this process is available,
 			-- else we return immediately.
@@ -313,7 +313,7 @@ feature -- Actions that parent may execute
 
 feature {NONE}
 
-	do_execute is
+	do_execute
 			-- Actually execute `program_name'.
 		local
 			argv: ARRAY [STRING]
@@ -366,7 +366,7 @@ feature {NONE}
 			handle_execute_failure
 		end
 
-	handle_execute_failure is
+	handle_execute_failure
 			-- Attempt to clean up and make a graceful exit.
 		do
 			-- not sure if creating stuff is a good idea here

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for simple CGI programs. Outputs XHTML."
 
@@ -48,7 +48,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialise, but handle any exceptions during execution in
 			-- a more browser friendly way.
 		do
@@ -57,7 +57,7 @@ feature {NONE} -- Initialization
 			handle_fatal_error
 		end
 
-	make_no_rescue is
+	make_no_rescue
 			-- Initialise without rescue clause so SmartEiffel prints the
 			-- correct stack when the exception occurs.
 		do
@@ -110,7 +110,7 @@ feature {NONE} -- Initialization
 
 feature -- Output
 
-	execute is
+	execute
 			-- Execute the CGI action by emiting a valid MIME header and
 			-- an optional body.
 			-- Header and/or body text can be accumulated in
@@ -128,7 +128,7 @@ feature -- Output
 
 feature -- Error handling
 
-	error_unauthorized is
+	error_unauthorized
 			-- Signal authorization error to client.
 		do
 			-- Sometimes parameter checking takes place in
@@ -144,7 +144,7 @@ feature -- Error handling
 			header_written: is_http_header_written
 		end
 
-	error_invalid_method is
+	error_invalid_method
 			-- Signal invalid method to client.
 		do
 			status (405, "Method " + request_method + " Not Allowed")
@@ -156,7 +156,7 @@ feature -- Error handling
 
 feature {NONE} -- When script fails
 
-	handle_fatal_error is
+	handle_fatal_error
 			-- Your last change to emit something when the script has
 			-- failed unexpectedly. Call only in rescue clause.
 		require
@@ -186,7 +186,7 @@ feature {NONE} -- When script fails
 
 feature -- Debug support
 
-	dump_input is
+	dump_input
 			-- Write cgi input to $TMPDIR/cgi_input.
 			-- First line contains the content header, is not actually in input!
 		local
@@ -217,14 +217,14 @@ feature -- Debug support
 
 feature -- Status
 
-	is_authorized: BOOLEAN is
+	is_authorized: BOOLEAN
 			-- May `request_method' be applied this resource?
 			-- This method may implement any kind of authentication.
 		do
 			Result := True
 		end
 
-	is_delete_method: BOOLEAN is
+	is_delete_method: BOOLEAN
 			-- Is `request_method' equal to "DELETE"?
 		do
 			Result :=
@@ -232,19 +232,19 @@ feature -- Status
 				has_key (once_remapped_delete_method)
 		end
 
-	is_get_method: BOOLEAN is
+	is_get_method: BOOLEAN
 			-- Is `request_method' equal to "GET"?
 		do
 			Result := request_method.is_equal (http_method_GET)
 		end
 
-	is_head_method: BOOLEAN is
+	is_head_method: BOOLEAN
 			-- Is `request_method' equal to "GET"?
 		do
 			Result := request_method.is_equal (http_method_HEAD)
 		end
 
-	is_post_method: BOOLEAN is
+	is_post_method: BOOLEAN
 			-- Is `request_method' equal to "POST"?
 		do
 			Result :=
@@ -252,7 +252,7 @@ feature -- Status
 				not (has_key (once_remapped_put_method) or else has_key (once_remapped_delete_method))
 		end
 
-	is_put_method: BOOLEAN is
+	is_put_method: BOOLEAN
 			-- Is `request_method' equal to "PUT"?
 		do
 			Result :=
@@ -265,13 +265,13 @@ feature -- Status
 			-- Such an action cannot be undone, and no more headers can
 			-- be written.
 
-	is_valid_key (a_key: STRING): BOOLEAN is
+	is_valid_key (a_key: STRING): BOOLEAN
 			-- Is `a_key' a valid key for `value' or `raw_value'?
 		do
 			Result := a_key /= Void and then not a_key.is_empty
 		end
 
-	is_valid_request_method: BOOLEAN is
+	is_valid_request_method: BOOLEAN
 			-- Is `request_method' valid for this CGI?
 		do
 			Result := True
@@ -286,19 +286,19 @@ feature -- Access
 
 feature -- Standard CGI variables
 
-	auth_type: STRING is
+	auth_type: STRING
 			-- Type of authentication used
 		do
 			Result := env_auth_type.value
 		end
 
-	content_type: STRING is
+	content_type: STRING
 			-- MIME type of data when invoked with POST method
 		do
 			Result := env_content_type.value
 		end
 
-	content_length: INTEGER is
+	content_length: INTEGER
 			-- Length, in bytes, of data when invoked with POST method
 		do
 			if env_content_length.value.is_empty then
@@ -308,19 +308,19 @@ feature -- Standard CGI variables
 			end
 		end
 
-	gateway_interface: STRING is
+	gateway_interface: STRING
 			-- Name and version of the gateway, for example CGI/1.1
 		do
 			Result := env_gateway_interface.value
 		end
 
-	http_accept: STRING is
+	http_accept: STRING
 			-- Contents of the Accept header line sent by the client
 		do
 			Result := env_http_accept.value
 		end
 
-	http_cookie: STRING is
+	http_cookie: STRING
 			-- All cookies sent by the client in the form of key=value,
 			-- semi-colon separated
 		do
@@ -329,26 +329,26 @@ feature -- Standard CGI variables
 			http_cookie_not_void: Result /= Void
 		end
 
-	http_referer: STRING is
+	http_referer: STRING
 			-- Contents of the Referer header line
 		do
 			Result := env_http_referer.value
 		end
 
-	http_user_agent: STRING is
+	http_user_agent: STRING
 			-- Name of the client program that is making the request
 		do
 			Result := env_http_user_agent.value
 		end
 
-	path_info: STRING is
+	path_info: STRING
 			-- Extra path information as it was passed to the server in
 			-- the query URL
 		do
 			Result := env_path_info.value
 		end
 
-	path_translated: STRING is
+	path_translated: STRING
 			-- Extra path information translated to a final, usable
 			-- form; the Web document root is prepended to the query
 			-- path, and any other path translations are executed.
@@ -356,7 +356,7 @@ feature -- Standard CGI variables
 			Result := env_path_translated.value
 		end
 
-	query_string: STRING is
+	query_string: STRING
 			-- The input when invoked with the GET method
 		do
 			Result := env_query_string.value
@@ -364,31 +364,31 @@ feature -- Standard CGI variables
 			query_string_not_void: Result /= Void
 		end
 
-	remote_addr: STRING is
+	remote_addr: STRING
 		obsolete "Use `remote_address' instead"
 		do
 			Result := remote_address
 		end
 
-	remote_address: STRING is
+	remote_address: STRING
 			-- IP address of the client that made the request
 		do
 			Result := env_remote_addr.value
 		end
 
-	remote_host: STRING is
+	remote_host: STRING
 			-- Name of the remote computer that made the request
 		do
 			Result := env_remote_host.value
 		end
 
-	remote_ident: STRING is
+	remote_ident: STRING
 			-- User name as given by the ident protocol
 		do
 			Result := env_remote_ident.value
 		end
 
-	remote_user: STRING is
+	remote_user: STRING
 			-- Name of the remote user, if any, that made the request
 		once
 			Result := env_remote_user.value
@@ -396,13 +396,13 @@ feature -- Standard CGI variables
 			not_void: Result /= Void
 		end
 
-	request_method: STRING is
+	request_method: STRING
 			-- Name of the method used to invoke the CGI application
 		do
 			Result := env_request_method.value
 		end
 
-	remapped_request_method: STRING is
+	remapped_request_method: STRING
 			-- As `request_method' but if method remapping is enabled,
 			-- return the remapped method
 		do
@@ -419,19 +419,19 @@ feature -- Standard CGI variables
 			end
 		end
 
-	script_name: STRING is
+	script_name: STRING
 			-- Name of script that was invoked
 		do
 			Result := env_script_name.value
 		end
 
-	server_name: STRING is
+	server_name: STRING
 			-- Domain name of the computer that is running the server software
 		do
 			Result := env_server_name.value
 		end
 
-	server_port: INTEGER is
+	server_port: INTEGER
 			-- TCP port number on which the server that invoked the CGI
 			-- application is operating
 		local
@@ -445,7 +445,7 @@ feature -- Standard CGI variables
 			end
 		end
 
-	server_protocol: STRING is
+	server_protocol: STRING
 			-- Name of the protocol that the server is using and the
 			-- version of that protocol. The protocol name and version
 			-- are separated by a forward slash with no spaces, for
@@ -454,7 +454,7 @@ feature -- Standard CGI variables
 			Result := env_server_protocol.value
 		end
 
-	server_software: STRING is
+	server_software: STRING
 			-- Name of the server that is handling the request
 		do
 			Result := env_server_software.value
@@ -463,109 +463,109 @@ feature -- Standard CGI variables
 
 feature {NONE} -- CGI environment variables
 
-	env_auth_type: STDC_ENV_VAR is
+	env_auth_type: STDC_ENV_VAR
 		once
 			create Result.make ("AUTH_TYPE")
 		end
 
-	env_content_length: STDC_ENV_VAR is
+	env_content_length: STDC_ENV_VAR
 		once
 			create Result.make ("CONTENT_LENGTH")
 		end
 
-	env_content_type: STDC_ENV_VAR is
+	env_content_type: STDC_ENV_VAR
 		once
 			create Result.make ("CONTENT_TYPE")
 		end
 
-	env_gateway_interface: STDC_ENV_VAR is
+	env_gateway_interface: STDC_ENV_VAR
 		once
 			create Result.make ("GATEWAY_INTERFACE")
 		end
 
-	env_http_accept: STDC_ENV_VAR is
+	env_http_accept: STDC_ENV_VAR
 		once
 			create Result.make ("HTTP_ACCEPT")
 		end
 
-	env_http_cookie: STDC_ENV_VAR is
+	env_http_cookie: STDC_ENV_VAR
 		once
 			create Result.make ("HTTP_COOKIE")
 		ensure
 			env_http_cookie_not_void: Result /= Void
 		end
 
-	env_http_referer: STDC_ENV_VAR is
+	env_http_referer: STDC_ENV_VAR
 		once
 			create Result.make ("HTTP_REFERER")
 		end
 
-	env_http_user_agent: STDC_ENV_VAR is
+	env_http_user_agent: STDC_ENV_VAR
 		once
 			create Result.make ("HTTP_USER_AGENT")
 		end
 
-	env_path_info: STDC_ENV_VAR is
+	env_path_info: STDC_ENV_VAR
 		once
 			create Result.make ("PATH_INFO")
 		end
 
-	env_path_translated: STDC_ENV_VAR is
+	env_path_translated: STDC_ENV_VAR
 		once
 			create Result.make ("PATH_TRANSLATED")
 		end
 
-	env_query_string: STDC_ENV_VAR is
+	env_query_string: STDC_ENV_VAR
 		once
 			create Result.make ("QUERY_STRING")
 		end
 
-	env_remote_addr: STDC_ENV_VAR is
+	env_remote_addr: STDC_ENV_VAR
 		once
 			create Result.make ("REMOTE_ADDR")
 		end
 
-	env_remote_host: STDC_ENV_VAR is
+	env_remote_host: STDC_ENV_VAR
 		once
 			create Result.make ("REMOTE_HOST")
 		end
 
-	env_remote_user: STDC_ENV_VAR is
+	env_remote_user: STDC_ENV_VAR
 		once
 			create Result.make ("REMOTE_USER")
 		end
 
-	env_remote_ident: STDC_ENV_VAR is
+	env_remote_ident: STDC_ENV_VAR
 		once
 			create Result.make ("REMOTE_IDENT")
 		end
 
-	env_request_method: STDC_ENV_VAR is
+	env_request_method: STDC_ENV_VAR
 		once
 			create Result.make ("REQUEST_METHOD")
 		end
 
-	env_script_name: STDC_ENV_VAR is
+	env_script_name: STDC_ENV_VAR
 		once
 			create Result.make ("SCRIPT_NAME")
 		end
 
-	env_server_name: STDC_ENV_VAR is
+	env_server_name: STDC_ENV_VAR
 		once
 			create Result.make ("SERVER_NAME")
 		end
 
-	env_server_port: STDC_ENV_VAR is
+	env_server_port: STDC_ENV_VAR
 		once
 			create Result.make ("SERVER_PORT")
 		end
 
-	env_server_protocol: STDC_ENV_VAR is
+	env_server_protocol: STDC_ENV_VAR
 		once
 			create Result.make ("SERVER_PROTOCOL")
 		end
 
-	env_server_software: STDC_ENV_VAR is
+	env_server_software: STDC_ENV_VAR
 		once
 			create Result.make ("SERVER_SOFTWARE")
 		end
@@ -573,7 +573,7 @@ feature {NONE} -- CGI environment variables
 
 feature -- HTTP headers
 
-	if_match: STRING is
+	if_match: STRING
 			-- The contents of the If-Match header if set or if
 			-- made available by the server;
 			-- Void otherwise
@@ -587,7 +587,7 @@ feature -- HTTP headers
 			end
 		end
 
-	if_none_match: STRING is
+	if_none_match: STRING
 			-- The contents of the If-None-Match header if set or if
 			-- made available by the server;
 			-- Void otherwise
@@ -601,7 +601,7 @@ feature -- HTTP headers
 			end
 		end
 
-	if_modified_since: STDC_TIME is
+	if_modified_since: STDC_TIME
 			-- The contents of the If-Modified-Since header if set or if
 			-- made available by the server;
 			-- Void otherwise
@@ -627,7 +627,7 @@ feature -- HTTP headers
 
 feature -- CGI headers
 
-	content_text_html is
+	content_text_html
 			-- Write Content-Type: text/html to stdout.
 			-- Clients will guess the charset, so it's better to use the
 			-- explicit `context_text_html_utf8' function.
@@ -638,7 +638,7 @@ feature -- CGI headers
 			header_written: is_http_header_written
 		end
 
-	content_text_html_utf8 is
+	content_text_html_utf8
 			-- Write Content-Type: text/html with explicit character ste
 			-- UTF-8 to stdout.
 			-- Use this when emitting UTF-8.
@@ -649,7 +649,7 @@ feature -- CGI headers
 			header_written: is_http_header_written
 		end
 
-	content_text_plain is
+	content_text_plain
 			-- Write Content-Type: text/plain to stdout.
 		do
 			stdout.put_string ("Content-Type: text/plain%N")
@@ -658,7 +658,7 @@ feature -- CGI headers
 			header_written: is_http_header_written
 		end
 
-	finish_header is
+	finish_header
 			-- Finish the header by emitting an empty line.
 			-- If `cookies' have been set, they are written as well.
 		require
@@ -707,7 +707,7 @@ feature -- CGI headers
 			header_written: is_http_header_written
 		end
 
-	location (a_url: STRING) is
+	location (a_url: STRING)
 			-- Redirect to `a_url' by emitting a Location header.
 			-- This is used to specify to the server that you are
 			-- returning a reference to a document rather than an actual
@@ -736,7 +736,7 @@ feature -- CGI headers
 			header_written: is_http_header_written
 		end
 
-	status (a_status_code: INTEGER; a_reason: STRING) is
+	status (a_status_code: INTEGER; a_reason: STRING)
 			-- Set the status code sent back to the client.
 			-- This is used to give the server an HTTP/1.0 status line to
 			-- send to the client. The format is nnn xxxxx, where nnn is
@@ -752,7 +752,7 @@ feature -- CGI headers
 
 feature -- Cookies
 
-	cookies: DS_HASH_TABLE [EPX_HTTP_COOKIE, STRING] is
+	cookies: DS_HASH_TABLE [EPX_HTTP_COOKIE, STRING]
 			-- Cookies that will be returned to the browser
 		once
 			create Result.make (4)
@@ -760,7 +760,7 @@ feature -- Cookies
 			cookies_not_void: cookies /= Void
 		end
 
-	set_cookie (a_cookie: EPX_HTTP_COOKIE) is
+	set_cookie (a_cookie: EPX_HTTP_COOKIE)
 			-- Add a new cookie that will be send to the browser then
 			-- `context_text_html' is called.
 		require
@@ -775,7 +775,7 @@ feature -- Cookies
 
 feature -- Server push, multipart header
 
-	content_multipart_x_mixed_replace (boundary: STRING) is
+	content_multipart_x_mixed_replace (boundary: STRING)
 			-- Initiate server push.
 		require
 			valid_boundary: boundary /= Void and then not boundary.is_empty
@@ -790,7 +790,7 @@ feature -- Server push, multipart header
 			stdout.flush
 		end
 
-	content_next_part is
+	content_next_part
 			-- Write boundary so next part of multipart msg can be written.
 		require
 			multipart: is_multipart_message
@@ -801,7 +801,7 @@ feature -- Server push, multipart header
 			stdout.flush
 		end
 
-	content_multipart_end is
+	content_multipart_end
 			-- Write boundary of multipart.
 		require
 			multipart: is_multipart_message
@@ -812,7 +812,7 @@ feature -- Server push, multipart header
 			stdout.flush
 		end
 
-	is_multipart_message: BOOLEAN is
+	is_multipart_message: BOOLEAN
 			-- Are we writing server push, multipart output?
 		do
 			Result := my_boundary /= Void
@@ -821,13 +821,13 @@ feature -- Server push, multipart header
 
 feature -- Form input
 
-	has_input: BOOLEAN is
+	has_input: BOOLEAN
 			-- Is input passed to cgi program?
 		do
 			Result := not request_method.is_empty
 		end
 
-	has_key (a_key: STRING): BOOLEAN is
+	has_key (a_key: STRING): BOOLEAN
 			-- Is `a_key' passed as parameter/form-data?
 		require
 			key_valid: is_valid_key (a_key)
@@ -838,7 +838,7 @@ feature -- Form input
 			definition: Result = cgi_data.has (a_key)
 		end
 
-	is_meta_char (c: CHARACTER): BOOLEAN is
+	is_meta_char (c: CHARACTER): BOOLEAN
 			-- Is `c' a commonly used meta character?
 		do
 			Result :=
@@ -846,7 +846,7 @@ feature -- Form input
 				meta_chars.has (c)
 		end
 
-	meta_chars: STRING is
+	meta_chars: STRING
 			-- Commonly used meta characters.
 		once
 			-- BdB: Check if this list is complete...
@@ -855,7 +855,7 @@ feature -- Form input
 			meta_chars_not_empty: meta_chars /= Void and then not meta_chars.is_empty
 		end
 
-	new_key_value_cursor (a_key_re, a_value_re: RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH): EPX_CGI_KEY_VALUE_CURSOR is
+	new_key_value_cursor (a_key_re, a_value_re: RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH): EPX_CGI_KEY_VALUE_CURSOR
 			-- New cursor to iterate over all keys, optionally including
 			-- those keys and/or values that match `a_key_re' and
 			-- `a_value_re;
@@ -870,7 +870,7 @@ feature -- Form input
 			cursor_returned: Result /= Void
 		end
 
-	raw_value (a_key: STRING): STRING is
+	raw_value (a_key: STRING): STRING
 			-- Returns value for key.
 			-- if key does not exist, the empty string is returned.
 		require
@@ -886,7 +886,7 @@ feature -- Form input
 			raw_value_not_void: Result /= Void
 		end
 
-	remove_meta_chars (s: STRING) is
+	remove_meta_chars (s: STRING)
 			-- If `s' contains meta characters, they're removed.
 		require
 			s_not_void: s /= Void
@@ -906,7 +906,7 @@ feature -- Form input
 			end
 		end
 
-	value (a_key: STRING): STRING is
+	value (a_key: STRING): STRING
 			-- As `raw_value' but meta characters are removed
 		require
 			key_valid: is_valid_key (a_key)
@@ -920,7 +920,7 @@ feature -- Form input
 
 feature {NONE} -- Cached key/value
 
-	assert_key_value_pairs_created is
+	assert_key_value_pairs_created
 			-- Make sure any parameters or form contents passed by the
 			-- web server is parsed.
 			-- This feature is normally called when needed, but in case
@@ -967,7 +967,7 @@ feature {NONE} -- Cached key/value
 	cgi_input: STRING
 			-- Raw input data.
 
-	fill_key_value_pairs is
+	fill_key_value_pairs
 			-- Fill `cgi_data', recognizes default and multipart encodings.
 		require
 			key_value_pair_not_set: cgi_data = Void
@@ -997,7 +997,7 @@ feature {NONE} -- Cached key/value
 	found_key_item: EPX_KEY_VALUE
 			-- Item found by `search_key'.
 
-	search_key (key: STRING) is
+	search_key (key: STRING)
 			-- Locate key in key/value pairs.
 			-- Sets `found_key' if found.
 		require
@@ -1016,7 +1016,7 @@ feature {NONE} -- Cached key/value
 			found_implies_item: found_key = (found_key_item /= Void)
 		end
 
-	set_cgi_input is
+	set_cgi_input
 			-- Set `cgi_input'. When method is not GET, the variable
 			-- Content-Length must be specified.
 		local
@@ -1054,7 +1054,7 @@ feature {NONE} -- Cached key/value
 			end
 		end
 
-	is_request_body_in_stdin: BOOLEAN is
+	is_request_body_in_stdin: BOOLEAN
 			-- Is request data available via stdin?
 		do
 			Result :=
@@ -1065,7 +1065,7 @@ feature {NONE} -- Cached key/value
 
 feature {NONE} -- Standard or multipart key/value filling
 
-	fill_key_value_pairs_from_multipart_encoding is
+	fill_key_value_pairs_from_multipart_encoding
 			-- Posted data.
 		local
 			parser: EPX_MIME_PARSER
@@ -1092,7 +1092,7 @@ feature {NONE} -- Standard or multipart key/value filling
 			cgi_data_not_void: cgi_data /= Void
 		end
 
-	fill_key_value_pairs_from_standard_encoding is
+	fill_key_value_pairs_from_standard_encoding
 			-- Read query values from url request.
 		do
 			set_cgi_input
@@ -1103,7 +1103,7 @@ feature {NONE} -- Standard or multipart key/value filling
 			cgi_data_not_void: cgi_data /= Void
 		end
 
-	add_new_key_value_pairs_from_query_string is
+	add_new_key_value_pairs_from_query_string
 			-- Add those key/value pairs from query string that do not
 			-- yet exist.
 		require
@@ -1124,7 +1124,7 @@ feature {NONE} -- Standard or multipart key/value filling
 			end
 		end
 
-	mime_header: STRING is
+	mime_header: STRING
 			-- Suitable MIME header for POST data
 		local
 			fixed_content_type: STRING
@@ -1174,7 +1174,7 @@ feature {NONE} -- Standard or multipart key/value filling
 			result_not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	new_parser (an_input: STDC_TEXT_FILE): EPX_MIME_PARSER is
+	new_parser (an_input: STDC_TEXT_FILE): EPX_MIME_PARSER
 			-- A new MIME parser
 		require
 			input_not_void: an_input /= Void
@@ -1188,7 +1188,7 @@ feature {NONE} -- Standard or multipart key/value filling
 
 feature {NONE} -- Implementation
 
-	file_system: EPX_FILE_SYSTEM is
+	file_system: EPX_FILE_SYSTEM
 			-- Access to file system routines
 		once
 			create Result
@@ -1200,7 +1200,7 @@ feature {NONE} -- Implementation
 			-- Used for server push, multipart header.
 
 
-	url_encoder: EPX_URL_ENCODING is
+	url_encoder: EPX_URL_ENCODING
 			-- Decoding of encoded passed values
 		once
 			create Result
@@ -1211,8 +1211,8 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
-	once_remapped_delete_method: STRING is "http-method:DELETE"
-	once_remapped_put_method: STRING is "http-method:PUT"
+	once_remapped_delete_method: STRING = "http-method:DELETE"
+	once_remapped_put_method: STRING = "http-method:PUT"
 
 
 end

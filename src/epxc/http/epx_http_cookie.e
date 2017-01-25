@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "HTTP Cookies."
 
@@ -63,7 +63,7 @@ feature -- Access
 
 feature -- Change state
 
-	set_domain (a_domain: STRING) is
+	set_domain (a_domain: STRING)
 			-- Set `domain'.
 		require
 			domain_is_void_or_not_empty: a_domain = Void or else not a_domain.is_empty
@@ -71,7 +71,7 @@ feature -- Change state
 			domain := a_domain
 		end
 
-	set_expires (a_expires: STDC_TIME) is
+	set_expires (a_expires: STDC_TIME)
 			-- Set `expires'.
 		require
 			gmt_time_only: a_expires = Void or else a_expires.is_utc_time
@@ -79,7 +79,7 @@ feature -- Change state
 			expires := a_expires
 		end
 
-	set_path (a_path: STRING) is
+	set_path (a_path: STRING)
 			-- Set `path'.
 		require
 			path_is_void_or_not_empty: a_path = Void or else not a_path.is_empty
@@ -87,7 +87,7 @@ feature -- Change state
 			path := a_path
 		end
 
-	set_secure (a_secure: BOOLEAN) is
+	set_secure (a_secure: BOOLEAN)
 			-- Set `secure'.
 		do
 			secure := a_secure

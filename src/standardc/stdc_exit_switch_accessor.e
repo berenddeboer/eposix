@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that makes the singleton STDC_EXIT_SWITCH available."
 
@@ -15,7 +15,7 @@ class
 
 feature -- the singleton
 
-	exit_switch: STDC_EXIT_SWITCH is
+	exit_switch: STDC_EXIT_SWITCH
 			-- singleton entry point for all eposix exit handlers
 		once
 			create Result.make
@@ -26,7 +26,7 @@ feature -- the singleton
 
 feature {NONE} -- private test
 
-	exit_switch_is_real_singleton: BOOLEAN is
+	exit_switch_is_real_singleton: BOOLEAN
 			-- Do multiple calls to `singleton' return the same result?
 		do
 			Result := exit_switch = exit_switch

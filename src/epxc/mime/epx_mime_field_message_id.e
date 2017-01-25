@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Message-Id"
 
@@ -43,7 +43,7 @@ create
 
 feature -- Initialization
 
-	make (a_address_specification: STRING) is
+	make (a_address_specification: STRING)
 			-- Set Message-Id to `a_address_specification'.
 		require
 			address_specification_not_empty:
@@ -53,7 +53,7 @@ feature -- Initialization
 			address_specification := a_address_specification
 		end
 
-	make_unique is
+	make_unique
 			-- Attempt to create a unique Message-Id.
 		do
 			-- The unix time and host name guarantee we can create one
@@ -79,7 +79,7 @@ feature -- Initialization
 
 feature -- Access
 
-	name: STRING is "Message-Id"
+	name: STRING = "Message-Id"
 
 	address_specification: STRING
 			-- Unique Message-Id
@@ -87,7 +87,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	counter: INTEGER_REF is
+	counter: INTEGER_REF
 			-- Continually incrementing counter which helps to create a
 			-- unique Message-Id.
 		once
@@ -96,7 +96,7 @@ feature {NONE} -- Implementation
 			counter_not_void: Result /= Void
 		end
 
-	max_counter_value: INTEGER is
+	max_counter_value: INTEGER
 			-- Maximum value for `counter' before it should wrap around
 		do
 			Result := Platform.Maximum_integer

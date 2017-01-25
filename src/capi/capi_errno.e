@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C errno.h."
 
@@ -13,17 +13,17 @@ class
 
 feature -- Standard C api calls
 
-	posix_clear_errno is
+	posix_clear_errno
 			-- reset `errno'
 		external "C"
 		end
 
-	posix_errno: INTEGER is
+	posix_errno: INTEGER
 			-- POSIX errno
 		external "C"
 		end
 
-	posix_set_errno (new_value: INTEGER) is
+	posix_set_errno (new_value: INTEGER)
 			-- set `errno' to `new_value'
 		external "C"
 		end

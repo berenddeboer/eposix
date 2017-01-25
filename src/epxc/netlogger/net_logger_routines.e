@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,7 +19,7 @@ class
 
 feature -- Status
 
-	is_valid_value (a_value: READABLE_STRING_8): BOOLEAN is
+	is_valid_value (a_value: READABLE_STRING_8): BOOLEAN
 			-- Is `a_value' valid according to the NetLogger spec?
 			-- Should not contain the null or newline character.
 		local
@@ -45,7 +45,7 @@ feature -- Status
 			no_new_line: Result implies a_value = Void or else not a_value.has ('%N')
 		end
 
-	is_valid_name (a_field_name: READABLE_STRING_8): BOOLEAN is
+	is_valid_name (a_field_name: READABLE_STRING_8): BOOLEAN
 			-- Is `a_field_name' is valid according to NetLogger spec?
 			-- Basically it should consist of one or more letters and have
 			-- no spaces.
@@ -91,7 +91,7 @@ feature {NONE} -- Implementation
 
 	FN_Start,
 	FN_Next,
-	FN_Dot: INTEGER is UNIQUE
+	FN_Dot: INTEGER = UNIQUE
 
 
 end

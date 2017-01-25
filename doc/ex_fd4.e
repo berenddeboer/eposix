@@ -6,7 +6,7 @@ create
    
 feature
 
-   make is
+   make
       local
          some_lock,
          lock: POSIX_LOCK

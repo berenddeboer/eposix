@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -32,7 +32,7 @@ inherit
 
 feature -- Close and open
 
-	close is
+	close
 			-- Close connection to server.
 		do
 			precursor
@@ -44,7 +44,7 @@ feature -- Close and open
 
 feature -- Reading and writing
 
-	read_reply is
+	read_reply
 			-- Read input from server and parse it into its components.
 		require
 			open: is_open
@@ -89,7 +89,7 @@ feature -- Access
 
 feature -- Status
 
-	is_accepting_commands: BOOLEAN is
+	is_accepting_commands: BOOLEAN
 			-- Is the server in a state to accept any kind of command?
 		do
 			Result :=
@@ -100,7 +100,7 @@ feature -- Status
 
 feature {NONE} -- Low level protocol reading and writing
 
-	async_put_command (a_command, a_parameter: STRING) is
+	async_put_command (a_command, a_parameter: STRING)
 			-- Send `a_command' and optional `a_parameter' to server.
 			-- Do not wait for reply.
 		require
@@ -129,7 +129,7 @@ feature {NONE} -- Low level protocol reading and writing
 			socket.put_string (cmd)
 		end
 
-	put_command (a_command, a_parameter: STRING) is
+	put_command (a_command, a_parameter: STRING)
 			-- Send `a_command' and optional `a_parameter' to server.
 			-- Wait for reply.
 		require
@@ -140,7 +140,7 @@ feature {NONE} -- Low level protocol reading and writing
 			read_reply
 		end
 
-	read_until_server_ready_for_input is
+	read_until_server_ready_for_input
 			-- Read until server sends a 220.
 		require
 			open: is_open

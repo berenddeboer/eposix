@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C time class."
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Time tests
 
-	test_various is
+	test_various
 		local
 			time1,
 			time2,
@@ -71,7 +71,7 @@ feature -- Time tests
 
 		end
 
-	test_utc_make is
+	test_utc_make
 		local
 			time: STDC_TIME
 		do
@@ -91,7 +91,7 @@ feature -- Time tests
 			end
 		end
 
-	test_valid_time is
+	test_valid_time
 		local
 			time: STDC_TIME
 			a, b: INTEGER
@@ -107,7 +107,7 @@ feature -- Time tests
 
 feature {NONE} -- Implementation
 
-	print_time (time: STDC_TIME) is
+	print_time (time: STDC_TIME)
 		do
 			print ("Seconds since January 1, 1970 (1980?): ")
 			print (time.value)

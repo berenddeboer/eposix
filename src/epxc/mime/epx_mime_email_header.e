@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "EPX_MIME_HEADER with convenience routines for creating an email."
 
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make_default is
+	make_default
 		local
 			now: STDC_TIME
 			version: EPX_MIME_FIELD_MIME_VERSION
@@ -48,7 +48,7 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	is_valid_email_address (an_email_address: STRING): BOOLEAN is
+	is_valid_email_address (an_email_address: STRING): BOOLEAN
 			-- Is `an_email_address' a valid email address?
 		do
 			-- TODO: not complete
@@ -58,7 +58,7 @@ feature -- Status
 
 feature -- Access
 
-	date: STRING is
+	date: STRING
 			-- Contents of Date field
 		do
 			Result := date_field.value
@@ -66,7 +66,7 @@ feature -- Access
 			date_not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	message_id: STRING is
+	message_id: STRING
 			-- Contents of Message-Id field;
 			-- Contaains a single unique message identifier.
 		do
@@ -75,7 +75,7 @@ feature -- Access
 			message_id_not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	reply_to: STRING is
+	reply_to: STRING
 			-- Contents of Reply-to field;
 			-- Contains the mailbox(es) to which the author of the
 			-- message suggests that replies be sent.
@@ -87,7 +87,7 @@ feature -- Access
 			reply_to_not_void: Result /= Void
 		end
 
-	from_: STRING is
+	from_: STRING
 			-- Contents of From field;
 			-- Contains the author(s) of the message, that is, the
 			-- mailbox(es) of the person(s) or system(s) responsible for
@@ -100,7 +100,7 @@ feature -- Access
 			from_not_void: Result /= Void
 		end
 
-	subject: STRING is
+	subject: STRING
 			-- Contents of Subject field
 		require
 			has_subject_field: subject_field /= Void
@@ -110,7 +110,7 @@ feature -- Access
 			subject_not_void: Result /= Void
 		end
 
-	to: STRING is
+	to: STRING
 			-- Contents of To field;
 			-- Contains the address(es) of the primary recipient(s) of
 			-- the message.
@@ -125,7 +125,7 @@ feature -- Access
 
 feature -- Access to well-known fields
 
-	bcc_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	bcc_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Bcc" if it exists, else Void.
 		do
 			fields.search (field_name_bcc)
@@ -137,7 +137,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_bcc) = (Result /= Void)
 		end
 
-	cc_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	cc_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Cc" if it exists, else Void.
 		do
 			fields.search (field_name_cc)
@@ -152,7 +152,7 @@ feature -- Access to well-known fields
 	date_field: EPX_MIME_FIELD_DATE
 			-- Field "Date"
 
-	from_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	from_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field `From' if it exists, else Void.
 		do
 			fields.search (field_name_from)
@@ -167,7 +167,7 @@ feature -- Access to well-known fields
 	message_id_field: EPX_MIME_FIELD_MESSAGE_ID
 			-- Field "Message-Id"
 
-	reply_to_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	reply_to_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Reply_To" if it exists, else Void.
 		do
 			fields.search (field_name_reply_to)
@@ -179,7 +179,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_reply_to) = (Result /= Void)
 		end
 
-	subject_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	subject_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Subject" if it exists, else Void.
 		do
 			fields.search (field_name_subject)
@@ -191,7 +191,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_subject) = (Result /= Void)
 		end
 
-	to_field: EPX_MIME_UNSTRUCTURED_FIELD is
+	to_field: EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "To" if it exists, else Void.
 		do
 			fields.search (field_name_to)
@@ -206,7 +206,7 @@ feature -- Access to well-known fields
 
 feature -- Change
 
-	set_bcc (a_name, an_email: STRING) is
+	set_bcc (a_name, an_email: STRING)
 			-- Set blind carbon copy recipient of email.
 		require
 			email_not_empty: an_email /= Void and then not an_email.is_empty
@@ -214,7 +214,7 @@ feature -- Change
 			set_email_field (Void, field_name_bcc, a_name, an_email)
 		end
 
-	set_cc (a_name, an_email: STRING) is
+	set_cc (a_name, an_email: STRING)
 			-- Set carbon copy recipient of email.
 		require
 			email_not_empty: an_email /= Void and then not an_email.is_empty
@@ -222,7 +222,7 @@ feature -- Change
 			set_email_field (Void, field_name_cc, a_name, an_email)
 		end
 
-	set_from (a_name, an_email: STRING) is
+	set_from (a_name, an_email: STRING)
 			-- Set author responsible for writing the message.
 			-- Should be set only to a mailbox that belongs to the
 			-- author(s) of the message.
@@ -236,7 +236,7 @@ feature -- Change
 			from_email_set: from_.has_substring (an_email)
 		end
 
-	set_reply_to (a_name, an_email: STRING) is
+	set_reply_to (a_name, an_email: STRING)
 			-- Set the mailbox to which the author of the message
 			-- suggests that replies be sent.
 		require
@@ -249,7 +249,7 @@ feature -- Change
 			reply_to_email_set: reply_to.has_substring (an_email)
 		end
 
-	set_subject (a_subject: STRING) is
+	set_subject (a_subject: STRING)
 			-- Set subject of email.
 		require
 			subject_not_empty: a_subject /= Void and then not a_subject.is_empty
@@ -268,7 +268,7 @@ feature -- Change
 			subject_set: subject.is_equal (a_subject)
 		end
 
-	set_to (a_name, an_email: STRING) is
+	set_to (a_name, an_email: STRING)
 			-- Set recipient of email.
 		require
 			email_not_empty: an_email /= Void and then not an_email.is_empty
@@ -283,7 +283,7 @@ feature -- Change
 
 feature {NONE} -- Implementation
 
-	set_email_field (a_field: EPX_MIME_UNSTRUCTURED_FIELD; a_field_name, a_name, an_email: STRING) is
+	set_email_field (a_field: EPX_MIME_UNSTRUCTURED_FIELD; a_field_name, a_name, an_email: STRING)
 			-- Set field which takes an email address.
 		require
 			valid_email_address: is_valid_email_address (an_email)

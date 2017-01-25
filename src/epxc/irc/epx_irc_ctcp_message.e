@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_tag: STRING) is
+	make (a_tag: STRING)
 		require
 			tag_valid: is_valid_ctcp_tag (a_tag)
 		do

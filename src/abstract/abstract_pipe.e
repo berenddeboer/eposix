@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the pipe abstractions."
 
@@ -18,7 +18,7 @@ inherit
 
 feature -- Pipe operations
 
-	close is
+	close
 		do
 			if fdout.is_owner then
 				fdout.close

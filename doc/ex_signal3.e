@@ -18,7 +18,7 @@ feature
 
 	handled: BOOLEAN
 
-	make is
+	make
 		local
 			signal: STDC_SIGNAL
 		do
@@ -35,7 +35,7 @@ feature
 			end
 		end
 
-	signalled (signal_value: INTEGER) is
+	signalled (signal_value: INTEGER)
 		do
 			handled := True
 		end

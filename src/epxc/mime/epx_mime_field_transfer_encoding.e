@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Transfer-Encoding"
 
@@ -33,7 +33,7 @@ create
 
 feature -- Initialization
 
-	make (a_transformation: STRING) is
+	make (a_transformation: STRING)
 			-- Initialize Transfer-Encoding.
 		require
 			transformation_not_empty: a_transformation /= Void and then not a_transformation.is_empty
@@ -45,7 +45,7 @@ feature -- Initialization
 
 feature -- Status
 
-	is_chunked_coding: BOOLEAN is
+	is_chunked_coding: BOOLEAN
 			-- Is this transfer encoding the chunked encoding?
 		do
 			Result := STRING_.same_case_insensitive (transformation, once_chunked)
@@ -57,13 +57,13 @@ feature -- Access
 	transformation: STRING
 			-- Type of encoding transformation that has been applied to the body
 
-	name: STRING is "Transfer-Encoding"
+	name: STRING = "Transfer-Encoding"
 			-- Authorative name
 
 
 feature {NONE} -- Implementation
 
-	once_chunked: STRING is "chunked"
+	once_chunked: STRING = "chunked"
 
 
 invariant

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS tcp/udp/unix sockets by being an echo server and client."
 
@@ -32,7 +32,7 @@ inherit
 
 feature
 
-	test_tcp is
+	test_tcp
 			-- Echo client and server, tcp style.
 		local
 			host: SUS_HOST
@@ -76,7 +76,7 @@ feature
 		end
 
 
-	test_udp is
+	test_udp
 			-- Echo client and server, upd style.
 		local
 			host: SUS_HOST
@@ -110,7 +110,7 @@ feature
 			server_socket.close
 		end
 
-	test_unix is
+	test_unix
 			-- Echo client and server, unix style.
 		local
 			client_socket: SUS_UNIX_CLIENT_SOCKET
@@ -139,10 +139,10 @@ feature
 
 feature {NONE} -- Implementation
 
-	port: INTEGER is 9877
+	port: INTEGER = 9877
 			-- Thanks to W. Richard Stevens
 
-	hello: STRING is "Hello World.%N"
-	berend1: STRING is "hello berend%N"
+	hello: STRING = "Hello World.%N"
+	berend1: STRING = "hello berend%N"
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -35,7 +35,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_status_code: INTEGER; a_reason: STRING) is
+	make (a_status_code: INTEGER; a_reason: STRING)
 		require
 			valid_status_code: is_three_digit_response (a_status_code)
 		do
@@ -51,9 +51,9 @@ feature -- Access
 
 	reason: STRING
 
-	name: STRING is "Status"
+	name: STRING = "Status"
 
-	value: STRING is
+	value: STRING
 			-- Value of field.
 		do
 			Result := status_code.out + " " + reason
@@ -62,7 +62,7 @@ feature -- Access
 
 feature -- Change
 
-	set_status (a_status_code: INTEGER; a_reason: STRING) is
+	set_status (a_status_code: INTEGER; a_reason: STRING)
 			-- Set `status_code' and `reason'.
 		require
 			valid_status_code: is_three_digit_response (a_status_code)

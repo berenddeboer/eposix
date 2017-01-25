@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Tests
 
-	test_open is
+	test_open
 		local
 			irc: EPX_IRC_CLIENT
 		do
@@ -54,7 +54,7 @@ feature -- Tests
 			assert ("Closed", not irc.is_open)
 		end
 
-	test_channel is
+	test_channel
 			-- Test accessing a channel.
 			-- Because we're connecting two clients, make sure the local
 			-- irc employs no throttling, else you get the connected too
@@ -151,7 +151,7 @@ feature -- Tests
 			assert ("Closed", not irc.is_open)
 		end
 
-	test_dcc_initiate is
+	test_dcc_initiate
 			-- Test DCC. Need to have ircd running in localhost, and iroffer.
 		local
 			irc: EPX_IRC_CLIENT
@@ -222,7 +222,7 @@ feature -- Tests
 			irc.close
 		end
 
-	test_dcc_accept is
+	test_dcc_accept
 			-- Test DCC. Need to have ircd running in localhost, and iroffer.
 			-- iroffer should have admin chat available, so adminpass
 			-- must be set to "iroffer".
@@ -302,7 +302,7 @@ feature -- Tests
 			irc.close
 		end
 
-	test_color_removal is
+	test_color_removal
 		local
 			color: expanded EPX_IRC_COLOR
 		do
@@ -313,11 +313,11 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	channel_name: STRING is "#eiffel"
+	channel_name: STRING = "#eiffel"
 
 	commands: expanded EPX_IRC_COMMANDS
 
-	read_until_a_reply_received (irc: EPX_IRC_CLIENT) is
+	read_until_a_reply_received (irc: EPX_IRC_CLIENT)
 		require
 			irc_not_void: irc /= Void
 			open: irc.is_open
@@ -334,7 +334,7 @@ feature {NONE} -- Implementation
 			irc.read_all
 		end
 
-	read_continually (irc: EPX_IRC_CLIENT) is
+	read_continually (irc: EPX_IRC_CLIENT)
 			-- Endless loop, used for testing.
 		require
 			irc_not_void: irc /= Void
@@ -349,6 +349,6 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	topic: STRING is "Eiffel Rulez"
+	topic: STRING = "Eiffel Rulez"
 
 end

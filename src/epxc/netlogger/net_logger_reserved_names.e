@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,30 +19,30 @@ class
 
 feature -- Access
 
-	event: STRING is "event"
+	event: STRING = "event"
 			-- Log event name
 
-	timestamp: STRING is "ts"
+	timestamp: STRING = "ts"
 			-- Timestamp
 
-	level: STRING is "level"
+	level: STRING = "level"
 			-- Logging level
 
-	status: STRING is "status"
+	status: STRING = "status"
 			-- Integer status code
 
-	prog: STRING is "prog"
+	prog: STRING = "prog"
 			-- Program name
 
-	user: STRING is "user"
+	user: STRING = "user"
 
-	host: STRING is "host"
+	host: STRING = "host"
 
-	local_host: STRING is "localHost"
+	local_host: STRING = "localHost"
 
-	remote_host: STRING is "remoteHost"
+	remote_host: STRING = "remoteHost"
 
-	msg: STRING is "msg"
+	msg: STRING = "msg"
 			-- Error/status message string
 
 end

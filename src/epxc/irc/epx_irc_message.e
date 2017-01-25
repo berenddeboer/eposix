@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make_parse (a_line: STRING) is
+	make_parse (a_line: STRING)
 			-- Parse `a_line' into its basic components.
 		require
 			a_line_not_empty: a_line /= Void and then not a_line.is_empty
@@ -102,7 +102,7 @@ feature -- Status
 	has_reply_code: BOOLEAN
 			-- Is `command' a numeric reply'
 
-	is_error_reply: BOOLEAN is
+	is_error_reply: BOOLEAN
 			-- Did server send an error reply?
 		local
 			r: INTEGER
@@ -141,7 +141,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	parse_prefix is
+	parse_prefix
 			-- Parse `msg_prefix' into its components if it contains the
 			-- @ character.
 		require

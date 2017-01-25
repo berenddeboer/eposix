@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 		"Can be an entire MIME message, or a part of a multipart message."
@@ -46,7 +46,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make_empty is
+	make_empty
 			-- Make an empty MIME part. Useful during parsing to
 			-- construct the message gradually.
 		do
@@ -57,7 +57,7 @@ feature {NONE} -- Initialization
 
 feature -- Output
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Serialize contents of MIME structure to `s'.
 			-- Adds the Content-Length field with the proper length, if
 			-- this field does not exist. If there is a Content-Length
@@ -101,7 +101,7 @@ feature -- Output
 			end
 		end
 
-	append_urlencoded_to_string (s: STRING) is
+	append_urlencoded_to_string (s: STRING)
 			-- Append fields of this MIME structure to `s', and the body
 			-- as x-www-form-urlencoded. Message must conform to RFC 2388.
 		require
@@ -135,7 +135,7 @@ feature -- Output
 
 feature -- Access
 
-	as_string: STRING is
+	as_string: STRING
 			-- Serialized MIME message
 		require
 			valid_mime_part: is_valid
@@ -165,7 +165,7 @@ feature -- Access
 
 feature -- Status
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- Does this message conform to the MIME specification?
 			-- If so, it can be serialized.
 			-- If the body is multi-part, the boundary must be set.
@@ -180,7 +180,7 @@ feature -- Status
 
 feature -- Body creation/removal
 
-	clear_body is
+	clear_body
 			-- Set `body' to Void.
 		do
 			body := Void
@@ -190,7 +190,7 @@ feature -- Body creation/removal
 			body_void: body = Void
 		end
 
-	create_multipart_body is
+	create_multipart_body
 			-- Set `body' to a container.
 		require
 			body_not_set: body = Void
@@ -203,7 +203,7 @@ feature -- Body creation/removal
 			multipart_body_set: multipart_body = body
 		end
 
-	create_singlepart_body is
+	create_singlepart_body
 			-- Set `body' to a single part body.
 			-- If we find a Content-Disposition field with a filename
 			-- parameter, body data wil be saved to a temporary file when
@@ -230,7 +230,7 @@ feature -- Body creation/removal
 			text_body_set: text_body = body
 		end
 
-	create_base64_body is
+	create_base64_body
 			-- Create a single part body whose content is base 64
 			-- encoded when writing to it.
 		require
@@ -251,7 +251,7 @@ feature -- Body creation/removal
 
 feature -- Change
 
-	set_auto_insert_content_length (a_value: BOOLEAN) is
+	set_auto_insert_content_length (a_value: BOOLEAN)
 			-- Set if Content-Length fields should be automatically
 			-- supplied, if onen doesn't exist, in `append_to_string'.
 		do
@@ -263,7 +263,7 @@ feature -- Change
 
 feature {NONE} -- Implementation
 
-	new_file_body: EPX_MIME_BODY_TEXT is
+	new_file_body: EPX_MIME_BODY_TEXT
 			-- New body where data is hold on disk
 		do
 			create {EPX_MIME_BODY_FILE} Result.make
@@ -271,7 +271,7 @@ feature {NONE} -- Implementation
 			not_void: Result /= Void
 		end
 
-	new_string_body: EPX_MIME_BODY_TEXT is
+	new_string_body: EPX_MIME_BODY_TEXT
 			-- New body where data is held in a string
 		do
 			create {EPX_MIME_BODY_STRING} Result.make
@@ -282,7 +282,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
-	once_crlf: STRING is "%R%N"
+	once_crlf: STRING = "%R%N"
 
 
 invariant

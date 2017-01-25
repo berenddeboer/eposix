@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -41,7 +41,7 @@ inherit
 
 feature -- Low level quoting
 
-	ctcp_low_dequote (s: STRING): STRING is
+	ctcp_low_dequote (s: STRING): STRING
 			-- Properly unquote `s' according to the
 			-- CTCP low level dequoting rules
 		require
@@ -75,7 +75,7 @@ feature -- Low level quoting
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	ctcp_low_quote (s: STRING): STRING is
+	ctcp_low_quote (s: STRING): STRING
 			-- Properly quote `s' according to the
 			-- CTCP low level quoting rules;
 			-- Returns a new string.
@@ -119,7 +119,7 @@ feature -- Low level quoting
 
 feature -- CTCP level quoting
 
-	ctcp_dequote (s: STRING): STRING is
+	ctcp_dequote (s: STRING): STRING
 			-- `s' but without the quoting applied by `ctcp_quote';
 			-- Returns a new string
 		require
@@ -156,7 +156,7 @@ feature -- CTCP level quoting
 			new_string: Result /= s
 		end
 
-	ctcp_quote (s: STRING): STRING is
+	ctcp_quote (s: STRING): STRING
 			-- A properly quote `s', where no CTCP quoting whatsover as
 			-- yet has been taken place to `s'.
 		require
@@ -192,7 +192,7 @@ feature -- CTCP level quoting
 
 feature -- Extract
 
-	extract_extended_messages (s: STRING): DS_LIST [EPX_IRC_CTCP_MESSAGE] is
+	extract_extended_messages (s: STRING): DS_LIST [EPX_IRC_CTCP_MESSAGE]
 			-- Extract all extended messages in `s'
 		require
 			s_not_void: s /= Void
@@ -248,7 +248,7 @@ feature -- Extract
 
 feature -- Status
 
-	is_valid_ctcp_tag (a_tag: STRING): BOOLEAN is
+	is_valid_ctcp_tag (a_tag: STRING): BOOLEAN
 			-- Does `a_tag' follow the CTCP rules for tags?
 		do
 			Result :=
@@ -260,13 +260,13 @@ feature -- Status
 
 feature -- Quote characters
 
-	ctcp_x_delimiter: CHARACTER is '%/001/'
+	ctcp_x_delimiter: CHARACTER = '%/001/'
 			-- Ctrl+A
 
-	ctcp_m_quote: CHARACTER is '%/020/'
+	ctcp_m_quote: CHARACTER = '%/020/'
 			-- Ctrl+P
 
-	ctcp_x_quote: CHARACTER is '%/134/'
+	ctcp_x_quote: CHARACTER = '%/134/'
 			-- Ctrl+X, used for quoting `ctcp_x_delimiter'
 
 end

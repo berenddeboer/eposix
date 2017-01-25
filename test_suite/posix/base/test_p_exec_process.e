@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX exec process class."
 
@@ -22,7 +22,7 @@ inherit
 
 feature -- Tests
 
-	test_input is
+	test_input
 			-- Test input capturing using a stream.
 		local
 			more: POSIX_EXEC_PROCESS
@@ -50,7 +50,7 @@ feature -- Tests
 			more.wait_for (True)
 		end
 
-	test_kill is
+	test_kill
 			-- Test kill on the mail program.
 		local
 			mail: POSIX_EXEC_PROCESS
@@ -76,7 +76,7 @@ feature -- Tests
 			assert_equal ("Signal is signal we send.", SIGTERM, mail.signal_code)
 		end
 
-	test_exit_code is
+	test_exit_code
 		local
 			test: POSIX_EXEC_PROCESS
 		do

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements whatever an HTTP 1.1 client can do."
 
@@ -34,7 +34,7 @@ create
 
 feature -- Client http version
 
-	client_version: STRING is
+	client_version: STRING
 		once
 			Result := "HTTP/1.1"
 		end
@@ -42,7 +42,7 @@ feature -- Client http version
 
 feature -- Change
 
-	set_reuse_connection is
+	set_reuse_connection
 			-- Reuse HTTP connection more than 1 request.
 		do
 			reuse_connection := True
@@ -53,7 +53,7 @@ feature -- Change
 
 feature {NONE} -- Implementation
 
-	authorization_value (a_verb, a_uri: STRING): STRING is
+	authorization_value (a_verb, a_uri: STRING): STRING
 			-- Append Authorization field if `authentication_scheme' is recogised.
 		do
 			if user_name /= Void and then password /= Void then
@@ -67,7 +67,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	digest_authorization_value (a_verb, a_uri: STRING): STRING is
+	digest_authorization_value (a_verb, a_uri: STRING): STRING
 			-- Only MD5 support, MD5-sess not supported.
 		require
 			www_authenticate_set: www_authenticate /= Void
@@ -84,7 +84,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	digest_md5_authorization_value (a_www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE; a_verb, a_uri: STRING): STRING is
+	digest_md5_authorization_value (a_www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE; a_verb, a_uri: STRING): STRING
 			-- Digest when algorithm = MD5
 		require
 			www_authenticate_set: a_www_authenticate /= Void
@@ -138,7 +138,7 @@ feature {NONE} -- Implementation
 			Result.append_character ('"')
 		end
 
-	md5 (s: STRING): STRING is
+	md5 (s: STRING): STRING
 		require
 			s_not_void: s /= Void
 		do
@@ -148,7 +148,7 @@ feature {NONE} -- Implementation
 			Result := md5_calc.checksum
 		end
 
-	md5_calc: EPX_MD5_CALCULATION is
+	md5_calc: EPX_MD5_CALCULATION
 		once
 			create Result.make
 		ensure

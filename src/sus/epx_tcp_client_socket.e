@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 portable implementation of a client side TCP socket."
 
@@ -32,7 +32,7 @@ create
 
 feature {NONE} -- Abstract API binding
 
-	abstract_connect (a_socket: INTEGER; an_address: POINTER; an_address_length: INTEGER): INTEGER is
+	abstract_connect (a_socket: INTEGER; an_address: POINTER; an_address_length: INTEGER): INTEGER
 			-- Connect a socket.
 		do
 			Result := posix_connect (a_socket, an_address, an_address_length)

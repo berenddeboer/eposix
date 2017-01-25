@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Writer for STDC_FILE class."
    
@@ -23,7 +23,7 @@ create
    
 feature -- creation
 
-   make (a_output: STDC_FILE) is
+   make (a_output: STDC_FILE)
       require
          is_a_file: a_output /= Void
          is_open: a_output.is_open
@@ -34,17 +34,17 @@ feature -- creation
 
 feature -- commands
    
-   write_character (c: CHARACTER) is
+   write_character (c: CHARACTER)
       do
          file.write_character  (c)
       end
    
-   write_pointer (p: POINTER; size: INTEGER) is
+   write_pointer (p: POINTER; size: INTEGER)
       do
          file.write (p, 0, size)
       end
    
-   write_string (s: STRING) is
+   write_string (s: STRING)
       do
          file.write_string (s)
       end

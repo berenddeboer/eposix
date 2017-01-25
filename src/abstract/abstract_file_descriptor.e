@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class that covers certain file descriptor routines."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Initialization
 
-	open (a_path: STRING; a_flags: INTEGER) is
+	open (a_path: STRING; a_flags: INTEGER)
 			-- Open given file with access given by `flags'.
 		require
 			closed: not is_open
@@ -47,7 +47,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_read (a_path: STRING) is
+	open_read (a_path: STRING)
 			-- Open given file with access given by `flags'.
 		require
 			closed: not is_open
@@ -63,7 +63,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_write (a_path: STRING) is
+	open_write (a_path: STRING)
 			-- Open existing file for writing only.
 		require
 			closed: not is_open
@@ -79,7 +79,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_read_write (a_path: STRING) is
+	open_read_write (a_path: STRING)
 		require
 			closed: not is_open
 			a_path_not_empty: a_path /= Void and then not a_path.is_empty
@@ -91,7 +91,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	open_truncate (a_path: STRING) is
+	open_truncate (a_path: STRING)
 			-- Open existing file for writing; if file exists, truncate it first.
 		require
 			closed: not is_open
@@ -109,7 +109,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	create_read_write (a_path: STRING) is
+	create_read_write (a_path: STRING)
 			-- Always create a file, existing or not.
 			-- Give read/write permissions to user only.
 		require
@@ -127,7 +127,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	create_write (a_path: STRING) is
+	create_write (a_path: STRING)
 			-- Always create a file, existing or not.
 			-- Give read/write permissions to user only.
 		require
@@ -148,7 +148,7 @@ feature -- Initialization
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	create_with_mode (a_path: STRING; flags, mode: INTEGER) is
+	create_with_mode (a_path: STRING; flags, mode: INTEGER)
 			-- Create a file according to `flags' and with `mode' access
 			-- permissions. Make sure you have th O_CREAT flag in flags
 			-- if you really want to create something!
@@ -171,7 +171,7 @@ feature -- Initialization
 
 feature {NONE} -- Open
 
-	do_open (a_path: STRING; flags: INTEGER) is
+	do_open (a_path: STRING; flags: INTEGER)
 			-- Low level open of an existing file. `flags' should not
 			-- contain the O_CREAT flag.
 		require
@@ -198,7 +198,7 @@ feature {NONE} -- Open
 				security.files.is_open_files_increased (is_owner, old security.files.open_files)
 		end
 
-	do_create (a_path: STRING; flags, mode: INTEGER) is
+	do_create (a_path: STRING; flags, mode: INTEGER)
 			-- Low level create of the file in `a_path'.
 		require
 			closed: not is_open
@@ -226,7 +226,7 @@ feature {NONE} -- Open
 
 feature -- File position
 
-	rewind is
+	rewind
 			-- Move input positionto the beginning of stream.
 		do
 			seek (0)
@@ -234,7 +234,7 @@ feature -- File position
 			not_end_of_file: not end_of_input
 		end
 
-	seek (offset: INTEGER) is
+	seek (offset: INTEGER)
 			-- Set file position to given absolute `offset'.
 		require
 			valid_offset: offset >= 0
@@ -245,7 +245,7 @@ feature -- File position
 			not_end_of_file: not end_of_input
 		end
 
-	seek_from_current (offset: INTEGER) is
+	seek_from_current (offset: INTEGER)
 			-- Set file position relative to current position.
 		do
 			safe_call (abstract_lseek (fd, offset, SEEK_CUR))
@@ -254,7 +254,7 @@ feature -- File position
 			not_end_of_file: not end_of_input
 		end
 
-	seek_from_end (offset: INTEGER) is
+	seek_from_end (offset: INTEGER)
 			-- Set file position relative to end of file.
 		require
 			valid_offset: offset <= 0
@@ -268,13 +268,13 @@ feature -- File position
 
 feature -- Access
 
-	path: STRING is
+	path: STRING
 		obsolete "2006-11-29: please use `name' instead"
 		do
 			Result := name
 		end
 
-	status: EPX_STATUS is
+	status: EPX_STATUS
 			-- The status for this file descriptor;
 			-- Value is cached, recreated only when file reopened.
 			-- Call `status'.`refresh' to get updated values.
@@ -295,7 +295,7 @@ feature {NONE} -- Implementation
 	my_status: EPX_STATUS
 			-- Cached status object.
 
-	make_status is
+	make_status
 			-- Give `my_status' a proper value.
 		require
 			open: is_open
@@ -307,7 +307,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 		do
 			Result := precursor
 			my_status := Void
@@ -316,18 +316,18 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Abstract API binding
 
-	abstract_create (a_path: POINTER; oflag, mode: INTEGER): INTEGER is
+	abstract_create (a_path: POINTER; oflag, mode: INTEGER): INTEGER
 			-- Creates a new file or rewrites an existing one
 			-- does not call `creat' but `open'!
 		deferred
 		end
 
-	abstract_lseek (fildes: INTEGER; offset, whence: INTEGER): INTEGER is
+	abstract_lseek (fildes: INTEGER; offset, whence: INTEGER): INTEGER
 			-- Repositions read/write file offset.
 		deferred
 		end
 
-	abstract_open (a_path: POINTER; oflag: INTEGER): INTEGER is
+	abstract_open (a_path: POINTER; oflag: INTEGER): INTEGER
 			-- Open a file.
 		require
 			a_path_not_null: a_path /= default_pointer
@@ -337,12 +337,12 @@ feature {NONE} -- Abstract API binding
 
 feature {NONE} -- Error codes
 
-	abstract_EWOULDBLOCK: INTEGER is
+	abstract_EWOULDBLOCK: INTEGER
 			-- The process would be delayed in the I/O operation.
 		deferred
 		end
 
-	abstract_EINTR: INTEGER is
+	abstract_EINTR: INTEGER
 			-- Read/write was interrupted.
 		deferred
 		end
@@ -350,35 +350,35 @@ feature {NONE} -- Error codes
 
 feature {NONE} -- Open constants
 
-	abstract_O_APPEND: INTEGER is
+	abstract_O_APPEND: INTEGER
 			-- Set the file offset to the end-of-file prior to each write.
 		deferred
 		end
 
-	abstract_O_CREAT: INTEGER is
+	abstract_O_CREAT: INTEGER
 			-- If the file does not exist, allow it to be created. This
 			-- flag indicates that the mode argument is present in the
 			-- call to open.
 		deferred
 		end
 
-	abstract_O_RDONLY: INTEGER is
+	abstract_O_RDONLY: INTEGER
 			-- Open for reading only.
 		deferred
 		end
 
-	abstract_O_RDWR: INTEGER is
+	abstract_O_RDWR: INTEGER
 			-- Open for reading and writing.
 		deferred
 		end
 
-	abstract_O_TRUNC: INTEGER is
+	abstract_O_TRUNC: INTEGER
 			-- Use only on ordinary files opened for writing. It causes
 			-- the file to be truncated to zero length.
 		deferred
 		end
 
-	abstract_O_WRONLY: INTEGER is
+	abstract_O_WRONLY: INTEGER
 			-- Open for writing only.
 		deferred
 		end
@@ -386,11 +386,11 @@ feature {NONE} -- Open constants
 
 feature {NONE} -- Permission constants
 
-	abstract_S_IREAD: INTEGER is
+	abstract_S_IREAD: INTEGER
 		deferred
 		end
 
-	abstract_S_IWRITE: INTEGER is
+	abstract_S_IWRITE: INTEGER
 		deferred
 		end
 

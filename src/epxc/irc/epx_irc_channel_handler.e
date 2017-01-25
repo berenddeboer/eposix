@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make (a_channel: EPX_IRC_CHANNEL) is
+	make (a_channel: EPX_IRC_CHANNEL)
 			-- Initialize.
 		require
 			channel_not_void: a_channel /= Void
@@ -46,7 +46,7 @@ feature -- Access
 
 feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Handling
 
-	handle (a_message: EPX_IRC_MESSAGE) is
+	handle (a_message: EPX_IRC_MESSAGE)
 			-- Respond to message if this is a message this instance can handle.
 			-- `a_message' is always destined for `channel'.
 		require
@@ -58,7 +58,7 @@ feature {EPX_IRC_CHANNEL, EPX_IRC_CHANNEL_HANDLER} -- Handling
 
 feature {NONE} -- Implementation
 
-	commands: EPX_IRC_COMMANDS is
+	commands: EPX_IRC_COMMANDS
 		once
 			create Result
 		ensure

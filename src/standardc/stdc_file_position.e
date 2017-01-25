@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a Standard C file position."
 
@@ -25,7 +25,7 @@ create {STDC_FILE}
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			create buf.allocate (posix_fpos_t_size)
 		end

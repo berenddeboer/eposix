@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Filters files based on extension."
 

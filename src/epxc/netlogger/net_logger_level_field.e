@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes the NetLogger level field."
 
@@ -31,7 +31,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_level: INTEGER)  is
+	make (a_level: INTEGER)
 		require
 			valid_level: is_valid_level (a_level)
 		local
@@ -51,7 +51,7 @@ feature -- Access
 
 feature -- Set level
 
-	set_level (a_level: INTEGER) is
+	set_level (a_level: INTEGER)
 			-- Set `level' and `value'.
 		require
 			valid_level: is_valid_level (a_level)

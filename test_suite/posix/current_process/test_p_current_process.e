@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX current process class."
 
@@ -22,7 +22,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		do
 			assert_not_equal ("pid greater as zero.", 0, pid)
 

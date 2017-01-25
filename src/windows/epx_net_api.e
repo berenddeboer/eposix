@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows specific network API portable at the ABSTRACT_XXXX layer."
 

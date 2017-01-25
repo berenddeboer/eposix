@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that covers Windows file descriptor code."
 

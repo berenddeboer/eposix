@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Single Unix Specification environment class."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Tests
 
-	test_all is
+	test_all
 		local
 			env: SUS_ENV_VAR
 		do

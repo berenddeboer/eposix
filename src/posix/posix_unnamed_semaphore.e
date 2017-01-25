@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix unnamed semaphore routines."
 
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialization
 
-	create_shared (a_value: INTEGER) is
+	create_shared (a_value: INTEGER)
 			-- Create an unnamed semaphore with initial value `a_value'.
 			-- The semaphore cannot be shared between processes;
 		require
@@ -47,7 +47,7 @@ feature {NONE} -- Initialization
 
 feature -- Commands
 
-	destroy is
+	destroy
 		obsolete "2004-06-21: use close instead."
 		do
 			close

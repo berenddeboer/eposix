@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "All eposix's file/socket classes are bidirectional. This class is the base class for them and combines the Gobo KI_INPUT_STREAM and KI_OUTPUT_STREAM."
 
@@ -33,13 +33,13 @@ inherit
 
 feature -- Basic operations
 
-	close is
+	close
 		require
 			owner: is_owner
 		deferred
 		end
 
-	close_for_reading	is
+	close_for_reading
 			-- Try to close input stream if it is closable. Set
 			-- `is_open_read' to false if operation was successful.
 		do
@@ -48,7 +48,7 @@ feature -- Basic operations
 			closed: not is_open_read
 		end
 
-	close_for_writing is
+	close_for_writing
 			-- Try to close output stream if it is closable. Set
 			-- `is_open_write' to false if operation was successful.
 		do
@@ -60,19 +60,19 @@ feature -- Basic operations
 
 feature -- Status report
 
-	is_closable_for_reading: BOOLEAN is
+	is_closable_for_reading: BOOLEAN
 			-- Can current input stream be closed?
 		do
 			Result := is_owner and is_open_read
 		end
 
-	is_closable_for_writing: BOOLEAN is
+	is_closable_for_writing: BOOLEAN
 			-- Can current output stream be closed?
 		do
 			Result := is_owner and is_open_write
 		end
 
-	is_closable: BOOLEAN is
+	is_closable: BOOLEAN
 			-- Can current stream be closed for reading and writing?
 		do
 			Result := is_owner
@@ -80,12 +80,12 @@ feature -- Status report
 			is_open: Result implies is_owner
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Does current stream have a non-closed handle?
 		deferred
 		end
 
-	is_owner: BOOLEAN is
+	is_owner: BOOLEAN
 			-- May this object close the stream on `close' or `dispose'?
 		deferred
 		end

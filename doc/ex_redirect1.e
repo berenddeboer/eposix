@@ -10,7 +10,7 @@ create
 
 feature
 
-   make is
+   make
       do
          -- flush stream buffers, else output may be in wrong order
          stdout.flush

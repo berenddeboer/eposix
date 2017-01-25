@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -31,7 +31,7 @@ create
 
 feature -- Element change
 
-	fill is
+	fill
 			-- Fill and concatenate folded lines.
 		local
 			i: INTEGER

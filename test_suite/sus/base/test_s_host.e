@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS host class."
 
@@ -17,7 +17,7 @@ inherit
 
 feature -- Tests
 
-	test_local_host is
+	test_local_host
 		local
 			host: SUS_HOST
 			i: INTEGER
@@ -62,7 +62,7 @@ feature -- Tests
 			end
 		end
 
-	test_unknown_host is
+	test_unknown_host
 		local
 			host: SUS_HOST
 		do

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Standard C linear piece of memory, starting with index 0. Memory is dynamically allocated. Size should be at least 1 byte%
 	%large. 0 size memory is not supported."
@@ -68,7 +68,7 @@ create
 
 feature -- Allocation
 
-	allocate (a_capacity: INTEGER) is
+	allocate (a_capacity: INTEGER)
 			-- Allocate memory of `a_capacity' bytes.
 			-- If `is_owner' then the buffer is first deallocated.
 		require
@@ -99,7 +99,7 @@ feature -- Allocation
 				security.memory.is_allocated_memory_increased (is_owner, old security.memory.allocated_memory, capacity)
 		end
 
-	allocate_and_clear (a_capacity: INTEGER) is
+	allocate_and_clear (a_capacity: INTEGER)
 			-- Allocate memory of `a_capacity' bytes, make sure it's zeroed out.
 			-- If `is_owner' then the buffer is first deallocated.
 		require
@@ -132,7 +132,7 @@ feature -- Allocation
 
 	make_from_pointer (
 			a_pointer: POINTER; a_capacity: INTEGER;
-			a_become_owner: BOOLEAN) is
+			a_become_owner: BOOLEAN)
 			-- Attach a pointer to this object. If `a_become_owner' is
 			-- True, it will deallocate the pointer when `close' is
 			-- called, or when this object is garbage collected.
@@ -163,7 +163,7 @@ feature -- Allocation
 
 feature -- Other allocation commands
 
-	resize (new_capacity: INTEGER) is
+	resize (new_capacity: INTEGER)
 			-- Resize memory to `new_capacity' bytes. Expanded memory is not
 			-- guaranteed to be zeroed out.
 		require
@@ -196,7 +196,7 @@ feature -- Other allocation commands
 
 feature -- Element change
 
-	copy (other: like Current) is
+	copy (other: like Current)
 			-- Reinitialize by copying the characters of `other'.
 			-- (This is also used by `twin'.)
 		do
@@ -217,7 +217,7 @@ feature -- Element change
 
 feature -- Comparison
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Is `other' attached to an object considered equal to
 			-- current object ?
 		local
@@ -244,7 +244,7 @@ feature -- Comparison
 
 feature -- Access
 
-	resource_usage_can_be_increased: BOOLEAN is
+	resource_usage_can_be_increased: BOOLEAN
 			-- Can the number of allocated resources increased with `capacity'?
 		do
 			Result := security.memory.is_within_maximum (capacity)
@@ -253,7 +253,7 @@ feature -- Access
 
 feature -- Copy data internally or externally
 
-	copy_from (source: STDC_BUFFER; src_offset, dest_offset, bytes: INTEGER) is
+	copy_from (source: STDC_BUFFER; src_offset, dest_offset, bytes: INTEGER)
 			-- Move data from another buffer into ourselves.
 			-- Start at offset `src_offset', into
 			-- offset `dest_offset', moving `bytes' bytes
@@ -273,7 +273,7 @@ feature -- Copy data internally or externally
 			end
 		end
 
-	memory_copy (source: POINTER; src_offset: INTEGER; dest_offset, bytes: INTEGER) is
+	memory_copy (source: POINTER; src_offset: INTEGER; dest_offset, bytes: INTEGER)
 			-- Copy data from `source', offset `src_offset', to location
 			-- `dest_offset' in this buffer, for `bytes' bytes.
 			-- Memory may not overlap, use `move' to copy within buffer
@@ -294,7 +294,7 @@ feature -- Copy data internally or externally
 			posix_memcpy (dest, src, bytes)
 		end
 
-	memory_move (source: POINTER; src_offset: INTEGER; dest_offset, bytes: INTEGER) is
+	memory_move (source: POINTER; src_offset: INTEGER; dest_offset, bytes: INTEGER)
 			-- Copy data from `source', offset `src_offset', to location
 			-- `dest_offset' in this buffer, for `bytes' bytes.
 			-- Memory may overlap.
@@ -311,7 +311,7 @@ feature -- Copy data internally or externally
 			posix_memmove (dest, src, bytes)
 		end
 
-	move (src_offset, dest_offset: INTEGER; bytes: INTEGER) is
+	move (src_offset, dest_offset: INTEGER; bytes: INTEGER)
 			-- Move data around in buffer itself from offset `src_offset' to
 			-- offset `dest_offset', moving `bytes' bytes.
 			-- Memory may overlap.
@@ -330,7 +330,7 @@ feature -- Copy data internally or externally
 
 feature -- Access
 
-	handle: POINTER is
+	handle: POINTER
 			-- Alias for `ptr'
 		do
 			Result := ptr
@@ -341,7 +341,7 @@ feature -- Access
 
 feature -- Set/get bytes (8-bit data)
 
-	peek_uint8, infix "@" (index: INTEGER): INTEGER is
+	peek_uint8, infix "@" (index: INTEGER): INTEGER
 			-- consider memory an array of 8 bit values.
 		require
 			valid_index: is_valid_index (index)
@@ -351,7 +351,7 @@ feature -- Set/get bytes (8-bit data)
 			possible_values: Result >= 0 and Result < 256
 		end
 
-	poke_uint8 (index, value: INTEGER) is
+	poke_uint8 (index, value: INTEGER)
 		require
 			valid_index: is_valid_index (index)
 			valid_byte: value >= 0 and value < 256
@@ -361,7 +361,7 @@ feature -- Set/get bytes (8-bit data)
 			consistent: peek_uint8 (index) = value
 		end
 
-	peek_int8 (index: INTEGER): INTEGER is
+	peek_int8 (index: INTEGER): INTEGER
 			-- consider memory an array of 8 bit values.
 		require
 			valid_index: is_valid_index (index)
@@ -378,7 +378,7 @@ feature -- Set/get bytes (8-bit data)
 			possible_values: Result >= -128 and Result <= 127
 		end
 
-	poke_int8 (index, value: INTEGER) is
+	poke_int8 (index, value: INTEGER)
 		require
 			valid_index: is_valid_index (index)
 			valid_tinyin: value >= -128 and value <= 127
@@ -398,7 +398,7 @@ feature -- Set/get bytes (8-bit data)
 
 feature -- Set/get integers (16-bit data)
 
-	peek_int16, peek_int16_native (index: INTEGER): INTEGER is
+	peek_int16, peek_int16_native (index: INTEGER): INTEGER
 			-- Read signed 16 bit value at offset `index' in native
 			-- endian format.
 		require
@@ -409,7 +409,7 @@ feature -- Set/get integers (16-bit data)
 			valid_result: Result >= -32768 and Result <= 32767
 		end
 
-	peek_uint16, peek_uint16_native (index: INTEGER): INTEGER is
+	peek_uint16, peek_uint16_native (index: INTEGER): INTEGER
 			-- Read unsigned 16 bit value at offset `index' in native format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -419,7 +419,7 @@ feature -- Set/get integers (16-bit data)
 			valid_result: Result >= 0 and Result <= 65535
 		end
 
-	peek_int16_big_endian (index: INTEGER): INTEGER is
+	peek_int16_big_endian (index: INTEGER): INTEGER
 			-- Read 16 bit value at offset `index' in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -435,7 +435,7 @@ feature -- Set/get integers (16-bit data)
 			valid_result: Result >= -32768 and Result <= 32767
 		end
 
-	peek_uint16_big_endian (index: INTEGER): INTEGER is
+	peek_uint16_big_endian (index: INTEGER): INTEGER
 			-- Read 16 bit value at offset `index' in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -451,7 +451,7 @@ feature -- Set/get integers (16-bit data)
 			valid_result: Result >= 0 and Result <= 65535
 		end
 
-	peek_int16_little_endian (index: INTEGER): INTEGER is
+	peek_int16_little_endian (index: INTEGER): INTEGER
 			-- Read 16 bit value at offset `index' in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -467,7 +467,7 @@ feature -- Set/get integers (16-bit data)
 			valid_result: Result >= -32768 and Result <= 32767
 		end
 
-	peek_uint16_little_endian (index: INTEGER): INTEGER is
+	peek_uint16_little_endian (index: INTEGER): INTEGER
 			-- Read 16 bit value at offset `index' in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -483,7 +483,7 @@ feature -- Set/get integers (16-bit data)
 			valid_result: Result >= 0 and Result <= 65535
 		end
 
-	poke_int16, poke_int16_native (index: INTEGER; value: INTEGER) is
+	poke_int16, poke_int16_native (index: INTEGER; value: INTEGER)
 			-- Write 16 bit value at offset `index', in native endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -494,7 +494,7 @@ feature -- Set/get integers (16-bit data)
 			consistent: peek_int16_native (index) = value
 		end
 
-	poke_int16_big_endian (index: INTEGER; value: INTEGER) is
+	poke_int16_big_endian (index: INTEGER; value: INTEGER)
 			-- Write 16 bit value at offset `index', in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -512,7 +512,7 @@ feature -- Set/get integers (16-bit data)
 			consistent: peek_int16_big_endian (index) = value
 		end
 
-	poke_int16_little_endian (index: INTEGER; value: INTEGER) is
+	poke_int16_little_endian (index: INTEGER; value: INTEGER)
 			-- Write 16 bit value at offset `index', in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -530,7 +530,7 @@ feature -- Set/get integers (16-bit data)
 			consistent: peek_int16_little_endian (index) = value
 		end
 
-	poke_uint16, poke_uint16_native (index: INTEGER; value: INTEGER) is
+	poke_uint16, poke_uint16_native (index: INTEGER; value: INTEGER)
 			-- Write 16 bit value at offset `index', in native endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -542,7 +542,7 @@ feature -- Set/get integers (16-bit data)
 		end
 
 
-	poke_uint16_little_endian (index: INTEGER; value: INTEGER) is
+	poke_uint16_little_endian (index: INTEGER; value: INTEGER)
 			-- Write 16 bit value at offset `index', in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -560,7 +560,7 @@ feature -- Set/get integers (16-bit data)
 			consistent: peek_uint16_little_endian (index) = value
 		end
 
-	poke_uint16_big_endian (index: INTEGER; value: INTEGER) is
+	poke_uint16_big_endian (index: INTEGER; value: INTEGER)
 			-- Write 16 bit value at offset `index', in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 1)
@@ -581,7 +581,7 @@ feature -- Set/get integers (16-bit data)
 
 feature -- Set/get integers (32-bit data)
 
-	peek_int32_native, peek_integer (index: INTEGER): INTEGER is
+	peek_int32_native, peek_integer (index: INTEGER): INTEGER
 			-- Read 32 bit value at offset `index', assume its byte order
 			-- is native, and return it.
 		require
@@ -590,7 +590,7 @@ feature -- Set/get integers (32-bit data)
 			Result := posix_peek_int32_native (ptr, index)
 		end
 
-	peek_int32_big_endian (index: INTEGER): INTEGER is
+	peek_int32_big_endian (index: INTEGER): INTEGER
 			-- Read 32 bit value at offset `index', assume its byte order
 			-- is big endian, and return it in native format.
 		require
@@ -605,7 +605,7 @@ feature -- Set/get integers (32-bit data)
 			Result := i
 		end
 
-	peek_int32_little_endian (index: INTEGER): INTEGER is
+	peek_int32_little_endian (index: INTEGER): INTEGER
 			-- Read 32 bit value at offset `index', assume its byte order
 			-- is little endian, and return it in native format.
 		require
@@ -620,7 +620,7 @@ feature -- Set/get integers (32-bit data)
 			Result := i
 		end
 
-	peek_uint32_native (index: INTEGER): INTEGER is
+	peek_uint32_native (index: INTEGER): INTEGER
 			-- Read 32 bit unsigned int at offset `index', assume native
 			-- byte order.
 		require
@@ -629,7 +629,7 @@ feature -- Set/get integers (32-bit data)
 			Result := posix_peek_uint32_native (ptr, index)
 		end
 
-	peek_uint32_big_endian (index: INTEGER): INTEGER is
+	peek_uint32_big_endian (index: INTEGER): INTEGER
 			-- Read 32 bit unsigned int at offset `index', assume its
 			-- byte order is big endian, and return it in native format.
 		require
@@ -644,7 +644,7 @@ feature -- Set/get integers (32-bit data)
 			Result := i
 		end
 
-	peek_uint32_little_endian (index: INTEGER): INTEGER is
+	peek_uint32_little_endian (index: INTEGER): INTEGER
 			-- Read 32 bit unsigned int at offset `index', assume its
 			-- byte order is big endian, and return it in native format.
 		require
@@ -659,7 +659,7 @@ feature -- Set/get integers (32-bit data)
 			Result := i
 		end
 
-	poke_integer, poke_int32_native (index: INTEGER; value: INTEGER) is
+	poke_integer, poke_int32_native (index: INTEGER; value: INTEGER)
 			-- Write 32 bit value at offset `index', in native endian format.
 		require
 			valid_index: is_valid_range (index, index + 3)
@@ -669,7 +669,7 @@ feature -- Set/get integers (32-bit data)
 			consistent: peek_integer (index) = value
 		end
 
-	poke_int32_big_endian (index: INTEGER; value: INTEGER) is
+	poke_int32_big_endian (index: INTEGER; value: INTEGER)
 			-- Write 32 bit value at offset `index', in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 3)
@@ -686,7 +686,7 @@ feature -- Set/get integers (32-bit data)
 			consistent: peek_int32_big_endian (index) = value
 		end
 
-	poke_int32_little_endian (index: INTEGER; value: INTEGER) is
+	poke_int32_little_endian (index: INTEGER; value: INTEGER)
 			-- Write 32 bit value at offset `index', in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 3)
@@ -706,7 +706,7 @@ feature -- Set/get integers (32-bit data)
 
 feature -- Set/get integers (64-bit data)
 
-	peek_int64_native, peek_integer_64 (index: INTEGER): INTEGER_64 is
+	peek_int64_native, peek_integer_64 (index: INTEGER): INTEGER_64
 			-- Read 64 bit value at offset `index', assume its byte order
 			-- is native, and return it.
 		require
@@ -715,7 +715,7 @@ feature -- Set/get integers (64-bit data)
 			Result := posix_peek_int64_native (ptr, index)
 		end
 
-	peek_int64_big_endian (index: INTEGER): INTEGER_64 is
+	peek_int64_big_endian (index: INTEGER): INTEGER_64
 			-- Read 64 bit int at offset `index', assume its
 			-- byte order is big endian, and return it in native format.
 		require
@@ -730,7 +730,7 @@ feature -- Set/get integers (64-bit data)
 			Result := i
 		end
 
-	peek_int64_little_endian (index: INTEGER): INTEGER_64 is
+	peek_int64_little_endian (index: INTEGER): INTEGER_64
 			-- Read 64 bit int at offset `index', assume its
 			-- byte order is little endian, and return it in native format.
 		require
@@ -745,7 +745,7 @@ feature -- Set/get integers (64-bit data)
 			Result := i
 		end
 
-	poke_integer_64, poke_int64_native (index: INTEGER; value: INTEGER_64) is
+	poke_integer_64, poke_int64_native (index: INTEGER; value: INTEGER_64)
 			-- Write 64 bit value at offset `index', in native endian format.
 		require
 			valid_index: is_valid_range (index, index + 7)
@@ -755,7 +755,7 @@ feature -- Set/get integers (64-bit data)
 			consistent: peek_integer_64 (index) = value
 		end
 
-	poke_int64_big_endian (index: INTEGER; value: INTEGER_64) is
+	poke_int64_big_endian (index: INTEGER; value: INTEGER_64)
 			-- Write 64 bit value at offset `index', in big endian format.
 		require
 			valid_index: is_valid_range (index, index + 7)
@@ -772,7 +772,7 @@ feature -- Set/get integers (64-bit data)
 			consistent: peek_int64_big_endian (index) = value
 		end
 
-	poke_int64_little_endian (index: INTEGER; value: INTEGER_64) is
+	poke_int64_little_endian (index: INTEGER; value: INTEGER_64)
 			-- Write 64 bit value at offset `index', in little endian format.
 		require
 			valid_index: is_valid_range (index, index + 7)
@@ -792,7 +792,7 @@ feature -- Set/get integers (64-bit data)
 
 feature -- Set/get characters
 
-	append_to_string (dest: STRING; start_index, end_index: INTEGER) is
+	append_to_string (dest: STRING; start_index, end_index: INTEGER)
 			-- Append all characters from `start_index' to `end_index'
 			-- inclusive to `dest'.
 		require
@@ -813,7 +813,7 @@ feature -- Set/get characters
 			dest_count_as_asked: dest.count = old dest.count + (end_index - start_index + 1)
 		end
 
-	peek_character (index: INTEGER): CHARACTER is
+	peek_character (index: INTEGER): CHARACTER
 			-- Return value at `index' as an 8-bit character.
 		require
 			valid_index: is_valid_index (index)
@@ -821,7 +821,7 @@ feature -- Set/get characters
 			Result := posix_peek_character (ptr, index)
 		end
 
-	poke_character (index: INTEGER; value: CHARACTER) is
+	poke_character (index: INTEGER; value: CHARACTER)
 			-- Set character at `index' index to `value'.
 		require
 			valid_index: is_valid_index (index)
@@ -831,7 +831,7 @@ feature -- Set/get characters
 			consistent: peek_character (index) = value
 		end
 
-	put_character (c: CHARACTER; index: INTEGER) is
+	put_character (c: CHARACTER; index: INTEGER)
 			-- Set character at `index' index to `value'.
 			-- Same as `peek_character' with more Eiffel like parameter order.
 		require
@@ -842,7 +842,7 @@ feature -- Set/get characters
 			consistent: peek_character (index) = c
 		end
 
-	put_string (s: STRING; a_start_index, an_end_index: INTEGER) is
+	put_string (s: STRING; a_start_index, an_end_index: INTEGER)
 			-- Put `s' starting at index `start_index'. `s' is written up
 			-- to `end_index' or when there are no more characters in
 			-- `s'.
@@ -871,7 +871,7 @@ feature -- Set/get characters
 			end
 		end
 
-	put_to_string (dest: STRING; pos, start_index, end_index: INTEGER) is
+	put_to_string (dest: STRING; pos, start_index, end_index: INTEGER)
 			-- Put characters from `start_index' to `end_index' inclusive
 			-- in `dest' starting at position `pos'.
 			-- Useful for Gobo character buffers.
@@ -897,7 +897,7 @@ feature -- Set/get characters
 			end
 		end
 
-	c_substring_with_string (dest: STRING; start_index, end_index: INTEGER) is
+	c_substring_with_string (dest: STRING; start_index, end_index: INTEGER)
 			-- As `c_substring' but used `dest' as the destination.
 		require
 			have_destination: dest /= Void
@@ -925,7 +925,7 @@ feature -- Set/get characters
 			dest_count_as_asked: dest.count <= end_index - start_index + 1
 		end
 
-	c_substring (start_index, end_index: INTEGER): STRING is
+	c_substring (start_index, end_index: INTEGER): STRING
 			-- Create a substring containing all characters from
 			-- `start_index' up to encountering a %U or when `end_index' is
 			-- reached, whatever happens first.
@@ -942,7 +942,7 @@ feature -- Set/get characters
 			substring_count_as_asked: Result.count <= end_index - start_index + 1
 		end
 
-	substring (start_index, end_index: INTEGER): STRING is
+	substring (start_index, end_index: INTEGER): STRING
 			-- Create a substring containing all characters
 			-- from start_index to end_index inclusive.
 		require
@@ -969,7 +969,7 @@ feature -- Set/get characters
 
 feature -- Fill
 
-	fill_at (start_index, a_count: INTEGER; byte: INTEGER) is
+	fill_at (start_index, a_count: INTEGER; byte: INTEGER)
 			-- Starting at position `start_index', write `byte' for `a_count' bytes
 		require
 			valid_range: is_valid_range (start_index, start_index + a_count-1)
@@ -985,7 +985,7 @@ feature -- Fill
 
 feature -- Searching
 
-	locate_character (other: CHARACTER; start_index: INTEGER): INTEGER is
+	locate_character (other: CHARACTER; start_index: INTEGER): INTEGER
 			-- Return index of `other' in buffer, or -1.
 			-- Search begins at `start_index'.
 		require
@@ -1012,7 +1012,7 @@ feature -- Searching
 			result_after_start_index: Result >= start_index
 		end
 
-	locate_string (other: STRING; start_index: INTEGER): INTEGER is
+	locate_string (other: STRING; start_index: INTEGER): INTEGER
 			-- Does buffer contain 'other'?
 			-- Returns index where `other' is found.
 			-- Returns -1 if not found
@@ -1085,12 +1085,12 @@ feature -- Searching
 
 feature -- Status
 
-	is_valid_index (index: INTEGER): BOOLEAN is
+	is_valid_index (index: INTEGER): BOOLEAN
 		do
 			Result := index >= 0 and index < capacity
 		end
 
-	is_valid_range (from_index, to_index: INTEGER): BOOLEAN is
+	is_valid_range (from_index, to_index: INTEGER): BOOLEAN
 			-- Is `from_index'..`to_index' a valid and meaningfull range?
 		do
 			Result :=
@@ -1101,7 +1101,7 @@ feature -- Status
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource, return error if any, or zero on
 			-- success. This routine may never call another object, else
 			-- it cannot be used safely in `dispose'.
@@ -1111,7 +1111,7 @@ feature {NONE} -- Low level handle functions
 			Result := True
 		end
 
-	set_capacity (a_capacity: INTEGER) is
+	set_capacity (a_capacity: INTEGER)
 			-- Only routine that modifies `capacity'.
 		require
 			capacity_valid: a_capacity >= 0
@@ -1121,7 +1121,7 @@ feature {NONE} -- Low level handle functions
 			capacity_changed: capacity = a_capacity
 		end
 
-	frozen unassigned_value: POINTER is
+	frozen unassigned_value: POINTER
 			-- The value that indicates that `handle' is unassigned.
 		do
 			Result := default_pointer
@@ -1130,7 +1130,7 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Counting of allocated resource
 
-	decrease_allocated_memory (amount: INTEGER) is
+	decrease_allocated_memory (amount: INTEGER)
 			-- Decrease our idea of allocated memory. Does not call any
 			-- object, so can be called from `dispose'.
 		require
@@ -1139,7 +1139,7 @@ feature {NONE} -- Counting of allocated resource
 		alias "posix_decrease_allocated_memory"
 		end
 
-	decrease_resource_count is
+	decrease_resource_count
 			-- Decrease number of allocated resource by `capacity'.
 			-- Due to limitations of certain Eiffel implementations, this
 			-- routine may not call any other object. Calling C code is safe.
@@ -1147,13 +1147,13 @@ feature {NONE} -- Counting of allocated resource
 			decrease_allocated_memory (capacity)
 		end
 
-	increase_resource_count is
+	increase_resource_count
 			-- Increase number of allocated resources by `capacity'.
 		do
 			security.memory.increase_memory_allocation (capacity)
 		end
 
-	resource_count: INTEGER is
+	resource_count: INTEGER
 			-- Currently allocated number of resources. It's a global
 			-- number, counting the `capacity' of all owned resources of
 			-- this type.
@@ -1164,7 +1164,7 @@ feature {NONE} -- Counting of allocated resource
 
 feature {NONE} -- POSIX C interface
 
-	posix_peek_character (p: POINTER; index: INTEGER): CHARACTER is
+	posix_peek_character (p: POINTER; index: INTEGER): CHARACTER
 			-- Read character at position `index'.
 		require
 			valid_memory: p /= default_pointer
@@ -1174,14 +1174,14 @@ feature {NONE} -- POSIX C interface
 ]"
 		end
 
-	posix_peek_int16_native (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_int16_native (p: POINTER; index: INTEGER): INTEGER
 			-- Read word at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER
 			-- Read integer at position `index'.
 		require
 			valid_memory: p /= default_pointer
@@ -1191,7 +1191,7 @@ feature {NONE} -- POSIX C interface
 ]"
 		end
 
-	posix_peek_int64_native (p: POINTER; index: INTEGER): INTEGER_64 is
+	posix_peek_int64_native (p: POINTER; index: INTEGER): INTEGER_64
 			-- Read integer at position `index'.
 		require
 			valid_memory: p /= default_pointer
@@ -1201,35 +1201,35 @@ feature {NONE} -- POSIX C interface
 ]"
 		end
 
-	posix_peek_uint8 (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_uint8 (p: POINTER; index: INTEGER): INTEGER
 			-- Read unsigned 8 bit value at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_peek_uint16_native (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_uint16_native (p: POINTER; index: INTEGER): INTEGER
 			-- Read unsigned 16 bit value at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_peek_uint32_native (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_uint32_native (p: POINTER; index: INTEGER): INTEGER
 			-- Read unsigned 32 bit value at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_poke_uint8 (p: POINTER; index: INTEGER; value: INTEGER) is
+	posix_poke_uint8 (p: POINTER; index: INTEGER; value: INTEGER)
 			-- Set byte at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_poke_character (p: POINTER; offset: INTEGER; value: CHARACTER) is
+	posix_poke_character (p: POINTER; offset: INTEGER; value: CHARACTER)
 			-- Set character at position `index'.
 		require
 			valid_memory: p /= default_pointer
@@ -1239,21 +1239,21 @@ feature {NONE} -- POSIX C interface
 ]"
 		end
 
-	posix_poke_int16_native (p: POINTER; offset: INTEGER; value: INTEGER) is
+	posix_poke_int16_native (p: POINTER; offset: INTEGER; value: INTEGER)
 			-- Put a 16 bit integer at offset `offset'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_poke_uint16_native (p: POINTER; index: INTEGER; value: INTEGER) is
+	posix_poke_uint16_native (p: POINTER; index: INTEGER; value: INTEGER)
 			-- Set byte at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_poke_int32_native (p: POINTER; offset: INTEGER; value: INTEGER) is
+	posix_poke_int32_native (p: POINTER; offset: INTEGER; value: INTEGER)
 			-- Put a signed 32 bit integer at offset `offset'.
 		require
 			valid_memory: p /= default_pointer
@@ -1263,7 +1263,7 @@ feature {NONE} -- POSIX C interface
 ]"
 		end
 
-	posix_poke_int64_native (p: POINTER; offset: INTEGER; value: INTEGER_64) is
+	posix_poke_int64_native (p: POINTER; offset: INTEGER; value: INTEGER_64)
 			-- Put a signed 32 bit integer at offset `offset'.
 		require
 			valid_memory: p /= default_pointer
@@ -1276,18 +1276,18 @@ feature {NONE} -- POSIX C interface
 
 feature {NONE} -- Endian operations
 
-	posix_swap16 (i: INTEGER): INTEGER is
+	posix_swap16 (i: INTEGER): INTEGER
 			-- Reverse byte order for lower 2 bytes, upper 2 bytes are
 			-- zeroed out.
 		external "C"
 		end
 
-	posix_swap32 (i: INTEGER): INTEGER is
+	posix_swap32 (i: INTEGER): INTEGER
 			-- Reverse byte order.
 		external "C"
 		end
 
-	posix_swap64 (i: INTEGER_64): INTEGER_64 is
+	posix_swap64 (i: INTEGER_64): INTEGER_64
 			-- Reverse byte order.
 		external "C"
 		end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test IMAP4rev1 client code."
 
@@ -22,7 +22,7 @@ inherit
 
 feature -- Setup
 
-	set_up is
+	set_up
 		local
 			password_env: STDC_ENV_VAR
 		do
@@ -37,7 +37,7 @@ feature -- Setup
 
 feature -- Tests
 
-	test_login is
+	test_login
 		local
 			client: EPX_IMAP4_CLIENT
 		do
@@ -64,7 +64,7 @@ feature -- Tests
 			client.close
 		end
 
-	test_list is
+	test_list
 		local
 			client: EPX_IMAP4_CLIENT
 		do
@@ -80,7 +80,7 @@ feature -- Tests
 			client.close
 		end
 
-	test_message_reading is
+	test_message_reading
 		local
 			client: EPX_IMAP4_CLIENT
 		do
@@ -152,7 +152,7 @@ feature -- Tests
 			client.close
 		end
 
-	test_writing is
+	test_writing
 			-- Test all kinds of changes, like mail box creation, copying
 			-- of messages and removing/setting flags.
 		local
@@ -201,7 +201,7 @@ feature -- Tests
 			client.close
 		end
 
-	test_other is
+	test_other
 			-- Miscellaneous tests
 		local
 			client: EPX_IMAP4_CLIENT
@@ -229,7 +229,7 @@ feature -- Tests
 			client.close
 		end
 
-	test_ssl is
+	test_ssl
 		local
 			client: EPX_IMAP4_CLIENT
 		do
@@ -269,7 +269,7 @@ feature {NONE} -- Implementation
 	user_name,
 	password: STRING
 
-	new_mailbox_name: STRING is "INBOX.abceposixtest"
+	new_mailbox_name: STRING = "INBOX.abceposixtest"
 
 
 end

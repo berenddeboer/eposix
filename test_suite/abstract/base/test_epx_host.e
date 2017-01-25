@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test abstract host class."
 
@@ -17,17 +17,17 @@ inherit
 
 feature -- Tests
 
-	test_local_host is
+	test_local_host
 		do
 			do_test_host ("localhost")
 		end
 
-	test_freebsd is
+	test_freebsd
 		do
 			do_test_host ("www.freebsd.org")
 		end
 
-	test_well_known is
+	test_well_known
 			-- Test host creation for well-known local IP addresses.
 		local
 			host: EPX_HOST
@@ -38,7 +38,7 @@ feature -- Tests
 			assert ("Host found.", host.found)
 		end
 
-	test_unknown_host is
+	test_unknown_host
 		local
 			host: EPX_HOST
 		do
@@ -54,7 +54,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	do_test_host (a_host_name: STRING) is
+	do_test_host (a_host_name: STRING)
 			-- Test access to `a_host_name'.
 		require
 			a_host_name_not_empty: a_host_name /= Void and then not a_host_name.is_empty

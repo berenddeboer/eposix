@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create {ABSTRACT_DIRECTORY}
 
 feature -- Access
 
-	max_filename_length: INTEGER is
+	max_filename_length: INTEGER
 			-- maximum length of a file in this directory
 		local
 			r: INTEGER
@@ -50,31 +50,31 @@ feature -- Access
 
 feature {NONE} -- Abstract API
 
-	abstract_closedir (a_dirp: POINTER): INTEGER is
+	abstract_closedir (a_dirp: POINTER): INTEGER
 			-- Ends directory read operation
 		do
 			Result := posix_closedir (a_dirp)
 		end
 
-	abstract_opendir (a_dirname: POINTER): POINTER is
+	abstract_opendir (a_dirname: POINTER): POINTER
 			-- Opens a directory
 		do
 			Result := posix_opendir (a_dirname)
 		end
 
-	abstract_readdir (a_dirp: POINTER): POINTER is
+	abstract_readdir (a_dirp: POINTER): POINTER
 			-- Reads a directory
 		do
 			Result := posix_readdir (a_dirp)
 		end
 
-	abstract_rewinddir (a_dirp: POINTER) is
+	abstract_rewinddir (a_dirp: POINTER)
 			-- Resets the readdir pointer
 		do
 			posix_rewinddir (a_dirp)
 		end
 
-	abstract_d_name (a_dirent: POINTER): POINTER is
+	abstract_d_name (a_dirent: POINTER): POINTER
 		do
 			Result := posix_d_name (a_dirent)
 		end

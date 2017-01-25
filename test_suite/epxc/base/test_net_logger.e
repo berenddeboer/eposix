@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test for net logger classes."
 
@@ -24,13 +24,13 @@ inherit
 
 feature -- Tests
 
-	set_up is
+	set_up
 		do
 			create handler.make ("eposix_test")
 			create my_logger.make (handler, "test_ulm")
 		end
 
-	test_valid_field_names is
+	test_valid_field_names
 		do
 			assert ("PROG is valid", my_logger.is_valid_name (my_logger.names.PROG))
 			assert ("Void string is not valid", not my_logger.is_valid_name (Void))
@@ -45,7 +45,7 @@ feature -- Tests
 			assert ("AB29 is valid", my_logger.is_valid_name ("AB29"))
 		end
 
-	test_valid_field_lists is
+	test_valid_field_lists
 		local
 			field: NET_LOGGER_FIELD
 			fields: ARRAY [NET_LOGGER_FIELD]
@@ -66,7 +66,7 @@ feature -- Tests
 			--assert ("Void field is not valid", not my_logger.is_valid_partial_field_list (fields))
 		end
 
-	test_log_levels is
+	test_log_levels
 			-- Tests by visual inspection only.
 			-- To avoid "The description for Event ID ( 1 ) in Source (
 			-- eposix_test ) cannot be found. The local computer may not
@@ -84,7 +84,7 @@ feature -- Tests
 			my_logger.write_msg (my_logger.levels.trace, "test_ulm", "trace.")
 		end
 
-	test_logging is
+	test_logging
 			-- Tests by visual inspection only.
 		local
 			field: NET_LOGGER_FIELD

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C current system info related%
 	%routines."
@@ -22,13 +22,13 @@ inherit
 
 feature -- run-time determined queries
 
-	is_shell_available: BOOLEAN is
+	is_shell_available: BOOLEAN
 			-- Return True if command interpreter is available
 		do
 			Result := posix_system (default_pointer) /= 0
 		end
 
-	is_windows: BOOLEAN is
+	is_windows: BOOLEAN
 			-- Are we running on the Windows platform?
 			-- Note that this is false when using cygwin as for all
 			-- intends and purposes cygwin is unix to a program that
@@ -39,7 +39,7 @@ feature -- run-time determined queries
 
 feature -- Compile time determined queries
 
-	clocks_per_second: INTEGER is
+	clocks_per_second: INTEGER
 			-- Number per second of the value returned by the `clock' function
 		external "C"
 		alias "const_clocks_per_sec"
@@ -48,7 +48,7 @@ feature -- Compile time determined queries
 
 feature -- Time zone
 
-	time_zone_seconds: INTEGER is
+	time_zone_seconds: INTEGER
 			-- Number of seconds to add to UTC to arrive at the time for
 			-- the current time zone
 		local
@@ -63,13 +63,13 @@ feature -- Time zone
 
 feature -- Endianess
 
-	is_big_endian: BOOLEAN is
+	is_big_endian: BOOLEAN
 			-- True if this is a big endian architecture
 		once
 			Result := posix_first_byte (258) = 1 -- 0x0102 == 0x01
 		end
 
-	is_little_endian: BOOLEAN is
+	is_little_endian: BOOLEAN
 			-- True if this is a little endian architecture
 		once
 			Result := not is_big_endian
@@ -78,7 +78,7 @@ feature -- Endianess
 
 feature {NONE} -- C bindings
 
-	posix_first_byte (i: INTEGER): INTEGER is
+	posix_first_byte (i: INTEGER): INTEGER
 		external "C"
 		end
 

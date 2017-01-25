@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "eposix's file and socket classes (STDC_FILE, POSIX_FILE_DESCRIPTOR, SUS_SOCKET) all inherit from this class. This makes eposix plug compatible with Gobo and any other library using a KI_CHARACTER_OUTPUT_STREAM."
 
@@ -26,7 +26,7 @@ inherit
 
 feature -- Output
 
-	append (an_input_stream: KI_INPUT_STREAM [CHARACTER]) is
+	append (an_input_stream: KI_INPUT_STREAM [CHARACTER])
 			-- Read items of `an_input_stream' until the end
 			-- of input is reached, and write these items to
 			-- current output stream.
@@ -86,14 +86,14 @@ feature -- Output
 			end
 		end
 
-	last_written: INTEGER is
+	last_written: INTEGER
 			-- How many bytes were written by last call to write?
 			-- Can be less than requested for non-blocking output.
 			-- Check `last_blocked' in that case.
 		deferred
 		end
 
-	put_buffer, write_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER) is
+	put_buffer, write_buffer (buf: STDC_BUFFER; offset, nbytes: INTEGER)
 			-- Write data from `buf' position `offset' for `nbytes' bytes.
 			-- Number of bytes actually written are available in `last_written'.
 			-- `last_written' will be less than `nbytes' if non-blocking

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "UNIX sockets, base class."
 
@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Implementation
 
-	file_system: SUS_FILE_SYSTEM is
+	file_system: SUS_FILE_SYSTEM
 			-- Access to file system.
 		once
 			create Result

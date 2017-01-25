@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -47,7 +47,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make_anonymous (a_server_name: STRING; an_email: STRING) is
+	make_anonymous (a_server_name: STRING; an_email: STRING)
 			-- Connect to `a_server_name' using the anonymous
 			-- user. Password is either an email address or just "guest"
 			-- if the remote system allows that.
@@ -58,7 +58,7 @@ feature {NONE} -- Initialization
 			make (a_server_name, once_anonymous, an_email)
 		end
 
-	make_anonymous_with_port (a_server_name: STRING; a_port: INTEGER; an_email: STRING) is
+	make_anonymous_with_port (a_server_name: STRING; a_port: INTEGER; an_email: STRING)
 			-- Connect to `a_server_name' using the anonymous
 			-- user. Password is either an email address or just "guest"
 			-- if the remote system allows that.
@@ -73,14 +73,14 @@ feature {NONE} -- Initialization
 
 feature -- Open/close
 
-	close is
+	close
 			-- Close connection to FTP server.
 		do
 			is_authenticated := False
 			precursor
 		end
 
-	close_data_connection is
+	close_data_connection
 			-- Close `data_connection' and set it to Void.
 		do
 			if
@@ -97,7 +97,7 @@ feature -- Open/close
 
 feature -- Connection registration
 
-	authenticate is
+	authenticate
 		do
 			read_until_server_ready_for_input
 			if last_reply_code = 220 then
@@ -116,10 +116,10 @@ feature -- Access
 			-- file, an entire file or a number of files.
 			-- Only valid after a command is sent that returns data.
 
-	default_port: INTEGER is 25
+	default_port: INTEGER = 25
 			-- Default FTP port
 
-	default_port_name: STRING is
+	default_port_name: STRING
 		do
 			Result := once_ftp
 		end
@@ -134,7 +134,7 @@ feature -- Status
 	is_authenticated: BOOLEAN
 			-- Is client successfully authenticated at the server?
 
-	is_command_ok: BOOLEAN is
+	is_command_ok: BOOLEAN
 			-- Did last command complete successfully?
 		require
 			open: is_open
@@ -145,7 +145,7 @@ feature -- Status
 
 feature -- FTP commands
 
-	change_to_parent_directory is
+	change_to_parent_directory
 			-- This command is a special case of CWD, and is included to
 			-- simplify the implementation of programs for transferring
 			-- directory trees between operating systems having different
@@ -157,7 +157,7 @@ feature -- FTP commands
 			put_command (commands.cdup, Void)
 		end
 
-	change_directory (a_directory: STRING) is
+	change_directory (a_directory: STRING)
 			-- This command allows the user to work with a different
 			-- directory or dataset for file storage or retrieval without
 			-- altering his login or accounting information.  Transfer
@@ -171,19 +171,19 @@ feature -- FTP commands
 			put_command (commands.cwd, a_directory)
 		end
 
-	change_working_directory (a_directory: STRING) is
+	change_working_directory (a_directory: STRING)
 		obsolete "2004-12-10: use change_directory instead"
 		do
 			change_directory (a_directory)
 		end
 
-	delete_file (a_filename: STRING) is
+	delete_file (a_filename: STRING)
 		obsolete "Use remove_file instead."
 		do
 			remove_file (a_filename)
 		end
 
-	help is
+	help
 			-- This command shall cause the server to send helpful
 			-- information regarding its implementation status over the
 			-- control connection to the user.  The command may take an
@@ -198,7 +198,7 @@ feature -- FTP commands
 			put_command (commands.help, Void)
 		end
 
-	list is
+	list
 			-- This command causes a list to be sent from the server to
 			-- the passive DTP.
 			-- Since the information on a file may vary widely from
@@ -218,7 +218,7 @@ feature -- FTP commands
 					data_connection.is_open_write
 		end
 
-	make_directory (a_directory: STRING) is
+	make_directory (a_directory: STRING)
 			-- This command causes the directory specified in the
 			-- pathname to be created as a directory (if the pathname is
 			-- absolute) or as a subdirectory of the current working
@@ -230,7 +230,7 @@ feature -- FTP commands
 			put_command (commands.mkd, a_directory)
 		end
 
-	name_list is
+	name_list
 			-- This command causes a directory listing to be sent from
 			-- server to user site through `data_connection'. The server
 			-- will return a stream of names of files and no other
@@ -248,7 +248,7 @@ feature -- FTP commands
 					data_connection.is_open_write
 		end
 
-	noop is
+	noop
 			-- This command does not affect any parameters or previously
 			-- entered commands. It specifies no action other than that
 			-- the server send an OK reply.
@@ -258,7 +258,7 @@ feature -- FTP commands
 			put_command (commands.noop, Void)
 		end
 
-	quit is
+	quit
 			-- This command terminates a USER and if file transfer is not
 			-- in progress, the server closes the control connection.  If
 			-- file transfer is in progress, the connection will remain
@@ -281,7 +281,7 @@ feature -- FTP commands
 			cannot_write: not control_connection.is_open_write
 		end
 
-	remove_directory (a_directory: STRING) is
+	remove_directory (a_directory: STRING)
 			-- This command causes the directory specified in the
 			-- pathname to be removed as a directory (if the pathname is
 			-- absolute) or as a subdirectory of the current working
@@ -293,7 +293,7 @@ feature -- FTP commands
 			put_command (commands.rmd, a_directory)
 		end
 
-	remove_file (a_filename: STRING) is
+	remove_file (a_filename: STRING)
 			-- This command causes the file specified in the pathname to
 			-- be deleted at the server site.
 		require
@@ -303,7 +303,7 @@ feature -- FTP commands
 			put_command (commands.dele, a_filename)
 		end
 
-	rename_to (an_old_filename, a_new_filename: STRING) is
+	rename_to (an_old_filename, a_new_filename: STRING)
 			-- Rename a filename from `an_old_filename_ to `a_new_filename'.
 		require
 			ready_for_commands: is_accepting_commands
@@ -316,7 +316,7 @@ feature -- FTP commands
 			end
 		end
 
-	retrieve (a_filename: STRING) is
+	retrieve (a_filename: STRING)
 			-- Start copying the giving file to `data_connection'. Client
 			-- must read all bytes from `data_connection' to retrieve the
 			-- data. Afterwards call `read_reply' to retrieve the final
@@ -335,7 +335,7 @@ feature -- FTP commands
 					data_connection.is_open_write
 		end
 
-	operating_system is
+	operating_system
 			-- This command (SYST) is used to find out the type of
 			-- operating system at the server. The reply has as its first
 			-- word one of the system names listed in the current version
@@ -363,7 +363,7 @@ feature -- FTP commands
 			remote_operating_system_set: last_reply_code = 215 = (server_operating_system /= Void)
 		end
 
-	store (a_filename: STRING) is
+	store (a_filename: STRING)
 			-- This command causes the server-DTP to accept the data
 			-- transferred via the data connection and to store the data
 			-- as a file at the server site.  If the file specified in
@@ -389,7 +389,7 @@ feature -- FTP commands
 					data_connection.is_open_write
 		end
 
-	type_ascii is
+	type_ascii
 			-- The sender converts the data from an internal character
 			-- representation to the standard 8-bit NVT-ASCII
 			-- representation (see the Telnet specification).
@@ -399,7 +399,7 @@ feature -- FTP commands
 			put_command (commands.type, "A")
 		end
 
-	type_binary is
+	type_binary
 			-- Data is sent without change as a stream of continguous
 			-- bits.
 		require
@@ -408,7 +408,7 @@ feature -- FTP commands
 			put_command (commands.type, "I")
 		end
 
-	user_and_password (a_user_name, a_password: STRING) is
+	user_and_password (a_user_name, a_password: STRING)
 			-- Identify as `a_user_name' to server.
 		require
 			ready_for_commands: is_accepting_commands
@@ -426,7 +426,7 @@ feature -- FTP commands
 
 feature -- FTP connection control
 
-	await_reply is
+	await_reply
 		obsolete "2004-12-10: use read_reply instead."
 		do
 			read_reply
@@ -435,13 +435,13 @@ feature -- FTP connection control
 
 feature {NONE} -- Lowest level FTP server interaction
 
-	async_send_command (a_command, a_parameter: STRING) is
+	async_send_command (a_command, a_parameter: STRING)
 		obsolete "2004-12-10: Use async_put_command instead."
 		do
 			async_put_command (a_command, a_parameter)
 		end
 
-	commands: EPX_FTP_COMMANDS is
+	commands: EPX_FTP_COMMANDS
 			-- FTP commands
 		once
 			create Result
@@ -451,7 +451,7 @@ feature {NONE} -- Lowest level FTP server interaction
 
 	hp: EPX_HOST_PORT
 
-	put_command_with_data_connection  (a_command, a_parameter: STRING) is
+	put_command_with_data_connection  (a_command, a_parameter: STRING)
 			-- Setup a data connection, send `a_command'.
 			-- If reply other than 150 is received, data connection is closed.
 		require
@@ -474,13 +474,13 @@ feature {NONE} -- Lowest level FTP server interaction
 					data_connection.is_open_write
 		end
 
-	send_command (a_command, a_parameter: STRING) is
+	send_command (a_command, a_parameter: STRING)
 		obsolete "2004-12-10: use put_command instead."
 		do
 			put_command (a_command, a_parameter)
 		end
 
-	setup_data_connection is
+	setup_data_connection
 			-- Setup a data connection with the server.
 		require
 			ready_for_commands: is_accepting_commands
@@ -546,7 +546,7 @@ feature {NONE} -- Lowest level FTP server interaction
 
 feature {NONE} -- Implementation
 
-	rx_pasv_post_port: RX_PCRE_REGULAR_EXPRESSION is
+	rx_pasv_post_port: RX_PCRE_REGULAR_EXPRESSION
 		once
 			create Result.make
 			Result.compile ("([0-2]?[0-9]?[0-9]),([0-2]?[0-9]?[0-9]),([0-2]?[0-9]?[0-9]),([0-2]?[0-9]?[0-9]),([0-2]?[0-9]?[0-9]),([0-2]?[0-9]?[0-9])")
@@ -558,7 +558,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
-	once_anonymous: STRING is "anonymous"
+	once_anonymous: STRING = "anonymous"
 
 
 invariant

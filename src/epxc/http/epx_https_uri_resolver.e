@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -30,13 +30,13 @@ create
 
 feature -- Operation(s)
 
-	default_port: INTEGER is 443
+	default_port: INTEGER = 443
 
-	scheme: STRING is "https"
+	scheme: STRING = "https"
 
 feature {NONE} -- Implementation
 
-	new_client (a_uri_to_use: UT_URI): EPX_HTTP_11_CLIENT is
+	new_client (a_uri_to_use: UT_URI): EPX_HTTP_11_CLIENT
 		do
 			if a_uri_to_use.port = 0 then
 				create Result.make_secure (a_uri_to_use.host)

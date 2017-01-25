@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "POSIX last error number."
 

@@ -10,7 +10,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			client: EPX_IMAP4_CLIENT
 		do
@@ -35,9 +35,9 @@ feature
 
 feature -- Access
 
-	host: STRING is "bmach"
+	host: STRING = "bmach"
 
-	password: STRING is
+	password: STRING
 		local
 			password_env: STDC_ENV_VAR
 		once

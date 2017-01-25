@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Factory to return appropriate classes when compiling a POSIX application."
 
@@ -18,14 +18,14 @@ inherit
 
 feature -- binary/text file open mode
 
-	is_binary_mode: BOOLEAN is
+	is_binary_mode: BOOLEAN
 			-- what's the current open mode?
 		do
 			-- distinction does not matter with POSIX
 			Result := True
 		end
 
-	set_binary_mode (value: BOOLEAN) is
+	set_binary_mode (value: BOOLEAN)
 		do
 			-- not applicable (but what about Cygwin???)
 			-- perhaps need O_BINARY constants??
@@ -34,42 +34,42 @@ feature -- binary/text file open mode
 
 feature -- file descriptor
 
-	create_with_mode (a_path: STRING; flags, mode: INTEGER): ABSTRACT_FILE_DESCRIPTOR is
+	create_with_mode (a_path: STRING; flags, mode: INTEGER): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.create_with_mode (a_path, flags, mode)
 		end
 
-	create_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR is
+	create_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.create_write (a_path)
 		end
 
-	create_read_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR is
+	create_read_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.create_read_write (a_path)
 		end
 
-	open (a_path: STRING; a_flags: INTEGER): ABSTRACT_FILE_DESCRIPTOR is
+	open (a_path: STRING; a_flags: INTEGER): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.open (a_path, a_flags)
 		end
 
-	open_read (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR is
+	open_read (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.open_read (a_path)
 		end
 
-	open_read_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR is
+	open_read_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.open_read_write (a_path)
 		end
 
-	open_truncate (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR is
+	open_truncate (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.open_truncate (a_path)
 		end
 
-	open_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR is
+	open_write (a_path: STRING): ABSTRACT_FILE_DESCRIPTOR
 		do
 			create {POSIX_FILE_DESCRIPTOR} Result.open_write (a_path)
 		end

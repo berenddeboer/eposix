@@ -10,7 +10,7 @@ create
 
 feature
 
-   execute is
+   execute
       do
          content_text_html
 

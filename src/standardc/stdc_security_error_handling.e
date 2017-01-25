@@ -1,4 +1,4 @@
-indexing
+note
 
    description:
    "Describes error handling related security."
@@ -26,7 +26,7 @@ create
 
 feature -- creation
 
-   make is
+   make
          -- allow everything
       do
          exceptions_enabled := True
@@ -40,7 +40,7 @@ feature -- query parameters
 
 feature -- set parameters
 
-   disable_exceptions is
+   disable_exceptions
       do
          disabled_counter := disabled_counter + 1
          exceptions_enabled := False
@@ -48,7 +48,7 @@ feature -- set parameters
          enabled_when_needed: disabled_counter = 0 implies exceptions_enabled
       end
 
-   enable_exceptions is
+   enable_exceptions
       do
          if not exceptions_enabled then
             disabled_counter := disabled_counter - 1

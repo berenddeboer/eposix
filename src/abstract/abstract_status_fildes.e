@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that gets stat structure through fstat call."
 
@@ -18,7 +18,7 @@ inherit
 
 feature {ABSTRACT_FILE_DESCRIPTOR} -- creation
 
-	make (a_fd: ABSTRACT_FILE_DESCRIPTOR) is
+	make (a_fd: ABSTRACT_FILE_DESCRIPTOR)
 		require
 			open_file_descriptor: a_fd.is_open
 		do
@@ -30,7 +30,7 @@ feature {ABSTRACT_FILE_DESCRIPTOR} -- creation
 
 feature -- Status
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Can status be refreshed?
 		do
 			Result := fd.is_open
@@ -39,7 +39,7 @@ feature -- Status
 
 feature -- Change
 
-	refresh is
+	refresh
 			-- Refresh the cached status information.
 		do
 			safe_call (abstract_fstat (fd.value, stat.ptr))
@@ -54,7 +54,7 @@ feature -- state
 
 feature {NONE} -- abstract API
 
-	abstract_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER is
+	abstract_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER
 			-- Gets file status
 		require
 			valid_stat_buffer: a_stat /= default_pointer

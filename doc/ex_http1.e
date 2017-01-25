@@ -6,9 +6,9 @@ create
 
 feature
 
-	url: STRING is "http://www.freebsd.org/index.html"
+	url: STRING = "http://www.freebsd.org/index.html"
 
-	make is
+	make
 		local
 			uri: UT_URI
 			client: EPX_HTTP_10_CLIENT

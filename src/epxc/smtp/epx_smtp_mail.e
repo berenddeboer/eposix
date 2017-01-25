@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_sender_mailbox, a_recipient_mailbox: STRING; a_message: EPX_MIME_PART) is
+	make (a_sender_mailbox, a_recipient_mailbox: STRING; a_message: EPX_MIME_PART)
 			-- Initialize with given sender mailbox and recipient
 			-- mailbox. They may be totally unrelated to the contents of
 			-- `a_message', and for spams they usually are.
@@ -55,7 +55,7 @@ feature -- Access
 
 feature -- Change
 
-	add_recipient (a_recipient_mailbox: STRING) is
+	add_recipient (a_recipient_mailbox: STRING)
 			-- Add a recipient to `recipients'.
 		do
 			recipients.put_last (a_recipient_mailbox)

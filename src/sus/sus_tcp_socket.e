@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "TCP/SOCK_STREAM sockets, base class."
 

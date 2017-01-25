@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers POSIX memory mapping."
 
@@ -45,7 +45,7 @@ create
 
 feature -- Initialization
 
-	make (a_fd: POSIX_FILE_DESCRIPTOR; a_offset, a_size: INTEGER;  a_base: POINTER; a_prot, a_flags: INTEGER) is
+	make (a_fd: POSIX_FILE_DESCRIPTOR; a_offset, a_size: INTEGER;  a_base: POINTER; a_prot, a_flags: INTEGER)
 			-- Raw interface to mmap.
 			-- This function can fail on certain system (Linux for
 			-- example) if a_offset is not a multiple of PAGE_SIZE.
@@ -67,7 +67,7 @@ feature -- Initialization
 			open: raise_exception_on_error implies is_open
 		end
 
-	make_private (a_fd: POSIX_FILE_DESCRIPTOR; a_offset, a_size: INTEGER ) is
+	make_private (a_fd: POSIX_FILE_DESCRIPTOR; a_offset, a_size: INTEGER )
 			-- Make the given file descriptor. `a_fd' should have been opened
 			-- with read/write access.
 			-- This is a mapping where changes are private.
@@ -86,7 +86,7 @@ feature -- Initialization
 			open: raise_exception_on_error implies is_open
 		end
 
-	make_shared (a_fd: POSIX_FILE_DESCRIPTOR; a_offset, a_size: INTEGER) is
+	make_shared (a_fd: POSIX_FILE_DESCRIPTOR; a_offset, a_size: INTEGER)
 			-- Make the given file descriptor. `a_fd' should have been opened
 			-- with read/write access.
 			-- This is a mapping where changes are shared, i.e. the
@@ -110,7 +110,7 @@ feature -- Initialization
 
 feature {NONE} -- Removal
 
-	dispose is
+	dispose
 		local
 			r: INTEGER
 		do
@@ -126,7 +126,7 @@ feature {NONE} -- Removal
 
 feature -- Unmap
 
-	close is
+	close
 			-- Remove the mapping.
 		do
 			safe_call (posix_munmap (ptr, capacity))

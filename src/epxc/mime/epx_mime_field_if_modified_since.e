@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field If-Modified-Since"
 
@@ -24,7 +24,7 @@ create
 
 feature -- Access
 
-	name: STRING is "If-Modified-Since"
+	name: STRING = "If-Modified-Since"
 
 
 end

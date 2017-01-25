@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_name, an_email_address: STRING) is
+	make (a_name, an_email_address: STRING)
 			-- Initialise
 		require
 			email_address_not_empty: an_email_address /= Void and then not an_email_address.is_empty

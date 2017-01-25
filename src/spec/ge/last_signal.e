@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that can return the last signal. Is compiler dependent."
 
@@ -24,7 +24,7 @@ inherit
 	
 feature
 
-	signal: INTEGER is
+	signal: INTEGER
 			-- Last signal
 		local
 			us: UNIX_SIGNALS

@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that covers the POSIX signal event structure."
 
@@ -22,7 +22,7 @@ create
 
 feature -- creation
 
-   make is
+   make
       do
       end
 

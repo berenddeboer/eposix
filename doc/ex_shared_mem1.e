@@ -14,7 +14,7 @@ create
 
 feature
 
-   make is
+   make
       local
          fd: POSIX_SHARED_MEMORY
       do

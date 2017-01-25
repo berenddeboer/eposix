@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -35,7 +35,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_container: like container; a_key_re, a_value_re: RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH) is
+	make (a_container: like container; a_key_re, a_value_re: RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH)
 		require
 			match_found_callback: an_on_match_found /= Void
 			key_re_void_or_compiled: a_key_re /= Void implies a_key_re.is_compiled
@@ -65,7 +65,7 @@ feature -- Access
 
 feature -- Cursor movement
 
-	forth is
+	forth
 			-- Move cursor to next position included in the filter.
 		do
 			is_first := False
@@ -79,7 +79,7 @@ feature -- Cursor movement
 			end
 		end
 
-	start is
+	start
 			-- Move cursor to first position included in the filter.
 		do
 			is_first := not container.is_empty
@@ -95,7 +95,7 @@ feature -- Cursor movement
 
 feature -- Filter check
 
-	is_included: BOOLEAN is
+	is_included: BOOLEAN
 			-- Is current item included in the filter?
 		require
 			not_after: not after

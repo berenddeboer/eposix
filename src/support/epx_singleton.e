@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Singleton base class."
 	thanks: "Thanks to Design Patterns and Contracts."
@@ -14,7 +14,7 @@ deferred class
 
 feature {NONE} -- Is singleton check
 
-	singleton: EPX_SINGLETON is
+	singleton: EPX_SINGLETON
 			-- Redefine this method and make it frozen once. It should
 			-- return current.
 		deferred
@@ -22,7 +22,7 @@ feature {NONE} -- Is singleton check
 			returns_current: Result = Current
 		end
 
-	frozen the_singleton: EPX_SINGLETON is
+	frozen the_singleton: EPX_SINGLETON
 		obsolete "Use singleton instead."
 		do
 			Result := singleton

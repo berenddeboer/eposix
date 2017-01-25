@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Body that is stored in a STRING."
 
@@ -26,7 +26,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initialize text body.
 		do
 			value := ""
@@ -36,14 +36,14 @@ feature {NONE} -- Initialization
 
 feature -- Access to body content
 
-	as_string: STRING is
+	as_string: STRING
 			-- Return `value'.
 		do
 			flush_encoder
 			Result := value
 		end
 
-	rewind_stream is
+	rewind_stream
 			-- Make sure `stream' starts returning character the
 			-- beginning of the body.
 		do
@@ -52,7 +52,7 @@ feature -- Access to body content
 			end
 		end
 
-	stream: EPX_STRING_INPUT_STREAM is
+	stream: EPX_STRING_INPUT_STREAM
 			-- Return a stream to the actual body.
 		do
 			if my_stream = Void then

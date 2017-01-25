@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 IPv4 address."
 

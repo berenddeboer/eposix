@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Content-Type"
 
@@ -34,7 +34,7 @@ create
 
 feature -- Initialization
 
-	make (a_type, a_subtype: STRING) is
+	make (a_type, a_subtype: STRING)
 			-- Initialize Content-Type MIME field and clear all parameters.
 		require
 			type_not_empty: a_type /= Void and then not a_type.is_empty
@@ -45,7 +45,7 @@ feature -- Initialization
 			make_parameters
 		end
 
-	make_multipart (a_subtype, a_boundary: STRING) is
+	make_multipart (a_subtype, a_boundary: STRING)
 			-- Initialize Content-Type.
 		require
 			subtype_not_empty: a_subtype /= Void and then not a_subtype.is_empty
@@ -64,7 +64,7 @@ feature -- Initialization
 
 feature -- State
 
-	boundary: STRING is
+	boundary: STRING
 			-- Boundary, if Content-Type knows a boundary, else Void.
 		do
 			parameters.search (parameter_name_boundary)
@@ -73,13 +73,13 @@ feature -- State
 			end
 		end
 
-	is_multipart: BOOLEAN is
+	is_multipart: BOOLEAN
 			-- Is this a multipart Content-Type?
 		do
 			Result := type.is_equal (mime_type_multipart)
 		end
 
-	name: STRING is "Content-Type"
+	name: STRING = "Content-Type"
 
 	subtype: STRING
 			-- More detail about `type'.
@@ -87,7 +87,7 @@ feature -- State
 	type: STRING
 			-- Major MIME type like `multipart' or `message'.
 
-	value: STRING is
+	value: STRING
 			-- Value of field.
 		do
 			create Result.make (type.count + 1 + subtype.count)

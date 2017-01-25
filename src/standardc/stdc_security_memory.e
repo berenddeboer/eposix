@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 		"Describes memory related security."
@@ -26,7 +26,7 @@ create
 
 feature -- creation
 
-	make is
+	make
 			-- allow everything
 		do
 			max_allocated_memory := Max_Int
@@ -36,7 +36,7 @@ feature -- creation
 
 feature -- parameters
 
-	allocated_memory: INTEGER is
+	allocated_memory: INTEGER
 			-- The amount of memory that is currently allocated. This
 			-- object only tracks memory allocated by STDC_BUFFER.
 		external "C"
@@ -52,7 +52,7 @@ feature -- parameters
 
 feature {STDC_SECURITY_ACCESSOR} -- Set parameters
 
-	set_max_allocated_memory (value: INTEGER) is
+	set_max_allocated_memory (value: INTEGER)
 		require
 			value_not_negative: value >= 0
 		do
@@ -63,7 +63,7 @@ feature {STDC_SECURITY_ACCESSOR} -- Set parameters
 			maximum_not_exceeded: max_allocated_memory >= allocated_memory
 		end
 
-	set_max_single_allocation (value: INTEGER) is
+	set_max_single_allocation (value: INTEGER)
 		require
 			value_not_negative: value >= 0
 		do
@@ -75,7 +75,7 @@ feature {STDC_SECURITY_ACCESSOR} -- Set parameters
 
 feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 
-	decrease_allocated_memory (amount: INTEGER) is
+	decrease_allocated_memory (amount: INTEGER)
 			-- Decrement record of memory allocated. Should be called
 			-- AFTER memory has been released.
 		require
@@ -86,7 +86,7 @@ feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 			memory_decreased: allocated_memory = old allocated_memory - amount
 		end
 
-	increase_memory_allocation (amount: INTEGER) is
+	increase_memory_allocation (amount: INTEGER)
 			-- Increment record of memory allocated. Should be called
 			-- AFTER the fact.
 		require
@@ -102,7 +102,7 @@ feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 
 feature {NONE} -- Implementation
 
-	memory: MEMORY is
+	memory: MEMORY
 			-- Ensuring that resource counting is correct, works only
 			-- when garbage collector doesn't kick in to dispose handles.
 			-- Need to test if garbage collector enabled or not.
@@ -110,7 +110,7 @@ feature {NONE} -- Implementation
 			create Result
 		end
 
-	posix_increase_allocated_memory (amount: INTEGER) is
+	posix_increase_allocated_memory (amount: INTEGER)
 		require
 			amount_not_negative: amount >= 0
 		external "C"
@@ -121,7 +121,7 @@ feature {NONE} -- Implementation
 
 feature -- Checks
 
-	is_allocated_memory_increased (should_increase: BOOLEAN; old_allocated_memory, a_capacity: INTEGER): BOOLEAN is
+	is_allocated_memory_increased (should_increase: BOOLEAN; old_allocated_memory, a_capacity: INTEGER): BOOLEAN
 			-- Is `allocated_memory' correctly incremented depending on
 			-- `should_increase' given old `allocated_memory'?
 			-- Routine to be used in postconditions.
@@ -139,7 +139,7 @@ feature -- Checks
 			no_test_when_gc_enabled: memory.collecting implies Result
 		end
 
-	is_allowed_allocation (amount: INTEGER): BOOLEAN is
+	is_allowed_allocation (amount: INTEGER): BOOLEAN
 			-- May application allocate memory blocks the size of `amount'.
 		require
 			amount_not_negative: amount >= 0
@@ -147,7 +147,7 @@ feature -- Checks
 			Result := amount <= max_single_allocation
 		end
 
-	is_within_maximum (amount: INTEGER): BOOLEAN is
+	is_within_maximum (amount: INTEGER): BOOLEAN
 			-- Does allocation of `amount' not exceed set limits?
 		require
 			amount_not_negative: amount >= 0
@@ -155,7 +155,7 @@ feature -- Checks
 			Result := allocated_memory + amount < max_allocated_memory
 		end
 
-	check_allocation (amount: INTEGER) is
+	check_allocation (amount: INTEGER)
 			-- Test if application may allocate a memory block of `amount' bytes.
 		require
 			amount_not_negative: amount >= 0
@@ -167,7 +167,7 @@ feature -- Checks
 			end
 		end
 
-	check_max_allocation is
+	check_max_allocation
 			-- Test if we are still within the set memory limits.
 		do
 			if allocated_memory > max_allocated_memory then

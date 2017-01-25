@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "All eposix's file/socket classes are bidirectional in principle. This class is the base class for them and combines the Gobo KI_INPUT_STREAM and KI_OUTPUT_STREAM."
 

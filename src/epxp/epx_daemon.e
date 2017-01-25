@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -32,7 +32,7 @@ inherit
 
 feature {NONE} -- Initialisation
 
-	make is
+	make
 		do
 			parse_arguments
 			if not is_pid_writable then
@@ -57,7 +57,7 @@ feature -- Access
 
 feature {NONE} -- Signal handling
 
-	setup_signals is
+	setup_signals
 			-- Bind to SIGINT (Ctrl+C) and SIGTERM (kill signal) so
 			-- daemon can be gracefully terminated.
 		require
@@ -79,7 +79,7 @@ feature {NONE} -- Signal handling
 
 feature -- PID writing
 
-	pid_file_name: STDC_PATH is
+	pid_file_name: STDC_PATH
 			-- Name of file where pid is stored
 		require
 			pid_file_name_flag_not_void: pid_file_name_flag /= Void
@@ -94,13 +94,13 @@ feature -- PID writing
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	write_pid is
+	write_pid
 			-- Write `pid' to `pid_file_name'.
 		do
 			string_to_file (pid.out, pid_file_name)
 		end
 
-	is_pid_writable: BOOLEAN is
+	is_pid_writable: BOOLEAN
 			-- Is `a_pid_file_name' writable?
 			-- Destructive test by truncating any existing `pid_file_name'
 		local
@@ -122,7 +122,7 @@ feature -- PID writing
 
 feature -- Argument parsing
 
-	application_description: STRING is
+	application_description: STRING
 			-- Daemon description printed when help is requested
 		deferred
 		end
@@ -143,7 +143,7 @@ feature -- Argument parsing
 			not_empty: Result /= Void and then not Result.is_empty
 		end
 
-	set_arguments (a_parser: AP_PARSER) is
+	set_arguments (a_parser: AP_PARSER)
 			-- Set application arguments.
 		require
 			parser_not_void: a_parser /= Void
@@ -158,7 +158,7 @@ feature -- Argument parsing
 			options_valid: a_parser.valid_options
 		end
 
-	parse_arguments is
+	parse_arguments
 			-- Create parser, set arguments, and parse arguments.
 			-- To validate specific arguments, override this, and exit
 			-- the application if some argument has not been given.

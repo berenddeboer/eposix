@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that gets POSIX stat structure through stat call."
 
@@ -33,7 +33,7 @@ create {EPX_FILE_SYSTEM}
 
 feature -- stat members
 
-	permissions: POSIX_PERMISSIONS is
+	permissions: POSIX_PERMISSIONS
 			-- Path permissions
 		do
 			if my_permissions = Void then
@@ -45,7 +45,7 @@ feature -- stat members
 
 feature -- state change commands
 
-	refresh_may_fail is
+	refresh_may_fail
 			-- Refresh the cached status information.
 		do
 			precursor
@@ -62,7 +62,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- abstract API
 
-	abstract_stat (a_path: POINTER; a_stat: POINTER): INTEGER is
+	abstract_stat (a_path: POINTER; a_stat: POINTER): INTEGER
 			-- Gets information about a path
 		do
 			Result := posix_stat (a_path, a_stat)

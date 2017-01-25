@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements the ULM DATE field for Standard C."
 
@@ -23,7 +23,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make  is
+	make
 			-- Make sure date field has a value.
 		do
 			create date.make_from_now
@@ -37,7 +37,7 @@ feature -- Public state
 
 feature -- Query
 
-	expected_length: INTEGER is
+	expected_length: INTEGER
 			-- Length expected for a date field.
 		do
 			Result := 14
@@ -45,7 +45,7 @@ feature -- Query
 
 feature -- Commands
 
-	refresh is
+	refresh
 			-- Make `value' equal to current time
 		do
 			date.make_from_now

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field MIME-Version"
 
@@ -25,7 +25,7 @@ create
 
 feature -- Initialization
 
-	make (a_major_number, a_minor_number: INTEGER) is
+	make (a_major_number, a_minor_number: INTEGER)
 		require
 			major_number_positive: a_major_number >= 0
 			minor_number_positive: a_minor_number >= 0
@@ -41,9 +41,9 @@ feature -- Access
 	minor_number: INTEGER
 			-- MIME version.
 
-	name: STRING is "MIME-Version"
+	name: STRING = "MIME-Version"
 
-	value: STRING is
+	value: STRING
 			-- Value of field.
 		do
 			Result := major_number.out + "." + minor_number.out

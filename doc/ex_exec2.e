@@ -10,7 +10,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			ls: POSIX_EXEC_PROCESS
 		do

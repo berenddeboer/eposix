@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Deferred class that implements POSIX semaphores on top of ABSTRACT_SEMAPHORE."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Commands
 
-	attempt_acquire is
+	attempt_acquire
 			-- Lock the semaphore only if it is not locked. If it is locked
 			-- by some process, this command returns immediately and the
 			-- semaphore is not locked
@@ -43,14 +43,14 @@ feature -- Commands
 			end
 		end
 
-	acquire is
+	acquire
 			-- Lock the semaphore.
 		do
 			safe_call (posix_sem_wait (handle))
 			is_acquired := True
 		end
 
-	release is
+	release
 			-- Unlock the semaphore.
 		do
 			safe_call (posix_sem_post (handle))
@@ -60,7 +60,7 @@ feature -- Commands
 
 feature {NONE} -- Access
 
-	value: INTEGER is
+	value: INTEGER
 			-- Value of semaphore if not locked;
 			-- Value is <= 0 if this semaphore is locked.
 		do
@@ -71,7 +71,7 @@ feature {NONE} -- Access
 
 feature -- Status
 
-	supports_semaphores: BOOLEAN is
+	supports_semaphores: BOOLEAN
 			-- Does this Operating System supports semaphores?
 			-- Most systems support unnamed semaphores, but still return
 			-- False here...
@@ -82,7 +82,7 @@ feature -- Status
 
 feature {NONE} -- Low level handle functions
 
-	unassigned_value: POINTER is
+	unassigned_value: POINTER
 			-- The value that indicates that `handle' is unassigned.
 		do
 			Result := default_pointer
@@ -97,7 +97,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Abstract API
 
-	abstract_sem_value_max: INTEGER is
+	abstract_sem_value_max: INTEGER
 			-- Maximum initial value for a semaphore.
 		do
 			Result := SEM_VALUE_MAX

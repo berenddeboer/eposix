@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "CGI key/value pairs."
 
@@ -19,7 +19,7 @@ create
 
 feature -- creation
 
-	make (a_key, a_value: STRING) is
+	make (a_key, a_value: STRING)
 		do
 			key := a_key
 			if a_value = Void then
@@ -47,7 +47,7 @@ feature -- state
 
 feature -- change state
 
-	set_file (a_file: STDC_TEMPORARY_FILE) is
+	set_file (a_file: STDC_TEMPORARY_FILE)
 		require
 			valid_file: a_file /= Void and then a_file.is_open
 		do

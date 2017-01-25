@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix file locking."
 
@@ -36,7 +36,7 @@ inherit
 
 feature -- Tests
 
-	test_lock is
+	test_lock
 		do
 			if system_name.substring_index ("CYGWIN", 1) = 0 then
 				do_test_lock
@@ -48,7 +48,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	do_test_lock is
+	do_test_lock
 			-- Testing Posix file locking interface.
 		local
 			lock,
@@ -85,7 +85,7 @@ feature {NONE} -- Implementation
 
 feature -- forked child
 
-	execute is
+	execute
 		local
 			fd: POSIX_FILE_DESCRIPTOR
 			lock,

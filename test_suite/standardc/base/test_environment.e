@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test environment class."
 
@@ -18,7 +18,7 @@ inherit
 
 feature -- Test
 
-	test_all is
+	test_all
 		do
 			print_env ("HOME")
 			print_env ("TMP")
@@ -27,7 +27,7 @@ feature -- Test
 			print_env ("TZ")
 		end
 
-	print_env (a_name: STRING) is
+	print_env (a_name: STRING)
 		local
 			env: STDC_ENV_VAR
 		do

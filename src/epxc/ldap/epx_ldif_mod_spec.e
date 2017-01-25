@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_mod_spec: INTEGER; an_attribute_description: EPX_LDIF_ATTRIBUTE_DESCRIPTION; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE]) is
+	make (a_mod_spec: INTEGER; an_attribute_description: EPX_LDIF_ATTRIBUTE_DESCRIPTION; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE])
 		require
 			valid_mod_spec: is_valid_mod_spec (a_mod_spec)
 			attribute_description_not_void: an_attribute_description /= Void
@@ -49,7 +49,7 @@ feature -- Access
 
 feature -- Status
 
-	is_valid_mod_spec (a_mod_spec: INTEGER): BOOLEAN is
+	is_valid_mod_spec (a_mod_spec: INTEGER): BOOLEAN
 			-- Is `a_mod_spec' an add, delete or replace mod spec?
 		do
 			Result :=
@@ -60,9 +60,9 @@ feature -- Status
 
 feature -- Modification spec
 
-	MOD_SPEC_ADD: INTEGER is 1
-	MOD_SPEC_DELETE: INTEGER is 2
-	MOD_SPEC_REPLACE: INTEGER is 3
+	MOD_SPEC_ADD: INTEGER = 1
+	MOD_SPEC_DELETE: INTEGER = 2
+	MOD_SPEC_REPLACE: INTEGER = 3
 
 
 invariant

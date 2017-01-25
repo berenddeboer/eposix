@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -40,7 +40,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make_form_data (a_key_value_pairs: ARRAY [EPX_KEY_VALUE]) is
+	make_form_data (a_key_value_pairs: ARRAY [EPX_KEY_VALUE])
 			-- Create a MIME part that holds HTML form data using the
 			-- multipart/form-data encoding as specified in RFC 2388.
 		require
@@ -85,7 +85,7 @@ feature {NONE} -- Initialization
 			all_fields_in_body: multipart_body.parts_count = a_key_value_pairs.count
 		end
 
-	make_form_urlencoded (a_key_value_pairs: ARRAY [EPX_KEY_VALUE]) is
+	make_form_urlencoded (a_key_value_pairs: ARRAY [EPX_KEY_VALUE])
 			-- Create a MIME part that holds HTML form data using the
 			-- application/x-www-form-urlencoded encoding.
 		require

@@ -12,7 +12,7 @@ create
    
 feature
 
-   make is
+   make
       do
          syslog.open ("test", LOG_ODELAY + LOG_PID, LOG_USER)
          

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Routines to encode and decode base64 sequence of characters."
 
@@ -26,7 +26,7 @@ feature -- Routines
 	decoded_characters: STRING
 			-- Characters decoded by `decode_24bits'.
 
-	decode_24_bits (c1, c2, c3, c4: CHARACTER) is
+	decode_24_bits (c1, c2, c3, c4: CHARACTER)
 			-- Decode the 24 bits in `c1'..`c4' into `first_character',
 			-- `second_character' and `third_character'.
 		require
@@ -61,7 +61,7 @@ feature -- Routines
 
 feature -- Character routines
 
-	decode_character (ch: CHARACTER): INTEGER is
+	decode_character (ch: CHARACTER): INTEGER
 			-- Decode character, code thanks to Franck Arnaud.
 			-- Returns -1 if `ch' is an ignorable character.
 			-- Returns -2 if `ch' is an invalid character.
@@ -140,7 +140,7 @@ feature -- Character routines
 			valid_result: Result >= -2 and Result < 64
 		end
 
-	is_base64_character (c: CHARACTER): BOOLEAN is
+	is_base64_character (c: CHARACTER): BOOLEAN
 			-- Is `c' is a valid base64 character?
 		do
 			Result := decode_character (c) >= 0
@@ -149,11 +149,11 @@ feature -- Character routines
 
 feature {NONE} -- Decoding bit shift constants
 
-	shift_2_bits_left: INTEGER is 4
-	shift_4_bits_left: INTEGER is 16
-	shift_6_bits_left: INTEGER is 64
-	shift_2_bits_right: INTEGER is 4
-	shift_4_bits_right: INTEGER is 16
+	shift_2_bits_left: INTEGER = 4
+	shift_4_bits_left: INTEGER = 16
+	shift_6_bits_left: INTEGER = 64
+	shift_2_bits_right: INTEGER = 4
+	shift_4_bits_right: INTEGER = 16
 
 
 invariant

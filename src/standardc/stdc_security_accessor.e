@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that makes the singleton STDC_SECURITY available."
 
@@ -16,7 +16,7 @@ class
 
 feature -- The singleton, available to any because it's used in preconditions
 
-	security: STDC_SECURITY is
+	security: STDC_SECURITY
 			-- Singleton entry point for security.
 		once
 			create Result
@@ -27,7 +27,7 @@ feature -- The singleton, available to any because it's used in preconditions
 
 feature {NONE} -- Private test
 
-	security_is_real_singleton: BOOLEAN is
+	security_is_real_singleton: BOOLEAN
 			-- Do multiple calls to `singleton' return the same result?
 		do
 			Result := security = security

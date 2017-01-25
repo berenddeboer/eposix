@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows child processes created by call to CreateProcess."
 
@@ -38,7 +38,7 @@ create
 
 feature -- Access
 
-	pid: INTEGER is
+	pid: INTEGER
 		do
 			Result := procinfo.pid
 		end
@@ -46,7 +46,7 @@ feature -- Access
 
 feature -- Status
 
-	is_pid_valid: BOOLEAN is
+	is_pid_valid: BOOLEAN
 			-- Does Current refer to an actual child process?
 		do
 			Result := running and then procinfo /= Void
@@ -55,7 +55,7 @@ feature -- Status
 
 feature -- Execution
 
-	execute is
+	execute
 			-- Executes `program_name'.
 			-- Don't forget to `wait' for this process to terminate.
 		local
@@ -136,13 +136,13 @@ feature -- Execution
 			end
 		end
 
-	terminate is
+	terminate
 			-- This is definitively not a graceful termination.
 		do
 			safe_win_call (posix_terminateprocess (procinfo.process_handle, Terminate_exit_code))
 		end
 
-	wait_for (suspend: BOOLEAN) is
+	wait_for (suspend: BOOLEAN)
 			-- Wait for this process to terminate. If `suspend' then we
 			-- wait until the information about this process is available.
 			-- If suspend is False, check the running property to see
@@ -209,7 +209,7 @@ feature -- Termination info
 
 feature {NONE} -- Implementation
 
-	all_arguments: STRING is
+	all_arguments: STRING
 			-- Return arguments as a single string.
 			-- First character returned is a space.
 		local
@@ -236,7 +236,7 @@ feature {NONE} -- Implementation
 
 	procinfo: WINDOWS_PROCESS_INFORMATION
 
-	initial_directory: STRING is
+	initial_directory: STRING
 		do
 			Result := Void
 		end

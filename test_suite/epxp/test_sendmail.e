@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test sending mail through sendmail."
 
@@ -19,7 +19,7 @@ inherit
 
 feature -- Tests
 
-	test_basic_email is
+	test_basic_email
 		local
 			sendmail: EPX_SENDMAIL
 		do
@@ -36,14 +36,14 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	body_text: STRING is "Hi Berend,%N%NNice testing?%N"
+	body_text: STRING = "Hi Berend,%N%NNice testing?%N"
 
-	subject: STRING is "Test"
+	subject: STRING = "Test"
 
-	to_name: STRING is "Berend de Boer"
-	to_email: STRING is "berend"
+	to_name: STRING = "Berend de Boer"
+	to_email: STRING = "berend"
 
-	from_name: STRING is "Berend de Boer"
-	from_email: STRING is "berend@pobox.com"
+	from_name: STRING = "Berend de Boer"
+	from_email: STRING = "berend@pobox.com"
 
 end

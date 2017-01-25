@@ -10,7 +10,7 @@ create
 
 feature
 
-	execute is
+	execute
 		do
 			content_text_html
 
@@ -53,7 +53,7 @@ feature
 
 		end
 
-	save_uploaded_files is
+	save_uploaded_files
 		local
 			kv: EPX_KEY_VALUE
 			buffer: STDC_BUFFER

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements ABSTRACT_FILE_SYSTEM for Windows systems."
 
@@ -39,13 +39,13 @@ inherit
 
 feature -- file statistics
 
-	status (a_path: STRING): WINDOWS_STATUS_PATH is
+	status (a_path: STRING): WINDOWS_STATUS_PATH
 			-- Gets information about a file
 		do
 			create {WINDOWS_STATUS_PATH} Result.make (a_path)
 		end
 
-	status_may_fail (a_path: STRING): WINDOWS_STATUS_PATH is
+	status_may_fail (a_path: STRING): WINDOWS_STATUS_PATH
 			-- Retrieve status information for `a_path'. `a_path' may or
 			-- may not exist. Check `Result'.`found' to see if statistics
 			-- were retrieved.
@@ -56,7 +56,7 @@ feature -- file statistics
 
 feature -- directory browsing
 
-	browse_directory (a_path: STRING): WINDOWS_DIRECTORY is
+	browse_directory (a_path: STRING): WINDOWS_DIRECTORY
 			-- Gets information about a directory
 		do
 			create Result.make (a_path)
@@ -65,13 +65,13 @@ feature -- directory browsing
 
 feature -- various
 
-	is_case_sensitive: BOOLEAN is
+	is_case_sensitive: BOOLEAN
 			-- is file system case sensitive or not?
 		do
 			Result := False
 		end
 
-	path_separator: CHARACTER is
+	path_separator: CHARACTER
 			-- What is the path separator?
 		once
 			Result := '\'
@@ -80,7 +80,7 @@ feature -- various
 
 feature -- file system properties
 
-	temporary_directory: STRING is
+	temporary_directory: STRING
 			-- The name of the temporary directory;
 			-- Name does not end with the directory separator.
 		local
@@ -108,52 +108,52 @@ feature -- file system properties
 
 feature {NONE} -- abstract C interface
 
-	abstract_access (a_path: POINTER; a_mode: INTEGER): INTEGER is
+	abstract_access (a_path: POINTER; a_mode: INTEGER): INTEGER
 			-- Tests for file accessibility
 		do
 			Result := posix_access (a_path, a_mode)
 		end
 
-	abstract_chdir (a_path: POINTER): INTEGER is
+	abstract_chdir (a_path: POINTER): INTEGER
 			-- Changes the current working directory
 		do
 			Result := posix_chdir (a_path)
 		end
 
-	abstract_getcwd (buf: POINTER; size: INTEGER): POINTER is
+	abstract_getcwd (buf: POINTER; size: INTEGER): POINTER
 			-- Gets current working directory
 		do
 			Result := posix_getcwd (buf, size)
 		end
 
-	abstract_mkdir (a_path: POINTER): INTEGER is
+	abstract_mkdir (a_path: POINTER): INTEGER
 			-- Makes a directory
 		do
 			Result := posix_mkdir(a_path)
 		end
 
-	abstract_rmdir (a_path: POINTER): INTEGER is
+	abstract_rmdir (a_path: POINTER): INTEGER
 			-- Removes a directory
 		do
 			Result := posix_rmdir (a_path)
 		end
 
-	abstract_F_OK: INTEGER is
+	abstract_F_OK: INTEGER
 		do
 			Result := 0
 		end
 
-	abstract_R_OK: INTEGER is
+	abstract_R_OK: INTEGER
 		do
 			Result := 4
 		end
 
-	abstract_W_OK: INTEGER is
+	abstract_W_OK: INTEGER
 		do
 			Result := 2
 		end
 
-	abstract_X_OK: INTEGER is
+	abstract_X_OK: INTEGER
 		do
 			Result := 6
 		end

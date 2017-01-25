@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix shared memory class."
 
@@ -25,7 +25,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 			-- Testing Posix shared memory interface.
 			-- On my system I need to be root for a successful test.
 		local

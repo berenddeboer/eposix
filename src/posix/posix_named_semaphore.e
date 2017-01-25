@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix semaphore routines."
 
@@ -31,7 +31,7 @@ create
 
 feature {NONE} -- Initialization
 
-	create_exclusive (a_name: STRING; a_value: INTEGER) is
+	create_exclusive (a_name: STRING; a_value: INTEGER)
 			-- Create a named semaphore. Semaphore may not exist already.
 		require
 			uninitialized: not is_open

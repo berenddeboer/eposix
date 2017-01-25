@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that can write ULM logging to an OS dependent%
 	%logging mechanism."
@@ -18,7 +18,7 @@ inherit
 
 feature -- Logging
 
-	log_event (level: INTEGER; line: STRING) is
+	log_event (level: INTEGER; line: STRING)
 			-- Write a single line to the host logging system. `line'
 			-- should be in ULM format.
 		require
@@ -29,7 +29,7 @@ feature -- Logging
 
 feature -- OS queries needed by ULM_LOGGING
 
-	host_name: STRING is
+	host_name: STRING
 			-- Host name where system is running upon
 		deferred
 		ensure

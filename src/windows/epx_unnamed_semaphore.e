@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -33,7 +33,7 @@ create
 
 feature {NONE} -- Initialization
 
-	create_unshared (a_value: INTEGER) is
+	create_unshared (a_value: INTEGER)
 			-- Create an unnamed semaphore with initial value
 			-- `a_value'. The semaphore handle cannot be given to
 			-- processes.

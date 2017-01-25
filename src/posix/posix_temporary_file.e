@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Creates a temporary file that is removed when closed %
 	%or when the program terminates."

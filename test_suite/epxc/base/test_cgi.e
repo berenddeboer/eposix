@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test cgi class."
 
@@ -28,7 +28,7 @@ inherit
 
 feature -- Initialization
 
-	initialize is
+	initialize
 			-- Initialize current test case.
 			-- (This routine is called by the creation routine
 			-- and can be redefined in descendant classes.)
@@ -39,7 +39,7 @@ feature -- Initialization
 
 feature -- Test
 
-	test_execute is
+	test_execute
 		do
 			make_no_rescue
 		end
@@ -47,7 +47,7 @@ feature -- Test
 
 feature -- Execution
 
-	do_execute is
+	do_execute
 		do
 			content_text_html
 

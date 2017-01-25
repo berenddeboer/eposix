@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that covers the Posix file permission."
    usage: "You can set the permissions, call apply to make them permanent."
@@ -26,7 +26,7 @@ create
 
 feature {ABSTRACT_FILE_DESCRIPTOR} -- creation
    
-   make (a_status: POSIX_STATUS_FILDES) is
+   make (a_status: POSIX_STATUS_FILDES)
       do
          status := a_status
          update_from_status
@@ -36,13 +36,13 @@ feature {ABSTRACT_FILE_DESCRIPTOR} -- creation
 feature {NONE}   
 
    
-   apply_mode is
+   apply_mode
          -- make mode change permanent
       do
          -- no way to do this with a file descriptor??
       end
 
-   apply_owner_and_group is
+   apply_owner_and_group
          -- make owner and group change permanent
       do
          -- no way to do this with a file descriptor??

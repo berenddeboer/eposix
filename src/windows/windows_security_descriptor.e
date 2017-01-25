@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Initializes a security descriptor to have no SACL, no
 			-- DACL, no owner, no primary group, and all control flags
 			-- set to FALSE (NULL). Thus, except for its revision level,
@@ -43,7 +43,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	ptr: POINTER is
+	ptr: POINTER
 			-- Pointer to allocated memory block
 		do
 			Result := psd.ptr
@@ -54,7 +54,7 @@ feature -- Access
 
 feature -- Change
 
-	allow_access_to_everyone is
+	allow_access_to_everyone
 			-- Create a DACL that allows access to everyone.
 		do
 			safe_win_call (posix_setsecuritydescriptordacl(

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Writer for STRING class."
 
@@ -24,7 +24,7 @@ create
 
 feature -- creation
 
-	make (a_s: STRING) is
+	make (a_s: STRING)
 		require
 			valid_string: a_s /= Void
 		do
@@ -34,12 +34,12 @@ feature -- creation
 
 feature -- commands
 
-	write_character (c: CHARACTER) is
+	write_character (c: CHARACTER)
 		do
 			str.append_character (c)
 		end
 
-	write_pointer (p: POINTER; size: INTEGER) is
+	write_pointer (p: POINTER; size: INTEGER)
 		local
 			buf: STDC_BUFFER
 			i: INTEGER
@@ -57,7 +57,7 @@ feature -- commands
 			end
 		end
 
-	write_string (s: STRING) is
+	write_string (s: STRING)
 		do
 			str.append_string (s)
 		end

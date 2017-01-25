@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test for writing SOAP messages."
 
@@ -17,7 +17,7 @@ inherit
 
 feature -- Tests
 
-	test_basics is
+	test_basics
 		local
 			soap: EPX_SOAP_WRITER
 		do

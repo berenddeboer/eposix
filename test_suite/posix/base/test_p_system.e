@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX system class."
 
@@ -22,7 +22,7 @@ inherit
 
 feature
 
-	test_methods is
+	test_methods
 		do
 			print ("Begin test system.%N")
 
@@ -109,7 +109,7 @@ feature
 		end
 
 
-	print_supports (supported: BOOLEAN; what: STRING) is
+	print_supports (supported: BOOLEAN; what: STRING)
 		do
 			if not supported then
 				print ("!! ")

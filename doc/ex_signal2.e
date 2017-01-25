@@ -14,7 +14,7 @@ create
 
 feature
 
-   make is
+   make
       local
          signal: POSIX_SIGNAL
       do
@@ -26,7 +26,7 @@ feature
          -- you don't have to wait for them
       end
 
-   signalled (signal_value: INTEGER) is
+   signalled (signal_value: INTEGER)
       do
          wait
       end

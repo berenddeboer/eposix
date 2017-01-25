@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for a header field in a MIME message."
 
@@ -19,7 +19,7 @@ inherit
 
 feature -- Output
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
 		require
 			s_not_void: s /= Void
@@ -33,7 +33,7 @@ feature -- Output
 
 feature -- Access
 
-	name: STRING is
+	name: STRING
 			-- Name of MIME field;
 			-- Names are case-insensitive.
 		deferred
@@ -41,7 +41,7 @@ feature -- Access
 			name_valid: is_valid_mime_name (Result)
 		end
 
-	value: STRING is
+	value: STRING
 			-- Contents of this field flattened as a string;
 			-- Result can contain 8-bit characters.
 		deferred
@@ -52,8 +52,8 @@ feature -- Access
 
 feature {NONE} -- Once strings
 
-	once_crlf: STRING is "%R%N"
-	once_space_colon: STRING is ": "
+	once_crlf: STRING = "%R%N"
+	once_space_colon: STRING = ": "
 
 
 end

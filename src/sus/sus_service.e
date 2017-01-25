@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes service names, i.e. an entry %
 	%in /etc/services."

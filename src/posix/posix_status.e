@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Posix stat structure."
 
@@ -23,18 +23,18 @@ inherit
 
 feature -- stat members
 
-	is_block_special: BOOLEAN is
+	is_block_special: BOOLEAN
 			-- True if block-special file
 		do
 			Result := posix_s_isblk (posix_st_mode (stat.ptr))
 		end
 
-	ino, inode: INTEGER is
+	ino, inode: INTEGER
 		do
 			Result := posix_st_ino (stat.ptr)
 		end
 
-	permissions: POSIX_PERMISSIONS is
+	permissions: POSIX_PERMISSIONS
 			-- file permissions
 		deferred
 		ensure
@@ -44,12 +44,12 @@ feature -- stat members
 
 feature -- direct access to the unix fields, not recommended
 
-	unix_gid: INTEGER is
+	unix_gid: INTEGER
 		do
 			Result := posix_st_gid (stat.ptr)
 		end
 
-	unix_uid: INTEGER is
+	unix_uid: INTEGER
 		do
 			Result := posix_st_uid (stat.ptr)
 		end
@@ -57,48 +57,48 @@ feature -- direct access to the unix fields, not recommended
 
 feature {NONE} -- portable API functions
 
-	abstract_st_atime (a_stat: POINTER): INTEGER is
+	abstract_st_atime (a_stat: POINTER): INTEGER
 			-- time of last access
 		do
 			Result := posix_st_atime (a_stat)
 		end
 
-	abstract_st_ctime (a_stat: POINTER): INTEGER is
+	abstract_st_ctime (a_stat: POINTER): INTEGER
 			-- time of last status change
 		do
 			Result := posix_st_ctime (a_stat)
 		end
 
-	abstract_st_dev (a_stat: POINTER): INTEGER is
+	abstract_st_dev (a_stat: POINTER): INTEGER
 			-- device number
 		do
 			Result := posix_st_dev (a_stat)
 		end
 
-	abstract_st_mode (a_stat: POINTER): INTEGER is
+	abstract_st_mode (a_stat: POINTER): INTEGER
 		do
 			Result := posix_st_mode (a_stat)
 		end
 
-	abstract_st_mtime (a_stat: POINTER): INTEGER is
+	abstract_st_mtime (a_stat: POINTER): INTEGER
 			-- time of last data modification
 		do
 			Result := posix_st_mtime (a_stat)
 		end
 
-	abstract_st_nlink (a_stat: POINTER): INTEGER is
+	abstract_st_nlink (a_stat: POINTER): INTEGER
 			-- number of hard links
 		do
 			Result := posix_st_nlink (a_stat)
 		end
 
-	abstract_st_size (a_stat: POINTER): INTEGER is
+	abstract_st_size (a_stat: POINTER): INTEGER
 			-- total size, in bytes
 		do
 			Result := posix_st_size (a_stat)
 		end
 
-	abstract_stat_size: INTEGER is
+	abstract_stat_size: INTEGER
 			-- return size of struct stat
 		do
 			Result := posix_stat_size
@@ -107,22 +107,22 @@ feature {NONE} -- portable API functions
 
 feature {NONE} -- test file type bits
 
-	abstract_s_ischr (m: INTEGER): BOOLEAN is
+	abstract_s_ischr (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_ischr (m)
 		end
 
-	abstract_s_isdir (m: INTEGER): BOOLEAN is
+	abstract_s_isdir (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_isdir (m)
 		end
 
-	abstract_s_isfifo (m: INTEGER): BOOLEAN is
+	abstract_s_isfifo (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_isfifo (m)
 		end
 
-	abstract_s_isreg (m: INTEGER): BOOLEAN is
+	abstract_s_isreg (m: INTEGER): BOOLEAN
 		do
 			Result := posix_s_isreg (m)
 		end

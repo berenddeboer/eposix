@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstract class for POSIX_SYSTEM routines that are also available under Windows."
 	usage: "Inherit from EPX_SYSTEM."
@@ -18,14 +18,14 @@ inherit
 
 feature -- Queries who's answer might depend on compile-time (Windows) or run-time (POSIX)
 
-	max_argument_size: INTEGER is
+	max_argument_size: INTEGER
 			-- The length of arguments for the exec() function
 		deferred
 		ensure
 			result_not_negative: Result >= 0
 		end
 
-	max_open_files: INTEGER is
+	max_open_files: INTEGER
 			-- The maximum number of files that one process can have
 			-- open at one time.
 		deferred
@@ -33,7 +33,7 @@ feature -- Queries who's answer might depend on compile-time (Windows) or run-ti
 			result_not_negative: Result >= 0
 		end
 
-	max_open_streams: INTEGER is
+	max_open_streams: INTEGER
 			-- The maximum number of streams that one process can have
 			-- open at one time.
 		deferred
@@ -41,7 +41,7 @@ feature -- Queries who's answer might depend on compile-time (Windows) or run-ti
 			result_not_negative: Result >= 0
 		end
 
-	max_time_zone_name: INTEGER is
+	max_time_zone_name: INTEGER
 			-- The maximum number of bytes in a timezone name.
 		deferred
 		ensure
@@ -51,27 +51,27 @@ feature -- Queries who's answer might depend on compile-time (Windows) or run-ti
 
 feature -- uname queries
 
-	machine: STRING is
+	machine: STRING
 			-- Name of the hardware type the system is running on.
 		deferred
 		end
 
-	node_name: STRING is
+	node_name: STRING
 			-- Name of this node on the network.
 		deferred
 		end
 
-	release: STRING is
+	release: STRING
 			-- Current release level of this implementation.
 		deferred
 		end
 
-	system_name: STRING is
+	system_name: STRING
 			-- Name of the implementation of the operating system.
 		deferred
 		end
 
-	version: STRING is
+	version: STRING
 			-- Current version level of this release.
 		deferred
 		end

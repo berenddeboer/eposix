@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows implementation of a portable IPv6 address."
 
@@ -32,7 +32,7 @@ create
 
 feature -- General ip address features
 
-	scope_id: INTEGER is
+	scope_id: INTEGER
 		do
 			Result := posix_sockaddr_in6_sin6_scope_id (buf.ptr)
 		end

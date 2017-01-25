@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes struct sockaddr_in6."
 

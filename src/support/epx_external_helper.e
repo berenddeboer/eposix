@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "A way to program platform independent Eiffel code."
 
@@ -15,7 +15,7 @@ class
 
 feature {NONE} -- helper functions
 
-	ah: ABSTRACT_ARRAY_HELPER is
+	ah: ABSTRACT_ARRAY_HELPER
 			-- Features for mapping arrays to pointers
 		once
 			create {EPX_ARRAY_HELPER} Result
@@ -23,7 +23,7 @@ feature {NONE} -- helper functions
 			ah_not_void: Result /= Void
 		end
 
-	sh: ABSTRACT_STRING_HELPER is
+	sh: ABSTRACT_STRING_HELPER
 			-- Feature for mapping pointers to strings and vice versa
 		once
 			create {EPX_STRING_HELPER} Result
@@ -31,7 +31,7 @@ feature {NONE} -- helper functions
 			sh_not_void: Result /= Void
 		end
 
-	ioh: ABSTRACT_IO_HELPER is
+	ioh: ABSTRACT_IO_HELPER
 			-- Features to do as fast i/o as possible
 		once
 			create {EPX_IO_HELPER} Result

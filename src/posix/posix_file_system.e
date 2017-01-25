@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the POSIX file system code."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Read/write permissions
 
-	chmod, change_mode (a_path: STRING; a_mode: INTEGER) is
+	chmod, change_mode (a_path: STRING; a_mode: INTEGER)
 			-- Changes file mode for `a_path' to `a_mode'.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
@@ -39,7 +39,7 @@ feature -- Read/write permissions
 			sh.unfreeze_all
 		end
 
-	permissions (a_path: STRING): POSIX_PERMISSIONS is
+	permissions (a_path: STRING): POSIX_PERMISSIONS
 			-- The permissions object (a new one every time!) for the
 			-- given file
 		require
@@ -48,7 +48,7 @@ feature -- Read/write permissions
 			Result := status (a_path).permissions
 		end
 
-	set_read_only (a_path: STRING) is
+	set_read_only (a_path: STRING)
 			-- Make given file read_only.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
@@ -60,7 +60,7 @@ feature -- Read/write permissions
 			perm.apply
 		end
 
-	set_writable (a_path: STRING) is
+	set_writable (a_path: STRING)
 			-- Make given `a_path' read_only.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
@@ -75,7 +75,7 @@ feature -- Read/write permissions
 
 feature -- File times
 
-	touch (a_path: STRING) is
+	touch (a_path: STRING)
 			-- Sets the modification and access times of `a_path' to the
 			-- current time of day.
 			-- File is created if it does not exist.
@@ -91,7 +91,7 @@ feature -- File times
 			sh.unfreeze_all
 		end
 
-	utime (a_path: STRING; access_time, modification_time: POSIX_TIME) is
+	utime (a_path: STRING; access_time, modification_time: POSIX_TIME)
 			-- Sets file access and modification times.
 		do
 			set_portable_path (a_path)
@@ -102,7 +102,7 @@ feature -- File times
 
 feature -- Further directory access
 
-	link (existing, new: STRING) is
+	link (existing, new: STRING)
 			-- Create a hard link to a file.
 		require
 			different_names: not existing.is_equal (new)
@@ -119,7 +119,7 @@ feature -- Further directory access
 			sh.unfreeze_all
 		end
 
-	unlink (a_path: STRING) is
+	unlink (a_path: STRING)
 			-- Remove a directory entry, should be a file, not a directory.
 			-- It's not an error if path does not exist, but all other
 			-- errors are reported.
@@ -139,7 +139,7 @@ feature -- Further directory access
 
 feature -- FIFOs
 
-	create_fifo, mkfifo (a_path: STRING; a_mode: INTEGER) is
+	create_fifo, mkfifo (a_path: STRING; a_mode: INTEGER)
 			-- Create a FIFO special file.
 		require
 			valid_path: a_path /= Void and then not a_path.is_empty
@@ -148,7 +148,7 @@ feature -- FIFOs
 			sh.unfreeze_all
 		end
 
-	make_fifo (a_path: STRING; a_mode: INTEGER) is
+	make_fifo (a_path: STRING; a_mode: INTEGER)
 		obsolete "This feature has been renamed to create_fifo"
 		do
 			create_fifo (a_path, a_mode)
@@ -157,7 +157,7 @@ feature -- FIFOs
 
 feature -- Shared memory
 
-	unlink_shared_memory_object (name: STRING) is
+	unlink_shared_memory_object (name: STRING)
 			-- Remove a shared memory object.
 		require
 			valid_name: name /= Void and then not name.is_empty

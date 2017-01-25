@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test epx current process."
 
@@ -23,7 +23,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		do
 			-- on Windows we seem to have to use stdout as our first output
 			-- else it will not be redirected by shell pipes

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows portable implementation of a server side TCP socket."
 
@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Socket options
 
-	set_reuse_address (a_socket: INTEGER; enable: BOOLEAN) is
+	set_reuse_address (a_socket: INTEGER; enable: BOOLEAN)
 			-- Make it possible to bind to socket `a_scoket' even if it
 			-- is in the TIME_WAIT state.
 		do
@@ -40,7 +40,7 @@ feature {NONE} -- Socket options
 
 feature {NONE} -- Abstract API binding
 
-	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER is
+	abstract_accept (a_socket: INTEGER; an_address: POINTER; an_address_length: POINTER): INTEGER
 			-- Accept a connection on a socket.
 			-- The `an_address_length' argument is a value-result
 			-- parameter: it should initially contain the size of the
@@ -60,7 +60,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER is
+	abstract_bind (a_socket: INTEGER; an_address: POINTER; an_address_len: INTEGER): INTEGER
 			-- Associate a local address with a socket.
 		do
 			assert_winsock_initialized
@@ -70,14 +70,14 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER is
+	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER
 			-- Read integer at position `index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	abstract_listen (a_socket, a_backlog: INTEGER): INTEGER is
+	abstract_listen (a_socket, a_backlog: INTEGER): INTEGER
 			-- Listen for socket connections and limit the queue of
 			-- incoming connections. Returns 0 on success, -1 on error.
 		do

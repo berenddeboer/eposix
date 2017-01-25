@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class for handling a single POSIX signal."
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C time related routines. %
 	%Assumes that ANSI C is POSIX compliant, so time is defined with %
@@ -61,7 +61,7 @@ create
 
 feature -- Initialization
 
-	make_date (a_year, a_month, a_day: INTEGER) is
+	make_date (a_year, a_month, a_day: INTEGER)
 			-- Create a time according to this day, time 00:00:00.
 			-- Date is assumed to be a local date.
 		require
@@ -73,7 +73,7 @@ feature -- Initialization
 			local_time: is_local_time
 		end
 
-	make_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER) is
+	make_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER)
 			-- Date is assumed to be a local date.
 			-- We assume daylight saving time setting in effect is
 			-- available from system.
@@ -89,7 +89,7 @@ feature -- Initialization
 			local_time: is_local_time
 		end
 
-	make_date_time_without_dst (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER) is
+	make_date_time_without_dst (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER)
 			-- Date is assumed to be a date/time without daylight saving
 			-- taken into account, such as a UTC based date/time.
 		require
@@ -105,7 +105,7 @@ feature -- Initialization
 
 		end
 
-	make_from_dt_date_time (a_date_time: DT_DATE_TIME_VALUE) is
+	make_from_dt_date_time (a_date_time: DT_DATE_TIME_VALUE)
 			-- Make from Gobo date time.
 			-- Date is assumed to be a local date.
 			-- We assume daylight saving time setting in effect is
@@ -119,7 +119,7 @@ feature -- Initialization
 			local_time: is_local_time
 		end
 
-	make_from_utc_dt_date_time (a_date_time: DT_DATE_TIME_VALUE) is
+	make_from_utc_dt_date_time (a_date_time: DT_DATE_TIME_VALUE)
 			-- Make from Gobo date time.
 			-- Date is assumed to be in UTC.
 		require
@@ -131,7 +131,7 @@ feature -- Initialization
 			utc_time: is_utc_time
 		end
 
-	make_from_now is
+	make_from_now
 			-- Make `value' equal to current unix time.
 			-- Afterwards call `to_local' or `to_utc' to turn individual
 			-- fields in local time or in utc time.
@@ -141,7 +141,7 @@ feature -- Initialization
 			time_zone_not_set: not is_time_zone_known
 		end
 
-	make_from_unix_time (a_value: INTEGER) is
+	make_from_unix_time (a_value: INTEGER)
 			-- `a_value' is a time_t value.
 			-- Afterwards call `to_local' or `to_utc' to turn individual
 			-- fields in local time or in utc time.
@@ -156,7 +156,7 @@ feature -- Initialization
 			time_zone_not_set: not is_time_zone_known
 		end
 
-	make_time (an_hour, a_minute, a_second: INTEGER) is
+	make_time (an_hour, a_minute, a_second: INTEGER)
 			-- Time is assumed to be a local time.
 			-- We assume daylight saving time setting in effect is
 			-- available from system.
@@ -171,7 +171,7 @@ feature -- Initialization
 			local_time: is_local_time
 		end
 
-	make_utc_date (a_year, a_month, a_day: INTEGER) is
+	make_utc_date (a_year, a_month, a_day: INTEGER)
 			-- Create a time according to this day, time 00:00:00.
 			-- Date is assumed to be in UTC.
 		require
@@ -186,7 +186,7 @@ feature -- Initialization
 			day_set: a_day = day
 		end
 
-	make_utc_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER) is
+	make_utc_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER)
 			-- Date is assumed to be in UTC.
 			-- Conversion to the unix time is done without taking into
 			-- account leap seconds, as according to the specification.
@@ -232,7 +232,7 @@ feature -- Initialization
 			utc_time: is_utc_time
 		end
 
-	make_utc_time (an_hour, a_minute, a_second: INTEGER) is
+	make_utc_time (an_hour, a_minute, a_second: INTEGER)
 			-- Time is assumed to be UTC time at January 1, `minimum_year'.
 			-- We assume daylight saving time setting in effect is
 			-- available from system.
@@ -251,19 +251,19 @@ feature -- Initialization
 
 feature -- Make individual time fields valid
 
-	is_local_time: BOOLEAN is
+	is_local_time: BOOLEAN
 			-- Is time in `local time'?
 		do
 			Result := my_time_zone = local_time_zone
 		end
 
-	is_utc_time: BOOLEAN is
+	is_utc_time: BOOLEAN
 			-- Is the time zone UTC?
 		do
 			Result := my_time_zone = utc_time_zone
 		end
 
-	is_time_zone_known: BOOLEAN is
+	is_time_zone_known: BOOLEAN
 			-- After a make routine, call either `to_local' or `to_utc'.
 		do
 			Result := my_time_zone /= 0
@@ -271,7 +271,7 @@ feature -- Make individual time fields valid
 			my_time_zone_set_implies_result: Result = (my_time_zone /= 0)
 		end
 
-	to_local is
+	to_local
 			-- Switch time fields to local time based on time in `value'.
 		local
 			p: POINTER
@@ -284,7 +284,7 @@ feature -- Make individual time fields valid
 			time_zone_known: is_time_zone_known
 		end
 
-	to_utc is
+	to_utc
 			-- Switch time fields to utc time based on time in `value'.
 		local
 			p: POINTER
@@ -302,7 +302,7 @@ feature -- Make individual time fields valid
 
 feature -- Change
 
-	add_seconds (a_seconds: INTEGER) is
+	add_seconds (a_seconds: INTEGER)
 			-- Add `a_seconds' to current time.
 		do
 			value  := value + a_seconds
@@ -313,7 +313,7 @@ feature -- Change
 
 feature -- Manually set individual time fields
 
-	set_date (a_year, a_month, a_day: INTEGER) is
+	set_date (a_year, a_month, a_day: INTEGER)
 			-- Set date part, time remains unchanged, unless daylight
 			-- savings has to be taken into account.
 		require
@@ -327,7 +327,7 @@ feature -- Manually set individual time fields
 			day_set: old is_daylight_savings_in_effect implies day = a_day
 		end
 
-	set_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER) is
+	set_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER)
 			-- Set individual time fields. Set `value' based on given
 			-- fields, assuming that it is a local time.
 			-- We assume daylight saving time setting in effect (or not)
@@ -366,25 +366,25 @@ feature -- Manually set individual time fields
 			second_set: old is_daylight_savings_in_effect implies second = a_second
 		end
 
-	set_dst_to_current is
+	set_dst_to_current
 			-- Let system figure out if daylight saving time is in effect.
 		do
 			posix_set_tm_isdst (tm.ptr, -1)
 		end
 
-	set_dst_to_none is
+	set_dst_to_none
 			-- Daylight saving time is not in effect.
 		do
 			posix_set_tm_isdst (tm.ptr, 0)
 		end
 
-	set_dst_in_effect is
+	set_dst_in_effect
 			-- Daylight saving time is in effect.
 		do
 			posix_set_tm_isdst (tm.ptr, 1)
 		end
 
-	set_time (an_hour, a_minute, a_second: INTEGER) is
+	set_time (an_hour, a_minute, a_second: INTEGER)
 			-- Set time part, date remains unchanged unless daylight
 			-- savings has to be taken into account.
 		require
@@ -398,7 +398,7 @@ feature -- Manually set individual time fields
 			second_set: old is_daylight_savings_in_effect implies minute = a_second
 		end
 
-	to_dos_seconds is
+	to_dos_seconds
 			-- Make sure the seconds are divisible by two, a value DOS
 			-- and clones like Windows NT like.
 		do
@@ -417,7 +417,7 @@ feature -- Manually set individual time fields
 
 feature -- Individual time fields, need call to `to_local' or `to_utc'
 
-	year: INTEGER is
+	year: INTEGER
 		require
 			time_zone_known: is_time_zone_known
 		do
@@ -426,7 +426,7 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 			valid_year: year >= minimum_year
 		end
 
-	month: INTEGER is
+	month: INTEGER
 		require
 			time_zone_known: is_time_zone_known
 		do
@@ -435,7 +435,7 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 			valid_month: month >= 1 and month <= 12
 		end
 
-	day: INTEGER is
+	day: INTEGER
 			-- Day of the month.
 		require
 			time_zone_known: is_time_zone_known
@@ -445,7 +445,7 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 			valid_day: is_valid_day (year, month, Result)
 		end
 
-	weekday: INTEGER is
+	weekday: INTEGER
 			-- Days since Sunday.
 		require
 			time_zone_known: is_time_zone_known
@@ -453,7 +453,7 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 			Result := posix_tm_wday (tm.ptr)
 		end
 
-	day_of_year: INTEGER is
+	day_of_year: INTEGER
 			-- Days since January 1st
 		require
 			time_zone_known: is_time_zone_known
@@ -461,28 +461,28 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 			Result := posix_tm_yday (tm.ptr)
 		end
 
-	hour: INTEGER is
+	hour: INTEGER
 		require
 			time_zone_known: is_time_zone_known
 		do
 			Result := posix_tm_hour (tm.ptr)
 		end
 
-	minute: INTEGER is
+	minute: INTEGER
 		require
 			time_zone_known: is_time_zone_known
 		do
 			Result := posix_tm_min (tm.ptr)
 		end
 
-	second: INTEGER is
+	second: INTEGER
 		require
 			time_zone_known: is_time_zone_known
 		do
 			Result := posix_tm_sec (tm.ptr)
 		end
 
-	is_daylight_savings_in_effect: BOOLEAN is
+	is_daylight_savings_in_effect: BOOLEAN
 			-- Does the broken down time take into account daylight savings?
 		require
 			time_zone_known: is_time_zone_known
@@ -490,7 +490,7 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 			Result := posix_tm_isdst (tm.ptr) = 1
 		end
 
-	is_daylight_savings_unknown: BOOLEAN is
+	is_daylight_savings_unknown: BOOLEAN
 			-- Do we not know if the broken time includes daylight saving?
 		require
 			time_zone_known: is_time_zone_known
@@ -501,7 +501,7 @@ feature -- Individual time fields, need call to `to_local' or `to_utc'
 
 feature -- Time as string
 
-	short_weekday_name: STRING is
+	short_weekday_name: STRING
 			-- Abbreviated weekday name
 		require
 			time_zone_known: is_time_zone_known
@@ -511,7 +511,7 @@ feature -- Time as string
 			short_weekday_name_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	weekday_name: STRING is
+	weekday_name: STRING
 			-- Full weekday name
 		require
 			time_zone_known: is_time_zone_known
@@ -521,7 +521,7 @@ feature -- Time as string
 			weekday_name_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	short_month_name: STRING is
+	short_month_name: STRING
 			-- Abbreviated month name
 		require
 			time_zone_known: is_time_zone_known
@@ -531,7 +531,7 @@ feature -- Time as string
 			short_month_name_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	month_name: STRING is
+	month_name: STRING
 			-- Full month name
 		require
 			time_zone_known: is_time_zone_known
@@ -541,7 +541,7 @@ feature -- Time as string
 			month_name_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	format (format_str: STRING): STRING is
+	format (format_str: STRING): STRING
 			-- Formatted date/time according to `format_str'. See
 			-- man strftime for details.
 		require
@@ -565,7 +565,7 @@ feature -- Time as string
 			format_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	default_format: STRING is
+	default_format: STRING
 			-- Time as string of the form "Mon Apr 17 21:49:20 2000"
 		require
 			time_zone_known: is_time_zone_known
@@ -576,7 +576,7 @@ feature -- Time as string
 			default_format_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	local_date_string: STRING is
+	local_date_string: STRING
 			-- Date part in format local to current country.
 		require
 			time_zone_known: is_time_zone_known
@@ -586,7 +586,7 @@ feature -- Time as string
 			local_date_string_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	local_time_string: STRING is
+	local_time_string: STRING
 			-- Time part in format local to current country.
 		require
 			time_zone_known: is_time_zone_known
@@ -596,7 +596,7 @@ feature -- Time as string
 			local_time_string_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	rfc_date_string: STRING is
+	rfc_date_string: STRING
 			-- RFC 1123 (same as RFC 822) style date;
 			-- i.e. Tue, 15 Nov 1994 08:12:31 GMT
 		require
@@ -617,7 +617,7 @@ feature -- Time as string
 			rfc_date_string_not_empty: raise_exception_on_error implies Result /= Void and then not Result.is_empty
 		end
 
-	as_iso_8601: STRING is
+	as_iso_8601: STRING
 			-- Date in ISO8601 (XML Schema dateTime) format
 		do
 			if is_utc_time then
@@ -630,12 +630,12 @@ feature -- Time as string
 
 feature -- Date calculations
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 		do
 			Result := other.value = value
 		end
 
-	infix "+" (other: like Current): like Current is
+	infix "+" (other: like Current): like Current
 			-- Sum with `other'
 		do
 			create Result.make_from_unix_time (value + other.value)
@@ -648,7 +648,7 @@ feature -- Date calculations
 			time_zone_same: my_time_zone = Result.my_time_zone
 		end
 
-	infix "-" (other: like Current): like Current is
+	infix "-" (other: like Current): like Current
 			-- Creates a new time which is the difference between
 			-- `Current' and `Other'
 		local
@@ -658,7 +658,7 @@ feature -- Date calculations
 			create Result.make_from_unix_time (diff.truncated_to_integer)
 		end
 
-	infix "<" (other: like Current): BOOLEAN is
+	infix "<" (other: like Current): BOOLEAN
 			-- Is current object less than `other'?
 		local
 			diff: DOUBLE
@@ -670,14 +670,14 @@ feature -- Date calculations
 
 feature -- Status
 
-	is_two_digit_year (a_year: INTEGER): BOOLEAN is
+	is_two_digit_year (a_year: INTEGER): BOOLEAN
 			-- Is `a_year' a two digit year that can be handled by
 			-- `four_digit_year'.
 		do
 			Result := a_year >= 0 and then a_year < 100
 		end
 
-	is_valid_date (a_year, a_month, a_day: INTEGER): BOOLEAN is
+	is_valid_date (a_year, a_month, a_day: INTEGER): BOOLEAN
 			-- Do `a_year', `a_month' and `a_day' form a date recognized
 			-- by this class?
 			-- Because this class represents unix dates, only dates
@@ -690,7 +690,7 @@ feature -- Status
 				(a_year /= 2038 or else (a_month = 1 and then a_day <= 19))
 		end
 
-	is_valid_date_and_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER): BOOLEAN is
+	is_valid_date_and_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER): BOOLEAN
 			-- Do `a_year', `a_month' and `a_day' form a date that can be
 			-- represented by this class?
 			-- Because this class represents unix dates, only dates
@@ -707,7 +707,7 @@ feature -- Status
 				 ((an_hour * 3600 + a_minute * 60 + a_second) < max_unix_time))
 		end
 
-	is_valid_day (a_year, a_month, a_day: INTEGER): BOOLEAN is
+	is_valid_day (a_year, a_month, a_day: INTEGER): BOOLEAN
 			-- Is `a_day' a valid day given year and month.
 		require
 			valid_year: a_year >= minimum_year
@@ -718,7 +718,7 @@ feature -- Status
 			clearly_invalid_day: (a_day < 1 or a_day > 31) implies not Result
 		end
 
-	is_valid_time (an_hour, a_minute, a_second: INTEGER): BOOLEAN is
+	is_valid_time (an_hour, a_minute, a_second: INTEGER): BOOLEAN
 			-- Do `an_hour', `a_minute' and `a_second' form a valid 24
 			-- hour clock time?
 		do
@@ -731,7 +731,7 @@ feature -- Status
 
 feature -- Access
 
-	current_year: INTEGER is
+	current_year: INTEGER
 			-- Current year.
 		local
 			now: STDC_TIME
@@ -743,7 +743,7 @@ feature -- Access
 			valid_year: Result >= minimum_year
 		end
 
-	four_digit_year (a_year: INTEGER): INTEGER is
+	four_digit_year (a_year: INTEGER): INTEGER
 			-- Return a four digit year given a possibly two digit year.
 		require
 			valid_year:
@@ -762,12 +762,12 @@ feature -- Access
 			two_digits_retained: Result \\ 100 = a_year
 		end
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			Result := value
 		end
 
-	minimum_year: INTEGER is
+	minimum_year: INTEGER
 			-- The minimum year for the current platform.
 			-- For POSIX is 1970, for Windows is 1980.
 		once
@@ -780,7 +780,7 @@ feature -- Access
 			not_negative: Result >= 0
 		end
 
-	maximum_year: INTEGER is
+	maximum_year: INTEGER
 			-- The maximum Epoch year.
 		do
 			Result := 2038
@@ -794,7 +794,7 @@ feature -- Access
 
 feature -- Conversion
 
-	as_dt_date_time: DT_DATE_TIME is
+	as_dt_date_time: DT_DATE_TIME
 			-- Date time in Gobo date time format.
 			-- Always returns a new object.
 		do
@@ -813,13 +813,13 @@ feature {STDC_TIME} -- Implementation
 feature {NONE} -- Implementation
 
 	utc_time_zone,
-	local_time_zone: INTEGER is unique
+	local_time_zone: INTEGER = unique
 			-- Allowed values for `my_time_zone'
 
 	tm: STDC_BUFFER
 			-- Buffer for struct tm
 
-	assert_has_tm is
+	assert_has_tm
 		do
 			if tm = Void then
 				create tm.allocate_and_clear (posix_tm_size)
@@ -829,32 +829,32 @@ feature {NONE} -- Implementation
 			tm_not_void: tm /= Void
 		end
 
-	do_make is
+	do_make
 			-- Common initialization for all creation routines.
 		do
 			assert_has_tm
 		end
 
-	is_windows: BOOLEAN is
+	is_windows: BOOLEAN
 			-- Enable Windows quirks?
 		external "C"
 		end
 
-	max_unix_time: INTEGER is 11648
+	max_unix_time: INTEGER = 11648
 			-- Denotes time, 03:14:08, on last Unix day, i.e.
 			-- 03 * 3600 + 14 * 60 + 08
 
-	unix_1980_timestamp: INTEGER is 315532800
+	unix_1980_timestamp: INTEGER = 315532800
 			-- Gates trickery.
 
 
 feature {NONE} -- Once strings
 
-	once_gmt: STRING is " GMT"
-	once_rfc_822_format_with_tz: STRING is "%%a, %%d %%b %%Y %%H:%%M:%%S %%z"
-	once_rfc_822_format: STRING is "%%a, %%d %%b %%Y %%H:%%M:%%S"
-	once_iso_8601_format_with_tz: STRING is "%%FT%%H:%%M:%%S%%z"
-	once_iso_8601_utc_format: STRING is "%%FT%%H:%%M:%%SZ"
+	once_gmt: STRING = " GMT"
+	once_rfc_822_format_with_tz: STRING = "%%a, %%d %%b %%Y %%H:%%M:%%S %%z"
+	once_rfc_822_format: STRING = "%%a, %%d %%b %%Y %%H:%%M:%%S"
+	once_iso_8601_format_with_tz: STRING = "%%FT%%H:%%M:%%S%%z"
+	once_iso_8601_utc_format: STRING = "%%FT%%H:%%M:%%SZ"
 
 
 invariant

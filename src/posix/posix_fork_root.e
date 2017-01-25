@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstract fork root class."
 
@@ -49,7 +49,7 @@ inherit
 
 feature -- Process properties
 
-	is_valid_child_process: BOOLEAN is
+	is_valid_child_process: BOOLEAN
 			-- Does this object have a valid child process identifier?
 			-- The child process itself may have stopped though.
 		obsolete "Use is_child_pid_valid instead."
@@ -60,7 +60,7 @@ feature -- Process properties
 
 feature {POSIX_CURRENT_PROCESS}
 
-	frozen start is
+	frozen start
 			-- Called by the `fork' routine for child.
 			-- Makes sure child does never return.
 		do
@@ -78,14 +78,14 @@ feature {POSIX_CURRENT_PROCESS}
 
 feature {NONE} -- After fork routines
 
-	after_fork is
+	after_fork
 			-- chance for code to do something after `fork', but before `execute';
 			-- mainly here for POSIX_DAEMON.
 		do
 			-- do nothing
 		end
 
-	after_execute is
+	after_execute
 			-- Chance for code to do something after `execute' has
 			-- finished, but before child terminates.
 		do
@@ -95,7 +95,7 @@ feature {NONE} -- After fork routines
 
 feature -- After fork routines
 
-	execute is
+	execute
 			-- Code to run when this is the child process.
 		deferred
 		end
@@ -103,14 +103,14 @@ feature -- After fork routines
 
 feature -- termination info
 
-	has_exit_code: BOOLEAN is
+	has_exit_code: BOOLEAN
 			-- Does `exit_code' return a valid value?
 		do
 			Result := is_terminated and then is_terminated_normally
 		end
 
 	is_terminated_normally,
-	is_exited: BOOLEAN is
+	is_exited: BOOLEAN
 			-- Has this process been terminated normally?
 		require
 			valid_status_info: is_terminated
@@ -118,13 +118,13 @@ feature -- termination info
 			Result := posix_wifexited (termination_info)
 		end
 
-	exit_code: INTEGER is
+	exit_code: INTEGER
 			-- Low-order 8 bits of call to _exit or exit for this process
 		do
 			Result := posix_wexitstatus (termination_info)
 		end
 
-	is_signalled: BOOLEAN is
+	is_signalled: BOOLEAN
 			-- Was child process terminated due to receipt of a signal
 			-- that was not caught?
 		require
@@ -133,7 +133,7 @@ feature -- termination info
 			Result := posix_wifsignaled (termination_info)
 		end
 
-	signal_code: INTEGER is
+	signal_code: INTEGER
 			-- Signal which caused the process to terminate
 		require
 			valid_status_info: is_terminated

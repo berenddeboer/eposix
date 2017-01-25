@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Stream that gets quoted-printable data from another stream and emits decoded characters."
 
@@ -42,7 +42,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			precursor
 			create next_characters.make (1, 2)
@@ -51,7 +51,7 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 		do
 			Result := next_character_count = 0 and then source.end_of_input
@@ -60,7 +60,7 @@ feature -- Status report
 
 feature -- Input
 
-	read_character is
+	read_character
 			-- Read the next item in input stream.
 			-- Make the result available in `last_item'.
 		local
@@ -117,7 +117,7 @@ feature {NONE} -- Input decoding
 
 	next_character_count: INTEGER
 
-	read_octet_value is
+	read_octet_value
 			-- An '=' has been read, read next two digits.
 		require
 			has_input: not end_of_input

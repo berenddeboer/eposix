@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_nick_name: STRING) is
+	make (a_nick_name: STRING)
 		do
 			nick_name := a_nick_name
 		end
@@ -38,7 +38,7 @@ feature -- Access
 
 feature -- Change
 
-	set_nick_name (a_nick_name: STRING) is
+	set_nick_name (a_nick_name: STRING)
 		do
 			nick_name := a_nick_name
 		end

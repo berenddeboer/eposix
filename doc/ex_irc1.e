@@ -6,7 +6,7 @@ create
 
 feature
 
-	make is
+	make
 		local
 			irc: EPX_IRC_CLIENT
 			eiffel: EPX_IRC_CHANNEL
@@ -32,9 +32,9 @@ feature
 			end
 		end
 
-	host: STRING is "irc.freenode.net"
+	host: STRING = "irc.freenode.net"
 
-	username: STRING is "eiffelbot"
+	username: STRING = "eiffelbot"
 
 	password: STRING
 			-- n/a

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS select calls."
 
@@ -19,7 +19,7 @@ inherit
 
 feature
 
-	test_close is
+	test_close
 			-- Test if we can detect that a file descriptor is closed by
 			-- a client.
 		local
@@ -119,9 +119,9 @@ feature {NONE} -- Implementation
 
 	len: INTEGER
 
-	port: INTEGER is 9877
+	port: INTEGER = 9877
 			-- Thanks to W. Richard Stevens
 
-	hello: STRING is "Hello World.%N"
+	hello: STRING = "Hello World.%N"
 
 end

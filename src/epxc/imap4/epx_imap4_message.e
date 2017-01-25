@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "IMAP4rev1 message data as retrieved by a client."
 
@@ -19,7 +19,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 		end
 
@@ -55,7 +55,7 @@ feature -- Access
 
 feature -- Status
 
-	is_seen: BOOLEAN is
+	is_seen: BOOLEAN
 			-- If flags have been retrieved, is "\Seen" among them?
 		do
 			if flags /= Void then
@@ -66,7 +66,7 @@ feature -- Status
 
 feature -- Set message data
 
-	append_flag (a_flag: STRING) is
+	append_flag (a_flag: STRING)
 		local
 			tester: KL_EQUALITY_TESTER [STRING]
 		do
@@ -80,7 +80,7 @@ feature -- Set message data
 			has_flag: flags.has (a_flag)
 		end
 
-	clear_flags is
+	clear_flags
 			-- Make sure there are no items in `flags'.
 		do
 			if flags /= Void then
@@ -90,25 +90,25 @@ feature -- Set message data
 			flags_reset: flags = Void or else flags.is_empty
 		end
 
-	set_message (a_message: STRING) is
+	set_message (a_message: STRING)
 			-- Set `message'.
 		do
 			message := a_message
 		end
 
-	set_message_body (a_body: STRING) is
+	set_message_body (a_body: STRING)
 			-- Set `message_body'.
 		do
 			body := a_body
 		end
 
-	set_message_header (a_header: STRING) is
+	set_message_header (a_header: STRING)
 			-- Set `message_header'.
 		do
 			header := a_header
 		end
 
-	set_message_size (a_size: INTEGER) is
+	set_message_size (a_size: INTEGER)
 			-- Set `message_size'.
 		require
 			valid_size: a_size >= 0
@@ -118,7 +118,7 @@ feature -- Set message data
 			message_size_set: size = a_size
 		end
 
-	set_sequence_number (a_sequence_number: INTEGER) is
+	set_sequence_number (a_sequence_number: INTEGER)
 		require
 			valid_sequence_number: a_sequence_number >= 1
 		do
@@ -128,7 +128,7 @@ feature -- Set message data
 
 feature {NONE} -- Message flags
 
-	flag_seen: STRING is "\Seen"
+	flag_seen: STRING = "\Seen"
 
 
 invariant

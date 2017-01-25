@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Makes an STDC_TEXT_FILE available as a KI_OUTPUT_STREAM [STRING]."
 

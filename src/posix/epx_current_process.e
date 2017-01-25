@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers portable Windows current process code."
 
@@ -39,7 +39,7 @@ inherit
 
 feature -- Access (doesn't make a lot of sense if you're not inheriting)
 
-	effective_user_name: STRING is
+	effective_user_name: STRING
 			-- Name of the user currently associated with the current
 			-- thread;
 			-- Name will not be Void, but can be empty if no name found
@@ -55,7 +55,7 @@ feature -- Access (doesn't make a lot of sense if you're not inheriting)
 			end
 		end
 
-	raw_environment_variables: ARRAY [STRING] is
+	raw_environment_variables: ARRAY [STRING]
 			-- The raw list of name=value pairs of environment
 			-- variables passed to this process;
 			-- A new list is created every time this feature is accessed.
@@ -66,17 +66,17 @@ feature -- Access (doesn't make a lot of sense if you're not inheriting)
 
 feature -- The standard file descriptors of every process
 
-	fd_stdin: POSIX_FILE_DESCRIPTOR is
+	fd_stdin: POSIX_FILE_DESCRIPTOR
 		once
 			create Result.attach_to_fd (STDIN_FILENO, False)
 		end
 
-	fd_stdout: POSIX_FILE_DESCRIPTOR is
+	fd_stdout: POSIX_FILE_DESCRIPTOR
 		once
 			create Result.attach_to_fd (STDOUT_FILENO, False)
 		end
 
-	fd_stderr: POSIX_FILE_DESCRIPTOR is
+	fd_stderr: POSIX_FILE_DESCRIPTOR
 		once
 			create Result.attach_to_fd (STDERR_FILENO, False)
 		end
@@ -84,7 +84,7 @@ feature -- The standard file descriptors of every process
 
 feature -- Sleeping
 
-	millisleep (a_milliseconds: INTEGER) is
+	millisleep (a_milliseconds: INTEGER)
 			-- Sleep for `a_milliseconds' milliseconds. Due to timer
 			-- resolution issues, the minimum resolution might be in the
 			-- order of 10ms or higher.
@@ -107,12 +107,12 @@ feature -- Sleeping
 
 feature {NONE} -- abstract API
 
-	abstract_getpid: INTEGER is
+	abstract_getpid: INTEGER
 		do
 			Result := posix_getpid
 		end
 
-	abstract_sleep (a_seconds: INTEGER): INTEGER is
+	abstract_sleep (a_seconds: INTEGER): INTEGER
 		do
 			Result := posix_sleep (a_seconds)
 		end

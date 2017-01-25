@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 		"Describes file related security."
@@ -27,7 +27,7 @@ create {STDC_SECURITY}
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Allow everything.
 		do
 			max_open_files := Max_Int
@@ -46,7 +46,7 @@ feature -- Access
 			-- reached is done after the file has been opened, not
 			-- before.
 
-	open_files: INTEGER is
+	open_files: INTEGER
 			-- The number of files that are currently open
 		external "C"
 		alias "posix_open_files"
@@ -57,7 +57,7 @@ feature -- Access
 
 feature -- Change
 
-	set_max_open_files (a_value: INTEGER) is
+	set_max_open_files (a_value: INTEGER)
 			-- Change the number of files that maybe open at a given
 			-- time.
 		require
@@ -71,7 +71,7 @@ feature -- Change
 
 feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 
-	decrease_open_files is
+	decrease_open_files
 		require
 			can_decrease_number_of_files: open_files > 0
 		external "C"
@@ -80,7 +80,7 @@ feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 			open_files_decreased: open_files = old open_files - 1
 		end
 
-	increase_open_files is
+	increase_open_files
 		do
 			-- Increase the number of files first, as the file is already
 			-- open and must be closed. This means we can open one more
@@ -94,7 +94,7 @@ feature {STDC_SECURITY_ACCESSOR} -- Count resource usage
 
 feature {NONE} -- Implementation
 
-	memory: MEMORY is
+	memory: MEMORY
 			-- Ensuring that resource counting is correct, works only
 			-- when garbage collector doesn't kick in to dispose handles.
 			-- Need to test if garbage collector enabled or not.
@@ -102,7 +102,7 @@ feature {NONE} -- Implementation
 			create Result
 		end
 
-	posix_increase_open_files is
+	posix_increase_open_files
 		external "C"
 		ensure
 			open_files_increased: open_files = old open_files + 1
@@ -111,7 +111,7 @@ feature {NONE} -- Implementation
 
 feature -- Checks
 
-	check_max_open_files is
+	check_max_open_files
 			-- Raise exception if the number of open files has exceeded
 			-- `max_open_files'.
 		do
@@ -120,7 +120,7 @@ feature -- Checks
 			end
 		end
 
-	is_open_files_increased (should_increase: BOOLEAN; old_open_files: INTEGER): BOOLEAN is
+	is_open_files_increased (should_increase: BOOLEAN; old_open_files: INTEGER): BOOLEAN
 			-- Is `open_files' correctly incremented depending on
 			-- `should_increase' given old `open_files'?
 			-- Routine to be used in postconditions.

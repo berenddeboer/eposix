@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -33,7 +33,7 @@ create
 
 feature {NONE} -- Initialization
 
-	do_create (a_value: INTEGER) is
+	do_create (a_value: INTEGER)
 			-- Create an unnamed semaphore with initial value `a_value'.
 		require
 			uninitialized: not is_open
@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 			end
 		end
 
-	create_unshared (a_value: INTEGER) is
+	create_unshared (a_value: INTEGER)
 			-- Create an unnamed semaphore with initial value `a_value'.
 			-- The semaphore can be shared between processes;
 		do
@@ -70,7 +70,7 @@ feature -- Status
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in
@@ -89,7 +89,7 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Sempahore creation
 
-	make_sem is
+	make_sem
 			-- allocate `sem'.
 		do
 			if sem = Void then

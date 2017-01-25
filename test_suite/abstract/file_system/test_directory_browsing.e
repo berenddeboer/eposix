@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test (recursive) directory browsing."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Tests
 
-	test_browsing is
+	test_browsing
 			-- Exhaustively test directory browsing code.
 		local
 			dir: ABSTRACT_DIRECTORY
@@ -66,7 +66,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	do_browse (a_directory: ABSTRACT_DIRECTORY; a_number_of_directories, a_number_of_files: INTEGER) is
+	do_browse (a_directory: ABSTRACT_DIRECTORY; a_number_of_directories, a_number_of_files: INTEGER)
 		require
 			a_directory_not_void: a_directory /= Void
 		do
@@ -93,7 +93,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Filter characteristics
 
-	is_valid (a_status: ABSTRACT_STATUS; path_name: STRING): BOOLEAN is
+	is_valid (a_status: ABSTRACT_STATUS; path_name: STRING): BOOLEAN
 			-- Is `path_name' a valid path to return?
 		do
 			debug ("test")
@@ -112,7 +112,7 @@ feature {NONE} -- Filter characteristics
 			Result := True
 		end
 
-	require_status: BOOLEAN is True
+	require_status: BOOLEAN = True
 			-- Should `is_valid' receive a valid status?
 
 

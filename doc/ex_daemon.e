@@ -13,7 +13,7 @@ create
 
 feature -- the parent
 
-	make is
+	make
 		do
 			-- necessary under SmallEiffel
 			ignore_child_stop_signal
@@ -34,7 +34,7 @@ feature -- the parent
 
 feature -- the daemon
 
-	execute is
+	execute
 		do
 			-- daemon stays alive for 20 seconds
 			sleep (20)

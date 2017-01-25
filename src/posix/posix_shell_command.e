@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Posix system command, %
 	%i.e. interaction with the shell."

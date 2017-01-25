@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base for all MIME structured fields."
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Windows current system info related routines."
 
@@ -21,20 +21,20 @@ inherit
 
 feature -- Version info
 
-	major_version: INTEGER is
+	major_version: INTEGER
 			-- Windows minor version number, i.e. 5 for Windows
 			-- 2000/XP/Windows 2003.
 		do
 			Result := posix_osversioninfoa_dwmajorversion (version_info.ptr)
 		end
 
-	minor_version: INTEGER is
+	minor_version: INTEGER
 			-- Windows minor version number, i.e. 51 for Windows 3.51.
 		do
 			Result := posix_osversioninfoa_dwminorversion (version_info.ptr)
 		end
 
-	service_pack: STRING is
+	service_pack: STRING
 			-- Service pack if service pack installed. String is like
 			-- "Service Pack 2".
 		once
@@ -44,19 +44,19 @@ feature -- Version info
 
 feature -- Status
 
-	is_windows_2000: BOOLEAN is
+	is_windows_2000: BOOLEAN
 			-- Are we running on Windows 2000?
 		do
 			Result := major_version = 5 and minor_version = 0
 		end
 
-	is_windows_2003: BOOLEAN is
+	is_windows_2003: BOOLEAN
 			-- Are we running on Windows Server 2003?
 		do
 			Result := major_version = 5 and minor_version = 2
 		end
 
-	is_windows_xp: BOOLEAN is
+	is_windows_xp: BOOLEAN
 			-- Are we running on Windows XP?
 		do
 			Result := major_version = 5 and minor_version = 1
@@ -65,7 +65,7 @@ feature -- Status
 
 feature -- High-resolution performance counter
 
-	performance_counter: INTEGER_64 is
+	performance_counter: INTEGER_64
 			-- The current value of the high-resolution performance
 			-- counter
 		do
@@ -73,7 +73,7 @@ feature -- High-resolution performance counter
 			Result := temp
 		end
 
-	performance_frequency: INTEGER_64 is
+	performance_frequency: INTEGER_64
 			-- The frequency of the high-resolution performance counter,
 			-- if one exists
 		do

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that implements a simple HTTP 1.1 server."
 
@@ -70,7 +70,7 @@ create
 
 feature {NONE} -- Initialization
 
-	do_make (a_port: INTEGER) is
+	do_make (a_port: INTEGER)
 			-- Initialize webserver.
 		require
 			valid_port: a_port >= 0 and then a_port <= 65535
@@ -84,7 +84,7 @@ feature {NONE} -- Initialization
 			create persistent_connections.make
 		end
 
-	make (a_port: INTEGER; a_root: STRING) is
+	make (a_port: INTEGER; a_root: STRING)
 			-- Initialize the web server with `a_root' as the '/' URL.
 		require
 			root_not_empty: a_root /= Void and then not a_root.is_empty
@@ -103,7 +103,7 @@ feature {NONE} -- Initialization
 			not_virtual: not is_virtual
 		end
 
-	make_virtual (a_port: INTEGER) is
+	make_virtual (a_port: INTEGER)
 			-- Initialize the web server with no root in the file
 			-- system. It will not serve files, only servlets.
 			-- Use `register_url' to add recognized URLs in that case.
@@ -116,7 +116,7 @@ feature {NONE} -- Initialization
 			virtual: is_virtual
 		end
 
-	new_host (a_loopback_only: BOOLEAN): EPX_HOST is
+	new_host (a_loopback_only: BOOLEAN): EPX_HOST
 			-- The host name/ip address this web server listen on.
 		do
 			if a_loopback_only then
@@ -132,7 +132,7 @@ feature {NONE} -- Initialization
 
 feature -- Listen and shutdown
 
-	listen_locally is
+	listen_locally
 			-- Listen on loopback interface only. No outside machines can
 			-- connect to this server.
 		require
@@ -146,7 +146,7 @@ feature -- Listen and shutdown
 			open: is_open
 		end
 
-	listen_globally is
+	listen_globally
 			-- Listen on all interfaces for incoming connections.
 		require
 			not_listening: not is_open
@@ -159,7 +159,7 @@ feature -- Listen and shutdown
 			open: is_open
 		end
 
-	listen (a_host: EPX_HOST) is
+	listen (a_host: EPX_HOST)
 			-- Listen on interface(s) `a_host' for incoming connections.
 		require
 			not_listening: not is_open
@@ -173,7 +173,7 @@ feature -- Listen and shutdown
 			open: is_open
 		end
 
-	shutdown is
+	shutdown
 			-- Don't listen to requests anymore.
 		require
 			open: is_open
@@ -195,19 +195,19 @@ feature -- Listen and shutdown
 
 feature -- Status
 
-	has_connected_client: BOOLEAN is
+	has_connected_client: BOOLEAN
 			-- Is there a client whose request we currently process?
 		do
 			Result := connection /= Void and then connection.is_open
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Does the server listen on the given port?
 		do
 			Result := socket /= Void
 		end
 
-	is_virtual: BOOLEAN is
+	is_virtual: BOOLEAN
 			-- Does this server serve entirely from servlets?
 			-- If so, it will never read the local file system for files
 			-- directly.
@@ -231,7 +231,7 @@ feature -- Access
 	root_url: UT_URI
 			-- Used to resolve relative components
 
-	server_name: STRING is
+	server_name: STRING
 			-- How server is known to the client
 		once
 			Result := "eposix/1.0"
@@ -242,7 +242,7 @@ feature -- Access
 
 feature -- Change
 
-	set_serve_xhtml_if_supported (a_enable: BOOLEAN) is
+	set_serve_xhtml_if_supported (a_enable: BOOLEAN)
 			-- Change `serve_xhtml_if_supported'.
 		do
 			serve_xhtml_if_supported := a_enable
@@ -253,7 +253,7 @@ feature -- Change
 
 feature -- Custom resources, non-files
 
-	locate_servlet (a_path: STRING): EPX_HTTP_SERVLET is
+	locate_servlet (a_path: STRING): EPX_HTTP_SERVLET
 			-- Return the servlet that handles this path or Void if there
 			-- is none.
 		require
@@ -300,7 +300,7 @@ feature -- Custom resources, non-files
 			end
 		end
 
-	register_dynamic_resource (a_path: STRING; a_servlet: EPX_HTTP_SERVLET) is
+	register_dynamic_resource (a_path: STRING; a_servlet: EPX_HTTP_SERVLET)
 			-- Register `a_servlet' that will be called upon to provide the
 			-- output when a client requests the resource `a_path'.
 			-- `a_path' is a path in the form of the urlReplacement input
@@ -322,7 +322,7 @@ feature -- Custom resources, non-files
 			dynamic_resource_added: dynamic_resources.last.resource = a_servlet
 		end
 
-	register_fixed_resource (a_path: STRING; a_servlet: EPX_HTTP_SERVLET) is
+	register_fixed_resource (a_path: STRING; a_servlet: EPX_HTTP_SERVLET)
 			-- Register `a_servlet' that will be called upon to provide the
 			-- output when a client requests the resource `a_path'.
 			-- `a_path' should be an absolute path without relative components.
@@ -354,7 +354,7 @@ feature -- Custom resources, non-files
 
 feature -- Execute requests
 
-	process_next_request is
+	process_next_request
 			-- Process the next request, if any.
 		require
 			open: is_open
@@ -367,7 +367,7 @@ feature -- Execute requests
 			connection_closed_if_not_persistent: connection /= Void implies (connection.is_open implies connection.is_persistent)
 		end
 
-	process_next_requests is
+	process_next_requests
 			-- Process all available requests.
 		require
 			open: is_open
@@ -387,7 +387,7 @@ feature -- Execute requests
 
 feature {NONE} -- Recognized commands
 
-	process_delete (a_request_uri: UT_URI) is
+	process_delete (a_request_uri: UT_URI)
 			-- Handle a DELETE request.
 		require
 			request_uri_valid: a_request_uri /= Void and then a_request_uri.is_path_resolved and then a_request_uri.has_absolute_path
@@ -406,7 +406,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_delete_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI) is
+	process_delete_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI)
 			-- Handle servlet DELETE request.
 		require
 			servlet_not_void: a_servlet /= Void
@@ -432,7 +432,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_get (a_request_uri: UT_URI) is
+	process_get (a_request_uri: UT_URI)
 			-- Handle a GET request.
 			-- `a_request_uri' is a fully resolved path.
 		require
@@ -455,7 +455,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_get_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI) is
+	process_get_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI)
 			-- Send GET request to `a_servlet'.
 		require
 			servlet_not_void: a_servlet /= Void
@@ -481,7 +481,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_get_file (a_request_uri: UT_URI) is
+	process_get_file (a_request_uri: UT_URI)
 			-- `an_absolute_path' is a fully resolved resource and
 			-- returned to the client if it is a file in `root'.
 		require
@@ -535,7 +535,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_head (a_request_uri: UT_URI) is
+	process_head (a_request_uri: UT_URI)
 			-- Handle a HEAD request.
 		require
 			request_uri_valid: a_request_uri /= Void and then a_request_uri.is_path_resolved and then a_request_uri.has_absolute_path
@@ -556,7 +556,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_head_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI) is
+	process_head_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI)
 			-- Handle servlet HEAD request.
 		require
 			servlet_not_void: a_servlet /= Void
@@ -576,7 +576,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_head_file (a_request_uri: UT_URI) is
+	process_head_file (a_request_uri: UT_URI)
 			-- `an_absolute_path' is a fully resolved resource. Status is
 			-- returned to the client if it is a file in `root'.
 		require
@@ -619,7 +619,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_post (a_request_uri: UT_URI) is
+	process_post (a_request_uri: UT_URI)
 			-- Handle a POST request.
 		require
 			have_connection: has_connected_client
@@ -641,7 +641,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_post_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI) is
+	process_post_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI)
 			-- Handle servlet POST request.
 		require
 			servlet_not_void: a_servlet /= Void
@@ -668,7 +668,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_put (a_request_uri: UT_URI) is
+	process_put (a_request_uri: UT_URI)
 			-- Handle a PUT request.
 		require
 			request_uri_valid: a_request_uri /= Void and then a_request_uri.is_path_resolved and then a_request_uri.has_absolute_path
@@ -689,7 +689,7 @@ feature {NONE} -- Recognized commands
 			end
 		end
 
-	process_put_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI) is
+	process_put_servlet (a_servlet: EPX_HTTP_SERVLET; a_request_uri: UT_URI)
 			-- Handle servlet POST request.
 		require
 			servlet_not_void: a_servlet /= Void
@@ -719,7 +719,7 @@ feature {NONE} -- Recognized commands
 
 feature {NONE} -- GET helper
 
-	add_file_expires_date (a_mime_type: STRING; a_last_modification: STDC_TIME) is
+	add_file_expires_date (a_mime_type: STRING; a_last_modification: STDC_TIME)
 			-- Add an Expires header based on the mime type. Without this
 			-- field, certain brain dead browsers, you know which, will
 			-- attempt to download the same image again and again and
@@ -752,7 +752,7 @@ feature {NONE} -- GET helper
 			end
 		end
 
-	file_name_to_mime_type (a_file_name: STRING): STRING is
+	file_name_to_mime_type (a_file_name: STRING): STRING
 			-- Try to get some suitable mime type. Needs to be
 			-- rewritten. Doesn't look like the way to go.
 			-- Perhaps parse/use Apache's /etc/mime.types?
@@ -784,7 +784,7 @@ feature {NONE} -- GET helper
 			end
 		end
 
-	send_file (a_file_name: STRING) is
+	send_file (a_file_name: STRING)
 			-- Send the file `a_file_name' to `connection'.
 			-- Errors are ignored.
 		require
@@ -832,7 +832,7 @@ feature {NONE} -- GET helper
 			end
 		end
 
-	send_servlet_get_header (servlet: EPX_HTTP_SERVLET): BOOLEAN is
+	send_servlet_get_header (servlet: EPX_HTTP_SERVLET): BOOLEAN
 			-- Was asking servlet to prepare header and sending it to the
 			-- client successful?
 		require
@@ -878,7 +878,7 @@ feature {NONE} -- GET helper
 			end
 		end
 
-	send_servlet_head_header (servlet: EPX_HTTP_SERVLET) is
+	send_servlet_head_header (servlet: EPX_HTTP_SERVLET)
 			-- Send header to client, ignore exceptions that result from
 			-- writing to a client that has disconnected.
 		require
@@ -923,7 +923,7 @@ feature {NONE} -- GET helper
 
 feature {NONE} -- DELETE/POST/PUT helper
 
-	send_servlet_delete_header (servlet: EPX_HTTP_SERVLET): BOOLEAN is
+	send_servlet_delete_header (servlet: EPX_HTTP_SERVLET): BOOLEAN
 			-- Was asking servlet to prepare header and sending it to the
 			-- client successful?
 		require
@@ -965,7 +965,7 @@ feature {NONE} -- DELETE/POST/PUT helper
 			end
 		end
 
-	send_servlet_post_header (servlet: EPX_HTTP_SERVLET): BOOLEAN is
+	send_servlet_post_header (servlet: EPX_HTTP_SERVLET): BOOLEAN
 			-- Was asking servlet to prepare header and sending it to the
 			-- client successful?
 		require
@@ -1007,7 +1007,7 @@ feature {NONE} -- DELETE/POST/PUT helper
 			end
 		end
 
-	send_servlet_put_header (servlet: EPX_HTTP_SERVLET): BOOLEAN is
+	send_servlet_put_header (servlet: EPX_HTTP_SERVLET): BOOLEAN
 			-- Was asking servlet to prepare header and sending it to the
 			-- client successful?
 		require
@@ -1052,7 +1052,7 @@ feature {NONE} -- DELETE/POST/PUT helper
 
 feature {NONE} -- Execute requests
 
-	accept_new_incoming_request is
+	accept_new_incoming_request
 			-- If socket has a new client connection, make it available
 			-- in `connection'.
 		require
@@ -1076,7 +1076,7 @@ feature {NONE} -- Execute requests
 			end
 		end
 
-	accept_next_persistent_request is
+	accept_next_persistent_request
 			-- Loop through the persistent connections and return the
 			-- first one that has become readable.
 		local
@@ -1115,7 +1115,7 @@ feature {NONE} -- Execute requests
 			end
 		end
 
-	accept_next_request is
+	accept_next_request
 			-- Accept the next request, if there is one and put it in
 			-- `connection'. If there is no connection `connection' will
 			-- be Void.
@@ -1142,7 +1142,7 @@ feature {NONE} -- Execute requests
 			end
 		end
 
-	do_process_next_request is
+	do_process_next_request
 			-- Process request just returned by `accept_request'.
 		require
 			request_available: connection /= Void
@@ -1161,7 +1161,7 @@ feature {NONE} -- Execute requests
 			connection_closed_if_not_persistent: connection /= Void implies (connection.is_open implies connection.is_persistent)
 		end
 
-	process_method (a_method: STRING; a_request_uri: UT_URI) is
+	process_method (a_method: STRING; a_request_uri: UT_URI)
 			-- Call proper routine when `a_method' is an implemented
 			-- method.
 		require
@@ -1201,7 +1201,7 @@ feature {NONE} -- Execute requests
 			end
 		end
 
-	max_keep_alive: INTEGER is 30
+	max_keep_alive: INTEGER = 30
 			-- How many seconds a client connection may remain open
 			-- without sending a new request
 
@@ -1217,67 +1217,67 @@ feature -- Connected client state
 
 feature -- Obsoletes
 
-	add_field (a_field_name, a_content: STRING) is
+	add_field (a_field_name, a_content: STRING)
 		obsolete "2006-02-06: use connection.add_field instead."
 		do
 			connection.add_field (a_field_name, a_content)
 		end
 
-	add_new_line is
+	add_new_line
 		obsolete "2006-02-06: use connection.add_new_line instead."
 		do
 			connection.add_new_line
 		end
 
-	client: ABSTRACT_TCP_SOCKET is
+	client: ABSTRACT_TCP_SOCKET
 		obsolete "2006-02-06: use connection.client instead."
 		do
 			Result := connection.client
 		end
 
-	is_body_send: BOOLEAN is
+	is_body_send: BOOLEAN
 		obsolete "2006-02-06: use connection.is_body_send instead."
 		do
 			Result := connection.is_body_send
 		end
 
-	is_header_send: BOOLEAN is
+	is_header_send: BOOLEAN
 		obsolete "2006-02-06: use connection.is_header_send instead."
 		do
 			Result := connection.is_header_send
 		end
 
-	request_body: EPX_MIME_BODY is
+	request_body: EPX_MIME_BODY
 		obsolete "2006-02-06: use connection.request_body instead."
 		do
 			Result := connection.request_body
 		end
 
-	request_fields: DS_HASH_TABLE [EPX_MIME_FIELD, STRING] is
+	request_fields: DS_HASH_TABLE [EPX_MIME_FIELD, STRING]
 		obsolete "2006-02-06: use connection.request_fields instead."
 		do
 			Result := connection.request_fields
 		end
 
-	response_header_ends_with_body_separator: BOOLEAN is
+	response_header_ends_with_body_separator: BOOLEAN
 		obsolete "2006-02-06: use connection.response_header_ends_with_body_separator instead."
 		do
 			Result := connection.response_header_ends_with_body_separator
 		end
 
-	request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING] is
+	request_form_fields: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 		obsolete "2006-02-06: use connection.request_form_fields instead."
 		do
 			Result := connection.request_form_fields
 		end
 
-	send_body (a_body: STRING) is
+	send_body (a_body: STRING)
 		obsolete "2006-02-06: use connection.send_body instead."
 		do
 			connection.send_body (a_body)
 		end
 
-	send_header is
+	send_header
 		obsolete "2006-02-06: use connection.send_header instead."
 		do
 			connection.send_header
@@ -1286,7 +1286,7 @@ feature -- Obsoletes
 
 feature {EPX_HTTP_SERVLET, EPX_HTTP_CONNECTION} -- Execute request implementation
 
-	to_absolute_uri (a_raw_request_uri: STRING): UT_URI is
+	to_absolute_uri (a_raw_request_uri: STRING): UT_URI
 			-- `a_raw_request_uri' is the URI send by the client. If it does
 			-- not conform to the specs, Void is returned, else an
 			-- absolute URI is returned.
@@ -1334,7 +1334,7 @@ feature {EPX_HTTP_SERVLET, EPX_HTTP_CONNECTION} -- Execute request implementatio
 
 feature {NONE} -- Implementation
 
-	default_html_page_name: STRING is "index.html"
+	default_html_page_name: STRING = "index.html"
 			-- Page retrieved when a directory is passed as resource
 
 	service: EPX_SERVICE
@@ -1349,20 +1349,20 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once STRINGs, Eiffel's worst feature
 
-	once_file_url_prefix: STRING is "file://localhost"
-	once_http_url_prefix: STRING is "http://localhost"
+	once_file_url_prefix: STRING = "file://localhost"
+	once_http_url_prefix: STRING = "http://localhost"
 
 
 feature {NONE} -- File extensions
 
-	once_css: STRING is ".css"
-	once_js: STRING is ".js"
-	once_png: STRING is ".png"
-	once_gif: STRING is ".gif"
-	once_xhtml: STRING is ".xhtml"
-	once_xml: STRING is ".xml"
-	once_xsl: STRING is ".xsl"
-	once_xslt: STRING is ".xslt"
+	once_css: STRING = ".css"
+	once_js: STRING = ".js"
+	once_png: STRING = ".png"
+	once_gif: STRING = ".gif"
+	once_xhtml: STRING = ".xhtml"
+	once_xml: STRING = ".xml"
+	once_xsl: STRING = ".xsl"
+	once_xslt: STRING = ".xslt"
 
 
 invariant

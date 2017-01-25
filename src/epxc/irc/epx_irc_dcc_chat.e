@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Access
 
-	last_string: STRING is
+	last_string: STRING
 			-- Last read line of data from sender.
 		do
 			Result := socket.last_string
@@ -43,7 +43,7 @@ feature -- Access
 
 feature -- Status
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Is there no more data to read?
 			-- I.e., has sender closed the connection?
 		require
@@ -52,7 +52,7 @@ feature -- Status
 			Result := socket.end_of_input
 		end
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Is connection completed?
 		do
 			Result := socket /= Void and then socket.is_open
@@ -60,7 +60,7 @@ feature -- Status
 			socket_not_void: Result implies socket /= Void
 		end
 
-	is_string_read: BOOLEAN is
+	is_string_read: BOOLEAN
 			-- Has call to `read' made a new line of data available on
 			-- `last_string'?
 		require
@@ -76,7 +76,7 @@ feature -- Status
 
 feature -- Reading and writing
 
-	read is
+	read
 			-- Read the next line of data from the sender.
 		require
 			open: is_open
@@ -86,7 +86,7 @@ feature -- Reading and writing
 			last_receive.make_from_now
 		end
 
-	put (s: STRING) is
+	put (s: STRING)
 			-- Write a line of data. If `s' does not end with a new-line,
 			-- a new-line will be written to the receiver after `s' has
 			-- been written.
@@ -104,7 +104,7 @@ feature -- Reading and writing
 
 feature -- Close
 
-	close is
+	close
 			-- End the DCC chat session.
 		do
 			socket.close

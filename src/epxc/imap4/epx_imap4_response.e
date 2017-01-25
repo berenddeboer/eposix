@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "IMAP4rev1 server response."
 
@@ -19,7 +19,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			create response_code.make_empty
 			create response_text_code.make_empty
@@ -29,7 +29,7 @@ feature {NONE} -- Initialization
 
 feature -- Result of last command
 
-	is_bad: BOOLEAN is
+	is_bad: BOOLEAN
 			-- Is `response_code' equal to "BAD"?
 		do
 			Result := response_code = response_code_bad
@@ -38,13 +38,13 @@ feature -- Result of last command
 	bye_response_text: STRING
 			-- Last response text for last received BYE.
 
-	is_no: BOOLEAN is
+	is_no: BOOLEAN
 			-- Is `response_code' equal to "NO"?
 		do
 			Result := response_code = response_code_no
 		end
 
-	is_ok: BOOLEAN is
+	is_ok: BOOLEAN
 			-- Is `response_code' equal to "OK"?
 		do
 			Result := response_code = response_code_ok
@@ -81,19 +81,19 @@ feature -- Mail box responses
 
 feature -- Set response data
 
-	set_bad is
+	set_bad
 		do
 			response_code := response_code_bad
 		ensure
 			bad: is_bad
 		end
 
-	set_bye is
+	set_bye
 		do
 			response_code := response_code_bye
 		end
 
-	set_bye_response_text (a_text: STRING) is
+	set_bye_response_text (a_text: STRING)
 		do
 			if a_text = Void then
 				bye_response_text := Void
@@ -104,21 +104,21 @@ feature -- Set response data
 			bye_response_text_set: a_text = bye_response_text or else bye_response_text.is_equal (a_text)
 		end
 
-	set_no is
+	set_no
 		do
 			response_code := response_code_no
 		ensure
 			no: is_no
 		end
 
-	set_ok is
+	set_ok
 		do
 			response_code := response_code_ok
 		ensure
 			ok: is_ok
 		end
 
-	set_response_text (a_text: STRING) is
+	set_response_text (a_text: STRING)
 		do
 			if a_text = Void then
 				create response_text.make_empty
@@ -134,14 +134,14 @@ feature -- Set response data
 
 feature -- Set system data
 
-	set_delimiter (a_delimiter: STRING) is
+	set_delimiter (a_delimiter: STRING)
 		require
 			delimiter_void_or_one_character: a_delimiter = Void or else a_delimiter.count = 1
 		do
 			delimiter := a_delimiter
 		end
 
-	set_greeting_message (a_message: STRING) is
+	set_greeting_message (a_message: STRING)
 		require
 			greeting_message_not_empty: a_message /= Void and then not a_message.is_empty
 		do
@@ -151,7 +151,7 @@ feature -- Set system data
 
 feature -- Set `current_mailbox'
 
-	clear_current_mailbox is
+	clear_current_mailbox
 			-- Unselect `current_mailbox'.
 		do
 			current_mailbox := Void
@@ -159,7 +159,7 @@ feature -- Set `current_mailbox'
 			current_mailbox_void: current_mailbox = Void
 		end
 
-	set_current_mailbox (a_mailbox: EPX_IMAP4_MAILBOX) is
+	set_current_mailbox (a_mailbox: EPX_IMAP4_MAILBOX)
 			-- Set `current_mailbox' to a known mailbox.
 		require
 			a_mailbox_not_void: a_mailbox /= Void
@@ -170,7 +170,7 @@ feature -- Set `current_mailbox'
 			current_mailbox_set: current_mailbox = a_mailbox
 		end
 
-	set_new_current_mailbox (a_mailbox_name: STRING) is
+	set_new_current_mailbox (a_mailbox_name: STRING)
 			-- Set `current_mailbox' to a new mailbox.
 		require
 			a_mailbox_name_not_empty: a_mailbox_name /= Void and then not a_mailbox_name.is_empty
@@ -185,7 +185,7 @@ feature -- Set `current_mailbox'
 
 feature -- Set message data
 
-	new_current_message (a_sequence_number: INTEGER) is
+	new_current_message (a_sequence_number: INTEGER)
 			-- Make sure `current_message' contains a new, empty message
 			-- if `a_sequence_number' is different from
 			-- `current_message'.`sequence_number'.
@@ -210,13 +210,13 @@ feature -- Set message data
 
 feature {NONE} -- Response codes
 
-	response_code_bad: STRING is "BAD"
+	response_code_bad: STRING = "BAD"
 
-	response_code_bye: STRING is "BYE"
+	response_code_bye: STRING = "BYE"
 
-	response_code_no: STRING is "NO"
+	response_code_no: STRING = "NO"
 
-	response_code_ok: STRING is "OK"
+	response_code_ok: STRING = "OK"
 
 
 invariant

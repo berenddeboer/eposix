@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 class that describes struct sockaddr_in6."
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a single Standard C signal."
 
@@ -26,7 +26,7 @@ create
 
 feature -- creation
 
-	make (a_value: INTEGER) is
+	make (a_value: INTEGER)
 		require
 			valid_signal: a_value >= 1
 		do
@@ -36,7 +36,7 @@ feature -- creation
 
 feature -- set signal properties, make effective with `apply'
 
-	apply is
+	apply
 			-- Make changes effective.
 		local
 			r: POINTER
@@ -51,7 +51,7 @@ feature -- set signal properties, make effective with `apply'
 			end
 		end
 
-	set_default_action is
+	set_default_action
 			-- Install signal-specific default action.
 			-- Call `apply' to make changes effective.
 		do
@@ -59,7 +59,7 @@ feature -- set signal properties, make effective with `apply'
 			my_callback := Void
 		end
 
-	set_ignore_action is
+	set_ignore_action
 			-- Set action to ignore signal.
 			-- Call `apply' to make changes effective.
 		require
@@ -69,7 +69,7 @@ feature -- set signal properties, make effective with `apply'
 			my_callback := Void
 		end
 
-	set_handler (a_handler: STDC_SIGNAL_HANDLER) is
+	set_handler (a_handler: STDC_SIGNAL_HANDLER)
 			-- Install one's own signal handler.
 		do
 			my_handler := signal_switch.handler
@@ -79,7 +79,7 @@ feature -- set signal properties, make effective with `apply'
 
 feature -- signal functions
 
-	raise is
+	raise
 			-- Raise the signal.
 		do
 			safe_call (posix_raise (value))
@@ -88,7 +88,7 @@ feature -- signal functions
 
 feature -- signal state
 
-	is_ignorable: BOOLEAN is
+	is_ignorable: BOOLEAN
 			-- All signals Standard C knows about are ignorable...
 		do
 			Result := True

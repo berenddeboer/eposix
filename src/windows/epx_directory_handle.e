@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -38,7 +38,7 @@ create {ABSTRACT_DIRECTORY}
 
 feature {NONE} -- Initialization
 
-	make  (a_directory_name: STRING) is
+	make  (a_directory_name: STRING)
 		do
 			create find_file_data.allocate_and_clear (posix_win32_find_data_size)
 			precursor (a_directory_name)
@@ -47,7 +47,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	max_filename_length: INTEGER is
+	max_filename_length: INTEGER
 			-- Maximum length of a file in this directory.
 		do
 			Result := MAX_PATH
@@ -63,7 +63,7 @@ feature {NONE} -- Abstract API internal state
 
 feature {NONE} -- Abstract API
 
-	abstract_closedir (a_dirp: POINTER): INTEGER is
+	abstract_closedir (a_dirp: POINTER): INTEGER
 			-- Ends directory read operation
 		do
 			if posix_findclose (find_handle) then
@@ -76,14 +76,14 @@ feature {NONE} -- Abstract API
 			handle_is_reset: find_handle = default_pointer
 		end
 
-	abstract_opendir (a_dirname: POINTER): POINTER is
+	abstract_opendir (a_dirname: POINTER): POINTER
 			-- Opens a directory
 		do
 			find_handle := default_pointer
 			Result := find_file_data.ptr
 		end
 
-	abstract_readdir (a_dirp: POINTER): POINTER is
+	abstract_readdir (a_dirp: POINTER): POINTER
 			-- Reads a directory
 		local
 			b: BOOLEAN
@@ -108,7 +108,7 @@ feature {NONE} -- Abstract API
 				Result = find_file_data.ptr
 		end
 
-	abstract_rewinddir (a_dirp: POINTER) is
+	abstract_rewinddir (a_dirp: POINTER)
 			-- Reset the readdir pointer.
 		do
 			if is_open then
@@ -116,7 +116,7 @@ feature {NONE} -- Abstract API
 			end
 		end
 
-	abstract_d_name (a_dirent: POINTER): POINTER is
+	abstract_d_name (a_dirent: POINTER): POINTER
 		do
 			Result := posix_win32_find_data_filename (a_dirent)
 		end

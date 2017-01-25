@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX file class."
 
@@ -26,7 +26,7 @@ inherit
 
 feature -- Tests
 
-	test_make_from_file is
+	test_make_from_file
 		local
 			file: POSIX_TEXT_FILE
 			fd: POSIX_FILE_DESCRIPTOR
@@ -41,7 +41,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_make_from_file_descriptor is
+	test_make_from_file_descriptor
 		local
 			file: POSIX_TEXT_FILE
 			fd: POSIX_FILE_DESCRIPTOR
@@ -52,7 +52,7 @@ feature -- Tests
 			remove_file ("test.berend")
 		end
 
-	test_wait_for_input is
+	test_wait_for_input
 		local
 			timed_fin: POSIX_TIMED_FIN_CHARACTER
 		do
@@ -69,7 +69,7 @@ feature -- Tests
 			end
 		end
 
-	test_create_temporary_file is
+	test_create_temporary_file
 		local
 			tmpfile: POSIX_TEMPORARY_FILE
 		do
@@ -78,7 +78,7 @@ feature -- Tests
 			tmpfile.close
 		end
 
-	test_read is
+	test_read
 			-- test reading bytes in chunks
 		local
 			chunk_size: INTEGER

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 		"Base class to describe a single security aspect."
@@ -26,7 +26,7 @@ inherit
 
 feature {NONE} -- Security error
 
-	raise_security_error (msg: STRING) is
+	raise_security_error (msg: STRING)
 		require
 			valid_msg: msg /= Void and then not msg.is_empty
 		do
@@ -36,7 +36,7 @@ feature {NONE} -- Security error
 
 feature {NONE} -- Useful maximums
 
-	Max_Int: INTEGER is
+	Max_Int: INTEGER
 		do
 			Result := 2147483647
 		end

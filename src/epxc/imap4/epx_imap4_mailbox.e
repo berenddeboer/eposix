@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "IMAP4rev1 mailbox as seen by a client."
 
@@ -19,7 +19,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_name: STRING) is
+	make (a_name: STRING)
 		require
 			name_not_empty: a_name /= Void and then not a_name.is_empty
 		do
@@ -62,7 +62,7 @@ feature -- Messages in mailbox
 
 feature -- Set mailbox data
 
-	set_identifier (a_mailbox_identifier: INTEGER) is
+	set_identifier (a_mailbox_identifier: INTEGER)
 			-- Set `identifier'.
 		do
 			identifier := a_mailbox_identifier
@@ -70,7 +70,7 @@ feature -- Set mailbox data
 			mailbox_identifier_set: identifier = a_mailbox_identifier
 		end
 
-	set_is_writable (a_is_writable: BOOLEAN) is
+	set_is_writable (a_is_writable: BOOLEAN)
 			-- Set `is_writable'
 		do
 			is_writable := a_is_writable
@@ -81,7 +81,7 @@ feature -- Set mailbox data
 
 feature -- Set messages in mailbox data
 
-	set_count (a_count: INTEGER) is
+	set_count (a_count: INTEGER)
 			-- Set `count'.
 		require
 			valid_count: a_count >= -1
@@ -91,7 +91,7 @@ feature -- Set messages in mailbox data
 			count_set: count = a_count
 		end
 
-	set_recent (a_recent: INTEGER) is
+	set_recent (a_recent: INTEGER)
 			-- Set `recent'.
 		require
 			valid_recent: a_recent >= -1
@@ -101,7 +101,7 @@ feature -- Set messages in mailbox data
 			recent_set: recent = a_recent
 		end
 
-	set_unseen (a_unseen: INTEGER) is
+	set_unseen (a_unseen: INTEGER)
 			-- Set `unseen'.
 		require
 			valid_unseen: a_unseen >= -1

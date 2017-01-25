@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -28,7 +28,7 @@ feature -- Status
 
 feature {STDC_SIGNAL_SWITCH} -- Signal callback
 
-	signalled (signal_value: INTEGER) is
+	signalled (signal_value: INTEGER)
 		do
 			is_signalled := True
 		end

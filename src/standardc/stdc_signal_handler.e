@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class for handling Standard C signals."
 
@@ -22,7 +22,7 @@ inherit
 
 feature {STDC_SIGNAL_SWITCH} -- Signal callback
 
-	signalled (signal_value: INTEGER) is
+	signalled (signal_value: INTEGER)
 			-- Callback when signal occurs, to be implemented in
 			-- descendents.  Note that during the execution of this
 			-- handler, the default handler for this signal is in effect
@@ -34,7 +34,7 @@ feature {STDC_SIGNAL_SWITCH} -- Signal callback
 
 feature {NONE} -- Routines that only make sense within `signalled'
 
-	reestablish (signal_value: INTEGER) is
+	reestablish (signal_value: INTEGER)
 			-- Many Unixes will not deliver the signal again, i.e. they
 			-- will reset the signal handler. Call this routine in your
 			-- signal handler to receive the signal again. Warning: this

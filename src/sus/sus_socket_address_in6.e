@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that describes socket addresses, i.e. ip address%
 	%and port number combination. Or in C terms struct sockaddr_in6."

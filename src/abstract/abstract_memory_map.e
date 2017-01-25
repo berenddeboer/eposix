@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class that covers the memory map routines that are %
 	%portable between POSIX and Windows.%
@@ -23,7 +23,7 @@ inherit
 
 feature -- Unmap
 
-	close is
+	close
 			-- Remove the mapping.
 		require
 			open: is_open
@@ -36,7 +36,7 @@ feature -- Unmap
 
 feature -- Queries
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Is the memory mapped
 		do
 			Result := ptr /= default_pointer

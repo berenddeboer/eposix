@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Base class for Single Unix Specification classes."
 

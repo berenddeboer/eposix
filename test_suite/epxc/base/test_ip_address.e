@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -23,7 +23,7 @@ inherit
 
 feature -- Tests
 
-	test_ip4_components is
+	test_ip4_components
 		local
 			address: EPX_IP4_ADDRESS
 		do
@@ -37,7 +37,7 @@ feature -- Tests
 			assert_integers_equal ("Correct address", -2112992765, address.value)
 		end
 
-	test_ip4_unsigned_integer is
+	test_ip4_unsigned_integer
 		local
 			address: EPX_IP4_ADDRESS
 			i: INTEGER_64

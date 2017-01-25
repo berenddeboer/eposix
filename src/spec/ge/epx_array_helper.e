@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Converts arrays to pointers."
 
@@ -18,7 +18,7 @@ inherit
 
 feature -- GEC specific conversions
 
-	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER is
+	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER
 		local
 			c_any: ANY
 		do
@@ -28,7 +28,7 @@ feature -- GEC specific conversions
 			end
 		end
 
-	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER is
+	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER
 			-- Convert to void **.
 		local
 			c_any: ANY

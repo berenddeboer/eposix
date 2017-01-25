@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstract reader (input) class."
 
@@ -14,13 +14,13 @@ obsolete "Use KI_CHARACTER_INPUT_STREAM instead."
 
 feature -- state
 
-	last_character: CHARACTER is
+	last_character: CHARACTER
 			-- last character read by `read_character'
 			-- assume CHARACTER is an 8-bit value
 		deferred
 		end
 
-	last_string: STRING is
+	last_string: STRING
 			-- last string read by `read_string'
 		deferred
 		end
@@ -28,35 +28,35 @@ feature -- state
 
 feature -- queries
 
-	eof: BOOLEAN is
+	eof: BOOLEAN
 			-- True if end of input encountered
 		deferred
 		end
 
 feature -- commands
 
-	chop_last_string is
+	chop_last_string
 			-- remove end-of-line (Unix or Windows)
 		deferred
 		end
 
-	read (buf: POINTER; bytes: INTEGER) is
+	read (buf: POINTER; bytes: INTEGER)
 			-- read chunk of `bytes' size
 		deferred
 		end
 
-	read_character is
+	read_character
 		deferred
 		end
 
-	read_string (bytes: INTEGER) is
+	read_string (bytes: INTEGER)
 			-- Read at most `n' characters.
 			-- result is placed in `last_string'
 			-- `last_string' includes the newline character!
 		deferred
 		end
 
-	set_buffer (size: INTEGER) is
+	set_buffer (size: INTEGER)
 			-- optimize reading by doing it in `size' bytes at a time
 		deferred
 		end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers portable Windows current process code."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Access (doesn't make a lot of sense if you're not inheriting)
 
-	effective_user_name: STRING is
+	effective_user_name: STRING
 			-- Name of the user currently associated with the current
 			-- thread
 		local
@@ -41,7 +41,7 @@ feature -- Access (doesn't make a lot of sense if you're not inheriting)
 			Result := sh.pointer_to_string (buf.ptr)
 		end
 
-	raw_environment_variables: ARRAY [STRING] is
+	raw_environment_variables: ARRAY [STRING]
 			-- The raw list of name=value pairs of environment
 			-- variables passed to this process;
 			-- A new list is created every time this feature is accessed.
@@ -76,17 +76,17 @@ feature -- Access (doesn't make a lot of sense if you're not inheriting)
 
 feature -- Standard file descriptors
 
-	fd_stdin: EPX_FILE_DESCRIPTOR is
+	fd_stdin: EPX_FILE_DESCRIPTOR
 		once
 			create {WINDOWS_FILE_DESCRIPTOR} Result.attach_to_fd (posix_getstdhandle (STD_INPUT_HANDLE), False)
 		end
 
-	fd_stdout: EPX_FILE_DESCRIPTOR is
+	fd_stdout: EPX_FILE_DESCRIPTOR
 		once
 			create {WINDOWS_FILE_DESCRIPTOR} Result.attach_to_fd (posix_getstdhandle (STD_OUTPUT_HANDLE), False)
 		end
 
-	fd_stderr: EPX_FILE_DESCRIPTOR is
+	fd_stderr: EPX_FILE_DESCRIPTOR
 		once
 			create {WINDOWS_FILE_DESCRIPTOR} Result.attach_to_fd (posix_getstdhandle (STD_ERROR_HANDLE), False)
 		end
@@ -94,7 +94,7 @@ feature -- Standard file descriptors
 
 feature -- Sleeping
 
-	millisleep (a_milliseconds: INTEGER) is
+	millisleep (a_milliseconds: INTEGER)
 			-- Sleep for `a_milliseconds' milliseconds. Due to timer
 			-- resolution issues, the minimum resolution might be in the
 			-- order of 10ms or higher.
@@ -105,12 +105,12 @@ feature -- Sleeping
 
 feature {NONE} -- Abstract API
 
-	abstract_getpid: INTEGER is
+	abstract_getpid: INTEGER
 		do
 			Result := posix_getcurrentprocessid
 		end
 
-	abstract_sleep (a_seconds: INTEGER): INTEGER is
+	abstract_sleep (a_seconds: INTEGER): INTEGER
 		do
 			posix_sleep (a_seconds * 1000)
 			Result := 0

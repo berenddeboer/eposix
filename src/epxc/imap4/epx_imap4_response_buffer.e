@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Lexical analyzer input buffer which can detect return end_of_input when end of request has been read, so not more than necessary is read to prevent blocking."
 
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_file: like file; a_parser: EPX_IMAP4_RESPONSE_SCANNER) is
+	make (a_file: like file; a_parser: EPX_IMAP4_RESPONSE_SCANNER)
 		require
 			a_file_not_void: a_file /= Void
 			a_file_open_read: a_file.is_open_read
@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	end_of_file_after_end_of_line: BOOLEAN is
+	end_of_file_after_end_of_line: BOOLEAN
 			-- Don't try to read more than necessary.
 		do
 			Result := parser.end_of_file_after_end_of_line
@@ -53,7 +53,7 @@ feature -- Access
 
 feature -- Element change
 
-	fill is
+	fill
 		local
 			prev_count: INTEGER
 		do
@@ -90,7 +90,7 @@ feature -- Element change
 
 feature {NONE} -- Constants
 
-	default_capacity: INTEGER is
+	default_capacity: INTEGER
 			-- Default capacity of buffer.
 		once
 			Result := 65534

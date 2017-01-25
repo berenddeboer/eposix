@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -31,7 +31,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_client: like client; a_tcp_socket: like socket) is
+	make (a_client: like client; a_tcp_socket: like socket)
 			-- Establish invariant.
 		require
 			client_not_void: a_client /= Void
@@ -52,7 +52,7 @@ feature -- Acesss
 	socket: EPX_TCP_CLIENT_SOCKET
 			-- Ftp client socket
 
-	last_string: STRING is
+	last_string: STRING
 			-- Last string read
 			-- (Note: this query always return the same object.
 			-- Therefore a clone should be used if the result
@@ -62,13 +62,13 @@ feature -- Acesss
 			Result := socket.last_string
 		end
 
-	name: STRING is
+	name: STRING
 			-- Name of input stream
 		do
 			Result := socket.name
 		end
 
-	last_character: CHARACTER is
+	last_character: CHARACTER
 			-- Last item read
 		do
 			Result := socket.last_character
@@ -76,7 +76,7 @@ feature -- Acesss
 
 feature -- Basic operations
 
-	close is
+	close
 			-- Try to close input stream if it is closable. Set
 			-- `is_open_read' to false if operation was successful.
 		do
@@ -84,7 +84,7 @@ feature -- Basic operations
 			client.close
 		end
 
-	rewind is
+	rewind
 			-- Move input position to the beginning of stream.
 		do
 			socket.rewind
@@ -92,7 +92,7 @@ feature -- Basic operations
 
 feature -- Input
 
-	read_string (nb: INTEGER) is
+	read_string (nb: INTEGER)
 			-- Read at most `nb' characters from input stream.
 			-- Make the characters that have actually been read
 			-- available in `last_string'.
@@ -100,7 +100,7 @@ feature -- Input
 			socket.non_blocking_read_string (nb)
 		end
 
-	read_to_string (a_string: STRING; pos, nb: INTEGER): INTEGER is
+	read_to_string (a_string: STRING; pos, nb: INTEGER): INTEGER
 			-- Fill `a_string', starting at position `pos', with
 			-- at most `nb' characters read from input stream.
 			-- Return the number of characters actually read.
@@ -108,14 +108,14 @@ feature -- Input
 			Result := socket.non_blocking_read_to_string (a_string, pos, nb)
 		end
 
-	read_character is
+	read_character
 			-- Read the next item in input stream.
 			-- Make the result available in `last_item
 		do
 			socket.non_blocking_read_character
 		end
 
-	unread_character (an_item: CHARACTER) is
+	unread_character (an_item: CHARACTER)
 			-- Put `an_item' back in input stream.
 			-- This item will be read first by the next
 			-- call to a read routine.
@@ -123,7 +123,7 @@ feature -- Input
 			-- not supported
 		end
 
-	read_to_buffer (a_buffer: KI_BUFFER [CHARACTER]; pos, nb: INTEGER): INTEGER is
+	read_to_buffer (a_buffer: KI_BUFFER [CHARACTER]; pos, nb: INTEGER): INTEGER
 			-- Fill `a_buffer', starting at position `pos', with
 			-- at most `nb' items read from input stream.
 			-- Return the number of items actually read.
@@ -133,25 +133,25 @@ feature -- Input
 
 feature -- Status report
 
-	is_closable: BOOLEAN is
+	is_closable: BOOLEAN
 			-- Can current input stream be closed?
 		do
 			Result := socket.is_closable
 		end
 
-	is_open_read: BOOLEAN is
+	is_open_read: BOOLEAN
 			-- Can items be read from input stream?
 		do
 			Result := socket.is_open_read
 		end
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 		do
 			Result := socket.end_of_input
 		end
 
-	valid_unread_character (an_item: CHARACTER): BOOLEAN is
+	valid_unread_character (an_item: CHARACTER): BOOLEAN
 			-- Can `an_item' be put back in input stream?
 		do
 			Result := socket.valid_unread_character (an_item)

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "ISE Eiffel specific character routines."
 

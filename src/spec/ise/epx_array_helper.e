@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Converts arrays to pointers."
 	thanks: "The mico/E team for the idea."
@@ -30,7 +30,7 @@ inherit
 
 feature -- ISE specific conversions
 
-	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER is
+	integer_array_to_pointer (a: ARRAY [INTEGER]): POINTER
 		local
 			c_any: ANY
 			buf: STDC_BUFFER
@@ -46,7 +46,7 @@ feature -- ISE specific conversions
 			one_more_frozen_object: frozen_objects.count = old frozen_objects.count + 1
 		end
 
-	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER is
+	pointer_array_to_pointer (a: ARRAY [POINTER]): POINTER
 			-- Convert to void **.
 		local
 			c_any: ANY

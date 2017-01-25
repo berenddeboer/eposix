@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Single Unix Spec arpa/inet.h header."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Conversion functions
 
-	posix_inet_ntoa (a_in: POINTER): POINTER is
+	posix_inet_ntoa (a_in: POINTER): POINTER
 			-- Converts the Internet host address specified by `a_in' to
 			-- a string in the Internet standard dot notation.
 			-- Returns `default_pointer' on error.
@@ -38,7 +38,7 @@ feature -- Conversion functions
 		external "C"
 		end
 
-	posix_inet_ntop (an_address_family: INTEGER; a_src, a_dst: POINTER; a_size: INTEGER): POINTER is
+	posix_inet_ntop (an_address_family: INTEGER; a_src, a_dst: POINTER; a_size: INTEGER): POINTER
 			-- Converts the network address structure `a_src' in the
 			-- `an_address family` into a character string, which is
 			-- copied to a character buffer `a_dst', which is `a_size'

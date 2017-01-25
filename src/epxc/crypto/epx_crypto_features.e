@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -19,7 +19,7 @@ class
 
 feature -- Queries
 
-	md5sum (s: STRING): STRING is
+	md5sum (s: STRING): STRING
 			-- md5 checksum of string `s'
 		local
 			c: EPX_MD5_CALCULATION

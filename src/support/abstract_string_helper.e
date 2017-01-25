@@ -18,7 +18,7 @@ inherit
 
 feature -- Contracts for platform specific EPX_STRING_HELPER
 
-	pointer_to_string (p: POINTER): STRING is
+	pointer_to_string (p: POINTER): STRING
 			-- Returns a new string from a zero-terminated string pointed
 			-- to by `p'.
 		require
@@ -29,7 +29,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			empty_string: p = default_pointer implies Result.is_empty
 		end
 
-	set_string_from_pointer (s: STRING; p: POINTER) is
+	set_string_from_pointer (s: STRING; p: POINTER)
 			-- Copy contents of `p' to `s'.
 		require
 			valid_s: s /= Void
@@ -38,7 +38,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			empty_string: p = default_pointer implies s.count = 0
 		end
 
-	string_to_pointer (s: detachable READABLE_STRING_8): POINTER is
+	string_to_pointer (s: detachable READABLE_STRING_8): POINTER
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The area is zero-terminated.
 			-- `s' may contain '%U' characters, but you will have to be
@@ -53,7 +53,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			definition: (s = Void) = (Result = default_pointer)
 		end
 
-	uc_string_to_pointer (s: detachable UC_STRING): POINTER is
+	uc_string_to_pointer (s: detachable UC_STRING): POINTER
 			-- Return a pointer to a linear area containing all the data
 			-- in `s'. The string is encoded in UTF-8. The area is
 			-- zero-terminated.
@@ -69,7 +69,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 			definition: (s = Void) = (Result = default_pointer)
 		end
 
-	unfreeze_all is
+	unfreeze_all
 			-- After having called `string_to_pointer', regularly call
 			-- `unfreeze_all' to make objects available to the garbage
 			-- collector again.
@@ -79,7 +79,7 @@ feature -- Contracts for platform specific EPX_STRING_HELPER
 
 feature -- String utilities that have different names per compiler...
 
-	frozen wipe_out (s: STRING) is
+	frozen wipe_out (s: STRING)
 			-- Remove all characters in `s', but do not change its
 			-- capacity. Notably ISE doesn't implement ELKS correctly
 			-- here.
@@ -94,7 +94,7 @@ feature -- String utilities that have different names per compiler...
 			empty: s.is_empty
 		end
 
-	frozen has_substring (s, substring: STRING): BOOLEAN is
+	frozen has_substring (s, substring: STRING): BOOLEAN
 			-- True if `s' contains the string `substring'
 		obsolete "has_substring is now portable, use s.has_substring instead."
 		require
@@ -103,7 +103,7 @@ feature -- String utilities that have different names per compiler...
 			Result := s.has_substring (substring)
 		end
 
-	frozen insert_character (s: STRING; c: CHARACTER; i: INTEGER) is
+	frozen insert_character (s: STRING; c: CHARACTER; i: INTEGER)
 		obsolete "[20050303] please use s.insert_character (c, i) instead."
 		require
 			s_not_void: s /= Void
@@ -112,7 +112,7 @@ feature -- String utilities that have different names per compiler...
 			s.insert_character (c, i)
 		end
 
-	frozen make_with_capacity (capacity: INTEGER): STRING is
+	frozen make_with_capacity (capacity: INTEGER): STRING
 			-- Create a new string.
 		obsolete "Use STRING.make, it is now portable."
 		require
@@ -126,7 +126,7 @@ feature -- String utilities that have different names per compiler...
 
 feature -- General string utilities
 
-	append_integer (s: STRING; i: INTEGER; width: INTEGER) is
+	append_integer (s: STRING; i: INTEGER; width: INTEGER)
 			-- Append `i' to `s', pad until `width' with 0 if necessary.
 		require
 			s_not_void: s /= Void
@@ -153,7 +153,7 @@ feature -- General string utilities
 			s_is_longer: s.count = old s.count + width
 		end
 
-	chop (s: STRING) is
+	chop (s: STRING)
 			-- remove newline character (if any) from `s'
 			-- only when the last characters from last_string are %N or
 			-- %R%N, they're removed.
@@ -168,7 +168,7 @@ feature -- General string utilities
 			end
 		end
 
-	make_spaces (count: INTEGER): STRING is
+	make_spaces (count: INTEGER): STRING
 			-- Return string with `count' spaces.
 		require
 			valid_count: count >= 0
@@ -179,7 +179,7 @@ feature -- General string utilities
 			only_spaces: True -- for_each c in Result it_holds c = ' '
 		end
 
-	split_on (s: STRING; on: CHARACTER): ARRAY [STRING] is
+	split_on (s: STRING; on: CHARACTER): ARRAY [STRING]
 			-- Split `s' on a given character `on'.
 			-- s = Void is treated as s.is_empty, in that case the Result
 			-- doesn't contain any entries.
@@ -246,7 +246,7 @@ feature -- General string utilities
 			-- and for_each s element_of Result it_holds s /= Void
 		end
 
-	trim (s: STRING) is
+	trim (s: STRING)
 			-- Remove leading and trailing white space. Actual definition
 			-- of white space probably depends on vendors `left_adjust'
 			-- and `right_adjust' implementations.
@@ -262,7 +262,7 @@ feature -- General string utilities
 
 feature {NONE} -- Implementation
 
-	do_string_to_pointer (s: STRING): POINTER is
+	do_string_to_pointer (s: STRING): POINTER
 			-- A pointer to a linear area containing all the data
 			-- in `s'. The area is zero-terminated.
 			-- `s'.`count' should be equal to `s'.`byte_count'.
@@ -275,7 +275,7 @@ feature {NONE} -- Implementation
 			not_nil: Result /= default_pointer
 		end
 
-	do_uc_string_to_pointer (s: UC_STRING): POINTER is
+	do_uc_string_to_pointer (s: UC_STRING): POINTER
 			-- A pointer to a linear area containing all the data
 			-- in the Unicode string `s'.
 			-- Currently getting such a pointer is not an operation

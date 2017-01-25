@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix terminal functions by querying a modem."
 
@@ -25,7 +25,7 @@ inherit
 
 feature
 
-	test_all is
+	test_all
 		local
 			modem: POSIX_FILE_DESCRIPTOR
 			term: POSIX_TERMIOS

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Unix portable implementation of host on the network."
 
@@ -32,7 +32,7 @@ create
 
 feature {NONE} -- Abstract API
 
-	abstract_gethostbyaddr (an_addr: POINTER; a_len, a_type: INTEGER): POINTER is
+	abstract_gethostbyaddr (an_addr: POINTER; a_len, a_type: INTEGER): POINTER
 			-- Retrieve host information corresponding to address
 			-- `an_addr' If returned pointer is default_pointer, check
 			-- `abstract_h_errno' for the error reason.
@@ -40,7 +40,7 @@ feature {NONE} -- Abstract API
 			Result := posix_gethostbyaddr (an_addr, a_len, a_type)
 		end
 
-	abstract_gethostbyname (a_hostname: POINTER): POINTER is
+	abstract_gethostbyname (a_hostname: POINTER): POINTER
 			-- Retrieve host information corresponding to `a_hostname'
 			-- from a host database. If returned pointer is
 			-- default_pointer, check `abstract_h_errno' for the error
@@ -49,7 +49,7 @@ feature {NONE} -- Abstract API
 			Result := posix_gethostbyname (a_hostname)
 		end
 
-	abstract_h_errno: INTEGER is
+	abstract_h_errno: INTEGER
 			-- Last error set by `abstract_gethostbyname'.
 		do
 			Result := posix_h_errno

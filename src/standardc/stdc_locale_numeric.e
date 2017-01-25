@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers the Standard C numeric and monetary locale info."
 
@@ -23,34 +23,34 @@ inherit
 
 feature -- read-only properties
 
-	local_currency_symbol: STRING is
+	local_currency_symbol: STRING
 			-- Local currency symbol for the current locale (e.g.,
 			-- $ for United States.)
 		do
 			Result := sh.pointer_to_string (posix_lconv_currency_symbol (lconv))
 		end
 
-	local_digits: INTEGER is
+	local_digits: INTEGER
 			-- Number of digits after the decimal point
 			-- formatted monetary quantities
 		do
 			Result := posix_lconv_frac_digits (lconv)
 		end
 
-	decimal_point: STRING is
+	decimal_point: STRING
 			-- The character used to format non-monetary quantities
 		do
 			Result := sh.pointer_to_string (posix_lconv_decimal_point (lconv))
 		end
 
-	international_currency_symbol: STRING is
+	international_currency_symbol: STRING
 			-- International currency symbol for the current locale (e.g.,
 			-- USD for United States.)
 		do
 			Result := sh.pointer_to_string (posix_lconv_int_curr_symbol (lconv))
 		end
 
-	international_digits: INTEGER is
+	international_digits: INTEGER
 			-- Number of digits after the decimal point for internationally
 			-- formatted monetary quantities
 		do

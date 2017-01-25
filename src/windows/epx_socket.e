@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows portable implementation of a socket."
 
@@ -52,14 +52,14 @@ create
 
 feature -- non-blocking i/o
 
-	is_blocking_io: BOOLEAN is
+	is_blocking_io: BOOLEAN
 			-- Is blocking i/o enabled (default)?
 			-- Not reliable with attached sockets.
 		do
 			Result := not is_nonblocking_io
 		end
 
-	set_blocking_io (enable: BOOLEAN) is
+	set_blocking_io (enable: BOOLEAN)
 			-- Try to turn on/off blocking-mode. Does not work when mixed
 			-- with WSAAsyncSelect or WSAEventSelect calls.
 		local
@@ -78,7 +78,7 @@ feature -- non-blocking i/o
 			end
 		end
 
-	supports_nonblocking_io: BOOLEAN is True
+	supports_nonblocking_io: BOOLEAN = True
 
 
 feature {NONE} -- non-blocking i/o support
@@ -89,7 +89,7 @@ feature {NONE} -- non-blocking i/o support
 
 feature {NONE} -- Socket close
 
-	protected_close_socket (a_socket: INTEGER) is
+	protected_close_socket (a_socket: INTEGER)
 			-- Close `a_socket', but make sure `errno'.`value' is not
 			-- reset by a successful close. An exception will be raised
 			-- if closing the socket fails.
@@ -100,14 +100,14 @@ feature {NONE} -- Socket close
 
 feature {NONE} -- Low level handle functions
 
-	unassigned_value: INTEGER is 0
+	unassigned_value: INTEGER = 0
 			-- The value that indicates that `handle' is unassigned.
 			-- This value is equal to INVALID_SOCKET.
 
 
 feature {NONE} -- error codes
 
-	abstract_EWOULDBLOCK: INTEGER is
+	abstract_EWOULDBLOCK: INTEGER
 			-- The process would be delayed in the I/O operation
 		do
 			Result := WSAEWOULDBLOCK
@@ -116,7 +116,7 @@ feature {NONE} -- error codes
 
 feature {NONE} -- Abstract API binding
 
-	abstract_close (a_socket: INTEGER): INTEGER is
+	abstract_close (a_socket: INTEGER): INTEGER
 			-- Close a socket. Depending on the SO_LINGER and
 			-- SO_DONTLINGER options it's graceful or not.
 		do
@@ -144,7 +144,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_getsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: POINTER): INTEGER is
+	abstract_getsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: POINTER): INTEGER
 			-- Get a socket option.
 		do
 			assert_winsock_initialized
@@ -154,7 +154,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	abstract_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Use `recv' instead of ReadFile. ReadFile does not seem
 			-- to be supported safely up to NT4sp4, Win 9x also have
 			-- problems with it. And you get a performance penalty.
@@ -165,7 +165,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER is
+	abstract_setsockopt (a_socket, a_level, an_option_name: INTEGER; an_option_value: POINTER; an_option_length: INTEGER): INTEGER
 			-- Set the socket options.
 		do
 			assert_winsock_initialized
@@ -175,7 +175,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_socket (a_family, a_type, a_protocol: INTEGER): INTEGER is
+	abstract_socket (a_family, a_type, a_protocol: INTEGER): INTEGER
 			-- Create an endpoint for communication.
 		local
 			old_handle: INTEGER
@@ -208,7 +208,7 @@ feature {NONE} -- Abstract API binding
 			end
 		end
 
-	abstract_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	abstract_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Use `send' instead of WriteFile. WriteFile does not seem
 			-- to be supported safely up to NT4sp4, Win 9x also have
 			-- problems with it. And you get a performance penalty.

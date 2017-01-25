@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Features IPv4 and IPv6 classes have in common."
 
@@ -22,7 +22,7 @@ inherit
 
 feature -- Initialization
 
-	make_from_pointer (a_ptr: POINTER) is
+	make_from_pointer (a_ptr: POINTER)
 			-- Initialize ip address from pointer to an IPv4 or IPv6
 			-- address.
 		require
@@ -33,7 +33,7 @@ feature -- Initialization
 
 feature -- Status
 
-	is_loopback_address: BOOLEAN is
+	is_loopback_address: BOOLEAN
 			-- Does this IP address refer to the loopback address?
 		deferred
 		end
@@ -41,21 +41,21 @@ feature -- Status
 
 feature -- General ip address features
 
-	address_family: INTEGER is
+	address_family: INTEGER
 			-- Is it an ip4 (AF_INET) or ip6 (AF_INET6) address.
 		deferred
 		ensure
 			address_family_not_zero: address_family /= 0
 		end
 
-	address_length: INTEGER is
+	address_length: INTEGER
 			-- Length in bytes of an IPv4 or IPv6 address.
 		deferred
 		ensure
 			address_length_positive: Result > 0
 		end
 
-	ptr: POINTER is
+	ptr: POINTER
 			-- Pointer to an in_addr or in6_addr structure.
 			-- (bytes are in network byte order for in_addr)
 		do

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test SUS service class."
 
@@ -19,7 +19,7 @@ inherit
 
 feature -- Tests
 
-	test_all is
+	test_all
 		local
 			service: SUS_SERVICE
 		do
@@ -45,7 +45,7 @@ feature -- Tests
 
 feature
 
-	print_service (service: SUS_SERVICE) is
+	print_service (service: SUS_SERVICE)
 		do
 			debug
 				print ("name: ")

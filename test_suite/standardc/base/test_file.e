@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C file class."
 
@@ -27,7 +27,7 @@ inherit
 
 feature -- Setup
 
-	tear_down is
+	tear_down
 		do
 			remove_file ("test.berend")
 		end
@@ -35,9 +35,9 @@ feature -- Setup
 
 feature -- Tests
 
-	sample_text: STRING is "hello world"
+	sample_text: STRING = "hello world"
 
-	test_create_and_append is
+	test_create_and_append
 			-- Test create routines.
 		local
 			file: STDC_BINARY_FILE
@@ -49,7 +49,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_create_write is
+	test_create_write
 			-- Create a file for reading and writing.
 		local
 			file: STDC_BINARY_FILE
@@ -62,7 +62,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_readonly_access is
+	test_readonly_access
 			-- Open existing file with read-only access.
 		local
 			file: STDC_BINARY_FILE
@@ -73,7 +73,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_writing is
+	test_writing
 			-- Create a file for writing
 		local
 			file: STDC_BINARY_FILE
@@ -93,7 +93,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_reading is
+	test_reading
 		-- Test file reading, depends on `test_writing'.
 		local
 			file: STDC_BINARY_FILE
@@ -119,7 +119,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_temporary_file is
+	test_temporary_file
 			-- Create a temporary file.
 		local
 			tmpfile: STDC_TEMPORARY_FILE
@@ -129,7 +129,7 @@ feature -- Tests
 			tmpfile.close
 		end
 
-	test_reading_and_writing_bytes is
+	test_reading_and_writing_bytes
 			-- Test writing and reading bytes.
 		local
 			file: STDC_BINARY_FILE
@@ -146,7 +146,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_ungetc is
+	test_ungetc
 		local
 			file: STDC_BINARY_FILE
 		do
@@ -157,7 +157,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_file_positioning is
+	test_file_positioning
 		local
 			textfile: STDC_TEXT_FILE
 			pos: STDC_FILE_POSITION
@@ -173,7 +173,7 @@ feature -- Tests
 			textfile.close
 		end
 
-	test_buffering is
+	test_buffering
 		local
 			file: STDC_BINARY_FILE
 			buf: STDC_BUFFER
@@ -188,7 +188,7 @@ feature -- Tests
 			file.close
 		end
 
-	test_random_access is
+	test_random_access
 		local
 			file: STDC_BINARY_FILE
 		do

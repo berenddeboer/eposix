@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Content-Disposition"
 
@@ -30,7 +30,7 @@ create
 
 feature -- Initialization
 
-	make (a_value: STRING) is
+	make (a_value: STRING)
 			-- Initialize Content-Type.
 		require
 			value_not_empty: a_value /= Void and then not a_value.is_empty
@@ -39,7 +39,7 @@ feature -- Initialization
 			value := a_value
 		end
 
-	make_name (a_value: STRING; a_name: STRING) is
+	make_name (a_value: STRING; a_name: STRING)
 			-- Initialize Content-Type, add the "name" parameter with
 			-- value `a_name'.
 		require
@@ -58,12 +58,12 @@ feature -- Initialization
 
 feature -- Access
 
-	name: STRING is "Content-Disposition"
+	name: STRING = "Content-Disposition"
 
 	value: STRING
 			-- Value of field.
 
-	name_parameter: EPX_MIME_PARAMETER is
+	name_parameter: EPX_MIME_PARAMETER
 			-- Parameter with name "name" if exists, else Void.
 		do
 			parameters.search (parameter_name_name)
@@ -77,7 +77,7 @@ feature -- Access
 
 feature -- Change
 
-	cleanup_filename_parameter is
+	cleanup_filename_parameter
 			-- If the Content-Disposition field has a filename parameter,
 			-- strip any directory components.
 		local
@@ -96,7 +96,7 @@ feature -- Change
 
 feature {NONE} -- Once strings
 
-	once_filename: STRING is "filename"
+	once_filename: STRING = "filename"
 
 
 end

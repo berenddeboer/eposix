@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers a client or server end of a Windows pipe."
 
@@ -39,7 +39,7 @@ create
 
 feature -- non-blocking i/o
 
-	is_blocking_io: BOOLEAN is
+	is_blocking_io: BOOLEAN
 			-- Is blocking i/o enabled?
 			-- Blocking i/o is the default.
 			-- If false, calls like `read' and `write' will never wait
@@ -49,7 +49,7 @@ feature -- non-blocking i/o
 			Result := not test_bits (state, PIPE_NOWAIT)
 		end
 
-	set_blocking_io (enable: BOOLEAN) is
+	set_blocking_io (enable: BOOLEAN)
 			-- Set `is_blocking_io'.
 		local
 			b: BOOLEAN
@@ -63,7 +63,7 @@ feature -- non-blocking i/o
 			safe_win_call (posix_setnamedpipehandlestate (fd, $mode, default_pointer, default_pointer))
 		end
 
-	supports_nonblocking_io: BOOLEAN is True
+	supports_nonblocking_io: BOOLEAN = True
 			-- Windows pipes support non-blocking i/o.
 
 

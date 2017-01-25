@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstract base class for classes that use the IP sockets layer."
 
@@ -24,7 +24,7 @@ inherit
 
 feature {NONE} -- Abstract API
 
-	abstract_api: EPX_NET_API is
+	abstract_api: EPX_NET_API
 			-- Access to API available at abstract level.
 			-- Use client relation so only exported features are visible
 			-- and we don't make a mistake in accessing something that is

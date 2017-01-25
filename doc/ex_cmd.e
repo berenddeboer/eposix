@@ -6,7 +6,7 @@ create
    
 feature
 
-   make is
+   make
       local
          command: POSIX_SHELL_COMMAND
       do

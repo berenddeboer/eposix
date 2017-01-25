@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -39,7 +39,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_server_name: STRING) is
+	make (a_server_name: STRING)
 			-- Initialize.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
@@ -47,7 +47,7 @@ feature {NONE} -- Initialization
 			make_with_port (a_server_name, 0)
 		end
 
-	make_with_port (a_server_name: STRING; a_port: INTEGER) is
+	make_with_port (a_server_name: STRING; a_port: INTEGER)
 			-- Initialize with a given port. If `a_port' is null the
 			-- `default_port' is taken.
 		require
@@ -66,7 +66,7 @@ feature {NONE} -- Initialization
 
 feature -- Open/close
 
-	close is
+	close
 		do
 			is_authenticated := False
 			precursor
@@ -79,13 +79,13 @@ feature -- Status
 	is_client_identified: BOOLEAN
 			-- Has the client identified itself?
 
-	supports_8_bit_mime: BOOLEAN is
+	supports_8_bit_mime: BOOLEAN
 			-- Does SMTP server support 8 bit MIME messages?
 		do
 			Result := capabilities.has (once_8bitmime)
 		end
 
-	supports_pipelining: BOOLEAN is
+	supports_pipelining: BOOLEAN
 			-- Does SMTP server accommodate SMTP command pipelining?
 			-- I.e. a client can send multiple commands without having to
 			-- read replies first.
@@ -93,7 +93,7 @@ feature -- Status
 			Result := capabilities.has (once_pipelining)
 		end
 
-	is_valid_domain (a_domain: STRING): BOOLEAN is
+	is_valid_domain (a_domain: STRING): BOOLEAN
 			-- Is `a_domain' a valid domain? It must have between 1 and
 			-- 255 characters, and not solely consist of white space.
 		do
@@ -112,9 +112,9 @@ feature -- Access
 			-- To make searching for specific capabilities easier, all
 			-- capabilities are in uppercase.
 
-	default_port: INTEGER is 25
+	default_port: INTEGER = 25
 
-	default_port_name: STRING is
+	default_port_name: STRING
 		do
 			Result := once_smtp
 		end
@@ -126,7 +126,7 @@ feature -- Access
 
 feature -- Commands
 
-	ehlo (a_domain: STRING) is
+	ehlo (a_domain: STRING)
 			-- This command is used to identify the SMTP client to the
 			-- SMTP server.  The argument field contains the
 			-- fully-qualified domain name of the SMTP client if one is
@@ -147,7 +147,7 @@ feature -- Commands
 			identified: last_reply_code = 250 implies is_client_identified
 		end
 
-	expand (a_mailing_list: STRING) is
+	expand (a_mailing_list: STRING)
 			-- This command asks the receiver to confirm that the
 			-- argument identifies a mailing list, and if so, to return
 			-- the membership of that list.
@@ -158,7 +158,7 @@ feature -- Commands
 			put_command (commands.expn, a_mailing_list)
 		end
 
-	help is
+	help
 			-- This command causes the server to send helpful information
 			-- to the client. The command MAY take an argument (e.g., any
 			-- command name) and return more specific information as a
@@ -169,7 +169,7 @@ feature -- Commands
 			put_command (commands.help, Void)
 		end
 
-	mail (an_email: EPX_SMTP_MAIL) is
+	mail (an_email: EPX_SMTP_MAIL)
 			-- Send an email. Check `last_reply_code' if that is successful.
 			-- TODO: if server does not support 8 bit MIME messages, it does
 			-- not attempt to send only 7bit US ASCII characters.
@@ -223,7 +223,7 @@ feature -- Commands
 			end
 		end
 
-	noop is
+	noop
 			-- This command does not affect any parameters or previously
 			-- entered commands. It specifies no action other than that
 			-- the receiver send an OK reply.
@@ -233,7 +233,7 @@ feature -- Commands
 			put_command (commands.noop, Void)
 		end
 
-	quit is
+	quit
 			-- This command specifies that the receiver MUST send an OK
 			-- reply, and then close the transmission channel.
 		require
@@ -242,7 +242,7 @@ feature -- Commands
 			put_command (commands.quit, Void)
 		end
 
-	verify (a_mailbox: STRING) is
+	verify (a_mailbox: STRING)
 			-- This command asks the receiver to confirm that the
 			-- argument identifies a user or mailbox.
 		require
@@ -255,7 +255,7 @@ feature -- Commands
 
 feature {NONE} -- Special reading
 
-	read_capabilities is
+	read_capabilities
 			-- Read response to ehlo command.
 		require
 			open: is_open
@@ -303,7 +303,7 @@ feature {NONE} -- Authentication not relevant for SMTP
 
 	is_authenticated: BOOLEAN
 
-	authenticate is
+	authenticate
 		do
 			read_until_server_ready_for_input
 			is_authenticated := last_reply_code = 220
@@ -312,7 +312,7 @@ feature {NONE} -- Authentication not relevant for SMTP
 
 feature {NONE} -- Lowest level SMTP server interaction
 
-	commands: EPX_SMTP_COMMANDS is
+	commands: EPX_SMTP_COMMANDS
 			-- SMTP commands
 		once
 			create Result
@@ -320,7 +320,7 @@ feature {NONE} -- Lowest level SMTP server interaction
 			not_void: Result /= Void
 		end
 
-	correct_line_breaks (a_message: STRING) is
+	correct_line_breaks (a_message: STRING)
 			-- Change all lone LFs to CR LF.
 			-- Replace all occurrences of "CR LF ." with "CR LF . .".
 			-- See section 4.5.2 Transparency in RFC 2821.
@@ -374,10 +374,10 @@ feature {NONE} -- Lowest level SMTP server interaction
 
 feature {NONE} -- Once strings
 
-	once_8bitmime: STRING is "8BITMIME"
-	once_pipelining: STRING is "PIPELINING"
-	once_size: STRING is "SIZE"
-	once_size_space: STRING is "SIZE "
+	once_8bitmime: STRING = "8BITMIME"
+	once_pipelining: STRING = "PIPELINING"
+	once_size: STRING = "SIZE"
+	once_size_space: STRING = "SIZE "
 
 
 invariant

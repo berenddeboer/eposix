@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	create_mode (a_name: STRING; exclusive: BOOLEAN; a_mode: INTEGER; a_value: INTEGER) is
+	create_mode (a_name: STRING; exclusive: BOOLEAN; a_mode: INTEGER; a_value: INTEGER)
 			-- Create a named semaphore with permissions given by
 			-- `a_mode' and initial value `a_value'.
 		require
@@ -80,14 +80,14 @@ feature {NONE} -- Initialization
 			acquired: is_open implies ((a_value = 0) = is_acquired)
 		end
 
-	create_nonexclusive (a_name: STRING; a_value: INTEGER) is
+	create_nonexclusive (a_name: STRING; a_value: INTEGER)
 			-- Create a named semaphore. If a semaphore with name
 			-- `a_name' exists, `a_value' is ignored.
 		do
 			create_mode (a_name, False, S_IRUSR + S_IWUSR, a_value)
 		end
 
-	open (a_name: STRING) is
+	open (a_name: STRING)
 			-- Open the existing semaphore with name `a_name'.
 		local
 			r: POINTER
@@ -107,7 +107,7 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	is_valid_name (a_name: STRING): BOOLEAN is
+	is_valid_name (a_name: STRING): BOOLEAN
 			-- Is `a_name' a valid semaphore name?
 			-- Operating Systems have many different rules for valid
 			-- names, some require a slash and some forbid it.
@@ -123,7 +123,7 @@ feature -- Status
 
 feature {NONE} -- Low level handle functions
 
-	do_close: BOOLEAN is
+	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error
 			-- value should be in `errno'. This routine may never call
 			-- another object, else it cannot be used safely in

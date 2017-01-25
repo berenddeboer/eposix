@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Single Unix Specification environment%
 	%variable routines."
@@ -32,7 +32,7 @@ create
 
 feature -- Commands
 
-	set_value (a_new_value: STRING) is
+	set_value (a_new_value: STRING)
 			-- Change environment value. Repeatedly creating a new
 			-- SUS_ENV_VAR and calling `set_value' will lead to a memory
 			-- leak.

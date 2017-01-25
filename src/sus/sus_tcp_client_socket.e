@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "TCP/SOCK_STREAM sockets, client side."
 

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test binary std i/o."
 
@@ -20,7 +20,7 @@ inherit
 
 feature -- Tests
 
-	test_all is
+	test_all
 		local
 			buf: STDC_BUFFER
 			bytes_read: INTEGER

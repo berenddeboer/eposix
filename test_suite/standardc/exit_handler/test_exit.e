@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Standard C exit handling."
 
@@ -30,7 +30,7 @@ inherit
 
 feature
 
-	test_install_and_exit is
+	test_install_and_exit
 		do
 			exit_switch.install (Current)
 			exit_switch.uninstall (Current)
@@ -41,7 +41,7 @@ feature
 
 feature -- On exit
 
-	on_exit is
+	on_exit
 		do
 			print ("exiting%N")
 			assert ("Exiting.", True)

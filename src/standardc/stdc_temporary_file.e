@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Creates a temporary file that is removed when closed %
 	%or when the program terminates. The file is anonymous, i.e. `name' does not have a value."
@@ -29,7 +29,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 			-- Create an anonymous temporary file and open it.
 			-- Up to TMP_MAX temporary files can be opened.  Eh, they
 			-- say. Testing revealed that on Windows with BCC5.5 supplied

@@ -10,7 +10,7 @@ create
 
 feature
 
-   make is
+   make
       local
          dir: STRING
       do

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "portable layer Windows pipe implementation."
 
@@ -29,7 +29,7 @@ create
 
 feature -- Initialization
 
-	make is
+	make
 			-- Create pipe
 		do
 			safe_win_call (posix_createpipe ($hread, $hwrite, default_pointer, 0))
@@ -39,7 +39,7 @@ feature -- Initialization
 
 feature {NONE} -- set file descriptor
 
-	set_file_descriptors is
+	set_file_descriptors
 		do
 			create {WINDOWS_PIPE_DESCRIPTOR} fdin.attach_to_fd (hwrite, True)
 			create {WINDOWS_PIPE_DESCRIPTOR} fdout.attach_to_fd (hread, True)

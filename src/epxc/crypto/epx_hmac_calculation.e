@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -34,7 +34,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_key: STRING; a_calculation: EPX_HASH_CALCULATION) is
+	make (a_key: STRING; a_calculation: EPX_HASH_CALCULATION)
 			-- Initialize. Object does not store a copy of `a_key'.
 		require
 			not_empty: a_key /= Void and then not a_key.is_empty
@@ -84,24 +84,24 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	block_length: INTEGER is
+	block_length: INTEGER
 			-- Length of a single block upon which the hash operates
 		do
 			Result := calculation.block_length
 		end
 
-	checksum: STRING is
+	checksum: STRING
 		do
 			Result := calculation.checksum
 		end
 
-	hash_output_length: INTEGER is
+	hash_output_length: INTEGER
 			-- Byte length of the hash output function
 		do
 			Result := calculation.hash_output_length
 		end
 
-	minimum_recommended_key_length: INTEGER is
+	minimum_recommended_key_length: INTEGER
 			-- Minimal recommended length of key
 		do
 			Result := hash_output_length
@@ -110,22 +110,22 @@ feature -- Access
 
 feature -- Operations
 
-	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER) is
+	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER)
 		do
 			calculation.put_buffer (buf, start, stop)
 		end
 
-	put_character (c: CHARACTER) is
+	put_character (c: CHARACTER)
 		do
 			calculation.put_character (c)
 		end
 
-	put_substring (s: STRING; start, stop: INTEGER) is
+	put_substring (s: STRING; start, stop: INTEGER)
 		do
 			calculation.put_substring (s, start, stop)
 		end
 
-	finalize is
+	finalize
 		local
 			first_hash: STDC_BUFFER
 		do
@@ -140,7 +140,7 @@ feature -- Operations
 			first_hash.deallocate
 		end
 
-	wipe_out is
+	wipe_out
 		do
 			precursor
 			calculation.wipe_out
@@ -152,14 +152,14 @@ feature {NONE} -- Implementation
 
 	calculation: EPX_HASH_CALCULATION
 
-	B: INTEGER is 64
+	B: INTEGER = 64
 			-- byte-length of single compression block
 
 	key_xor_ipad: STRING
 
 	key_xor_opad: STRING
 
-	perform_xor (s, a_key: STRING) is
+	perform_xor (s, a_key: STRING)
 			-- Perform xor of every byte in `s' with `key' and put the
 			-- result in `s's.
 		require

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -29,7 +29,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make (a_client: EPX_IRC_CLIENT) is
+	make (a_client: EPX_IRC_CLIENT)
 			-- Initialize.
 		require
 			client_not_void: a_client /= Void
@@ -46,7 +46,7 @@ feature -- Access
 
 feature {EPX_IRC_CLIENT, EPX_IRC_MESSAGE_HANDLER} -- Handling
 
-	handle (a_message: EPX_IRC_MESSAGE) is
+	handle (a_message: EPX_IRC_MESSAGE)
 			-- Respond to message if this is a message this instance can handle.
 		require
 			a_message_not_void: a_message /= Void
@@ -57,7 +57,7 @@ feature {EPX_IRC_CLIENT, EPX_IRC_MESSAGE_HANDLER} -- Handling
 
 feature {NONE} -- Implementation
 
-	commands:  EPX_IRC_COMMANDS is
+	commands:  EPX_IRC_COMMANDS
 		once
 			create Result
 		ensure

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test common system class."
 
@@ -21,7 +21,7 @@ inherit
 
 feature -- Tests
 
-	test_all is
+	test_all
 		do
 			if not is_shell_available then
 				-- Fails on BeOS for some reasons.

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Standard C text file."
 
@@ -39,7 +39,7 @@ create
 
 feature -- Text specific routines
 
-	put_nl, put_newline, write_nl, write_newline is
+	put_nl, put_newline, write_nl, write_newline
 			-- write a single newline
 		do
 			write_string ("%N")
@@ -48,7 +48,7 @@ feature -- Text specific routines
 
 feature -- Reading
 
-	gets (bytes: INTEGER) is
+	gets (bytes: INTEGER)
 		obsolete "Use read_line instead"
 		do
 			read_line
@@ -57,7 +57,7 @@ feature -- Reading
 
 feature -- Status
 
-	is_valid_mode (a_mode: STRING): BOOLEAN is
+	is_valid_mode (a_mode: STRING): BOOLEAN
 			-- Is `a_mode' a valid text open mode?
 		do
 			Result :=
@@ -69,7 +69,7 @@ feature -- Status
 
 feature {NONE}
 
-	set_mode (a_mode: READABLE_STRING_8) is
+	set_mode (a_mode: READABLE_STRING_8)
 			-- set text mode
 		local
 			c: CHARACTER

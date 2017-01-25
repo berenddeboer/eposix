@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "SUSv3 specific network API portable at the ABSTRACT_XXXX layer."
 

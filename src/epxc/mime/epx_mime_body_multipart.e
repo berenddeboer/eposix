@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Stores multi-part MIME body."
 
@@ -23,7 +23,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_header: EPX_MIME_HEADER) is
+	make (a_header: EPX_MIME_HEADER)
 		do
 			header := a_header
 			create parts.make
@@ -32,9 +32,9 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	is_multipart: BOOLEAN is True
+	is_multipart: BOOLEAN = True
 
-	has_every_part_a_form_content_disposition_field: BOOLEAN is
+	has_every_part_a_form_content_disposition_field: BOOLEAN
 			-- Does every part have a Content-Disposition field with the
 			-- "name" parameter?
 		do
@@ -51,7 +51,7 @@ feature -- Status
 			end
 		end
 
-	has_parts_with_multipart_bodies: BOOLEAN is
+	has_parts_with_multipart_bodies: BOOLEAN
 			-- Does this body have parts that have multipart bodies themselves?
 		do
 			from
@@ -67,13 +67,13 @@ feature -- Status
 			end
 		end
 
-	parts_count: INTEGER is
+	parts_count: INTEGER
 		-- The number of parts if is_multipart.
 		do
 			Result := parts.count
 		end
 
-	part (index: INTEGER): EPX_MIME_PART is
+	part (index: INTEGER): EPX_MIME_PART
 			-- Part number `index' if this is a multipart body.
 		do
 			Result := parts.item (index)
@@ -82,7 +82,7 @@ feature -- Status
 
 feature -- Commands
 
-	append_to_string (s: STRING) is
+	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
 		local
 			ct: EPX_MIME_FIELD_CONTENT_TYPE
@@ -116,7 +116,7 @@ feature -- Commands
 			s.append_string (once_crlf)
 		end
 
-	append_urlencoded_to_string (s: STRING) is
+	append_urlencoded_to_string (s: STRING)
 			-- Append body as x-www-form-urlencoded to `s'.
 		require
 			has_no_parts_with_multipart_bodies: not has_parts_with_multipart_bodies
@@ -144,7 +144,7 @@ feature -- Commands
 			end
 		end
 
-	as_plain_text: STRING is
+	as_plain_text: STRING
 			-- Return the contents of the body as 8bit text/plain data.
 			-- It is not checked if the resulting string does contain
 			-- NULL characters.
@@ -163,7 +163,7 @@ feature -- Access
 
 feature -- New parts
 
-	new_part: EPX_MIME_PART is
+	new_part: EPX_MIME_PART
 			-- New part which is also appended to `parts'
 		do
 			create Result.make_empty
@@ -178,7 +178,7 @@ feature -- New parts
 
 feature {NONE} -- Implementation
 
-	url_encoder: EPX_URL_ENCODING is
+	url_encoder: EPX_URL_ENCODING
 		once
 			create Result
 		end
@@ -186,7 +186,7 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
-	once_crlf: STRING is "%R%N"
+	once_crlf: STRING = "%R%N"
 
 
 

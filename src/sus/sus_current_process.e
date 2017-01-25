@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -27,7 +27,7 @@ inherit
 
 feature -- Sleeping
 
-	nanosleep (a_nanoseconds: SUS_TIME) is
+	nanosleep (a_nanoseconds: SUS_TIME)
 			-- Sleep for `a_nanoseconds' nanoseconds or until a signal is
 			-- delivered, and its action is to invoke a signal-catching
 			-- function or to terminate the process.
@@ -64,7 +64,7 @@ feature -- Sleeping
 
 feature {NONE} -- Implementation
 
-	rqtp: STDC_BUFFER is
+	rqtp: STDC_BUFFER
 			-- Scratch buffer for `nanosleep'
 		once
 			create Result.allocate_and_clear (posix_timespec_size)

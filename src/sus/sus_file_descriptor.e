@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Single Unix Spec file descriptor routines."
 

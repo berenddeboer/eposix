@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -20,24 +20,24 @@ class
 
 feature -- Access
 
-	invite: STRING is "INVITE"
-	join: STRING is "JOIN"
-	kick: STRING is "KICK"
-	list: STRING is "LIST"
-	lusers: STRING is "LUSERS"
-	mode: STRING is "MODE"
-	motd: STRING is "MOTD"
-	names: STRING is "NAMES"
-	notice: STRING is "NOTICE"
-	nick: STRING is "NICK"
-	part: STRING is "PART"
-	pass: STRING is "PASS"
-	ping: STRING is "PING"
-	pong: STRING is "PONG"
-	privmsg: STRING is "PRIVMSG"
-	quit: STRING is "QUIT"
-	topic: STRING is "TOPIC"
-	user: STRING is "USER"
-	version: STRING is "VERSION"
+	invite: STRING = "INVITE"
+	join: STRING = "JOIN"
+	kick: STRING = "KICK"
+	list: STRING = "LIST"
+	lusers: STRING = "LUSERS"
+	mode: STRING = "MODE"
+	motd: STRING = "MOTD"
+	names: STRING = "NAMES"
+	notice: STRING = "NOTICE"
+	nick: STRING = "NICK"
+	part: STRING = "PART"
+	pass: STRING = "PASS"
+	ping: STRING = "PING"
+	pong: STRING = "PONG"
+	privmsg: STRING = "PRIVMSG"
+	quit: STRING = "QUIT"
+	topic: STRING = "TOPIC"
+	user: STRING = "USER"
+	version: STRING = "VERSION"
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX daemon class."
 
@@ -26,7 +26,7 @@ inherit
 
 feature -- the parent
 
-	test_detach is
+	test_detach
 		do
 			remove_file ("/tmp/mydaemon")
 			detach
@@ -39,7 +39,7 @@ feature -- the parent
 
 feature -- the daemon
 
-	execute is
+	execute
 		local
 			file: POSIX_TEXT_FILE
 			now: POSIX_TIME

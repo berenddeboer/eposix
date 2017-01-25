@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -24,7 +24,7 @@ inherit
 
 feature -- Status for second digit of reply code in case of FTP
 
-	is_syntax_error: BOOLEAN is
+	is_syntax_error: BOOLEAN
 			-- Does `reply_code' denote a syntax error?
 		do
 			Result :=
@@ -32,7 +32,7 @@ feature -- Status for second digit of reply code in case of FTP
 				reply_code.out.item (2) = '0'
 		end
 
-	is_authentication_error: BOOLEAN is
+	is_authentication_error: BOOLEAN
 			-- Does `reply_code' denote an authentication error?
 		do
 			Result :=

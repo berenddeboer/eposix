@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Extension to STDC_BUFFER that has the ability to set the `count'. Only up to `count' bytes can be read."
 
@@ -37,12 +37,12 @@ feature -- Access
 
 feature -- Status
 
-	is_valid_index (index: INTEGER): BOOLEAN is
+	is_valid_index (index: INTEGER): BOOLEAN
 		do
 			Result := index >= 0 and index < count
 		end
 
-	is_valid_range (from_index, to_index: INTEGER): BOOLEAN is
+	is_valid_range (from_index, to_index: INTEGER): BOOLEAN
 			-- Is `from_index'..`to_index' a valid and meaningfull range?
 		do
 			Result :=
@@ -53,7 +53,7 @@ feature -- Status
 
 feature -- Change
 
-	set_count (a_count: INTEGER) is
+	set_count (a_count: INTEGER)
 		require
 			valid_count: a_count >= 0 and then a_count <= capacity
 		do
@@ -65,7 +65,7 @@ feature -- Change
 
 feature {NONE} -- Low level handle functions
 
-	set_capacity (a_capacity: INTEGER) is
+	set_capacity (a_capacity: INTEGER)
 		do
 			capacity := a_capacity
 			if count > capacity then

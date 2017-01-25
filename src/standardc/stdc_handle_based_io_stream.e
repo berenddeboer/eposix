@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base class for eposix's file and descriptor classes."
 
@@ -31,7 +31,7 @@ inherit
 
 feature -- Status
 
-	eof: BOOLEAN is
+	eof: BOOLEAN
 		obsolete "2006-10-23: Use end_of_input instead"
 		do
 			Result := end_of_input
@@ -73,7 +73,7 @@ feature -- Access
 
 feature -- Stream or disk file
 
-	set_streaming (enable: BOOLEAN) is
+	set_streaming (enable: BOOLEAN)
 			-- Influence behaviour of certain functions if they should be
 			-- optimized for data coming from disk or data coming from
 			-- the network. In particular `is_streaming' implies that a
@@ -89,7 +89,7 @@ feature -- Stream or disk file
 
 feature -- Close
 
-	detach is
+	detach
 			-- Forget the resource. Resource is not closed.
 			-- You cannot read and write anymore.
 		do

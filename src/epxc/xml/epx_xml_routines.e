@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Various routines to help creating XML."
 
@@ -19,25 +19,25 @@ inherit
 
 feature -- Status
 
-	is_valid_attribute_name (a_name: STRING): BOOLEAN is
+	is_valid_attribute_name (a_name: STRING): BOOLEAN
 		obsolete "2006-06-30: Please use `is_name' instead"
 		do
 			Result := is_name (a_name)
 		end
 
-	is_valid_tag_name (a_name: STRING): BOOLEAN is
+	is_valid_tag_name (a_name: STRING): BOOLEAN
 		obsolete "2006-06-30: Please use `is_name' instead"
 		do
 			Result := is_name (a_name)
 		end
 
-	is_valid_ncname (a_name: STRING): BOOLEAN is
+	is_valid_ncname (a_name: STRING): BOOLEAN
 		obsolete "2006-06-30: Please use `is_ncname' instead"
 		do
 			Result := is_ncname (a_name)
 		end
 
-	has_invalid_control_characters (s: STRING): BOOLEAN is
+	has_invalid_control_characters (s: STRING): BOOLEAN
 			-- If `s' is not Void, does `s' contain characters in the range
 			-- 0x00-0x1F other then TAB (0x09), CR (0x0A) and LF (0x0D)?
 		obsolete "2006-06-30: Please use not `is_string' instead"
@@ -50,7 +50,7 @@ feature -- Status
 
 feature -- Conversions
 
-	as_valid_tag_name (a_tag_name: STRING): STRING is
+	as_valid_tag_name (a_tag_name: STRING): STRING
 			-- Return `a_tag_name' with invalid characters removed or
 			-- replaced by '_'.
 		require
@@ -86,7 +86,7 @@ feature -- Conversions
 			valid_tag_name: is_ncname (Result)
 		end
 
-	quote_apostrophe (s: STRING): STRING is
+	quote_apostrophe (s: STRING): STRING
 			-- `s' with every occurrence of ' replaced by &apos;
 		require
 			s_not_void: s /= Void
@@ -126,32 +126,32 @@ feature -- Conversions
 
 feature {NONE} -- Data sanitize
 
-	Ampersand_code: INTEGER is 38
+	Ampersand_code: INTEGER = 38
 			-- '&'
 
-	QuoteAmp: STRING is "&amp;"
-	QuoteApos: STRING is "&apos;"
-	QuoteLt: STRING is "&lt;"
-	QuoteGt: STRING is "&gt;"
-	QuoteQuote: STRING is "&quot;"
+	QuoteAmp: STRING = "&amp;"
+	QuoteApos: STRING = "&apos;"
+	QuoteLt: STRING = "&lt;"
+	QuoteGt: STRING = "&gt;"
+	QuoteQuote: STRING = "&quot;"
 
-	PartQuoteAmp: STRING is "amp;"
-	PartQuoteApos: STRING is "apos;"
-	PartQuoteLt: STRING is "lt;"
-	PartQuoteGt: STRING is "gt;"
-	PartQuoteQuote: STRING is "quot;"
+	PartQuoteAmp: STRING = "amp;"
+	PartQuoteApos: STRING = "apos;"
+	PartQuoteLt: STRING = "lt;"
+	PartQuoteGt: STRING = "gt;"
+	PartQuoteQuote: STRING = "quot;"
 
 
 feature -- Constants from the XML specification, should be Unicode...
 
-	ValidFirstChars: STRING is
+	ValidFirstChars: STRING
 			-- Which characters are valid as the first character.
 		obsolete "2006-06-30: please use `is_name_first'"
 		once
 			Result :=  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_:"
 		end
 
-	ValidOtherChars: STRING is
+	ValidOtherChars: STRING
 			-- Which characters are valid as second etc characters.
 		obsolete "2006-06-30: please use `is_name_char'"
 		once

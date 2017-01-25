@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "AF_UNIX (AF_LOCAL) SOCK_STREAM/SOCK_DGRAM sockets, server side."
 
@@ -24,7 +24,7 @@ create
 
 feature {NONE} -- Socket specific open functions
 
-	listen_by_path (a_path_name: STRING; a_socket_type: INTEGER) is
+	listen_by_path (a_path_name: STRING; a_socket_type: INTEGER)
 			-- Listen on socket for address specified in `sa'.
 			-- It uses a backlog of `backlog_default' maximum pending
 			-- connections.
@@ -76,7 +76,7 @@ feature {NONE} -- Socket specific open functions
 
 feature -- Accept
 
-	accept: SUS_UNIX_SOCKET is
+	accept: SUS_UNIX_SOCKET
 			-- Return the next completed connection from the front of the
 			-- completed connection queue. If there are no completed
 			-- connections, the process is put to sleep.
@@ -105,7 +105,7 @@ feature -- Accept
 
 feature {NONE} -- Implementation
 
-	backlog_default: INTEGER is 1024
+	backlog_default: INTEGER = 1024
 			-- While there is no good definition of backlog, it indicates
 			-- the maximum length the queue of pending connections may
 			-- grow to; whatever that may mean.

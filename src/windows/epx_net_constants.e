@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Windows network specific constants portable at the ABSTRACT_XXXX layer."
 

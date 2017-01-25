@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test for EPX_LDIF_PARSER class."
 
@@ -24,42 +24,42 @@ inherit
 
 feature -- Tests
 
-	test_ldif_example_1 is
+	test_ldif_example_1
 		do
 			parse  ("ldif/example1.ldf")
 		end
 
-	test_ldif_example_2 is
+	test_ldif_example_2
 		do
 			parse  ("ldif/example2.ldf")
 		end
 
-	test_ldif_example_3 is
+	test_ldif_example_3
 		do
 			parse  ("ldif/example3.ldf")
 		end
 
-	test_ldif_example_4 is
+	test_ldif_example_4
 		do
 			parse  ("ldif/example4.ldf")
 		end
 
-	test_ldif_example_5 is
+	test_ldif_example_5
 		do
 			parse  ("ldif/example5.ldf")
 		end
 
-	test_ldif_example_6 is
+	test_ldif_example_6
 		do
 			parse  ("ldif/example6.ldf")
 		end
 
-	test_ldif_example_7 is
+	test_ldif_example_7
 		do
 			parse  ("ldif/example7.ldf")
 		end
 
-	test_parsing_users is
+	test_parsing_users
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_LDIF_PARSER
@@ -78,12 +78,12 @@ feature -- Tests
 			file.close
 		end
 
-	test_parsing_domain is
+	test_parsing_domain
 		do
 			parse  ("ldif/full_domain.ldf")
 		end
 
-	test_difficult is
+	test_difficult
 		do
 			parse  ("ldif/difficult.ldf")
 		end
@@ -91,7 +91,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	parse (filename: STRING) is
+	parse (filename: STRING)
 		require
 			filename_not_empty: filename /= Void and then not filename.is_empty
 		local

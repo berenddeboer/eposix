@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Gobo KI_CHARACTER_BUFER on top of STDC_BUFFER."
 
@@ -42,12 +42,12 @@ create
 
 feature -- Access
 
-	item (i: INTEGER): CHARACTER is
+	item (i: INTEGER): CHARACTER
 		do
 			Result := posix_peek_character (ptr, i-1)
 		end
 
-	substring (s, e: INTEGER): STRING is
+	substring (s, e: INTEGER): STRING
 		do
 			Result := buffer_substring (s-1, e-1)
 		end
@@ -55,14 +55,14 @@ feature -- Access
 
 feature -- Element change
 
-	append_substring_to_string (s, e: INTEGER; a_string: STRING) is
+	append_substring_to_string (s, e: INTEGER; a_string: STRING)
 			-- Append string made up of characters held in buffer
 			-- between indexes `s' and `e' to `a_string'.
 		do
 			c_substring_with_string (a_string, s-1, e-1)
 		end
 
-	put (v: CHARACTER; i: INTEGER) is
+	put (v: CHARACTER; i: INTEGER)
 		do
 			posix_poke_character (ptr, i-1, v)
 		end

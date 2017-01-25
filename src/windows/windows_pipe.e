@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Windows pipe."
 
@@ -28,7 +28,7 @@ create
 
 feature -- creation
 
-	make_inheritable_read is
+	make_inheritable_read
 			-- Creates a read pipe suitable to communicate with a child process.
 		local
 			sa: WINDOWS_SECURITY_ATTRIBUTES
@@ -44,7 +44,7 @@ feature -- creation
 			set_file_descriptors
 		end
 
-	make_inheritable_write is
+	make_inheritable_write
 			-- Creates a write pipe suitable to communicate with a child process.
 		local
 			sa: WINDOWS_SECURITY_ATTRIBUTES

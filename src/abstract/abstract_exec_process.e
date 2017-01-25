@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Abstraction for child processes that make stdin/stdout %
 	%available to their parents."
@@ -23,7 +23,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make (a_program: STRING; a_arguments: ARRAY[STRING]) is
+	make (a_program: STRING; a_arguments: ARRAY[STRING])
 		require
 			program_name_not_empty: a_program /= Void and then not a_program.is_empty
 			all_arguments_not_void: not has_void_argument (a_arguments)
@@ -33,7 +33,7 @@ feature {NONE} -- Initialization
 			set_arguments (a_arguments)
 		end
 
-	make_capture_input (a_program: STRING; a_arguments: ARRAY[STRING]) is
+	make_capture_input (a_program: STRING; a_arguments: ARRAY[STRING])
 		require
 			program_name_not_empty: a_program /= Void and then not a_program.is_empty
 			all_arguments_not_void: not has_void_argument (a_arguments)
@@ -44,7 +44,7 @@ feature {NONE} -- Initialization
 			input_will_becaptured: capture_input
 		end
 
-	make_capture_output (a_program: STRING; a_arguments: ARRAY[STRING]) is
+	make_capture_output (a_program: STRING; a_arguments: ARRAY[STRING])
 		require
 			program_name_not_empty: a_program /= Void and then not a_program.is_empty
 			all_arguments_not_void: not has_void_argument (a_arguments)
@@ -55,7 +55,7 @@ feature {NONE} -- Initialization
 			output_will_becaptured: capture_output
 		end
 
-	make_capture_io (a_program: STRING; a_arguments: ARRAY[STRING]) is
+	make_capture_io (a_program: STRING; a_arguments: ARRAY[STRING])
 			-- Why not use three directional i/o, because you're getting
 			-- yourself in great, great trouble anyway.
 			-- A bit of advice: call stdin.close before starting to call
@@ -77,7 +77,7 @@ feature {NONE} -- Initialization
 			output_will_becaptured: capture_output
 		end
 
-	make_capture_all (a_program: STRING; a_arguments: ARRAY[STRING]) is
+	make_capture_all (a_program: STRING; a_arguments: ARRAY[STRING])
 			-- Three directional i/o is a great way to get yourself in trouble.
 		require
 			program_name_not_empty: a_program /= Void and then not a_program.is_empty
@@ -93,7 +93,7 @@ feature {NONE} -- Initialization
 			error_will_becaptured: capture_error
 		end
 
-	make_from_command_line (a_command_line: STRING) is
+	make_from_command_line (a_command_line: STRING)
 			-- Initialize something like "/usr/sbin/sendmail -i -t".
 			-- Assume `a_command_line' is space separated. The first
 			-- argument is the program name, the others are
@@ -179,7 +179,7 @@ feature {NONE} -- Initialization
 
 feature -- (re)set arguments
 
-	has_void_argument (a_arguments: ARRAY[STRING]): BOOLEAN is
+	has_void_argument (a_arguments: ARRAY[STRING]): BOOLEAN
 			-- Is one of the items in `a_arguments' Void?
 		local
 			i: INTEGER
@@ -197,7 +197,7 @@ feature -- (re)set arguments
 			end
 		end
 
-	set_arguments (a_arguments: ARRAY[STRING]) is
+	set_arguments (a_arguments: ARRAY[STRING])
 			-- Change `arguments'.
 		require
 			all_arguments_not_void: not has_void_argument (a_arguments)
@@ -209,7 +209,7 @@ feature -- (re)set arguments
 			end
 		end
 
-	set_working_directory (a_directory: STRING) is
+	set_working_directory (a_directory: STRING)
 		do
 			working_directory := a_directory
 		end
@@ -234,21 +234,21 @@ feature -- i/o capturing
 			-- If stderr is not captured, redirect to /dev/null?
 			-- Default is False.
 
-	set_capture_input (on: BOOLEAN) is
+	set_capture_input (on: BOOLEAN)
 		do
 			capture_input := on
 		ensure
 			definition: capture_input = on
 		end
 
-	set_capture_output (on: BOOLEAN) is
+	set_capture_output (on: BOOLEAN)
 		do
 			capture_output := on
 		ensure
 			definition: capture_output = on
 		end
 
-	set_capture_error (on: BOOLEAN) is
+	set_capture_error (on: BOOLEAN)
 		do
 			capture_error := on
 		ensure
@@ -283,7 +283,7 @@ feature -- i/o capturing
 
 feature -- Execute
 
-	execute is
+	execute
 			-- Execute `program_name' with arguments `arguments'. After
 			-- execution, at some point in time, you have to `wait' or
 			-- `wait_for' for this process to terminate.
@@ -295,7 +295,7 @@ feature -- Execute
 
 feature -- Actions that parent may execute
 
-	wait_for (suspend: BOOLEAN) is
+	wait_for (suspend: BOOLEAN)
 			-- Wait for this process to terminate. If `suspend' then we
 			-- wait until the information about this process is available,
 			-- else we return immediately.
@@ -322,7 +322,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	once_null: STRING is "%U"
+	once_null: STRING = "%U"
 
 
 invariant

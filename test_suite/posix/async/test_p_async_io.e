@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix asynchronous io."
 
@@ -27,7 +27,7 @@ inherit
 
 feature -- Tests if test possible
 
-	test_all is
+	test_all
 		do
 			print ("testing Posix asynchronous io.%N")
 
@@ -40,7 +40,7 @@ feature -- Tests if test possible
 
 feature {NONE} -- Actual test
 
-	do_test_all	is
+	do_test_all
 		local
 			fd: POSIX_FILE_DESCRIPTOR
 			request: POSIX_ASYNC_IO_REQUEST

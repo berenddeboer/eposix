@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -18,17 +18,17 @@ class
 
 feature -- Access
 
-	data: STRING is "DATA"
-	ehlo: STRING is "EHLO"
-	expn: STRING is "EXPN"
-	helo: STRING is "HELO"
-	help: STRING is "HELP"
-	mail: STRING is "MAIL"
-	noop: STRING is "NOOP"
-	quit: STRING is "QUIT"
-	rcpt: STRING is "RCPT"
-	rset: STRING is "RSET"
-	vrfy: STRING is "VRFY"
+	data: STRING = "DATA"
+	ehlo: STRING = "EHLO"
+	expn: STRING = "EXPN"
+	helo: STRING = "HELO"
+	help: STRING = "HELP"
+	mail: STRING = "MAIL"
+	noop: STRING = "NOOP"
+	quit: STRING = "QUIT"
+	rcpt: STRING = "RCPT"
+	rset: STRING = "RSET"
+	vrfy: STRING = "VRFY"
 
 
 end

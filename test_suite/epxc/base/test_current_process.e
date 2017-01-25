@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -28,12 +28,12 @@ inherit
 
 feature -- Tests
 
-	test_access is
+	test_access
 		do
 			assert ("Have effective_user_name", not effective_user_name.is_empty)
 		end
 
-	test_environment is
+	test_environment
 		local
 			i: INTEGER
 			env: ARRAY [STRING]

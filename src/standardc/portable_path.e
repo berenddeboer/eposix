@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that gives another class the portable_path feature."
 
@@ -18,7 +18,7 @@ class
 
 feature {NONE} -- creation
 
-	make_path is
+	make_path
 		do
 			if portable_path = Void then
 				create portable_path.make (256)
@@ -34,7 +34,7 @@ feature -- Access
 
 feature -- Change
 
-	set_portable_path (a_path: READABLE_STRING_8) is
+	set_portable_path (a_path: READABLE_STRING_8)
 			-- Set `portable_path' to `a_path'.
 		do
 			if portable_path = Void then

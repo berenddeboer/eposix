@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "A way to program platform independent Eiffel code."
 

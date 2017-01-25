@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -18,7 +18,7 @@ class
 
 feature -- Removal
 
-	without_color (s: STRING): STRING is
+	without_color (s: STRING): STRING
 			-- `s' but with mirc color encoding removed;
 			-- See http://www.mirc.co.uk/help/color.txt for more info.
 			-- Color can only be interpreted correctly when the encoder
@@ -86,8 +86,8 @@ feature -- Removal
 
 feature -- Color characters
 
-	control_b: CHARACTER is '%/2/'
-	control_c: CHARACTER is '%/3/'
-	control_o: CHARACTER is '%/15/'
+	control_b: CHARACTER = '%/2/'
+	control_c: CHARACTER = '%/3/'
+	control_o: CHARACTER = '%/15/'
 
 end

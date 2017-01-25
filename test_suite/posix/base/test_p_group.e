@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX group class."
 
@@ -29,7 +29,7 @@ inherit
 
 feature -- Tests
 
-	test_group is
+	test_group
 		local
 			group: POSIX_GROUP
 		do
@@ -48,7 +48,7 @@ feature -- Tests
 			print ("%N")
 		end
 
-	test_group_database is
+	test_group_database
 			-- Access group database.
 		local
 			db: POSIX_GROUP_DATABASE
@@ -66,7 +66,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	print_group (group: POSIX_GROUP) is
+	print_group (group: POSIX_GROUP)
 		do
 			print ("name: ")
 			print (group.name)

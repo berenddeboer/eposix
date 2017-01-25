@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -30,7 +30,7 @@ inherit
 
 feature -- Commands
 
-	attempt_acquire is
+	attempt_acquire
 			-- Lock the semaphore only if it is not locked. If it is locked
 			-- by some process, this command returns immediately and the
 			-- semaphore is not locked
@@ -40,7 +40,7 @@ feature -- Commands
 		deferred
 		end
 
-	acquire is
+	acquire
 			-- Lock the semaphore.
 		require
 			open: is_open
@@ -50,7 +50,7 @@ feature -- Commands
 			locked: raise_exception_on_error implies is_acquired
 		end
 
-	release is
+	release
 			-- Unlock the semaphore.
 		require
 			open: is_open
@@ -63,7 +63,7 @@ feature -- Commands
 
 feature -- Access
 
-	resource_usage_can_be_increased: BOOLEAN is
+	resource_usage_can_be_increased: BOOLEAN
 			-- Can the number of allocated resources increased with `capacity'?
 		do
 			-- We don't keep track of semaphore handles
@@ -76,19 +76,19 @@ feature -- Status
 	is_acquired: BOOLEAN
 			-- Has the semaphore been acquired successfully?
 
-	is_initialized: BOOLEAN is
+	is_initialized: BOOLEAN
 		obsolete "2004-06-18: Use is_open instead."
 		do
 			Result := is_open
 		end
 
-	is_locked: BOOLEAN is
+	is_locked: BOOLEAN
 		obsolete "2004-06-19 Use is_acquired instead."
 		do
 			Result := is_acquired
 		end
 
-	supports_semaphores: BOOLEAN is
+	supports_semaphores: BOOLEAN
 			-- Does this Operating System supports semaphores?
 			-- Most systems support unnamed semaphores, but still return
 			-- False here...
@@ -98,7 +98,7 @@ feature -- Status
 
 feature {NONE} -- Counting of allocated resource
 
-	decrease_resource_count is
+	decrease_resource_count
 			-- Decrease number of allocated resource by `capacity'.
 			-- Due to limitations of certain Eiffel implementations, this
 			-- routine may not call any other object. Calling C code is safe.
@@ -106,13 +106,13 @@ feature {NONE} -- Counting of allocated resource
 			shared_resource_count.set_item (shared_resource_count.item - capacity)
 		end
 
-	increase_resource_count is
+	increase_resource_count
 			-- Increase number of allocated resources by `capacity'.
 		do
 			shared_resource_count.set_item (shared_resource_count.item + capacity)
 		end
 
-	resource_count: INTEGER is
+	resource_count: INTEGER
 			-- Currently allocated number of resources. It's a global
 			-- number, counting the `capacity' of all owned resources of
 			-- this type.
@@ -120,7 +120,7 @@ feature {NONE} -- Counting of allocated resource
 			Result := shared_resource_count.item
 		end
 
-	shared_resource_count: INTEGER_REF is
+	shared_resource_count: INTEGER_REF
 		once
 			create Result
 		ensure
@@ -130,7 +130,7 @@ feature {NONE} -- Counting of allocated resource
 
 feature {NONE} -- Abstract API
 
-	abstract_sem_value_max: INTEGER is
+	abstract_sem_value_max: INTEGER
 			-- Maximum initial value for a semaphore.
 		deferred
 		ensure

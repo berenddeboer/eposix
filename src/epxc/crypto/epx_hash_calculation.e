@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -38,7 +38,7 @@ feature -- Access
 			-- Final checksum as binary string; calculated
 			-- by `finalize'
 
-	checksum: STRING is
+	checksum: STRING
 			-- Final checksum in lowercase hexadecimal digits; calculated
 			-- by `finalize'
 		require
@@ -50,14 +50,14 @@ feature -- Access
 			valid_checksum_length: checksum.count = hash_output_length * 2
 		end
 
-	block_length: INTEGER is
+	block_length: INTEGER
 			-- Length of a single block upon which the hash operates
 		deferred
 		ensure
 			positive: Result > 0
 		end
 
-	hash_output_length: INTEGER is
+	hash_output_length: INTEGER
 			-- Byte length of the hash output function
 		deferred
 		ensure
@@ -67,7 +67,7 @@ feature -- Access
 
 feature -- Operations
 
-	hash_string (a_data: STRING) is
+	hash_string (a_data: STRING)
 			-- Calculate hash for `a_data'.
 		require
 			data_not_empty: a_data /= Void and then not a_data.is_empty
@@ -82,7 +82,7 @@ feature -- Operations
 			finalized: is_checksum_available
 		end
 
-	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER) is
+	put_buffer (buf: STDC_BUFFER; start, stop: INTEGER)
 		require
 			not_finalized: not is_checksum_available
 			buf_not_void: buf /= Void
@@ -90,13 +90,13 @@ feature -- Operations
 		deferred
 		end
 
-	put_character (c: CHARACTER) is
+	put_character (c: CHARACTER)
 		require
 			not_finalized: not is_checksum_available
 		deferred
 		end
 
-	put_string (s: STRING) is
+	put_string (s: STRING)
 		require
 			not_finalized: not is_checksum_available
 		do
@@ -105,7 +105,7 @@ feature -- Operations
 			end
 		end
 
-	put_substring (s: STRING; start, stop: INTEGER) is
+	put_substring (s: STRING; start, stop: INTEGER)
 		require
 			not_finalized: not is_checksum_available
 			s_not_void: s /= Void
@@ -114,7 +114,7 @@ feature -- Operations
 		deferred
 		end
 
-	finalize is
+	finalize
 		require
 			not_finalized: not is_checksum_available
 		deferred
@@ -123,7 +123,7 @@ feature -- Operations
 			finalized: is_checksum_available
 		end
 
-	secure_wipe_out is
+	secure_wipe_out
 			-- As `wipe_out' but clear data as well
 		do
 			wipe_out
@@ -131,7 +131,7 @@ feature -- Operations
 			not_finalized: not is_checksum_available
 		end
 
-	wipe_out is
+	wipe_out
 			-- Start a new calculation.
 		do
 			is_checksum_available := False
@@ -143,7 +143,7 @@ feature -- Operations
 
 feature {NONE} -- Output
 
-	append_zeros (s: STRING; i: INTEGER) is
+	append_zeros (s: STRING; i: INTEGER)
 			-- Apply left padding
 		require
 			s_not_void: s /= Void
@@ -166,13 +166,13 @@ feature {NONE} -- Output
 			end
 		end
 
-	to_hexadecimal_integer (integer: INTEGER): STRING is
+	to_hexadecimal_integer (integer: INTEGER): STRING
 		do
 			create Result.make (8)
 			append_hexadecimal_integer (integer, Result, False)
 		end
 
-	append_hexadecimal_integer (integer: INTEGER; string: STRING; upper_case: BOOLEAN) is
+	append_hexadecimal_integer (integer: INTEGER; string: STRING; upper_case: BOOLEAN)
 			-- Append 'value' as hexadecimal in `string' in upper/lower case.
 		require
 			string_not_void: string /= Void
@@ -209,7 +209,7 @@ feature {NONE} -- Output
 			end
 		end
 
-	hexadecimal_digit (n: INTEGER; upper_case: BOOLEAN): CHARACTER is
+	hexadecimal_digit (n: INTEGER; upper_case: BOOLEAN): CHARACTER
 			-- A single digit
 		require
 			n_not_negative: n >= 0
@@ -221,12 +221,12 @@ feature {NONE} -- Output
 			end
 		end
 
-	hexadecimal_digits: STRING is "0123456789abcdef"
+	hexadecimal_digits: STRING = "0123456789abcdef"
 
 
 feature {NONE} -- Crypto primitives
 
-	bit_rotate_left (value: INTEGER; n: INTEGER_8): INTEGER is
+	bit_rotate_left (value: INTEGER; n: INTEGER_8): INTEGER
 			-- Circulur shift of the 32 bits in to the left
 		require
 			n_positive: n > 0
@@ -246,7 +246,7 @@ feature {NONE} -- Crypto primitives
 -- 			Result := value.bit_shift_left (n) | bit_shift_right_unsigned (value, thirty_two - n)
 -- 		end
 
-	bit_shift_right_unsigned (value: INTEGER; n: INTEGER_8): INTEGER is
+	bit_shift_right_unsigned (value: INTEGER; n: INTEGER_8): INTEGER
 			-- Shift `value' by `n' positions right (sign bit not copied) bits
 			-- falling off the end are lost.
 			-- Routine here because ISE does not have an unsigned shift.

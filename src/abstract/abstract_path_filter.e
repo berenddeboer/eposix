@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Base filter class used with directory browsing"
 
@@ -14,7 +14,7 @@ deferred class
 
 feature -- Validation
 
-	validate_directory: BOOLEAN is
+	validate_directory: BOOLEAN
 			-- When encountering a directory, pass it to `is_valid' for
 			-- validation or recurse immediately into that directory
 			-- without ever passing the directory to `is_valid'?
@@ -23,7 +23,7 @@ feature -- Validation
 			Result := True
 		end
 
-	is_valid (a_status: ABSTRACT_STATUS; a_path_name: STRING): BOOLEAN is
+	is_valid (a_status: ABSTRACT_STATUS; a_path_name: STRING): BOOLEAN
 			-- Is `path_name' a valid path to return?
 		require
 			has_status_when_needed: require_status implies a_status /= Void
@@ -31,7 +31,7 @@ feature -- Validation
 		deferred
 		end
 
-	require_status: BOOLEAN is
+	require_status: BOOLEAN
 			-- Should `is_valid' receive a valid status?
 			-- Optional, because a status call can be expensive. If you
 			-- do recursive browsing, a status is retrieved, passing it

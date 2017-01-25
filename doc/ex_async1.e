@@ -6,7 +6,7 @@ create
    
 feature
 
-   make is
+   make
       local
          fd: POSIX_FILE_DESCRIPTOR
          request: POSIX_ASYNC_IO_REQUEST

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Standard C signal.h."
 
@@ -13,14 +13,14 @@ class
 
 feature -- Standard C binding
 
-	posix_raise (a_sig: INTEGER): INTEGER is
+	posix_raise (a_sig: INTEGER): INTEGER
 			-- Sends a signal
 		require
 			valid_signal: a_sig >= 0
 		external "C"
 		end
 
-	posix_signal (a_sig: INTEGER; a_func: POINTER): POINTER is
+	posix_signal (a_sig: INTEGER; a_func: POINTER): POINTER
 			-- Specifies signal handling
 		require
 			valid_signal: a_sig >= 0

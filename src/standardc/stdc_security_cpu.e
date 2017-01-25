@@ -1,4 +1,4 @@
-indexing
+note
 
    description: 
    "Describes CPU related security."
@@ -30,7 +30,7 @@ create
    
 feature -- creation
    
-   make is
+   make
          -- allow everything
       do
          start := clock
@@ -40,7 +40,7 @@ feature -- creation
 
 feature -- query parameters
    
-   current_process_time: INTEGER is
+   current_process_time: INTEGER
          -- Returns number of seconds since monitoring
       do
          -- clock never wraps of course...
@@ -53,7 +53,7 @@ feature -- query parameters
    
 feature -- set parameters
    
-   set_max_process_time (value: INTEGER) is
+   set_max_process_time (value: INTEGER)
       do
          max_process_time := value
       end
@@ -61,14 +61,14 @@ feature -- set parameters
 
 feature -- query
    
-   is_allowed_process_time: BOOLEAN is
+   is_allowed_process_time: BOOLEAN
          -- returns True if the maximum allowed process time has not 
          -- been exceeded.
       do
          Result := current_process_time < max_process_time
       end      
    
-   check_process_time is
+   check_process_time
       do
          if not is_allowed_process_time then
             raise_security_error ("Maximum allowed process time " +

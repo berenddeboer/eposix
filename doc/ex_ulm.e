@@ -6,7 +6,7 @@ create
 
 feature -- Initialization
 
-	make is
+	make
 		local
 			logger: NET_LOGGER
 			handler: EPX_LOG_HANDLER
@@ -29,8 +29,8 @@ feature -- Initialization
 
 feature -- Access
 
-	identification: STRING is "example"
+	identification: STRING = "example"
 
-	system_name: STRING is "ex_ulm"
+	system_name: STRING = "ex_ulm"
 
 end

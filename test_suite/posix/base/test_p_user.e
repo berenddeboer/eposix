@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test POSIX user class."
 
@@ -15,7 +15,7 @@ inherit
 
 feature
 
-	make is
+	make
 		local
 			user: POSIX_USER
 			db: POSIX_USER_DATABASE
@@ -60,7 +60,7 @@ feature
 			print ("End test user.%N")
 		end
 
-	print_user (user: POSIX_USER) is
+	print_user (user: POSIX_USER)
 		do
 			print ("login: ")
 			print (user.name)

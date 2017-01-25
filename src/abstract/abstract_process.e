@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Process related routines. This code is abstracted for use with both POSIX and WINDOWS child."
 

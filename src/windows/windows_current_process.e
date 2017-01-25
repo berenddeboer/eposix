@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Class that covers Windows current process related routines."
 	usage: "Just inherit from this class."
@@ -20,7 +20,7 @@ inherit
 
 feature -- Access
 
-	current_process: INTEGER is
+	current_process: INTEGER
 			-- Pseudo handle to represent the current process
 		do
 			Result := posix_getcurrentprocess

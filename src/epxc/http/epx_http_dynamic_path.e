@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "urlReplacement path."
 
@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_path: RX_PCRE_REGULAR_EXPRESSION; a_resource: EPX_HTTP_SERVLET) is
+	make (a_path: RX_PCRE_REGULAR_EXPRESSION; a_resource: EPX_HTTP_SERVLET)
 			-- Initialize.
 		require
 			path_not_void: a_path /= Void
@@ -44,7 +44,7 @@ feature {NONE} -- Initialization
 			resource_set: resource = a_resource
 		end
 
-	make_from_url (a_path: STRING; a_resource: EPX_HTTP_SERVLET) is
+	make_from_url (a_path: STRING; a_resource: EPX_HTTP_SERVLET)
 			-- Initialize path by compiling the URL replacement path into
 			-- a regular expression and calling `make'.
 		require
@@ -64,7 +64,7 @@ feature {NONE} -- Initialization
 
 feature -- Status
 
-	has_unique_field_names (a_path: STRING): BOOLEAN is
+	has_unique_field_names (a_path: STRING): BOOLEAN
 			-- Does dynamic `a_path' not contain duplicate field-names?
 		do
 			-- @@BdB: still have to write this. I now raise an exception
@@ -86,7 +86,7 @@ feature -- Path matching
 
 	fields: DS_LINKED_LIST [EPX_KEY_VALUE]
 
-	matches (a_path: STRING): BOOLEAN is
+	matches (a_path: STRING): BOOLEAN
 			-- Does `path' match `a_path'?
 			-- If matched, `fields' is filled with the names and values
 			-- extracted from the path.
@@ -125,7 +125,7 @@ feature {NONE} -- URL replacement path parsing
 	parts: DS_SET [STRING]
 			-- The field names of the dynamic parts in the path.
 
-	replacement_url_to_regepx (a_path: STRING): STRING is
+	replacement_url_to_regepx (a_path: STRING): STRING
 			-- Replace the (..) parts in `a_path' by the regular
 			-- expression `once_replacement_regepx'.
 			-- The string between (..) is considered to be a field name
@@ -177,7 +177,7 @@ feature {NONE} -- URL replacement path parsing
 
 feature {NONE} -- Once STRINGs, Eiffel's worst feature
 
-	once_replacement_regexp: STRING is "([^/]+)"
+	once_replacement_regexp: STRING = "([^/]+)"
 
 
 invariant

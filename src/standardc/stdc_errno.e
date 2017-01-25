@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Standard C last error number."
 
@@ -32,7 +32,7 @@ inherit
 
 feature -- Commands
 
-	clear is
+	clear
 			-- Reset error.
 		do
 			posix_clear_errno
@@ -40,7 +40,7 @@ feature -- Commands
 			no_error: is_ok
 		end
 
-	clear_all is
+	clear_all
 			-- Reset both `value' and `first_value'.
 		do
 			clear
@@ -50,7 +50,7 @@ feature -- Commands
 			no_first_error: first_value = 0
 		end
 
-	set_value (a_value: INTEGER) is
+	set_value (a_value: INTEGER)
 		do
 			posix_set_errno (a_value)
 		ensure
@@ -60,14 +60,14 @@ feature -- Commands
 
 feature -- State
 
-	is_not_ok: BOOLEAN is
+	is_not_ok: BOOLEAN
 			-- Are there any errors?
 			-- Only valid if errno has been set.
 		do
 			Result := value /= 0
 		end
 
-	is_ok: BOOLEAN is
+	is_ok: BOOLEAN
 			-- Is everything just fine?
 			-- Only valid if errno has been set.
 		do
@@ -77,13 +77,13 @@ feature -- State
 
 feature -- Access
 
-	value: INTEGER is
+	value: INTEGER
 			-- The error number itself
 		do
 			Result := posix_errno
 		end
 
-	message: STRING is
+	message: STRING
 			-- Current error message
 		do
 			Result := error_message (value)
@@ -91,7 +91,7 @@ feature -- Access
 			message_not_void: Result /= Void
 		end
 
-	strerror: STRING is
+	strerror: STRING
 		obsolete "Use message instead."
 		do
 			Result := message
@@ -100,7 +100,7 @@ feature -- Access
 
 feature -- The first, whatever that means,  error value
 
-	clear_first is
+	clear_first
 			-- Reset notation of first error.
 		do
 			my_first_value.set_item (0)
@@ -108,14 +108,14 @@ feature -- The first, whatever that means,  error value
 			no_first_error: first_value = 0
 		end
 
-	first_value: INTEGER is
+	first_value: INTEGER
 			-- Error number of first error that has occurred after a
 			-- `clear_first'
 		do
 			Result := my_first_value.item
 		end
 
-	first_message: STRING is
+	first_message: STRING
 			-- Error message for `first_value'
 		do
 			Result := error_message (first_value)
@@ -123,7 +123,7 @@ feature -- The first, whatever that means,  error value
 			first_message_not_void: Result /= Void
 		end
 
-	set_first is
+	set_first
 			-- Make `first_value' equal to the current error value.
 		do
 			my_first_value.set_item (value)
@@ -134,7 +134,7 @@ feature -- The first, whatever that means,  error value
 
 feature {NONE} -- Implementation
 
-	error_message (an_errno: INTEGER): STRING is
+	error_message (an_errno: INTEGER): STRING
 			-- The error message given an error number.
 			-- Returns a slightly more helpful error message in case
 			-- `an_errno' is unknown.
@@ -152,7 +152,7 @@ feature {NONE} -- Implementation
 			error_message_not_void: Result /= Void
 		end
 
-	my_first_value: INTEGER_REF is
+	my_first_value: INTEGER_REF
 			-- Like `value', `first_value' is a global value
 		once
 			create Result
@@ -163,9 +163,9 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Once strings
 
-	once_unknown_error: STRING is "Unknown error%N"
+	once_unknown_error: STRING = "Unknown error%N"
 
-	once_unknown_error_first: STRING is "Unknown error (value is "
-	once_unknown_error_last: STRING is ")%N"
+	once_unknown_error_first: STRING = "Unknown error (value is "
+	once_unknown_error_last: STRING = ")%N"
 
 end

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Safely Writes XML Documents; with Incremental Writing"
 
@@ -28,7 +28,7 @@ create
 
 feature -- Incremental Output
 
-	incremental_write is
+	incremental_write
 			-- Write xml added since last call to `incremental_write' or
 			-- `incremental_put_to_file' and make available in
 			-- `last_string' and `last_uc_string'.
@@ -53,7 +53,7 @@ feature -- Incremental Output
 			valid_last_uc_string: last_uc_string /= Void
 		end
 
-	incremental_put_to_file (the_file: KI_TEXT_OUTPUT_FILE) is
+	incremental_put_to_file (the_file: KI_TEXT_OUTPUT_FILE)
 			-- Write xml added since last call to `incremental_write' or
 			-- `incremental_put_to_file' to `the_file' and make available
 			-- in `last_string' and `last_uc_string'.

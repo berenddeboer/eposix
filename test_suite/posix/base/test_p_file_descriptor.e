@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Test Posix file descriptor class."
 
@@ -27,10 +27,10 @@ inherit
 
 feature
 
-	FirstByte: INTEGER is 65
-	SecondByte: INTEGER is 66
+	FirstByte: INTEGER = 65
+	SecondByte: INTEGER = 66
 
-	test_various is
+	test_various
 		local
 			fd: POSIX_FILE_DESCRIPTOR
 			buf: STDC_BUFFER
@@ -107,7 +107,7 @@ feature
 			fd.close
 		end
 
-	test_create_from_file is
+	test_create_from_file
 		local
 			fd, fd2: POSIX_FILE_DESCRIPTOR
 			file: POSIX_TEXT_FILE

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "getest based test to see if EPX_OPENSSL works."
 
@@ -19,7 +19,7 @@ inherit
 
 feature -- Tests
 
-	test_connect is
+	test_connect
 		local
 			openssl: EPX_OPENSSL
 		do
@@ -40,9 +40,9 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	host: STRING is "berend.gotdns.org"
+	host: STRING = "berend.gotdns.org"
 
-	port: INTEGER is 993
+	port: INTEGER = 993
 
 
 end

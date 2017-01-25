@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that covers Windows stdlib.h."
 
@@ -13,11 +13,11 @@ class
    
 feature {NONE} -- C binding
 
-   posix_fmode: INTEGER is
+   posix_fmode: INTEGER
       external "C"
       end
    
-   posix_set_fmode(a_value: INTEGER) is
+   posix_set_fmode(a_value: INTEGER)
       external "C"
       end
    

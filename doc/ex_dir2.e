@@ -10,7 +10,7 @@ create
    
 feature
 
-   make is
+   make
       local
          perm: POSIX_PERMISSIONS
       do
@@ -36,7 +36,7 @@ feature
          
       end
 
-   print_info (ok: BOOLEAN; what: STRING) is
+   print_info (ok: BOOLEAN; what: STRING)
       do
          print ("is_")
          print (what)

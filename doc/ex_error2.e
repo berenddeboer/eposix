@@ -10,7 +10,7 @@ create
 
 feature
    
-   make is
+   make
       local
          fd: POSIX_FILE_DESCRIPTOR
       do

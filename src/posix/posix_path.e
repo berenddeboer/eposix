@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Posix path, can be directory, file or link."
 

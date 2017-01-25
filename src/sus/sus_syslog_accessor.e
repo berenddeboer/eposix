@@ -1,4 +1,4 @@
-indexing
+note
 
    description: "Class that makes the singleton SUS_SYSLOG available."
 
@@ -15,7 +15,7 @@ class
 
 feature -- the singleton
 
-   syslog: SUS_SYSLOG is
+   syslog: SUS_SYSLOG
          -- singleton entry point for syslog daemon
       once
          create Result.make
@@ -26,7 +26,7 @@ feature -- the singleton
 
 feature {NONE} -- private test
 
-   syslog_is_real_singleton: BOOLEAN is
+   syslog_is_real_singleton: BOOLEAN
          -- Do multiple calls to `singleton' return the same result?
       do
          Result := syslog = syslog

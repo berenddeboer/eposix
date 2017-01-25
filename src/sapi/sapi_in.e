@@ -186,27 +186,27 @@ feature -- C binding for members of ip_mreq
 		external "C"
 		end
 
-	posix_ip_mreq_imr_multiaddr (a_ip_mreq: POINTER): POINTER is
+	posix_ip_mreq_imr_multiaddr (a_ip_mreq: POINTER): POINTER
 			-- IP address of group
 		require
 			have_struct_pointer: a_ip_mreq /= default_pointer
 		external "C"
 		end
 
-	posix_ip_mreq_imr_interface (a_ip_mreq: POINTER): POINTER is
+	posix_ip_mreq_imr_interface (a_ip_mreq: POINTER): POINTER
 			-- IP address of interface
 		require
 			have_struct_pointer: a_ip_mreq /= default_pointer
 		external "C"
 		end
 
-	posix_set_ip_mreq_imr_multiaddr (a_ip_mreq: POINTER; imr_multiaddr: POINTER) is
+	posix_set_ip_mreq_imr_multiaddr (a_ip_mreq: POINTER; imr_multiaddr: POINTER)
 		require
 			have_struct_pointer: a_ip_mreq /= default_pointer
 		external "C"
 		end
 
-	posix_set_ip_mreq_imr_interface (a_ip_mreq: POINTER; imr_interface: POINTER) is
+	posix_set_ip_mreq_imr_interface (a_ip_mreq: POINTER; imr_interface: POINTER)
 		require
 			have_struct_pointer: a_ip_mreq /= default_pointer
 		external "C"

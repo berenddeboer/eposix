@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "ABSTRACT_SYSTEM implementation for Windows."
 	usage: "Just inherit from this class."
@@ -26,27 +26,27 @@ inherit
 
 feature -- Compile-time determined queries
 
-	max_argument_size: INTEGER is
+	max_argument_size: INTEGER
 			-- The length of arguments for the exec() function
 		do
 			Result := arg_max
 		end
 
-	max_open_files: INTEGER is
+	max_open_files: INTEGER
 			-- The maximum number of files that one process can have
 			-- open at one time.
 		do
 			Result := open_max
 		end
 
-	max_open_streams: INTEGER is
+	max_open_streams: INTEGER
 			-- The maximum number of streams that one process can have
 			-- open at one time.
 		do
 			Result := stream_max
 		end
 
-	max_time_zone_name: INTEGER is
+	max_time_zone_name: INTEGER
 			-- The maximum number of bytes in a timezone name.
 		do
 			Result := tzname_max
@@ -55,7 +55,7 @@ feature -- Compile-time determined queries
 
 feature -- uname queries
 
-	system_name: STRING is
+	system_name: STRING
 			-- Name of the implementation of the operating system.
 		once
 			if posix_osversioninfoa_dwplatformid (version_info.ptr) = VER_PLATFORM_WIN32_NT then
@@ -65,7 +65,7 @@ feature -- uname queries
 			end
 		end
 
-	node_name: STRING is
+	node_name: STRING
 			-- Name of this node on the network.
 		local
 			computer_name: STDC_ENV_VAR
@@ -75,7 +75,7 @@ feature -- uname queries
 			Result := computer_name.value
 		end
 
-	release: STRING is
+	release: STRING
 			-- Current release level of this implementation.
 		once
 			Result :=
@@ -86,14 +86,14 @@ feature -- uname queries
 				posix_osversioninfoa_dwbuildnumber (version_info.ptr).out
 		end
 
-	version: STRING is
+	version: STRING
 			-- Current version level of this release.
 		once
 			Result :=
 				sh.pointer_to_string (posix_osversioninfoa_szcsdversion (version_info.ptr))
 		end
 
-	machine: STRING is
+	machine: STRING
 			-- Name of the hardware type the system is running on.
 		once
 			-- cygwin can do it, see how.
@@ -103,7 +103,7 @@ feature -- uname queries
 
 feature {NONE}
 
-	version_info: STDC_BUFFER is
+	version_info: STDC_BUFFER
 		once
 			create Result.allocate (posix_osversioninfoa_size)
 			posix_set_osversioninfoa_dwosversioninfosize (Result.ptr, posix_osversioninfoa_size)

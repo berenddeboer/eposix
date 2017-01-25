@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "IMAP4rev1 client."
 
@@ -40,7 +40,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_host: STRING) is
+	make (a_host: STRING)
 			-- Initialize client and try to open connection to imap server.
 			-- Check `is_open' if could connect to server.
 			-- If not, `a_host' might not be resolvable.
@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 			use_plain: not is_secure_connection
 		end
 
-	make_with_port (a_host: STRING; a_port: INTEGER; a_secure: BOOLEAN) is
+	make_with_port (a_host: STRING; a_port: INTEGER; a_secure: BOOLEAN)
 			-- Initialize client and try to open connection to imap
 			-- server at `a_host'.
 			-- If `a_port' is zero, use the default port for an insecure
@@ -75,7 +75,7 @@ feature {NONE} -- Initialization
 			secure: a_secure = is_secure_connection
 		end
 
-	make_secure (a_host: STRING) is
+	make_secure (a_host: STRING)
 			-- Initialize client and try to open connection to imap server.
 			-- Check `is_open' if could connect to server.
 			-- If not, `a_host' might not be resolvable.
@@ -88,7 +88,7 @@ feature {NONE} -- Initialization
 			use_ssl: is_secure_connection
 		end
 
-	make_ssl (a_host: STRING) is
+	make_ssl (a_host: STRING)
 		obsolete "2004-03-13: use make_secure instead"
 		do
 			make_secure (a_host)
@@ -97,7 +97,7 @@ feature {NONE} -- Initialization
 
 feature -- Open/close
 
-	open is
+	open
 			-- Open connection to an imap server. On success `is_open' is
 			-- True. If there is a failure, check `error_message' for any
 			-- human readable error message.
@@ -111,7 +111,7 @@ feature -- Open/close
 			end
 		end
 
-	close is
+	close
 			-- Close connection to imap server.
 		require
 			open: is_open
@@ -127,7 +127,7 @@ feature -- Open/close
 
 feature {NONE} -- Open
 
-	open_ssl is
+	open_ssl
 			-- Open SSL3 connection to an imap server.
 		require
 			closed: not is_open
@@ -153,7 +153,7 @@ feature {NONE} -- Open
 			end
 		end
 
-	open_tcp is
+	open_tcp
 			-- Open plain tcp connection to an imap server.
 		require
 			closed: not is_open
@@ -213,7 +213,7 @@ feature -- Access
 
 feature -- Status
 
-	is_open: BOOLEAN is
+	is_open: BOOLEAN
 			-- Is client connected to IMAP server?
 		do
 			Result :=
@@ -233,7 +233,7 @@ feature -- Status
 
 feature -- Not-authenticated state commands
 
-	login (a_user_name, a_password: STRING) is
+	login (a_user_name, a_password: STRING)
 			-- Login to the IMAP server using `a_user_name' and
 			-- `a_password'. If login successful, then `state' will be
 			-- set to `Authenticated_state'. If login was unsuccessful,
@@ -255,7 +255,7 @@ feature -- Not-authenticated state commands
 			authenticated: response.is_ok implies state.is_authenticated
 		end
 
-	noop is
+	noop
 			-- Since any command can return a status update as untagged
 			-- data, the NOOP command can be used as a periodic poll for
 			-- new messages or message status updates during a period of
@@ -274,7 +274,7 @@ feature -- Not-authenticated state commands
 
 feature -- Authenticated state commands
 
-	create_mailbox (a_mailbox_name: STRING) is
+	create_mailbox (a_mailbox_name: STRING)
 			-- The CREATE command creates a mailbox with the given name.
 			-- An OK response is returned only if a new mailbox with that
 			-- name has been created.  It is an error to attempt to
@@ -290,7 +290,7 @@ feature -- Authenticated state commands
 			send_command
 		end
 
-	delete_mailbox (a_mailbox_name: STRING) is
+	delete_mailbox (a_mailbox_name: STRING)
 			-- The DELETE command permanently removes the mailbox with
 			-- the given name.
 		require
@@ -303,7 +303,7 @@ feature -- Authenticated state commands
 			send_command
 		end
 
-	examine (a_mailbox_name: STRING) is
+	examine (a_mailbox_name: STRING)
 			-- The EXAMINE command is identical to SELECT and returns the
 			-- same output; however, the selected mailbox is identified
 			-- as read-only. No changes to the permanent state of the
@@ -330,7 +330,7 @@ feature -- Authenticated state commands
 			state_changed: response.is_ok implies state.is_selected
 		end
 
-	get_delimiter is
+	get_delimiter
 			-- Make sure `response'.`delimiter' has the correct value.
 		require
 			allowed_state:
@@ -341,7 +341,7 @@ feature -- Authenticated state commands
 			send_command
 		end
 
-	list_all is
+	list_all
 			-- `list_all' returns the complete set of all names available
 			-- to the client.
 		require
@@ -353,7 +353,7 @@ feature -- Authenticated state commands
 			send_command
 		end
 
-	list_subscribed is
+	list_subscribed
 			-- `list_subscribed' returns the complete set of names that
 			-- the user has declared as being "active" or "subscribed".
 		require
@@ -365,7 +365,7 @@ feature -- Authenticated state commands
 			send_command
 		end
 
-	select_mailbox (a_mailbox_name: STRING) is
+	select_mailbox (a_mailbox_name: STRING)
 			-- The SELECT command selects a mailbox so that messages in
 			-- the mailbox can be accessed.
 			-- If `response'.`is_ok' then `response'.`current_mailbox'
@@ -395,7 +395,7 @@ feature -- Authenticated state commands
 
 feature -- Selected state commands
 
-	check_mailbox is
+	check_mailbox
 			-- The CHECK command requests a checkpoint of the currently
 			-- selected mailbox. A checkpoint refers to any
 			-- implementation-dependent housekeeping associated with the
@@ -415,7 +415,7 @@ feature -- Selected state commands
 			send_command
 		end
 
-	close_mailbox is
+	close_mailbox
 			-- This command permanently removes from the currently
 			-- selected mailbox all messages that have the \Deleted flag
 			-- set, and returns to authenticated state from selected
@@ -431,7 +431,7 @@ feature -- Selected state commands
 			authenticated: state.is_authenticated
 		end
 
-	copy_message (sequence_number: INTEGER; to_mailbox_name: STRING) is
+	copy_message (sequence_number: INTEGER; to_mailbox_name: STRING)
 			-- Copy message with sequence_number `sequence_number' to the
 			-- mailbox `to_mailbox_name'.
 		require
@@ -443,7 +443,7 @@ feature -- Selected state commands
 			send_command
 		end
 
-	delete_message (sequence_number: INTEGER) is
+	delete_message (sequence_number: INTEGER)
 			-- Delete message with sequence_number `sequence_number' from
 			-- the current mailbox.
 		require
@@ -454,7 +454,7 @@ feature -- Selected state commands
 			send_command
 		end
 
-	expunge is
+	expunge
 			-- The EXPUNGE command permanently removes all messages that
 			-- have the \Deleted flag set from the currently selected
 			-- mailbox.
@@ -465,7 +465,7 @@ feature -- Selected state commands
 			send_command
 		end
 
-	fetch (a_set: STRING; a_format: STRING) is
+	fetch (a_set: STRING; a_format: STRING)
 			-- Fetch messages described by `a_set' in format described by
 			-- `a_format'. Data is stored into a new
 			-- `response'.`current_message' object.
@@ -484,7 +484,7 @@ feature -- Selected state commands
 			have_current_message: response.current_message /= Void
 		end
 
-	fetch_body (sequence_number: INTEGER) is
+	fetch_body (sequence_number: INTEGER)
 			-- Fetch message body, return raw RFC822 body in
 			-- `last_body'.
 		require
@@ -498,7 +498,7 @@ feature -- Selected state commands
 			have_current_message: response.current_message /= Void
 		end
 
-	fetch_header (sequence_number: INTEGER) is
+	fetch_header (sequence_number: INTEGER)
 			-- Fetch just the message header (no flags for example),
 			-- return raw RFC822 header in
 			-- `response'.`current_message'.`header'.
@@ -513,7 +513,7 @@ feature -- Selected state commands
 			have_current_message: response.current_message /= Void
 		end
 
-	fetch_header_and_flags (sequence_number: INTEGER) is
+	fetch_header_and_flags (sequence_number: INTEGER)
 			-- Fetch the message header and flags.
 			-- Raw RFC822 header is in
 			-- `response'.`current_message'.`header'; flags are in
@@ -529,7 +529,7 @@ feature -- Selected state commands
 			have_current_message: response.current_message /= Void
 		end
 
-	fetch_message (sequence_number: INTEGER) is
+	fetch_message (sequence_number: INTEGER)
 			-- Fetch message, return raw RFC822 message in `response'.`message'.
 		require
 			mailbox_selected: state.is_selected
@@ -542,7 +542,7 @@ feature -- Selected state commands
 			have_current_message: response.current_message /= Void
 		end
 
-	fetch_size (sequence_number: INTEGER) is
+	fetch_size (sequence_number: INTEGER)
 			-- Fetch message, return raw RFC822 size in `response'.`message_size'.
 		require
 			mailbox_selected: state.is_selected
@@ -555,7 +555,7 @@ feature -- Selected state commands
 			have_current_message: response.current_message /= Void
 		end
 
-	logout is
+	logout
 			-- Inform the server that the client is done with the
 			-- connection.
 		require
@@ -570,7 +570,7 @@ feature -- Selected state commands
 			logged_out: state.is_logged_out
 		end
 
-	mark_unseen (sequence_number: INTEGER) is
+	mark_unseen (sequence_number: INTEGER)
 			-- Remove the \Seen flag from the given message.
 			-- It does not update `current_message'.`flags' as it runs
 			-- silently.
@@ -588,7 +588,7 @@ feature -- Selected state commands
 
 feature -- Selected state queries
 
-	is_valid_sequence_number (a_number: INTEGER): BOOLEAN is
+	is_valid_sequence_number (a_number: INTEGER): BOOLEAN
 			-- Is `a_number' a valid sequence number for `current_mailbox'?
 		require
 			mailbox_selected: state.is_selected
@@ -598,7 +598,7 @@ feature -- Selected state queries
 				a_number <= response.current_mailbox.count
 		end
 
-	is_valid_mailbox_name (a_name: STRING): BOOLEAN is
+	is_valid_mailbox_name (a_name: STRING): BOOLEAN
 			-- Is `a_mailbox_name' a valid mailbox name?
 			-- It should not be empty, and it should not have the double
 			-- quote character in its name.
@@ -620,7 +620,7 @@ feature {NONE} -- Command construction and sending
 			-- Used to build an unique tag.
 			-- Incremented by `generate_new_tag'.
 
-	construct_command (a_command: STRING; a_arguments: ARRAY [STRING]; astring: BOOLEAN) is
+	construct_command (a_command: STRING; a_arguments: ARRAY [STRING]; astring: BOOLEAN)
 			-- Build a command-line for the IMAP command `a_command'
 			-- using arguments in `a_arguments'. If `astring' than the
 			-- arguments are enclosed within quotes.
@@ -664,7 +664,7 @@ feature {NONE} -- Command construction and sending
 				command.item (command.count - 1) = '%R'
 		end
 
-	generate_new_tag is
+	generate_new_tag
 			-- Create a new unique tag in `tag'.
 		do
 			if tag = Void then
@@ -680,7 +680,7 @@ feature {NONE} -- Command construction and sending
 			command_number_incremented: command_number = old command_number + 1
 		end
 
-	send_command is
+	send_command
 			-- Send command in `command' and parse response.
 		require
 			open: is_open
@@ -719,7 +719,7 @@ feature {NONE} -- Implementation
 	socket: EPX_TEXT_IO_STREAM
 			-- Connection to IMAP server
 
-	quoted (s: STRING): STRING is
+	quoted (s: STRING): STRING
 			-- Return `s' surrounded by double quotes.
 		do
 			if s = Void then

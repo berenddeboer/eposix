@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Lexical analyzer input file buffers for ABSTRACT_FILE_DESCRIPTOR."
 
@@ -32,7 +32,7 @@ create
 
 feature -- Access
 
-	name: STRING is
+	name: STRING
 			-- Name of buffer.
 		do
 			Result := file.name
@@ -47,7 +47,7 @@ feature -- Access
 
 feature -- Element change
 
-	fill is
+	fill
 			-- Fill buffer with characters from `fd'.
 			-- Do not lose unprocessed characters in buffer.
 			-- Resize buffer if necessary. Set `filled' to True if
@@ -93,7 +93,7 @@ feature -- Element change
 
 feature {NONE} -- Implementation
 
-	new_default_buffer (a_number_of_bytes: INTEGER): like content is
+	new_default_buffer (a_number_of_bytes: INTEGER): like content
 			-- Create a new buffer that is like `content'.
 		do
 			create Result.make (a_number_of_bytes)

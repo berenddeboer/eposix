@@ -6,9 +6,9 @@ create
 
 feature
 
-	hello: STRING is "Hello World.%N"
+	hello: STRING = "Hello World.%N"
 
-	make is
+	make
 		local
 			host: SUS_HOST
 			service: SUS_SERVICE

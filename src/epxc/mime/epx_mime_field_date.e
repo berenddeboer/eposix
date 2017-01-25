@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Field Date"
 
@@ -24,7 +24,7 @@ create
 
 feature -- Access
 
-	name: STRING is "Date"
+	name: STRING = "Date"
 
 
 end
