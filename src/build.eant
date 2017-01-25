@@ -7,8 +7,6 @@
 		library: "eposix library"
 		copyright: "Copyright (c) 2007-2008, Berend de Boer"
 		license: "MIT License (see LICENSE)"
-		date: "$Date: 2007/11/22 $"
-		revision: "$Revision: #1 $"
 	</description>
 
 	<inherit>
@@ -31,7 +29,6 @@
 		<geant target="install_papi"/>
 		<geant target="install_sapi"/>
 		<geant target="install_wapi"/>
-		<geant target="install_support"/>
 	</target>
 
 	<target name="clean">
@@ -204,13 +201,5 @@
 			<argument name="gepp_file" value="wapi_winsock2"/>
 		</geant>
 	</target>
-
-	<target name="install_support">
-		<geant target="ge2e">
-			<argument name="spec_dir" value="spec"/>
-			<argument name="gepp_dir" value="support"/>
-			<argument name="gepp_file" value="epx_pointer_helper"/>
-		</geant>
-  </target>
 
 </project>
