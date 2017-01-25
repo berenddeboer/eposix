@@ -1410,7 +1410,7 @@ feature {NONE} -- Reading MIME bodies
 	last_line: STRING
 			-- Last read line while reading multipart bodies
 
-	Max_rfc_2046_boundary_length: INTEGER is 70
+	Max_rfc_2046_boundary_length: INTEGER = 70
 			-- Max length of a boundary according to RFC 2046
 
 	new_part: EPX_MIME_PART
