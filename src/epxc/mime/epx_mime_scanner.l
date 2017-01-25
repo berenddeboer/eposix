@@ -1,5 +1,5 @@
 %{
-indexing
+note
 
 	description:
 		"Scanner for mime messages."
@@ -11,8 +11,6 @@ indexing
 		"1. B encoding not decoded."
 
 	author: "Berend de Boer"
-	date: "$Date: $"
-	revision: "$Revision: $"
 
 
 class
@@ -464,7 +462,7 @@ CTL   [\x00-\x1f\x7f]
 
 feature {NONE} -- Initialization
 
-	make is
+	make
 		do
 			precursor
 			create encoded_word_scanner.make
@@ -476,7 +474,7 @@ feature -- Last returned data
 
 feature -- Input
 
-	new_mime_request_buffer (a_stream: EPX_CHARACTER_INPUT_STREAM): EPX_MIME_BUFFER is
+	new_mime_request_buffer (a_stream: EPX_CHARACTER_INPUT_STREAM): EPX_MIME_BUFFER
 			-- New input buffer for `a_stream'.
 		require
 			stream_not_void: a_stream /= Void
@@ -490,12 +488,12 @@ feature -- Input
 
 feature -- Condition setting
 
-	expect_date is
+	expect_date
 		do
 			set_start_condition (DATE)
 		end
 
-	start_parameter is
+	start_parameter
 		do
 			to_condition := PARAMETER
 			set_start_condition (PARAMETER)
@@ -522,14 +520,14 @@ feature {NONE} -- State during parsing
 
 -- 	last_integer: INTEGER_REF
 
--- 	last_string: STRING is
+-- 	last_string: STRING
 -- 		do
 -- 			Result ?= last_value
 -- 		ensure
 -- 			last_string_returned: Result /= Void
 -- 		end
 
--- 	set_last_integer (value: INTEGER) is
+-- 	set_last_integer (value: INTEGER)
 -- 			-- Set `last_integer' and make sure `last_value' is this integer.
 -- 		do
 -- 			create last_integer
@@ -548,7 +546,7 @@ feature {NONE} -- State during parsing
 
 feature {NONE} -- Implementation
 
-	to_canonical_field_name (a_field_name: STRING): STRING is
+	to_canonical_field_name (a_field_name: STRING): STRING
 			-- Turn `a_field_name' into a canonical field name. A
 			-- canonical field name as the first character in uppercase
 			-- and every character after a '-' as well. All other

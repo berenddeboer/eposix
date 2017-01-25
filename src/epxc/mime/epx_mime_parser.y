@@ -1,5 +1,5 @@
 %{
-indexing
+note
 
 	description: "eposix's MIME parser."
 
@@ -17,8 +17,6 @@ indexing
 		"1. Dates with invalid time-zone get time-zone +0000."
 
 	author: "Berend de Boer"
-	date: "$Date: $"
-	revision: "$Revision: $"
 
 class
 
@@ -959,7 +957,7 @@ unstructured
 
 feature -- Initialization
 
-	make is
+	make
 		do
 			if last_line = Void then
 				make_scanner
@@ -974,7 +972,7 @@ feature -- Initialization
 			my_time.to_utc
 		end
 
-	make_from_file (a_file: STDC_TEXT_FILE) is
+	make_from_file (a_file: STDC_TEXT_FILE)
 			-- Like `make_from_stream', but turns off buffering in
 			-- `a_file'.
 		require
@@ -986,7 +984,7 @@ feature -- Initialization
 			make_from_stream (a_file)
 		end
 
-	make_from_stream (a_stream: EPX_CHARACTER_INPUT_STREAM) is
+	make_from_stream (a_stream: EPX_CHARACTER_INPUT_STREAM)
 			-- Initialize parser, and set the input buffer to `a_stream'.
 		require
 			stream_not_void: a_stream /= Void
@@ -996,7 +994,7 @@ feature -- Initialization
 			set_input_buffer (new_mime_request_buffer (a_stream))
 		end
 
-	make_from_string (s: STRING) is
+	make_from_string (s: STRING)
 			-- Initialize parser, and set the input buffer to `s'.
 		require
 			s_not_void: s /= Void
@@ -1005,7 +1003,7 @@ feature -- Initialization
 			set_input_buffer (new_string_buffer (s))
 		end
 
-	make_from_file_descriptor (a_fd: ABSTRACT_FILE_DESCRIPTOR) is
+	make_from_file_descriptor (a_fd: ABSTRACT_FILE_DESCRIPTOR)
 		obsolete "Use make_from_stream instead."
 		do
 			make_from_stream (a_fd)
@@ -1014,7 +1012,7 @@ feature -- Initialization
 
 feature -- Character reading
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- Has `read_character' hit the end-of-file character?
 		do
 			Result :=
@@ -1028,7 +1026,7 @@ feature {NONE} -- Scanning
 	regular_buffer: like input_buffer
 			-- Cache of `input_buffer', to be copied back on `wrap'.
 
-	wrap: BOOLEAN is
+	wrap: BOOLEAN
 			-- Check if we were parsing header, if so, resume with main
 			-- buffer.
 		do
@@ -1045,7 +1043,7 @@ feature {NONE} -- Scanning
 
 feature -- Parsing
 
-	reset_parsing_errors is
+	reset_parsing_errors
 			-- Reset count of parsing errors.
 		do
 			parsing_errors := 0
@@ -1054,7 +1052,7 @@ feature -- Parsing
 			no_parsing_errors: parsing_errors = 0
 		end
 
-	parse is
+	parse
 			-- Read input and build `part'.
 			-- Check `syntax_error' for parsing errors.
 		do
@@ -1064,7 +1062,7 @@ feature -- Parsing
 			inner_parse
 		end
 
-	parse_body is
+	parse_body
 			-- Parse MIME body.
 			-- Assume `input_buffer' points to body part.
 			-- If `a_content_length' positive, scans only as much body as
@@ -1186,7 +1184,7 @@ feature -- Parsing
 			end
 		end
 
-	parse_header is
+	parse_header
 			-- Read just the MIME header from the input and build a new
 			-- `part'.  Check `syntax_error' for parsing errors.
 		local
@@ -1202,7 +1200,7 @@ feature -- Parsing
 			do_parse
 		end
 
-	set_header (a_header: STRING) is
+	set_header (a_header: STRING)
 			-- Optional header that is parsed before the regular input
 			-- is parsed.
 		require
@@ -1221,7 +1219,7 @@ feature -- Parsing
 
 feature {NONE} -- Parse
 
-	inner_parse is
+	inner_parse
 			-- Read input and build `part'.
 			-- To be called from inside `parse_body'.
 		require
@@ -1237,7 +1235,7 @@ feature {NONE} -- Parse
 
 feature {NONE} -- Error reporting
 
-	report_error (a_message: STRING) is
+	report_error (a_message: STRING)
 			-- Dump error to stderr. Needs to be rewritten.
 		do
 			debug ("mime")
@@ -1268,7 +1266,7 @@ feature {NONE} -- Error reporting
 
 feature -- Access
 
-	read_first_body_part is
+	read_first_body_part
 			-- First part of the body, if any, if `parse_header' has been
 			-- used;
 			-- Even if only the header is parsed using `parse_header',
@@ -1328,7 +1326,7 @@ feature {NONE} -- Reading MIME bodies
 
 	boundary_with_trailer_read: BOOLEAN
 
-	determine_boundary_with_trailer_read is
+	determine_boundary_with_trailer_read
 			-- There was a boundary match, determine if two dashes follow
 			-- (last boundary) and set `boundary_with_trailer_read' in that case.
 		do
@@ -1340,7 +1338,7 @@ feature {NONE} -- Reading MIME bodies
 			end
 		end
 
-	forward_to_boundary is
+	forward_to_boundary
 			-- Move input cursor to line that contains `boundary'.
 			-- Assume we start reading at beginning of a line.
 		require
@@ -1386,7 +1384,7 @@ feature {NONE} -- Reading MIME bodies
 			forward_to_end_of_line
 		end
 
-	forward_to_end_of_line is
+	forward_to_end_of_line
 			-- Always move cursor to next line.
 		do
 			from
@@ -1400,7 +1398,7 @@ feature {NONE} -- Reading MIME bodies
 			cursor_at_new_line: end_of_input or else last_character = '%N'
 		end
 
-	is_text_body: BOOLEAN is
+	is_text_body: BOOLEAN
 			-- Does part.body contain text?
 		local
 			text_body: EPX_MIME_BODY_TEXT
@@ -1415,7 +1413,7 @@ feature {NONE} -- Reading MIME bodies
 	Max_rfc_2046_boundary_length: INTEGER is 70
 			-- Max length of a boundary according to RFC 2046
 
-	new_part: EPX_MIME_PART is
+	new_part: EPX_MIME_PART
 			-- A new MIME part
 		do
 			create Result.make_empty
@@ -1423,7 +1421,7 @@ feature {NONE} -- Reading MIME bodies
 			not_void: Result /= Void
 		end
 
-	read_singlepart_body (encoding: EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING) is
+	read_singlepart_body (encoding: EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING)
 			-- Read from input until end of file is reached or a line
 			-- contains `boundary'.
 		require
@@ -1445,7 +1443,7 @@ feature {NONE} -- Reading MIME bodies
 			end
 		end
 
-	read_singlepart_body_with_boundary is
+	read_singlepart_body_with_boundary
 			-- Start reading a single part. This routine has to do two
 			-- things right: it has to stop when a boundary has been
 			-- parsed, and the cr+lf before the boundary is not part of
@@ -1555,7 +1553,7 @@ feature {NONE} -- Reading MIME bodies
 	last_string: STRING
 			-- Set by `read_string'
 
-	read_cached_characters is
+	read_cached_characters
 			-- Copy any characters in the input buffer to `last_string'.
 			-- As this function is for performance reasons only, we no
 			-- longer track line numbers etc.
@@ -1592,7 +1590,7 @@ feature {NONE} -- Reading MIME bodies
 			last_string_not_void: last_string /= Void
 		end
 
-	read_string is
+	read_string
 			-- Optimized version of `read_character' which returns as many
 			-- characters as possible in `last_string'.
 		require
@@ -1613,7 +1611,7 @@ feature {NONE} -- Reading MIME bodies
 			at_least_one_character: end_of_input = last_string.is_empty
 		end
 
-	read_singlepart_body_without_boundary is
+	read_singlepart_body_without_boundary
 			-- Read `file' until `end_of_file'. Does handle any line length.
 		require
 			body_contains_text: is_text_body

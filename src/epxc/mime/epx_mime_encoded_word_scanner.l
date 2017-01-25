@@ -1,5 +1,5 @@
 %{
-indexing
+note
 
 	description:
 		"Scanner for RFC 2047 encoded-word."
@@ -11,8 +11,6 @@ indexing
 		"1. B encoding not decoded."
 
 	author: "Berend de Boer"
-	date: "$Date: $"
-	revision: "$Revision: $"
 
 
 class
@@ -130,7 +128,7 @@ feature -- RFC 2047 decoding
 	character_set: STRING
 			-- Character set read by `decode_word'.
 
-	decode_word (a_word: STRING): STRING is
+	decode_word (a_word: STRING): STRING
 			-- Decode `a_word' according to RFC 2047.
 			-- Returns `a_word' on error.
 		require
@@ -194,7 +192,7 @@ feature -- RFC 2047 decoding
 	encoding: STRING
 			-- Encoding read by `decode_word'.
 
-	is_encoded_word (a_word: STRING): BOOLEAN is
+	is_encoded_word (a_word: STRING): BOOLEAN
 			-- Does `a_word' start with the encoded word special characters?
 		require
 			a_word_not_void: a_word /= Void
