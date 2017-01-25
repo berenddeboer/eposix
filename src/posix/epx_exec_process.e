@@ -323,7 +323,7 @@ feature {NONE}
 			user: POSIX_USER
 			env: SUS_ENV_VAR
 		do
-			create argv.make (0, arguments.count+1)
+			create argv.make_filled ("", 0, arguments.count+1)
 			argv.put (program_name, 0)
 			from
 				i := arguments.lower
