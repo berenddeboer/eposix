@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers the Single Unix Spec sys/select.h header."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -14,7 +12,7 @@ class
 
 feature -- Select functions
 
-	posix_select (a_maxfdp1: INTEGER; a_readset, a_writeset, an_exceptset: POINTER; a_timeout: POINTER): INTEGER is
+	posix_select (a_maxfdp1: INTEGER; a_readset, a_writeset, an_exceptset: POINTER; a_timeout: POINTER): INTEGER
 			-- Wait for a number of descriptors to change status.
 			-- `a_maxfdp`' is the highest-numbered descriptor in any of
 			-- the three sets, plus 1.
@@ -38,7 +36,7 @@ feature -- Select functions
 
 feature -- File descriptor set functions
 
-	posix_fd_clr (a_fd: INTEGER; a_fdset: POINTER) is
+	posix_fd_clr (a_fd: INTEGER; a_fdset: POINTER)
 			-- Clears the bit for the file descriptor `a_fd' in the file
 			-- descriptor set `fdset'.
 		require
@@ -47,7 +45,7 @@ feature -- File descriptor set functions
 		external "C"
 		end
 
-	posix_fd_isset (a_fd: INTEGER; a_fdset: POINTER): BOOLEAN is
+	posix_fd_isset (a_fd: INTEGER; a_fdset: POINTER): BOOLEAN
 			-- Returns a non-zero value if the bit for the file
 			-- descriptor `a_fd' is set in the file descriptor set by
 			-- `a_fdset', and 0 otherwise.
@@ -57,7 +55,7 @@ feature -- File descriptor set functions
 		external "C"
 		end
 
-	posix_fd_set (a_fd: INTEGER; a_fdset: POINTER) is
+	posix_fd_set (a_fd: INTEGER; a_fdset: POINTER)
 			-- Sets the bit for the file descriptor `a_fd' in the file
 			-- descriptor set `a_fdset'.
 		require
@@ -66,7 +64,7 @@ feature -- File descriptor set functions
 		external "C"
 		end
 
-	posix_fd_zero (a_fdset: POINTER) is
+	posix_fd_zero (a_fdset: POINTER)
 			-- Initialize the file descriptor set `a_fdset' to have zero
 			-- bits for all file descriptors.
 		require
@@ -74,12 +72,12 @@ feature -- File descriptor set functions
 		external "C"
 		end
 
-	posix_fd_set_size: INTEGER is
+	posix_fd_set_size: INTEGER
 			-- Size of a fd_set struct.
 		external "C"
 		end
 
-	FD_SETSIZE: INTEGER is
+	FD_SETSIZE: INTEGER
 			-- Maximum number of file descriptors in an fd_set structure
 		external "C"
 		alias "const_fd_setsize"

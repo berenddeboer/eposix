@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Posix mmap.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature -- C binding
 
-	posix_mmap(addr: POINTER; len, prot, flags, fildes, off: INTEGER): POINTER is
+	posix_mmap(addr: POINTER; len, prot, flags, fildes, off: INTEGER): POINTER
 			-- Map a file descriptor into memory
 		require
 			valid_len: len > 0
@@ -26,7 +24,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_munmap(addr: POINTER; len: INTEGER): INTEGER is
+	posix_munmap(addr: POINTER; len: INTEGER): INTEGER
 			-- Unmap previously mapped addresses
 #ifdef ISE
 		external "C blocking"
@@ -38,7 +36,7 @@ feature -- C binding
 
 feature {NONE} -- shared memory
 
-	posix_shm_open (a_name: POINTER; oflag, mode: INTEGER): INTEGER is
+	posix_shm_open (a_name: POINTER; oflag, mode: INTEGER): INTEGER
 			-- Open a Shared Memory Object
 		require
 			valid_name: a_name /= default_pointer
@@ -49,7 +47,7 @@ feature {NONE} -- shared memory
 #endif
 		end
 
-	posix_shm_unlink (a_name: POINTER): INTEGER is
+	posix_shm_unlink (a_name: POINTER): INTEGER
 			-- Remove a shared memory object
 		require
 			valid_name: a_name /= default_pointer
@@ -63,7 +61,7 @@ feature {NONE} -- shared memory
 
 feature -- private constants
 
-	MAP_FAILED: POINTER is
+	MAP_FAILED: POINTER
 			-- symbol MAP_FAILED
 		external "C"
 		alias "const_map_failed"
@@ -72,22 +70,22 @@ feature -- private constants
 
 feature -- protection constants
 
-	PROT_READ: INTEGER is
+	PROT_READ: INTEGER
 		external "C"
 		alias "const_prot_read"
 		end
 
-	PROT_WRITE: INTEGER is
+	PROT_WRITE: INTEGER
 		external "C"
 		alias "const_prot_write"
 		end
 
-	PROT_EXEC: INTEGER is
+	PROT_EXEC: INTEGER
 		external "C"
 		alias "const_prot_exec"
 		end
 
-	PROT_NONE: INTEGER is
+	PROT_NONE: INTEGER
 		external "C"
 		alias "const_prot_none"
 		end
@@ -95,23 +93,23 @@ feature -- protection constants
 
 feature -- Sharing types
 
-	MAP_SHARED: INTEGER is
+	MAP_SHARED: INTEGER
 			-- Changes are shared
 		external "C"
 		alias "const_map_shared"
 		end
 
-	MAP_PRIVATE: INTEGER is
+	MAP_PRIVATE: INTEGER
 			-- Changes are private
 		external "C"
 		alias "const_map_private"
 		end
 
-	MAP_FIXED: INTEGER is
+	MAP_FIXED: INTEGER
 		-- Interpret `addr' exactly
 		external "C"
 		alias "const_map_fixed"
 		end
 
 
-end -- class PAPI_MMAN
+end

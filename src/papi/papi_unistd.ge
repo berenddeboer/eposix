@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Posix unistd.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature -- C binding miscellaneous
 
-	posix_alarm (a_seconds: INTEGER): INTEGER is
+	posix_alarm (a_seconds: INTEGER): INTEGER
 			-- Schedules an alarm.
 #ifdef ISE
 		external "C blocking"
@@ -22,12 +20,12 @@ feature -- C binding miscellaneous
 #endif
 		end
 
-	posix_environ: POINTER is
+	posix_environ: POINTER
 			-- The list of environment variables passed to this program
 		external "C"
 		end
 
-	posix_execvp (file: POINTER; argv: POINTER): INTEGER is
+	posix_execvp (file: POINTER; argv: POINTER): INTEGER
 			-- Executes a program.
 #ifdef ISE
 		external "C blocking"
@@ -38,14 +36,14 @@ feature -- C binding miscellaneous
 			-- only_return_on_error: Result = -1
 		end
 
-	posix__exit (a_status: INTEGER) is
+	posix__exit (a_status: INTEGER)
 			-- Cause program termination without calling exit handlers
 			-- defined with `atexit'.
 			-- `a_status' is returned to its parent.
 		external "C"
 		end
 
-	posix_fork: INTEGER is
+	posix_fork: INTEGER
 			-- Create a process. Returns the pid in the parent and 0 if
 			-- the child.
 #ifdef ISE
@@ -55,12 +53,12 @@ feature -- C binding miscellaneous
 #endif
 		end
 
-	posix_getlogin: POINTER is
+	posix_getlogin: POINTER
 			-- User name
 		external "C"
 		end
 
-	posix_pause: INTEGER is
+	posix_pause: INTEGER
 			-- Wait for signal.
 #ifdef ISE
 		external "C blocking"
@@ -69,7 +67,7 @@ feature -- C binding miscellaneous
 #endif
 		end
 
-	posix_sleep (seconds: INTEGER): INTEGER is
+	posix_sleep (seconds: INTEGER): INTEGER
 			-- Delay process execution.
 #ifdef ISE
 		external "C blocking"
@@ -81,7 +79,7 @@ feature -- C binding miscellaneous
 
 feature -- functions with path as argument
 
-	posix_access (a_path: POINTER; amode: INTEGER): INTEGER is
+	posix_access (a_path: POINTER; amode: INTEGER): INTEGER
 			-- Tests for file accessibility
 		require
 			valid_path: a_path /= default_pointer
@@ -92,7 +90,7 @@ feature -- functions with path as argument
 #endif
 		end
 
-	posix_chdir (a_path: POINTER): INTEGER is
+	posix_chdir (a_path: POINTER): INTEGER
 			-- Changes the current working directory
 		require
 			valid_path: a_path /= default_pointer
@@ -103,7 +101,7 @@ feature -- functions with path as argument
 #endif
 		end
 
-	posix_chown (a_path: POINTER; a_owner, a_group: INTEGER): INTEGER is
+	posix_chown (a_path: POINTER; a_owner, a_group: INTEGER): INTEGER
 			-- Changes the owner and/or group of a file
 		require
 			valid_path: a_path /= default_pointer
@@ -114,7 +112,7 @@ feature -- functions with path as argument
 #endif
 		end
 
-	posix_getcwd (a_buf: POINTER; a_size: INTEGER): POINTER is
+	posix_getcwd (a_buf: POINTER; a_size: INTEGER): POINTER
 			-- Gets current working directory
 		require
 			valid_buf: a_buf /= default_pointer
@@ -122,7 +120,7 @@ feature -- functions with path as argument
 		external "C"
 		end
 
-	posix_link (existing, new: POINTER): INTEGER is
+	posix_link (existing, new: POINTER): INTEGER
 			-- Creates a link to a file
 #ifdef ISE
 		external "C blocking"
@@ -131,7 +129,7 @@ feature -- functions with path as argument
 #endif
 		end
 
-	posix_rmdir (a_path: POINTER): INTEGER is
+	posix_rmdir (a_path: POINTER): INTEGER
 			-- Removes a directory
 		require
 			valid_path: a_path /= default_pointer
@@ -142,7 +140,7 @@ feature -- functions with path as argument
 #endif
 		end
 
-	posix_unlink (a_path: POINTER): INTEGER is
+	posix_unlink (a_path: POINTER): INTEGER
 			-- Removes a directory entry
 		require
 			valid_path: a_path /= default_pointer
@@ -156,7 +154,7 @@ feature -- functions with path as argument
 
 feature -- C binding file descriptor routines
 
-	posix_close (fildes: INTEGER): INTEGER is
+	posix_close (fildes: INTEGER): INTEGER
 			-- Closes a a file
 #ifdef ISE
 		external "C blocking"
@@ -167,21 +165,21 @@ feature -- C binding file descriptor routines
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_dup (fildes: INTEGER): INTEGER is
+	posix_dup (fildes: INTEGER): INTEGER
 			-- Duplicates an open file descriptor
 		external "C"
 		ensure
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_dup2 (fildes, fildes2: INTEGER): INTEGER is
+	posix_dup2 (fildes, fildes2: INTEGER): INTEGER
 			-- Duplicates an open file descriptor
 		external "C"
 		ensure
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_fdatasync (fildes: INTEGER): INTEGER is
+	posix_fdatasync (fildes: INTEGER): INTEGER
 			-- Synchronize the data of a file
 #ifdef ISE
 		external "C blocking"
@@ -192,7 +190,7 @@ feature -- C binding file descriptor routines
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_fsync (fildes: INTEGER): INTEGER is
+	posix_fsync (fildes: INTEGER): INTEGER
 			-- Synchronize the state of a file
 #ifdef ISE
 		external "C blocking"
@@ -203,28 +201,28 @@ feature -- C binding file descriptor routines
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_fpathconf (fildes: INTEGER; name: INTEGER): INTEGER is
+	posix_fpathconf (fildes: INTEGER; name: INTEGER): INTEGER
 			-- Gets configuration variable for an open file
 		external "C"
 		ensure
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_isatty (fildes: INTEGER): BOOLEAN is
+	posix_isatty (fildes: INTEGER): BOOLEAN
 			-- Determines if a file descriptor is associated with a terminal
 		external "C"
 		ensure
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_lseek (fildes: INTEGER; offset, whence: INTEGER): INTEGER is
+	posix_lseek (fildes: INTEGER; offset, whence: INTEGER): INTEGER
 			-- Repositions read/write file offset
 		external "C"
 		ensure
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_pipe(fildes: POINTER): INTEGER is
+	posix_pipe(fildes: POINTER): INTEGER
 			-- Creates an interprocess channel
 #ifdef ISE
 		external "C blocking"
@@ -233,7 +231,7 @@ feature -- C binding file descriptor routines
 #endif
 		end
 
-	posix_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	posix_read (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Reads from a file
 		require
 			valid_fd: fildes >= 0
@@ -246,12 +244,12 @@ feature -- C binding file descriptor routines
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_ttyname (fildes: INTEGER): POINTER is
+	posix_ttyname (fildes: INTEGER): POINTER
 			-- Determines a terminal pathname
 		external "C"
 		end
 
-	posix_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER is
+	posix_write (fildes: INTEGER; buf: POINTER; nbyte: INTEGER): INTEGER
 			-- Reads from a file
 		require
 			valid_fd: fildes >= 0
@@ -267,22 +265,22 @@ feature -- C binding file descriptor routines
 
 feature -- user and group id's
 
-	posix_getegid: INTEGER is
+	posix_getegid: INTEGER
 			-- Gets effective group ID
 		external "C"
 		end
 
-	posix_geteuid: INTEGER is
+	posix_geteuid: INTEGER
 			-- Gets effective user ID
 		external "C"
 		end
 
-	posix_getgid: INTEGER is
+	posix_getgid: INTEGER
 			-- Gets real group ID
 		external "C"
 		end
 
-	posix_getgroups (gidsetsize: INTEGER; grouplist: POINTER): INTEGER is
+	posix_getgroups (gidsetsize: INTEGER; grouplist: POINTER): INTEGER
 			-- Gets supplementary group IDs
 		require
 			valid_size: gidsetsize >= 0
@@ -290,27 +288,27 @@ feature -- user and group id's
 		external "C"
 		end
 
-	posix_getpgrp: INTEGER is
+	posix_getpgrp: INTEGER
 			-- Gets process group ID
 		external "C"
 		end
 
-	posix_getpid: INTEGER is
+	posix_getpid: INTEGER
 			-- Gets process ID
 		external "C"
 		end
 
-	posix_getppid: INTEGER is
+	posix_getppid: INTEGER
 			-- Gets parent process ID
 		external "C"
 		end
 
-	posix_getuid: INTEGER is
+	posix_getuid: INTEGER
 			-- Gets real user ID
 		external "C"
 		end
 
-	posix_group_item (a_grouplist: POINTER; a_item: INTEGER): INTEGER is
+	posix_group_item (a_grouplist: POINTER; a_item: INTEGER): INTEGER
 			-- Gets a gid from a list returned by `getgroups'
 		require
 			valid_list: a_grouplist /= default_pointer
@@ -318,22 +316,22 @@ feature -- user and group id's
 		external "C"
 		end
 
-	posix_setgid(gid: INTEGER): INTEGER is
+	posix_setgid(gid: INTEGER): INTEGER
 			-- Sets group ID
 		external "C"
 		end
 
-	posix_setpgid(pid, pgid: INTEGER): INTEGER is
+	posix_setpgid(pid, pgid: INTEGER): INTEGER
 			-- Sets process group ID for job control
 		external "C"
 		end
 
-	posix_setsid: INTEGER is
+	posix_setsid: INTEGER
 			-- Creates a session and sets the process group ID
 		external "C"
 		end
 
-	posix_setuid(uid: INTEGER): INTEGER is
+	posix_setuid(uid: INTEGER): INTEGER
 			-- Sets user ID
 		external "C"
 		end
@@ -341,59 +339,59 @@ feature -- user and group id's
 
 feature -- sysconf, note that -1 will be returned in case functionality is not supported
 
-	posix_sc_arg_max: INTEGER is
+	posix_sc_arg_max: INTEGER
 			-- The length of the arguments for the exec() function
 		external "C"
 		end
 
-	posix_sc_child_max: INTEGER is
+	posix_sc_child_max: INTEGER
 			-- The number of simultaneous processes per real user ID
 		external "C"
 		end
 
-	posix_sc_clk_tck: INTEGER is
+	posix_sc_clk_tck: INTEGER
 			-- The number of clock ticks per second
 		external "C"
 		end
 
-	posix_sc_ngroups_max: INTEGER is
+	posix_sc_ngroups_max: INTEGER
 			-- The number of simultaneous supplementary group IDs
 		external "C"
 		end
 
-	posix_sc_stream_max: INTEGER is
+	posix_sc_stream_max: INTEGER
 			-- The maximum number of streams that one process can have
 			-- open at one time.
 		external "C"
 		end
 
-	posix_sc_tzname_max: INTEGER is
+	posix_sc_tzname_max: INTEGER
 			-- The maximum number of bytes in a timezone name.
 		external "C"
 		end
 
-	posix_sc_open_max: INTEGER is
+	posix_sc_open_max: INTEGER
 			-- The maximum number of files that one process can have
 			-- open at one time.
 		external "C"
 		end
 
-	posix_sc_pagesize: INTEGER is
+	posix_sc_pagesize: INTEGER
 			-- granularity in bytes of memory mapping and process memory locking
 		external "C"
 		end
 
-	posix_sc_job_control: INTEGER is
+	posix_sc_job_control: INTEGER
 			-- Job control functions are supported.
 		external "C"
 		end
 
-	posix_sc_saved_ids: INTEGER is
+	posix_sc_saved_ids: INTEGER
 			-- Each process has a saved set-user-ID and a saved set-group-ID
 		external "C"
 		end
 
-	posix_sc_version: INTEGER is
+	posix_sc_version: INTEGER
 			-- Indicates the 4-digit year and 2-digit month that the
 			-- standard was approved.
 		external "C"
@@ -402,70 +400,70 @@ feature -- sysconf, note that -1 will be returned in case functionality is not s
 
 feature -- capability constants
 
-	posix_asynchronous_io: BOOLEAN is
+	posix_asynchronous_io: BOOLEAN
 			-- True if _POSIX_ASYNCHRONOUS_IO is defined
 		external "C"
 		end
 
-	def_fsync: BOOLEAN is
+	def_fsync: BOOLEAN
 			-- True if _POSIX_FSYNC is defined
 		external "C"
 		end
 
-	posix_mapped_files: BOOLEAN is
+	posix_mapped_files: BOOLEAN
 			-- True if _POSIX_MAPPED_FILES is defined
 		external "C"
 		end
 
-	posix_memlock: BOOLEAN is
+	posix_memlock: BOOLEAN
 			-- True if _POSIX_MEMLOCK is defined
 		external "C"
 		end
 
-	posix_memlock_range: BOOLEAN is
+	posix_memlock_range: BOOLEAN
 			-- True if _POSIX_MEMLOCK_RANGE is defined
 		external "C"
 		end
 
-	posix_memory_protection: BOOLEAN is
+	posix_memory_protection: BOOLEAN
 			-- True if _POSIX_MEMORY_PROTECTION is defined
 		external "C"
 		end
 
-	posix_message_passing: BOOLEAN is
+	posix_message_passing: BOOLEAN
 			-- True if _POSIX_MESSAGE_PASSING is defined
 		external "C"
 		end
 
-	posix_priority_scheduling: BOOLEAN is
+	posix_priority_scheduling: BOOLEAN
 			-- True if _POSIX_PRIORITY_SCHEDULING is defined
 		external "C"
 		end
 
-	posix_semaphores: BOOLEAN is
+	posix_semaphores: BOOLEAN
 			-- True if _POSIX_SEMAPHORES is defined
 		external "C"
 		end
 
-	posix_shared_memory_objects: BOOLEAN is
+	posix_shared_memory_objects: BOOLEAN
 			-- True if _POSIX_SHARED_MEMORY_OBJECTS is defined
 		external "C"
 		end
 
-	def_synchronized_io: BOOLEAN is
+	def_synchronized_io: BOOLEAN
 			-- True if _POSIX_SYNCHRONIZED_IO is defined
 		external "C"
 		end
 
-	posix_timers: BOOLEAN is
+	posix_timers: BOOLEAN
 			-- True if _POSIX_TIMERS is defined
 		external "C"
 		end
 
-	posix_threads: BOOLEAN is
+	posix_threads: BOOLEAN
 			-- True if _POSIX_THREADS is defined
 		external "C"
 		end
 
 
-end -- class PAPI_UNISTD
+end

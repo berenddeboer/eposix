@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Posix sys/stat.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature -- functions
 
-	posix_chmod (a_path: POINTER; a_mode: INTEGER): INTEGER is
+	posix_chmod (a_path: POINTER; a_mode: INTEGER): INTEGER
 			-- Changes file mode
 #ifdef ISE
 		external "C blocking"
@@ -22,7 +20,7 @@ feature -- functions
 #endif
 		end
 
-	posix_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER is
+	posix_fstat (fildes: INTEGER; a_stat: POINTER): INTEGER
 			-- Gets file status
 		require
 			valid_stat_buffer: a_stat /= default_pointer
@@ -35,7 +33,7 @@ feature -- functions
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_mkdir (path: POINTER; mode: INTEGER): INTEGER is
+	posix_mkdir (path: POINTER; mode: INTEGER): INTEGER
 			-- Makes a directory
 #ifdef ISE
 		external "C blocking"
@@ -44,7 +42,7 @@ feature -- functions
 #endif
 		end
 
-	posix_mkfifo (a_path: POINTER; a_mode: INTEGER): INTEGER is
+	posix_mkfifo (a_path: POINTER; a_mode: INTEGER): INTEGER
 			-- Makes a FIFO special file
 #ifdef ISE
 		external "C blocking"
@@ -53,7 +51,7 @@ feature -- functions
 #endif
 		end
 
-	posix_stat (a_path: POINTER; a_stat: POINTER): INTEGER is
+	posix_stat (a_path: POINTER; a_stat: POINTER): INTEGER
 			-- Gets information about a file
 		require
 			valid_stat_buffer: a_stat /= default_pointer
@@ -66,7 +64,7 @@ feature -- functions
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_umask (a_mask: INTEGER): INTEGER is
+	posix_umask (a_mask: INTEGER): INTEGER
 			-- Turn off permission bits specified in `a_mask'
 		external "C"
 		ensure
@@ -76,7 +74,7 @@ feature -- functions
 
 feature -- POSIX C interface
 
-	posix_stat_size: INTEGER is
+	posix_stat_size: INTEGER
 			-- return size of struct stat
 		external "C"
 		end
@@ -84,72 +82,72 @@ feature -- POSIX C interface
 
 feature -- POSIX C stat member interface
 
-	posix_st_atime (a_stat: POINTER): INTEGER is
+	posix_st_atime (a_stat: POINTER): INTEGER
 			-- time of last access
 		external "C"
 		end
 
-	posix_st_ctime (a_stat: POINTER): INTEGER is
+	posix_st_ctime (a_stat: POINTER): INTEGER
 			-- time of last status change
 		external "C"
 		end
 
-	posix_st_dev (a_stat: POINTER): INTEGER is
+	posix_st_dev (a_stat: POINTER): INTEGER
 			-- device number
 		external "C"
 		end
 
-	posix_st_gid (a_stat: POINTER): INTEGER is
+	posix_st_gid (a_stat: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_st_ino (a_stat: POINTER): INTEGER is
+	posix_st_ino (a_stat: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_st_mode (a_stat: POINTER): INTEGER is
+	posix_st_mode (a_stat: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_st_mtime (a_stat: POINTER): INTEGER is
+	posix_st_mtime (a_stat: POINTER): INTEGER
 			-- time of last data modification
 		external "C"
 		end
 
-	posix_st_nlink (a_stat: POINTER): INTEGER is
+	posix_st_nlink (a_stat: POINTER): INTEGER
 			-- number of hard links
 		external "C"
 		end
 
-	posix_st_size (a_stat: POINTER): INTEGER is
+	posix_st_size (a_stat: POINTER): INTEGER
 			-- total size, in bytes
 		external "C"
 		end
 
-	posix_st_uid (a_stat: POINTER): INTEGER is
+	posix_st_uid (a_stat: POINTER): INTEGER
 		external "C"
 		end
 
 
 feature -- test file type bits
 
-	posix_s_isblk (m: INTEGER): BOOLEAN is
+	posix_s_isblk (m: INTEGER): BOOLEAN
 		external "C"
 		end
 
-	posix_s_ischr (m: INTEGER): BOOLEAN is
+	posix_s_ischr (m: INTEGER): BOOLEAN
 		external "C"
 		end
 
-	posix_s_isdir (m: INTEGER): BOOLEAN is
+	posix_s_isdir (m: INTEGER): BOOLEAN
 		external "C"
 		end
 
-	posix_s_isfifo (m: INTEGER): BOOLEAN is
+	posix_s_isfifo (m: INTEGER): BOOLEAN
 		external "C"
 		end
 
-	posix_s_isreg (m: INTEGER): BOOLEAN is
+	posix_s_isreg (m: INTEGER): BOOLEAN
 		external "C"
 		end
 

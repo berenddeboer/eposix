@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Standard C stdio.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature {NONE} -- file system routines
 
-	posix_rename (old_path, new_path: POINTER): INTEGER is
+	posix_rename (old_path, new_path: POINTER): INTEGER
 			-- Renames a file
 		require
 			have_old_path: old_path /= default_pointer
@@ -25,7 +23,7 @@ feature {NONE} -- file system routines
 #endif
 		end
 
-	posix_remove (filename: POINTER): INTEGER is
+	posix_remove (filename: POINTER): INTEGER
 			-- Removes a file from a directory
 		require
 			have_filename: filename /= default_pointer
@@ -36,7 +34,7 @@ feature {NONE} -- file system routines
 #endif
 		end
 
-	posix_tmpfile: POINTER is
+	posix_tmpfile: POINTER
 			-- Creates a temporary file
 #ifdef ISE
 		external "C blocking"
@@ -48,7 +46,7 @@ feature {NONE} -- file system routines
 
 feature {NONE} -- C binding for stream functions
 
-	posix_clearerr (a_stream: POINTER) is
+	posix_clearerr (a_stream: POINTER)
 			-- Clears end-of-file and error indicators for a stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -57,7 +55,7 @@ feature {NONE} -- C binding for stream functions
 			-- not posix_feof and not posix_ferror
 		end
 
-	posix_fclose (a_stream: POINTER): INTEGER is
+	posix_fclose (a_stream: POINTER): INTEGER
 			-- Closes an open stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -68,21 +66,21 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_feof (a_stream: POINTER): BOOLEAN is
+	posix_feof (a_stream: POINTER): BOOLEAN
 			-- Tests the end-of-file indicator for a stream
 		require
 			valid_stream: a_stream /= default_pointer
 		external "C"
 		end
 
-	posix_ferror (a_stream: POINTER): BOOLEAN is
+	posix_ferror (a_stream: POINTER): BOOLEAN
 			-- Tests the error indicator for a stream
 		require
 			valid_stream: a_stream /= default_pointer
 		external "C"
 		end
 
-	posix_fflush (a_stream: POINTER): INTEGER is
+	posix_fflush (a_stream: POINTER): INTEGER
 			-- Updates `a_stream'. If `a_stream' is nil, all open streams
 			-- are updated.
 #ifdef ISE
@@ -92,7 +90,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fgetc (a_stream: POINTER): INTEGER is
+	posix_fgetc (a_stream: POINTER): INTEGER
 			-- Reads a character from a stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -103,14 +101,14 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fgetpos (a_stream, pos: POINTER): INTEGER is
+	posix_fgetpos (a_stream, pos: POINTER): INTEGER
 			-- Gets the current file position
 		require
 			valid_stream: a_stream /= default_pointer
 		external "C"
 		end
 
-	posix_fgets (s: POINTER; n: INTEGER; a_stream: POINTER): POINTER is
+	posix_fgets (s: POINTER; n: INTEGER; a_stream: POINTER): POINTER
 			-- Reads at most one less than `n' characters from a stream.
 		require
 			valid_stream: a_stream /= default_pointer
@@ -123,14 +121,14 @@ feature {NONE} -- C binding for stream functions
 			-- Result = default_pointer implies errno.is_not_ok
 		end
 
-	posix_fopen (path, a_mode: POINTER): POINTER is
+	posix_fopen (path, a_mode: POINTER): POINTER
 			-- Opens a stream
 		require
 			valid_mode: a_mode /= default_pointer
 		external "C"
 		end
 
-	posix_fprintf_double (a_stream: POINTER; d: DOUBLE): INTEGER is
+	posix_fprintf_double (a_stream: POINTER; d: DOUBLE): INTEGER
 			-- do a fprintf (a_stream, "%f, d)
 		require
 			valid_stream: a_stream /= default_pointer
@@ -141,7 +139,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fprintf_int (a_stream: POINTER; i: INTEGER): INTEGER is
+	posix_fprintf_int (a_stream: POINTER; i: INTEGER): INTEGER
 			-- do a fprintf (a_stream, "%d", i)
 		require
 			valid_stream: a_stream /= default_pointer
@@ -152,7 +150,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fprintf_real (a_stream: POINTER; r: REAL): INTEGER is
+	posix_fprintf_real (a_stream: POINTER; r: REAL): INTEGER
 			-- do a fprintf (a_stream, "%f, r)
 		require
 			valid_stream: a_stream /= default_pointer
@@ -163,7 +161,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fputc (c: INTEGER; a_stream: POINTER): INTEGER is
+	posix_fputc (c: INTEGER; a_stream: POINTER): INTEGER
 			-- Writes a character to a stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -174,7 +172,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fputs (s: POINTER; a_stream: POINTER): INTEGER is
+	posix_fputs (s: POINTER; a_stream: POINTER): INTEGER
 			-- Writes a stringn to a stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -185,7 +183,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fread (buf: POINTER; size, nmemb: INTEGER; a_stream: POINTER): INTEGER is
+	posix_fread (buf: POINTER; size, nmemb: INTEGER; a_stream: POINTER): INTEGER
 			-- Reads an array from a stream
 		require
 			valid_buffer: buf /= default_pointer
@@ -197,7 +195,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_freopen (path, a_mode: POINTER; a_stream: POINTER): POINTER is
+	posix_freopen (path, a_mode: POINTER; a_stream: POINTER): POINTER
 			-- Closes and then opens a stream
 		require
 			valid_mode: a_mode /= default_pointer
@@ -207,7 +205,7 @@ feature {NONE} -- C binding for stream functions
 			-- Result = default_pointer implies error occurred
 		end
 
-	posix_fseek (a_stream: POINTER; offset: INTEGER; whence: INTEGER): INTEGER is
+	posix_fseek (a_stream: POINTER; offset: INTEGER; whence: INTEGER): INTEGER
 			-- Sets file position
 		require
 			valid_stream: a_stream /= default_pointer
@@ -215,7 +213,7 @@ feature {NONE} -- C binding for stream functions
 		external "C"
 		end
 
-	posix_fscanf_double (a_stream, dp: POINTER): INTEGER is
+	posix_fscanf_double (a_stream, dp: POINTER): INTEGER
 			-- do a fscanf(a_stream, "%lf", dp)
 		require
 			valid_stream: a_stream /= default_pointer
@@ -227,7 +225,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fscanf_integer (a_stream, ip: POINTER): INTEGER is
+	posix_fscanf_integer (a_stream, ip: POINTER): INTEGER
 			-- do a fscanf(a_stream, "%d", ip)
 		require
 			valid_stream: a_stream /= default_pointer
@@ -239,7 +237,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fscanf_real (a_stream, rp: POINTER): INTEGER is
+	posix_fscanf_real (a_stream, rp: POINTER): INTEGER
 			-- do a fscanf(a_stream, "%f", rp)
 		require
 			valid_stream: a_stream /= default_pointer
@@ -251,14 +249,14 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_fsetpos (a_stream, pos: POINTER): INTEGER is
+	posix_fsetpos (a_stream, pos: POINTER): INTEGER
 			-- Sets the file position for a stream
 		require
 			valid_stream: a_stream /= default_pointer
 		external "C"
 		end
 
-	posix_ftell (a_stream: POINTER): INTEGER is
+	posix_ftell (a_stream: POINTER): INTEGER
 			-- Gets the position indicator for a stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -266,7 +264,7 @@ feature {NONE} -- C binding for stream functions
 		external "C"
 		end
 
-	posix_fwrite (buf: POINTER; size, nmemb: INTEGER; a_stream: POINTER): INTEGER is
+	posix_fwrite (buf: POINTER; size, nmemb: INTEGER; a_stream: POINTER): INTEGER
 			-- Writes an array to a stream
 		require
 			valid_buffer: buf /= default_pointer
@@ -278,7 +276,7 @@ feature {NONE} -- C binding for stream functions
 #endif
 		end
 
-	posix_rewind (a_stream: POINTER) is
+	posix_rewind (a_stream: POINTER)
 			-- Sets the file position to the beginning of the file
 			-- the error indicator is also cleared
 		require
@@ -286,7 +284,7 @@ feature {NONE} -- C binding for stream functions
 		external "C"
 		end
 
-	posix_setbuf (a_stream: POINTER; buf: POINTER) is
+	posix_setbuf (a_stream: POINTER; buf: POINTER)
 			-- Determines how a stream will be buffered
 		require
 			valid_stream: a_stream /= default_pointer
@@ -294,14 +292,14 @@ feature {NONE} -- C binding for stream functions
 		end
 
 	posix_setvbuf (a_stream: POINTER; buf: POINTER; a_mode, size:
-						INTEGER): INTEGER is
+						INTEGER): INTEGER
 			-- Determines how a stream will be buffered
 		require
 			valid_stream: a_stream /= default_pointer
 		external "C"
 		end
 
-	posix_ungetc (c: INTEGER; a_stream: POINTER): INTEGER is
+	posix_ungetc (c: INTEGER; a_stream: POINTER): INTEGER
 			-- Pushes a character back onto a stream
 		require
 			valid_stream: a_stream /= default_pointer
@@ -311,7 +309,7 @@ feature {NONE} -- C binding for stream functions
 
 feature {NONE} -- C binding for object sizes
 
-	posix_fpos_t_size: INTEGER is
+	posix_fpos_t_size: INTEGER
 			-- size of a fpos_t structure
 		external "C"
 		end

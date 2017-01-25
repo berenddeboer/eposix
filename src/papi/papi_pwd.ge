@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers POSIX pwd.h header."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature -- POSIX C binding
 
-	posix_getpwuid (a_uid: INTEGER): POINTER is
+	posix_getpwuid (a_uid: INTEGER): POINTER
 			-- Reads user database based on user ID
 #ifdef ISE
 		external "C blocking"
@@ -22,7 +20,7 @@ feature -- POSIX C binding
 #endif
 		end
 
-	posix_getpwnam (a_name: POINTER): POINTER is
+	posix_getpwnam (a_name: POINTER): POINTER
 			-- Reads user database based on user name
 #ifdef ISE
 		external "C blocking"
@@ -31,25 +29,25 @@ feature -- POSIX C binding
 #endif
 		end
 
-	posix_pw_name (a_passwd: POINTER): POINTER is
+	posix_pw_name (a_passwd: POINTER): POINTER
 		external "C"
 		end
 
-	posix_pw_uid (a_passwd: POINTER): INTEGER is
+	posix_pw_uid (a_passwd: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_pw_gid (a_passwd: POINTER): INTEGER is
+	posix_pw_gid (a_passwd: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_pw_dir (a_passwd: POINTER): POINTER is
+	posix_pw_dir (a_passwd: POINTER): POINTER
 		external "C"
 		end
 
-	posix_pw_shell (a_passwd: POINTER): POINTER is
+	posix_pw_shell (a_passwd: POINTER): POINTER
 		external "C"
 		end
 
 
-end -- class PAPI_PWD
+end

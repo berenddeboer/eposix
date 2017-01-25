@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Posix unistd.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,16 +11,16 @@ class
 
 feature -- C layer
 
-	posix_pathconf (a_path: POINTER; a_name: INTEGER): INTEGER is
+	posix_pathconf (a_path: POINTER; a_name: INTEGER): INTEGER
 		external "C"
 		end
 
-	posix_closedir (a_dirp: POINTER): INTEGER is
+	posix_closedir (a_dirp: POINTER): INTEGER
 			-- Ends directory read operation
 		external "C"
 		end
 
-	posix_opendir (a_dirname: POINTER): POINTER is
+	posix_opendir (a_dirname: POINTER): POINTER
 			-- Opens a directory
 #ifdef ISE
 		external "C blocking"
@@ -31,7 +29,7 @@ feature -- C layer
 #endif
 		end
 
-	posix_readdir (a_dirp: POINTER): POINTER is
+	posix_readdir (a_dirp: POINTER): POINTER
 			-- Reads a directory
 #ifdef ISE
 		external "C blocking"
@@ -40,14 +38,14 @@ feature -- C layer
 #endif
 		end
 
-	posix_rewinddir (a_dirp: POINTER) is
+	posix_rewinddir (a_dirp: POINTER)
 			-- Resets the readdir pointer
 		external "C"
 		end
 
-	posix_d_name (a_dirent: POINTER): POINTER is
+	posix_d_name (a_dirent: POINTER): POINTER
 		external "C"
 		end
 
 
-end -- class PAPI_DIRENT
+end

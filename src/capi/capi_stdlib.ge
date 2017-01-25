@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Standard C stdlib.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature {NONE} -- dynamic memory
 
-	posix_calloc (num_of_elements, element_size: INTEGER): POINTER is
+	posix_calloc (num_of_elements, element_size: INTEGER): POINTER
 			-- Allocates and zeroes memory
 		require
 			valid_args: num_of_elements >= 0 and element_size >= 0
@@ -22,14 +20,14 @@ feature {NONE} -- dynamic memory
 			-- a_size = 0 implies Result = default_pointer
 		end
 
-	posix_free (p: POINTER) is
+	posix_free (p: POINTER)
 			-- Deallocates dynamic memory
 		require
 			-- any p including NULL is valid
 		external "C"
 		end
 
-	posix_malloc (a_size: INTEGER): POINTER is
+	posix_malloc (a_size: INTEGER): POINTER
 			-- Allocates dynamic memory
 		require
 			-- any p including NULL is valid
@@ -40,7 +38,7 @@ feature {NONE} -- dynamic memory
 			-- returns default_pointer when no memory
 		end
 
-	posix_realloc(p: POINTER; a_size: INTEGER): POINTER is
+	posix_realloc(p: POINTER; a_size: INTEGER): POINTER
 			-- Changes the size of a memory object
 		require
 			-- any p including NULL is valid
@@ -53,23 +51,23 @@ feature {NONE} -- dynamic memory
 
 feature {NONE} -- miscellaneous
 
-	posix_abort is
+	posix_abort
 			-- Causes abnormal process termination
 		external "C"
 		end
 
-	posix_exit (a_status: INTEGER) is
+	posix_exit (a_status: INTEGER)
 			-- cause normal program termination
 			-- `a_status' is returned to its parent
 		external "C"
 		end
 
-	posix_getenv (a_name: POINTER): POINTER is
+	posix_getenv (a_name: POINTER): POINTER
 			-- Gets the environment variable
 		external "C"
 		end
 
-	posix_system (a_string: POINTER): INTEGER is
+	posix_system (a_string: POINTER): INTEGER
 			-- pass a command to the shell
 #ifdef ISE
 		external "C blocking"
@@ -81,12 +79,12 @@ feature {NONE} -- miscellaneous
 
 feature {NONE} -- random numbers
 
-	posix_rand: INTEGER is
+	posix_rand: INTEGER
 			-- return pseudo-random integer between 0 and `RAND_MAX'
 		external "C"
 		end
 
-	posix_srand (a_seed: INTEGER) is
+	posix_srand (a_seed: INTEGER)
 			-- `a_seed' is used for new sequence of psuedo-raondom
 			-- integers
 		external "C"

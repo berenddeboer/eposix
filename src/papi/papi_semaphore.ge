@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Posix semaphore.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature -- C binding
 
-	posix_sem_close (a_sem: POINTER): INTEGER is
+	posix_sem_close (a_sem: POINTER): INTEGER
 			-- Close a named semaphore.
 		require
 			have_sem: a_sem /= default_pointer
@@ -24,7 +22,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_destroy (a_sem: POINTER): INTEGER is
+	posix_sem_destroy (a_sem: POINTER): INTEGER
 			-- Destroy an unnamed semaphore.
 		require
 			have_sem: a_sem /= default_pointer
@@ -35,7 +33,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_getvalue (a_sem: POINTER; sval: POINTER): INTEGER is
+	posix_sem_getvalue (a_sem: POINTER; sval: POINTER): INTEGER
 			-- Get the value of a semaphore.
 		require
 			have_sem: a_sem /= default_pointer
@@ -46,7 +44,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_init (a_sem: POINTER; a_shared: BOOLEAN; a_value: INTEGER): INTEGER is
+	posix_sem_init (a_sem: POINTER; a_shared: BOOLEAN; a_value: INTEGER): INTEGER
 			-- Initialize an unnamed semaphore.
 		require
 			have_sem: a_sem /= default_pointer
@@ -57,7 +55,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_open (a_name: POINTER; oflag: INTEGER; a_mode: INTEGER; a_value: INTEGER): POINTER is
+	posix_sem_open (a_name: POINTER; oflag: INTEGER; a_mode: INTEGER; a_value: INTEGER): POINTER
 			-- Initialize/open a named semaphore.
 		require
 			have_name: a_name /= default_pointer
@@ -68,7 +66,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_post (a_sem: POINTER): INTEGER is
+	posix_sem_post (a_sem: POINTER): INTEGER
 			-- Unlock a semaphore.
 		require
 			have_sem: a_sem /= default_pointer
@@ -79,7 +77,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_trywait (a_sem: POINTER): INTEGER is
+	posix_sem_trywait (a_sem: POINTER): INTEGER
 			-- Lock a semaphore.
 		require
 			have_sem: a_sem /= default_pointer
@@ -90,7 +88,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_sem_wait (a_sem: POINTER): INTEGER is
+	posix_sem_wait (a_sem: POINTER): INTEGER
 			-- Lock a semaphore
 		require
 			have_sem: a_sem /= default_pointer
@@ -101,17 +99,17 @@ feature -- C binding
 #endif
 		end
 
-	posix_semaphores: BOOLEAN is
+	posix_semaphores: BOOLEAN
 			-- Is _POSIX_SEMAPHORES defined?
 		external "C"
 		end
 
-	posix_sem_t_size: INTEGER is
+	posix_sem_t_size: INTEGER
 			-- Returns size of sem_t type.
 		external "C"
 		end
 
-	SEM_FAILED: POINTER is
+	SEM_FAILED: POINTER
 			-- Value returned when semaphore could not be created/opened.
 		external "C"
 		alias "const_sem_failed"

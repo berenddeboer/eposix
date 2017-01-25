@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers the syslog.h header."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature {NONE} -- C binding
 
-	posix_openlog (ident: POINTER; option, facility: INTEGER) is
+	posix_openlog (ident: POINTER; option, facility: INTEGER)
 			-- Open connection to system logger.
 #ifdef ISE
 		external "C blocking"
@@ -22,7 +20,7 @@ feature {NONE} -- C binding
 #endif
 		end
 
-	posix_syslog (priority: INTEGER; msg: POINTER) is
+	posix_syslog (priority: INTEGER; msg: POINTER)
 			-- Write `msg' to log.
 		require
 			msg_not_nil: msg /= default_pointer
@@ -33,7 +31,7 @@ feature {NONE} -- C binding
 #endif
 		end
 
-	posix_closelog is
+	posix_closelog
 			-- Close desriptor used to write to system logger.
 #ifdef ISE
 		external "C blocking"

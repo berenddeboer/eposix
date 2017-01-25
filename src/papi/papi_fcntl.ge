@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Posix fcntl.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -13,7 +11,7 @@ class
 
 feature {NONE} -- C binding functions
 
-	posix_create (a_path: POINTER; oflag, mode: INTEGER): INTEGER is
+	posix_create (a_path: POINTER; oflag, mode: INTEGER): INTEGER
 			-- Creates a new file or rewrites an existing one
 			-- does not call `creat' but `open'!
 #ifdef ISE
@@ -25,7 +23,7 @@ feature {NONE} -- C binding functions
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_fcntl (fildes: INTEGER; cmd: INTEGER): INTEGER is
+	posix_fcntl (fildes: INTEGER; cmd: INTEGER): INTEGER
 			-- Manipulates an open file descriptor
 #ifdef ISE
 		external "C blocking"
@@ -36,7 +34,7 @@ feature {NONE} -- C binding functions
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_fcntl_arg (fildes, cmd, arg: INTEGER): INTEGER is
+	posix_fcntl_arg (fildes, cmd, arg: INTEGER): INTEGER
 			-- `posix_fcntl' with 3rd argument
 #ifdef ISE
 		external "C blocking"
@@ -45,7 +43,7 @@ feature {NONE} -- C binding functions
 #endif
 		end
 
-	posix_fcntl_lock (fildes, cmd: INTEGER; lock: POINTER): INTEGER is
+	posix_fcntl_lock (fildes, cmd: INTEGER; lock: POINTER): INTEGER
 			-- Set/get locks for an open file descriptor
 #ifdef ISE
 		external "C blocking"
@@ -54,7 +52,7 @@ feature {NONE} -- C binding functions
 #endif
 		end
 
-	posix_open (a_path: POINTER; oflag: INTEGER): INTEGER is
+	posix_open (a_path: POINTER; oflag: INTEGER): INTEGER
 			-- Opens a file
 #ifdef ISE
 		external "C blocking"
@@ -68,17 +66,17 @@ feature {NONE} -- C binding functions
 
 feature {NONE} -- constants
 
-	F_RDLCK: INTEGER is
+	F_RDLCK: INTEGER
 		external "C"
 		alias "const_f_rdlck"
 		end
 
-	F_WRLCK: INTEGER is
+	F_WRLCK: INTEGER
 		external "C"
 		alias "const_f_wrlck"
 		end
 
-	F_UNLCK: INTEGER is
+	F_UNLCK: INTEGER
 		external "C"
 		alias "const_f_unlck"
 		end
@@ -86,42 +84,42 @@ feature {NONE} -- constants
 
 feature {NONE} -- C binding
 
-	F_DUPFD: INTEGER is
+	F_DUPFD: INTEGER
 		external "C"
 		alias "const_f_dupfd"
 		end
 
-	F_GETFD: INTEGER is
+	F_GETFD: INTEGER
 		external "C"
 		alias "const_f_getfd"
 		end
 
-	F_SETFD: INTEGER is
+	F_SETFD: INTEGER
 		external "C"
 		alias "const_f_setfd"
 		end
 
-	F_GETFL: INTEGER is
+	F_GETFL: INTEGER
 		external "C"
 		alias "const_f_getfl"
 		end
 
-	F_SETFL: INTEGER is
+	F_SETFL: INTEGER
 		external "C"
 		alias "const_f_setfl"
 		end
 
-	F_GETLK: INTEGER is
+	F_GETLK: INTEGER
 		external "C"
 		alias "const_f_getlk"
 		end
 
-	F_SETLK: INTEGER is
+	F_SETLK: INTEGER
 		external "C"
 		alias "const_f_setlk"
 		end
 
-	F_SETLKW: INTEGER is
+	F_SETLKW: INTEGER
 		external "C"
 		alias "const_f_setlkw"
 		end
@@ -129,7 +127,7 @@ feature {NONE} -- C binding
 
 feature {NONE}  -- file descriptor flags
 
-	FD_CLOEXEC: INTEGER is
+	FD_CLOEXEC: INTEGER
 		external "C"
 		alias "const_fd_cloexec"
 		end
@@ -137,46 +135,46 @@ feature {NONE}  -- file descriptor flags
 
 feature {NONE} -- flock structure
 
-	posix_flock_size: INTEGER is
+	posix_flock_size: INTEGER
 			-- size of flock struct
 		external "C"
 		end
 
-	posix_flock_type (a_lock: POINTER): INTEGER is
+	posix_flock_type (a_lock: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_flock_whence (a_lock: POINTER): INTEGER is
+	posix_flock_whence (a_lock: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_flock_start (a_lock: POINTER): INTEGER is
+	posix_flock_start (a_lock: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_flock_len (a_lock: POINTER): INTEGER is
+	posix_flock_len (a_lock: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_flock_pid (a_lock: POINTER): INTEGER is
+	posix_flock_pid (a_lock: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_set_flock_type (a_lock: POINTER; a_type: INTEGER) is
+	posix_set_flock_type (a_lock: POINTER; a_type: INTEGER)
 		external "C"
 		end
 
-	posix_set_flock_whence (a_lock: POINTER; a_whence: INTEGER) is
+	posix_set_flock_whence (a_lock: POINTER; a_whence: INTEGER)
 		external "C"
 		end
 
-	posix_set_flock_start (a_lock: POINTER; a_start: INTEGER) is
+	posix_set_flock_start (a_lock: POINTER; a_start: INTEGER)
 		external "C"
 		end
 
-	posix_set_flock_len (a_lock: POINTER; a_len: INTEGER) is
+	posix_set_flock_len (a_lock: POINTER; a_len: INTEGER)
 		external "C"
 		end
 
 
-end -- class PAPI_FCNTL
+end

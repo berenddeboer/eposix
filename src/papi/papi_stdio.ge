@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers POSIX stdio.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -18,7 +16,7 @@ inherit
 
 feature -- C binding
 
-	posix_fdopen (fildes: INTEGER; a_mode: POINTER): POINTER is
+	posix_fdopen (fildes: INTEGER; a_mode: POINTER): POINTER
 			-- Opens a stream
 		require
 			valid_mode: a_mode /= default_pointer
@@ -29,7 +27,7 @@ feature -- C binding
 #endif
 		end
 
-	posix_fileno (a_stream: POINTER): INTEGER is
+	posix_fileno (a_stream: POINTER): INTEGER
 			-- Maps a stream pointer to a file descriptor
 		require
 			valid_stream: a_stream /= default_pointer
@@ -39,4 +37,4 @@ feature -- C binding
 		end
 
 
-end -- class PAPI_STDIO
+end

@@ -1,10 +1,8 @@
-indexing
+note
 
 	description: "Class that covers Single Unix Spec sys/stat.h."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -18,7 +16,7 @@ inherit
 
 feature -- functions
 
-	posix_fstatvfs (a_fildes: INTEGER; a_buf: POINTER): INTEGER is
+	posix_fstatvfs (a_fildes: INTEGER; a_buf: POINTER): INTEGER
 			-- Obtain information about the file system containing the
 			-- file referenced by `fildes'.
 		require
@@ -32,7 +30,7 @@ feature -- functions
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_lstat (a_path: POINTER; a_stat: POINTER): INTEGER is
+	posix_lstat (a_path: POINTER; a_stat: POINTER): INTEGER
 			-- Gets information about a path or symbolic link
 		require
 			valid_path: a_path /= default_pointer
@@ -46,7 +44,7 @@ feature -- functions
 			-- Result = -1 implies errno.is_not_ok
 		end
 
-	posix_statvfs (a_path: POINTER; a_buf: POINTER): INTEGER is
+	posix_statvfs (a_path: POINTER; a_buf: POINTER): INTEGER
 			-- Obtain information about the file system containing the
 			-- file named by path.
 		require
@@ -63,168 +61,168 @@ feature -- functions
 
 feature -- test file type bits
 
-	posix_s_islnk (m: INTEGER): BOOLEAN is
+	posix_s_islnk (m: INTEGER): BOOLEAN
 		external "C"
 		end
 
 
 feature -- additional C stat member interface
 
-	posix_st_blkcnt (a_stat: POINTER): INTEGER is
+	posix_st_blkcnt (a_stat: POINTER): INTEGER
 		external "C"
 		end
 
-	posix_st_blksize (a_stat: POINTER): INTEGER is
+	posix_st_blksize (a_stat: POINTER): INTEGER
 		external "C"
 		end
 
 
 feature -- C binding for members of statvfs
 
-	posix_statvfs_size: INTEGER is
+	posix_statvfs_size: INTEGER
 		external "C"
 		ensure
 			valid_size: Result > 0
 		end
 
-	posix_statvfs_f_bsize (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_bsize (a_statvfs: POINTER): INTEGER_64
 			-- file system block size
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_frsize (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_frsize (a_statvfs: POINTER): INTEGER_64
 			-- fragment size
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_blocks (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_blocks (a_statvfs: POINTER): INTEGER_64
 			-- size of fs in f_frsize units
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_bfree (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_bfree (a_statvfs: POINTER): INTEGER_64
 			-- # free blocks
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_bavail (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_bavail (a_statvfs: POINTER): INTEGER_64
 			-- # free blocks for unprivileged users
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_files (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_files (a_statvfs: POINTER): INTEGER_64
 			-- # inodes
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_ffree (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_ffree (a_statvfs: POINTER): INTEGER_64
 			-- # free inodes
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_favail (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_favail (a_statvfs: POINTER): INTEGER_64
 			-- # free inodes for unprivileged users
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_fsid (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_fsid (a_statvfs: POINTER): INTEGER_64
 			-- file system ID
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_flag (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_flag (a_statvfs: POINTER): INTEGER_64
 			-- mount flags
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_statvfs_f_namemax (a_statvfs: POINTER): INTEGER_64 is
+	posix_statvfs_f_namemax (a_statvfs: POINTER): INTEGER_64
 			-- maximum filename length
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_bsize (a_statvfs: POINTER; f_bsize: INTEGER_64) is
+	posix_set_statvfs_f_bsize (a_statvfs: POINTER; f_bsize: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_frsize (a_statvfs: POINTER; f_frsize: INTEGER_64) is
+	posix_set_statvfs_f_frsize (a_statvfs: POINTER; f_frsize: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_blocks (a_statvfs: POINTER; f_blocks: INTEGER_64) is
+	posix_set_statvfs_f_blocks (a_statvfs: POINTER; f_blocks: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_bfree (a_statvfs: POINTER; f_bfree: INTEGER_64) is
+	posix_set_statvfs_f_bfree (a_statvfs: POINTER; f_bfree: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_bavail (a_statvfs: POINTER; f_bavail: INTEGER_64) is
+	posix_set_statvfs_f_bavail (a_statvfs: POINTER; f_bavail: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_files (a_statvfs: POINTER; f_files: INTEGER_64) is
+	posix_set_statvfs_f_files (a_statvfs: POINTER; f_files: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_ffree (a_statvfs: POINTER; f_ffree: INTEGER_64) is
+	posix_set_statvfs_f_ffree (a_statvfs: POINTER; f_ffree: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_favail (a_statvfs: POINTER; f_favail: INTEGER_64) is
+	posix_set_statvfs_f_favail (a_statvfs: POINTER; f_favail: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_fsid (a_statvfs: POINTER; f_fsid: INTEGER_64) is
+	posix_set_statvfs_f_fsid (a_statvfs: POINTER; f_fsid: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_flag (a_statvfs: POINTER; f_flag: INTEGER_64) is
+	posix_set_statvfs_f_flag (a_statvfs: POINTER; f_flag: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"
 		end
 
-	posix_set_statvfs_f_namemax (a_statvfs: POINTER; f_namemax: INTEGER_64) is
+	posix_set_statvfs_f_namemax (a_statvfs: POINTER; f_namemax: INTEGER_64)
 		require
 			have_struct_pointer: a_statvfs /= default_pointer
 		external "C"

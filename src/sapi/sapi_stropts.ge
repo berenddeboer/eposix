@@ -1,4 +1,4 @@
-indexing
+note
 
 	description:
 
@@ -6,9 +6,6 @@ indexing
 
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
-	license: "Eiffel Forum License v2 (see forum.txt)"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -18,7 +15,7 @@ class
 
 feature -- Functions
 
-	posix_ioctl(a_fildes: INTEGER; a_request: INTEGER; a_arg: POINTER): INTEGER is
+	posix_ioctl(a_fildes: INTEGER; a_request: INTEGER; a_arg: POINTER): INTEGER
 			--  control a STREAMS device.
 		require
 			valid_fildes: a_fildes >= 0
