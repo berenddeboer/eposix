@@ -1,5 +1,5 @@
 %{
-indexing
+note
 
 	description: "Parser for the LDAP Data Interchange Format."
 
@@ -8,8 +8,6 @@ indexing
 	not_implemented: "loading resources from a url."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -405,14 +403,14 @@ true_or_false
 
 feature -- Initialization
 
-	make is
+	make
 			-- Parse server response into `a_response'.
 		do
 			make_scanner
 			make_parser
 		end
 
-	make_from_stream (a_stream: EPX_CHARACTER_INPUT_STREAM) is
+	make_from_stream (a_stream: EPX_CHARACTER_INPUT_STREAM)
 				 -- Prepare for parsing stream.
 		require
 			stream_not_void: a_stream /= Void
@@ -428,17 +426,17 @@ feature -- Initialization
 
 feature {NONE} -- Callbacks
 
-	attrval_record (distinguished_name: STRING) is
+	attrval_record (distinguished_name: STRING)
 		do
 		end
 
-	add_record (an_entry: EPX_LDIF_ENTRY) is
+	add_record (an_entry: EPX_LDIF_ENTRY)
 		require
 			entry_not_void: an_entry /= Void
 		do
 		end
 
-	change_record (a_distinguished_name: STRING; a_mod_specs: DS_LINKABLE [EPX_LDIF_MOD_SPEC]) is
+	change_record (a_distinguished_name: STRING; a_mod_specs: DS_LINKABLE [EPX_LDIF_MOD_SPEC])
 		require
 			a_distinguished_name_not_empty: a_distinguished_name /= Void and then not a_distinguished_name.is_empty
 		do
@@ -447,7 +445,7 @@ feature {NONE} -- Callbacks
 
 feature {NONE} -- Implementation
 
-	decode_base64_string (a_base64_string: STRING): STRING is
+	decode_base64_string (a_base64_string: STRING): STRING
 		local
 			string_stream: KL_STRING_INPUT_STREAM
 			base64_stream: UT_BASE64_DECODING_INPUT_STREAM

@@ -903,7 +903,7 @@ zone
 
 feature {NONE} -- Initialization
 
-	make (a_response: EPX_IMAP4_RESPONSE) is
+	make (a_response: EPX_IMAP4_RESPONSE)
 			-- Parse server response into `a_response'.
 		require
 			a_response_not_void: a_response /= Void
@@ -922,7 +922,7 @@ feature {NONE} -- Response
 
 feature -- Character reading
 
-	end_of_input: BOOLEAN is
+	end_of_input: BOOLEAN
 			-- True if `read_character' hits end-of-file.
 		do
 			Result :=
@@ -933,7 +933,7 @@ feature -- Character reading
 
 feature {NONE} -- Scanning literals
 
-	read_literal (nbytes: INTEGER) is
+	read_literal (nbytes: INTEGER)
 			-- Literal is expected to follow in next lines.
 			-- This function seems to be at least 3 times faster than the
 			-- commented-out function below when the input comes from an
@@ -1002,7 +1002,7 @@ feature {NONE} -- Scanning literals
 			last_string_complete: last_string.count = nbytes or else end_of_input
 		end
 
--- 	read_literal (nbytes: INTEGER) is
+-- 	read_literal (nbytes: INTEGER)
 -- 			-- Literal is expected to follow in next lines.
 -- 		require
 -- 			nbytes_not_negative: nbytes >= 0
