@@ -22,7 +22,7 @@ inherit
 
 feature -- Status report
 
-	less_than (u, v: EPX_KEY_VALUE): BOOLEAN
+	attached_less_than (u, v: EPX_KEY_VALUE): BOOLEAN
 			-- Is `u' considered less than `v'?
 		do
 			Result := u.key < v.key
