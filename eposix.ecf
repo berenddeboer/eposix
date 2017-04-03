@@ -2,7 +2,7 @@
 <system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="eposix" uuid="70ED4FF9-249E-42E0-B9EC-F424CFA5FB89" library_target="eposix">
 	<target name="eposix">
 		<root all_classes="true"/>
-		<option warning="true" full_class_checking="true" void_safety="none" syntax="transitional">
+		<option warning="true" full_class_checking="true" void_safety="none" syntax="standard">
     </option>
 		<external_object location="${EPOSIX}\lib\libeposix.lib">
 			<condition>
