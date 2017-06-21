@@ -203,7 +203,7 @@ feature -- (re)set arguments
 			all_arguments_not_void: not has_void_argument (a_arguments)
 		do
 			if a_arguments = Void then
-				create arguments.make(0, -1)
+				create arguments.make_empty
 			else
 				arguments := a_arguments
 			end

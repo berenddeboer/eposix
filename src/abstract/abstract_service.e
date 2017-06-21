@@ -59,7 +59,7 @@ feature -- Initialization
 				name := a_name
 				protocol := a_protocol
 				guess_protocol_type
-				create aliases.make (0, -1)
+				create aliases.make_empty
 			else
 				set_members_from_struct (p, 0, a_protocol)
 			end
@@ -73,7 +73,7 @@ feature -- Initialization
 			name := Void
 			protocol := a_protocol
 			guess_protocol_type
-			create aliases.make (0, -1)
+			create aliases.make_empty
 		end
 
 	make_from_port (a_port: INTEGER; a_protocol: STRING)
@@ -163,7 +163,7 @@ feature {NONE} -- Implementation
 				port := a_port
 				name := "unknown"
 				protocol := a_protocol
-				create aliases.make (0, -1)
+				create aliases.make_empty
 			else
 				port := abstract_api.posix_ntohs (abstract_api.posix_servent_s_port (p))
 				name := sh.pointer_to_string (abstract_api.posix_servent_s_name (p))
