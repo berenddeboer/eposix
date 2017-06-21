@@ -3,8 +3,6 @@ note
 	description: "Class that describes a host on the network including the local machine. Contains the common functionality between Unix and Windows"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 deferred class
@@ -41,12 +39,11 @@ feature -- Initialization
 		require
 			valid_address: an_address /= Void
 		do
-			create addresses.make (0, 0)
-			addresses.put (an_address, addresses.lower)
+			create addresses.make_filled (an_address, 0, 0)
 			find_by_address
 			if not found then
-				create aliases.make (0, -1)
-				create addresses.make (0, 0)
+				create aliases.make_empty
+				create addresses.make_filled (an_address, 0, 0)
 				addresses.put (an_address, addresses.lower)
 				address_family := an_address.address_family
 				address_length := an_address.address_length
@@ -96,9 +93,8 @@ feature {NONE} -- Initialization
 		require
 			valid_address: an_address /= Void
 		do
-			create addresses.make (0, 0)
-			addresses.put (an_address, addresses.lower)
-			create aliases.make (0, -1)
+			create addresses.make_filled (an_address, 0, 0)
+			create aliases.make_empty
 			address_family := an_address.address_family
 			address_length := an_address.address_length
 			my_not_found_reason := 0
