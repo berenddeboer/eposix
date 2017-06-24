@@ -3,8 +3,6 @@ note
 	description: "Portable child processes for POSIX."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #10 $"
 
 
 class
@@ -323,7 +321,7 @@ feature {NONE}
 			user: POSIX_USER
 			env: SUS_ENV_VAR
 		do
-			create argv.make_filled ("", 0, arguments.count+1)
+			create argv.make_filled ("", 0, arguments.count)
 			argv.put (program_name, 0)
 			from
 				i := arguments.lower
