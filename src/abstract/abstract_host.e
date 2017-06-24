@@ -228,7 +228,7 @@ feature {NONE} -- Implementation
 				address_family := abstract_api.posix_hostent_h_addrtype (p)
 				address_length := abstract_api.posix_hostent_h_length (p)
 				from
-					create addresses.make (0, -1)
+					create addresses.make_empty
 					pptr := abstract_api.posix_hostent_h_addr_list (p)
 					aptr := posix_pointer_contents (pptr)
 				until
