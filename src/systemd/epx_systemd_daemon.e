@@ -2,7 +2,7 @@ note
 
 	description:
 
-		"A daemon that is managed and monitored by systemd. It does not fork. It supports the systemd software watchdog (setting RuntimeWatchdogSec=)"
+		"A daemon that is managed and monitored by systemd. It does not fork. It supports the systemd software watchdog (setting RuntimeWatchdogSec=). You can either use Type=simple or Type=notify. For the latter, make sure to call `sd_notify_ready' after initialisation has finished."
 
 	library: "eposix library"
 	author: "Berend de Boer <berend@pobox.com>"
@@ -120,16 +120,22 @@ feature -- Argument parsing
 feature {NONE} -- systemd notification
 
 	sd_notify_ready
+			-- Call this when daemon has finished initialisation.
+			-- Only useful when "Type=notify".
 		do
 			do_sd_notify ("READY=1")
 		end
 
 	sd_notify_watchdog
+			-- If the RuntimeWatchdogSec setting has been enabled, make
+			-- sure to call in less 50% of the time specified.
 		do
 			do_sd_notify ("WATCHDOG=1")
 		end
 
 	sd_notify_stopping
+			-- Call this when the daemon starts to stop.
+			-- Only useful when "Type=notify".
 		do
 			do_sd_notify ("STOPPING=1")
 		end
