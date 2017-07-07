@@ -348,6 +348,13 @@ feature -- Change specific fields
 			set_content_type (mime_type_application, mime_subtype_json, charset_utf8)
 		end
 
+	set_content_type_application_javascript
+			-- Set Content-Type to application/javascript. Character set is set to
+			-- UTF-8.
+		do
+			set_content_type (mime_type_application, mime_subtype_javascript, charset_utf8)
+		end
+
 	set_cache_control (a_cache_directives: ARRAY [STRING])
 			-- The Cache-Control general-header field is used to specify
 			-- directives that MUST be obeyed by all caching mechanisms
