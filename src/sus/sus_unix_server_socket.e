@@ -3,8 +3,6 @@ note
 	description: "AF_UNIX (AF_LOCAL) SOCK_STREAM/SOCK_DGRAM sockets, server side."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -39,7 +37,7 @@ feature {NONE} -- Socket specific open functions
 			socket_address: SUS_SOCKET_ADDRESS_UN
 		do
 			-- is_existing test creates `path' so is_open is True...
-			fd := unassigned_value
+			socket := unassigned_value
 			do_make
 			create client_socket_address.allocate_and_clear (posix_sockaddr_un_size)
 			a_fd := new_socket (AF_UNIX, a_socket_type)
@@ -86,7 +84,7 @@ feature -- Accept
 			client_fd: INTEGER
 		do
 			address_length := client_socket_address.capacity
-			client_fd := posix_accept (fd, client_socket_address.ptr, $address_length)
+			client_fd := posix_accept (socket, client_socket_address.ptr, $address_length)
 			if client_fd = unassigned_value then
 				if errno.is_not_ok and then errno.value /= EAGAIN then
 					raise_posix_error
