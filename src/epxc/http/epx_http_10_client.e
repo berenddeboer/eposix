@@ -256,7 +256,7 @@ feature -- Requests
 				if not reuse_connection then
 					request.append_string (once_connection_close)
 				end
-				if a_request_data = Void then
+				if not attached a_request_data then
 					request.append_string (once_new_line)
 				else
 					-- If body isn't multi-part, assume it is already form
@@ -269,6 +269,7 @@ feature -- Requests
 				end
 				debug ("http_client")
 					print (request)
+					print (once_new_line)
 				end
 				http.put_string (request)
 				last_verb := a_verb
