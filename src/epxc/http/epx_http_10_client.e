@@ -112,7 +112,7 @@ feature -- Requests
 			-- Send GET request to server.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 		do
 			send_request (http_method_GET, a_request_uri.out, Void)
@@ -124,7 +124,7 @@ feature -- Requests
 			-- the page that is requested. Any query and fragment parts are ok.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 		require
 			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
@@ -137,7 +137,7 @@ feature -- Requests
 			-- request is being made to a proxy.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 		do
 			if a_request_uri = Void or else a_request_uri.is_empty then
@@ -151,7 +151,7 @@ feature -- Requests
 			-- Put `a_put_data' to `host' using the HTTP PUT request.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 			-- Tip: use EPX_MIME_FORM.make_form_data to build the
 			-- most common form data messages.
@@ -174,7 +174,7 @@ feature -- Requests
 			-- will be send with this POST request.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 			-- Tip: use EPX_MIME_FORM.make_form_data to build the
 			-- most common form data messages.
@@ -197,7 +197,7 @@ feature -- Requests
 			-- Post `a_post_data' to `host' using the HTTP POST request.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 			-- `a_post_data' should be valid XML.
 		require
@@ -219,7 +219,7 @@ feature -- Requests
 			-- `a_request_data'.
 			-- Sets `response_code' to 200 if the request was send successfully.
 			-- If sending the request failed (usually because the server refused
-			-- the connection), 503 is returned.
+			-- the connection), 500 is returned.
 		require
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
 			request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
@@ -274,7 +274,7 @@ feature -- Requests
 				last_verb := a_verb
 				last_data := a_request_data
 			else
-				response_code := reply_code_service_unavailable
+				response_code := 500
 				response_phrase := error_message
 			end
 		ensure
@@ -581,7 +581,7 @@ feature -- Response
 			end
 		end
 
-	response: EPX_MIME_PART
+	response: detachable EPX_MIME_PART
 			-- The entire parsed MIME message;
 			-- It is set by `read_response'. May be Void if there is no body.
 
