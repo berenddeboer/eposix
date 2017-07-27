@@ -150,16 +150,16 @@ feature -- Access
 			-- If a Content-Length field does not exist, should
 			-- `append_to_string' automatically add one?
 
-	body: EPX_MIME_BODY
+	body: detachable EPX_MIME_BODY
 			-- The body, can be multipart
 
 	header: EPX_MIME_HEADER
 			-- Fields for this part
 
-	multipart_body: EPX_MIME_BODY_MULTIPART
+	multipart_body: detachable EPX_MIME_BODY_MULTIPART
 			-- `body' if `body' contains multiple parts, Void otherwise
 
-	text_body: EPX_MIME_BODY_TEXT
+	text_body: detachable EPX_MIME_BODY_TEXT
 			-- `body' if `body' is a text body and not multi-part, Void otherwise
 
 

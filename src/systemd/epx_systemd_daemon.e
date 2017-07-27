@@ -20,15 +20,11 @@ inherit
 	EPX_CURRENT_PROCESS
 
 
-inherit
-
-	{NONE} STDC_CONSTANTS
-
-
 feature {NONE} -- Initialisation
 
 	make
 		do
+			parse_arguments
 			setup_signals
 			execute
 		end
@@ -94,26 +90,29 @@ feature -- Argument parsing
 		deferred
 		end
 
-	set_arguments (a_parser: AP_PARSER)
+	argument_parser: AP_PARSER
+
+	set_arguments
 			-- Set application arguments.
 		require
-			parser_not_void: a_parser /= Void
+			parser_not_void: attached argument_parser
 		do
 		ensure
-			options_valid: a_parser.valid_options
+			options_valid: argument_parser.valid_options
 		end
 
 	parse_arguments
-			-- Create parser, set arguments, and parse arguments.
-			-- To validate specific arguments, override this, and exit
-			-- the application if some argument has not been given.
-		local
-			parser: AP_PARSER
+			-- Create parser, set arguments, and parse arguments.  To
+			-- validate specific arguments, override
+			-- this feature, and exit the application if some
+			-- argument has not been given.
 		do
-			create parser.make
-			parser.set_application_description (application_description)
-			set_arguments (parser)
-			parser.parse_arguments
+			create argument_parser.make
+			argument_parser.set_application_description (application_description)
+			set_arguments
+			argument_parser.parse_arguments
+		ensure
+			parser_attached: attached argument_parser
 		end
 
 

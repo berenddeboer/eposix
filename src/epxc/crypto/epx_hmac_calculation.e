@@ -9,8 +9,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2008, Berend de Boer"
 	license: "MIT License (see LICENSE)"
-	date: "$Date$"
-	revision: "$Revision$"
 
 
 class
@@ -173,7 +171,7 @@ feature {NONE} -- Implementation
 			until
 				i > s.count
 			loop
-				s.put ((s.item (i).code.bit_xor (a_key.item (i).code)).to_character, i)
+				s.put ((s.item (i).code.bit_xor (a_key.item (i).code)).to_character_8, i)
 				i := i + 1
 			end
 		end

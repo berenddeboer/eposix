@@ -3,8 +3,7 @@ note
 	description: "Main switch for every handled signal."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
+
 
 class
 
@@ -80,7 +79,7 @@ feature {NONE} -- Garbage collection
 
 feature {STDC_SIGNAL} -- signals to catch or ignore
 
-	catch (a_signal: STDC_SIGNAL; a_handler: STDC_SIGNAL_HANDLER)
+	catch (a_signal: STDC_SIGNAL; a_handler: detachable STDC_SIGNAL_HANDLER)
 			-- Make this a caught signal.
 		require
 			signal_not_void: a_signal /= Void
@@ -130,7 +129,7 @@ feature {NONE} -- core switch
 
 feature {NONE} -- state
 
-	switched_signals: ARRAY [STDC_SIGNAL_HANDLER]
+	switched_signals: ARRAY [detachable STDC_SIGNAL_HANDLER]
 
 	assert_can_store_signal (a_signal: STDC_SIGNAL)
 			-- Make sure `signal' can be stored in `switched_signals'.

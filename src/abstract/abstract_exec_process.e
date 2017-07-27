@@ -4,8 +4,6 @@ note
 	%available to their parents."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #11 $"
 
 
 deferred class
@@ -112,8 +110,6 @@ feature {NONE} -- Initialization
 			s := a_command_line.twin
 			from
 				i := 1
-			variant
-				s.count - (i - 1)
 			until
 				i = s.count
 			loop
@@ -124,13 +120,13 @@ feature {NONE} -- Initialization
 					s.replace_substring (once_null, i, i+1)
 				end
 				i := i + 1
+			variant
+				s.count - (i - 1)
 			end
 
 			-- Next replace multiple spaces by a single space
 			from
 				i := 1
-			variant
-				s.count - (i - 1)
 			until
 				i = s.count
 			loop
@@ -141,6 +137,8 @@ feature {NONE} -- Initialization
 					s.remove (i)
 				end
 				i := i + 1
+			variant
+				s.count - (i - 1)
 			end
 
 			-- Now split it on the spaces
@@ -150,16 +148,12 @@ feature {NONE} -- Initialization
 				-- Process arguments, revert '%U' to ' '
 				from
 					i := args.lower
-				variant
-					args.count - (i - args.lower)
 				until
 					i > args.upper
 				loop
 					s := args.item (i)
 					from
 						j := 1
-					variant
-						s.count - (j - 1)
 					until
 						j > s.count
 					loop
@@ -167,8 +161,12 @@ feature {NONE} -- Initialization
 							s.put (' ', j)
 						end
 						j := j + 1
+					variant
+						s.count - (j - 1)
 					end
 					i := i + 1
+				variant
+					args.count - (i - args.lower)
 				end
 			end
 
@@ -271,13 +269,13 @@ feature -- i/o capturing
 			definition: close_error = on
 		end
 
-	fd_stdin: ABSTRACT_FILE_DESCRIPTOR
+	fd_stdin: detachable ABSTRACT_FILE_DESCRIPTOR
 			-- Input read by process
 
-	fd_stdout: ABSTRACT_FILE_DESCRIPTOR
+	fd_stdout: detachable ABSTRACT_FILE_DESCRIPTOR
 			-- Output emitted by process
 
-	fd_stderr: ABSTRACT_FILE_DESCRIPTOR
+	fd_stderr: detachable ABSTRACT_FILE_DESCRIPTOR
 			-- Error output from process
 
 

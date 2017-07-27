@@ -3,8 +3,6 @@ note
 	description: "Class that covers the timeval structure such that it is portable between Unix and Windows."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -27,9 +25,7 @@ feature {NONE} -- Initialization
 	make
 			-- Initialize to zero.
 		do
-			if tp = Void then
-				create tp.allocate_and_clear (abstract_api.posix_timeval_size)
-			end
+			create tp.allocate_and_clear (abstract_api.posix_timeval_size)
 		end
 
 

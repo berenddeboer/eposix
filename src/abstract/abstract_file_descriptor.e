@@ -7,8 +7,6 @@ note
 	%stream, because Windows doesn't support that."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #17 $"
 
 
 deferred class
@@ -285,14 +283,15 @@ feature -- Access
 				make_status
 			end
 			Result := my_status
+			check attached Result end
 		ensure
-			status_not_void: status /= Void
+			status_not_void: Result /= Void
 		end
 
 
 feature {NONE} -- Implementation
 
-	my_status: EPX_STATUS
+	my_status: detachable EPX_STATUS
 			-- Cached status object.
 
 	make_status

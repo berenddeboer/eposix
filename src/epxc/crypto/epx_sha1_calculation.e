@@ -78,14 +78,10 @@ feature -- Operations
 		do
 			from
 				j := start
-			variant
-				stop - j + 1
 			until
 				j > stop
 			loop
 				from
-				variant
-					block_length - block_index + 1
 				until
 					block_index = block_length or else
 					j > stop
@@ -93,11 +89,15 @@ feature -- Operations
 					block.put_character (buf.peek_character (j), block_index)
 					j := j + 1
 					block_index := block_index + 1
+				variant
+					block_length - block_index + 1
 				end
 				if block_index = block_length then
 					process_block
 					block_index := 0
 				end
+			variant
+				stop - j + 1
 			end
 			number_of_bits := number_of_bits + (stop - start + 1) * 8
 		ensure then
@@ -133,14 +133,10 @@ feature -- Operations
 		do
 			from
 				j := start
-			variant
-				stop - j + 1
 			until
 				j > stop
 			loop
 				from
-				variant
-					block_length - block_index + 1
 				until
 					block_index = block_length or else
 					j > stop
@@ -148,11 +144,15 @@ feature -- Operations
 					block.put_character (s.item (j), block_index)
 					j := j + 1
 					block_index := block_index + 1
+				variant
+					block_length - block_index + 1
 				end
 				if block_index = block_length then
 					process_block
 					block_index := 0
 				end
+			variant
+				stop - j + 1
 			end
 			number_of_bits := number_of_bits + (stop - start + 1) * 8
 		ensure then
@@ -303,8 +303,6 @@ feature {NONE} -- Implementation
 			end
 			from
 				t := 16
-			variant
-				80 - t
 			until
 				t = 80
 			loop
@@ -326,6 +324,8 @@ feature {NONE} -- Implementation
 					print ("%N")
 				end
 				t := t + 1
+			variant
+				80 - t
 			end
 
 			-- Step c.
@@ -347,8 +347,6 @@ feature {NONE} -- Implementation
 			-- Assumes Eiffel integer overflow detection is disabled...
 			from
 				t := 0
-			variant
-				80 - t + 1
 			until
 				t = 20
 			loop
@@ -363,10 +361,10 @@ feature {NONE} -- Implementation
 					print ("i=" + t.out + " A=" + to_hexadecimal_integer (a) + " B=" + to_hexadecimal_integer (b) + " C=" + to_hexadecimal_integer (c) + " D=" + to_hexadecimal_integer (d) + " E=" + to_hexadecimal_integer (e) + "%N")
 				end
 				t := t + 1
-			end
-			from
 			variant
 				80 - t + 1
+			end
+			from
 			until
 				t = 40
 			loop
@@ -381,10 +379,10 @@ feature {NONE} -- Implementation
 					print ("i=" + t.out + " A=" + to_hexadecimal_integer (a) + " B=" + to_hexadecimal_integer (b) + " C=" + to_hexadecimal_integer (c) + " D=" + to_hexadecimal_integer (d) + " E=" + to_hexadecimal_integer (e) + "%N")
 				end
 				t := t + 1
-			end
-			from
 			variant
 				80 - t + 1
+			end
+			from
 			until
 				t = 60
 			loop
@@ -399,10 +397,10 @@ feature {NONE} -- Implementation
 					print ("i=" + t.out + " A=" + to_hexadecimal_integer (a) + " B=" + to_hexadecimal_integer (b) + " C=" + to_hexadecimal_integer (c) + " D=" + to_hexadecimal_integer (d) + " E=" + to_hexadecimal_integer (e) + "%N")
 				end
 				t := t + 1
-			end
-			from
 			variant
 				80 - t + 1
+			end
+			from
 			until
 				t = 80
 			loop
@@ -417,6 +415,8 @@ feature {NONE} -- Implementation
 					print ("i=" + t.out + " A=" + to_hexadecimal_integer (a) + " B=" + to_hexadecimal_integer (b) + " C=" + to_hexadecimal_integer (c) + " D=" + to_hexadecimal_integer (d) + " E=" + to_hexadecimal_integer (e) + "%N")
 				end
 				t := t + 1
+			variant
+				80 - t + 1
 			end
 
 			-- Step e.

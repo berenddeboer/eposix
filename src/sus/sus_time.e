@@ -7,8 +7,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -25,8 +23,8 @@ inherit
 
 	STDC_TIME
 		redefine
-			infix "<",
-			infix "-",
+			is_less,
+			minus,
 			is_equal,
 			make_from_now,
 			make_from_unix_time
@@ -94,7 +92,7 @@ feature -- Date calculations
 			Result := other.value = value and then other.nano_value = nano_value
 		end
 
-	infix "-" (other: like Current): like Current
+	minus alias "-" (other: like Current): like Current
 			-- Creates a new time which is the difference between
 			-- `Current' and `Other'
 		local
@@ -112,7 +110,7 @@ feature -- Date calculations
 			create Result.make_from_nano_time (seconds, nano_seconds)
 		end
 
-	infix "<" (other: like Current): BOOLEAN
+	is_less alias "<" (other: like Current): BOOLEAN
 			-- Is current object less than `other'?
 		local
 			diff: DOUBLE

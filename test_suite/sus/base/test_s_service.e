@@ -3,8 +3,6 @@ note
 	description: "Test SUS service class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 deferred class

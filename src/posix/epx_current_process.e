@@ -21,20 +21,14 @@ inherit
 
 	POSIX_BASE
 
+
+inherit {NONE}
+
 	PAPI_PWD
-		export
-			{NONE} all
-		end
 
 	PAPI_UNISTD
-		export
-			{NONE} all
-		end
 
 	SAPI_SELECT
-		export
-			{NONE} all
-		end
 
 
 feature -- Access (doesn't make a lot of sense if you're not inheriting)

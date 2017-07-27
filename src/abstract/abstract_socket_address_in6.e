@@ -3,11 +3,9 @@ note
 	description: "Class that describes struct sockaddr_in6."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
-class
+deferred class
 
 	ABSTRACT_SOCKET_ADDRESS_IN6
 

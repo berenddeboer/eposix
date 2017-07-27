@@ -7,8 +7,7 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
+
 
 class
 
@@ -55,7 +54,7 @@ feature -- Sleeping
 					unslept_nanoseconds <= a_nanoseconds
 		end
 
-	unslept_nanoseconds: SUS_TIME
+	unslept_nanoseconds: detachable SUS_TIME
 			-- The number of nanoseconds still to sleep, before being
 			-- interrupted; it is set by `nanosleep'. If it is Void, no
 			-- interrupt occurred and process slept for the allotted

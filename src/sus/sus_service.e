@@ -4,8 +4,6 @@ note
 	%in /etc/services."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 class

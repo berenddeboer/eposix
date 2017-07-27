@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -48,12 +46,10 @@ feature -- Stream i/o
 			stream_not_nil: a_stream /= default_pointer
 			a_string_not_void: a_string /= Void
 		local
-			uc: UC_STRING
 			r: INTEGER
 			i: INTEGER
 		do
-			uc ?= a_string
-			if uc /= Void then
+			if attached {UC_STRING} a_string as uc then
 				from
 					i := 1
 				until

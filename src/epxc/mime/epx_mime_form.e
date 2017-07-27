@@ -66,8 +66,6 @@ feature {NONE} -- Initialization
 			main_body := multipart_body
 			from
 				i := a_key_value_pairs.lower
-			variant
-				a_key_value_pairs.count - (i - a_key_value_pairs.lower)
 			until
 				i > a_key_value_pairs.upper
 			loop
@@ -79,6 +77,8 @@ feature {NONE} -- Initialization
 				input_text := input_part.text_body
 				input_text.append_string (kv.value)
 				i := i + 1
+			variant
+				a_key_value_pairs.count - (i - a_key_value_pairs.lower)
 			end
 		ensure
 			multipart_body_not_void: multipart_body /= Void
@@ -103,8 +103,6 @@ feature {NONE} -- Initialization
 			create_singlepart_body
 			from
 				i := a_key_value_pairs.lower
-			variant
-				a_key_value_pairs.count - (i - a_key_value_pairs.lower)
 			until
 				i > a_key_value_pairs.upper
 			loop
@@ -116,6 +114,8 @@ feature {NONE} -- Initialization
 				if i <= a_key_value_pairs.upper then
 					text_body.append_character  ('&')
 				end
+			variant
+				a_key_value_pairs.count - (i - a_key_value_pairs.lower)
 			end
 		ensure
 			text_body_not_void: text_body /= Void

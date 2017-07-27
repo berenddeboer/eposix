@@ -3,8 +3,6 @@ note
 	description: "Combination of a resolved EPX_HOST and EPX_SERVICE. Depending on the addres_family, makes a sockaddr_in or sockaddr_in6 available in `socket_address'."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -71,6 +69,8 @@ feature -- Fill socket structure, so `ptr' returns something valid
 				create {EPX_SOCKET_ADDRESS_IN6} socket_address.make (ip_address, service.port)
 			else
 				do_raise ("Cannot create proper sockaddr_in struct. Unsupported family " + ip_address.address_family.out)
+				-- silence compiler, we never get here
+				create {EPX_SOCKET_ADDRESS_IN} socket_address.make (ip_address, service.port)
 			end
 		end
 

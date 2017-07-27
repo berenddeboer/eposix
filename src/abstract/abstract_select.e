@@ -3,8 +3,6 @@ note
 	description: "Abstraction upon the select() call."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 deferred class
@@ -105,7 +103,7 @@ feature -- Access
 			definition: Result = abstract_api.FD_SETSIZE
 		end
 
-	timeout: EPX_TIME_VALUE
+	timeout: detachable EPX_TIME_VALUE
 			-- Time to wait in `execute' for any of the descriptors to be
 			-- ready; if Void, wait indefinitely; if 0, poll only.
 

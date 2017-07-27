@@ -1,10 +1,10 @@
 note
 
-	description: "Test SUS tcp sockets by using the echo service."
+	description: "Test SUS tcp sockets by using the local echo service."
+
+	requirements: "By default the echo service is disabled: apt install xinetd."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class

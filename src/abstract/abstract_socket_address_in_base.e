@@ -56,6 +56,8 @@ feature {NONE} -- Initialization
 				create {EPX_IP6_ADDRESS} address.make_from_pointer (sin_addr)
 			else
 				do_raise ("Unhandled address family " + address_family.out)
+				-- silence compiler, we never get here
+				create {EPX_IP4_ADDRESS} address.make_from_pointer (sin_addr)
 			end
 		end
 

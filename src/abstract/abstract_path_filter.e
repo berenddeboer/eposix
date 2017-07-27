@@ -3,8 +3,6 @@ note
 	description: "Base filter class used with directory browsing"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $";
-	revision: "$Revision: #6 $"
 
 
 deferred class
@@ -23,7 +21,7 @@ feature -- Validation
 			Result := True
 		end
 
-	is_valid (a_status: ABSTRACT_STATUS; a_path_name: STRING): BOOLEAN
+	is_valid (a_status: detachable ABSTRACT_STATUS; a_path_name: STRING): BOOLEAN
 			-- Is `path_name' a valid path to return?
 		require
 			has_status_when_needed: require_status implies a_status /= Void

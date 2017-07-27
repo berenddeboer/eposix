@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com> and Colin Paul Adams"
 	copyright: "Copyright (c) 2004-2007, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: "
-	revision: "$Revision: "
 
 
 class
@@ -299,8 +297,6 @@ feature {NONE} -- Implementation
 					from
 						a_splitter.set_separators ("=")
 						a_cursor := some_parameters.new_cursor; a_cursor.start
-					variant
-						some_parameters.count + 1 - a_cursor.index
 					until
 						a_cursor.after
 					loop
@@ -312,6 +308,8 @@ feature {NONE} -- Implementation
 							last_media_type.add_parameter (a_parameter_pair.item (1), a_parameter_pair.item (2))
 							a_cursor.forth
 						end
+					variant
+						some_parameters.count + 1 - a_cursor.index
 					end
 				end
 			end

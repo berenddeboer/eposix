@@ -30,7 +30,7 @@ create
 
 feature -- Access
 
-	last_sender: ABSTRACT_SOCKET_ADDRESS_IN_BASE
+	last_sender: detachable ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Address of sender of last message read
 
 
@@ -44,9 +44,9 @@ feature -- Status
 
 feature {NONE} -- Access
 
-	sockaddr: EPX_BUFFER
+	sockaddr: detachable EPX_BUFFER
 
-	addrlen: EPX_BUFFER
+	addrlen: detachable EPX_BUFFER
 
 
 feature {NONE} -- Abstract API binding

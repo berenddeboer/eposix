@@ -52,13 +52,15 @@ feature -- Local and remote addresses
 		local
 			buf: STDC_BUFFER
 		do
-			if my_local_address = Void then
+			if attached my_local_address as a then
+				Result := a
+			else
 				create buf.allocate_and_clear (256)
 				address_length := buf.capacity
 				safe_call (abstract_getsockname (socket, buf.ptr, $address_length))
-				my_local_address := new_socket_address_in_from_pointer (buf, address_length)
+				Result := new_socket_address_in_from_pointer (buf, address_length)
+				my_local_address := Result
 			end
-			Result := my_local_address
 		ensure
 			local_address_not_void: Result /= Void
 		end
@@ -70,13 +72,15 @@ feature -- Local and remote addresses
 		local
 			buf: STDC_BUFFER
 		do
-			if my_remote_address = Void then
+			if attached my_remote_address as a then
+				Result := a
+			else
 				create buf.allocate_and_clear (256)
 				address_length := buf.capacity
 				safe_call (abstract_getpeername (socket, buf.ptr, $address_length))
-				my_remote_address := new_socket_address_in_from_pointer (buf, address_length)
+				Result := new_socket_address_in_from_pointer (buf, address_length)
+				my_remote_address := Result
 			end
-			Result := my_remote_address
 		ensure
 			remote_address_not_void: Result /= Void
 		end
@@ -127,6 +131,8 @@ feature {NONE} -- Implementation
 				create {EPX_SOCKET_ADDRESS_IN6} Result.make_from_pointer (buf.ptr, actual_length)
 			else
 				do_raise ("new_socket_address_in_from_pointer: unsupported family detected: " + family.out)
+				-- silence compiler, we never get here.
+				create {EPX_SOCKET_ADDRESS_IN} Result.make_from_pointer (buf.ptr, actual_length)
 			end
 		ensure
 			socket_address_in_returned: Result /= Void

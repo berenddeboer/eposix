@@ -3,8 +3,6 @@ note
 	description: "Abstract level IPv6 address."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 deferred class
@@ -33,9 +31,7 @@ feature -- Initialization
 	make_from_pointer (a_ptr: POINTER)
 			-- Initialize ip address from 32-bit integer.
 		do
-			if buf = Void then
-				create buf.allocate_and_clear (abstract_api.posix_in6_addr_size)
-			end
+			create buf.allocate_and_clear (abstract_api.posix_in6_addr_size)
 			set_address (a_ptr)
 		end
 

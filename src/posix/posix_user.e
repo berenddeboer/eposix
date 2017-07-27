@@ -7,8 +7,7 @@ note
 	exceptions: "You get an exception if you create a user that does not exist."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
+
 
 class
 
@@ -44,6 +43,7 @@ feature -- creation
 			passwd := posix_getpwuid (a_uid)
 			if passwd = default_pointer then
 				raise_posix_error
+				name := a_uid.out
 			else
 				name := sh.pointer_to_string (posix_pw_name (passwd))
 			end

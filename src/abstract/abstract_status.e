@@ -4,8 +4,6 @@ note
 	% are available with Windows and POSIX."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 deferred class
@@ -23,9 +21,7 @@ feature {NONE} -- Initialization
 	make_stat
 			-- Make sure stat buffer is there
 		do
-			if stat = Void then
-				create stat.allocate (abstract_stat_size)
-			end
+			create stat.allocate (abstract_stat_size)
 		ensure
 			have_stat: stat /= Void
 			stat_has_capacity: stat.capacity >= abstract_stat_size

@@ -3,8 +3,7 @@ note
 	description: "Stores multi-part MIME body."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
+
 
 class
 
@@ -123,7 +122,6 @@ feature -- Commands
 			every_part_has_a_form_content_disposition_field: has_every_part_a_form_content_disposition_field
 		local
 			cd: EPX_MIME_FIELD_CONTENT_DISPOSITION
-			body: EPX_MIME_BODY_TEXT
 		do
 			from
 				parts.start
@@ -133,8 +131,7 @@ feature -- Commands
 				cd := parts.item_for_iteration.header.content_disposition
 				s.append_string (url_encoder.escape_string (cd.name_parameter.value))
 				s.append_character ('=')
-				body ?= parts.item_for_iteration.body
-				if body /= Void then
+				if attached {EPX_MIME_BODY_TEXT} parts.item_for_iteration.body as body then
 					s.append_string (url_encoder.escape_string (body.as_string))
 				end
 				parts.forth

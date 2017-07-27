@@ -20,7 +20,6 @@ feature -- Socket specific open functions
 	open_by_address (hp: EPX_HOST_PORT)
 			-- Open socket to server specified in `hp'.
 		require
-			closed: not is_open
 			hp_not_void: hp /= Void
 			supported_family: hp.socket_address.is_ip_address_family
 			tcp_protocol: hp.service.is_tcp

@@ -100,7 +100,7 @@ feature -- signal state
 
 feature {NONE} -- private state
 
-	my_callback: STDC_SIGNAL_HANDLER
+	my_callback: detachable STDC_SIGNAL_HANDLER
 			-- Eiffel callback class (if any)
 
 	my_handler: POINTER
@@ -112,4 +112,4 @@ invariant
 	valid_signal_value: value >= 1
 
 
-end -- class STDC_SIGNAL
+end

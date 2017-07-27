@@ -33,6 +33,7 @@ create
 	make_time,
 	make_utc_date,
 	make_utc_date_time,
-	make_utc_time
+	make_utc_time,
+	make_from_iso_8601
 
 end

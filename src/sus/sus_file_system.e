@@ -97,6 +97,7 @@ feature -- File system properties
 			sh.unfreeze_all
 			if p = default_pointer then
 				raise_posix_error
+				Result := a_path
 			else
 				Result := sh.pointer_to_string (resolved_path.ptr)
 			end

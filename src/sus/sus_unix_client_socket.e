@@ -25,7 +25,6 @@ feature {NONE} -- Socket specific open functions
 	open_by_path (a_path_name: STRING; a_socket_type: INTEGER)
 			-- Open socket to local name `a_path_name'.
 		require
-			closed: not is_open
 			path_name_valid: is_valid_path_name (a_path_name)
 			path_name_exists: file_system.is_existing (a_path_name)
 			supported_socket_type: a_socket_type = SOCK_STREAM or else a_socket_type = SOCK_DGRAM

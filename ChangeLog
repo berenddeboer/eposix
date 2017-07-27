@@ -1,3 +1,15 @@
+2017-07-27  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_TIME: can now accept a ISO 8601 date time string.
+
+
+2017-07-26  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_HTTP_10_CLIENT: returns a 500 instead of 503 when there was
+	an issue connecting to the given server (bad host name, or
+	connection refused).
+
+
 2017-07-05  Berend de Boer  <berend@pobox.com>
 
 	* !EPX_SYSTEMD_DAEMON: support creating type simple systemd daemons.

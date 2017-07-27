@@ -3,8 +3,6 @@ note
 	description: "Filters files based on extension."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $";
-	revision: "$Revision: #4 $"
 
 
 class
@@ -65,14 +63,14 @@ feature -- Validation
 						Result := True
 					invariant
 						i >= 1 and i <= path_name.count + 1
-					variant
-						(extension.count - j) + 1
 					until
 						not Result or else j > extension.count
 					loop
 						Result := path_name.item (i) = extension.item (j)
 						i := i + 1
 						j := j + 1
+					variant
+						(extension.count - j) + 1
 					end
 				end
 			end

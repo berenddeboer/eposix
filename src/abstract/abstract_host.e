@@ -41,6 +41,7 @@ feature -- Initialization
 		do
 			create addresses.make_filled (an_address, 0, 0)
 			find_by_address
+			name := canonical_name
 			if not found then
 				create aliases.make_empty
 				create addresses.make_filled (an_address, 0, 0)
@@ -148,7 +149,7 @@ feature -- Status
 			-- Does this class contain a resolved host?
 			-- If False, `not_found_reason' contains the reason.
 		do
-			Result := addresses /= Void
+			Result := not addresses.is_empty
 		end
 
 
@@ -215,15 +216,12 @@ feature {NONE} -- Implementation
 			ip_address: ABSTRACT_IP_ADDRESS
 		do
 			if p = default_pointer then
-				canonical_name := Void
-				aliases := Void
-				addresses := Void
+				create canonical_name.make_empty
+				create aliases.make_empty
+				create addresses.make_empty
 				my_not_found_reason := abstract_h_errno
 			else
 				canonical_name := sh.pointer_to_string (abstract_api.posix_hostent_h_name (p))
-				if name = Void then
-					name := canonical_name
-				end
 				aliases := ah.pointer_to_string_array (abstract_api.posix_hostent_h_aliases (p))
 				address_family := abstract_api.posix_hostent_h_addrtype (p)
 				address_length := abstract_api.posix_hostent_h_length (p)
@@ -241,7 +239,9 @@ feature {NONE} -- Implementation
 					else
 						do_raise ("Unrecognized address family " + address_family.out)
 					end
-					addresses.force (ip_address, addresses.upper + 1)
+					if attached ip_address as ipa then
+						addresses.force (ipa, addresses.upper + 1)
+					end
 					pptr := posix_pointer_advance (pptr)
 					aptr := posix_pointer_contents (pptr)
 				end

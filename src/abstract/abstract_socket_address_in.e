@@ -5,7 +5,7 @@ note
 	author: "Berend de Boer"
 
 
-class
+deferred class
 
 	ABSTRACT_SOCKET_ADDRESS_IN
 

@@ -1072,9 +1072,7 @@ feature -- Parsing
 			header_parsed: part /= Void
 			part_not_void: part /= Void
 		local
-			buf: EPX_MIME_BUFFER
 			is_multipart_body: BOOLEAN
-			multipart_body: EPX_MIME_BODY_MULTIPART
 			save_part: EPX_MIME_PART
 			save_boundary: STRING
 			parse_headers_after_chunk: BOOLEAN
@@ -1085,8 +1083,7 @@ feature -- Parsing
 			if part.header.transfer_encoding /= Void then
 				-- We only support chunked encoding.
 				if part.header.transfer_encoding.is_chunked_coding then
-					buf ?= input_buffer
-					if buf /= Void then
+					if attached {EPX_MIME_BUFFER} input_buffer as buf then
 						buf.set_index (yy_end)
 						buf.set_transfer_encoding_chunked
 						yy_end := buf.count + 1
@@ -1098,8 +1095,7 @@ feature -- Parsing
 				part.header.content_length.length > 0
 			then
 				if level = 1 then
-					buf ?= input_buffer
-					if buf /= Void then
+					if attached {EPX_MIME_BUFFER} input_buffer as buf then
 						buf.set_index (yy_end)
 						buf.set_end_of_file_on_content_length (part.header.content_length.length)
 					end
@@ -1125,11 +1121,10 @@ feature -- Parsing
 				end
 			end
 
-			if is_multipart_body then
+			if is_multipart_body and then attached {EPX_MIME_BODY_MULTIPART} save_part.body as multipart_body then
 				-- Some overflow test here in `level'?
 				level := level + 1
 				save_part := part
-				multipart_body ?= save_part.body
 				forward_to_boundary
 				-- Because we call ourselves recursively, we have to be
 				-- very careful that state is correctly saved.
@@ -1163,6 +1158,7 @@ feature -- Parsing
 			if
 				not syntax_error and then
 				parse_headers_after_chunk and then
+				attached {EPX_MIME_BUFFER} input_buffer as buf and then
 				not buf.chunk_encoding_error
 			then
 				-- trailer can follow, parse it as well and append the fields
@@ -1177,6 +1173,7 @@ feature -- Parsing
 
 			if
 				parse_headers_after_chunk and then
+				attached {EPX_MIME_BUFFER} input_buffer as buf and then
 				buf.chunk_encoding_error
 			then
 				error_count := error_count + 1
@@ -1187,11 +1184,8 @@ feature -- Parsing
 	parse_header
 			-- Read just the MIME header from the input and build a new
 			-- `part'.  Check `syntax_error' for parsing errors.
-		local
-			buf: EPX_MIME_BUFFER
 		do
-			buf ?= input_buffer
-			if buf /= Void then
+			if attached {EPX_MIME_BUFFER} input_buffer as buf then
 				buf.set_end_of_file_on_end_of_header (True)
 			end
 			part := new_part
@@ -1278,14 +1272,13 @@ feature -- Access
 		require
 			not_end_of_input: not end_of_input
 			no_body: part.body = Void
-		local
-			body: EPX_MIME_BODY_TEXT
 		do
 			part.clear_body
 			part.create_singlepart_body
-			body ?= part.body
 			read_cached_characters
-			body.append_string (last_string)
+			if attached {EPX_MIME_BODY_TEXT} part.body as body then
+				body.append_string (last_string)
+			end
 		end
 
 	part: EPX_MIME_PART
@@ -1400,11 +1393,8 @@ feature {NONE} -- Reading MIME bodies
 
 	is_text_body: BOOLEAN
 			-- Does part.body contain text?
-		local
-			text_body: EPX_MIME_BODY_TEXT
 		do
-			text_body ?= part.body
-			Result := text_body /= Void
+			Result := attached {EPX_MIME_BODY_TEXT} part.body
 		end
 
 	last_line: STRING
@@ -1427,8 +1417,6 @@ feature {NONE} -- Reading MIME bodies
 		require
 			body_not_void: part.body /= Void
 			body_is_single_part: not part.body.is_multipart
-		local
-			body: EPX_MIME_BODY_TEXT
 		do
 			if boundary = Void then
 				read_singlepart_body_without_boundary
@@ -1436,8 +1424,7 @@ feature {NONE} -- Reading MIME bodies
 				read_singlepart_body_with_boundary
 			end
 			if encoding /= Void then
-				body ?= part.body
-				if body /= Void then
+				if attached {EPX_MIME_BODY_TEXT} part.body as body then
 					body.set_decoder (encoding.new_decoder)
 				end
 			end
@@ -1458,92 +1445,92 @@ feature {NONE} -- Reading MIME bodies
 			match: BOOLEAN
 			c: CHARACTER
 			matching_boundary: BOOLEAN
-			body: EPX_MIME_BODY_TEXT
 			add_cr: BOOLEAN
 		do
-			body ?= part.body
-			-- This loop reads data character by character.
-			-- We have to stop when a boundary occurs after a CRLF.
-			from
-				matching_boundary := True
-				STRING_.wipe_out (last_line)
-				matched_index := 1
-				read_character
-			invariant
-				matched_index >= 1
-				not boundary_read implies matched_index <= boundary.count
-				matching_boundary implies matched_index <= last_line.count + 1
-			until
-				end_of_input or else
-				boundary_read
-			loop
-
-				-- `c' contains the current character
-				c := last_character
-
-				inspect c
-				when '%R' then
-					-- when a CR is encountered, we've to check for a LF to
-					-- know if this is an end of line or an incidental CR
-					-- (pure data)
-					last_line.append_character (c)
-				when '%N' then
-					-- the next line could contain the boundary so we don't
-					-- write the (CR)LF, but keep it in `last_line'. The
-					-- CRLF is part of the boundary in that case, not of
-					-- the message.
-					if last_line.count > 0 and then
-						last_line.item (last_line.count) = '%R' then
-						-- at this point a CRLF has been read
-						last_line.remove (last_line.count)
-						add_cr := True
-					else
-						add_cr := False
-					end
-					body.append_string (last_line)
-					STRING_.wipe_out (last_line)
-					if add_cr then
-						last_line.append_character ('%R')
-					end
-					last_line.append_character (c)
-					matched_index := 1
+			if attached {EPX_MIME_BODY_TEXT} part.body as body then
+				-- This loop reads data character by character.
+				-- We have to stop when a boundary occurs after a CRLF.
+				from
 					matching_boundary := True
-				else
-					if matching_boundary then
-						match := boundary.item (matched_index) = c
-						if match then
-							-- Match found, advance to next character.
-							last_line.append_character (c)
-							matched_index := matched_index + 1
-							boundary_read := matched_index > boundary.count
+					STRING_.wipe_out (last_line)
+					matched_index := 1
+					read_character
+				invariant
+					matched_index >= 1
+					not boundary_read implies matched_index <= boundary.count
+					matching_boundary implies matched_index <= last_line.count + 1
+				until
+					end_of_input or else
+					boundary_read
+				loop
+
+					-- `c' contains the current character
+					c := last_character
+
+					inspect c
+					when '%R' then
+						-- when a CR is encountered, we've to check for a LF to
+						-- know if this is an end of line or an incidental CR
+						-- (pure data)
+						last_line.append_character (c)
+					when '%N' then
+						-- the next line could contain the boundary so we don't
+						-- write the (CR)LF, but keep it in `last_line'. The
+						-- CRLF is part of the boundary in that case, not of
+						-- the message.
+						if last_line.count > 0 and then
+							last_line.item (last_line.count) = '%R' then
+							-- at this point a CRLF has been read
+							last_line.remove (last_line.count)
+							add_cr := True
 						else
-							-- Mismatch. As boundary has to match only at
-							-- beginning of line, we just have a data line.
+							add_cr := False
+						end
+						body.append_string (last_line)
+						STRING_.wipe_out (last_line)
+						if add_cr then
+							last_line.append_character ('%R')
+						end
+						last_line.append_character (c)
+						matched_index := 1
+						matching_boundary := True
+					else
+						if matching_boundary then
+							match := boundary.item (matched_index) = c
+							if match then
+								-- Match found, advance to next character.
+								last_line.append_character (c)
+								matched_index := matched_index + 1
+								boundary_read := matched_index > boundary.count
+							else
+								-- Mismatch. As boundary has to match only at
+								-- beginning of line, we just have a data line.
+								body.append_string (last_line)
+								body.append_character (c)
+								STRING_.wipe_out (last_line)
+								matching_boundary := False
+							end
+						else
 							body.append_string (last_line)
 							body.append_character (c)
 							STRING_.wipe_out (last_line)
-							matching_boundary := False
 						end
-					else
-						body.append_string (last_line)
-						body.append_character (c)
-						STRING_.wipe_out (last_line)
 					end
+
+					-- very expensive check
+						check
+							-- last_line.has_substring (boundary) implies boundary_read
+						end
+
+					read_character
+					end
+
+					-- if boundary read, skip rest of line
+					if boundary_read then
+						determine_boundary_with_trailer_read
+					end
+					forward_to_end_of_line
 				end
-
-				-- very expensive check
-					check
-						-- last_line.has_substring (boundary) implies boundary_read
-					end
-
-				read_character
-			end
-
-			-- if boundary read, skip rest of line
-			if boundary_read then
-				determine_boundary_with_trailer_read
-			end
-			forward_to_end_of_line
 
 				check
 					stop_condition: boundary_read or end_of_input
@@ -1615,11 +1602,8 @@ feature {NONE} -- Reading MIME bodies
 			-- Read `file' until `end_of_file'. Does handle any line length.
 		require
 			body_contains_text: is_text_body
-		local
-			body: EPX_MIME_BODY_TEXT
 		do
-			if not end_of_input then
-				body ?= part.body
+			if not end_of_input and then attached {EPX_MIME_BODY_TEXT} part.body as body then
 				from
 					read_string
 				until

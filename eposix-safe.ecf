@@ -5,8 +5,8 @@
 		<option warning="true" full_class_checking="true" syntax="standard">
     </option>
     <capability>
-      <void_safety support="conformance" use="none"/>
-			<catcall_detection support="none" use="none"/>
+      <void_safety support="initialization" use="none"/>
+			<catcall_detection support="none"/>
    </capability>
 		<external_object location="${EPOSIX}\lib\libeposix.lib">
 			<condition>
@@ -34,15 +34,16 @@
 				<concurrency value="thread"/>
 			</condition>
 		</external_object>
-    <!-- These libraries are needed regardless of concurrency setting -->
 		<external_object location="-pthread">
 			<condition>
 				<platform excluded_value="windows"/>
+				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<external_object location="-lrt">
 			<condition>
 				<platform excluded_value="windows"/>
+				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<library name="base" location="$ISE_LIBRARY/library/base/base.ecf"/>

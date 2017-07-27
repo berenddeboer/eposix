@@ -5,8 +5,6 @@ note
 	known_bugs: "Does not delete white space at the end of a line."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -45,7 +43,7 @@ feature {NONE} -- Initialization
 	make
 		do
 			precursor
-			create next_characters.make (1, 2)
+			create next_characters.make_filled ('%U', 1, 2)
 		end
 
 

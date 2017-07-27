@@ -54,8 +54,7 @@ feature {NONE}
 				-- already ok
 				mode := a_mode
 			when 't', 'T' then
-				do_raise ("It is not allowed to specify the text flag %
-								 %for binary files.")
+				do_raise ("It is not allowed to specify the text flag for binary files.")
 			else
 				create mode.make (a_mode.count + 1)
 				mode.append_string (a_mode)

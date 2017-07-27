@@ -241,12 +241,14 @@ feature {NONE} -- Implementation
 			-- cannot be a ABSTRACT_TCP_CLIENT_SOCKET, which it would be
 			-- if ssl was natively supported.
 
-	tcp_socket: ABSTRACT_TCP_CLIENT_SOCKET
+	tcp_socket: detachable ABSTRACT_TCP_CLIENT_SOCKET
 			-- `socket' cast to ABSTRACT_TCP_CLIENT_SOCKET
 		require
 			socket_not_void: socket /= Void
 		do
-			Result ?= socket
+			if attached {ABSTRACT_TCP_CLIENT_SOCKET} socket as s then
+				Result := s
+			end
 		ensure
 			not_void_when_not_using_ssl: not is_secure_connection and then errno.is_ok implies Result /= Void
 		end

@@ -7,8 +7,6 @@ note
 	%stream, because Windows doesn't support that."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -55,7 +53,7 @@ feature {NONE} -- Initialization
 		require
 			closed: not is_open
 		do
-			make_path
+			create last_string.make_empty
 			clear_handle
 		ensure
 			fd_unassigned: fd = unassigned_value
@@ -95,7 +93,7 @@ feature -- Special creation
 			old_fd,
 			a_fd: INTEGER
 		do
-			make_path
+			create last_string.make_empty
 			if is_open then
 				old_fd := fd
 				detach
@@ -145,21 +143,21 @@ feature -- Read and write to memory block
 				check
 					internal_consistency_check: line_buffer /= Void implies (line_buffer_must_be_refilled or else buf /= line_buffer.ptr)
 				end
-			if line_buffer = Void or else line_buffer_must_be_refilled then
+			if not attached line_buffer or else line_buffer_must_be_refilled then
 				do_read (buf, offset, nbytes)
-			else
+			elseif attached line_buffer as lb then
 				end_of_input := False
 				last_blocked := False
 				last_read := 0
 				errno.clear
 				create temp_buffer.make_from_pointer (buf + offset, nbytes, False)
-				remaining_bytes := line_buffer.count - line_buffer_index
+				remaining_bytes := lb.count - line_buffer_index
 				if remaining_bytes >= nbytes then
 					last_read := nbytes
 				else
 					last_read := remaining_bytes
 				end
-				temp_buffer.copy_from (line_buffer, line_buffer_index, 0, last_read)
+				temp_buffer.copy_from (lb, line_buffer_index, 0, last_read)
 				line_buffer_index := line_buffer_index + last_read
 			end
 		ensure
@@ -372,10 +370,8 @@ feature -- Eiffel like output
 			-- Write `a_string' to output stream.
 		local
 			p: POINTER
-			uc: UC_STRING
 		do
-			uc ?= a_string
-			if uc /= Void then
+			if attached {UC_STRING} a_string as uc then
 				p := sh.uc_string_to_pointer (uc)
 				write (p, 0, uc.byte_count)
 			else
@@ -485,16 +481,18 @@ feature -- Buffered input
 			not_end_of_input: not end_of_input
 		do
 			assert_have_line_buffer
-			if line_buffer_must_be_refilled then
-				read_buffer (line_buffer, 0, line_buffer.capacity)
-				line_buffer.set_count (last_read)
-				line_buffer_index := 0
-			end
-			if line_buffer_index < line_buffer.count then
-				last_character := line_buffer.peek_character (line_buffer_index)
-				line_buffer_index := line_buffer_index + 1
-			else
-				last_character := '%U'
+			if attached line_buffer as lb then
+				if line_buffer_must_be_refilled then
+					read_buffer (lb, 0, lb.capacity)
+					lb.set_count (last_read)
+					line_buffer_index := 0
+				end
+				if line_buffer_index < lb.count then
+					last_character := lb.peek_character (line_buffer_index)
+					line_buffer_index := line_buffer_index + 1
+				else
+					last_character := '%U'
+				end
 			end
 		ensure
 			last_character_reset_on_end_of_input: end_of_input implies last_character = '%U'
@@ -597,31 +595,34 @@ feature -- Buffered input
 			assert_string_buffer_has_capacity (nb + 1)
 
 			-- Read up to `nb' or `end_of_input', whatever comes first.
-			read_buffer (string_buffer, 0, nb)
-			if last_read = 0 then
-				if last_string = Void then
-					create last_string.make_empty
+			if attached string_buffer as sb then
+				read_buffer (sb, 0, nb)
+				if last_read = 0 then
+					if last_string = Void then
+						create last_string.make_empty
+					else
+						STRING_.wipe_out (last_string)
+					end
 				else
-					STRING_.wipe_out (last_string)
-				end
-			else
-				-- Set end-of-string character.
-				string_buffer.poke_character (last_read, '%U')
-				-- Problem here is that an early occurrence of '%U' truncates
-				-- the string.
-				last_string := sh.pointer_to_string (string_buffer.ptr)
-				-- If that occurs, we fix that here.
-				if last_string.count < last_read then
-					from
-						i := last_string.count
-					until
-						i = last_read
-					loop
-						last_string.append_character (string_buffer.peek_character (i))
-						i := i + 1
+					-- Set end-of-string character.
+					string_buffer.poke_character (last_read, '%U')
+					-- Problem here is that an early occurrence of '%U' truncates
+					-- the string.
+					last_string := sh.pointer_to_string (string_buffer.ptr)
+					-- If that occurs, we fix that here.
+					if last_string.count < last_read then
+						from
+							i := last_string.count
+						until
+							i = last_read
+						loop
+							last_string.append_character (string_buffer.peek_character (i))
+							i := i + 1
+						end
 					end
 				end
 			end
+
 			-- Note that `last_string' can be empty in case there was an
 			-- error in `read' and exceptions are disabled.
 
@@ -698,10 +699,10 @@ feature -- Buffered input
 
 feature {NONE} -- Buffered reading support
 
-	line_buffer: EPX_PARTIAL_BUFFER
+	line_buffer: detachable EPX_PARTIAL_BUFFER
 			-- Buffer used in `read_character' and `read_line'
 
-	string_buffer: STDC_BUFFER
+	string_buffer: detachable STDC_BUFFER
 			-- Buffer used in `read_string'
 
 	line_buffer_index: INTEGER
@@ -719,11 +720,11 @@ feature {NONE} -- Buffered reading support
 	assert_have_line_buffer
 			-- Make sure `line_buffer' is created.
 		do
-			if line_buffer = Void then
+			if not attached line_buffer then
 				create line_buffer.allocate (1024)
 			end
 		ensure
-			line_buffer_not_void: line_buffer /= Void
+			line_buffer_attached: attached line_buffer
 		end
 
 	assert_string_buffer_has_capacity (a_size: INTEGER)

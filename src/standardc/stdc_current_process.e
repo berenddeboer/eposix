@@ -4,8 +4,7 @@ note
 	usage: "Just inherit from this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #10 $"
+
 
 class
 
@@ -15,6 +14,9 @@ class
 inherit
 
 	STDC_PROCESS
+
+
+inherit {NONE}
 
 	CAPI_STDLIB
 		export
@@ -28,6 +30,7 @@ inherit
 
 	CAPI_TIME
 		rename
+			-- Give a process easy access to the current time
 			posix_time as current_time
 		export
 			{NONE} all;

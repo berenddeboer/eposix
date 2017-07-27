@@ -6,8 +6,6 @@ note
 	usage: "Models one (possibly existing) variable."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 class
@@ -61,7 +59,7 @@ feature -- Commands
 
 feature {NONE} -- Implementation
 
-	environment_string: STDC_BUFFER
+	environment_string: detachable STDC_BUFFER
 			-- After `set_value' is called, this contains a pointer to the
 			-- new string;
 			-- It's part of the environment, so changing this is equal to

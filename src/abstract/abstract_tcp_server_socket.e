@@ -25,7 +25,6 @@ feature -- Socket specific open functions
 			-- It uses a backlog of `backlog_default' maximum pending
 			-- connections.
 		require
-			closed: not is_open
 			hp_not_void: hp /= Void
 			supported_family: hp.socket_address.address_family = AF_INET or hp.socket_address.address_family = AF_INET6
 			tcp_protocol: hp.service.protocol_type = SOCK_STREAM
@@ -74,7 +73,7 @@ feature -- Socket specific open functions
 
 feature -- Accept
 
-	accept: ABSTRACT_TCP_SOCKET
+	accept: detachable ABSTRACT_TCP_SOCKET
 			-- Return the next completed connection from the front of the
 			-- completed connection queue. If there are no completed
 			-- connections, the process is put to sleep.
@@ -87,6 +86,7 @@ feature -- Accept
 		local
 			client_fd: INTEGER
 		do
+				check attached client_socket_address end
 			address_length := client_socket_address.capacity
 			client_fd := abstract_accept (socket, client_socket_address.ptr, $address_length)
 			if client_fd = unassigned_value then
@@ -95,13 +95,15 @@ feature -- Accept
 				end
 			else
 				create {EPX_TCP_SOCKET} Result.attach_to_socket (client_fd, True)
-				last_client_address := new_socket_address_in_from_pointer (client_socket_address, address_length)
+				if attached client_socket_address as a then
+					last_client_address := new_socket_address_in_from_pointer (a, address_length)
+				end
 			end
 		ensure
 			last_client_address_set: Result /= Void implies last_client_address /= Void
 		end
 
-	last_client_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE
+	last_client_address: detachable ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Address of last client accepted by `accept'.
 
 
@@ -115,7 +117,7 @@ feature {NONE} -- Implementation
 			Result := SOMAXCONN
 		end
 
-	client_socket_address: STDC_BUFFER
+	client_socket_address: detachable STDC_BUFFER
 			-- Memory area where details of accepted connection are stored.
 
 

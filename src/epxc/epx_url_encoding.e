@@ -5,8 +5,7 @@ note
 	thanks: "Dustin Sallings for the decoding routines."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
+
 
 class
 
@@ -50,8 +49,6 @@ feature -- Encode/decode field name/value pairs
 		local
 			sub_part: EPX_MIME_PART
 			sub_keys: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
-			text_body: EPX_MIME_BODY_TEXT
-			file_body: EPX_MIME_BODY_FILE
 			parameter: EPX_MIME_PARAMETER
 			keyname,
 			keyvalue: STRING
@@ -115,16 +112,14 @@ feature -- Encode/decode field name/value pairs
 							end
 							if parameter /= Void and then not parameter.value.is_empty then
 								keyvalue := remove_directory_part (parameter.value)
-								file_body ?= sub_part.body
-								if file_body /= Void then
+								if attached {EPX_MIME_BODY_FILE} sub_part.body as file_body then
 									temporary_file := file_body.file
 								end
-							else
-								text_body ?= sub_part.body
+							elseif attached {EPX_MIME_BODY_TEXT}  sub_part.body as text_body then
 								keyvalue := text_body.as_string
 							end
 							create kv.make (keyname, keyvalue)
-							if temporary_file /= Void then
+							if attached temporary_file then
 								kv.set_file (temporary_file)
 								temporary_file := Void
 							end

@@ -8,8 +8,6 @@ note
 	%an instance of this class, this to protect against unintended effects."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 deferred class
@@ -40,10 +38,9 @@ feature -- Access
 			-- another program, an empty `command_name' is a possibility.
 		local
 			fs: EPX_FILE_SYSTEM
-			c: STRING
 		once
-			c := command_name
-			if not c.is_empty then
+			Result := command_name
+			if not Result.is_empty then
 				create fs
 				Result := fs.resolved_path_name (command_name)
 			end
@@ -72,11 +69,9 @@ feature {NONE} -- Access (but only when inheriting)
 			name: STRING
 		do
 			raw := raw_environment_variables
-			create Result.make (raw.lower, raw.upper)
+			create Result.make_filled ("", raw.lower, raw.upper)
 			from
 				i := raw.lower
-			variant
-				raw.count - i
 			until
 				i > raw.upper
 			loop
@@ -89,6 +84,8 @@ feature {NONE} -- Access (but only when inheriting)
 				end
 				Result.put (name, i)
 				i := i + 1
+			variant
+				raw.count - i
 			end
 		ensure
 			environment_variables_not_void: Result /= Void

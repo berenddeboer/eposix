@@ -10,8 +10,6 @@ note
 	%do nothing when it shouldn't."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #11 $"
 
 class
 
@@ -25,7 +23,6 @@ inherit
 
 create
 
-	copy, -- needed for SE, might not work for other compilers
 	make,
 	make_from_string,
 	make_expand
@@ -39,7 +36,7 @@ feature -- Initialization
 		require
 			a_path_not_void: a_path /= Void
 		do
-			org_make_from_string (a_path)
+			make_from_raw_string (a_path)
 			correct_directory_separator
 			-- support Windooze, which doesn't like a trailing slash
 			remove_trailing_slash
@@ -58,7 +55,7 @@ feature -- Initialization
 		require
 			s_void: s /= Void
 		do
-			org_make_from_string (normalize_path (s))
+			make_from_raw_string (normalize_path (s))
 			-- support Windooze, which doesn't like a trailing slash
 			remove_trailing_slash
 		end
@@ -132,7 +129,7 @@ feature -- Access
 
 	directory,
 	basename,
-	suffix: STRING
+	suffix: detachable STRING
 			-- Individual components of path, only valid after `parse'
 			-- has been called;
 			-- Not automagically updated when path is changed, you have
@@ -162,7 +159,7 @@ feature -- Compare to string
 
 feature -- Change
 
-	parse (suffix_list: ARRAY [STRING])
+	parse (suffix_list: detachable ARRAY [STRING])
 			-- Set `directory', `basename', and `suffix'.
 			-- The suffix should be in `suffix_list' if it needs to be stripped.
 			-- Suffix comparison is case-insensitive.
@@ -172,6 +169,7 @@ feature -- Change
 			i: INTEGER
 			found: BOOLEAN
 			current_suffix: STRING
+			my_suffix: STRING
 		do
 			-- Find directory
 			from
@@ -201,24 +199,28 @@ feature -- Change
 			end
 
 			-- suffix matches?
-			found := suffix_list /= Void
-			if found then
+			if attached suffix_list as sl then
 				from
-					i := suffix_list.lower
+					i := sl.lower
 					found := False
 				until
-					found or i > suffix_list.upper
+					found or i > sl.upper
 				loop
-					suffix := suffix_list.item (i)
+					my_suffix := sl.item (i)
 					suffix_position := count - suffix.count + 1
 					if suffix_position >= 1 then
 						current_suffix := substring (suffix_position, count)
-						found := STRING_.same_case_insensitive (current_suffix, suffix)
+						found := STRING_.same_case_insensitive (current_suffix, my_suffix)
+						if found then
+							suffix := my_suffix
+						end
 					end
 					if not found then
 						i := i + 1
 					end
 				end
+			else
+				found := FALSE
 			end
 			if found then
 				suffix := suffix.twin
@@ -230,7 +232,7 @@ feature -- Change
 			-- basename
 			create basename.make_from_string (substring (slash_position + 1, suffix_position - 1))
 		ensure
-			directory_set: directory /= Void
+			directory_set: attached directory
 			directory_does_not_end_in_slash:
 				not directory.is_empty implies
 					directory.item (directory.count) /= directory_separator
@@ -261,10 +263,10 @@ feature -- Change
 			basename := new_basename
 			rebuild_path
 		ensure
-			basename_set: STRING_.same_string (basename, new_basename)
+			basename_set: attached basename as b implies STRING_.same_string (b, new_basename)
 		end
 
-	set_directory (new_directory: STRING)
+	set_directory (new_directory: detachable STRING)
 			-- Build new path from `new_directory', `basename' and `suffix'
 		require
 			basename_not_empty: basename /= Void and then not basename.is_empty
@@ -276,10 +278,10 @@ feature -- Change
 			end
 			rebuild_path
 		ensure
-			directory_set: new_directory /= Void implies STRING_.same_string (directory, new_directory)
+			directory_set: attached new_directory as nd and then attached directory as d implies STRING_.same_string (d, nd)
 		end
 
-	set_suffix (new_suffix: STRING)
+	set_suffix (new_suffix: detachable STRING)
 			-- Build new path from current `directory', `basename' and
 			-- `new_suffix'
 		require
@@ -288,9 +290,10 @@ feature -- Change
 			suffix := new_suffix
 			rebuild_path
 		ensure
-			suffix_set: new_suffix /= Void implies STRING_.same_string (suffix, new_suffix)
-			count_not_less_than_suffix: count >= new_suffix.count
-			path_ends_with_suffix: STRING_.same_string (substring (count - new_suffix.count + 1, count), new_suffix)
+			assigned: attached new_suffix = attached suffix
+			suffix_set: attached new_suffix as ns and then attached suffix as s implies STRING_.same_string (s, ns)
+			count_not_less_than_suffix: attached new_suffix as ns implies count >= ns.count
+			path_ends_with_suffix: attached new_suffix as ns implies STRING_.same_string (substring (count - ns.count + 1, count), ns)
 		end
 
 

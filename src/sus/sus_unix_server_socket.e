@@ -27,7 +27,6 @@ feature {NONE} -- Socket specific open functions
 			-- It uses a backlog of `backlog_default' maximum pending
 			-- connections.
 		require
-			closed: not is_open
 			path_name_valid: is_valid_path_name (a_path_name)
 			path_name_not_exists: not file_system.is_existing (a_path_name)
 			supported_socket_type: a_socket_type = SOCK_STREAM or else a_socket_type = SOCK_DGRAM
@@ -74,7 +73,7 @@ feature {NONE} -- Socket specific open functions
 
 feature -- Accept
 
-	accept: SUS_UNIX_SOCKET
+	accept: detachable SUS_UNIX_SOCKET
 			-- Return the next completed connection from the front of the
 			-- completed connection queue. If there are no completed
 			-- connections, the process is put to sleep.
@@ -97,7 +96,7 @@ feature -- Accept
 			socket_to_client_returned: raise_exception_on_error and then is_blocking_io implies Result /= Void
 		end
 
-	last_client_address: SUS_SOCKET_ADDRESS_IN_BASE
+	last_client_address: detachable SUS_SOCKET_ADDRESS_IN_BASE
 			-- Address of last client accepted by `accept'.
 
 

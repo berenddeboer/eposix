@@ -3,8 +3,6 @@ note
 	description: "eposix's file and socket classes (STDC_FILE, POSIX_FILE_DESCRIPTOR, SUS_SOCKET) all inherit from this class. This makes eposix plug compatible with Gobo and any other library using a KI_CHARACTER_OUTPUT_STREAM."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 deferred class
@@ -32,7 +30,6 @@ feature -- Output
 			-- current output stream.
 			-- `append' is safe for non-blocking descriptors.
 		local
-			epx_input_stream: EPX_CHARACTER_INPUT_STREAM
 			buffer: STDC_BUFFER
 			bytes_to_read,
 			bytes_to_write: INTEGER
@@ -40,10 +37,7 @@ feature -- Output
 			write_offset: INTEGER
 		do
 			errno.clear
-			epx_input_stream ?= an_input_stream
-			if epx_input_stream = Void then
-				precursor (an_input_stream)
-			else
+			if attached {EPX_CHARACTER_INPUT_STREAM} an_input_stream as epx_input_stream then
 				create buffer.allocate (8192)
 				from
 					read_offset := 0
@@ -83,6 +77,8 @@ feature -- Output
 					write_offset := write_offset + last_written
 				end
 				buffer.deallocate
+			else
+				precursor (an_input_stream)
 			end
 		end
 

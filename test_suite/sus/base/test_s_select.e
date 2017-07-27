@@ -3,8 +3,6 @@ note
 	description: "Test SUS select calls."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 deferred class
@@ -40,6 +38,8 @@ feature
 			create server_socket.listen_by_address (sa)
 			create client_socket.open_by_address (sa)
 			client_fd := server_socket.accept
+			assert ("Accepted", attached client_fd)
+				check attached client_fd end
 			server_socket.close
 			client_socket.write_string (hello)
 
@@ -78,7 +78,7 @@ feature
 			assert ("Ready for reading after shutdown_write.", my_select.ready_for_reading.has (client_fd))
 			client_fd.read_string (256)
 			assert_integers_equal ("Zero bytes read.", 0, client_fd.last_read)
-			assert ("And EOF set.", client_fd.eof)
+			assert ("And EOF set.", client_fd.end_of_input)
 
 			-- More to read?
 			my_select.execute

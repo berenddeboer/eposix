@@ -395,6 +395,9 @@ feature {NONE} -- `gets' private state
 
 	gets_buf: STDC_BUFFER
 			-- Buffer used by `gets'
+		once
+			create Result.allocate_and_clear (256)
+		end
 
 	assert_buf_has_room (needed_size: INTEGER)
 			-- Make sure `gets_buf' has enough room.
@@ -1060,13 +1063,12 @@ feature {NONE} -- Implementation
 	do_make
 			-- Make sure invariants are satisfied.
 		do
-			make_path
-			if last_string = Void then
-				create last_string.make (256)
-			end
-			if gets_buf = Void then
-				create gets_buf.allocate_and_clear (256)
-			end
+			-- To satisfy Void-safety we always set `last_string'
+			-- although technically we could check if it was set, but
+			-- the compiler isn't smart enough to handle that case.
+			create last_string.make (256)
+			-- Also set mode, although not needed I think, void-safety likes it.
+			mode := ""
 		end
 
 	do_open (a_path, a_mode: READABLE_STRING_8)

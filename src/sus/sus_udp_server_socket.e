@@ -30,7 +30,7 @@ create
 
 feature -- Access
 
-	sa: EPX_HOST_PORT
+	sa: detachable EPX_HOST_PORT
 			-- To what address/port we have bound
 
 
@@ -39,8 +39,7 @@ feature {NONE} -- Socket specific open functions
 	listen_by_address (a_sa: EPX_HOST_PORT)
 			-- Accept datagrams on socket for address specified in `sa'.
 		require
-			closed: not is_open
-			sa_not_void: a_sa /= Void
+			sa_not_void: attached a_sa
 			supported_family: a_sa.socket_address.address_family = AF_INET or a_sa.socket_address.address_family = AF_INET6
 			udp_protocol: a_sa.service.protocol_type = SOCK_DGRAM
 		local
@@ -129,6 +128,6 @@ feature {NONE} -- Implementation
 
 invariant
 
-	sa_not_void: is_bound implies sa /= Void
+	sa_not_void: is_bound implies attached sa
 
 end

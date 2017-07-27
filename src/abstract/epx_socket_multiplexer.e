@@ -8,8 +8,6 @@ note
 	author: "Till G. Bay"
 	copyright: "Copyright (c) 2007, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -98,7 +96,6 @@ feature -- Multiplex
 		require
 			at_least_one_socket: num_read_sockets + num_write_sockets + num_error_sockets > 0
 		local
-			socket: ABSTRACT_SOCKET
 			copy_of_check_for_reading: DS_SET [ABSTRACT_DESCRIPTOR]
 			copy_of_check_for_writing: DS_SET [ABSTRACT_DESCRIPTOR]
 			copy_of_exception_conditions: DS_SET [ABSTRACT_DESCRIPTOR]
@@ -113,11 +110,12 @@ feature -- Multiplex
 			from copy_of_check_for_reading.start
 			until copy_of_check_for_reading.after
 			loop
-				socket ?= copy_of_check_for_reading.item_for_iteration
-				if ready_for_reading.has (socket) then
-					socket.multiplexer_read_callback (current)
-				elseif idle_callback then
-					socket.multiplexer_read_idle_callback (current)
+				if attached {ABSTRACT_SOCKET} copy_of_check_for_reading.item_for_iteration as socket then
+					if ready_for_reading.has (socket) then
+						socket.multiplexer_read_callback (current)
+					elseif idle_callback then
+						socket.multiplexer_read_idle_callback (current)
+					end
 				end
 				copy_of_check_for_reading.forth
 			end
@@ -125,11 +123,12 @@ feature -- Multiplex
 			from copy_of_check_for_writing.start
 			until copy_of_check_for_writing.after
 			loop
-				socket ?= copy_of_check_for_writing.item_for_iteration
-				if ready_for_writing.has (socket) then
-					socket.multiplexer_write_callback (current)
-				elseif idle_callback then
-					socket.multiplexer_write_idle_callback (current)
+				if attached {ABSTRACT_SOCKET} copy_of_check_for_writing.item_for_iteration as socket then
+					if ready_for_writing.has (socket) then
+						socket.multiplexer_write_callback (current)
+					elseif idle_callback then
+						socket.multiplexer_write_idle_callback (current)
+					end
 				end
 				copy_of_check_for_writing.forth
 			end
@@ -137,8 +136,9 @@ feature -- Multiplex
 			from copy_of_exception_conditions.start
 			until copy_of_exception_conditions.after
 			loop
-				socket ?= copy_of_exception_conditions.item_for_iteration
-				socket.multiplexer_error_callback (current)
+				if attached {ABSTRACT_SOCKET} copy_of_exception_conditions.item_for_iteration as socket then
+					socket.multiplexer_error_callback (current)
+				end
 				copy_of_exception_conditions.forth
 			end
 

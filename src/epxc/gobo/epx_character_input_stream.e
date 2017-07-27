@@ -3,8 +3,6 @@ note
 	description: "eposix's file and socket classes (STDC_FILE, POSIX_FILE_DESCRIPTOR, SUS_SOCKET) all inherit from this class. This makes eposix plug compatible with Gobo and any other library using a KI_CHARACTER_INPUT_STREAM."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 deferred class
@@ -82,27 +80,6 @@ feature -- Input
 			Result := last_read
 			buf.put_to_string (a_string, pos, 0, nb - 1)
 		end
-
-
-
-feature -- Debug
-
-	set_dump_input (a_file_name: STRING)
-		do
-			debug ("dump-input")
-				create {STDC_TEXT_FILE} dump_input.open_write (a_file_name)
-			end
-		ensure
-			dump_input_set: dump_input /= Void
-		end
-
-
-feature {NONE} -- Debug
-
-	dump_input: EPX_TEXT_OUTPUT_STREAM
-			-- When the debug option "dump-input" is enabled and this is
-			-- set via `set_dump_input', all input is written to the
-			-- given stream immediately after reading.
 
 
 end

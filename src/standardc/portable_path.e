@@ -8,40 +8,28 @@ note
 	%Unfortunately this means we have routines with side effects..."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $";
-	revision: "$Revision: #6 $"
+
 
 class
 
 	PORTABLE_PATH
 
 
-feature {NONE} -- creation
-
-	make_path
-		do
-			if portable_path = Void then
-				create portable_path.make (256)
-			end
-		end
-
-
 feature -- Access
 
 	portable_path: STDC_PATH
 			-- Scratch path
+		once
+			create Result.make (256)
+		end
 
 
 feature -- Change
 
-	set_portable_path (a_path: READABLE_STRING_8)
+	set_portable_path (a_path: READABLE_STRING_GENERAL)
 			-- Set `portable_path' to `a_path'.
 		do
-			if portable_path = Void then
-				create portable_path.make_from_string (a_path.out)
-			else
-				portable_path.make_from_string (a_path.out)
-			end
+			portable_path.make_from_string (a_path.out)
 		end
 
 end

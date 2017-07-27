@@ -36,10 +36,12 @@ feature -- stat members
 	permissions: POSIX_PERMISSIONS
 			-- Path permissions
 		do
-			if my_permissions = Void then
-				create {POSIX_PERMISSIONS_PATH} my_permissions.make (Current)
+			if attached my_permissions as p then
+				Result := p
+			else
+				create {POSIX_PERMISSIONS_PATH} Result.make (Current)
+				my_permissions := Result
 			end
-			Result := my_permissions
 		end
 
 
@@ -49,15 +51,15 @@ feature -- state change commands
 			-- Refresh the cached status information.
 		do
 			precursor
-			if found and then my_permissions /= Void then
-				my_permissions.update_from_status
+			if found and then attached my_permissions as p then
+				p.update_from_status
 			end
 		end
 
 
 feature {NONE} -- Implementation
 
-	my_permissions: POSIX_PERMISSIONS
+	my_permissions: detachable POSIX_PERMISSIONS
 
 
 feature {NONE} -- abstract API

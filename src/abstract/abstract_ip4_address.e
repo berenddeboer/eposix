@@ -5,7 +5,7 @@ note
 	author: "Berend de Boer"
 
 
-class
+deferred class
 
 	ABSTRACT_IP4_ADDRESS
 
@@ -31,9 +31,7 @@ feature -- Initialization
 	make_from_integer (a_value: INTEGER)
 			-- Initialize ip address from 32-bit integer.
 		do
-			if buf = Void then
-				create buf.allocate_and_clear (abstract_api.posix_in_addr_size)
-			end
+			create buf.allocate_and_clear (abstract_api.posix_in_addr_size)
 			set_value (a_value)
 		ensure
 			value_set: a_value = value
@@ -78,9 +76,7 @@ feature -- Initialization
 		local
 			n: INTEGER
 		do
-			if buf = Void then
-				create buf.allocate_and_clear (abstract_api.posix_in_addr_size)
-			end
+			create buf.allocate_and_clear (abstract_api.posix_in_addr_size)
 			n := posix_peek_int32_native (a_ptr, 0)
 			set_value (abstract_api.posix_ntohl (n))
 		end

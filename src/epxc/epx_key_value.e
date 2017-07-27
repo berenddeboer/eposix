@@ -3,8 +3,7 @@ note
 	description: "key=value pairs as used in HTML forms. Used for CGI programs and the HTTP server."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
+
 
 class
 

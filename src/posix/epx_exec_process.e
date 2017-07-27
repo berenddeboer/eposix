@@ -94,20 +94,20 @@ feature -- Change
 
 feature {NONE} -- i/o capturing, only visible at POSIX_EXEC_PROCESS level
 
-	stdin: POSIX_TEXT_FILE
+	stdin: detachable POSIX_TEXT_FILE
 
-	stdout: POSIX_TEXT_FILE
+	stdout: detachable POSIX_TEXT_FILE
 
-	stderr: POSIX_TEXT_FILE
+	stderr: detachable POSIX_TEXT_FILE
 
 
 feature -- i/o capturing
 
-	fd_stdin: POSIX_FILE_DESCRIPTOR
+	fd_stdin: detachable POSIX_FILE_DESCRIPTOR
 
-	fd_stdout: POSIX_FILE_DESCRIPTOR
+	fd_stdout: detachable POSIX_FILE_DESCRIPTOR
 
-	fd_stderr: POSIX_FILE_DESCRIPTOR
+	fd_stderr: detachable POSIX_FILE_DESCRIPTOR
 
 
 feature -- Execution
@@ -218,27 +218,33 @@ feature -- Execution
 					-- the ABSTRACT_EXEC_PROCESS level were we expect that
 					-- the file descriptors are owners.
 					if capture_input then
-						fd_stdin := input_pipe.fdout
-						fd_stdin.inherit_error_handling (Current)
-						create stdin.make_from_file_descriptor (fd_stdin, once "w")
-						input_pipe.fdin.close
-						fd_stdin.become_owner
+						if attached input_pipe.fdout as my_fd_stdin then
+							fd_stdin := my_fd_stdin
+							my_fd_stdin.inherit_error_handling (Current)
+							create stdin.make_from_file_descriptor (my_fd_stdin, once "w")
+							input_pipe.fdin.close
+							my_fd_stdin.become_owner
+						end
 						stdin.unown
 					end
 					if capture_output then
-						fd_stdout := output_pipe.fdin
-						fd_stdout.inherit_error_handling (Current)
-						create stdout.make_from_file_descriptor (fd_stdout, once "r")
-						output_pipe.fdout.close
-						fd_stdout.become_owner
+						if attached output_pipe.fdin as my_fd_stdout then
+							fd_stdout := my_fd_stdout
+							my_fd_stdout.inherit_error_handling (Current)
+							create stdout.make_from_file_descriptor (my_fd_stdout, once "r")
+							output_pipe.fdout.close
+							my_fd_stdout.become_owner
+						end
 						stdout.unown
 					end
 					if capture_error then
-						fd_stderr := error_pipe.fdin
-						fd_stderr.inherit_error_handling (Current)
-						create stderr.make_from_file_descriptor (fd_stderr, once "r")
-						error_pipe.fdout.close
-						fd_stderr.become_owner
+						if attached error_pipe.fdin as my_fd_stderr then
+							fd_stderr := my_fd_stderr
+							my_fd_stderr.inherit_error_handling (Current)
+							create stderr.make_from_file_descriptor (my_fd_stderr, once "r")
+							error_pipe.fdout.close
+							my_fd_stderr.become_owner
+						end
 						stderr.unown
 					end
 				end

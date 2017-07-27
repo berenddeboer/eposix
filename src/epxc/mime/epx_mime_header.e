@@ -121,21 +121,21 @@ feature -- Access
 
 feature -- Access to well-known fields
 
-	cache_control: EPX_MIME_UNSTRUCTURED_FIELD
+	cache_control: detachable EPX_MIME_UNSTRUCTURED_FIELD
 
-	content_length: EPX_MIME_FIELD_CONTENT_LENGTH
+	content_length: detachable EPX_MIME_FIELD_CONTENT_LENGTH
 			-- Field `Content-Length' if it exists, else Void
 
-	content_disposition: EPX_MIME_FIELD_CONTENT_DISPOSITION
+	content_disposition: detachable EPX_MIME_FIELD_CONTENT_DISPOSITION
 			-- Field `Content-Disposition' if it exists, else Void
 
-	content_transfer_encoding: EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING
+	content_transfer_encoding: detachable EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING
 			-- Field `Content-Transfer-Encoding' if it exists, else Void
 
-	content_type: EPX_MIME_FIELD_CONTENT_TYPE
+	content_type: detachable EPX_MIME_FIELD_CONTENT_TYPE
 			-- Field `Content-Type' if it exists, else Void
 
-	transfer_encoding: EPX_MIME_FIELD_TRANSFER_ENCODING
+	transfer_encoding: detachable EPX_MIME_FIELD_TRANSFER_ENCODING
 			-- Field `Transfer-Encoding' if it exists, else Void
 
 
@@ -179,16 +179,16 @@ feature {NONE} -- Set well-known fields
 	set_cached_field (a_field: EPX_MIME_FIELD)
 			-- Make some often used fields more easily available.
 		do
-			if STRING_.same_string (a_field.name, field_name_content_length) then
-				content_length ?= a_field
-			elseif STRING_.same_string (a_field.name, field_name_content_disposition) then
-				content_disposition ?= a_field
-			elseif STRING_.same_string (a_field.name, field_name_content_transfer_encoding) then
-				content_transfer_encoding ?= a_field
-			elseif STRING_.same_string (a_field.name, field_name_content_type) then
-				content_type ?= a_field
-			elseif STRING_.same_string (a_field.name, field_name_transfer_encoding) then
-				transfer_encoding ?= a_field
+			if attached {EPX_MIME_FIELD_CONTENT_LENGTH} a_field as f then
+				content_length := f
+			elseif attached {EPX_MIME_FIELD_CONTENT_DISPOSITION} a_field as f then
+				content_disposition := f
+			elseif attached {EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING} a_field as f  then
+				content_transfer_encoding := f
+			elseif attached {EPX_MIME_FIELD_CONTENT_TYPE} a_field as f then
+				content_type := f
+			elseif attached {EPX_MIME_FIELD_TRANSFER_ENCODING} a_field as f then
+				transfer_encoding := f
 			end
 		end
 

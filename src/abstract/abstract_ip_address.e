@@ -3,8 +3,6 @@ note
 	description: "Features IPv4 and IPv6 classes have in common."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 deferred class

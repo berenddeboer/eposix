@@ -27,7 +27,6 @@ feature {NONE} -- Socket specific open functions
 	open_by_address (sa: EPX_HOST_PORT)
 			-- Open socket to server specified in `sa'.
 		require
-			closed: not is_open
 			sa_not_void: sa /= Void
 			supported_family: sa.socket_address.address_family = AF_INET or sa.socket_address.address_family = AF_INET6
 			udp_protocol: sa.service.protocol_type = SOCK_DGRAM

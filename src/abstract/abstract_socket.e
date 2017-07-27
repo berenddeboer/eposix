@@ -170,10 +170,10 @@ feature {NONE} -- Implementation
 	my_flag: INTEGER
 			-- Boolean to be passed to `setsockopt' or `ioctlsocket' and such
 
-	my_local_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE
+	my_local_address: detachable ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Cache for `local_address'
 
-	my_remote_address: ABSTRACT_SOCKET_ADDRESS_IN_BASE
+	my_remote_address: detachable ABSTRACT_SOCKET_ADDRESS_IN_BASE
 			-- Cache for `remote_address'
 
 

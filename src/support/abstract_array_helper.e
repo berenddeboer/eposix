@@ -2,8 +2,6 @@ note
 
 	description: "Base class to converts arrays to pointers."
 
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 deferred class
@@ -27,7 +25,7 @@ inherit
 
 feature -- String array to pointer and vice versa conversion
 
-	string_array_to_pointer_array (a: ARRAY [STRING]): ARRAY [POINTER]
+	string_array_to_pointer_array (a: ARRAY [detachable STRING]): ARRAY [POINTER]
 			-- Convert ARRAY[STRING] to char ** (ARRAY[POINTER]).
 			-- Resulting array is null terminated.
 			-- Result of this can be passed to `pointer_array_to_pointer'.
@@ -43,9 +41,9 @@ feature -- String array to pointer and vice versa conversion
 		do
 			-- Create new array with room for null terminator
 			if a.item (a.upper) = Void then
-				create Result.make (a.lower, a.upper)
+				create Result.make_filled (default_pointer, a.lower, a.upper)
 			else
-				create Result.make (a.lower, a.upper+1)
+				create Result.make_filled (default_pointer, a.lower, a.upper+1)
 			end
 
 			-- Copy the strings in the new array as pointers
@@ -75,7 +73,7 @@ feature -- String array to pointer and vice versa conversion
 			ptr1, ptr2: POINTER
 			s: STRING
 		do
-			create Result.make (0, -1)
+			create Result.make_empty
 
 			if p /= default_pointer then
 				ptr1 := p

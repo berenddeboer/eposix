@@ -51,7 +51,7 @@ feature {NONE} -- Initialization
 
 	make_with_port (a_server_name: STRING; a_port: INTEGER)
 			-- Prepare for request.
-			-- Use `port' is 0 to use the default port (80).
+			-- Use `a_port' is 0 to use the default port (80).
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
 			valid_port: a_port >= 0 and then a_port <= 65535

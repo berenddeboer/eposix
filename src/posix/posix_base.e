@@ -3,8 +3,6 @@ note
 	description: "Base class for POSIX classes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 class
 
@@ -14,9 +12,8 @@ inherit
 
 	STDC_BASE
 
+inherit {NONE}
+
 	POSIX_CONSTANTS
-		export
-			{NONE} all
-		end
 
 end

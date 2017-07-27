@@ -4,8 +4,6 @@ note
 	%in /etc/services."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -20,7 +18,7 @@ inherit
 
 feature -- Initialization
 
-	make_from_name (a_name, a_protocol: STRING)
+	make_from_name (a_name: STRING; a_protocol: detachable STRING)
 			-- Retrieve service information with `a_name' and optional
 			-- `a_protocol' from services database.
 			-- If service not found, an exception is raised.
@@ -36,6 +34,8 @@ feature -- Initialization
 			if p = default_pointer then
 				-- service with this name does not exist
 				raise_posix_error
+				create aliases.make_empty
+				name := a_name
 			else
 				set_members_from_struct (p, 0, a_protocol)
 			end
@@ -70,13 +70,13 @@ feature -- Initialization
 			-- Provide a `a_protocol' if necessary.
 		do
 			port := 0
-			name := Void
+			create name.make_empty
 			protocol := a_protocol
 			guess_protocol_type
 			create aliases.make_empty
 		end
 
-	make_from_port (a_port: INTEGER; a_protocol: STRING)
+	make_from_port (a_port: INTEGER; a_protocol: detachable STRING)
 			-- Initialize service from given a_port.
 			-- Make sure to provide a `a_protocol' if necessary!
 		require
@@ -103,7 +103,7 @@ feature -- Access
 	aliases: ARRAY [STRING]
 			-- alias list
 
-	protocol: STRING
+	protocol: detachable STRING
 			-- protocol to use (udp/tcp)
 
 	protocol_type: INTEGER
@@ -151,7 +151,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	set_members_from_struct (p: POINTER; a_port: INTEGER; a_protocol: STRING)
+	set_members_from_struct (p: POINTER; a_port: INTEGER; a_protocol: detachable STRING)
 			-- Initialize attributes of object from struct in `p'. If p =
 			-- default_pointer we assume service does not exist in
 			-- /etc/services and give some dummy values.

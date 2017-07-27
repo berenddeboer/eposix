@@ -5,8 +5,7 @@ note
 	usage: "Inherit from SUS_SYSLOG_ACCESSOR to access this class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
+
 
 class
 
@@ -42,17 +41,17 @@ feature {SUS_SYSLOG_ACCESSOR}
 
 feature -- open and close
 
-	open (a_identification: STRING; a_format, a_facility: INTEGER)
+	open (an_identification: STRING; a_format, a_facility: INTEGER)
 			-- start logging with the given identification
 		require
 			valid_identification:
-				a_identification /= Void and then
-				not a_identification.is_empty
+				an_identification /= Void and then
+				not an_identification.is_empty
 			closed: not is_open
 		do
-			identification := a_identification
+			identification := an_identification
 			create identification_buffer.allocate_and_clear (identification.count + 1)
-			identification_buffer.put_string (identification, 0, identification.count - 1)
+			identification_buffer.put_string (an_identification, 0, an_identification.count - 1)
 			format := a_format
 			facility := a_facility
 			posix_openlog (identification_buffer.ptr, format, facility)
@@ -144,7 +143,7 @@ feature -- Write log messages, will auto-open if not is_open
 
 feature -- Access
 
-	identification: STRING
+	identification: detachable STRING
 
 	format,
 	facility: INTEGER
@@ -154,7 +153,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	identification_buffer: STDC_BUFFER
+	identification_buffer: detachable STDC_BUFFER
 
 	frozen singleton: EPX_SINGLETON
 		once

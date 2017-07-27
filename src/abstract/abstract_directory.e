@@ -4,8 +4,6 @@ note
 	%able to loop (recursively) through a directory."
 
 	author: "Berend de Boer, Marcio Marchini"
-	date: "$Date: 2007/11/22 $";
-	revision: "$Revision: #8 $"
 
 
 class
@@ -26,6 +24,11 @@ inherit
 		export
 			{NONE} all
 		end
+
+
+create
+
+	make
 
 
 feature {NONE} -- Initialization
@@ -127,7 +130,7 @@ feature -- Access
 
 feature -- Influence browsing
 
-	filter: ABSTRACT_PATH_FILTER
+	filter: detachable ABSTRACT_PATH_FILTER
 			-- Optional filter
 
 	set_filter (a_filter: ABSTRACT_PATH_FILTER)
@@ -177,11 +180,6 @@ feature -- Access
 		require
 			opened: is_open
 		do
-			if my_full_name = Void then
-				create my_full_name.make (256)
-			else
-				STRING_.wipe_out (my_full_name)
-			end
 			Result := my_full_name
 			Result.append_string (directory_name)
 			Result.append_character (fs.path_separator)
@@ -229,12 +227,14 @@ feature -- Access
 		require
 			have_entry: not exhausted
 		do
-			if my_status = Void then
-				my_status := fs.status_may_fail (full_name)
+			if attached my_status as ms then
+				Result := ms
+			else
+				Result := fs.status_may_fail (full_name)
+				my_status := Result
 			end
-			Result := my_status
 		ensure
-			status_not_void: Result /= Void
+			status_not_void: attached Result
 		end
 
 
@@ -364,8 +364,11 @@ feature {NONE} -- Implementation
 			--- Cache for full name, avoid string allocations.
 			-- This cache speeds up simple directory browsing programs
 			-- which output `full_name' enormously to a factor 3.
+		once
+			create Result.make (256)
+		end
 
-	my_status: ABSTRACT_STATUS_PATH
+	my_status: detachable ABSTRACT_STATUS_PATH
 			-- Optional status of current entry.
 
 

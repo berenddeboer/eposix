@@ -88,6 +88,7 @@ feature -- Set signal properties, make effective with `apply'
 		end
 
 	set_mask (a_mask: POSIX_SIGNAL_SET)
+		obsolete "not yet implemented"
 		do
 			-- not yet implemented
 		end
@@ -141,7 +142,7 @@ feature -- Signal state
 			ignore_consistent: Result implies not is_ignored
 		end
 
-	mask: POSIX_SIGNAL_SET
+	mask: detachable POSIX_SIGNAL_SET
 
 	refresh
 			-- get latest state for this signal

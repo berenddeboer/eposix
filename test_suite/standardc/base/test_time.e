@@ -3,8 +3,6 @@ note
 	description: "Test Standard C time class."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -102,6 +100,26 @@ feature -- Time tests
 			a := 11 * 3600 + 14 * 60 + 7
 			b := 03 * 3600 + 14 * 60 + 8
 			assert ("Invalid time detected", not time.is_valid_date_and_time (2038, 1, 19, 11, 14, 7))
+		end
+
+	test_iso_8601
+		local
+			time: STDC_TIME
+		do
+			create time.make_from_iso_8601 ("2017-07-26T19:49:35Z")
+			assert_integers_equal ("Valid year", 2017, time.year)
+			assert_integers_equal ("Valid month", 7, time.month)
+			assert_integers_equal ("Valid day", 26, time.day)
+			assert_integers_equal ("Valid hour", 19, time.hour)
+			assert_integers_equal ("Valid minute", 49, time.minute)
+			assert_integers_equal ("Valid second", 35, time.second)
+			create time.make_from_iso_8601 ("2017-01-05T10:00:00+02:00")
+			assert_integers_equal ("Valid year", 2017, time.year)
+			assert_integers_equal ("Valid month", 1, time.month)
+			assert_integers_equal ("Valid day", 5, time.day)
+			assert_integers_equal ("Valid hour", 12, time.hour)
+			assert_integers_equal ("Valid minute", 0, time.minute)
+			assert_integers_equal ("Valid second", 0, time.second)
 		end
 
 

@@ -204,7 +204,7 @@ feature -- Directory browsing
 			directory_returned: Result /= Void
 		end
 
-	find_program_in_path (a_filename: STRING; a_paths: ARRAY [STRING]): STRING
+	find_program_in_path (a_filename: STRING; a_paths: ARRAY [STRING]): detachable STRING
 			-- Look for `a_filename' in `a_paths', check if it is a
 			-- binary and return the full path to `a_filename' when
 			-- found. Return Void if not found.
@@ -241,7 +241,7 @@ feature -- Directory browsing
 				a_paths.count - (i - a_paths.lower)
 			end
 		ensure
-			found: Result /= Void implies is_executable (Result)
+			found: attached Result as r implies is_executable (r)
 		end
 
 
@@ -380,7 +380,7 @@ feature -- File and string
 
 feature -- Path names
 
-	resolved_path_name (a_path: STRING): STRING
+	resolved_path_name (a_path: READABLE_STRING_8): STRING
 			-- Absolute pathname derived from `a_path' that names the
 			-- same file, whose resolution does not involve ".", "..", or
 			-- symbolic links
@@ -399,23 +399,29 @@ feature -- Path names
 			else
 				create path.make_from_string (a_path)
 				path.parse (Void)
-				if path.directory.is_empty then
-					create Result.make (save_directory.count + 1 + a_path.count)
-					Result.append_string (save_directory)
-					Result.append_character ('/')
-					Result.append_string (a_path)
-				elseif is_directory (path.directory) then
-					change_directory (path.directory)
-					s := current_directory
-					create Result.make (s.count + 1 + path.basename.count)
-					Result.append_string (s)
-					Result.append_character ('/')
-					Result.append_string (path.basename)
+				if attached path.directory as directory then
+					if directory.is_empty then
+						create Result.make (save_directory.count + 1 + a_path.count)
+						Result.append_string (save_directory)
+						Result.append_character ('/')
+						Result.append_string (a_path)
+					elseif is_directory (directory) then
+						change_directory (directory)
+						s := current_directory
+						create Result.make (s.count + 1 + path.basename.count)
+						Result.append_string (s)
+						Result.append_character ('/')
+						Result.append_string (path.basename)
+					else
+						-- need to define ENOENT!!
+						--errno.set_value (ENOENT)
+						errno.set_value (ERANGE)
+						raise_posix_error
+						Result := a_path
+					end
 				else
-					-- need to define ENOENT!!
-					--errno.set_value (ENOENT)
-					errno.set_value (ERANGE)
-					raise_posix_error
+					-- silence compiler, we never get here
+					Result := a_path
 				end
 			end
 			change_directory (save_directory)

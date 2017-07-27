@@ -3,8 +3,6 @@ note
 	description: "Stream that gets base64 data from another stream and emits decoded characters."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -50,7 +48,7 @@ feature {NONE} -- Initialization
 	make
 		do
 			precursor
-			create codes.make (1, 4)
+			create codes.make_filled (0, 1, 4)
 			create triplet.make_filled (' ', 3)
 			triplet_position := 4
 		end

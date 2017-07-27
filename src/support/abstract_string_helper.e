@@ -192,12 +192,10 @@ feature -- General string utilities
 		do
 			if s /= Void and then not s.is_empty then
 				-- attempt to avoid allocs
-				create Result.make (0, 32)
+				create Result.make_filled ("", 0, 32)
 				from
 					start := 1
 					p := s.index_of (on, start)
-				variant
-					(s.count + 1) - start
 				until
 					p = 0
 				loop
@@ -206,6 +204,8 @@ feature -- General string utilities
 					count := count + 1
 					start := p + 1
 					p := s.index_of (on, start)
+				variant
+					(s.count + 1) - start
 				end
 
 				if start <= s.count then
@@ -223,7 +223,7 @@ feature -- General string utilities
 				-- is not ELKS conformant.
 				if Result.upper /= count - 1 then
 					large_array := Result
-					create Result.make (0, count - 1)
+					create Result.make_filled ("", 0, count - 1)
 					from
 						i := 0
 					until
@@ -234,7 +234,7 @@ feature -- General string utilities
 					end
 				end
 			else
-				create Result.make (0, -1)
+				create Result.make_empty
 			end
 		ensure
 			array_empty_if_s_empty:

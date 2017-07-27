@@ -3,8 +3,6 @@ note
 	description: "SUSv3 portable implementation of a service name."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class

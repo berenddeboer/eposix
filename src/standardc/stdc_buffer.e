@@ -5,8 +5,6 @@ note
 
 	remark: "If you treat this as an array, it is zero based."
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #12 $"
 
 
 class
@@ -341,7 +339,7 @@ feature -- Access
 
 feature -- Set/get bytes (8-bit data)
 
-	peek_uint8, infix "@" (index: INTEGER): INTEGER
+	peek_uint8 alias "@" (index: INTEGER): INTEGER
 			-- consider memory an array of 8 bit values.
 		require
 			valid_index: is_valid_index (index)
@@ -860,14 +858,14 @@ feature -- Set/get characters
 			invariant
 				j >= 1 and (j <= s.count or i > end_index)
 				i <= an_end_index + 1
-			variant
-				(end_index - i) + 1
 			until
 				i > end_index
 			loop
 				poke_character (i, s.item (j))
 				j := j + 1
 				i := i + 1
+			variant
+				(end_index - i) + 1
 			end
 		end
 
@@ -912,14 +910,14 @@ feature -- Set/get characters
 			from
 				i := start_index
 				c := posix_peek_character (ptr, i)
-			variant
-				(end_index + 1) - i
 			until
 				c = '%U' or else i > end_index
 			loop
 				dest.append_character (c)
 				i := i + 1
 				c := posix_peek_character (ptr, i)
+			variant
+				(end_index + 1) - i
 			end
 		ensure
 			dest_count_as_asked: dest.count <= end_index - start_index + 1
@@ -1035,8 +1033,6 @@ feature -- Searching
 					i2 := i1 + i3 - 1
 				invariant
 					i3 = i2 - i1 + 1
-				variant
-					(capacity + 1) - i1
 				until
 					index >= 0
 				loop
@@ -1068,6 +1064,8 @@ feature -- Searching
 					i1 := i1 + 1
 					i3 := other.count
 					i2 := i1 + i3 - 1
+				variant
+					(capacity + 1) - i1
 				end
 				if index < capacity then
 					Result := index

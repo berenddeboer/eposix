@@ -10,8 +10,7 @@ note
 		%     http://www.apache.org/~fielding/uri/rev-2002/issues.html"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #8 $"
+
 
 class
 

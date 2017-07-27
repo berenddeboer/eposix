@@ -3,8 +3,6 @@ note
 	description: "Class that covers Posix file descriptor routines."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #10 $"
 
 
 class
@@ -163,9 +161,8 @@ feature -- Synchronisation
 
 feature -- Locking
 
-	get_lock (lock_to_test: POSIX_LOCK): POSIX_LOCK
-			-- Gets lock information, returns True if a lock is set on
-			-- the region in a_lock. a_lock is overwritten with that lock.
+	get_lock (lock_to_test: POSIX_LOCK): detachable POSIX_LOCK
+			-- Lock information about given lock
 		do
 			create Result.make
 			Result.buf.copy_from (lock_to_test.buf, 0, 0, lock_to_test.buf.capacity)
@@ -212,10 +209,11 @@ feature -- Access
 			-- The status for this file descriptor. Cached value,
 			-- refreshed only when file reopened.
 		do
-			if my_status = Void then
+			if not attached my_status then
 				make_status
 			end
 			Result := my_status
+			check attached Result end
 		end
 
 	terminal: POSIX_TERMIOS
@@ -223,10 +221,12 @@ feature -- Access
 		require
 			valid_file_descriptor: is_attached_to_terminal
 		do
-			if my_termios = Void then
-				create my_termios.make (Current)
+			if attached my_termios as t then
+				Result := t
+			else
+				create Result.make (Current)
+				my_termios := Result
 			end
-			Result := my_termios
 		ensure
 			valid_result: Result /= Void
 		end
@@ -256,10 +256,10 @@ feature {NONE} -- Low level handle functions
 
 feature {NONE} -- Implementation
 
-	my_status: POSIX_STATUS
+	my_status: detachable POSIX_STATUS
 			-- cached status object
 
-	my_termios: POSIX_TERMIOS
+	my_termios: detachable POSIX_TERMIOS
 			-- lazy build access to terminal setttings
 
 

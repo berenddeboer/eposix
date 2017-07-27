@@ -30,16 +30,14 @@ inherit
 			is_equal
 		end
 
+inherit {NONE}
+
 	CAPI_TIME
-		export
-			{NONE} all
 		redefine
 			is_equal
 		end
 
 	KL_GREGORIAN_CALENDAR
-		export
-			{NONE} all
 		redefine
 			is_equal
 		end
@@ -56,7 +54,8 @@ create
 	make_time,
 	make_utc_date,
 	make_utc_date_time,
-	make_utc_time
+	make_utc_time,
+	make_from_iso_8601
 
 
 feature -- Initialization
@@ -189,7 +188,7 @@ feature -- Initialization
 	make_utc_date_time (a_year, a_month, a_day, an_hour, a_minute, a_second: INTEGER)
 			-- Date is assumed to be in UTC.
 			-- Conversion to the unix time is done without taking into
-			-- account leap seconds, as according to the specification.
+			-- account leap seconds, as per the specification.
 		require
 			valid_date_and_time: is_valid_date_and_time (a_year, a_month, a_day, an_hour, a_minute, a_second)
 		local
@@ -246,6 +245,27 @@ feature -- Initialization
 			an_hour_set: an_hour = hour
 			minute_set: a_minute = minute
 			second_set: a_second = second
+		end
+
+	make_from_iso_8601 (s: STRING)
+			-- `s' should be in ISO 8601 format.
+			-- Only full date and time are supported.
+		require
+			is_iso_8601_date_time: is_valid_iso_8601_date (s)
+		local
+			tz_hour,
+			tz_minute,
+			tz_seconds: INTEGER
+		do
+			iso_8601_rx.match (s)
+			make_utc_date_time (iso_8601_rx.captured_substring (1).to_integer, iso_8601_rx.captured_substring (2).to_integer, iso_8601_rx.captured_substring (3).to_integer, iso_8601_rx.captured_substring (4).to_integer, iso_8601_rx.captured_substring (5).to_integer, iso_8601_rx.captured_substring (6).to_integer)
+			if iso_8601_rx.match_count >= 7 and then iso_8601_rx.captured_substring (7) /~ "Z" then
+				tz_hour := iso_8601_rx.captured_substring (8).to_integer
+				tz_minute := iso_8601_rx.captured_substring (9).to_integer
+				tz_seconds := tz_hour * 3600 + tz_minute * 60
+				add_seconds (tz_seconds)
+				to_utc
+			end
 		end
 
 
@@ -557,6 +577,7 @@ feature -- Time as string
 			if r = 0 then
 				p.deallocate
 				raise_posix_error
+				Result := ""
 			else
 				Result := sh.pointer_to_string (p.ptr)
 				p.deallocate
@@ -635,7 +656,7 @@ feature -- Date calculations
 			Result := other.value = value
 		end
 
-	infix "+" (other: like Current): like Current
+	plus alias "+" (other: like Current): like Current
 			-- Sum with `other'
 		do
 			create Result.make_from_unix_time (value + other.value)
@@ -648,7 +669,7 @@ feature -- Date calculations
 			time_zone_same: my_time_zone = Result.my_time_zone
 		end
 
-	infix "-" (other: like Current): like Current
+	minus alias "-" (other: like Current): like Current
 			-- Creates a new time which is the difference between
 			-- `Current' and `Other'
 		local
@@ -658,7 +679,7 @@ feature -- Date calculations
 			create Result.make_from_unix_time (diff.truncated_to_integer)
 		end
 
-	infix "<" (other: like Current): BOOLEAN
+	is_less alias "<" (other: like Current): BOOLEAN
 			-- Is current object less than `other'?
 		local
 			diff: DOUBLE
@@ -726,6 +747,45 @@ feature -- Status
 				an_hour >= 0 and an_hour <= 23 and then
 				a_minute >= 0 and a_minute <= 59 and then
 				a_second >= 0 and a_second <= 59
+		end
+
+	is_valid_iso_8601_date (s: STRING): BOOLEAN
+			-- Is `s' in ISO 8601 format?
+			-- Definition: https://en.wikipedia.org/wiki/ISO_8601
+		local
+			my_year,
+			my_month,
+			my_day: INTEGER
+			my_hour,
+			my_minute,
+			my_second: INTEGER
+			calendar: KL_GREGORIAN_CALENDAR
+			tz_hour,
+			tz_minute: INTEGER
+		do
+			create calendar
+			iso_8601_rx.match (s)
+			Result := iso_8601_rx.has_matched
+			if Result then
+				my_year := iso_8601_rx.captured_substring (1).to_integer
+				my_month := iso_8601_rx.captured_substring (2).to_integer
+				my_day := iso_8601_rx.captured_substring (3).to_integer
+				my_hour := iso_8601_rx.captured_substring (4).to_integer
+				my_minute := iso_8601_rx.captured_substring (5).to_integer
+				my_second := iso_8601_rx.captured_substring (6).to_integer
+				if iso_8601_rx.match_count >= 7 then
+					tz_hour := iso_8601_rx.captured_substring (8).to_integer
+					tz_minute := iso_8601_rx.captured_substring (9).to_integer
+				end
+				Result :=
+					my_month >= calendar.January and then my_month <= calendar.December and then
+					my_day >= 1 and then my_day <= calendar.days_in_month (my_month, my_year) and then
+					my_hour >= 0 and then my_hour <= 23 and then
+					my_minute >= 0 and then my_minute <= 59 and then
+					my_second >= 0 and then my_second <= 59 and then
+					tz_hour >= -14 and then tz_hour <= 14 and then
+					tz_minute >= 0 and then tz_hour <= 59
+			end
 		end
 
 
@@ -816,7 +876,7 @@ feature {NONE} -- Implementation
 	local_time_zone: INTEGER = unique
 			-- Allowed values for `my_time_zone'
 
-	tm: STDC_BUFFER
+	tm: detachable STDC_BUFFER
 			-- Buffer for struct tm
 
 	assert_has_tm
@@ -848,13 +908,32 @@ feature {NONE} -- Implementation
 			-- Gates trickery.
 
 
+feature {NONE} -- ISO 8601 date internals
+
+	once_iso_8601_format_with_tz: STRING = "%%FT%%H:%%M:%%S%%z"
+	once_iso_8601_utc_format: STRING = "%%FT%%H:%%M:%%SZ"
+
+	iso_8601_date_format: STRING = "(-?[0-9]{4})-([0-1][0-9])-([0-3][0-9])"
+	iso_8601_time_format: STRING = "([0-2][0-9]):([0-5][0-9]):([0-5][0-9])"
+	iso_8601_optional_time_zone_format: STRING = "(Z|([+\-][0-1][0-9]):([0-5][0-9]))?"
+
+	iso_8601_rx: RX_PCRE_REGULAR_EXPRESSION
+			-- Note: only supports full date time; week or dates without
+			-- year are not supported.
+		once
+			create Result.make
+			Result.compile (once "^" + iso_8601_date_format + once "T" + iso_8601_time_format + iso_8601_optional_time_zone_format + once "$")
+		ensure
+			compiled: Result.is_compiled
+		end
+
+
+
 feature {NONE} -- Once strings
 
 	once_gmt: STRING = " GMT"
 	once_rfc_822_format_with_tz: STRING = "%%a, %%d %%b %%Y %%H:%%M:%%S %%z"
 	once_rfc_822_format: STRING = "%%a, %%d %%b %%Y %%H:%%M:%%S"
-	once_iso_8601_format_with_tz: STRING = "%%FT%%H:%%M:%%S%%z"
-	once_iso_8601_utc_format: STRING = "%%FT%%H:%%M:%%SZ"
 
 
 invariant
