@@ -10,8 +10,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #7 $"
 
 
 class
@@ -110,7 +108,7 @@ feature -- Connection registration
 
 feature -- Access
 
-	data_connection: ABSTRACT_TCP_CLIENT_SOCKET
+	data_connection: detachable ABSTRACT_TCP_CLIENT_SOCKET
 			-- Connection over which data is transferred, in a specified
 			-- mode and type; the data transferred may be a part of a
 			-- file, an entire file or a number of files.
@@ -124,7 +122,7 @@ feature -- Access
 			Result := once_ftp
 		end
 
-	server_operating_system: STRING
+	server_operating_system: detachable STRING
 			-- OS if `operating_system' has been called;
 			-- It should be one of the names listed RFC 943.
 
@@ -451,7 +449,7 @@ feature {NONE} -- Lowest level FTP server interaction
 
 	hp: EPX_HOST_PORT
 
-	put_command_with_data_connection  (a_command, a_parameter: STRING)
+	put_command_with_data_connection  (a_command: STRING; a_parameter: detachable STRING)
 			-- Setup a data connection, send `a_command'.
 			-- If reply other than 150 is received, data connection is closed.
 		require

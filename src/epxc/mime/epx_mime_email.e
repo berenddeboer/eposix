@@ -69,20 +69,22 @@ feature -- Change
 				create cd.make (once "attachment")
 			end
 			file_part.header.add_field (cd)
-			file_part.header.content_type.set_parameter (once "name", path.basename)
-			file_part.create_base64_body
 			-- Set filename after body create, so body isn't a file body.
-			cd.set_parameter (once "filename", path.basename)
-			create file.open_read (a_file_name)
-			from
-				file.read_string (8192)
-			until
-				file.end_of_input
-			loop
-				file_part.text_body.append_string (file.last_string)
-				file.read_string (8192)
+			if attached path.basename as n then
+				file_part.header.content_type.set_parameter (once "name", n)
+				file_part.create_base64_body
+				cd.set_parameter (once "filename", n)
+				create file.open_read (a_file_name)
+				from
+					file.read_string (8192)
+				until
+					file.end_of_input
+				loop
+					file_part.text_body.append_string (file.last_string)
+					file.read_string (8192)
+				end
+				file.close
 			end
-			file.close
 		end
 
 

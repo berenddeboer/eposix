@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2008, Berend de Boer"
 	license: "MIT License (see LICENSE)"
-	date: "$Date$"
-	revision: "$Revision$"
 
 
 deferred class
@@ -34,7 +32,7 @@ feature -- Status
 
 feature -- Access
 
-	binary_checksum: STDC_BUFFER
+	binary_checksum: detachable STDC_BUFFER
 			-- Final checksum as binary string; calculated
 			-- by `finalize'
 
@@ -43,7 +41,7 @@ feature -- Access
 			-- by `finalize'
 		require
 			finalized: is_checksum_available
-			binary_checksum_available: binary_checksum /= Void
+			binary_checksum_available: attached binary_checksum
 		deferred
 		ensure
 			checksum_not_void: checksum /= Void
@@ -72,13 +70,13 @@ feature -- Operations
 		require
 			data_not_empty: a_data /= Void and then not a_data.is_empty
 		do
-			if binary_checksum /= Void then
+			if attached binary_checksum then
 				wipe_out
 			end
 			put_string (a_data)
 			finalize
 		ensure
-			binary_checksum_set: binary_checksum /= Void
+			binary_checksum_set: attached binary_checksum
 			finalized: is_checksum_available
 		end
 
@@ -119,7 +117,7 @@ feature -- Operations
 			not_finalized: not is_checksum_available
 		deferred
 		ensure
-			binary_checksum_set: binary_checksum /= Void
+			binary_checksum_set: attached binary_checksum
 			finalized: is_checksum_available
 		end
 
@@ -272,6 +270,6 @@ feature {NONE} -- Crypto primitives
 
 invariant
 
-	valid_binary_checksum_length: binary_checksum /= Void implies binary_checksum.capacity = hash_output_length
+	valid_binary_checksum_length: attached binary_checksum as bcs implies bcs.capacity = hash_output_length
 
 end

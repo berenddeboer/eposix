@@ -100,7 +100,7 @@ feature -- Status
 
 feature {NONE} -- Low level protocol reading and writing
 
-	async_put_command (a_command, a_parameter: STRING)
+	async_put_command (a_command: STRING; a_parameter: detachable STRING)
 			-- Send `a_command' and optional `a_parameter' to server.
 			-- Do not wait for reply.
 		require
@@ -129,7 +129,7 @@ feature {NONE} -- Low level protocol reading and writing
 			socket.put_string (cmd)
 		end
 
-	put_command (a_command, a_parameter: STRING)
+	put_command (a_command: STRING; a_parameter: detachable STRING)
 			-- Send `a_command' and optional `a_parameter' to server.
 			-- Wait for reply.
 		require

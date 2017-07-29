@@ -3,8 +3,6 @@ note
 	description: "getest based test for EPX_MIME classes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #8 $"
 
 
 deferred class
@@ -44,7 +42,9 @@ feature -- Tests
 			assert ("Message has From field", parser.part.header.has (field_name_from))
 			assert_equal ("From set", "<root@nederware.nl>", parser.part.header.item (field_name_from).value)
 			debug ("mime")
-				print_body (parser.part.body)
+				if attached parser.part.body as b then
+					print_body (b)
+				end
 			end
 
 			-- test if we can invoke the parser twice
@@ -68,7 +68,9 @@ feature -- Tests
 			assert ("Field has MIME-Version", parser.part.header.found)
 			assert_equal ("Content of field MIME-Version", "1.0", parser.part.header.found_item.value)
 			debug ("mime")
-				print_body (parser.part.body)
+				if attached parser.part.body as b then
+					print_body (b)
+				end
 			end
 		end
 
@@ -82,7 +84,9 @@ feature -- Tests
 			parser.parse
 			assert ("test3.msg parsed ok", not parser.syntax_error)
 			debug ("mime")
-				print_body (parser.part.body)
+				if attached parser.part.body as b then
+					print_body (b)
+				end
 			end
 		end
 
@@ -90,7 +94,6 @@ feature -- Tests
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
-			multipart_body: EPX_MIME_BODY_MULTIPART
 		do
 			create file.open_read ("test4.msg")
 			create parser.make_from_file (file)
@@ -106,10 +109,15 @@ feature -- Tests
 			assert ("Have parameter report-type", parser.part.header.content_type.parameters.has ("report-type"))
 			assert ("Have parameter boundary", parser.part.header.content_type.parameters.has ("boundary"))
 			assert ("Body is multi-part", parser.part.body.is_multipart)
-			multipart_body ?= parser.part.body
-			assert ("Multipart body not void.", multipart_body /= Void)
-			assert_integers_equal ("Number of parts", 3, multipart_body.parts.count)
-			print_body (multipart_body.parts.first.body)
+			if attached {EPX_MIME_BODY_MULTIPART} parser.part.body as multipart_body then
+				assert ("Multipart body not void.", True)
+				assert_integers_equal ("Number of parts", 3, multipart_body.parts.count)
+				if attached multipart_body.parts.first.body as b then
+					print_body (b)
+				end
+			else
+				assert ("Multipart body not void.", False)
+			end
 			assert_integers_equal ("First part has one field.", 1, parser.part.body.part (1).header.count)
 		end
 
@@ -128,7 +136,9 @@ feature -- Tests
 			assert ("First body is not multi-part.", not parser.part.body.part (1).body.is_multipart)
 			assert ("First body is empty.", parser.part.body.part (1).body.as_plain_text.is_empty)
 			debug ("mime")
-				print_body (parser.part.body.part (2).body)
+				if attached parser.part.body.part (2).body as b then
+					print_body (b)
+				end
 			end
 		end
 
@@ -164,8 +174,12 @@ feature -- Tests
 			debug ("mime")
 				-- empty
 				--print_body (part1_1.body)
-				print_body (part1_2.body)
-				print_body (part2.body)
+				if attached part1_2.body as b then
+					print_body (b)
+				end
+				if attached part2.body as b then
+					print_body (b)
+				end
 			end
 		end
 
@@ -213,8 +227,6 @@ feature -- Tests
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
-			string_body: EPX_MIME_BODY_STRING
-			file_body: EPX_MIME_BODY_FILE
 		do
 			create file.open_read ("cgi_input1.txt")
 			create parser.make_from_file (file)
@@ -223,16 +235,23 @@ feature -- Tests
 			assert ("Body is multi-part", parser.part.body.is_multipart)
 			assert_integers_equal ("Number of parts", 3, parser.part.body.parts_count)
 			debug ("mime")
-				print_body (parser.part.body.part (1).body)
+				if attached parser.part.body.part (1).body as b then
+					print_body (b)
+				end
 			end
-			file_body ?= parser.part.body.part (1).body
-			assert ("1st part is a file body", file_body /= Void)
-			string_body ?= parser.part.body.part (2).body
-			assert ("2nd part is string body", string_body /= Void)
-			assert_equal ("Contents of button", "Upload file(s)", string_body.as_string)
-			string_body ?= parser.part.body.part (3).body
-			assert ("3rd part is string_body", string_body /= Void)
-			assert_equal ("Contents of uid", "1804289383", string_body.as_string)
+			assert ("1st part is a file body", attached {EPX_MIME_BODY_FILE} parser.part.body.part (1).body)
+			if attached {EPX_MIME_BODY_STRING} parser.part.body.part (2).body as string_body then
+				assert ("2nd part is string body", True)
+				assert_equal ("Contents of button", "Upload file(s)", string_body.as_string)
+			else
+				assert ("2nd part is string body", False)
+			end
+			if attached {EPX_MIME_BODY_STRING} parser.part.body.part (3).body as string_body then
+				assert ("3rd part is string_body", True)
+				assert_equal ("Contents of uid", "1804289383", string_body.as_string)
+			else
+				assert ("3rd part is string_body", False)
+			end
 		end
 
 	test_bad_date
@@ -249,7 +268,9 @@ feature -- Tests
 			assert ("Field has MIME-Version", parser.part.header.found)
 			assert_equal ("Content of field MIME-Version", "1.0", parser.part.header.found_item.value)
 			debug ("mime")
-				print_body (parser.part.body)
+				if attached parser.part.body as b then
+					print_body (b)
+				end
 			end
 		end
 
@@ -259,7 +280,6 @@ feature -- Tests
 		local
 			file: STDC_TEXT_FILE
 			parser: EPX_MIME_PARSER
-			cd: EPX_MIME_FIELD_CONTENT_DISPOSITION
 		do
 			create file.open_read ("test14.msg")
 			create parser.make_from_file (file)
@@ -267,10 +287,11 @@ feature -- Tests
 			assert ("test14.msg parsed ok", not parser.syntax_error)
 			parser.part.header.search ("Content-Disposition")
 			assert ("Field has Content-Disposition", parser.part.header.found)
-			cd ?= parser.part.header.found_item
-			cd.parameters.search ("filename")
-			assert ("Content-Disposition has parameter filename", cd.parameters.found)
-			assert_equal ("Content of parameter filename of field Content-Disposition", "fname.ext", cd.parameters.found_item.value)
+			if attached {EPX_MIME_FIELD_CONTENT_DISPOSITION} parser.part.header.found_item as cd then
+				cd.parameters.search ("filename")
+				assert ("Content-Disposition has parameter filename", cd.parameters.found)
+				assert_equal ("Content of parameter filename of field Content-Disposition", "fname.ext", cd.parameters.found_item.value)
+			end
 		end
 
 	test_multipart_form_data_with_content_length

@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -24,7 +22,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_name, an_email_address: STRING)
+	make (a_name: detachable STRING; an_email_address: STRING)
 			-- Initialise
 		require
 			email_address_not_empty: an_email_address /= Void and then not an_email_address.is_empty
@@ -36,7 +34,7 @@ feature {NONE} -- Initialisation
 
 feature -- Access
 
-	name: STRING
+	name: detachable STRING
 			-- Optional name of user associated with `email_address'
 
 	email_address: STRING

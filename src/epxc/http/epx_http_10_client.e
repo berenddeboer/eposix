@@ -71,17 +71,17 @@ feature -- Access
 			Result := "HTTP/1.0"
 		end
 
-	last_data: EPX_MIME_PART
+	last_data: detachable EPX_MIME_PART
 			-- Data of last request send to server;
 			-- Used by `read_response_with_redirect' to properly redirect
 			-- a request.
 
-	last_verb: STRING
+	last_verb: detachable STRING
 			-- Verb of last request send to server;
 			-- Used by `read_response_with_redirect' to properly redirect
 			-- a request.
 
-	last_uri: STRING
+	last_uri: detachable STRING
 			-- URI of last request
 
 	max_redirects: INTEGER = 20
@@ -213,7 +213,7 @@ feature -- Requests
 			send_request (http_method_POST, a_request_uri, msg)
 		end
 
-	send_request (a_verb, a_request_uri: STRING; a_request_data: EPX_MIME_PART)
+	send_request (a_verb, a_request_uri: STRING; a_request_data: detachable EPX_MIME_PART)
 			-- Send request `a_verb' with `a_request_uri' to `host'.
 			-- Additional header fields and an optional body can be passed in
 			-- `a_request_data'.
@@ -221,8 +221,8 @@ feature -- Requests
 			-- If sending the request failed (usually because the server refused
 			-- the connection), 500 is returned.
 		require
-			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
-			request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
+			verb_not_empty: attached a_verb and then not a_verb.is_empty
+			request_uri_not_empty: attached a_request_uri and then not a_request_uri.is_empty
 		local
 			request: STRING
 			error_message: STRING
@@ -279,8 +279,8 @@ feature -- Requests
 				response_phrase := error_message
 			end
 		ensure
-			last_uri_set: STRING_.same_string (last_uri, escape_spaces (a_request_uri))
-			last_verb_set: response_code = reply_code_ok implies STRING_.same_string (a_verb, last_verb)
+			last_uri_set: attached last_uri as lu and then STRING_.same_string (lu, escape_spaces (a_request_uri))
+			last_verb_set: response_code = reply_code_ok implies attached last_verb as lv and then STRING_.same_string (a_verb, lv)
 			last_data_set: response_code = reply_code_ok implies a_request_data = last_data
 		end
 
@@ -360,7 +360,7 @@ feature -- Cookies
 
 feature {NONE} -- Request implementation
 
-	append_other_fields (a_verb, a_path: STRING; a_request_data: EPX_MIME_PART; request: STRING)
+	append_other_fields (a_verb, a_path: STRING; a_request_data: detachable EPX_MIME_PART; request: STRING)
 			-- Append any other field to `request'.
 			-- `a_request_data' contains fields passed in by client and
 			-- can be modified before they are written.
@@ -373,26 +373,26 @@ feature {NONE} -- Request implementation
 			authorization: STRING
 		do
 			request.append_string (once_mime_version)
-			if accept /= Void then
+			if attached accept then
 				request.append_string (field_name_accept)
 				request.append_string (once_colon_space)
 				request.append_string (accept)
 				request.append_string (once_new_line)
 			end
-			if user_agent /= Void then
+			if attached user_agent then
 				request.append_string (field_name_user_agent)
 				request.append_string (once_colon_space)
 				request.append_string (user_agent)
 				request.append_string (once_new_line)
 			end
-			if user_name /= Void and then password /= Void and then authentication_scheme /= Void then
-				authorization := authorization_value (a_verb, last_uri)
+			if not user_name.is_empty and then not password.is_empty and then attached authentication_scheme and then attached last_uri as lu then
+				authorization := authorization_value (a_verb, lu)
 				request.append_string (field_name_authorization)
 				request.append_string (once_colon_space)
 				request.append_string (authorization)
 				request.append_string (once_new_line)
 			end
-			if cookies /= Void then
+			if attached cookies then
 				from
 					cookies.start
 				until
@@ -537,6 +537,8 @@ feature -- Response
 			-- this routine just returns.
 			-- Note then when a redirect is followed, the `server_name'
 			-- and `port' will change to the redirected server.
+		require
+			last_verb_set: attached last_verb
 		local
 			new_location: STRING
 			redirected_counter: INTEGER
@@ -549,7 +551,7 @@ feature -- Response
 				redirected_counter > max_redirects or else
 				not is_redirect_response
 			loop
-				if location /= Void then
+				if attached location then
 					-- Redirect will still fail if returned Location includes
 					-- a username, as we don't pick that up.
 					new_location := location
@@ -567,8 +569,8 @@ feature -- Response
 					if url.has_path then
 						if response_code = reply_code_see_other then
 							send_request (http_method_GET, url.path, last_data)
-						else
-							send_request (last_verb, url.path, last_data)
+						elseif attached last_verb as lv then
+							send_request (lv, url.path, last_data)
 						end
 						read_response
 						redirected_counter := redirected_counter + 1
@@ -620,15 +622,15 @@ feature {NONE} -- Implementation
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
 			uri_not_empty: a_uri /= Void and then not a_uri.is_empty
 		do
-			if user_name /= Void and then password /= Void and then STRING_.same_string (authentication_scheme, once "Basic") then
+			if not user_name.is_empty and then not password.is_empty and then STRING_.same_string (authentication_scheme, once "Basic") then
 				Result := basic_authorization_value (user_name, password)
 			end
 		end
 
 	basic_authorization_value (a_user_name, a_password: STRING): STRING
 		require
-			valid_user_name: is_valid_user_name (a_user_name)
-			valid_password: is_valid_password (a_password)
+			valid_user_name: not a_user_name.is_empty
+			valid_password: not a_password.is_empty
 		local
 			basic_credentials: STRING
 			base64_output: KL_STRING_OUTPUT_STREAM
@@ -653,6 +655,9 @@ feature {NONE} -- Implementation
 			-- Read response. If authentication is required, and
 			-- authentication `user_name' and `password' are available,
 			-- resend request with suitable authencation.
+		require
+			last_verb_attached: attached last_verb
+			last_uri_attached: attached last_uri
 		local
 			retries: INTEGER
 			stop: BOOLEAN
@@ -670,63 +675,69 @@ feature {NONE} -- Implementation
 					retries >= max_authentication_retries
 				if not stop then
 					-- Authentication scheme should now be set, so simply retry once
-					send_request (last_verb, last_uri, last_data)
+					if attached last_verb as lv and then attached last_uri as lu then
+						send_request (lv, lu, last_data)
+					end
 				end
 				retries := retries + 1
 			end
 		end
 
 	do_do_read_response (including_body: BOOLEAN)
+		require
+			http_attached: attached http
 		do
-			create parser.make_from_stream (http)
-			-- First line contains status code and HTTP version.
-			read_and_parse_status_line
-			-- Parse while reading.
-			if including_body then
-				if reuse_connection then
-					parser.parse_header
-					parser.parse_body
+			if attached http as stream then
+				create parser.make_from_stream (stream)
+				-- First line contains status code and HTTP version.
+				read_and_parse_status_line
+				-- Parse while reading.
+				if including_body then
+					if reuse_connection then
+						parser.parse_header
+						parser.parse_body
+					else
+						parser.parse
+					end
 				else
-					parser.parse
+					parser.parse_header
 				end
-			else
-				parser.parse_header
-			end
-			if parser.syntax_error then
-				response_code := 500
-				response_phrase := once "Syntax error parsing response."
-				response := Void
-				is_authentication_required := False
-			else
-				response := parser.part
-				debug ("http_client")
-					print (response_code.out)
-					print (" ")
-					print (response_phrase)
-					print ("%N")
-					print (response.as_string)
-					print ("%N")
-				end
-				if not including_body then
-					parser.read_first_body_part
-				end
-				if response.header.has (field_name_connection) and then STRING_.same_string (response.header.item (field_name_connection).value.as_lower, once "close") then
-					reuse_connection := False
-				end
-				is_authentication_required :=
-					response_code = reply_code_unauthorized and then
-					response.header.has (field_name_www_authenticate)
-				if is_authentication_required then
-					if attached {EPX_MIME_FIELD_WWW_AUTHENTICATE} response.header.item (field_name_www_authenticate) as my_www_authenticate then
-						www_authenticate := my_www_authenticate
-						authentication_scheme := www_authenticate.scheme
-						if www_authenticate.realm = Void then
+				if parser.syntax_error then
+					response_code := 500
+					response_phrase := once "Syntax error parsing response."
+					response := Void
+					is_authentication_required := False
+				else
+					response := parser.part
+					debug ("http_client")
+						print (response_code.out)
+						print (" ")
+						print (response_phrase)
+						print ("%N")
+						print (response.as_string)
+						print ("%N")
+					end
+					if not including_body then
+						parser.read_first_body_part
+					end
+					if response.header.has (field_name_connection) and then STRING_.same_string (response.header.item (field_name_connection).value.as_lower, once "close") then
+						reuse_connection := False
+					end
+					is_authentication_required :=
+						response_code = reply_code_unauthorized and then
+						response.header.has (field_name_www_authenticate)
+					if is_authentication_required then
+						if attached {EPX_MIME_FIELD_WWW_AUTHENTICATE} response.header.item (field_name_www_authenticate) as my_www_authenticate then
+							www_authenticate := my_www_authenticate
+							authentication_scheme := www_authenticate.scheme
+							if www_authenticate.realm = Void then
+								-- Bad response
+								is_authentication_required := False
+							end
+						else
 							-- Bad response
 							is_authentication_required := False
 						end
-					else
-						-- Bad response
-						is_authentication_required := False
 					end
 				end
 			end

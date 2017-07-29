@@ -31,20 +31,16 @@ feature {NONE} -- Initialisation
 			-- Initialize.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
-			is_valid_user: is_valid_user_name (a_user_name)
-			is_valid_password: is_valid_password (a_password)
 		do
 			make_with_port (a_server_name, 0, a_user_name, a_password)
 		end
 
-	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: STRING)
+	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: detachable STRING)
 			-- Initialize with a given port. If `a_port' is null the
 			-- `default_port' is taken.
 		require
 			valid_server_name: a_server_name /= Void and then not a_server_name.is_empty
 			valid_port: a_port >= 0 and then a_port <= 65535
-			is_valid_user: is_valid_user_name (a_user_name)
-			is_valid_password: is_valid_password (a_password)
 		do
 			server_name := a_server_name
 			if a_port = 0 then
@@ -52,8 +48,16 @@ feature {NONE} -- Initialisation
 			else
 				create service.make_from_port (a_port, once_tcp)
 			end
-			user_name := a_user_name
-			password := a_password
+			if attached a_user_name as u then
+				user_name := u
+			else
+				user_name := ""
+			end
+			if attached a_password as p then
+				password := p
+			else
+				password := ""
+			end
 		end
 
 
@@ -191,26 +195,11 @@ feature -- Status
 	is_secure_connection: BOOLEAN
 			-- Is SSL used to communicate with the server?
 
-	is_valid_user_name (a_user_name: STRING): BOOLEAN
-			-- Is `a_user_name' a valid user name?
-		do
-			Result := a_user_name = Void or else not a_user_name.is_empty
-		end
-
-	is_valid_password (a_password: STRING): BOOLEAN
-			-- Is `a_password' a valid password?
-		do
-			Result := a_password = Void or else not a_password.is_empty
-		end
-
 
 feature -- Change
 
 	set_user_name_and_password (a_user_name, a_password: STRING)
 			-- Set both `user_name' and `password'.
-		require
-			valid_user_name: is_valid_user_name (a_user_name)
-			valid_password: is_valid_password (a_password)
 		do
 			user_name := a_user_name
 			password := a_password
@@ -235,7 +224,7 @@ feature {NONE} -- Implementation
 	service: EPX_SERVICE
 
 -- 	socket: ABSTRACT_TCP_CLIENT_SOCKET
-	socket: EPX_TEXT_IO_STREAM
+	socket: detachable EPX_TEXT_IO_STREAM
 			-- Connection to server;
 			-- Because of use of `sslcient', tunneling through ssl, this
 			-- cannot be a ABSTRACT_TCP_CLIENT_SOCKET, which it would be
@@ -262,7 +251,5 @@ invariant
 	open_implies_resolved: is_open implies is_resolved
 
 	valid_server_name: server_name /= Void and then not server_name.is_empty
-	is_valid_user: is_valid_user_name (user_name)
-	is_valid_password: is_valid_password (password)
 
 end

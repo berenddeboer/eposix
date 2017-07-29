@@ -168,6 +168,8 @@ feature {NONE} -- Initialization
 				variant
 					args.count - (i - args.lower)
 				end
+			else
+				create args.make_empty
 			end
 
 			-- Done, now have path to program and arguments
@@ -315,7 +317,7 @@ feature -- Access
 	arguments: ARRAY [STRING]
 			-- Arguments to pass to `program_name'
 
-	working_directory: STRING
+	working_directory: detachable STRING
 			-- If set, switch to `working_directory' before `program_name' is execute
 
 feature {NONE} -- Implementation

@@ -37,13 +37,11 @@
 		<external_object location="-pthread">
 			<condition>
 				<platform excluded_value="windows"/>
-				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<external_object location="-lrt">
 			<condition>
 				<platform excluded_value="windows"/>
-				<concurrency value="thread"/>
 			</condition>
 		</external_object>
 		<library name="base" location="$ISE_LIBRARY/library/base/base.ecf"/>

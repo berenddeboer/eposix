@@ -49,7 +49,6 @@ feature {NONE} -- Initialization
 		do
 			precursor
 			create codes.make_filled (0, 1, 4)
-			create triplet.make_filled (' ', 3)
 			triplet_position := 4
 		end
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-16-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-16-0 http://www.eiffel.com/developers/xml/configuration-1-16-0.xsd" name="eposix_test" uuid="5420e447-3005-4972-b42c-8b5052515784">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-16-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-16-0 http://www.eiffel.com/developers/xml/configuration-1-16-0.xsd" name="eposix_test" uuid="23c8d7ac-a695-4e8f-8e32-8d8b040a264a">
 	<target name="eposix_test">
 		<root class="EPOSIX_TEST" feature="make"/>
 		<option trace="false" profile="false" debug="true" warning="true">
@@ -7,17 +7,19 @@
 		</option>
 		<setting name="console_application" value="true"/>
 		<capability>
-			<catcall_detection use="none"/>
+			<catcall_detection support="none" use="none"/>
 			<concurrency support="none" use="none"/>
-			<void_safety support="initialization" use="initialization"/>
+			<void_safety support="conformance" use="conformance"/>
 		</capability>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="eposix" location="${EPOSIX}\eposix-safe.ecf" readonly="false"/>
 		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel-safe.ecf"/>
 		<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp-safe.ecf"/>
+		<library name="gobo_structure" location="$ISE_LIBRARY\library\gobo\gobo_structure.ecf"/>
+		<library name="gobo_utility" location="$ISE_LIBRARY/library/gobo/gobo_utility-safe.ecf"/>
 		<library name="gobo_test" location="$ISE_LIBRARY\library\gobo\gobo_test-safe.ecf"/>
-		<cluster name="test" location="${EPOSIX}/test_suite/epxc/mime"/>
+		<cluster name="test" location="${EPOSIX}/test_suite/epxc/base"/>
 		<cluster name="testgen" location="TESTGEN\"/>
 	</target>
 </system>

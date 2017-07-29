@@ -94,53 +94,53 @@ create
 %token CRLF
 
 -- types of nonterminals
-%type <EPX_MIME_FIELD> header_field
+-- %type <EPX_MIME_FIELD> header_field
 %type <EPX_MIME_UNSTRUCTURED_FIELD> unrecognized_field
-%type <EPX_MIME_FIELD> recognized_field
+%type <detachable EPX_MIME_FIELD> recognized_field
 
 -- types of recognized fields
-%type <EPX_MIME_FIELD_CONTENT_DISPOSITION> content_disposition_field
+%type <detachable EPX_MIME_FIELD_CONTENT_DISPOSITION> content_disposition_field
 %type <EPX_MIME_FIELD_CONTENT_LENGTH> content_length_field
 %type <EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING> content_transfer_encoding_field
-%type <EPX_MIME_FIELD_CONTENT_TYPE> content_type_field
-%type <EPX_MIME_FIELD_DATE> date_field
-%type <EPX_MIME_FIELD_IF_MODIFIED_SINCE> if_modified_since_field
-%type <EPX_MIME_FIELD_LAST_MODIFIED> last_modified_field
+%type <detachable EPX_MIME_FIELD_CONTENT_TYPE> content_type_field
+%type <detachable EPX_MIME_FIELD_DATE> date_field
+%type <detachable EPX_MIME_FIELD_IF_MODIFIED_SINCE> if_modified_since_field
+%type <detachable EPX_MIME_FIELD_LAST_MODIFIED> last_modified_field
 %type <EPX_MIME_FIELD_MESSAGE_ID> message_id_field
 %type <EPX_MIME_FIELD_MIME_VERSION> mime_version_field
 %type <EPX_MIME_FIELD_MAILBOX_LIST> bcc_field, cc_field, from_field, resent_from_field, resent_reply_to_field, to_field
-%type <EPX_MIME_FIELD_SET_COOKIE> set_cookie_field
-%type <EPX_MIME_FIELD_TRANSFER_ENCODING> transfer_encoding_field
-%type <EPX_MIME_FIELD_WWW_AUTHENTICATE> www_authenticate_field
+%type <detachable EPX_MIME_FIELD_SET_COOKIE> set_cookie_field
+%type <detachable EPX_MIME_FIELD_TRANSFER_ENCODING> transfer_encoding_field
+%type <detachable EPX_MIME_FIELD_WWW_AUTHENTICATE> www_authenticate_field
 
 -- types of structured field parts
-%type <EPX_MIME_MAILBOX> address
-%type <DS_LINKABLE [EPX_MIME_MAILBOX]> address_list
+%type <detachable EPX_MIME_MAILBOX> address
+%type <detachable DS_LINKABLE [EPX_MIME_MAILBOX]> address_list
 %type <STRING> addr_spec
 %type <STRING> angle_addr
 %type <STRING> obs_angle_addr
 %type <STRING> atom
 %type <STRING> attribute
 %type <STRING> auth_scheme
-%type <STDC_TIME> date
-%type <STDC_TIME> date_rfc1123
-%type <STDC_TIME> date_rfc850
-%type <STDC_TIME> date_asc
-%type <STDC_TIME> date_time
+%type <detachable STDC_TIME> date
+%type <detachable STDC_TIME> date_rfc1123
+%type <detachable STDC_TIME> date_rfc850
+%type <detachable STDC_TIME> date_asc
+%type <detachable STDC_TIME> date_time
 %type <STRING> display_name
 %type <STRING> domain
 %type <STRING> domain_ref
 %type <STRING> dot_atom
 %type <STRING> dot_atom_text
-%type <STDC_TIME> hour
-%type <STDC_TIME> http_date
+%type <detachable STDC_TIME> hour
+%type <detachable STDC_TIME> http_date
 %type <STRING> id_left
 %type <STRING> id_right
 %type <STRING> obs_id_right
 %type <STRING> local_part
 %type <EPX_MIME_MAILBOX> mailbox
-%type <DS_LINKABLE [EPX_MIME_MAILBOX]> mailbox_list
-%type <DS_LINKABLE [EPX_MIME_MAILBOX]> optional_mailbox_list
+%type <detachable DS_LINKABLE [EPX_MIME_MAILBOX]> mailbox_list
+%type <detachable DS_LINKABLE [EPX_MIME_MAILBOX]> optional_mailbox_list
 %type <STRING> mechanism
 %type <STRING> msg_id
 %type <EPX_MIME_MAILBOX> name_addr
@@ -152,7 +152,7 @@ create
 %type <INTEGER> optional_seconds
 %type <STRING> sub_domain
 %type <STRING> subtype
-%type <STDC_TIME> time
+%type <detachable STDC_TIME> time
 %type <STRING> token
 %type <STRING> type
 %type <STRING> value
@@ -183,7 +183,7 @@ header_fields
 
 header_field
 	: recognized_field CRLF
-		{ if $1 /= Void then part.header.add_non_unique_field ($1) end }
+		{ if attached $1 as f then part.header.add_non_unique_field (f) end }
 	| unrecognized_field CRLF
 		{ part.header.add_non_unique_field ($1) }
 	| error { reset_start_condition } CRLF
@@ -312,13 +312,12 @@ date_field
 		{ expect_date }
 		date_time
 		{
-			if $4 /= Void then
-				create $$.make ($4)
+			if attached $4 as a_date_time then
+				create $$.make (a_date_time)
 			end
 		}
 	;
 
--- @@BdB: have to create actual field
 from_field
 	: FN_FROM ':' mailbox_list
 		{
@@ -331,7 +330,9 @@ if_modified_since_field
 		{ expect_date }
 		http_date
 		{
-			create {EPX_MIME_FIELD_IF_MODIFIED_SINCE} $$.make ($4)
+			if attached $4 as d then
+				create {EPX_MIME_FIELD_IF_MODIFIED_SINCE} $$.make (d)
+			end
 		}
 	;
 
@@ -340,7 +341,9 @@ last_modified_field
 		{ expect_date }
 		http_date
 		{
-			create {EPX_MIME_FIELD_LAST_MODIFIED} $$.make ($4)
+			if attached $4 as d then
+				create {EPX_MIME_FIELD_LAST_MODIFIED} $$.make (d)
+			end
 		}
 	;
 
@@ -465,9 +468,16 @@ address
 address_list
 	: ','
 	| address
-		{ create $$.make ($1) }
+		{ if attached $1 as a then create $$.make (a) end }
 	| address ',' address_list
-		{ create $$.make ($1); $$.put_right ($3) }
+		{
+			if attached $1 as a then
+				create $$.make (a)
+				if attached $3 as al then
+					$$.put_right (al)
+				end
+			end
+		}
 	;
 
 optional_addr_spec
@@ -572,8 +582,8 @@ date_asc
 date_time
 	: optional_day date time optional_zone
 		{
-			if $2 /= Void and then $3 /= Void and then my_date.is_valid_date_and_time ($2.year, $2.month, $2.day, $3.hour, $3.minute, $3.second) then
-				create $$.make_utc_date_time ($2.year, $2.month, $2.day, $3.hour, $3.minute, $3.second)
+			if attached $2 as a_date and then attached $3 as a_time and then my_date.is_valid_date_and_time (a_date.year, a_date.month, a_date.day, a_time.hour, a_time.minute, a_time.second) then
+				create $$.make_utc_date_time (a_date.year, a_date.month, a_date.day, a_time.hour, a_time.minute, a_time.second)
 				minutes := $4.item.abs \\ 100
 				hours := $4.item.abs // 100
 				seconds := (minutes * 60 + hours * 3600)
@@ -703,7 +713,7 @@ mailbox_list
 	| mailbox
 		{ create $$.make ($1) }
 	| mailbox ',' mailbox_list
-		{ create $$.make ($1); $$.put_right ($3) }
+		{ create $$.make ($1); if attached $3 as mb then $$.put_right (mb) end }
 	;
 
 mechanism
@@ -959,11 +969,9 @@ feature -- Initialization
 
 	make
 		do
-			if last_line = Void then
-				make_scanner
-				precursor
-				create last_line.make (128)
-			end
+			make_scanner
+			precursor
+			create last_line.make (128)
 			level := 1
 			boundary := Void
 			create my_date.make_from_now
@@ -1023,15 +1031,15 @@ feature -- Character reading
 
 feature {NONE} -- Scanning
 
-	regular_buffer: like input_buffer
+	regular_buffer: detachable like input_buffer
 			-- Cache of `input_buffer', to be copied back on `wrap'.
 
 	wrap: BOOLEAN
 			-- Check if we were parsing header, if so, resume with main
 			-- buffer.
 		do
-			if regular_buffer /= Void then
-				set_input_buffer (regular_buffer)
+			if attached regular_buffer as rb then
+				set_input_buffer (rb)
 				regular_buffer := Void
 			else
 				Result := precursor
@@ -1080,7 +1088,7 @@ feature -- Parsing
 			-- Maximum size to parse is either determined by the
 			-- Transfer-Coding or Content-Length. Both are specific to
 			-- RFC 2616 MIME messages.
-			if part.header.transfer_encoding /= Void then
+			if attached part.header.transfer_encoding then
 				-- We only support chunked encoding.
 				if part.header.transfer_encoding.is_chunked_coding then
 					if attached {EPX_MIME_BUFFER} input_buffer as buf then
@@ -1091,8 +1099,8 @@ feature -- Parsing
 					end
 				end
 			elseif
-				part.header.content_length /= Void and then
-				part.header.content_length.length > 0
+				attached part.header.content_length as content_length and then
+				content_length.length > 0
 			then
 				if level = 1 then
 					if attached {EPX_MIME_BUFFER} input_buffer as buf then
@@ -1109,19 +1117,19 @@ feature -- Parsing
 			-- Be very careful in determining if we should parse a
 			-- multipart body.
 			is_multipart_body :=
-				part.body /= Void and then part.body.is_multipart and then
-				part.header.content_type /= Void and then part.header.content_type.parameters.has (parameter_name_boundary)
-			if is_multipart_body then
-				part.header.content_type.parameters.search (parameter_name_boundary)
-				is_multipart_body := part.header.content_type.parameters.found
+				attached part.body as body and then body.is_multipart and then
+				attached part.header.content_type as content_type and then content_type.parameters.has (parameter_name_boundary)
+			if is_multipart_body and then attached part.header.content_type as content_type then
+				content_type.parameters.search (parameter_name_boundary)
+				is_multipart_body := content_type.parameters.found
 				if is_multipart_body then
 					save_boundary := boundary
-					boundary := "--" + part.header.content_type.parameters.found_item.value
+					boundary := "--" + content_type.parameters.found_item.value
 					is_multipart_body := boundary.count <= Max_rfc_2046_boundary_length + 2
 				end
 			end
 
-			if is_multipart_body and then attached {EPX_MIME_BODY_MULTIPART} save_part.body as multipart_body then
+			if is_multipart_body and then attached {EPX_MIME_BODY_MULTIPART} part.body as multipart_body then
 				-- Some overflow test here in `level'?
 				level := level + 1
 				save_part := part
@@ -1140,7 +1148,7 @@ feature -- Parsing
 				boundary_with_trailer_read := False
 				level := level - 1
 				part := save_part
-				if save_boundary /= Void and then boundary /= save_boundary then
+				if attached save_boundary and then boundary /= save_boundary then
 					-- boundary changed (multipart in multipart), move
 					-- forward to boundary, that's the end of the multipart
 					-- in side the multipart.
@@ -1241,7 +1249,7 @@ feature {NONE} -- Error reporting
 				std.error.put_string (a_message)
 				std.error.put_character ('%N')
 				std.error.put_string ("  text: %"")
-				if last_string_value /= Void then
+				if attached last_string_value then
 					std.error.put_string (last_string_value.out)
 				end
 				std.error.put_string ("%" (")
@@ -1281,7 +1289,7 @@ feature -- Access
 			end
 		end
 
-	part: EPX_MIME_PART
+	part: detachable EPX_MIME_PART
 			-- Structure we're building
 
 
@@ -1293,15 +1301,15 @@ feature {NONE} -- State used during parsing
 
 	level: INTEGER
 
-	my_content_disposition: EPX_MIME_FIELD_CONTENT_DISPOSITION
+	my_content_disposition: detachable EPX_MIME_FIELD_CONTENT_DISPOSITION
 
-	my_content_type: EPX_MIME_FIELD_CONTENT_TYPE
+	my_content_type: detachable EPX_MIME_FIELD_CONTENT_TYPE
 
-	my_set_cookie: EPX_MIME_FIELD_SET_COOKIE
+	my_set_cookie: detachable EPX_MIME_FIELD_SET_COOKIE
 
-	my_transfer_encoding: EPX_MIME_FIELD_TRANSFER_ENCODING
+	my_transfer_encoding: detachable EPX_MIME_FIELD_TRANSFER_ENCODING
 
-	my_www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE
+	my_www_authenticate: detachable EPX_MIME_FIELD_WWW_AUTHENTICATE
 
 	my_date: STDC_TIME
 
@@ -1309,12 +1317,12 @@ feature {NONE} -- State used during parsing
 
 	my_year: INTEGER
 
-	current_parameter_field: EPX_MIME_FIELD_WITH_PARAMETERS
+	current_parameter_field: detachable EPX_MIME_FIELD_WITH_PARAMETERS
 
 
 feature {NONE} -- Reading MIME bodies
 
-	boundary: STRING
+	boundary: detachable STRING
 			-- For multipart MIME messages, it designates the end of a body.
 
 	boundary_with_trailer_read: BOOLEAN
@@ -1411,22 +1419,22 @@ feature {NONE} -- Reading MIME bodies
 			not_void: Result /= Void
 		end
 
-	read_singlepart_body (encoding: EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING)
+	read_singlepart_body (an_encoding: detachable EPX_MIME_FIELD_CONTENT_TRANSFER_ENCODING)
 			-- Read from input until end of file is reached or a line
 			-- contains `boundary'.
 		require
 			body_not_void: part.body /= Void
 			body_is_single_part: not part.body.is_multipart
 		do
-			if boundary = Void then
+			if not attached boundary then
 				read_singlepart_body_without_boundary
 			else
 				read_singlepart_body_with_boundary
 			end
-			if encoding /= Void then
-				if attached {EPX_MIME_BODY_TEXT} part.body as body then
-					body.set_decoder (encoding.new_decoder)
-				end
+			if attached an_encoding as encoding and then
+				attached {EPX_MIME_BODY_TEXT} part.body as body
+			then
+				body.set_decoder (encoding.new_decoder)
 			end
 		end
 
@@ -1539,6 +1547,9 @@ feature {NONE} -- Reading MIME bodies
 
 	last_string: STRING
 			-- Set by `read_string'
+		once
+			create Result.make (8192)
+		end
 
 	read_cached_characters
 			-- Copy any characters in the input buffer to `last_string'.
@@ -1547,11 +1558,7 @@ feature {NONE} -- Reading MIME bodies
 		local
 			c: CHARACTER
 		do
-			if last_string = Void then
-				create last_string.make (8192)
-			else
-				STRING_.wipe_out (last_string)
-			end
+			last_string.wipe_out
 			if yy_content_area /= Void then
 				from
 					c := yy_content_area.item (yy_end)

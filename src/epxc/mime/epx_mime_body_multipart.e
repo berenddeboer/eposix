@@ -146,7 +146,8 @@ feature -- Commands
 			-- It is not checked if the resulting string does contain
 			-- NULL characters.
 		do
-			-- not applicable
+			-- not applicable, but silence compiler
+			Result := ""
 		end
 
 

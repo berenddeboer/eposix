@@ -7,8 +7,6 @@ note
 	%2. No check if boundary has only chars defined in RFC 1521."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 class
@@ -64,7 +62,7 @@ feature -- Initialization
 
 feature -- State
 
-	boundary: STRING
+	boundary: detachable STRING
 			-- Boundary, if Content-Type knows a boundary, else Void.
 		do
 			parameters.search (parameter_name_boundary)

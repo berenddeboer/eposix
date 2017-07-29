@@ -120,12 +120,12 @@ BASE64CHAR [A-Za-z0-9+/]
 
 feature -- Last returned data
 
-	last_value: STRING
+	last_value: detachable STRING
 
 
 feature -- RFC 2047 decoding
 
-	character_set: STRING
+	character_set: detachable STRING
 			-- Character set read by `decode_word'.
 
 	decode_word (a_word: STRING): STRING
@@ -189,7 +189,7 @@ feature -- RFC 2047 decoding
 			decoded_word_not_void: Result /= Void
 		end
 
-	encoding: STRING
+	encoding: detachable STRING
 			-- Encoding read by `decode_word'.
 
 	is_encoded_word (a_word: STRING): BOOLEAN

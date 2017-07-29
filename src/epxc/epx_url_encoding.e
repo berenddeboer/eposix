@@ -89,8 +89,8 @@ feature -- Encode/decode field name/value pairs
 
 						-- if multipart (multiple uploaded files), recurse
 						-- else singlepart with value
-						if sub_part.body.is_multipart then
-							sub_keys := mime_encoded_to_field_name_value_pair (keyname, sub_part.body)
+						if sub_part.body.is_multipart and attached sub_part.body as my_body then
+							sub_keys := mime_encoded_to_field_name_value_pair (keyname, my_body)
 							if Result.capacity < Result.count + sub_keys.count then
 								Result.resize (Result.count + sub_keys.count)
 							end
@@ -110,13 +110,15 @@ feature -- Encode/decode field name/value pairs
 							else
 								parameter := Void
 							end
-							if parameter /= Void and then not parameter.value.is_empty then
+							if attached parameter and then not parameter.value.is_empty then
 								keyvalue := remove_directory_part (parameter.value)
 								if attached {EPX_MIME_BODY_FILE} sub_part.body as file_body then
 									temporary_file := file_body.file
 								end
 							elseif attached {EPX_MIME_BODY_TEXT}  sub_part.body as text_body then
 								keyvalue := text_body.as_string
+							else
+								keyvalue := ""
 							end
 							create kv.make (keyname, keyvalue)
 							if attached temporary_file then

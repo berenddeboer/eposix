@@ -54,7 +54,7 @@ feature {NONE} -- Implementation
 	authorization_value (a_verb, a_uri: STRING): STRING
 			-- Append Authorization field if `authentication_scheme' is recogised.
 		do
-			if user_name /= Void and then password /= Void then
+			if not user_name.is_empty and then not password.is_empty then
 				if STRING_.same_string (authentication_scheme, once "Digest") then
 					if www_authenticate /= Void then
 						Result := digest_authorization_value (a_verb, a_uri)

@@ -3,8 +3,6 @@ note
 	description: "Base class for STDC_PATH. As inheriting from STRING is non-portable, this base class is compiler specific"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 

@@ -5,8 +5,7 @@ note
 	references: "http://www.cookiecentral.com/faq/"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
+
 
 class
 
@@ -25,7 +24,7 @@ create
 
 feature -- Access
 
-	domain: STRING
+	domain: detachable STRING
 			-- Cookies can be assigned to individual machines, or to an
 			-- entire Internet domain. The only restrictions on this
 			-- value is that it must contain at least two dots
@@ -40,7 +39,7 @@ feature -- Access
 			-- If `domain' is not set explicitly, then it defaults to the
 			-- full domain of the document creating the cookie.
 
-	expires: STDC_TIME
+	expires: detachable STDC_TIME
 			-- Lifetime of the cookie.
 			-- If `expires' is not set explicitly, then it defaults to
 			-- end-of-session. The length of a session can vary depending
@@ -48,7 +47,7 @@ feature -- Access
 			-- length of time that the browser is open for (even if the
 			-- user is no longer at that site).
 
-	path: STRING
+	path: detachable STRING
 			-- The URL path the cookie is valid within. Pages outside of
 			-- that path cannot read or use the cookie.
 			-- If `path' is not set explicitly, then it defaults to the URL

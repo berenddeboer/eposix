@@ -3,8 +3,6 @@ note
 	description: "Test creating RFC 2822 email."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 deferred class

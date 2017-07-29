@@ -3,8 +3,6 @@ note
 	description: "Class that covers POSIX child process."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #9 $"
 
 
 deferred class
@@ -149,7 +147,7 @@ feature {NONE} -- Implementation
 
 	my_pid: INTEGER
 
-	stat_loc: STDC_BUFFER
+	stat_loc: detachable STDC_BUFFER
 			-- Termination info returned by `wait_for'
 
 	termination_info: INTEGER

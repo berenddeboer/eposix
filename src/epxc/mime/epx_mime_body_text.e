@@ -17,7 +17,7 @@ inherit
 
 feature -- Queries
 
-	decoder: EPX_STREAM_INPUT_STREAM [CHARACTER]
+	decoder: detachable EPX_STREAM_INPUT_STREAM [CHARACTER]
 
 	has_every_part_a_form_content_disposition_field: BOOLEAN = True
 
@@ -30,8 +30,9 @@ feature -- Queries
 
 	part (index: INTEGER): EPX_MIME_PART
 			-- Part number `index' if this is a multipart body.
-		do
-			-- Do nothing.
+		once
+			-- Do nothing except silencing the compiler
+			create Result.make_empty
 		end
 
 
@@ -105,7 +106,7 @@ feature -- Change body commands
 
 feature -- Change
 
-	set_decoder (a_decoder: EPX_STREAM_INPUT_STREAM [CHARACTER])
+	set_decoder (a_decoder: detachable EPX_STREAM_INPUT_STREAM [CHARACTER])
 			-- Set `decoder'.
 		do
 			decoder := a_decoder

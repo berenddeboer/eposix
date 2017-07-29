@@ -3,8 +3,6 @@ note
 	description: "Stream that gets its input from another stream."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -91,7 +89,7 @@ feature -- Access
 			end
 		end
 
-	source: KI_INPUT_STREAM [G]
+	source: detachable KI_INPUT_STREAM [G]
 			-- Where this stream derives it input from
 
 	last_item: G

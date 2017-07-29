@@ -66,8 +66,6 @@ feature {NONE} -- Signal handling
 	setup_signals
 			-- Bind to SIGINT (Ctrl+C) and SIGTERM (kill signal) so
 			-- daemon can be gracefully terminated.
-		require
-			not_initialised: terminate_signal = Void
 		local
 			my_signal: EPX_SIGNAL
 		do

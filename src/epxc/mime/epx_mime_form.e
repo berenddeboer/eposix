@@ -46,7 +46,7 @@ feature {NONE} -- Initialization
 		require
 			key_value_pairs_not_void: a_key_value_pairs /= Void
 			key_value_pairs_has_only_unique_keys: True -- I hope
-			key_value_pairs_has_no_void_values: not has (a_key_value_pairs, Void)
+			-- assume void-safe: key_value_pairs_has_no_void_values: not has (a_key_value_pairs, Void)
 		local
 			content_type: EPX_MIME_FIELD_CONTENT_TYPE
 			content_disposition: EPX_MIME_FIELD_CONTENT_DISPOSITION
@@ -91,7 +91,7 @@ feature {NONE} -- Initialization
 		require
 			key_value_pairs_not_void: a_key_value_pairs /= Void
 			key_value_pairs_has_only_unique_keys: True -- I hope
-			key_value_pairs_has_no_void_values: not has (a_key_value_pairs, Void)
+			-- assume void-safe: key_value_pairs_has_no_void_values: not has (a_key_value_pairs, Void)
 		local
 			content_type: EPX_MIME_FIELD_CONTENT_TYPE
 			kv: EPX_KEY_VALUE

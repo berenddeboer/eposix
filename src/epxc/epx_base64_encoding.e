@@ -3,8 +3,7 @@ note
 	description: "Routines to encode and decode base64 sequence of characters."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
+
 
 class
 
@@ -25,6 +24,9 @@ feature -- Routines
 
 	decoded_characters: STRING
 			-- Characters decoded by `decode_24bits'.
+		once
+			create Result.make_filled (' ', 3)
+		end
 
 	decode_24_bits (c1, c2, c3, c4: CHARACTER)
 			-- Decode the 24 bits in `c1'..`c4' into `first_character',
@@ -41,9 +43,6 @@ feature -- Routines
 			code4: INTEGER
 			code: INTEGER
 		do
-			if decoded_characters = Void then
-				create decoded_characters.make_filled (' ', 3)
-			end
 			code1 := decode_character (c1)
 			code2 := decode_character (c2)
 			code3 := decode_character (c3)

@@ -3,8 +3,6 @@ note
 	description: "Field Content-Disposition"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -63,7 +61,7 @@ feature -- Access
 	value: STRING
 			-- Value of field.
 
-	name_parameter: EPX_MIME_PARAMETER
+	name_parameter: detachable EPX_MIME_PARAMETER
 			-- Parameter with name "name" if exists, else Void.
 		do
 			parameters.search (parameter_name_name)
@@ -71,7 +69,7 @@ feature -- Access
 				Result := parameters.found_item
 			end
 		ensure
-			found_if_exists: parameters.has (parameter_name_name) = (Result /= Void)
+			found_if_exists: parameters.has (parameter_name_name) = (attached Result)
 		end
 
 
@@ -89,7 +87,9 @@ feature -- Change
 				filename := parameters.found_item
 				create path.make_from_string (filename.value)
 				path.parse (Void)
-				filename.set_value (path.basename)
+				if attached path.basename as b then
+					filename.set_value (b)
+				end
 			end
 		end
 

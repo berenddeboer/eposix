@@ -203,9 +203,9 @@ feature -- Execution
 						error_pipe.close
 					end
 
-					if working_directory /= Void then
+					if attached working_directory as wd then
 						create fs
-						fs.change_directory (working_directory)
+						fs.change_directory (wd)
 					end
 
 					do_execute

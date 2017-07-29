@@ -141,7 +141,7 @@ feature -- Access to well-known fields
 
 feature -- Access to well-known fields
 
-	cache_control_field: EPX_MIME_FIELD
+	cache_control_field: detachable EPX_MIME_FIELD
 			-- Field `Cache-Control' if it exists, else Void.
 		do
 			fields.search (field_name_cache_control)
@@ -279,7 +279,7 @@ feature -- Change
 
 feature -- Change specific fields
 
-	set_content_type (a_type, a_subtype, a_charset: STRING)
+	set_content_type (a_type, a_subtype: STRING; a_charset: detachable STRING)
 			-- Set `content_type' to `a_type'/`a_subtype'.
 			-- Optionally set the the character set of `a_charset' is not
 			-- Void or not empty.

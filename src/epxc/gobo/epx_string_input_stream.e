@@ -3,8 +3,6 @@ note
 	description: "Stream that returns the contents of a string."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 class
@@ -37,6 +35,7 @@ feature {NONE} -- Initialization
 			value := a_value
 			position := 0
 			name := ""
+			last_string := ""
 		ensure
 			value_set: value.is_equal (a_value)
 		end

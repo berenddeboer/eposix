@@ -3,8 +3,6 @@ note
 	description: "Field Content-Transfer-Encoding"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -53,7 +51,7 @@ feature -- Access
 
 feature -- Encoding and decoding
 
-	new_decoder: EPX_STREAM_INPUT_STREAM [CHARACTER]
+	new_decoder: detachable EPX_STREAM_INPUT_STREAM [CHARACTER]
 			-- Return a new decoder that can decode text encoded
 			-- according to `mechanism'.
 			-- Returns Void if there is no known encoder.
@@ -70,7 +68,7 @@ feature -- Encoding and decoding
 			end
 		end
 
-	new_encoder (a_from_stream: KI_CHARACTER_OUTPUT_STREAM): KL_PROXY_CHARACTER_OUTPUT_STREAM
+	new_encoder (a_from_stream: KI_CHARACTER_OUTPUT_STREAM): detachable KL_PROXY_CHARACTER_OUTPUT_STREAM
 			-- Return a new encoder that can encode text encoded
 			-- according to `mechanism'.
 			-- Returns Void if there is no known encoder.

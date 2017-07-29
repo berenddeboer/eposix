@@ -67,9 +67,9 @@ feature -- Operation(s)
 				end
 				if not has_local_error then
 					client := new_client (a_uri_to_use)
-					if a_uri.has_user_info then
-						set_basic_authentication_from_user_info (a_uri.user_info)
-					elseif user_name /= Void then
+					if attached a_uri.user_info as user_info then
+						set_basic_authentication_from_user_info (user_info)
+					elseif not user_name.is_empty then
 						client.set_basic_authentication (user_name, password)
 					end
 					debug ("XML http resolver")

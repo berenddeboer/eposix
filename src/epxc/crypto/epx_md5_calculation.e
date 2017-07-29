@@ -51,16 +51,18 @@ feature -- Access
 		local
 			j: INTEGER
 			hi: INTEGER
+			cs: like my_checksum
 		do
-			if my_checksum = Void then
-				create my_checksum.make (hash_output_length * 2)
+			if not attached my_checksum then
+				create cs.make (hash_output_length * 2)
+				my_checksum := cs
 				from
 				until
 					j = hash_output_length // 4
 				loop
 					hi := ABCD.peek_uint32_big_endian (j*4)
-					append_zeros (my_checksum, hi)
-					append_hexadecimal_integer (hi, my_checksum, False)
+					append_zeros (cs, hi)
+					append_hexadecimal_integer (hi, cs, False)
 					j := j + 1
 				end
 			end
@@ -244,7 +246,7 @@ feature {NONE} -- Implementation
 			holds_64_bit: Result.capacity = 8
 		end
 
-	my_checksum: STRING
+	my_checksum: detachable STRING
 			-- Cached copy of `checksum'
 
 	number_of_bits: INTEGER_64

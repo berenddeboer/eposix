@@ -74,8 +74,10 @@ feature -- Tests
 			-- Test NLST
 			ftp.name_list
 			assert_integers_equal ("directory not empty.", 150, ftp.last_reply_code)
-			assert ("Have data connection", ftp.data_connection /= Void)
-			dump_data_connection (ftp.data_connection)
+			assert ("Have data connection", attached ftp.data_connection)
+			if attached ftp.data_connection as dc then
+				dump_data_connection (dc)
+			end
 			-- Get the 226 Transfer complete
 			ftp.read_reply
 			assert_integers_equal ("Connected", 226, ftp.last_reply_code)

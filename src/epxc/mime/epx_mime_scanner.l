@@ -466,6 +466,7 @@ feature {NONE} -- Initialization
 		do
 			precursor
 			create encoded_word_scanner.make
+			last_string_value := ""
 		end
 
 

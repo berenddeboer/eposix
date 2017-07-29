@@ -3,8 +3,7 @@ note
 	description: "Body that is stored in a STRING."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
+
 
 class
 
@@ -47,24 +46,17 @@ feature -- Access to body content
 			-- Make sure `stream' starts returning character the
 			-- beginning of the body.
 		do
-			if my_stream /= Void then
-				my_stream.rewind
-			end
+			stream.rewind
 		end
 
 	stream: EPX_STRING_INPUT_STREAM
 			-- Return a stream to the actual body.
-		do
-			if my_stream = Void then
-				create my_stream.make (value)
-			end
-			Result := my_stream
+		once
+			create Result.make (value)
 		end
 
 
 feature {NONE} -- State
-
-	my_stream: like stream
 
 	value: STRING
 

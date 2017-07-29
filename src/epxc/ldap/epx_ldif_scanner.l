@@ -1,13 +1,11 @@
 %{
-indexing
+note
 
 	description: "Scanner for the LDAP Data Interchange Format."
 
 	standards: "RFC 2849"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -145,7 +143,7 @@ inherit
 
 feature {NONE} -- Implementation
 
-	conditional_modify_token (a_token: INTEGER) is
+	conditional_modify_token (a_token: INTEGER)
 			-- Within changetype modify we need to handle an "add:"
 			-- AttributeType specially. As it seems that objects can have
 			-- an AttributeType "add", we need to do it such that we

@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -29,7 +27,7 @@ create
 
 feature -- Initialization
 
-	make (a_name: STRING; an_mailbox_list: DS_LINKABLE [EPX_MIME_MAILBOX])
+	make (a_name: STRING; an_mailbox_list: detachable DS_LINKABLE [EPX_MIME_MAILBOX])
 			-- Initialize unstructured field.
 		require
 			valid_name: is_valid_mime_name (a_name)
@@ -41,7 +39,7 @@ feature -- Initialization
 			from
 				p := an_mailbox_list
 			until
-				p = Void
+				not attached p
 			loop
 				mailbox_list.put_last (p.item)
 				p := p.right
@@ -62,14 +60,13 @@ feature -- Access
 		local
 			mailbox: EPX_MIME_MAILBOX
 		do
+			create Result.make_empty
 			from
 				mailbox_list.start
 			until
 				mailbox_list.after
 			loop
-				if Result = Void then
-					Result := ""
-				else
+				if not Result.is_empty then
 					Result.append_string (once_comma_space)
 				end
 				mailbox := mailbox_list.item_for_iteration

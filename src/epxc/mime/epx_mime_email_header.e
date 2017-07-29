@@ -5,8 +5,6 @@ note
 	standards: "RFC 2822"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -125,82 +123,82 @@ feature -- Access
 
 feature -- Access to well-known fields
 
-	bcc_field: EPX_MIME_UNSTRUCTURED_FIELD
+	bcc_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Bcc" if it exists, else Void.
 		do
 			fields.search (field_name_bcc)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as f then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := f
 			end
 		ensure
-			definition: fields.has (field_name_bcc) = (Result /= Void)
+			definition: fields.has (field_name_bcc) = (attached Result)
 		end
 
-	cc_field: EPX_MIME_UNSTRUCTURED_FIELD
+	cc_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Cc" if it exists, else Void.
 		do
 			fields.search (field_name_cc)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as f then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := f
 			end
 		ensure
-			definition: fields.has (field_name_cc) = (Result /= Void)
+			definition: fields.has (field_name_cc) = (attached Result)
 		end
 
 	date_field: EPX_MIME_FIELD_DATE
 			-- Field "Date"
 
-	from_field: EPX_MIME_UNSTRUCTURED_FIELD
+	from_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field `From' if it exists, else Void.
 		do
 			fields.search (field_name_from)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as f then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := f
 			end
 		ensure
-			definition: fields.has (field_name_from) = (Result /= Void)
+			definition: fields.has (field_name_from) = (attached Result)
 		end
 
 	message_id_field: EPX_MIME_FIELD_MESSAGE_ID
 			-- Field "Message-Id"
 
-	reply_to_field: EPX_MIME_UNSTRUCTURED_FIELD
+	reply_to_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Reply_To" if it exists, else Void.
 		do
 			fields.search (field_name_reply_to)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as f then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := f
 			end
 		ensure
-			definition: fields.has (field_name_reply_to) = (Result /= Void)
+			definition: fields.has (field_name_reply_to) = (attached Result)
 		end
 
-	subject_field: EPX_MIME_UNSTRUCTURED_FIELD
+	subject_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "Subject" if it exists, else Void.
 		do
 			fields.search (field_name_subject)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as f then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := f
 			end
 		ensure
-			definition: fields.has (field_name_subject) = (Result /= Void)
+			definition: fields.has (field_name_subject) = (attached Result)
 		end
 
-	to_field: EPX_MIME_UNSTRUCTURED_FIELD
+	to_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field "To" if it exists, else Void.
 		do
 			fields.search (field_name_to)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as f then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := f
 			end
 		ensure
-			definition: fields.has (field_name_to) = (Result /= Void)
+			definition: fields.has (field_name_to) = (attached Result)
 		end
 
 
@@ -236,7 +234,7 @@ feature -- Change
 			from_email_set: from_.has_substring (an_email)
 		end
 
-	set_reply_to (a_name, an_email: STRING)
+	set_reply_to (a_name: detachable STRING; an_email: STRING)
 			-- Set the mailbox to which the author of the message
 			-- suggests that replies be sent.
 		require
@@ -283,7 +281,7 @@ feature -- Change
 
 feature {NONE} -- Implementation
 
-	set_email_field (a_field: EPX_MIME_UNSTRUCTURED_FIELD; a_field_name, a_name, an_email: STRING)
+	set_email_field (a_field: detachable EPX_MIME_UNSTRUCTURED_FIELD; a_field_name: STRING; a_name: detachable STRING; an_email: STRING)
 			-- Set field which takes an email address.
 		require
 			valid_email_address: is_valid_email_address (an_email)
@@ -296,12 +294,11 @@ feature {NONE} -- Implementation
 			else
 				value := a_name + once " <" + an_email + once ">"
 			end
-			field := a_field
-			if field = Void then
+			if attached a_field as f then
+				f.set_value (value)
+			else
 				create field.make (a_field_name, value)
 				add_field (field)
-			else
-				field.set_value (value)
 			end
 		ensure
 			field_exists: fields.has (a_field_name)

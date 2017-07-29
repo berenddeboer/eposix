@@ -4,8 +4,6 @@ note
 		"Can be an entire MIME message, or a part of a multipart message."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 class

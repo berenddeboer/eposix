@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -46,7 +44,7 @@ feature -- Initialization
 
 feature -- Access
 
-	algorithm: STRING
+	algorithm: detachable STRING
 			-- Algorithm for Digest authentication
 		do
 			parameters.search (parameter_name_algorithm)
@@ -60,7 +58,7 @@ feature -- Access
 	name: STRING = "WWW-Authenticate"
 			-- Authorative name
 
-	nonce: STRING
+	nonce: detachable STRING
 			-- Nonce value for Digest authentication
 		do
 			parameters.search (parameter_name_nonce)
@@ -71,7 +69,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	opaque: STRING
+	opaque: detachable STRING
 			-- opaque value for Digest authentication
 		do
 			parameters.search (parameter_name_opaque)
@@ -82,7 +80,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	qop: STRING
+	qop: detachable STRING
 			-- qop value for Digest authentication
 		do
 			parameters.search (parameter_name_qop)
@@ -93,7 +91,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	realm: STRING
+	realm: detachable STRING
 			-- Realm if defined;
 			-- According to the spec all authentication schemes should
 			-- have one.
@@ -109,7 +107,7 @@ feature -- Access
 	scheme: STRING
 			-- Authentication scheme
 
-	stale: STRING
+	stale: detachable STRING
 			-- stale value for Digest authentication
 		do
 			parameters.search (parameter_name_stale)
@@ -120,7 +118,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	uri: STRING
+	uri: detachable STRING
 			-- uri value for Digest authentication
 		do
 			parameters.search (parameter_name_uri)
