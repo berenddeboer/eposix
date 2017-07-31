@@ -3,8 +3,6 @@ note
 	description: "Class that describes a single field in a NetLogger log line."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -26,7 +24,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_name, a_value: READABLE_STRING_8)
+	make (a_name: READABLE_STRING_8; a_value: detachable READABLE_STRING_8)
 		require
 			name_valid: is_valid_name (a_name)
 			value_valid: is_valid_value (a_value)
@@ -36,7 +34,7 @@ feature {NONE} -- Initialization
 		ensure
 			name_set: name.is_equal (a_name)
 			void_or_not: ((a_value = Void) = (value = Void))
-			value_set: void /= Void implies value.is_equal (a_value)
+			value_set: attached a_value implies value.is_equal (a_value)
 		end
 
 
@@ -45,7 +43,7 @@ feature -- Access
 	name: READABLE_STRING_8
 			-- Event attribute name
 
-	value: READABLE_STRING_8
+	value: detachable READABLE_STRING_8
 			-- Event attribute value
 
 

@@ -27,7 +27,7 @@ create
 
 feature -- Access to well-known fields
 
-	vary_field: EPX_MIME_FIELD
+	vary_field: detachable EPX_MIME_FIELD
 			-- Field `Cache-Control' if it exists, else Void.
 		do
 			fields.search (field_name_vary)

@@ -85,7 +85,7 @@ feature {NONE} -- Access (but only when inheriting)
 				Result.put (name, i)
 				i := i + 1
 			variant
-				raw.count - i
+				raw.count - i + 1
 			end
 		ensure
 			environment_variables_not_void: Result /= Void

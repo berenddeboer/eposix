@@ -9,7 +9,7 @@
 		<capability>
 			<catcall_detection use="none"/>
 			<concurrency support="none" use="none"/>
-			<void_safety support="initialization" use="initialization"/>
+			<void_safety support="all" use="initialization"/>
 		</capability>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>

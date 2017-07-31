@@ -44,15 +44,15 @@ feature -- Initialization
 
 feature -- Access
 
-	algorithm: detachable STRING
+	algorithm: STRING
 			-- Algorithm for Digest authentication
 		do
 			parameters.search (parameter_name_algorithm)
 			if parameters.found then
 				Result := parameters.found_item.value
+			else
+				Result := ""
 			end
-		ensure
-			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
 	name: STRING = "WWW-Authenticate"
@@ -91,7 +91,7 @@ feature -- Access
 			void_or_not_empty: Result = Void or else not Result.is_empty
 		end
 
-	realm: detachable STRING
+	realm: STRING
 			-- Realm if defined;
 			-- According to the spec all authentication schemes should
 			-- have one.
@@ -99,6 +99,8 @@ feature -- Access
 			parameters.search (parameter_name_realm)
 			if parameters.found then
 				Result := parameters.found_item.value
+			else
+				create Result.make_empty
 			end
 		ensure
 			void_or_not_empty: Result = Void or else not Result.is_empty

@@ -3,8 +3,7 @@ note
 	description: "Test cgi form input."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
+
 
 deferred class
 

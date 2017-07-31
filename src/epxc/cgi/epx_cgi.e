@@ -15,8 +15,6 @@ note
 		"1. should use binary search allowed_new_line_tag"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class
@@ -171,9 +169,9 @@ feature {NONE} -- When script fails
 				content_text_plain
 			end
 			stdout.put_string (once "A fatal error prevents this program from continuing.%N")
-			if exceptions.is_developer_exception then
+			if exceptions.is_developer_exception and then attached exceptions.developer_exception_name as developer_exception_name then
 				stdout.put_string (once "The error message was: ")
-				stdout.put_string (exceptions.developer_exception_name)
+				stdout.put_string (developer_exception_name)
 				stdout.put_character ('%N')
 			end
 			stdout.put_string (once "Exception code: ")
@@ -280,7 +278,7 @@ feature -- Status
 
 feature -- Access
 
-	header: EPX_MIME_CGI_HEADER
+	header: detachable EPX_MIME_CGI_HEADER
 			-- Response header
 
 
@@ -573,7 +571,7 @@ feature {NONE} -- CGI environment variables
 
 feature -- HTTP headers
 
-	if_match: STRING
+	if_match: detachable STRING
 			-- The contents of the If-Match header if set or if
 			-- made available by the server;
 			-- Void otherwise
@@ -587,7 +585,7 @@ feature -- HTTP headers
 			end
 		end
 
-	if_none_match: STRING
+	if_none_match: detachable STRING
 			-- The contents of the If-None-Match header if set or if
 			-- made available by the server;
 			-- Void otherwise
@@ -601,7 +599,7 @@ feature -- HTTP headers
 			end
 		end
 
-	if_modified_since: STDC_TIME
+	if_modified_since: detachable STDC_TIME
 			-- The contents of the If-Modified-Since header if set or if
 			-- made available by the server;
 			-- Void otherwise
@@ -609,7 +607,6 @@ feature -- HTTP headers
 			env: STDC_ENV_VAR
 			v: STRING
 			parser: EPX_MIME_PARSER
-			date_field: EPX_MIME_FIELD_IF_MODIFIED_SINCE
 		do
 			create env.make (once "HTTP_IF_MODIFIED_SINCE")
 			v := env.value
@@ -617,8 +614,7 @@ feature -- HTTP headers
 				-- parse Tue, 13 Mar 2007 09:12:09 GMT
 				create parser.make_from_string (field_name_if_modified_since + ": " + v + "%N%N")
 				parser.parse_header
-				if parser.part.header.has (field_name_if_modified_since) then
-					date_field ?= parser.part.header.item (field_name_if_modified_since)
+				if parser.part.header.has (field_name_if_modified_since) and then attached {EPX_MIME_FIELD_IF_MODIFIED_SINCE} parser.part.header.item (field_name_if_modified_since) as date_field then
 					Result := date_field.date_time
 				end
 			end
@@ -682,13 +678,13 @@ feature -- CGI headers
 				stdout.put_string (cookie.key)
 				stdout.put_string ("=")
 				stdout.put_string (cookie.value)
-				if cookie.domain /= Void then
+				if attached cookie.domain as domain then
 					stdout.put_string ("; domain=")
-					stdout.put_string (cookie.domain)
+					stdout.put_string (domain)
 				end
-				if cookie.path /= Void then
+				if attached cookie.path as path then
 					stdout.put_string ("; path=")
-					stdout.put_string (cookie.path)
+					stdout.put_string (path)
 				end
 				if cookie.secure then
 					stdout.put_string ("; secure")
@@ -778,14 +774,16 @@ feature -- Server push, multipart header
 	content_multipart_x_mixed_replace (boundary: STRING)
 			-- Initiate server push.
 		require
-			valid_boundary: boundary /= Void and then not boundary.is_empty
+			multipart: is_multipart_message
 		do
 			stdout.put_string ("Content-Type: multipart/x-mixed-replace;boundary=")
 			stdout.put_string (boundary)
 			my_boundary := boundary
 			stdout.put_string ("%N%N")
 			-- start first part immediately
-			stdout.put_string (my_boundary)
+			if attached my_boundary as b then
+				stdout.put_string (b)
+			end
 			stdout.put_string ("%N")
 			stdout.flush
 		end
@@ -796,7 +794,9 @@ feature -- Server push, multipart header
 			multipart: is_multipart_message
 		do
 			stdout.write_character ('%N')
-			stdout.put_string (my_boundary)
+			if attached my_boundary as b then
+				stdout.put_string (b)
+			end
 			stdout.write_character ('%N')
 			stdout.flush
 		end
@@ -807,7 +807,9 @@ feature -- Server push, multipart header
 			multipart: is_multipart_message
 		do
 			stdout.write_character ('%N')
-			stdout.put_string (my_boundary)
+			if attached my_boundary as b then
+				stdout.put_string (b)
+			end
 			stdout.put_string ("--%N")
 			stdout.flush
 		end
@@ -815,7 +817,7 @@ feature -- Server push, multipart header
 	is_multipart_message: BOOLEAN
 			-- Are we writing server push, multipart output?
 		do
-			Result := my_boundary /= Void
+			Result := attached my_boundary as b and then not b.is_empty
 		end
 
 
@@ -855,7 +857,7 @@ feature -- Form input
 			meta_chars_not_empty: meta_chars /= Void and then not meta_chars.is_empty
 		end
 
-	new_key_value_cursor (a_key_re, a_value_re: RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH): EPX_CGI_KEY_VALUE_CURSOR
+	new_key_value_cursor (a_key_re, a_value_re: detachable RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH): EPX_CGI_KEY_VALUE_CURSOR
 			-- New cursor to iterate over all keys, optionally including
 			-- those keys and/or values that match `a_key_re' and
 			-- `a_value_re;
@@ -865,7 +867,10 @@ feature -- Form input
 			match_found_callback: an_on_match_found /= Void
 		do
 			assert_key_value_pairs_created
-			create {EPX_CGI_KEY_VALUE_CURSOR} Result.make (cgi_data, a_key_re, a_value_re, an_on_match_found)
+			if attached cgi_data as d then
+				create {EPX_CGI_KEY_VALUE_CURSOR} Result.make (d, a_key_re, a_value_re, an_on_match_found)
+			end
+				check attached Result end
 		ensure
 			cursor_returned: Result /= Void
 		end
@@ -959,12 +964,12 @@ feature {NONE} -- Cached key/value
 			cgi_data_not_void: cgi_data /= Void
 		end
 
-	cgi_data: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
+	cgi_data: detachable DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			-- Array with key-value pairs;
 			-- If you want to loop through the values, make sure to call
 			-- `assert_key_value_pairs_created'.
 
-	cgi_input: STRING
+	cgi_input: detachable STRING
 			-- Raw input data.
 
 	fill_key_value_pairs
@@ -994,7 +999,7 @@ feature {NONE} -- Cached key/value
 	found_key: BOOLEAN
 			-- Was `search_key' successful?
 
-	found_key_item: EPX_KEY_VALUE
+	found_key_item: detachable EPX_KEY_VALUE
 			-- Item found by `search_key'.
 
 	search_key (key: STRING)
@@ -1096,8 +1101,8 @@ feature {NONE} -- Standard or multipart key/value filling
 			-- Read query values from url request.
 		do
 			set_cgi_input
-			if cgi_input /= Void then
-				cgi_data := url_encoder.url_encoded_to_field_name_value_pair (cgi_input)
+			if attached cgi_input as i then
+				cgi_data := url_encoder.url_encoded_to_field_name_value_pair (i)
 			end
 		ensure
 			cgi_data_not_void: cgi_data /= Void
@@ -1196,7 +1201,7 @@ feature {NONE} -- Implementation
 			not_void: Result /= Void
 		end
 
-	my_boundary: STRING
+	my_boundary: detachable STRING
 			-- Used for server push, multipart header.
 
 

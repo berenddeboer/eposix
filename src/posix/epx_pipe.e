@@ -3,8 +3,6 @@ note
 	description: "portable layer Windows pipe implementation."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 class
@@ -17,6 +15,11 @@ inherit
 	ABSTRACT_PIPE
 
 	PAPI_UNISTD
+
+
+create
+
+	make
 
 
 feature -- Initialization

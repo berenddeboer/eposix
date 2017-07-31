@@ -191,7 +191,7 @@ feature -- (re)set arguments
 					Result or else
 					i >= a_arguments.upper
 				loop
-					Result := a_arguments.item (i) = Void
+					Result := not attached a_arguments.item (i)
 					i := i + 1
 				end
 			end
@@ -332,8 +332,8 @@ invariant
 	all_arguments_not_void: not has_void_argument (arguments)
 
 	descriptors_are_owners:
-		(fd_stdin /= Void and then fd_stdin.is_open implies fd_stdin.is_owner) and then
-		(fd_stdout /= Void and then fd_stdout.is_open implies fd_stdout.is_owner) and then
-		(fd_stderr /= Void and then fd_stderr.is_open implies fd_stderr.is_owner)
+		(attached fd_stdin and then fd_stdin.is_open implies fd_stdin.is_owner) and then
+		(attached fd_stdout and then fd_stdout.is_open implies fd_stdout.is_owner) and then
+		(attached fd_stderr and then fd_stderr.is_open implies fd_stderr.is_owner)
 
 end

@@ -7,8 +7,6 @@ note
 	known_bugs: "Does not output correct XML for mixed content nodes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #17 $"
 
 
 class
@@ -126,7 +124,7 @@ feature -- Status
 			started_implies_parent: is_started (a_tag) implies Result
 		end
 
-	is_attribute_set (a_name_space, an_attribute: STRING): BOOLEAN
+	is_attribute_set (a_name_space: detachable STRING; an_attribute: STRING): BOOLEAN
 			-- Has `an_attribute' been given a value?
 		require
 			valid_attribute_name: is_ncname (an_attribute)
@@ -283,7 +281,7 @@ feature -- Change
 
 feature -- Commands that expand `xml'
 
-	add_attribute (an_attribute, a_value: STRING)
+	add_attribute (an_attribute: STRING; a_value: detachable STRING)
 			-- Add an attribute of the current tag. Attribute cannot be
 			-- modified later unlike `set_attribute' and `a_value' does
 			-- not have to be cloned if you want to reuse that STRING.
@@ -294,7 +292,7 @@ feature -- Commands that expand `xml'
 			valid_attribute: is_ncname (an_attribute)
 			valid_value: a_value = Void or else is_string (a_value)
 		do
-			if a_value = Void then
+			if not attached a_value then
 				do_add_attribute (Void, an_attribute, Void)
 			else
 				do_add_attribute (Void, an_attribute, make_valid_attribute_value (a_value))
@@ -512,7 +510,7 @@ feature -- Commands that expand `xml'
 			stop_tag
 		end
 
-	get_attribute (an_attribute: STRING): STRING
+	get_attribute (an_attribute: STRING): detachable STRING
 			-- Get contents of attribute `attribute' for
 			-- current tag. `attribute' may include a name space.
 			-- Returns Void if attribute doesn't exist
@@ -537,7 +535,7 @@ feature -- Commands that expand `xml'
 			new_line
 		end
 
-	set_attribute (an_attribute, a_value: STRING)
+	set_attribute (an_attribute: STRING; a_value: detachable STRING)
 			-- Set an attribute of the current tag.
 			-- `attribute' must be name-space less, else use `set_ns_attribute'.
 			-- `value' may not contain an entity reference.
@@ -550,7 +548,7 @@ feature -- Commands that expand `xml'
 			attribute_has_no_colon: not an_attribute.has (':')
 			valid_data: a_value = Void or else is_string (a_value)
 		do
-			if a_value = Void then
+			if not attached a_value then
 				do_set_attribute (Void, an_attribute, Void)
 			else
 				do_set_attribute (Void, an_attribute, make_valid_attribute_value (a_value))
@@ -866,7 +864,7 @@ feature -- Quote unsafe characters
 
 feature -- Conversion
 
-	force_valid_string (s: STRING): STRING
+	force_valid_string (s: STRING): detachable STRING
 			-- `'s' with all invalid characters replaced by spaces; if
 			-- there are no changes `s' is returned, else a new string
 		local
@@ -889,7 +887,7 @@ feature -- Conversion
 				end
 			end
 		ensure
-			valid_string: s /= Void implies is_string (Result)
+			valid_string: attached s implies attached Result as r and then is_string (r)
 		end
 
 
@@ -969,8 +967,8 @@ feature {NONE} -- Internal xml change
 						check
 							value_exists: values.found
 						end
-					if values.found_item /= Void then
-						extend (values.found_item)
+					if attached values.found_item as found_item then
+						extend (found_item)
 					end
 					extend_character ('"')
 					attributes.forth
@@ -1021,7 +1019,7 @@ feature {NONE} -- Internal xml change
 			end
 		end
 
-	make_valid_attribute_value (value: STRING): STRING
+	make_valid_attribute_value (value: STRING): detachable STRING
 			-- Convert value to something that is ok within an attribute.
 			-- `value' should not contain an entity reference, because it
 			-- will be quoted.
@@ -1125,7 +1123,7 @@ feature {NONE} -- Tag attributes
 	attributes: DS_LINKED_LIST [STRING]
 			-- Order of attributes
 
-	values: DS_HASH_TABLE [STRING, STRING]
+	values: DS_HASH_TABLE [detachable STRING, STRING]
 			-- Attribute values
 
 	clear_attributes
@@ -1136,7 +1134,7 @@ feature {NONE} -- Tag attributes
 			no_attributes: attributes.is_empty
 		end
 
-	do_add_attribute (a_name_space, an_attribute, a_value: STRING)
+	do_add_attribute (a_name_space: detachable STRING; an_attribute: STRING; a_value: detachable STRING)
 			-- Raw write attribute for current tag including optional name space.
 			-- Assumes all checks have been done, so `a_value' is
 			-- properly quoted for example.
@@ -1160,7 +1158,7 @@ feature {NONE} -- Tag attributes
 			extend_character ('"')
 		end
 
-	do_set_attribute (a_name_space, an_attribute, a_value: STRING)
+	do_set_attribute (a_name_space: detachable STRING; an_attribute: STRING; a_value: detachable STRING)
 			-- Raw set attribute for current tag including optional name space.
 			-- Assumes all checks have been done, so `a_value' is
 			-- properly quoted for example.
@@ -1210,7 +1208,7 @@ feature {NONE} -- Tag attributes
 			found_set: Result implies values.found
 		end
 
-	get_value: STRING
+	get_value: detachable STRING
 			-- Return the contents of the last searched for attribute
 			-- value. A value can be Void.
 		require

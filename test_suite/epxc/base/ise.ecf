@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-16-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-16-0 http://www.eiffel.com/developers/xml/configuration-1-16-0.xsd" name="eposix_test" uuid="23c8d7ac-a695-4e8f-8e32-8d8b040a264a">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-16-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-16-0 http://www.eiffel.com/developers/xml/configuration-1-16-0.xsd" name="eposix_test" uuid="23C8D7AC-A695-4E8F-8E32-8D8B040A264A">
 	<target name="eposix_test">
 		<root class="EPOSIX_TEST" feature="make"/>
 		<option trace="false" profile="false" debug="true" warning="true">
+			<debug name="http_client_dump_response" enabled="true"/>
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<setting name="console_application" value="true"/>
 		<capability>
 			<catcall_detection support="none" use="none"/>
 			<concurrency support="none" use="none"/>
-			<void_safety support="conformance" use="conformance"/>
+			<void_safety support="initialization" use="initialization"/>
 		</capability>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
-		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
-		<library name="eposix" location="${EPOSIX}\eposix-safe.ecf" readonly="false"/>
-		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel-safe.ecf"/>
-		<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp-safe.ecf"/>
+		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<library name="eposix" location="${EPOSIX}\eposix-safe.ecf" readonly="false">
+			<option debug="true">
+				<debug name="http_client_dump_response" enabled="false"/>
+				<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
+			</option>
+		</library>
+		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
+		<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp.ecf"/>
 		<library name="gobo_structure" location="$ISE_LIBRARY\library\gobo\gobo_structure.ecf"/>
-		<library name="gobo_utility" location="$ISE_LIBRARY/library/gobo/gobo_utility-safe.ecf"/>
 		<library name="gobo_test" location="$ISE_LIBRARY\library\gobo\gobo_test-safe.ecf"/>
-		<cluster name="test" location="${EPOSIX}/test_suite/epxc/base"/>
+		<library name="gobo_utility" location="$ISE_LIBRARY\library\gobo\gobo_utility.ecf"/>
+		<cluster name="test" location="${EPOSIX}\test_suite\epxc\base\"/>
 		<cluster name="testgen" location="TESTGEN\"/>
 	</target>
 </system>

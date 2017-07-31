@@ -978,6 +978,8 @@ feature -- Initialization
 			my_date.to_utc
 			create my_time.make_from_now
 			my_time.to_utc
+			-- This is for void-safety, this `part' is never used
+			part := new_part
 		end
 
 	make_from_file (a_file: STDC_TEXT_FILE)
@@ -1289,7 +1291,7 @@ feature -- Access
 			end
 		end
 
-	part: detachable EPX_MIME_PART
+	part: EPX_MIME_PART
 			-- Structure we're building
 
 

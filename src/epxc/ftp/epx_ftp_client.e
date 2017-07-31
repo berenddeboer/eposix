@@ -54,6 +54,7 @@ feature {NONE} -- Initialization
 			server_name_not_empty: a_server_name /= Void and then not a_server_name.is_empty
 		do
 			make (a_server_name, once_anonymous, an_email)
+			last_reply := ""
 		end
 
 	make_anonymous_with_port (a_server_name: STRING; a_port: INTEGER; an_email: STRING)
@@ -66,6 +67,7 @@ feature {NONE} -- Initialization
 			valid_port: a_port >= 0 and a_port <= 65535
 		do
 			make_with_port (a_server_name, a_port, once_anonymous, an_email)
+			last_reply := ""
 		end
 
 
@@ -447,7 +449,7 @@ feature {NONE} -- Lowest level FTP server interaction
 			not_void: Result /= Void
 		end
 
-	hp: EPX_HOST_PORT
+	hp: detachable EPX_HOST_PORT
 
 	put_command_with_data_connection  (a_command: STRING; a_parameter: detachable STRING)
 			-- Setup a data connection, send `a_command'.
@@ -488,6 +490,7 @@ feature {NONE} -- Lowest level FTP server interaction
 			data_host: EPX_HOST
 			data_service: EPX_SERVICE
 			a1,a2,a3,a4,p1,p2: INTEGER
+			my_hp: like hp
 		do
 			if
 				data_connection /= Void and then
@@ -526,8 +529,9 @@ feature {NONE} -- Lowest level FTP server interaction
 						print (posix_htons (data_service.port))
 						print (")%N")
 					end
-					create hp.make (data_host, data_service)
-					create tcp.open_by_address (hp)
+					create my_hp.make (data_host, data_service)
+					hp := my_hp
+					create tcp.open_by_address (my_hp)
 					data_connection := tcp
 				else
 					last_reply_code := 501

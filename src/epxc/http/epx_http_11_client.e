@@ -22,7 +22,6 @@ inherit
 create
 
 	make,
-	make_from_port,
 	make_with_port,
 	make_from_host,
 	make_from_host_and_port,
@@ -52,16 +51,22 @@ feature -- Change
 feature {NONE} -- Implementation
 
 	authorization_value (a_verb, a_uri: STRING): STRING
-			-- Append Authorization field if `authentication_scheme' is recogised.
+			-- Append Authorization field if `authentication_scheme' is recognised.
 		do
 			if not user_name.is_empty and then not password.is_empty then
 				if STRING_.same_string (authentication_scheme, once "Digest") then
-					if www_authenticate /= Void then
+					if attached www_authenticate then
 						Result := digest_authorization_value (a_verb, a_uri)
+					else
+						create Result.make_empty
 					end
 				elseif STRING_.same_string (authentication_scheme, once "Basic") then
 					Result := basic_authorization_value (user_name, password)
+				else
+					create Result.make_empty
 				end
+			else
+				create Result.make_empty
 			end
 		end
 
@@ -69,26 +74,22 @@ feature {NONE} -- Implementation
 			-- Only MD5 support, MD5-sess not supported.
 		require
 			www_authenticate_set: www_authenticate /= Void
-		local
-			contents: STRING
 		do
-			if www_authenticate.algorithm /= Void then
-				if www_authenticate.algorithm = Void or else STRING_.same_string (www_authenticate.algorithm, once "MD5") then
-					contents := digest_md5_authorization_value (www_authenticate, a_verb, a_uri)
-				end
-				if contents /= Void then
-					Result := "Digest " + contents
-				end
+			if attached www_authenticate as a and then
+				STRING_.same_string (a.algorithm, once "MD5") then
+				Result := "Digest " + digest_md5_authorization_value (a, a_verb, a_uri)
+			else
+				create Result.make_empty
 			end
 		end
 
 	digest_md5_authorization_value (a_www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE; a_verb, a_uri: STRING): STRING
 			-- Digest when algorithm = MD5
 		require
-			www_authenticate_set: a_www_authenticate /= Void
-			www_authenticate_realm_set: a_www_authenticate.realm /= Void
+			www_authenticate_set: attached a_www_authenticate
+			www_authenticate_realm_set: attached a_www_authenticate.realm
 			no_rfc_2069_support: a_www_authenticate.qop /= Void
-			qop_is_auth: STRING_.same_string (a_www_authenticate.qop, once "auth")
+			qop_is_auth: attached a_www_authenticate.qop as qop and then STRING_.same_string (qop, once "auth")
 			verb_not_empty: a_verb /= Void and then not a_verb.is_empty
 			uri_not_empty: a_uri /= Void and then not a_uri.is_empty
 		local
@@ -126,7 +127,9 @@ feature {NONE} -- Implementation
 			H_A1 := md5 (A1)
 			H_A2 := md5 (A2)
 			-- No nc-value, cnonce-value or qop value
-			request_digest := md5 (H_A1 + ":" + a_www_authenticate.nonce + ":" + H_A2)
+			if attached a_www_authenticate.nonce as nonce then
+				request_digest := md5 (H_A1 + ":" + nonce + ":" + H_A2)
+			end
 			Result.append_string (request_digest)
 			opaque := a_www_authenticate.opaque
 			if opaque /= Void then

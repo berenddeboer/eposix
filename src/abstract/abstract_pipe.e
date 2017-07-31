@@ -3,11 +3,9 @@ note
 	description: "Class that covers the pipe abstractions."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
-class
+deferred class
 
 	ABSTRACT_PIPE
 

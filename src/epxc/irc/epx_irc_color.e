@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -18,7 +16,7 @@ class
 
 feature -- Removal
 
-	without_color (s: STRING): STRING
+	without_color (s: detachable STRING): detachable STRING
 			-- `s' but with mirc color encoding removed;
 			-- See http://www.mirc.co.uk/help/color.txt for more info.
 			-- Color can only be interpreted correctly when the encoder

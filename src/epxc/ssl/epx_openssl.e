@@ -3,8 +3,7 @@ note
 	description: "Class that uses the openssl command-line tool to open a generic SSL/TLS connection to a server. It also implements the EPX_TEXT_IO_STREAM, so it can be used as a bidirectional socket instead of a network socket."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
+
 
 class
 
@@ -31,14 +30,8 @@ create
 
 feature {NONE} -- Initialization.
 
-	make_ssl3 (a_host: STRING; a_port: INTEGER)
-		obsolete "2004-03-13: use make_ssl3_client instead."
-		do
-			make_ssl3_client (a_host, a_port)
-		end
-
 	make_ssl3_client (a_host: STRING; a_port: INTEGER)
-			-- Use SSLv3 to connect to `a_host' at `a_port'.
+			-- Use tls 1.1 or higher to connect to `a_host' at `a_port'.
 		require
 			host_not_empty: a_host /= Void and then not a_host.is_empty
 			valid_port: a_port >= 0 and then a_port <= 65535
@@ -46,7 +39,7 @@ feature {NONE} -- Initialization.
 		do
 			-- Need to redirect stderr to /dev/null perhaps?
 			-- Anyway, you will see connection errors/problems now
-			make_capture_io (openssl, <<"s_client", "-quiet", "-ssl3", "-connect", a_host + ":" + a_port.out>>)
+			make_capture_io (openssl, <<"s_client", "-quiet", "-no_ssl2", "-no_ssl3", "-no_tls1", "-connect", a_host + ":" + a_port.out>>)
 			host := a_host
 			port := a_port
 		end
@@ -196,12 +189,12 @@ feature -- Reading/writing access
 
 	is_open_read: BOOLEAN
 		do
-			Result := fd_stdout /= Void and then fd_stdout.is_open_read
+			Result := not is_terminated and then attached fd_stdout and then fd_stdout.is_open_read
 		end
 
 	is_open_write: BOOLEAN
 		do
-			Result := fd_stdin /= Void and then fd_stdin.is_open_write
+			Result := not is_terminated and then attached fd_stdin and then fd_stdin.is_open_write
 		end
 
 	is_owner: BOOLEAN = True

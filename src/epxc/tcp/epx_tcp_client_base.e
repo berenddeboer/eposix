@@ -106,7 +106,10 @@ feature {NONE} -- Open
 			-- inherit error handling
 			openssl.inherit_error_handling (Current)
 			openssl.execute
-			socket := openssl
+			openssl.wait_for (False)
+			if not openssl.is_terminated then
+				socket := openssl
+			end
 		end
 
 	open_tcp
@@ -118,13 +121,15 @@ feature {NONE} -- Open
 			host_port: EPX_HOST_PORT
 			tcp: EPX_TCP_CLIENT_SOCKET
 		do
-			create host_port.make (host, service)
-			create tcp.make
-			tcp.inherit_error_handling (Current)
-			tcp.open_by_address (host_port)
-			if tcp.is_open then
-				socket := tcp
-				authenticate
+			if attached host as h then
+				create host_port.make (h, service)
+				create tcp.make
+				tcp.inherit_error_handling (Current)
+				tcp.open_by_address (host_port)
+				if tcp.is_open then
+					socket := tcp
+					authenticate
+				end
 			end
 		end
 
@@ -219,7 +224,7 @@ feature -- Commands
 
 feature {NONE} -- Implementation
 
-	host: EPX_HOST
+	host: detachable EPX_HOST
 
 	service: EPX_SERVICE
 

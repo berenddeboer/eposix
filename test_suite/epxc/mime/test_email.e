@@ -34,7 +34,9 @@ feature -- Tests
 			email.header.set_reply_to (Void, from_email)
 			assert ("Name set", email.header.reply_to.has_substring (from_email))
 			email.create_singlepart_body
-			email.text_body.append_string (body_text)
+			if attached email.text_body as text_body then
+				text_body.append_string (body_text)
+			end
 			print ("=========================%N")
 			print (email.as_string)
 			print ("=========================%N")

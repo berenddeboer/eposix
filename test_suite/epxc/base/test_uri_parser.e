@@ -54,7 +54,7 @@ feature -- Tests
 
 feature {NONE} -- Implementation
 
-	check_uri (uri: UT_URI; scheme, authority, path, query, fragment: STRING)
+	check_uri (uri: UT_URI; scheme, authority: detachable STRING; path: STRING; query, fragment: detachable STRING)
 		require
 			ur_not_void: uri /= Void
 		do
@@ -77,7 +77,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	do_check (what, s1, s2: STRING)
+	do_check (what: STRING; s1, s2: detachable STRING)
 		do
 			assert_equal (what, s1, s2)
 		end

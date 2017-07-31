@@ -43,12 +43,6 @@ feature {NONE} -- Initialization
 			make_with_port (a_server_name, 0)
 		end
 
-	make_from_port (a_server_name: STRING; a_port: INTEGER)
-		obsolete "2004-12-16 use make_with_port instead."
-		do
-			make_with_port (a_server_name, a_port)
-		end
-
 	make_with_port (a_server_name: STRING; a_port: INTEGER)
 			-- Prepare for request.
 			-- Use `a_port' is 0 to use the default port (80).
@@ -57,6 +51,7 @@ feature {NONE} -- Initialization
 			valid_port: a_port >= 0 and then a_port <= 65535
 		do
 			make_authenticate_with_port (a_server_name, a_port, Void, Void)
+			raw_response := ""
 		end
 
 	make_from_host (a_host: EPX_HOST)

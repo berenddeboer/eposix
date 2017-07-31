@@ -47,9 +47,15 @@ feature {NONE} -- Initialization
 	make_empty
 			-- Make an empty MIME part. Useful during parsing to
 			-- construct the message gradually.
+		local
+			tb: like text_body
 		do
 			create header.make_default
 			auto_insert_content_length := True
+			-- It's easier for void-safety to always have a `body', even if we never use it.
+			tb := new_string_body
+			body := tb
+			text_body := tb
 		end
 
 
@@ -74,29 +80,25 @@ feature -- Output
 			cl: EPX_MIME_FIELD_CONTENT_LENGTH
 			body_size: INTEGER
 		do
-			if body /= Void then
-				create body_text.make_empty
-				body.append_to_string (body_text)
-				body_size := body_text.count
-				-- If there is a Content-Length field, assume it is correct.
-				if not header.has (field_name_content_length) then
-					if auto_insert_content_length then
-						create cl.make (body_size)
-						header.add_field (cl)
-					end
-				else
-					body_size := header.item (field_name_content_length).value.to_integer
-					-- check body size for client
-						check
-							content_length_correct: body_size = body_text.count
-						end
+			create body_text.make_empty
+			body.append_to_string (body_text)
+			body_size := body_text.count
+			-- If there is a Content-Length field, assume it is correct.
+			if not header.has (field_name_content_length) then
+				if auto_insert_content_length then
+					create cl.make (body_size)
+					header.add_field (cl)
 				end
+			else
+				body_size := header.item (field_name_content_length).value.to_integer
+				-- check body size for client
+					check
+						content_length_correct: body_size = body_text.count
+					end
 			end
 			header.append_fields_to_string (s)
 			s.append_string (once_crlf)
-			if body_text /= Void then
-				s.append_string (body_text)
-			end
+			s.append_string (body_text)
 		end
 
 	append_urlencoded_to_string (s: STRING)
@@ -148,7 +150,7 @@ feature -- Access
 			-- If a Content-Length field does not exist, should
 			-- `append_to_string' automatically add one?
 
-	body: detachable EPX_MIME_BODY
+	body: EPX_MIME_BODY
 			-- The body, can be multipart
 
 	header: EPX_MIME_HEADER
@@ -180,23 +182,24 @@ feature -- Body creation/removal
 
 	clear_body
 			-- Set `body' to Void.
+		local
+			tb: like text_body
 		do
-			body := Void
+			tb := new_string_body
+			body := tb
+			text_body := tb
 			multipart_body := Void
-			text_body := Void
-		ensure
-			body_void: body = Void
 		end
 
 	create_multipart_body
 			-- Set `body' to a container.
-		require
-			body_not_set: body = Void
+		local
+			mb: like multipart_body
 		do
-			create multipart_body.make (header)
-			body := multipart_body
+			create mb.make (header)
+			multipart_body := mb
+			body := mb
 		ensure
-			body_not_void: body /= Void
 			body_is_multipart: body.is_multipart
 			multipart_body_set: multipart_body = body
 		end
@@ -206,24 +209,23 @@ feature -- Body creation/removal
 			-- If we find a Content-Disposition field with a filename
 			-- parameter, body data wil be saved to a temporary file when
 			-- set, insted of kept in memory.
-		require
-			body_not_set: body = Void
 		local
 			cd: EPX_MIME_FIELD_CONTENT_DISPOSITION
+			tb: like text_body
 		do
 			cd := header.content_disposition
 			if cd = Void then
-				text_body := new_string_body
+				tb := new_string_body
 			else
 				if cd.parameters.has (parameter_name_filename) then
-					text_body := new_file_body
+					tb := new_file_body
 				else
-					text_body := new_string_body
+					tb := new_string_body
 				end
 			end
-			body := text_body
+			text_body := tb
+			body := tb
 		ensure
-			body_not_void: body /= Void
 			body_is_singlepart: not body.is_multipart
 			text_body_set: text_body = body
 		end
@@ -287,8 +289,7 @@ invariant
 
 	header_not_void: header /= Void
 	bodies_in_sync:
-		body /= Void implies
-			(body.is_multipart = (multipart_body /= Void)) and
-			(not body.is_multipart = (text_body /= Void))
+		(body.is_multipart = (attached multipart_body)) and
+		(not body.is_multipart = (attached text_body))
 
 end

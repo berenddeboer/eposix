@@ -305,10 +305,10 @@ feature -- Actions that parent may execute
 		ensure then
 			terminated_implies_closed:
 				is_terminated implies
-					(stdin = Void or else not stdin.is_open) and then
+					(not attached stdin or else not stdin.is_open) and then
 -- 					(stdout = Void or else not stdout.is_open) and then
 -- 					(stderr = Void or else not stderr.is_open) and then
-					(fd_stdin = Void or else not fd_stdin.is_open)
+					(not attached fd_stdin or else not fd_stdin.is_open)
 -- 					and then
 -- 					(fd_stdout = Void or else not fd_stdout.is_open) and then
 -- 					(fd_stderr = Void or else not fd_stderr.is_open)

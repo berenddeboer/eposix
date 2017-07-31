@@ -69,8 +69,9 @@ feature -- Operation(s)
 					client := new_client (a_uri_to_use)
 					if attached a_uri.user_info as user_info then
 						set_basic_authentication_from_user_info (user_info)
-					elseif not user_name.is_empty then
-						client.set_basic_authentication (user_name, password)
+					elseif attached user_name as u and then not u.is_empty and then
+						attached password as p then
+						client.set_basic_authentication (u, p)
 					end
 					debug ("XML http resolver")
 						std.error.put_string ("Host is ")
@@ -103,7 +104,11 @@ feature -- Operation(s)
 						if is_redirect (a_response_code) then
 							if client.fields.has (Location) then
 								create a_uri_to_use.make_resolve (a_uri_to_use, client.fields.item (Location).value)
-								uri_stack.replace (a_uri_to_use)
+								if uri_stack.is_empty then
+									uri_stack.put (a_uri_to_use)
+								else
+									uri_stack.replace (a_uri_to_use)
+								end
 							else
 								a_response_code := 500
 								set_local_error ("Could not find Location field after Found response.")
@@ -134,38 +139,48 @@ feature -- Result
 	has_error: BOOLEAN
 			-- Did the last resolution attempt succeed?
 		do
-			Result := has_local_error or else not client.is_response_ok
+			-- I think the has_error and has_no_error invariants are wrong
+			-- We need to set `has_error' if we haven't resolved
+			-- anything, else it thinks `stream' is set.
+			Result := not attached last_uri or else has_local_error or else (attached client as c and then not c.is_response_ok)
 		end
 
 	last_error: STRING
 		local
 			a_message: STRING
 		do
-			if has_local_error then
-				Result := last_local_error
+			if attached last_uri as lu then
+				a_message := "URI "
+				a_message.append_string (lu.full_reference)
+				a_message.append_character ( ' ')
+				if has_local_error then
+					if attached last_local_error as e then
+						a_message.append_string (e)
+					end
+				else
+					a_message.append_string (client.response_phrase)
+				end
+				Result := a_message
 			else
-				Result := client.response_phrase
+				Result := "`resolve' not called"
 			end
-			a_message := STRING_.concat ("URI ", last_uri.full_reference)
-			a_message := STRING_.appended_string (a_message, " ")
-			Result := STRING_.appended_string (a_message, Result)
 		end
 
-	last_stream: KI_CHARACTER_INPUT_STREAM
+	last_stream: detachable KI_CHARACTER_INPUT_STREAM
 			-- Matching stream
 
 	has_media_type: BOOLEAN
 			-- Is the media type available.
 
-	last_media_type: UT_MEDIA_TYPE
+	last_media_type: detachable UT_MEDIA_TYPE
 			-- Media type, if available.
 
 feature -- Authentication setup
 
-	user_name: STRING
+	user_name: detachable STRING
 			-- User name for HTTP Basic authentication
 
-	password: STRING
+	password: detachable STRING
 			-- Password for HTTP Basic authentication
 
 	set_basic_authentication (a_user_name, a_password: STRING)
@@ -184,13 +199,13 @@ feature -- Authentication setup
 
 feature {NONE} -- Implementation
 
-	client: EPX_HTTP_11_CLIENT
+	client: detachable EPX_HTTP_11_CLIENT
 
 	has_local_error: BOOLEAN
 
-	last_local_error: like last_error
+	last_local_error: detachable like last_error
 
-	last_uri: UT_URI
+	last_uri: detachable UT_URI
 
 	uri_stack: DS_STACK [UT_URI]
 			-- Resolver's URI stack
@@ -229,11 +244,20 @@ feature {NONE} -- Implementation
 	new_client (a_uri_to_use: UT_URI): EPX_HTTP_11_CLIENT
 		require
 			a_uri_to_use_not_void: a_uri_to_use /= Void
+			scheme_supported: a_uri_to_use.scheme ~ "http" or else a_uri_to_use.scheme ~ "https"
 		do
 			if a_uri_to_use.port = 0 then
-				create Result.make (a_uri_to_use.host)
+				if a_uri_to_use.scheme ~ "https" then
+					create Result.make_secure (a_uri_to_use.host)
+				else
+					create Result.make (a_uri_to_use.host)
+				end
 			else
-				create Result.make_with_port (a_uri_to_use.host, a_uri_to_use.port)
+				if a_uri_to_use.scheme ~ "https" then
+					create Result.make_secure_with_port (a_uri_to_use.host, a_uri_to_use.port)
+				else
+					create Result.make_with_port (a_uri_to_use.host, a_uri_to_use.port)
+				end
 			end
 		ensure
 			not_void: Result /= Void
@@ -247,7 +271,7 @@ feature {NONE} -- Implementation
 			has_local_error := True
 			last_local_error := an_error_string
 		ensure
-			error_set: has_local_error and then STRING_.same_string (an_error_string, last_local_error)
+			error_set: has_local_error and then attached last_local_error as e and then STRING_.same_string (an_error_string, e)
 		end
 
 	handle_success (a_uri: UT_URI)
@@ -338,6 +362,6 @@ feature {NONE} -- Implementation
 
 invariant
 
-	uri_stack_exists: uri_stack /= Void
+	uri_stack_exists: attached uri_stack
 
 end

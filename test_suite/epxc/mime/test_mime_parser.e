@@ -104,11 +104,15 @@ feature -- Tests
 			assert_equal ("Content of field MIME-Version", "1.0", parser.part.header.found_item.value)
 			parser.part.header.search ("Content-Type")
 			assert ("Have field Content-Type", parser.part.header.found)
-			assert ("Feature content_type not void", parser.part.header.content_type /= Void)
-			assert_integers_equal ("Have two parameters", 2, parser.part.header.content_type.parameters.count)
-			assert ("Have parameter report-type", parser.part.header.content_type.parameters.has ("report-type"))
-			assert ("Have parameter boundary", parser.part.header.content_type.parameters.has ("boundary"))
-			assert ("Body is multi-part", parser.part.body.is_multipart)
+			assert ("Feature content_type not void", attached parser.part.header.content_type)
+			if attached parser.part.header.content_type as content_type then
+				assert_integers_equal ("Have two parameters", 2, content_type.parameters.count)
+				assert ("Have parameter report-type", content_type.parameters.has ("report-type"))
+				assert ("Have parameter boundary", content_type.parameters.has ("boundary"))
+			end
+			if attached parser.part.body as body then
+				assert ("Body is multi-part", body.is_multipart)
+			end
 			if attached {EPX_MIME_BODY_MULTIPART} parser.part.body as multipart_body then
 				assert ("Multipart body not void.", True)
 				assert_integers_equal ("Number of parts", 3, multipart_body.parts.count)
@@ -118,7 +122,9 @@ feature -- Tests
 			else
 				assert ("Multipart body not void.", False)
 			end
-			assert_integers_equal ("First part has one field.", 1, parser.part.body.part (1).header.count)
+			if attached parser.part.body as body then
+				assert_integers_equal ("First part has one field.", 1, body.part (1).header.count)
+			end
 		end
 
 	test_base64_encoding
@@ -132,12 +138,14 @@ feature -- Tests
 			parser.parse
 			assert ("test8.msg parsed ok", not parser.syntax_error)
 			assert ("Body is multi-part", parser.part.body.is_multipart)
-			assert ("First body is empty.", parser.part.body.part (1).body.as_string.is_empty)
-			assert ("First body is not multi-part.", not parser.part.body.part (1).body.is_multipart)
-			assert ("First body is empty.", parser.part.body.part (1).body.as_plain_text.is_empty)
+			if attached parser.part.body.part (1).body as b1_1 then
+				assert ("First body is empty.", b1_1.as_string.is_empty)
+				assert ("First body is not multi-part.", not b1_1.is_multipart)
+				assert ("First body is empty.", b1_1.as_plain_text.is_empty)
+			end
 			debug ("mime")
-				if attached parser.part.body.part (2).body as b then
-					print_body (b)
+				if attached parser.part.body.part (2).body as b2 then
+					print_body (b2)
 				end
 			end
 		end
@@ -306,7 +314,9 @@ feature -- Tests
 			create parser.make_from_file (file)
 			parser.parse
 			assert ("bad_form_data.form parsed ok", not parser.syntax_error)
-			assert_integers_equal ("Two fields", 2, parser.part.multipart_body.parts_count)
+			if attached parser.part.multipart_body as b then
+				assert_integers_equal ("Two fields", 2, b.parts_count)
+			end
 		end
 
 	test_simple_multipart_form_data
@@ -321,7 +331,9 @@ feature -- Tests
 			create parser.make_from_file (file)
 			parser.parse
 			assert ("bad_form_data.form parsed ok", not parser.syntax_error)
-			assert_integers_equal ("One field", 1, parser.part.multipart_body.parts_count)
+			if attached parser.part.multipart_body as b then
+				assert_integers_equal ("One field", 1, b.parts_count)
+			end
 		end
 
 	test_chunked_encoding
@@ -420,7 +432,9 @@ feature -- Tests
 			parser.parse
 			assert ("http1.msg parsed ok", not parser.syntax_error)
 			assert_integers_equal ("Message length ok", 1209, parser.part.as_string.count)
-			assert_integers_equal ("Body length ok", 1070, parser.part.text_body.as_string.count)
+			if attached parser.part.text_body as text_body then
+				assert_integers_equal ("Body length ok", 1070, text_body.as_string.count)
+			end
 		end
 
 

@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -24,7 +22,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_mod_spec: INTEGER; an_attribute_description: EPX_LDIF_ATTRIBUTE_DESCRIPTION; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE])
+	make (a_mod_spec: INTEGER; an_attribute_description: EPX_LDIF_ATTRIBUTE_DESCRIPTION; an_attributes: detachable DS_LINKABLE [EPX_LDIF_ATTRIBUTE])
 		require
 			valid_mod_spec: is_valid_mod_spec (a_mod_spec)
 			attribute_description_not_void: an_attribute_description /= Void
@@ -37,9 +35,9 @@ feature {NONE} -- Initialisation
 
 feature -- Access
 
-	attribute_description: EPX_LDIF_ATTRIBUTE_DESCRIPTION
+	attribute_description: detachable EPX_LDIF_ATTRIBUTE_DESCRIPTION
 
-	attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE]
+	attributes: detachable DS_LINKABLE [EPX_LDIF_ATTRIBUTE]
 			-- An attribute can have multiple values, constrained by the
 			-- schema in use
 

@@ -8,7 +8,7 @@ note
 	author: "Berend de Boer"
 
 
-class
+deferred class
 
 	EPX_LDIF_SCANNER
 
@@ -164,8 +164,5 @@ feature {NONE} -- Implementation
 
 	in_modify: BOOLEAN
 			-- Are we parsing a change record with changetype = "modify"?
-
-	value_spec_string: STRING
-			-- String build during state VALUE_SPEC
 
 end

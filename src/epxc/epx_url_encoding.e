@@ -39,7 +39,7 @@ inherit
 
 feature -- Encode/decode field name/value pairs
 
-	mime_encoded_to_field_name_value_pair (name: STRING; body: EPX_MIME_BODY): DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
+	mime_encoded_to_field_name_value_pair (name: detachable STRING; body: EPX_MIME_BODY): DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			-- Transform a multipart/form-data body to a hash table of
 			-- field-names and values.
 			-- If a body is not of the proper format, it is skipped.
@@ -50,7 +50,7 @@ feature -- Encode/decode field name/value pairs
 			sub_part: EPX_MIME_PART
 			sub_keys: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			parameter: EPX_MIME_PARAMETER
-			keyname,
+			keyname: detachable STRING
 			keyvalue: STRING
 			i: INTEGER
 			kv: EPX_KEY_VALUE
@@ -77,20 +77,19 @@ feature -- Encode/decode field name/value pairs
 				ct := sub_part.header.content_disposition
 				if ct /= Void and then STRING_.same_string (ct.value, once_form_data) then
 					parameter := ct.name_parameter
-					if
-						(parameter /= Void and then not parameter.value.is_empty) or else
-						name /= Void
-					then
-						if parameter /= Void then
-							keyname := parameter.value
-						else
-							keyname := name
-						end
+					if attached parameter as p and then not p.value.is_empty then
+						keyname := p.value
+					elseif attached name as n then
+						keyname := n
+					else
+						keyname := Void
+					end
+					if attached keyname as kn then
 
 						-- if multipart (multiple uploaded files), recurse
 						-- else singlepart with value
 						if sub_part.body.is_multipart and attached sub_part.body as my_body then
-							sub_keys := mime_encoded_to_field_name_value_pair (keyname, my_body)
+							sub_keys := mime_encoded_to_field_name_value_pair (kn, my_body)
 							if Result.capacity < Result.count + sub_keys.count then
 								Result.resize (Result.count + sub_keys.count)
 							end
@@ -120,7 +119,7 @@ feature -- Encode/decode field name/value pairs
 							else
 								keyvalue := ""
 							end
-							create kv.make (keyname, keyvalue)
+							create kv.make (kn, keyvalue)
 							if attached temporary_file then
 								kv.set_file (temporary_file)
 								temporary_file := Void

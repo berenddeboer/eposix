@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -24,7 +22,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (an_attribute_type: STRING; an_options: DS_LINKABLE [STRING])
+	make (an_attribute_type: STRING; an_options: detachable DS_LINKABLE [STRING])
 		require
 			attribute_type_not_empty: an_attribute_type /= Void and then not an_attribute_type.is_empty
 		do
@@ -38,7 +36,7 @@ feature -- Access
 	attribute_type: STRING
 			-- Attribute type, either an oid or a string
 
-	options: DS_LINKABLE [STRING]
+	options: detachable DS_LINKABLE [STRING]
 			-- Optional options
 
 

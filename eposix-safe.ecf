@@ -5,7 +5,7 @@
 		<option warning="true" full_class_checking="true" syntax="standard">
     </option>
     <capability>
-      <void_safety support="initialization" use="none"/>
+      <void_safety support="all" use="all"/>
 			<catcall_detection support="none"/>
    </capability>
 		<external_object location="${EPOSIX}\lib\libeposix.lib">

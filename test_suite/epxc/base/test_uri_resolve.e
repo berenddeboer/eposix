@@ -3,8 +3,7 @@ note
 	description: "Test resolving using examples from RFC2396, appendix C"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
+
 
 deferred class
 
@@ -13,16 +12,6 @@ deferred class
 inherit
 
 	TS_TEST_CASE
-		redefine
-			set_up
-		end
-
-feature -- Setup
-
-	set_up
-		do
-			create base.make ("http://a/b/c/d;p?q")
-		end
 
 feature -- Tests
 
@@ -180,8 +169,11 @@ feature -- Tests
 feature {NONE} -- Implementation
 
 	base: UT_URI
+		once
+			create Result.make ("http://a/b/c/d;p?q")
+		end
 
-	check_uri (uri: UT_URI; a_scheme, an_authority, a_path, a_query, a_fragment, a_reference: STRING)
+	check_uri (uri: UT_URI; a_scheme: STRING; an_authority: detachable STRING; a_path: STRING; a_query, a_fragment: detachable STRING; a_reference: STRING)
 		require
 			have_uri: uri /= Void
 		do
@@ -205,7 +197,7 @@ feature {NONE} -- Implementation
 			do_check ("reference", uri.full_reference, a_reference)
 		end
 
-	do_check (what, got, expected: STRING)
+	do_check (what: STRING; got, expected: detachable STRING)
 		do
 			assert_equal(what, expected, got)
 		end

@@ -10,8 +10,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 class
@@ -63,6 +61,8 @@ feature {NONE} -- Initialisation
 			precursor (a_server_name, a_port, a_user_name, a_password)
 			if is_valid_nick_name (a_user_name) and then a_user_name.count <= 9 then
 				nick_name := a_user_name
+			else
+				nick_name := ""
 			end
 			real_name := a_user_name
 			create message_of_the_day.make (256)
@@ -93,16 +93,16 @@ feature -- Access
 			Result := once_ircd
 		end
 
-	last_joined_channel: EPX_IRC_CHANNEL
+	last_joined_channel: detachable EPX_IRC_CHANNEL
 			-- Last channel joined by `join';
 			-- Be aware: only an attempt was made to join it, check
 			-- `last_joined_channel'.`is_open' to see if channel could
 			-- actually be joined.
 
-	last_message: EPX_IRC_MESSAGE
+	last_message: detachable EPX_IRC_MESSAGE
 			-- Last received message
 
-	last_response: STRING
+	last_response: detachable STRING
 			-- Last received line (unparsed)
 
 	message_handlers: DS_LIST [EPX_IRC_MESSAGE_HANDLER]
@@ -248,7 +248,9 @@ feature -- Reading
 			until
 				system_handlers.after
 			loop
-				system_handlers.item_for_iteration.handle (last_message)
+				if attached last_message as m then
+					system_handlers.item_for_iteration.handle (m)
+				end
 				system_handlers.forth
 			end
 		end
@@ -264,7 +266,9 @@ feature -- Reading
 			until
 				message_handlers.after
 			loop
-				message_handlers.item_for_iteration.handle (last_message)
+				if attached last_message as m then
+					message_handlers.item_for_iteration.handle (m)
+				end
 				message_handlers.forth
 			end
 		end
@@ -299,21 +303,23 @@ feature -- Reading
 				last_message := Void
 			else
 				last_response := socket.last_string
-				if print_response then
-					print (without_color (last_response))
-					print ("%N")
-				end
-				if log_response then
-					log_file.put_string (last_response)
-					log_file.put_character ('%N')
-					log_file.flush
-				end
-				create last_message.make_parse (last_response)
-				if
-					last_message.has_reply_code and then
-					last_message.reply_code = reply_codes.ERR_NICKNAMEINUSE
-				then
-					is_nick_name_in_use := True
+				if attached last_response as r then
+					if print_response then
+						print (without_color (r))
+						print ("%N")
+					end
+					if log_response then
+						log_file.put_string (r)
+						log_file.put_character ('%N')
+						log_file.flush
+					end
+					create last_message.make_parse (r)
+					if
+						last_message.has_reply_code and then
+						last_message.reply_code = reply_codes.ERR_NICKNAMEINUSE
+					then
+						is_nick_name_in_use := True
+					end
 				end
 				handle_system_responses
 				handle_user_responses
@@ -384,10 +390,13 @@ feature -- Channel operations
 			-- easier.
 		require
 			valid_channel_name: is_valid_channel_name (a_channel_name)
+		local
+			my_last_joined_channel: like last_joined_channel
 		do
 			put_message (commands.join, a_channel_name)
-			create last_joined_channel.make (Current, a_channel_name)
-			system_handlers.put_last (last_joined_channel)
+			create my_last_joined_channel.make (Current, a_channel_name)
+			last_joined_channel := my_last_joined_channel
+			system_handlers.put_last (my_last_joined_channel)
 		end
 
 	list_all
@@ -501,7 +510,7 @@ feature -- DCC
 			last_dcc_chat_offer := chat
 		end
 
-	last_dcc_chat_offer: EPX_IRC_DCC_CHAT_INITIATOR
+	last_dcc_chat_offer: detachable EPX_IRC_DCC_CHAT_INITIATOR
 			-- Last offered DCC chat session by `dcc_chat'
 
 
@@ -557,11 +566,11 @@ feature {NONE} -- Implementation
 			not_void: Result /= Void
 		end
 
-	log_file: STDC_TEXT_FILE
+	log_file: detachable STDC_TEXT_FILE
 			-- If set, session requests and responses are written to this
 			-- file
 
-	put_message (a_command, a_parameter: STRING)
+	put_message (a_command: STRING; a_parameter: detachable STRING)
 			-- Send `a_message' and optional `a_parameter' to server.
 		require
 			command_valid: is_valid_command (a_command)

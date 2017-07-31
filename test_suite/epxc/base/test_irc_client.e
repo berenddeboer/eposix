@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #6 $"
 
 
 deferred class
@@ -33,7 +31,7 @@ feature -- Tests
 		local
 			irc: EPX_IRC_CLIENT
 		do
-			create irc.make ("dullio.nederware.nl", "berend", Void)
+			create irc.make ("dullio.nederware.nl", "berend", "")
 			debug ("test")
 				irc.set_print_response (True)
 			end
@@ -64,7 +62,7 @@ feature -- Tests
 			irc2: EPX_IRC_CLIENT
 			eiffel: EPX_IRC_CHANNEL
 		do
-			create irc.make ("localhost", "berend", Void)
+			create irc.make ("localhost", "berend", "")
 			debug ("test")
 				irc.set_print_response (True)
 			end
@@ -95,7 +93,7 @@ feature -- Tests
 			read_until_a_reply_received (irc)
 
 			-- Connect a 2nd client
-			create irc2.make ("localhost", "berend2", Void)
+			create irc2.make ("localhost", "berend2", "")
 			debug ("test")
 				irc2.set_print_response (True)
 			end
@@ -158,7 +156,7 @@ feature -- Tests
 			channel: EPX_IRC_CHANNEL
 			chat: EPX_IRC_DCC_CHAT_INITIATOR
 		do
-			create irc.make ("localhost", "berend", Void)
+			create irc.make ("localhost", "berend", "")
 			irc.open
 			assert ("Connected", irc.is_open)
 			debug ("test")
@@ -231,7 +229,7 @@ feature -- Tests
 			channel: EPX_IRC_CHANNEL
 			chat: EPX_IRC_DCC_CHAT_ACCEPTOR
 		do
-			create irc.make ("localhost", "berend", Void)
+			create irc.make ("localhost", "berend", "")
 			irc.open
 			assert ("Connected", irc.is_open)
 			debug ("test")

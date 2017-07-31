@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 deferred class
@@ -21,12 +19,22 @@ inherit
 
 	EPX_TCP_CLIENT_BASE
 		redefine
+			make_with_port,
 			close
 		end
 
 	EPX_REPLY_CODE
 		rename
 			reply_code as last_reply_code
+		end
+
+
+feature {NONE} -- Initialisation
+
+	make_with_port (a_server_name: STRING; a_port: INTEGER; a_user_name, a_password: detachable STRING)
+		do
+			precursor (a_server_name, a_port, a_user_name, a_password)
+			create last_reply.make_empty
 		end
 
 

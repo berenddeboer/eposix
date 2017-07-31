@@ -62,6 +62,7 @@ creation
 
 -- types
 %type <EPX_LDIF_ATTRIBUTE_DESCRIPTION> AttributeDescription
+%type <STRING> ldap_oid
 %type <STRING> AttributeType
 %type <EPX_LDIF_ATTRIBUTE> attrval_spec
 %type <STRING> base64_distinguishedName
@@ -69,19 +70,20 @@ creation
 %type <STRING> base64_string
 %type <STRING> base64_utf8_string
 %type <DS_LINKABLE[EPX_LDIF_ATTRIBUTE]> change_add
-%type <DS_LINKABLE[EPX_LDIF_MOD_SPEC]> change_modify
+%type <detachable DS_LINKABLE[EPX_LDIF_MOD_SPEC]> change_modify
 %type <STRING> distinguished_name
 %type <STRING> distinguishedName
 %type <STRING> dn_spec
-%type <EPX_LDIF_ENTRY> ldif_change_record
+%type <detachable EPX_LDIF_ENTRY> ldif_change_record
 %type <EPX_LDIF_MOD_SPEC> mod_spec
 %type <INTEGER> mod_spec_operation
 %type <DS_LINKABLE[EPX_LDIF_ATTRIBUTE]> one_or_more_attrval_specs
 %type <DS_LINKABLE[EPX_LDIF_MOD_SPEC]> one_or_more_mod_specs
 %type <STRING> optional_base64_string
 %type <BOOLEAN> optional_criticality
-%type <DS_LINKABLE[STRING]> optional_options
+%type <detachable DS_LINKABLE[STRING]> optional_options
 %type <STRING> optional_safe_string
+%type <STRING> url
 %type <INTEGER> optional_version_spec
 %type <DS_LINKABLE[STRING]> options
 %type <STRING> rdn
@@ -90,8 +92,8 @@ creation
 %type <INTEGER> version_spec
 %type <INTEGER> version_number
 %type <BOOLEAN> zero_or_one
-%type <DS_LINKABLE[EPX_LDIF_MOD_SPEC]> zero_or_more_mod_specs
-%type <DS_LINKABLE[EPX_LDIF_ATTRIBUTE]> zero_or_more_attrval_specs
+%type <detachable DS_LINKABLE[EPX_LDIF_MOD_SPEC]> zero_or_more_mod_specs
+%type <detachable DS_LINKABLE[EPX_LDIF_ATTRIBUTE]> zero_or_more_attrval_specs
 
 %start ldif_file
 
@@ -226,8 +228,8 @@ optional_control_value
 	;
 
 ldap_oid
-	: DIGITS
-	| DIGITS '.' ldap_oid
+	: DIGITS { $$ := $1.out }
+	| DIGITS '.' ldap_oid { $$ := $1.out + "." + $3.out }
 	;
 
 attrval_spec
@@ -237,16 +239,19 @@ attrval_spec
 value_spec
 	: ':' FILL optional_safe_string { $$ := $3 }
 	| ':' ':' FILL optional_base64_string { $$ := $4 }
-	| ':' '<' FILL url
+	| ':' '<' FILL url { $$ := $4 }
 	;
 
 optional_safe_string
 	: -- empty
-	| SAFE_STRING { $$ := $1 }
+		{ $$ := "" }
+	| SAFE_STRING
+		{ $$ := $1 }
 	;
 
 url
 	: SAFE_STRING -- TODO: is url
+		 { $$ := $1 }
 	;
 
 AttributeDescription
@@ -254,7 +259,7 @@ AttributeDescription
 	;
 
 AttributeType
-	: ldap_oid
+	: ldap_oid { $$ := $1 }
 	| ATTRIBUTE_TYPE { $$ := $1 }
 	;
 
@@ -377,7 +382,9 @@ base64_utf8_string
 
 optional_base64_string
 	: -- empty
-	| base64_string { $$ := $1 }
+		{ $$ := "" }
+	| base64_string
+		{ $$ := $1 }
 	;
 
 base64_string
@@ -408,6 +415,7 @@ feature -- Initialization
 		do
 			make_scanner
 			make_parser
+			last_string_value := ""
 		end
 
 	make_from_stream (a_stream: EPX_CHARACTER_INPUT_STREAM)
@@ -436,7 +444,7 @@ feature {NONE} -- Callbacks
 		do
 		end
 
-	change_record (a_distinguished_name: STRING; a_mod_specs: DS_LINKABLE [EPX_LDIF_MOD_SPEC])
+	change_record (a_distinguished_name: STRING; a_mod_specs: detachable DS_LINKABLE [EPX_LDIF_MOD_SPEC])
 		require
 			a_distinguished_name_not_empty: a_distinguished_name /= Void and then not a_distinguished_name.is_empty
 		do

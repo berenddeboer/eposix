@@ -1,3 +1,8 @@
+2017-07-31  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_OPENSSL: connected using ssl3, now will only use tls.
+
+
 2017-07-27  Berend de Boer  <berend@pobox.com>
 
 	* !EPX_TIME: can now accept a ISO 8601 date time string.

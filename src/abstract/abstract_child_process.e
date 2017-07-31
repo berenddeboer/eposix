@@ -3,8 +3,6 @@ note
 	description: "Class that abstracts POSIX and Windows child processes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 deferred class

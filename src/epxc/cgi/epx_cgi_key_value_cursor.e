@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -18,13 +16,14 @@ class
 
 inherit
 
-	DS_HASH_TABLE_CURSOR [EPX_KEY_VALUE, STRING]
+	DS_HASH_TABLE_CURSOR [EPX_KEY_VALUE, READABLE_STRING_8]
 		rename
 			make as make_cursor
 		redefine
 			forth,
 			is_first,
-			start
+			start,
+			new_iterator
 		end
 
 
@@ -35,11 +34,11 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_container: like container; a_key_re, a_value_re: RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH)
+	make (a_container: like container; a_key_re, a_value_re: detachable RX_PCRE_REGULAR_EXPRESSION; an_on_match_found: EPX_KEY_VALUE_MATCH)
 		require
 			match_found_callback: an_on_match_found /= Void
-			key_re_void_or_compiled: a_key_re /= Void implies a_key_re.is_compiled
-			value_re_void_or_compiled: a_value_re /= Void implies a_value_re.is_compiled
+			key_re_void_or_compiled: attached a_key_re implies a_key_re.is_compiled
+			value_re_void_or_compiled: attached a_value_re implies a_value_re.is_compiled
 		do
 			make_cursor (a_container)
 			key_re := a_key_re
@@ -50,6 +49,13 @@ feature {NONE} -- Initialization
 
 feature -- Status report
 
+	new_iterator: DS_HASH_TABLE_CURSOR [EPX_KEY_VALUE, READABLE_STRING_8]
+			-- For unknown reason, I had to redefine this, else ISE didn't
+			-- allow me to compiler this class.
+		do
+			Result := container.new_iterator
+		end
+
 	is_first: BOOLEAN
 
 
@@ -59,7 +65,7 @@ feature -- Access
 			-- Callback when a match is found
 
 	key_re,
-	value_re: RX_PCRE_REGULAR_EXPRESSION
+	value_re: detachable RX_PCRE_REGULAR_EXPRESSION
 			-- Optional regular expressions to mach keys and/or values
 
 
@@ -101,11 +107,11 @@ feature -- Filter check
 			not_after: not after
 		do
 			Result := True
-			if key_re /= Void then
+			if attached key_re then
 				key_re.match (key)
 				Result := key_re.has_matched
 			end
-			if Result and then value_re /= Void then
+			if Result and then attached value_re then
 				value_re.match (item.value)
 				Result := value_re.has_matched
 			end
@@ -117,7 +123,7 @@ feature -- Filter check
 
 invariant
 
-	key_re_void_or_compiled: key_re /= Void implies key_re.is_compiled
-	value_re_void_or_compiled: value_re /= Void implies value_re.is_compiled
+	key_re_void_or_compiled: attached key_re as kr implies kr.is_compiled
+	value_re_void_or_compiled: attached value_re as vr implies vr.is_compiled
 
 end

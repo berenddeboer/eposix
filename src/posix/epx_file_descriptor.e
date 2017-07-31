@@ -3,8 +3,6 @@ note
 	description: "Class that implements the portable file descriptor routines in POSIX."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #10 $"
 
 
 class

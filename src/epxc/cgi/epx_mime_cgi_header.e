@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -59,7 +57,7 @@ feature -- Access
 
 feature -- Access to well-known fields
 
-	last_modified_field: EPX_MIME_FIELD_LAST_MODIFIED
+	last_modified_field: detachable EPX_MIME_FIELD_LAST_MODIFIED
 			-- Field `Last_Modified' if it exists, else Void.
 		do
 			fields.search (field_name_last_modified)
@@ -70,7 +68,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_last_modified) = (Result /= Void)
 		end
 
-	location_field: EPX_MIME_UNSTRUCTURED_FIELD
+	location_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field `Location' if it exists, else Void.
 		do
 			fields.search (field_name_location)
@@ -81,7 +79,7 @@ feature -- Access to well-known fields
 			definition: fields.has (field_name_location) = (Result /= Void)
 		end
 
-	status_field: EPX_MIME_FIELD_STATUS
+	status_field: detachable EPX_MIME_FIELD_STATUS
 			-- Field `Status' if it exists, else Void.
 		do
 			fields.search (field_name_status)
@@ -173,7 +171,7 @@ feature -- Change
 			location_set: STRING_.same_string (location_field.value, a_url)
 		end
 
-	set_status (a_status_code: INTEGER; a_reason: STRING)
+	set_status (a_status_code: INTEGER; a_reason: detachable STRING)
 			-- Set the status code sent back to the client.
 			-- This is used to give the server an HTTP/1.0 status line to
 			-- send to the client. The format is nnn xxxxx, where nnn is

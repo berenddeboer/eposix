@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2007, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -20,8 +18,7 @@ inherit
 	EPX_HTTP_URI_RESOLVER
 		redefine
 			default_port,
-			scheme,
-			new_client
+			scheme
 		end
 
 create
@@ -34,15 +31,5 @@ feature -- Operation(s)
 
 	scheme: STRING = "https"
 
-feature {NONE} -- Implementation
-
-	new_client (a_uri_to_use: UT_URI): EPX_HTTP_11_CLIENT
-		do
-			if a_uri_to_use.port = 0 then
-				create Result.make_secure (a_uri_to_use.host)
-			else
-				create Result.make_secure_with_port (a_uri_to_use.host, a_uri_to_use.port)
-			end
-		end
 
 end

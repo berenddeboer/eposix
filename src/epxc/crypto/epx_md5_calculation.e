@@ -53,7 +53,9 @@ feature -- Access
 			hi: INTEGER
 			cs: like my_checksum
 		do
-			if not attached my_checksum then
+			if attached my_checksum as my_cs then
+				Result := my_cs
+			else
 				create cs.make (hash_output_length * 2)
 				my_checksum := cs
 				from
@@ -65,8 +67,8 @@ feature -- Access
 					append_hexadecimal_integer (hi, cs, False)
 					j := j + 1
 				end
+				Result := cs
 			end
-			Result := my_checksum
 		end
 
 	hash_output_length: INTEGER = 16

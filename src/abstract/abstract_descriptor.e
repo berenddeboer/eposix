@@ -26,6 +26,7 @@ inherit
 			read_string as non_blocking_read_string,
 			read_to_string as non_blocking_read_to_string
 		redefine
+			clear_handle,
 			do_close,
 			is_open,
 			non_blocking_read_to_buffer,
@@ -782,14 +783,14 @@ feature -- Status report
 			Result := abstract_isatty (fd)
 		end
 
+	is_initialised: BOOLEAN
+
 	is_open: BOOLEAN
 			-- Does `handle' contain an open handle?
 		do
-			-- Also return False of name = Void. When object is
-			-- just created, handle = 0, so is_open would return True.
 			Result :=
-				fd /= unassigned_value and then
-				name /= Void
+				is_initialised and then
+				fd /= unassigned_value
 		end
 
 	resource_usage_can_be_increased: BOOLEAN
@@ -877,6 +878,12 @@ feature {NONE} -- Implementation
 
 
 feature {NONE} -- Low level handle functions
+
+	clear_handle
+		do
+			precursor
+			is_initialised := True
+		end
 
 	do_close: BOOLEAN
 			-- Close resource. Return False if an error occurred. Error

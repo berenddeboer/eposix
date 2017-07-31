@@ -3,8 +3,6 @@ note
 	description: "getest based test for net logger classes."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 deferred class
@@ -17,23 +15,14 @@ inherit
 	TS_TEST_CASE
 		rename
 			exceptions as test_exceptions
-		redefine
-			set_up
 		end
 
 
 feature -- Tests
 
-	set_up
-		do
-			create handler.make ("eposix_test")
-			create my_logger.make (handler, "test_ulm")
-		end
-
 	test_valid_field_names
 		do
 			assert ("PROG is valid", my_logger.is_valid_name (my_logger.names.PROG))
-			assert ("Void string is not valid", not my_logger.is_valid_name (Void))
 			assert ("empty string is not valid", not my_logger.is_valid_name (""))
 			assert ("A is valid", my_logger.is_valid_name ("A"))
 			assert (".A is not valid", not my_logger.is_valid_name (".A"))
@@ -50,20 +39,12 @@ feature -- Tests
 			field: NET_LOGGER_FIELD
 			fields: ARRAY [NET_LOGGER_FIELD]
 		do
-			create fields.make (0, 0)
 			create field.make (my_logger.names.PROG, "temp")
-			fields.put (field, 0)
+			create fields.make_filled (field, 0, 0)
 			--assert ("<<PROG>> is valid", my_logger.is_valid_partial_field_list (fields))
-			create fields.make (0, 1)
 			create field.make (my_logger.names.PROG, "temp")
-			fields.put (field, 0)
-			fields.put (field, 1)
+			create fields.make_filled (field, 0, 1)
 			--assert ("twice <<PROG>> is not valid", not my_logger.is_valid_partial_field_list (fields))
-
-			create fields.make (0, 1)
-			create field.make (my_logger.names.PROG, "temp")
-			fields.put (field, 0)
-			--assert ("Void field is not valid", not my_logger.is_valid_partial_field_list (fields))
 		end
 
 	test_log_levels
@@ -111,13 +92,19 @@ feature -- Tests
 			fields.put_last (field)
 			create field.make (my_logger.names.local_host, "localhost")
 			fields.put_last (field)
-			my_logger.write (my_logger.levels.info, Void, fields)
+			my_logger.write (my_logger.levels.info, "", fields)
 		end
 
 
 feature -- State
 
 	my_logger: NET_LOGGER
-	handler: EPX_LOG_HANDLER
+		local
+			handler: EPX_LOG_HANDLER
+		once
+			create handler.make ("eposix_test")
+			create Result.make (handler, "test_ulm")
+		end
+
 
 end

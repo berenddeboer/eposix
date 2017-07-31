@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -24,7 +22,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make_from_linkables (a_distinguished_name: STRING; a_controls: ANY; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE])
+	make_from_linkables (a_distinguished_name: STRING; a_controls: detachable ANY; an_attributes: DS_LINKABLE [EPX_LDIF_ATTRIBUTE])
 			-- Initialise by putting the values of multiple valued
 			-- attributes into a single EPX_LDIF_ATTRIBUTE class.
 		require

@@ -6,8 +6,7 @@ note
 		"1. should use binary search allowed_new_line_tag"
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #13 $"
+
 
 class
 
@@ -908,7 +907,7 @@ feature -- CSS style sheet support
 
 feature -- Link
 
-	link (a_href, a_forward_link_types, a_backward_link_types, a_content_type, a_title, a_media: STRING)
+	link (a_href: STRING; a_forward_link_types, a_backward_link_types: detachable STRING; a_content_type: STRING; a_title, a_media: detachable STRING)
 			-- Add a <link> element. This is used for document relationships.
 		require
 			in_head: is_started (once_head)

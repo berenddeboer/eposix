@@ -17,6 +17,8 @@ inherit
 			authenticate as unsupported_authenticate
 		export
 			{ANY} response_code, http
+		redefine
+			make_with_port
 		end
 
 	EPX_MIME_TYPE_NAMES
@@ -55,12 +57,23 @@ inherit
 create
 
 	make,
-	make_from_port,
 	make_with_port,
 	make_from_host,
 	make_from_host_and_port,
 	make_secure,
 	make_secure_with_port
+
+
+feature {NONE} -- Initialization
+
+	make_with_port (a_server_name: STRING; a_port: INTEGER)
+		do
+			precursor (a_server_name, a_port)
+			create server_version.make_empty
+			create response_phrase.make_empty
+			create authentication_scheme.make_empty
+			create raw_response.make_empty
+		end
 
 
 feature -- Access
@@ -225,7 +238,6 @@ feature -- Requests
 			request_uri_not_empty: attached a_request_uri and then not a_request_uri.is_empty
 		local
 			request: STRING
-			error_message: STRING
 		do
 			if not reuse_connection then
 				assert_closed
@@ -276,7 +288,7 @@ feature -- Requests
 				last_data := a_request_data
 			else
 				response_code := 500
-				response_phrase := error_message
+				response_phrase := "Internal Server Error"
 			end
 		ensure
 			last_uri_set: attached last_uri as lu and then STRING_.same_string (lu, escape_spaces (a_request_uri))
@@ -325,6 +337,9 @@ feature -- Cookies
 
 	cookies: DS_HASH_TABLE [EPX_HTTP_COOKIE, STRING]
 			-- Cookies that will be sent with the request to the server
+		once
+			create Result.make (4)
+		end
 
 	set_cookie (a_cookie_name, a_cookie_value: STRING)
 			-- Add or update a cookie that will be send to the browser
@@ -336,9 +351,6 @@ feature -- Cookies
 			cookie: EPX_HTTP_COOKIE
 		do
 			create cookie.make (a_cookie_name, a_cookie_value)
-			if cookies = Void then
-				create cookies.make (4)
-			end
 			cookies.search (a_cookie_name)
 			if cookies.found then
 				cookies.remove_found_item
@@ -352,9 +364,7 @@ feature -- Cookies
 	wipe_out_cookies
 			-- Remove all cookies
 		do
-			if cookies /= Void then
-				cookies.wipe_out
-			end
+			cookies.wipe_out
 		end
 
 
@@ -392,33 +402,31 @@ feature {NONE} -- Request implementation
 				request.append_string (authorization)
 				request.append_string (once_new_line)
 			end
-			if attached cookies then
-				from
-					cookies.start
-				until
-					cookies.after
-				loop
-					cookie := cookies.item_for_iteration
-					request.append_string (once "Cookie: ")
-					request.append_string (cookie.key)
-					request.append_character ('=')
-					request.append_string (cookie.value)
-					request.append_string (once_new_line)
-					cookies.forth
-				end
+			from
+				cookies.start
+			until
+				cookies.after
+			loop
+				cookie := cookies.item_for_iteration
+				request.append_string (once "Cookie: ")
+				request.append_string (cookie.key)
+				request.append_character ('=')
+				request.append_string (cookie.value)
+				request.append_string (once_new_line)
+				cookies.forth
 			end
 		end
 
 
 feature -- Fields that are send with a request if set
 
-	accept: STRING
+	accept: detachable STRING
 			-- What kind of output can the client handle?
 			-- Examples are:
 			--   Accept: text/plain; q=0.5, text/html,
 			--           text/x-dvi; q=0.8, text/x-c
 
-	user_agent: STRING
+	user_agent: detachable STRING
 			-- Identification of client program;
 			-- Common examples are:
 			--   Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
@@ -452,13 +460,13 @@ feature -- Fields that are send with a request if set
 
 feature -- Response
 
-	body: EPX_MIME_BODY_TEXT
+	body: detachable EPX_MIME_BODY_TEXT
 			-- Body as text, if applicable, else Void
 		local
 			stream: KI_CHARACTER_INPUT_STREAM
 		do
-			if response /= Void then
-				if attached {EPX_MIME_BODY_TEXT} response.body as text_body then
+			if attached response as r then
+				if attached {EPX_MIME_BODY_TEXT} r.body as text_body then
 					Result := text_body
 					if Result.stream.name.is_empty then
 						-- Set name of stream to full URI.
@@ -482,12 +490,6 @@ feature -- Response
 			-- Does the returned `response_code' indicate success?
 		do
 			Result := response_code >= 200 and response_code <= 299
-		end
-
-	part: EPX_MIME_PART
-		obsolete "2006-10-28: use response instead"
-		do
-			Result := response
 		end
 
 	read_response
@@ -540,7 +542,6 @@ feature -- Response
 		require
 			last_verb_set: attached last_verb
 		local
-			new_location: STRING
 			redirected_counter: INTEGER
 			url: UT_URI
 		do
@@ -551,10 +552,9 @@ feature -- Response
 				redirected_counter > max_redirects or else
 				not is_redirect_response
 			loop
-				if attached location then
+				if attached location as new_location then
 					-- Redirect will still fail if returned Location includes
 					-- a username, as we don't pick that up.
-					new_location := location
 					create url.make (new_location)
 
 					-- Support both absolute URL (as per spec) and relative
@@ -599,7 +599,7 @@ feature -- Response
 
 feature -- Individual response fields, Void if not available
 
-	location: STRING
+	location: detachable STRING
 			-- The contents of the Location field in the header, if any
 		do
 			fields.search (field_name_location)
@@ -613,7 +613,7 @@ feature -- Individual response fields, Void if not available
 
 feature {NONE} -- Implementation
 
-	www_authenticate: EPX_MIME_FIELD_WWW_AUTHENTICATE
+	www_authenticate: detachable EPX_MIME_FIELD_WWW_AUTHENTICATE
 			-- Authenticate field from last request, if any
 
 	authorization_value (a_verb, a_uri: STRING): STRING
@@ -624,6 +624,8 @@ feature {NONE} -- Implementation
 		do
 			if not user_name.is_empty and then not password.is_empty and then STRING_.same_string (authentication_scheme, once "Basic") then
 				Result := basic_authorization_value (user_name, password)
+			else
+				create  Result.make_empty
 			end
 		end
 
@@ -671,7 +673,7 @@ feature {NONE} -- Implementation
 					not is_authentication_required or else
 					user_name = Void or else
 					password = Void or else
-					(www_authenticate.stale /= Void and then STRING_.same_string (www_authenticate.stale, once "false")) or else
+					(attached www_authenticate.stale as stale and then STRING_.same_string (stale, once "false")) or else
 					retries >= max_authentication_retries
 				if not stop then
 					-- Authentication scheme should now be set, so simply retry once
@@ -827,7 +829,7 @@ feature {NONE} -- MIME parser
 			not_void: Result /= Void
 		end
 
-	parser: EPX_MIME_PARSER
+	parser: detachable EPX_MIME_PARSER
 			-- Parse response from HTTP server
 
 

@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -36,6 +34,9 @@ feature {NONE} -- Initialisation
 			is_trailing_parameter: BOOLEAN
 			i: INTEGER
 		do
+			create user_name.make_empty
+			create nick_name.make_empty
+			create host_name.make_empty
 			-- Parse prefix
 			has_prefix := a_line.item (1) = ':'
 			if has_prefix then
@@ -43,7 +44,7 @@ feature {NONE} -- Initialisation
 				msg_prefix := a_line.substring (2, p-1)
 				parse_prefix
 			else
-				msg_prefix := Void
+				msg_prefix := ""
 			end
 
 			-- Extract command and make sure it's uppercased
@@ -65,8 +66,6 @@ feature {NONE} -- Initialisation
 				param_start := q + 1
 				from
 					i := param_start
-				variant
-					(a_line.count - i) + 1
 				until
 					i > a_line.count
 				loop
@@ -85,6 +84,8 @@ feature {NONE} -- Initialisation
 						-- ignore
 					end
 					i := i + 1
+				variant
+					(a_line.count - i) + 1
 				end
 				-- Copy last parameter
 				parameter := a_line.substring (param_start, a_line.count)
@@ -92,8 +93,6 @@ feature {NONE} -- Initialisation
 			else
 				parameters := Void
 			end
-		ensure
-			prefix_recognized: a_line.item (1) = ':' = (msg_prefix /= Void)
 		end
 
 
@@ -130,13 +129,13 @@ feature -- Access
 	nick_name: STRING
 			-- Nick name if `msg_prefix' contains a host name
 
-	parameters: DS_LIST [STRING]
+	parameters: detachable DS_LIST [STRING]
 
 	reply_code: INTEGER
 			-- Return reply code if `command' is a numeric reply code.
 
 	user_name: STRING
-			-- Name of user if `msg_prefix' contains a user
+			-- Name of user if `msg_prefix' contains a user; empty otherwise
 
 
 feature {NONE} -- Implementation
@@ -161,9 +160,6 @@ feature {NONE} -- Implementation
 					user_name := msg_prefix.substring (q + 1, p - 1)
 					if user_name.item (1) = '~' then
 						user_name.remove (1)
-						if user_name.is_empty then
-							user_name := Void
-						end
 					end
 					nick_name := msg_prefix.substring (1, q - 1)
 				else
@@ -177,11 +173,9 @@ invariant
 
 	command_not_empty: command /= Void and then not command.is_empty
 	command_is_upper_case: command.is_equal (command.as_upper)
-	msg_prefix_void_or_not_empty: msg_prefix = Void or else not msg_prefix.is_empty
 	prefix_does_not_start_with_colon: msg_prefix /= Void implies msg_prefix.item (1) /= ':'
 	host_name_void_or_not_empty: host_name = Void or else not host_name.is_empty
 	nick_name_void_or_not_empty: nick_name = Void or else not nick_name.is_empty
-	user_name_void_or_not_empty: user_name = Void or else not user_name.is_empty
 
 	parameters_void_or_not_empty: parameters = Void or else not parameters.is_empty
 

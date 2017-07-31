@@ -5,8 +5,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
@@ -17,6 +15,9 @@ class
 inherit
 
 	EPX_XML_WRITER
+		redefine
+			make_with_capacity
+		end
 
 create
 
@@ -24,6 +25,16 @@ create
 	make_with_capacity,
 	make_fragment,
 	make_fragment_with_capacity
+
+
+feature -- Initialisation
+
+	make_with_capacity (a_capacity: INTEGER)
+		do
+			precursor (a_capacity)
+			create last_string.make_empty
+			create last_uc_string.make_empty
+		end
 
 
 feature -- Incremental Output

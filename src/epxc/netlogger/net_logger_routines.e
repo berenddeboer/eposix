@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2008, Berend de Boer"
 	license: "MIT License"
-	date: "$Date$"
-	revision: "$Revision$"
 
 
 class
@@ -19,7 +17,7 @@ class
 
 feature -- Status
 
-	is_valid_value (a_value: READABLE_STRING_8): BOOLEAN
+	is_valid_value (a_value: detachable READABLE_STRING_8): BOOLEAN
 			-- Is `a_value' valid according to the NetLogger spec?
 			-- Should not contain the null or newline character.
 		local

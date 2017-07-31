@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -37,15 +35,25 @@ feature {NONE} -- Initialisation
 			-- issue (see EPX_IRC_CLIENT.`dcc_chat')
 		require
 			valid_nick_name: is_valid_nick_name (a_nick_name)
-			ip_address_not_void: an_ip4_address /= Void
+			ip_address_not_void: attached an_ip4_address
+		local
+			host: EPX_HOST
+			service: EPX_SERVICE
+			my_hp: like hp
 		do
 			nick_name := a_nick_name
 			create host.make_from_address (an_ip4_address)
 			create service.make_from_ephemeral_port ("tcp")
-			create hp.make (host, service)
-			create server_socket.listen_by_address (hp)
+			create my_hp.make (host, service)
+			hp := my_hp
+			create server_socket.listen_by_address (my_hp)
 			server_socket.set_blocking_io (False)
-			local_ip4_address ?= server_socket.local_address.address
+			if attached {ABSTRACT_IP4_ADDRESS} server_socket.local_address.address as address then
+				local_ip4_address := address
+			else
+				-- Silence void-safe compiler, we should not get here
+				local_ip4_address := an_ip4_address
+			end
 			local_port := server_socket.local_address.port
 		end
 
@@ -86,7 +94,7 @@ feature -- Status
 
 feature {NONE} -- Implementation
 
-	server_socket: EPX_TCP_SERVER_SOCKET
+	server_socket: detachable EPX_TCP_SERVER_SOCKET
 			-- Socket which accepts the client connection
 
 

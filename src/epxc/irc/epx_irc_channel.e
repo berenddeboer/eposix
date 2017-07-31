@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2004, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 class
@@ -105,7 +103,7 @@ feature -- Access
 	message_handlers: DS_LIST [EPX_IRC_CHANNEL_HANDLER]
 			-- User defined handlers for incoming messages to this channel
 
-	topic: STRING
+	topic: detachable STRING
 			-- Topic for this channel if a topic was received after
 			-- succesfully joining the channel
 
@@ -165,8 +163,9 @@ feature {EPX_IRC_CLIENT} -- Handling
 					end
 				else
 					if
-						a_message.nick_name /= Void and then
-						a_message.nick_name.is_equal (joined_under_nick_name) and then
+						attached a_message.nick_name as nick_name and then
+						attached joined_under_nick_name as m and then
+						nick_name.is_equal (m) and then
 						a_message.command.is_equal (commands.join)
 					then
 						is_open := True
@@ -263,7 +262,7 @@ feature {NONE} -- Factory
 
 feature {NONE} -- Implementation
 
-	joined_under_nick_name: STRING
+	joined_under_nick_name: detachable STRING
 			-- Temporary copy of the nick name used when joined this channel
 
 

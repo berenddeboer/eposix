@@ -65,8 +65,10 @@ feature -- Tests
 
 			-- Test LIST
 			ftp.list
-			assert ("Have data connection", ftp.data_connection /= Void)
-			dump_data_connection (ftp.data_connection)
+			assert ("Have data connection", attached ftp.data_connection)
+			if attached ftp.data_connection as data_connection then
+				dump_data_connection (data_connection)
+			end
 			-- Get the 226 Transfer complete
 			ftp.read_reply
 			assert_integers_equal ("Connected", 226, ftp.last_reply_code)
@@ -97,18 +99,24 @@ feature -- Tests
 			ftp.change_to_parent_directory
 			ftp.change_directory ("pub")
 			ftp.retrieve ("test.pl")
-			assert ("Have data connection", ftp.data_connection /= Void)
-			dump_data_connection (ftp.data_connection)
+			assert ("Have data connection", attached ftp.data_connection)
+			if attached ftp.data_connection as data_connection then
+				dump_data_connection (data_connection)
+			end
 			ftp.read_reply
 			ftp.type_ascii
 			ftp.retrieve ("test.pl")
-			assert ("Have data connection", ftp.data_connection /= Void)
-			dump_data_connection (ftp.data_connection)
+			assert ("Have data connection", attached ftp.data_connection)
+			if attached ftp.data_connection as data_connection then
+				dump_data_connection (data_connection)
+			end
 			ftp.read_reply
 			ftp.type_binary
 			ftp.retrieve ("test.pl")
-			assert ("Have data connection", ftp.data_connection /= Void)
-			dump_data_connection (ftp.data_connection)
+			assert ("Have data connection", attached ftp.data_connection)
+			if attached ftp.data_connection as data_connection then
+				dump_data_connection (data_connection)
+			end
 			ftp.read_reply
 			assert_integers_equal ("Transfer complete", 226, ftp.last_reply_code)
 			ftp.quit

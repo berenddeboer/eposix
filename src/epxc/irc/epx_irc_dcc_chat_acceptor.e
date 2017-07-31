@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 class
 
@@ -60,12 +58,16 @@ feature -- Open
 			client: EPX_TCP_CLIENT_SOCKET
 			retried: BOOLEAN
 			exceptions: expanded EXCEPTIONS
+			host: EPX_HOST
+			service: EPX_SERVICE
+			my_hp: like hp
 		do
 			if not retried then
 				create host.make_from_address (remote_ip_address)
 				create service.make_from_port (remote_port, "tcp")
-				create hp.make (host, service)
-				create client.open_by_address (hp)
+				create my_hp.make (host, service)
+				hp := my_hp
+				create client.open_by_address (my_hp)
 				if client.is_open then
 					socket := client
 					socket.set_blocking_io (False)

@@ -8,11 +8,9 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
-class
+deferred class
 
 	EPX_IRC_DCC_CHAT
 
@@ -69,7 +67,7 @@ feature -- Status
 			Result := not socket.last_blocked
 		end
 
-	last_receive: STDC_TIME
+	last_receive: detachable STDC_TIME
 			-- Last time something has been received;
 			-- Initialised to start of connection.
 
@@ -116,10 +114,8 @@ feature -- Close
 
 feature {NONE} -- Implementation
 
-	host: EPX_HOST
-	service: EPX_SERVICE
-	hp: EPX_HOST_PORT
-	socket: ABSTRACT_TCP_SOCKET
+	hp: detachable EPX_HOST_PORT
+	socket: detachable ABSTRACT_TCP_SOCKET
 
 
 invariant

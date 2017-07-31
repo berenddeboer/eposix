@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
@@ -35,7 +33,7 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_status_code: INTEGER; a_reason: STRING)
+	make (a_status_code: INTEGER; a_reason: detachable STRING)
 		require
 			valid_status_code: is_three_digit_response (a_status_code)
 		do
@@ -62,16 +60,16 @@ feature -- Access
 
 feature -- Change
 
-	set_status (a_status_code: INTEGER; a_reason: STRING)
+	set_status (a_status_code: INTEGER; a_reason: detachable STRING)
 			-- Set `status_code' and `reason'.
 		require
 			valid_status_code: is_three_digit_response (a_status_code)
 		do
 			status_code := a_status_code
-			if a_reason = Void or else a_reason.is_empty then
+			if not attached a_reason as r or else r.is_empty then
 				reason := reason_phrase (a_status_code)
 			else
-				reason := a_reason
+				reason := r
 			end
 		ensure
 			status_code_ste: status_code = a_status_code

@@ -45,6 +45,7 @@ feature {NONE} -- Initialization
 			create host.make (names.host, handler.host_name)
 			create program_name.make (names.prog, a_program_name)
 			create lvl.make (levels.info)
+			create line.make (128)
 		end
 
 
@@ -72,7 +73,7 @@ feature -- NetLogger normal usage API
 			level_set: level = a_new_level
 		end
 
-	write (a_level: INTEGER; an_event_name: STRING; an_event_attributes: DS_LINEAR [NET_LOGGER_FIELD])
+	write (a_level: INTEGER; an_event_name: STRING; an_event_attributes: detachable DS_LINEAR [NET_LOGGER_FIELD])
 			-- Write an event if `a_level' >= `level'.
 		require
 			valid_level: levels.is_valid_level (a_level)
@@ -88,7 +89,7 @@ feature -- NetLogger normal usage API
 			end
 		end
 
-	write_msg (a_level: INTEGER; an_event_name: STRING; a_msg: STRING)
+	write_msg (a_level: INTEGER; an_event_name: STRING; a_msg: detachable STRING)
 			-- Write one event if `a_level' >= `level'.
 		require
 			valid_level: levels.is_valid_level (a_level)
@@ -164,7 +165,7 @@ feature {NONE} -- Correct field list generation
 			line_not_empty: not line.is_empty
 		end
 
-	flatten_fields_to_line (a_fields: DS_LINEAR [NET_LOGGER_FIELD])
+	flatten_fields_to_line (a_fields: detachable DS_LINEAR [NET_LOGGER_FIELD])
 			-- Append `fields' to `line'.
 		do
 			if a_fields /= Void then
@@ -245,11 +246,7 @@ feature {NONE} -- Correct field list generation
 	reset_line
 			-- Assert `line' has enough capacity
 		do
-			if line = Void then
-				create line.make (128)
-			else
-				line.wipe_out
-			end
+			line.wipe_out
 		ensure
 			line_not_void: line /= Void
 		end
