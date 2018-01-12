@@ -180,17 +180,13 @@ feature -- General string utilities
 		end
 
 	split_on (s: STRING; on: CHARACTER): ARRAY [STRING]
-			-- Split `s' on a given character `on'.
-			-- s = Void is treated as s.is_empty, in that case the Result
-			-- doesn't contain any entries.
+			-- Split `s' on a given character `on'
 		local
 			p, start: INTEGER
 			tmp_string: STRING
 			count: INTEGER
-			large_array: ARRAY [STRING]
-			i: INTEGER
 		do
-			if s /= Void and then not s.is_empty then
+			if not s.is_empty then
 				-- attempt to avoid allocs
 				create Result.make_filled ("", 0, 32)
 				from
@@ -218,21 +214,7 @@ feature -- General string utilities
 					Result.force ("", count)
 					count := count + 1
 				end
-				Result.resize (0, count-1)
-				-- The following code covers the case where ARRAY.resize
-				-- is not ELKS conformant.
-				if Result.upper /= count - 1 then
-					large_array := Result
-					create Result.make_filled ("", 0, count - 1)
-					from
-						i := 0
-					until
-						i > count - 1
-					loop
-						Result.put (large_array.item (i), i)
-						i := i + 1
-					end
-				end
+				Result.conservative_resize_with_default ("", 0, count-1)
 			else
 				create Result.make_empty
 			end
