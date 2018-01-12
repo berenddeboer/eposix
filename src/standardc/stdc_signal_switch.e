@@ -34,7 +34,7 @@ feature -- Initialization
 
 	make
 		do
-			create switched_signals.make (1, 32)
+			create switched_signals.make_filled (Void, 1, 32)
 		end
 
 
@@ -137,7 +137,7 @@ feature {NONE} -- state
 			signal_not_void: a_signal /= Void
 		do
 			if a_signal.value > switched_signals.upper then
-				switched_signals.resize (switched_signals.lower, a_signal.value)
+				switched_signals.conservative_resize_with_default (Void, switched_signals.lower, a_signal.value)
 			end
 		ensure
 			signal_fits:
