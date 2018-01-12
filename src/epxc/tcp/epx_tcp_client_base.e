@@ -68,9 +68,12 @@ feature -- Open and close
 			-- Check `last_reply_code' for details.
 		require
 			closed: not is_open
+		local
+			my_host: like host
 		do
-			create host.make_from_name (server_name)
-			if host.found then
+			create my_host.make_from_name (server_name)
+			host := my_host
+			if my_host.found then
 				if is_secure_connection then
 					open_ssl
 				else
@@ -84,7 +87,9 @@ feature -- Open and close
 		require
 			open: is_open
 		do
-			socket.close
+			if attached socket as a_socket then
+				a_socket.close
+			end
 			socket := Void
 		ensure
 			closed: not is_open
@@ -168,7 +173,7 @@ feature -- Status
 		require
 			open: is_open
 		do
-			Result := socket.end_of_input
+			Result := attached socket as a_socket and then a_socket.end_of_input
 		end
 
 	is_authenticated: BOOLEAN
@@ -192,9 +197,9 @@ feature -- Status
 			-- Could host be found?
 			-- Set by `open'.
 		do
-			Result := host /= Void and then host.found
+			Result := attached host as h and then h.found
 		ensure
-			definition: Result implies (host /= Void and then host.found)
+			definition: Result implies (attached host as h and then h.found)
 		end
 
 	is_secure_connection: BOOLEAN
@@ -250,11 +255,11 @@ feature {NONE} -- Implementation
 
 invariant
 
-	service_not_void: service /= Void
-	socket_void_or_connected: socket = Void or else socket.is_open
-	connected_is_readable: socket /= Void implies socket.is_open_read
+	service_not_void: attached service
+	socket_void_or_connected: not attached socket as a_socket or else a_socket.is_open
+	connected_is_readable: attached socket as a_socket implies a_socket.is_open_read
 	open_implies_resolved: is_open implies is_resolved
 
-	valid_server_name: server_name /= Void and then not server_name.is_empty
+	valid_server_name: attached server_name and then not server_name.is_empty
 
 end

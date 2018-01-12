@@ -162,15 +162,16 @@ feature -- Change
 		local
 			field: EPX_MIME_FIELD_CONTENT_LENGTH
 		do
-			if content_length = Void then
+			if attached content_length as cl then
+				cl.set_length (a_bytes)
+			else
 				create field.make (a_bytes)
 				add_field (field)
-			else
-				content_length.set_length (a_bytes)
+				content_length := field
 			end
 		ensure
-			content_length_set: content_length /= Void
-			length_set: content_length.length = a_bytes
+			content_length_set: attached content_length
+			length_set: attached content_length as cl and then cl.length = a_bytes
 		end
 
 
@@ -289,20 +290,24 @@ feature -- Change specific fields
 		local
 			field: EPX_MIME_FIELD_CONTENT_TYPE
 		do
-			if content_type = Void then
+			if attached content_type as ct then
+				ct.make (a_type, a_subtype)
+			else
 				create field.make (a_type, a_subtype)
 				add_field (field)
-			else
-				content_type.make (a_type, a_subtype)
+				content_type := field
 			end
-			if a_charset /= Void and then not a_charset.is_empty then
-				content_type.set_parameter (parameter_name_charset, a_charset)
+			if attached content_type as ct and then
+				attached a_charset as cs and then
+				not cs.is_empty then
+				ct.set_parameter (parameter_name_charset, cs)
 			end
 		ensure
-			content_type_set: content_type /= Void
+			content_type_set: attached content_type
 			content_type_is_text_html:
-				STRING_.same_string (content_type.type, a_type) and then
-				STRING_.same_string (content_type.subtype, a_subtype)
+				attached content_type as ct and then
+				STRING_.same_string (ct.type, a_type) and then
+				STRING_.same_string (ct.subtype, a_subtype)
 		end
 
 	set_content_type_text_html_utf8
@@ -311,13 +316,14 @@ feature -- Change specific fields
 		do
 			set_content_type (mime_type_text, mime_subtype_html, charset_utf8)
 		ensure
-			content_type_set: content_type /= Void
+			content_type_set: attached content_type
 			content_type_is_text_html:
-				STRING_.same_string (content_type.type, mime_type_text) and then
-				STRING_.same_string (content_type.subtype, mime_subtype_html)
+				attached content_type as ct and then
+				STRING_.same_string (ct.type, mime_type_text) and then
+				STRING_.same_string (ct.subtype, mime_subtype_html)
 			charset_is_utf8:
-				content_type.parameters.has (parameter_name_charset) and then
-				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
+				ct.parameters.has (parameter_name_charset) and then
+				STRING_.same_string (ct.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
 	set_content_type_text_plain
@@ -332,13 +338,14 @@ feature -- Change specific fields
 		do
 			set_content_type (mime_type_text, mime_subtype_plain, charset_utf8)
 		ensure
-			content_type_set: content_type /= Void
+			content_type_set: attached content_type
 			content_type_is_text_plain:
-				STRING_.same_string (content_type.type, mime_type_text) and then
-				STRING_.same_string (content_type.subtype, mime_subtype_plain)
+				attached content_type as ct and then
+				STRING_.same_string (ct.type, mime_type_text) and then
+				STRING_.same_string (ct.subtype, mime_subtype_plain)
 			charset_is_utf8:
-				content_type.parameters.has (parameter_name_charset) and then
-				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
+				ct.parameters.has (parameter_name_charset) and then
+				STRING_.same_string (ct.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
 	set_content_type_application_json

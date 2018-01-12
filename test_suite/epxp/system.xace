@@ -6,8 +6,6 @@
 		author:      "Berend de Boer [berend@pobox.com]"
 		copyright:   "Copyright (c) 2004, Berend de Boer"
 		license:     "Eiffel Forum Freeware License v2 (see forum.txt)"
-		date:        "$Date: 2007/11/22 $"
-		revision:    "$Revision: #3 $"
 	</description>
 
 	<root class="EPOSIX_TEST" creation="make"/>
@@ -25,12 +23,7 @@
 		<option name="debug_tag" value="test"/>
 	</option>
 
-  <option if="${GOBO_EIFFEL}=se">
-			<option name="high_memory_compiler" value="true"/>
-  </option>
-  <option if="${GOBO_EIFFEL}=ve">
-  	<option name="linker" value="microsoft" if="${GOBO_OS}=windows"/>
-  </option>
+  <option name="void_safety" value="on_demand"/>
 
   <cluster name="testgen" location="TESTGEN"/>
   <cluster name="test" location="${EPOSIX}/test_suite/epxp"/>
@@ -38,6 +31,7 @@
   <mount location="${EPOSIX}/src/library.xace"/>
 
 	<mount location="${GOBO}/library/library.xace"/>
-	<mount location="${EPOSIX}/test_suite/gobo/eiffel.xace" if="${DEBUG}"/>
-	<mount location="${GOBO}/library/kernel.xace" unless="${DEBUG}"/>
+	<!-- <mount location="${EPOSIX}/test_suite/gobo/eiffel.xace" if="${DEBUG}"/> -->
+	<!-- <mount location="${GOBO}/library/kernel.xace" unless="${DEBUG}"/> -->
+	<mount location="${GOBO}/library/kernel.xace"/>
 </system>

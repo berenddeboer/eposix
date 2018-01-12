@@ -83,15 +83,14 @@ feature -- Open/close
 	close_data_connection
 			-- Close `data_connection' and set it to Void.
 		do
-			if
-				data_connection /= Void and then
-				data_connection.is_open
+			if attached data_connection as c and then
+				c.is_open
 			then
-				data_connection.close
+				c.close
 			end
 			data_connection := Void
 		ensure
-			data_connection_gone: data_connection = Void
+			data_connection_gone: not attached data_connection
 		end
 
 
@@ -211,11 +210,11 @@ feature -- FTP commands
 			put_command_with_data_connection (commands.list, Void)
 		ensure
 			have_data_connection_on_success:
-				last_reply_code = 150 = (data_connection /= Void)
+				last_reply_code = 150 = (attached data_connection)
 			data_connection_can_read_and_write:
-				data_connection /= Void implies
-					data_connection.is_open_read and then
-					data_connection.is_open_write
+				attached data_connection as c implies
+					c.is_open_read and then
+					c.is_open_write
 		end
 
 	make_directory (a_directory: STRING)
@@ -243,9 +242,9 @@ feature -- FTP commands
 			have_data_connection_on_success:
 				last_reply_code = 150 = (data_connection /= Void)
 			data_connection_can_read_and_write:
-				data_connection /= Void implies
-					data_connection.is_open_read and then
-					data_connection.is_open_write
+				attached data_connection as c implies
+					c.is_open_read and then
+					c.is_open_write
 		end
 
 	noop
@@ -273,12 +272,12 @@ feature -- FTP commands
 			put_command (commands.quit, Void)
 			is_authenticated := False
 			--control_connection.shutdown_write
-			if tcp_control_connection /= Void then
-				tcp_control_connection.shutdown_write
+			if attached tcp_control_connection as c then
+				c.shutdown_write
 			end
 		ensure
 			not_authenticated: not is_authenticated
-			cannot_write: not control_connection.is_open_write
+			cannot_write: attached control_connection as c and then not c.is_open_write
 		end
 
 	remove_directory (a_directory: STRING)
@@ -330,9 +329,9 @@ feature -- FTP commands
 			have_data_connection_on_success:
 				last_reply_code = 150 = (data_connection /= Void)
 			data_connection_can_read_and_write:
-				data_connection /= Void implies
-					data_connection.is_open_read and then
-					data_connection.is_open_write
+				attached data_connection as c implies
+					c.is_open_read and then
+					c.is_open_write
 		end
 
 	operating_system
@@ -384,9 +383,9 @@ feature -- FTP commands
 			have_data_connection_on_success:
 				last_reply_code = 150 = (data_connection /= Void)
 			data_connection_can_read_and_write:
-				data_connection /= Void implies
-					data_connection.is_open_read and then
-					data_connection.is_open_write
+				attached data_connection as c implies
+					c.is_open_read and then
+					c.is_open_write
 		end
 
 	type_ascii
@@ -469,9 +468,9 @@ feature {NONE} -- Lowest level FTP server interaction
 			have_data_connection_on_success:
 				last_reply_code = 150 = (data_connection /= Void)
 			data_connection_can_read_and_write:
-				data_connection /= Void implies
-					data_connection.is_open_read and then
-					data_connection.is_open_write
+				attached data_connection as c implies
+					c.is_open_read and then
+					c.is_open_write
 		end
 
 	send_command (a_command, a_parameter: STRING)
@@ -492,11 +491,10 @@ feature {NONE} -- Lowest level FTP server interaction
 			a1,a2,a3,a4,p1,p2: INTEGER
 			my_hp: like hp
 		do
-			if
-				data_connection /= Void and then
-				data_connection.is_open
+			if attached data_connection as c and then
+				c.is_open
 			then
-				data_connection.close
+				c.close
 			end
 			data_connection := Void
 			put_command (commands.passive, Void)
@@ -540,9 +538,9 @@ feature {NONE} -- Lowest level FTP server interaction
 			end
 		ensure
 			data_connection_connected:
-				data_connection = Void or else
-				data_connection.is_open_read and then
-				data_connection.is_open_write
+				not attached data_connection as c or else
+				c.is_open_read and then
+				c.is_open_write
 		end
 
 

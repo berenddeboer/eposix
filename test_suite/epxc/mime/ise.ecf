@@ -9,14 +9,14 @@
 		<capability>
 			<catcall_detection use="none"/>
 			<concurrency support="none" use="none"/>
-			<void_safety support="all" use="initialization"/>
+			<void_safety support="all" use="transitional"/>
 		</capability>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="eposix" location="${EPOSIX}\eposix-safe.ecf" readonly="false"/>
-		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel-safe.ecf"/>
-		<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp-safe.ecf"/>
-		<library name="gobo_test" location="$ISE_LIBRARY\library\gobo\gobo_test-safe.ecf"/>
+		<library name="gobo_kernel" location="$GOBO/library/\kernel/library.ecf"/>
+		<library name="gobo_regexp" location="$GOBO/library/regexp/library.ecf"/>
+		<library name="gobo_test" location="$GOBO/library/test/library_skl.ecf"/>
 		<cluster name="test" location="${EPOSIX}/test_suite/epxc/mime"/>
 		<cluster name="testgen" location="TESTGEN\"/>
 	</target>

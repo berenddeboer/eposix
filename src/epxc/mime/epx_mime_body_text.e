@@ -50,19 +50,19 @@ feature -- Access to body content
 			-- It is not checked if the resulting string does contain
 			-- NULL characters.
 		do
-			if decoder = Void then
+			if not attached decoder as a_decoder then
 				Result := as_string
 			else
-				decoder.set_source (stream)
+				a_decoder.set_source (stream)
 				rewind_stream
 				create Result.make_empty
 				from
-					decoder.read
+					a_decoder.read
 				until
-					decoder.end_of_input
+					a_decoder.end_of_input
 				loop
-					Result.append_character (decoder.last_item)
-					decoder.read
+					Result.append_character (a_decoder.last_item)
+					a_decoder.read
 				end
 			end
 		end

@@ -17,14 +17,14 @@ class
 
 feature -- Status
 
-	is_valid_value (a_value: detachable READABLE_STRING_8): BOOLEAN
+	is_valid_value (a_value: READABLE_STRING_8): BOOLEAN
 			-- Is `a_value' valid according to the NetLogger spec?
 			-- Should not contain the null or newline character.
 		local
 			c: CHARACTER
 			i: INTEGER
 		do
-			if a_value /= Void and then not a_value.is_empty then
+			if not a_value.is_empty then
 				from
 					i := 1
 					Result := True
@@ -40,7 +40,7 @@ feature -- Status
 				Result := True
 			end
 		ensure
-			no_new_line: Result implies a_value = Void or else not a_value.has ('%N')
+			no_new_line: Result implies not attached a_value or else not a_value.has ('%N')
 		end
 
 	is_valid_name (a_field_name: READABLE_STRING_8): BOOLEAN

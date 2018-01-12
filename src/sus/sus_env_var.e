@@ -38,23 +38,25 @@ feature -- Commands
 			new_value_not_void: a_new_value /= Void
 		local
 			namevalue: STRING
+			e: like environment_string
 		do
 			-- We have to create memory to hold the value, because the
 			-- argument to `putenv' becomes part of the environment, and
 			-- is not copied.
 			namevalue := name + "=" + a_new_value
-			if environment_string /= Void then
+			if attached environment_string as es then
 				-- In case we already have allocate memory, deallocate
 				-- that memory first. Minimises memory leaks.
-				if not environment_string.is_owner then
-					environment_string.become_owner
+				if not es.is_owner then
+					es.become_owner
 				end
-				environment_string.deallocate
+				es.deallocate
 			end
-			create environment_string.allocate_and_clear (namevalue.count + 1)
-			environment_string.put_string (namevalue, 0, namevalue.count - 1)
-			safe_call (posix_putenv (environment_string.ptr))
-			environment_string.unown
+			create e.allocate_and_clear (namevalue.count + 1)
+			environment_string := e
+			e.put_string (namevalue, 0, namevalue.count - 1)
+			safe_call (posix_putenv (e.ptr))
+			e.unown
 		end
 
 feature {NONE} -- Implementation

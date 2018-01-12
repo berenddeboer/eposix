@@ -10,22 +10,22 @@
 		<capability>
 			<catcall_detection support="none" use="none"/>
 			<concurrency support="none" use="none"/>
-			<void_safety support="initialization" use="initialization"/>
+			<void_safety support="transitional" use="transitional"/>
 		</capability>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
-		<library name="eposix" location="${EPOSIX}\eposix-safe.ecf" readonly="false">
+		<library name="eposix" location="${EPOSIX}/eposix-gobo.ecf" readonly="false">
 			<option debug="true">
 				<debug name="http_client_dump_response" enabled="false"/>
 				<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 			</option>
 		</library>
-		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
-		<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp.ecf"/>
-		<library name="gobo_structure" location="$ISE_LIBRARY\library\gobo\gobo_structure.ecf"/>
-		<library name="gobo_test" location="$ISE_LIBRARY\library\gobo\gobo_test-safe.ecf"/>
-		<library name="gobo_utility" location="$ISE_LIBRARY\library\gobo\gobo_utility.ecf"/>
-		<cluster name="test" location="${EPOSIX}\test_suite\epxc\base\"/>
-		<cluster name="testgen" location="TESTGEN\"/>
+		<library name="gobo_kernel" location="$GOBO/library/kernel/library.ecf"/>
+		<library name="gobo_regexp" location="$GOBO/library/regexp/library.ecf"/>
+		<library name="gobo_structure" location="$GOBO/library/structure/library.ecf"/>
+		<library name="gobo_test" location="$GOBO/library/test/library_skl.ecf"/>
+		<library name="gobo_utility" location="$GOBO/library/utility/library.ecf"/>
+		<cluster name="test" location="${EPOSIX}/test_suite/epxc/base/"/>
+		<cluster name="testgen" location="TESTGEN/"/>
 	</target>
 </system>

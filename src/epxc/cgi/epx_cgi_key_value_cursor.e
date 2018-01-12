@@ -107,13 +107,13 @@ feature -- Filter check
 			not_after: not after
 		do
 			Result := True
-			if attached key_re then
-				key_re.match (key)
-				Result := key_re.has_matched
+			if attached key_re as my_key_re then
+				my_key_re.match (key)
+				Result := my_key_re.has_matched
 			end
-			if Result and then attached value_re then
-				value_re.match (item.value)
-				Result := value_re.has_matched
+			if Result and then attached value_re as my_value_re then
+				my_value_re.match (item.value)
+				Result := my_value_re.has_matched
 			end
 			if Result then
 				Result := on_match_found.on_match (Current)

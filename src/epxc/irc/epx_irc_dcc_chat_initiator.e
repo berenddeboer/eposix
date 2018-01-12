@@ -41,7 +41,7 @@ feature {NONE} -- Initialisation
 			service: EPX_SERVICE
 			my_hp: like hp
 		do
-			nick_name := a_nick_name
+			do_make (a_nick_name)
 			create host.make_from_address (an_ip4_address)
 			create service.make_from_ephemeral_port ("tcp")
 			create my_hp.make (host, service)
@@ -75,26 +75,25 @@ feature -- Status
 			-- into non-blocking mode, but this can be changed later if
 			-- so required.
 		do
-			Result := socket /= Void
-			if not Result then
-				socket := server_socket.accept
-				Result := socket /= Void
-				if Result then
-					socket.set_blocking_io (False)
-					-- Don't need to accept any more connections.
-					server_socket.close
-					server_socket := Void
-					create last_receive.make_from_now
-				end
+			if not my_is_accepted and then attached server_socket.accept as a_socket then
+				my_is_accepted := True
+				socket := a_socket
+				Result := True
+				socket.set_blocking_io (False)
+				-- Don't need to accept any more connections.
+				server_socket.close
+				create last_receive.make_from_now
 			end
 		ensure
-			definition: Result = (socket /= Void)
+			definition: Result = (attached socket)
 		end
 
 
 feature {NONE} -- Implementation
 
-	server_socket: detachable EPX_TCP_SERVER_SOCKET
+	my_is_accepted: BOOLEAN
+
+	server_socket: EPX_TCP_SERVER_SOCKET
 			-- Socket which accepts the client connection
 
 

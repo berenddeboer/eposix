@@ -303,7 +303,7 @@ feature -- Actions that parent may execute
 			-- if this child is really terminated.
 		deferred
 		ensure then
-			stdin_closed: is_terminated implies fd_stdin = Void or else not fd_stdin.is_open
+			stdin_closed: is_terminated implies not attached fd_stdin as a_fd_stdin or else not a_fd_stdin.is_open
 			--stdout_closed: is_terminated implies fd_stdout = Void or else not fd_stdout.is_open
 			--stderr_closed: is_terminated implies fd_stderr = Void or else not fd_stderr.is_open
 		end
@@ -332,8 +332,8 @@ invariant
 	all_arguments_not_void: not has_void_argument (arguments)
 
 	descriptors_are_owners:
-		(attached fd_stdin and then fd_stdin.is_open implies fd_stdin.is_owner) and then
-		(attached fd_stdout and then fd_stdout.is_open implies fd_stdout.is_owner) and then
-		(attached fd_stderr and then fd_stderr.is_open implies fd_stderr.is_owner)
+		(attached fd_stdin as a_fd_stdin and then a_fd_stdin.is_open implies a_fd_stdin.is_owner) and then
+		(attached fd_stdout as a_fd_stdout and then a_fd_stdout.is_open implies a_fd_stdout.is_owner) and then
+		(attached fd_stderr as a_fd_stderr and then a_fd_stderr.is_open implies a_fd_stderr.is_owner)
 
 end

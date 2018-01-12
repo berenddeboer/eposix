@@ -38,7 +38,9 @@ feature -- Input
 			-- Read the next item in input stream.
 			-- Make the result available in `last_item'.
 		do
-			source.read
+			if attached source as a_source then
+				a_source.read
+			end
 		end
 
 	unread (an_item: G)
@@ -46,7 +48,9 @@ feature -- Input
 			-- This item will be read first by the next
 			-- call to a read routine.
 		do
-			source.unread (an_item)
+			if attached source as a_source then
+				a_source.unread (an_item)
+			end
 		end
 
 
@@ -55,25 +59,29 @@ feature -- Status report
 	is_open_read: BOOLEAN
 			-- Can items be read from input stream?
 		do
-			Result := source /= Void and then source.is_open_read
+			Result := attached source as a_source and then a_source.is_open_read
 		end
 
 	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 		do
-			Result := source.end_of_input
+			if attached source as a_source then
+				Result := a_source.end_of_input
+			else
+				Result := True
+			end
 		end
 
 	valid_unread_item (an_item: G): BOOLEAN
 			-- Can `an_item' be put back in input stream?
 		do
-			Result := source /= Void and then source.valid_unread_item (an_item)
+			Result := attached source as a_source and then a_source.valid_unread_item (an_item)
 		end
 
 	is_closable: BOOLEAN
 			-- Can current input stream be closed?
 		do
-			Result := source /= Void and then source.is_closable
+			Result := attached source as a_source and then a_source.is_closable
 		end
 
 
@@ -82,8 +90,8 @@ feature -- Access
 	name: STRING
 			-- Name of input stream
 		do
-			if source /= Void then
-				Result := source.name
+			if attached source as a_source then
+				Result := a_source.name
 			else
 				Result := ""
 			end
@@ -92,10 +100,12 @@ feature -- Access
 	source: detachable KI_INPUT_STREAM [G]
 			-- Where this stream derives it input from
 
-	last_item: G
+	last_item: detachable G
 			-- Last item read
 		do
-			Result := source.last_item
+			if attached source as a_source then
+				Result := a_source.last_item
+			end
 		end
 
 

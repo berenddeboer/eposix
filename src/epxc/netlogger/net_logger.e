@@ -94,16 +94,16 @@ feature -- NetLogger normal usage API
 		require
 			valid_level: levels.is_valid_level (a_level)
 			event_name_not_empty: an_event_name /= Void and then not an_event_name.is_empty
-			msg_valid: is_valid_value (a_msg)
+			msg_valid: attached a_msg as m implies is_valid_value (m)
 		local
 			list: DS_LINKED_LIST [NET_LOGGER_FIELD]
 		do
 			if a_level <= level then
-				if a_msg = Void or else a_msg.is_empty then
+				if not attached a_msg as m or else m.is_empty then
 					write (a_level, an_event_name, Void)
 				else
 					create list.make
-					list.put_last (create {NET_LOGGER_FIELD}.make (names.msg, a_msg))
+					list.put_last (create {NET_LOGGER_FIELD}.make (names.msg, m))
 					write (a_level, an_event_name, list)
 				end
 			end
@@ -193,7 +193,7 @@ feature {NONE} -- Correct field list generation
 		do
 			line.append_string (f.name)
 			line.append_character ('=')
-			if f.value /= Void and then not f.value.is_empty then
+			if attached f.value and then not f.value.is_empty then
 				quote := f.value.has (' ')
 				if quote then
 					line.append_character ('"')

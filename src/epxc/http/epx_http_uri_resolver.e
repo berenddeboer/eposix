@@ -54,6 +54,7 @@ feature -- Operation(s)
 			a_path: STRING
 			a_response_code: INTEGER
 			a_uri_to_use: UT_URI
+			my_client: like client
 		do
 			has_media_type := False
 			a_response_code := Sc_found
@@ -66,12 +67,14 @@ feature -- Operation(s)
 					set_local_error ("Host name needed with http(s) protocol")
 				end
 				if not has_local_error then
-					client := new_client (a_uri_to_use)
+					my_client := new_client (a_uri_to_use)
+					client := my_client
 					if attached a_uri.user_info as user_info then
 						set_basic_authentication_from_user_info (user_info)
-					elseif attached user_name as u and then not u.is_empty and then
+					elseif attached user_name as u and then
+						not u.is_empty and then
 						attached password as p then
-						client.set_basic_authentication (u, p)
+						my_client.set_basic_authentication (u, p)
 					end
 					debug ("XML http resolver")
 						std.error.put_string ("Host is ")
@@ -91,19 +94,19 @@ feature -- Operation(s)
 							a_path.append_character ('#')
 							a_path.append_string (a_uri_to_use.fragment)
 						end
-						client.get (a_path)
-						a_response_code := client.response_code
+						my_client.get (a_path)
+						a_response_code := my_client.response_code
 						if a_response_code = Sc_ok then
-							client.read_response
-							if client.is_response_ok then
+							my_client.read_response
+							if my_client.is_response_ok then
 								handle_success (a_uri_to_use)
 							else
-								a_response_code := client.response_code
+								a_response_code := my_client.response_code
 							end
 						end
 						if is_redirect (a_response_code) then
-							if client.fields.has (Location) then
-								create a_uri_to_use.make_resolve (a_uri_to_use, client.fields.item (Location).value)
+							if my_client.fields.has (Location) then
+								create a_uri_to_use.make_resolve (a_uri_to_use, my_client.fields.item (Location).value)
 								if uri_stack.is_empty then
 									uri_stack.put (a_uri_to_use)
 								else
@@ -125,9 +128,9 @@ feature -- Operation(s)
 					std.error.put_string ("Status code was: ")
 					std.error.put_string (a_response_code.out)
 					std.error.put_new_line
-					if last_stream /= Void and then last_stream.name /= Void then
+					if attached last_stream as ls and then attached ls.name as a_name then
 						std.error.put_string ("Last_stream.name is: ")
-						std.error.put_string (last_stream.name)
+						std.error.put_string (a_name)
 						std.error.put_new_line
 					end
 				end
@@ -149,7 +152,7 @@ feature -- Result
 		local
 			a_message: STRING
 		do
-			if attached last_uri as lu then
+			if attached last_uri as lu and then attached client as c then
 				a_message := "URI "
 				a_message.append_string (lu.full_reference)
 				a_message.append_character ( ' ')
@@ -158,7 +161,7 @@ feature -- Result
 						a_message.append_string (e)
 					end
 				else
-					a_message.append_string (client.response_phrase)
+					a_message.append_string (c.response_phrase)
 				end
 				Result := a_message
 			else
@@ -277,21 +280,23 @@ feature {NONE} -- Implementation
 	handle_success (a_uri: UT_URI)
 			-- Handle `Sc_ok'.
 		require
-			sucessful_response: client.response_code = Sc_ok and then client.is_response_ok
+			sucessful_response: attached client as c and then c.response_code = Sc_ok and then c.is_response_ok
 		local
 			a_content_type: EPX_MIME_FIELD
 			a_content: STRING
 		do
 			-- response, if available now in `client'.`body'.
-			last_stream := client.body.stream
-			if last_stream /= Void then
-				last_stream.name.wipe_out
-				last_stream.name.append_string (a_uri.full_reference)
-			end
-			if client.fields.has (Content_type) then
-				a_content_type := client.fields.item (Content_type)
-				a_content := a_content_type.value
-				set_media_type (a_content)
+			if attached client as c and then attached c.body as b then
+				last_stream := b.stream
+				if attached last_stream as ls then
+					ls.name.wipe_out
+					ls.name.append_string (a_uri.full_reference)
+				end
+				if c.fields.has (Content_type) then
+					a_content_type := c.fields.item (Content_type)
+					a_content := a_content_type.value
+					set_media_type (a_content)
+				end
 			end
 		end
 
@@ -304,6 +309,7 @@ feature {NONE} -- Implementation
 			some_parameters, a_parameter_pair, some_components: DS_LIST [STRING]
 			a_media_type: STRING
 			a_cursor: DS_LIST_CURSOR [STRING]
+			my_last_media_type: like last_media_type
 		do
 			create a_splitter.make
 			a_splitter.set_separators (";")
@@ -315,7 +321,8 @@ feature {NONE} -- Implementation
 				set_local_error ("Content-type must contain exactly one '/'")
 			else
 				has_media_type := True
-				create last_media_type.make (some_components.item (1), some_components.item (2))
+				create my_last_media_type.make (some_components.item (1), some_components.item (2))
+				last_media_type := my_last_media_type
 				if some_parameters.count > 1 then
 					some_parameters.remove_first
 					from
@@ -329,7 +336,7 @@ feature {NONE} -- Implementation
 							set_local_error (a_cursor.item + " is not valid syntax for a Content-type parameter.")
 							a_cursor.go_after
 						else
-							last_media_type.add_parameter (a_parameter_pair.item (1), a_parameter_pair.item (2))
+							my_last_media_type.add_parameter (a_parameter_pair.item (1), a_parameter_pair.item (2))
 							a_cursor.forth
 						end
 					variant
@@ -338,7 +345,7 @@ feature {NONE} -- Implementation
 				end
 			end
 		ensure
-			error_or_media_type_set: not has_error implies has_media_type = True and then last_media_type /= Void
+			error_or_media_type_set: not has_error implies has_media_type = True and then attached last_media_type
 		end
 
 	set_basic_authentication_from_user_info (a_user_info: STRING)
@@ -353,7 +360,9 @@ feature {NONE} -- Implementation
 			create l_splitter.make_with_separators (":")
 			l_parts := l_splitter.split (a_user_info)
 			if l_parts.count = 2 then
-				client.set_basic_authentication (l_parts.item (1), l_parts.item (2))
+				if attached client as a_client then
+					a_client.set_basic_authentication (l_parts.item (1), l_parts.item (2))
+				end
 			else
 				-- Is this correct?
 				set_local_error ("Authentication must contain exactly one ':'")

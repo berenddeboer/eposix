@@ -41,7 +41,10 @@ src/supportc/config.h
 src/supportc/stamp-h1
 src/wapi/Makefile.c_sources
 util/
-test_suite/*/*/EIFGENs/
-test_suite/*/*/TESTGEN/
+EIFGENs
+TESTGEN
 compile_ise.ecf
+test_suite/*/eposix_test
+test_suite/*/eposix_test.melted
 test_suite/*/*/eposix_test
+test_suite/*/*/eposix_test.melted

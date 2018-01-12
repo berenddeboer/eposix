@@ -142,7 +142,7 @@ feature -- Read and write to memory block
 			remaining_bytes: INTEGER
 		do
 				check
-					internal_consistency_check: line_buffer /= Void implies (line_buffer_must_be_refilled or else buf /= line_buffer.ptr)
+					internal_consistency_check: attached line_buffer as lb implies (line_buffer_must_be_refilled or else buf /= lb.ptr)
 				end
 			if not attached line_buffer or else line_buffer_must_be_refilled then
 				do_read (buf, offset, nbytes)
@@ -606,10 +606,10 @@ feature -- Buffered input
 					end
 				else
 					-- Set end-of-string character.
-					string_buffer.poke_character (last_read, '%U')
+					sb.poke_character (last_read, '%U')
 					-- Problem here is that an early occurrence of '%U' truncates
 					-- the string.
-					last_string := sh.pointer_to_string (string_buffer.ptr)
+					last_string := sh.pointer_to_string (sb.ptr)
 					-- If that occurs, we fix that here.
 					if last_string.count < last_read then
 						from
@@ -617,7 +617,7 @@ feature -- Buffered input
 						until
 							i = last_read
 						loop
-							last_string.append_character (string_buffer.peek_character (i))
+							last_string.append_character (sb.peek_character (i))
 							i := i + 1
 						end
 					end
@@ -713,9 +713,11 @@ feature {NONE} -- Buffered reading support
 			-- Does `line_buffer_index' indicate that the end of
 			-- `line_buffer' is reached?
 		require
-			have_line_buffer: line_buffer /= Void
+			have_line_buffer: attached line_buffer
 		do
-			Result := line_buffer_index >= line_buffer.count
+			if attached line_buffer as lb then
+				Result := line_buffer_index >= lb.count
+			end
 		end
 
 	assert_have_line_buffer
@@ -733,14 +735,14 @@ feature {NONE} -- Buffered reading support
 		require
 			size_positive: a_size > 0
 		do
-			if string_buffer = Void then
+			if not attached string_buffer as sb then
 				create string_buffer.allocate (a_size)
-			elseif string_buffer.capacity < a_size then
-				string_buffer.resize (a_size)
+			elseif sb.capacity < a_size then
+				sb.resize (a_size)
 			end
 		ensure
-			string_buffer_exists: string_buffer /= Void
-			string_buffer_has_capacity: string_buffer.capacity >= a_size
+			string_buffer_exists: attached string_buffer
+			string_buffer_has_capacity: attached string_buffer as sb and then sb.capacity >= a_size
 		end
 
 
@@ -1003,6 +1005,6 @@ feature {NONE} -- Error codes
 
 invariant
 
-	line_buffer_index_offset_ok: line_buffer /= Void implies line_buffer_index <= line_buffer.count
+	line_buffer_index_offset_ok: attached line_buffer as lb implies line_buffer_index <= lb.count
 
 end

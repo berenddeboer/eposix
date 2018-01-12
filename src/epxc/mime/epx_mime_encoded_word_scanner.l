@@ -21,6 +21,9 @@ class
 inherit
 
 	YY_COMPRESSED_SCANNER_SKELETON
+		redefine
+			make
+		end
 
 	UT_CHARACTER_CODES
 		export {NONE} all end
@@ -118,9 +121,18 @@ BASE64CHAR [A-Za-z0-9+/]
 
 %%
 
+feature {NONE} -- Initialisation
+
+	make
+		do
+			precursor
+			create last_value.make_empty
+		end
+
+
 feature -- Last returned data
 
-	last_value: detachable STRING
+	last_value: STRING
 
 
 feature -- RFC 2047 decoding
@@ -135,6 +147,7 @@ feature -- RFC 2047 decoding
 			is_encoded: is_encoded_word (a_word)
 		local
 			c: CHARACTER
+			encoding: STRING
 		do
 			debug ("mime")
 				print ("Decoding: ")
@@ -189,7 +202,7 @@ feature -- RFC 2047 decoding
 			decoded_word_not_void: Result /= Void
 		end
 
-	encoding: detachable STRING
+	--encoding: detachable STRING
 			-- Encoding read by `decode_word'.
 
 	is_encoded_word (a_word: STRING): BOOLEAN

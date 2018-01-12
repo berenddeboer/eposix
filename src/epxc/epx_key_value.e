@@ -73,9 +73,9 @@ feature -- Change state
 
 invariant
 
-	has_key: key /= Void and then not key.is_empty
-	has_value: value /= Void
-	filename_known: file /= Void implies not value.is_empty
-	file_readable: file /= Void implies file.is_open_read
+	has_key: attached key and then not key.is_empty
+	has_value: attached value
+	filename_known: attached file implies not value.is_empty
+	file_readable: attached file as a_file implies a_file.is_open_read
 
 end

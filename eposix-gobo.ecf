@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <system xmlns="http://www.eiffel.com/developers/xml/configuration-1-16-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-16-0 http://www.eiffel.com/developers/xml/configuration-1-16-0.xsd" name="eposix" uuid="70ED4FF9-249E-42E0-B9EC-F424CFA5FB89" library_target="eposix">
+  <description>This .ecf uses the Gobo library, not the ISE provided one.</description>
 	<target name="eposix">
 		<root all_classes="true"/>
 		<option warning="true" full_class_checking="true" syntax="standard">
     </option>
     <capability>
-      <void_safety support="all" use="all"/>
-			<catcall_detection support="none"/>
+      <void_safety support="transitional" use="none"/>
+			<catcall_detection support="none" use="none"/>
    </capability>
 		<external_object location="${EPOSIX}\lib\libeposix.lib">
 			<condition>
@@ -34,6 +35,7 @@
 				<concurrency value="thread"/>
 			</condition>
 		</external_object>
+    <!-- These libraries are needed regardless of concurrency setting -->
 		<external_object location="-pthread">
 			<condition>
 				<platform excluded_value="windows"/>
@@ -45,18 +47,18 @@
 			</condition>
 		</external_object>
 		<library name="base" location="$ISE_LIBRARY/library/base/base.ecf"/>
-		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
-		<library name="gobo_argument" location="$ISE_LIBRARY\library\gobo\gobo_argument.ecf"/>
-		<library name="gobo_lexical" location="$ISE_LIBRARY\library\gobo\gobo_lexical.ecf"/>
-		<library name="gobo_math" location="$ISE_LIBRARY\library\gobo\gobo_math.ecf"/>
-		<library name="gobo_parse" location="$ISE_LIBRARY\library\gobo\gobo_parse.ecf"/>
-		<library name="gobo_pattern" location="$ISE_LIBRARY\library\gobo\gobo_pattern.ecf"/>
-		<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp.ecf"/>
-		<library name="gobo_string" location="$ISE_LIBRARY\library\gobo\gobo_string.ecf"/>
-		<library name="gobo_structure" location="$ISE_LIBRARY\library\gobo\gobo_structure.ecf"/>
-		<library name="gobo_time" location="$ISE_LIBRARY\library\gobo\gobo_time.ecf"/>
-		<library name="gobo_utility" location="$ISE_LIBRARY\library\gobo\gobo_utility.ecf"/>
-		<library name="gobo_xml" location="$ISE_LIBRARY\library\gobo\gobo_xml.ecf"/>
+		<library name="gobo_kernel" location="$GOBO/library/kernel/library.ecf"/>
+		<library name="gobo_argument" location="$GOBO/library/argument/library.ecf"/>
+		<library name="gobo_lexical" location="$GOBO/library/lexical/library_skl.ecf"/>
+		<library name="gobo_math" location="$GOBO/library/math/library.ecf"/>
+		<library name="gobo_parse" location="$GOBO/library/parse/library_skl.ecf"/>
+		<library name="gobo_pattern" location="$GOBO/library/pattern/library.ecf"/>
+		<library name="gobo_regexp" location="$GOBO/library/regexp/library.ecf"/>
+		<library name="gobo_string" location="$GOBO/library/string/library.ecf"/>
+		<library name="gobo_structure" location="$GOBO/library/structure/library.ecf"/>
+		<library name="gobo_time" location="$GOBO/library/time/library.ecf"/>
+		<library name="gobo_utility" location="$GOBO/library/utility/library.ecf"/>
+		<library name="gobo_xml" location="$GOBO/library/xml/library.ecf"/>
 
 		<cluster name="unix" location=".\src\" recursive="true">
 			<condition>

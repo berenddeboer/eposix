@@ -24,13 +24,17 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_name: READABLE_STRING_8; a_value: detachable READABLE_STRING_8)
+	make (a_name: READABLE_STRING_8; a_value: detachable like value)
 		require
 			name_valid: is_valid_name (a_name)
-			value_valid: is_valid_value (a_value)
+			value_valid: attached a_value as v implies is_valid_value (v)
 		do
 			name := a_name
-			value := a_value
+			if attached a_value as v then
+				value := v
+			else
+				value := ""
+			end
 		ensure
 			name_set: name.is_equal (a_name)
 			void_or_not: ((a_value = Void) = (value = Void))
@@ -43,15 +47,15 @@ feature -- Access
 	name: READABLE_STRING_8
 			-- Event attribute name
 
-	value: detachable READABLE_STRING_8
+	value: READABLE_STRING_8
 			-- Event attribute value
 
 
 feature -- Change
 
-	set_value (a_value: READABLE_STRING_8)
+	set_value (a_value: like value)
 		require
-			value_not_empty: a_value /= Void and then not a_value.is_empty
+			value_valid: is_valid_value (a_value)
 		do
 			value := a_value
 		ensure

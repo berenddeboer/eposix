@@ -399,7 +399,7 @@ feature -- Path names
 			else
 				create path.make_from_string (a_path)
 				path.parse (Void)
-				if attached path.directory as directory then
+				if attached path.directory as directory and attached path.basename as basename then
 					if directory.is_empty then
 						create Result.make (save_directory.count + 1 + a_path.count)
 						Result.append_string (save_directory)
@@ -408,10 +408,10 @@ feature -- Path names
 					elseif is_directory (directory) then
 						change_directory (directory)
 						s := current_directory
-						create Result.make (s.count + 1 + path.basename.count)
+						create Result.make (s.count + 1 + basename.count)
 						Result.append_string (s)
 						Result.append_character ('/')
-						Result.append_string (path.basename)
+						Result.append_string (basename)
 					else
 						-- need to define ENOENT!!
 						--errno.set_value (ENOENT)

@@ -22,6 +22,7 @@ inherit
 		rename
 			binary_checksum as H
 		redefine
+			H,
 			put_string,
 			secure_wipe_out,
 			wipe_out
@@ -45,6 +46,10 @@ feature {NONE} -- Initialization
 
 
 feature -- Access
+
+	H: STDC_BUFFER
+			-- Final checksum as binary string; calculated
+			-- by `finalize'
 
 	checksum: STRING
 		local

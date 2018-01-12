@@ -137,7 +137,9 @@ feature -- Status
 		require
 			open: is_open
 		do
-			Result := tcp_socket.is_blocking_io
+			if attached tcp_socket as a_tcp_socket then
+				Result := a_tcp_socket.is_blocking_io
+			end
 		end
 
 	is_nick_name_in_use: BOOLEAN
@@ -296,33 +298,40 @@ feature -- Reading
 			-- would block or if the server sends an empty line.
 			-- Else they contain the last line sent by the server and the
 			-- parsed message.
+		local
+			my_last_message: like last_message
 		do
-			socket.read_line
-			if tcp_socket.last_blocked or else tcp_socket.last_string.is_empty then
-				last_response := Void
-				last_message := Void
-			else
-				last_response := socket.last_string
-				if attached last_response as r then
-					if print_response then
-						print (without_color (r))
-						print ("%N")
+			if attached tcp_socket as a_tcp_socket then
+				a_tcp_socket.read_line
+				if a_tcp_socket.last_blocked or else a_tcp_socket.last_string.is_empty then
+					last_response := Void
+					last_message := Void
+				else
+					last_response := a_tcp_socket.last_string
+					if attached last_response as r then
+						if print_response then
+							print (without_color (r))
+							print ("%N")
+						end
+						if log_response then
+							if attached log_file as f then
+								f.put_string (r)
+								f.put_character ('%N')
+								f.flush
+							end
+						end
+						create my_last_message.make_parse (r)
+						last_message := my_last_message
+						if
+							my_last_message.has_reply_code and then
+							my_last_message.reply_code = reply_codes.ERR_NICKNAMEINUSE
+						then
+							is_nick_name_in_use := True
+						end
 					end
-					if log_response then
-						log_file.put_string (r)
-						log_file.put_character ('%N')
-						log_file.flush
-					end
-					create last_message.make_parse (r)
-					if
-						last_message.has_reply_code and then
-						last_message.reply_code = reply_codes.ERR_NICKNAMEINUSE
-					then
-						is_nick_name_in_use := True
-					end
+					handle_system_responses
+					handle_user_responses
 				end
-				handle_system_responses
-				handle_user_responses
 			end
 		end
 
@@ -331,7 +340,9 @@ feature -- Reading
 		require
 			open: is_open
 		do
-			tcp_socket.set_blocking_io (enable)
+			if attached tcp_socket as a_tcp_socket then
+				a_tcp_socket.set_blocking_io (enable)
+			end
 		ensure
 			blocking_set: enable = is_blocking_io
 		end
@@ -494,20 +505,17 @@ feature -- DCC
 		require
 			real_socket: not is_secure_connection
 		local
-			ip4: EPX_IP4_ADDRESS
 			chat: EPX_IRC_DCC_CHAT_INITIATOR
 		do
-			ip4 ?= tcp_socket.local_address.address
-				check
-					is_ip4: ip4 /= Void
-				end
-			create chat.make_initiate (a_nick_name, ip4)
-			-- TODO: WARNING, DOESN'T WORK if IP4 address > 2^31!!!
-				check
-					ip_address_not_negative: chat.local_ip4_address.value >= 0
-				end
-			ctcp (a_nick_name, "DCC CHAT chat " + chat.local_ip4_address.value.out + " " + chat.local_port.out)
-			last_dcc_chat_offer := chat
+			if attached tcp_socket as a_tcp_socket and then attached {EPX_IP4_ADDRESS} a_tcp_socket.local_address.address as ip4 then
+				create chat.make_initiate (a_nick_name, ip4)
+				-- TODO: WARNING, DOESN'T WORK if IP4 address > 2^31!!!
+					check
+						ip_address_not_negative: chat.local_ip4_address.value >= 0
+					end
+				ctcp (a_nick_name, "DCC CHAT chat " + chat.local_ip4_address.value.out + " " + chat.local_port.out)
+				last_dcc_chat_offer := chat
+			end
 		end
 
 	last_dcc_chat_offer: detachable EPX_IRC_DCC_CHAT_INITIATOR
@@ -597,15 +605,17 @@ feature {NONE} -- Implementation
 				print (cmd)
 				print ("%N")
 			end
-			if log_response then
-				log_file.put_string ("->")
-				log_file.put_string (cmd)
-				log_file.put_character ('%N')
-				log_file.flush
+			if log_response and then attached log_file as f then
+				f.put_string ("->")
+				f.put_string (cmd)
+				f.put_character ('%N')
+				f.flush
 			end
 			cmd.append_character ('%R')
 			cmd.append_character ('%N')
-			socket.put_string (cmd)
+			if attached socket as c then
+				c.put_string (cmd)
+			end
 		end
 
 	reply_codes: EPX_IRC_REPLY_CODES

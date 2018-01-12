@@ -52,7 +52,7 @@ feature -- Status report
 	end_of_input: BOOLEAN
 			-- Has the end of input stream been reached?
 		do
-			Result := next_character_count = 0 and then source.end_of_input
+			Result := next_character_count = 0 and then attached source as a_source and then a_source.end_of_input
 		end
 
 
@@ -82,20 +82,22 @@ feature -- Input
 				else
 					-- Return character from source.
 					next_character_count := 0
-					source.read
-					if not end_of_input then
-						last_character := source.last_item
-						inspect last_character
-						when '=' then
-							read_octet_value
-							valid_character_read := True
-						when '%R', '%N', '%T' then
-							-- valid control charcters
-							valid_character_read := True
-						else
-							valid_character_read :=
-								last_character.code >= 32 and then
-								last_character.code <= 126
+					if attached source as my_source then
+						my_source.read
+						if not end_of_input then
+							last_character := my_source.last_item
+							inspect last_character
+							when '=' then
+								read_octet_value
+								valid_character_read := True
+							when '%R', '%N', '%T' then
+								-- valid control charcters
+								valid_character_read := True
+							else
+								valid_character_read :=
+									last_character.code >= 32 and then
+									last_character.code <= 126
+							end
 						end
 					end
 				end
@@ -125,35 +127,37 @@ feature {NONE} -- Input decoding
 			digit1,
 			digit2: CHARACTER
 		do
-			source.read
-			-- If '=' is last character, just return that.
-			if not end_of_input then
-				digit1 := source.last_item
-				if digit1 = '%N' or else digit1 = '%R' then
-					-- Soft line break
-					last_character := digit1
-				elseif is_valid_hex_digit (digit1) then
-					source.read
-					if end_of_input then
-						-- Return '=' and `digit1'
+			if attached source as my_source then
+				my_source.read
+				-- If '=' is last character, just return that.
+				if not end_of_input then
+					digit1 := my_source.last_item
+					if digit1 = '%N' or else digit1 = '%R' then
+						-- Soft line break
+						last_character := digit1
+					elseif is_valid_hex_digit (digit1) then
+						my_source.read
+						if end_of_input then
+							-- Return '=' and `digit1'
+							next_characters.put (digit1, 1)
+							next_character_count := 2
+						else
+							digit2 := my_source.last_item
+							if is_valid_hex_digit (digit2) then
+								last_character := from_hex_characters (digit1, digit2)
+							else
+								-- Return '=' and the next two as separate characters
+								next_characters.put (digit1, 1)
+								next_characters.put (digit2, 2)
+								next_character_count := 3
+							end
+						end
+					else
+						-- Robust implementation, '=' followed by something.
+						-- Return '=' and that something as separate characters.
 						next_characters.put (digit1, 1)
 						next_character_count := 2
-					else
-						digit2 := source.last_item
-						if is_valid_hex_digit (digit2) then
-							last_character := from_hex_characters (digit1, digit2)
-						else
-							-- Return '=' and the next two as separate characters
-							next_characters.put (digit1, 1)
-							next_characters.put (digit2, 2)
-							next_character_count := 3
-						end
 					end
-				else
-					-- Robust implementation, '=' followed by something.
-					-- Return '=' and that something as separate characters.
-					next_characters.put (digit1, 1)
-					next_character_count := 2
 				end
 			end
 		ensure

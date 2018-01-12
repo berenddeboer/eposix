@@ -50,9 +50,8 @@ feature {NONE} -- Initialization
 		local
 			content_type: EPX_MIME_FIELD_CONTENT_TYPE
 			content_disposition: EPX_MIME_FIELD_CONTENT_DISPOSITION
-			main_body: EPX_MIME_BODY_MULTIPART
+			-- main_body: EPX_MIME_BODY_MULTIPART
 			input_part: EPX_MIME_PART
-			input_text: EPX_MIME_BODY_TEXT
 			kv: EPX_KEY_VALUE
 			i: INTEGER
 			time: STDC_TIME
@@ -63,26 +62,28 @@ feature {NONE} -- Initialization
 			create content_type.make_multipart (mime_subtype_form_data, "__=_the_boundary_" + time.value.out + "_" + current_process.random.out + "_=__")
 			header.add_field (content_type)
 			create_multipart_body
-			main_body := multipart_body
-			from
-				i := a_key_value_pairs.lower
-			until
-				i > a_key_value_pairs.upper
-			loop
-				kv := a_key_value_pairs.item (i)
-				input_part := main_body.new_part
-				create content_disposition.make_name ("form-data", kv.key)
-				input_part.header.add_field (content_disposition)
-				input_part.create_singlepart_body
-				input_text := input_part.text_body
-				input_text.append_string (kv.value)
-				i := i + 1
-			variant
-				a_key_value_pairs.count - (i - a_key_value_pairs.lower)
+			if attached multipart_body as main_body then
+				from
+					i := a_key_value_pairs.lower
+				until
+					i > a_key_value_pairs.upper
+				loop
+					kv := a_key_value_pairs.item (i)
+					input_part := main_body.new_part
+					create content_disposition.make_name ("form-data", kv.key)
+					input_part.header.add_field (content_disposition)
+					input_part.create_singlepart_body
+					if attached input_part.text_body as input_text then
+						input_text.append_string (kv.value)
+					end
+					i := i + 1
+				variant
+					a_key_value_pairs.count - (i - a_key_value_pairs.lower)
+				end
 			end
 		ensure
-			multipart_body_not_void: multipart_body /= Void
-			all_fields_in_body: multipart_body.parts_count = a_key_value_pairs.count
+			multipart_body_not_void: attached multipart_body
+			all_fields_in_body: attached multipart_body as b and then b.parts_count = a_key_value_pairs.count
 		end
 
 	make_form_urlencoded (a_key_value_pairs: ARRAY [EPX_KEY_VALUE])
@@ -101,24 +102,26 @@ feature {NONE} -- Initialization
 			create content_type.make (mime_type_application, mime_subtype_x_www_form_urlencoded)
 			header.add_field (content_type)
 			create_singlepart_body
-			from
-				i := a_key_value_pairs.lower
-			until
-				i > a_key_value_pairs.upper
-			loop
-				kv := a_key_value_pairs.item (i)
-				text_body.append_string  (kv.key)
-				text_body.append_character ('=')
-				text_body.append_string (escape_string (kv.value))
-				i := i + 1
-				if i <= a_key_value_pairs.upper then
-					text_body.append_character  ('&')
+			if attached text_body as tb then
+				from
+					i := a_key_value_pairs.lower
+				until
+					i > a_key_value_pairs.upper
+				loop
+					kv := a_key_value_pairs.item (i)
+					tb.append_string  (kv.key)
+					tb.append_character ('=')
+					tb.append_string (escape_string (kv.value))
+					i := i + 1
+					if i <= a_key_value_pairs.upper then
+						tb.append_character  ('&')
+					end
+				variant
+					a_key_value_pairs.count - (i - a_key_value_pairs.lower)
 				end
-			variant
-				a_key_value_pairs.count - (i - a_key_value_pairs.lower)
 			end
 		ensure
-			text_body_not_void: text_body /= Void
+			text_body_not_void: attached text_body
 		end
 
 end

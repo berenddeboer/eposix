@@ -23,6 +23,7 @@ inherit
 		rename
 			binary_checksum as ABCD
 		redefine
+			ABCD,
 			put_string,
 			secure_wipe_out,
 			wipe_out
@@ -46,6 +47,10 @@ feature {NONE} -- Initialization
 
 
 feature -- Access
+
+	ABCD: STDC_BUFFER
+			-- Final checksum as binary string; calculated
+			-- by `finalize'
 
 	checksum: STRING
 		local

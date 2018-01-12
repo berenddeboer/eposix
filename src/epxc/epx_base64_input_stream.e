@@ -104,29 +104,31 @@ feature {NONE} -- Decoding
 		do
 			-- Fill `codes' with four 6-bit values.
 			triplet_position := 1
-			from
-				i := 1
-				source.read
-			until
-				source.end_of_input or else
-				i > 4
-			loop
-				c := source.last_item
-				if c = '=' then
-					triplet_position := triplet_position + 1
-				end
-				code := decode_character (c)
-				inspect code
-				when -1 then
-					-- white space, ignore
-				when -2 then
-					-- bad base64 stream
-				else
-					codes.put (code, i)
-					i := i + 1
-				end
-				if i <= 4 then
-					source.read
+			if attached source as my_source then
+				from
+					i := 1
+					my_source.read
+				until
+					my_source.end_of_input or else
+					i > 4
+				loop
+					c := my_source.last_item
+					if c = '=' then
+						triplet_position := triplet_position + 1
+					end
+					code := decode_character (c)
+					inspect code
+					when -1 then
+						-- white space, ignore
+					when -2 then
+						-- bad base64 stream
+					else
+						codes.put (code, i)
+						i := i + 1
+					end
+					if i <= 4 then
+						my_source.read
+					end
 				end
 			end
 

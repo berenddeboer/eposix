@@ -160,13 +160,15 @@ feature -- Response
 			open: is_open
 		do
 			create raw_response.make (8192)
-			from
-				http.read_string (8192)
-			until
-				http.end_of_input
-			loop
-				raw_response.append_string (http.last_string)
-				http.read_string (8192)
+			if attached http as a_http then
+				from
+					a_http.read_string (8192)
+				until
+					a_http.end_of_input
+				loop
+					raw_response.append_string (a_http.last_string)
+					a_http.read_string (8192)
+				end
 			end
 		end
 

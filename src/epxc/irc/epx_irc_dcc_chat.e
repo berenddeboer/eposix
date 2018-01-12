@@ -25,6 +25,18 @@ inherit
 		end
 
 
+feature {NONE} -- Initialisation
+
+	do_make (a_nick_name: like nick_name)
+		require
+			valid_nick_name: is_valid_nick_name (a_nick_name)
+		do
+			nick_name := a_nick_name
+			create {EPX_TCP_CLIENT_SOCKET} socket.make
+			create last_receive.make_from_now
+		end
+
+
 feature -- Access
 
 	last_string: STRING
@@ -53,9 +65,9 @@ feature -- Status
 	is_open: BOOLEAN
 			-- Is connection completed?
 		do
-			Result := socket /= Void and then socket.is_open
+			Result := socket.is_open
 		ensure
-			socket_not_void: Result implies socket /= Void
+			socket_not_void: Result implies attached socket
 		end
 
 	is_string_read: BOOLEAN
@@ -67,7 +79,7 @@ feature -- Status
 			Result := not socket.last_blocked
 		end
 
-	last_receive: detachable STDC_TIME
+	last_receive: STDC_TIME
 			-- Last time something has been received;
 			-- Initialised to start of connection.
 
@@ -85,13 +97,13 @@ feature -- Reading and writing
 		end
 
 	put (s: STRING)
-			-- Write a line of data. If `s' does not end with a new-line,
-			-- a new-line will be written to the receiver after `s' has
-			-- been written.
+			-- Write a line of data if `s' is not empty. If `s' does not
+			-- end with a new-line, a new-line will be written to the
+			-- receiver after `s' has been written.
 		require
 			open: is_open
 		do
-			if s /= Void and then not s.is_empty then
+			if not s.is_empty then
 				socket.put_string (s)
 				if s.item (s.count) /= '%N' then
 					socket.put_character ('%N')
@@ -106,7 +118,6 @@ feature -- Close
 			-- End the DCC chat session.
 		do
 			socket.close
-			last_receive := Void
 		ensure
 			closed: not is_open
 		end
@@ -115,12 +126,12 @@ feature -- Close
 feature {NONE} -- Implementation
 
 	hp: detachable EPX_HOST_PORT
-	socket: detachable ABSTRACT_TCP_SOCKET
+	socket: ABSTRACT_TCP_SOCKET
 
 
 invariant
 
 	valid_nick_name: is_valid_nick_name (nick_name)
-	open_implies_last_receive: is_open implies last_receive /= Void
+	open_implies_last_receive: is_open implies attached last_receive
 
 end

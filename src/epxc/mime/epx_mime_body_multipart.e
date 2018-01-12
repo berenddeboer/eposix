@@ -44,8 +44,8 @@ feature -- Status
 				parts.after
 			loop
 				Result :=
-					parts.item_for_iteration.header.content_disposition /= Void and then
-					parts.item_for_iteration.header.content_disposition.name_parameter /= Void
+					attached parts.item_for_iteration.header.content_disposition as cd and then
+					attached cd.name_parameter
 				parts.forth
 			end
 		end
@@ -83,36 +83,35 @@ feature -- Commands
 
 	append_to_string (s: STRING)
 			-- Stream contents of MIME structure to a STRING.
-		local
-			ct: EPX_MIME_FIELD_CONTENT_TYPE
 		do
-			ct := header.content_type
-			s.append_character ('-')
-			s.append_character ('-')
-			s.append_string (ct.boundary)
-			s.append_string (once_crlf)
-			from
-				parts.start
-			until
-				parts.after
-			loop
-				parts.item_for_iteration.append_to_string (s)
-				parts.forth
-				if not parts.after then
-					s.append_string (once_crlf)
-					s.append_character ('-')
-					s.append_character ('-')
-					s.append_string (ct.boundary)
-					s.append_string (once_crlf)
+			if attached header.content_type as ct then
+				s.append_character ('-')
+				s.append_character ('-')
+				s.append_string (ct.boundary)
+				s.append_string (once_crlf)
+				from
+					parts.start
+				until
+					parts.after
+				loop
+					parts.item_for_iteration.append_to_string (s)
+					parts.forth
+					if not parts.after then
+						s.append_string (once_crlf)
+						s.append_character ('-')
+						s.append_character ('-')
+						s.append_string (ct.boundary)
+						s.append_string (once_crlf)
+					end
 				end
+				s.append_string (once_crlf)
+				s.append_character ('-')
+				s.append_character ('-')
+				s.append_string (ct.boundary)
+				s.append_character ('-')
+				s.append_character ('-')
+				s.append_string (once_crlf)
 			end
-			s.append_string (once_crlf)
-			s.append_character ('-')
-			s.append_character ('-')
-			s.append_string (ct.boundary)
-			s.append_character ('-')
-			s.append_character ('-')
-			s.append_string (once_crlf)
 		end
 
 	append_urlencoded_to_string (s: STRING)
@@ -120,16 +119,15 @@ feature -- Commands
 		require
 			has_no_parts_with_multipart_bodies: not has_parts_with_multipart_bodies
 			every_part_has_a_form_content_disposition_field: has_every_part_a_form_content_disposition_field
-		local
-			cd: EPX_MIME_FIELD_CONTENT_DISPOSITION
 		do
 			from
 				parts.start
 			until
 				parts.after
 			loop
-				cd := parts.item_for_iteration.header.content_disposition
-				s.append_string (url_encoder.escape_string (cd.name_parameter.value))
+				if attached parts.item_for_iteration.header as a_header and then attached a_header.content_disposition as cd and then attached cd.name_parameter as a_name_parameter then
+					s.append_string (url_encoder.escape_string (a_name_parameter.value))
+				end
 				s.append_character ('=')
 				if attached {EPX_MIME_BODY_TEXT} parts.item_for_iteration.body as body then
 					s.append_string (url_encoder.escape_string (body.as_string))

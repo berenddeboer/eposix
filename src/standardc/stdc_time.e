@@ -876,23 +876,16 @@ feature {NONE} -- Implementation
 	local_time_zone: INTEGER = unique
 			-- Allowed values for `my_time_zone'
 
-	tm: detachable STDC_BUFFER
+	tm: STDC_BUFFER
 			-- Buffer for struct tm
-
-	assert_has_tm
-		do
-			if tm = Void then
-				create tm.allocate_and_clear (posix_tm_size)
-				set_dst_to_current
-			end
-		ensure
-			tm_not_void: tm /= Void
+		once
+			create Result.allocate_and_clear (posix_tm_size)
 		end
 
 	do_make
 			-- Common initialization for all creation routines.
 		do
-			assert_has_tm
+			set_dst_to_current
 		end
 
 	is_windows: BOOLEAN
@@ -938,7 +931,7 @@ feature {NONE} -- Once strings
 
 invariant
 
-	tm_not_void: tm /= Void
+	tm_not_void: attached tm
 	tm_has_proper_capacity: tm.capacity >= posix_tm_size
 	value_not_negative: value >= 0
 	my_time_zone_valid:

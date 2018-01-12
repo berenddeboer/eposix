@@ -78,9 +78,11 @@ feature -- Access
 			-- Contains the mailbox(es) to which the author of the
 			-- message suggests that replies be sent.
 		require
-			has_reply_to_field: reply_to_field /= Void
+			has_reply_to_field: attached reply_to_field
 		do
-			Result := reply_to_field.value
+			check attached reply_to_field as f then
+				Result := f.value
+			end
 		ensure
 			reply_to_not_void: Result /= Void
 		end
@@ -91,9 +93,11 @@ feature -- Access
 			-- mailbox(es) of the person(s) or system(s) responsible for
 			-- the writing of the message.
 		require
-			has_from_field: from_field /= Void
+			has_from_field: attached from_field
 		do
-			Result := from_field.value
+			check attached from_field as f then
+			  Result := f.value
+			end
 		ensure
 			from_not_void: Result /= Void
 		end
@@ -101,9 +105,11 @@ feature -- Access
 	subject: STRING
 			-- Contents of Subject field
 		require
-			has_subject_field: subject_field /= Void
+			has_subject_field: attached subject_field
 		do
-			Result := subject_field.value
+			check attached subject_field as f then
+			  Result := f.value
+			end
 		ensure
 			subject_not_void: Result /= Void
 		end
@@ -115,7 +121,9 @@ feature -- Access
 		require
 			has_to_field: to_field /= Void
 		do
-			Result := to_field.value
+			check attached to_field as f then
+			  Result := f.value
+			end
 		ensure
 			to_not_void: Result /= Void
 		end

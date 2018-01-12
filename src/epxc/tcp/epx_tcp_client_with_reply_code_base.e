@@ -60,30 +60,32 @@ feature -- Reading and writing
 			no_more_lines: BOOLEAN
 			line: STRING
 		do
-			from
-				last_reply_code := 0
-			until
-				socket.end_of_input or else
-				no_more_lines
-			loop
-				socket.read_line
-				if not socket.end_of_input then
-					line := socket.last_string
-					debug ("smtp")
-						print (line)
-						print ("%N")
-					end
-					if is_line_with_reply_code (line) then
-						no_more_lines := line.item (4) = ' '
-						if no_more_lines then
-							last_reply_code := line.substring (1, 3).to_integer
-							last_reply := line
+			if attached socket as a_socket then
+				from
+					last_reply_code := 0
+				until
+					a_socket.end_of_input or else
+					no_more_lines
+				loop
+					a_socket.read_line
+					if not a_socket.end_of_input then
+						line := a_socket.last_string
+						debug ("smtp")
+							print (line)
+							print ("%N")
 						end
+						if is_line_with_reply_code (line) then
+							no_more_lines := line.item (4) = ' '
+							if no_more_lines then
+								last_reply_code := line.substring (1, 3).to_integer
+								last_reply := line
+							end
+						end
+					else
+						-- Shouldn't happen.
+						-- Set `last_reply_code' to something?
+						last_reply_code := 426
 					end
-				else
-					-- Shouldn't happen.
-					-- Set `last_reply_code' to something?
-					last_reply_code := 426
 				end
 			end
 		end
@@ -102,7 +104,8 @@ feature -- Status
 		do
 			Result :=
 				is_open and then
-				socket.is_open_write
+				attached socket as a_socket and then
+				a_socket.is_open_write
 		end
 
 
@@ -113,7 +116,7 @@ feature {NONE} -- Low level protocol reading and writing
 			-- Do not wait for reply.
 		require
 			can_put_command: is_accepting_commands
-			command_not_empty: a_command /= Void and then not a_command.is_empty
+			command_not_empty: attached a_command and then not a_command.is_empty
 		local
 			cmd: STRING
 		do
@@ -134,7 +137,9 @@ feature {NONE} -- Low level protocol reading and writing
 			end
 			cmd.append_character ('%R')
 			cmd.append_character ('%N')
-			socket.put_string (cmd)
+			if attached socket as a_socket then
+				a_socket.put_string (cmd)
+			end
 		end
 
 	put_command (a_command: STRING; a_parameter: detachable STRING)
@@ -153,17 +158,19 @@ feature {NONE} -- Low level protocol reading and writing
 		require
 			open: is_open
 		do
-			socket.errno.clear
-			socket.errno.clear_first
-			from
-				last_reply_code := 0
-			until
-				socket.errno.is_not_ok or else
-				socket.end_of_input or else
-				last_reply_code = 220 or else
-				is_permanent_negative_completion_reply
-			loop
-				read_reply
+			if attached socket as a_socket then
+				a_socket.errno.clear
+				a_socket.errno.clear_first
+				from
+					last_reply_code := 0
+				until
+					a_socket.errno.is_not_ok or else
+					a_socket.end_of_input or else
+					last_reply_code = 220 or else
+					is_permanent_negative_completion_reply
+				loop
+					read_reply
+				end
 			end
 		end
 

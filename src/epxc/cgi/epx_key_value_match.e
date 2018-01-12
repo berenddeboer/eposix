@@ -8,8 +8,6 @@ note
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2006, Berend de Boer and others"
 	license: "MIT License"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 deferred class
@@ -24,8 +22,8 @@ feature {EPX_CGI_KEY_VALUE_CURSOR} -- Callback
 			-- `a_cursor'.`value_re' has matched and should return True
 			-- if match is valid
 		require
-			key_re_void_or_compiled: a_cursor.key_re /= Void implies a_cursor.key_re.has_matched
-			value_re_void_or_compiled: a_cursor.value_re /= Void implies a_cursor.value_re.has_matched
+			key_re_void_or_compiled: attached a_cursor.key_re as re implies re.has_matched
+			value_re_void_or_compiled: attached a_cursor.value_re as re implies re.has_matched
 		deferred
 		end
 

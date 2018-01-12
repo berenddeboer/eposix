@@ -165,42 +165,42 @@ feature -- Execution
 					end
 
 					-- Close a captured standard file and attach it to the pipe.
-					if capture_input then
-						fd_stdin.make_as_duplicate (input_pipe.fdin)
+					if capture_input and then attached fd_stdin as my_fd_stdin and then attached input_pipe as my_input_pipe then
+						my_fd_stdin.make_as_duplicate (input_pipe.fdin)
 							check
-								fd_stdin.value = STDIN_FILENO
+								my_fd_stdin.value = STDIN_FILENO
 							end
 					end
-					if capture_output then
-						fd_stdout.make_as_duplicate (output_pipe.fdout)
+					if capture_output and then attached fd_stdout as my_fd_stdout and then attached output_pipe as my_output_pipe then
+						my_fd_stdout.make_as_duplicate (my_output_pipe.fdout)
 							check
-								fd_stdout.value = STDOUT_FILENO
+								my_fd_stdout.value = STDOUT_FILENO
 							end
-					elseif close_output then
+					elseif close_output and then attached fd_stdout as my_fd_stdout then
 						create dev_null.open_write (once "/dev/null")
-						fd_stdout.make_as_duplicate (dev_null)
+						my_fd_stdout.make_as_duplicate (dev_null)
 						fd_stdout := Void
 					end
-					if capture_error then
-						fd_stderr.make_as_duplicate (error_pipe.fdout)
+					if capture_error and then attached fd_stderr as my_fd_stderr and then attached error_pipe as my_error_pipe then
+						my_fd_stderr.make_as_duplicate (my_error_pipe.fdout)
 						check
-							fd_stderr.value = STDERR_FILENO
+							my_fd_stderr.value = STDERR_FILENO
 						end
-					elseif close_error then
+					elseif close_error and then attached fd_stderr as my_fd_stderr then
 						create dev_null.open_write (once "/dev/null")
-						fd_stderr.make_as_duplicate (dev_null)
+						my_fd_stderr.make_as_duplicate (dev_null)
 						fd_stderr := Void
 					end
 
 					-- Close left over file descriptors.
-					if capture_input then
-						input_pipe.close
+					if capture_input and then attached input_pipe as my_input_pipe then
+						my_input_pipe.close
 					end
-					if capture_output then
-						output_pipe.close
+					if capture_output and then attached output_pipe as my_output_pipe then
+						my_output_pipe.close
 					end
-					if capture_error then
-						error_pipe.close
+					if capture_error and then attached error_pipe as my_error_pipe then
+						my_error_pipe.close
 					end
 
 					if attached working_directory as wd then
@@ -217,35 +217,41 @@ feature -- Execution
 					-- File descriptor will remain owner, to be portable at
 					-- the ABSTRACT_EXEC_PROCESS level were we expect that
 					-- the file descriptors are owners.
-					if capture_input then
-						if attached input_pipe.fdout as my_fd_stdin then
+					if capture_input and then attached input_pipe as my_input_pipe then
+						if attached my_input_pipe.fdout as my_fd_stdin then
 							fd_stdin := my_fd_stdin
 							my_fd_stdin.inherit_error_handling (Current)
 							create stdin.make_from_file_descriptor (my_fd_stdin, once "w")
-							input_pipe.fdin.close
+							my_input_pipe.fdin.close
 							my_fd_stdin.become_owner
 						end
-						stdin.unown
+						if attached stdin as my_stdin then
+							my_stdin.unown
+						end
 					end
-					if capture_output then
-						if attached output_pipe.fdin as my_fd_stdout then
+					if capture_output and then attached output_pipe as my_output_pipe then
+						if attached my_output_pipe.fdin as my_fd_stdout then
 							fd_stdout := my_fd_stdout
 							my_fd_stdout.inherit_error_handling (Current)
 							create stdout.make_from_file_descriptor (my_fd_stdout, once "r")
-							output_pipe.fdout.close
+							my_output_pipe.fdout.close
 							my_fd_stdout.become_owner
 						end
-						stdout.unown
+						if attached stdout as my_stdout then
+							my_stdout.unown
+						end
 					end
-					if capture_error then
-						if attached error_pipe.fdin as my_fd_stderr then
+					if capture_error and then attached error_pipe as my_error_pipe then
+						if attached my_error_pipe.fdin as my_fd_stderr then
 							fd_stderr := my_fd_stderr
 							my_fd_stderr.inherit_error_handling (Current)
 							create stderr.make_from_file_descriptor (my_fd_stderr, once "r")
-							error_pipe.fdout.close
+							my_error_pipe.fdout.close
 							my_fd_stderr.become_owner
 						end
-						stderr.unown
+						if attached stderr as my_stderr then
+							my_stderr.unown
+						end
 					end
 				end
 			end
@@ -270,12 +276,10 @@ feature -- Actions that parent may execute
 			-- Close stdin if it is not closed. This will signal an
 			-- end-of-input to the child process.
 			if suspend then
-				if stdin /= Void and then stdin.is_open then
-					stdin.detach
+				if attached stdin as my_stdin and then my_stdin.is_open then
+					my_stdin.detach
 				end
-				if fd_stdin /= Void and then fd_stdin.is_open then
-					fd_stdin.close
-				end
+				close_fd_stdin
 			end
 			precursor (suspend)
 			if is_terminated then
@@ -283,12 +287,10 @@ feature -- Actions that parent may execute
 				-- the streams can be closed too. And because the file
 				-- descriptor also is an owner, we should avoid closing an
 				-- already closed descriptor.
-				if stdin /= Void and then stdin.is_open then
-					stdin.detach
+				if attached stdin as my_stdin and then my_stdin.is_open then
+					my_stdin.detach
 				end
-				if fd_stdin /= Void and then fd_stdin.is_open then
-					fd_stdin.close
-				end
+				close_fd_stdin
 -- 				if stdout /= Void and then stdout.is_open then
 -- 					stdout.detach
 -- 				end
@@ -305,10 +307,10 @@ feature -- Actions that parent may execute
 		ensure then
 			terminated_implies_closed:
 				is_terminated implies
-					(not attached stdin or else not stdin.is_open) and then
+					(not attached stdin as my_stdin or else not my_stdin.is_open) and then
 -- 					(stdout = Void or else not stdout.is_open) and then
 -- 					(stderr = Void or else not stderr.is_open) and then
-					(not attached fd_stdin or else not fd_stdin.is_open)
+					(not attached fd_stdin as my_fd_stdin or else not my_fd_stdin.is_open)
 -- 					and then
 -- 					(fd_stdout = Void or else not fd_stdout.is_open) and then
 -- 					(fd_stderr = Void or else not fd_stderr.is_open)
@@ -346,14 +348,14 @@ feature {NONE}
 			if new_gid > 0 then
 				r := posix_setgid (new_gid)
 			end
-			if new_uid > 0 then
+			if new_uid > 0 and then attached user as my_user then
 				r := posix_setuid (new_uid)
 				create env.make ("USER")
-				env.set_value (user.name)
+				env.set_value (my_user.name)
 				create env.make ("LOGNAME")
-				env.set_value (user.name)
+				env.set_value (my_user.name)
 				create env.make ("HOME")
-				env.set_value (user.home_directory)
+				env.set_value (my_user.home_directory)
 				-- What about MAIL ?
 			end
 			r := posix_execvp (
@@ -383,13 +385,13 @@ feature {NONE}
 			child_stderr.puts (errno.message)
 			child_stderr.puts (once ".%N")
 			if capture_input then
-				fd_stdin.close
+				close_fd_stdin
 			end
-			if capture_output then
-				fd_stdout.close
+			if capture_output and then attached fd_stdout as my_fd_stdout then
+				my_fd_stdout.close
 			end
-			if capture_error then
-				fd_stderr.close
+			if capture_error and then attached fd_stderr as my_fd_stderr then
+				my_fd_stderr.close
 			end
 			-- a failed child should not flush parent files
 			minimal_exit (EXIT_FAILURE)
@@ -397,12 +399,21 @@ feature {NONE}
 			minimal_exit (EXIT_FAILURE)
 		end
 
+	close_fd_stdin
+		do
+			if attached fd_stdin as my_fd_stdin and then my_fd_stdin.is_open then
+				my_fd_stdin.close
+			end
+		ensure
+			closed: attached fd_stdin as my_fd_stdin implies not my_fd_stdin.is_open
+		end
+
 
 invariant
 
 	streams_are_not_owner:
-		(stdin /= Void implies not stdin.is_owner) and then
-		(stdout /= Void implies not stdout.is_owner) and then
-		(stderr /= Void implies not stderr.is_owner)
+		(attached stdin as a_stdin implies not a_stdin.is_owner) and then
+		(attached stdout as a_stdout implies not a_stdout.is_owner) and then
+		(attached stderr as a_stderr implies not a_stderr.is_owner)
 
 end

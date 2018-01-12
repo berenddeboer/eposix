@@ -140,7 +140,7 @@ feature -- Requests
 			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 		require
-			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
+			a_request_uri_not_empty: attached a_request_uri and then not a_request_uri.is_empty
 		do
 			send_request (http_method_HEAD, a_request_uri, Void)
 		end
@@ -153,7 +153,7 @@ feature -- Requests
 			-- the connection), 500 is returned.
 			-- Use `read_response' to fetch the response and actual response code.
 		do
-			if a_request_uri = Void or else a_request_uri.is_empty then
+			if not attached a_request_uri or else a_request_uri.is_empty then
 				send_request (http_method_OPTIONS, "*", Void)
 			else
 				send_request (http_method_OPTIONS, a_request_uri, Void)
@@ -169,14 +169,14 @@ feature -- Requests
 			-- Tip: use EPX_MIME_FORM.make_form_data to build the
 			-- most common form data messages.
 		require
-			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
-			put_data_not_void: a_put_data /= Void
-			put_data_has_content_type: a_put_data.header.content_type /= Void
+			a_request_uri_not_empty: attached a_request_uri and then not a_request_uri.is_empty
+			put_data_not_void: attached a_put_data
+			put_data_has_content_type: attached a_put_data.header.content_type
 			put_data_content_type_has_boundary_if_multipart:
-				a_put_data.header.content_type.value.is_equal (mime_type_multipart_form_data) implies
-					a_put_data.header.content_type.boundary /= Void and then
-					not a_put_data.header.content_type.boundary.is_empty
-			put_data_has_body: a_put_data.body /= Void
+				attached a_put_data.header.content_type as ct and then ct.value.is_equal (mime_type_multipart_form_data) implies
+					attached ct.boundary as a_boundary and then
+					not a_boundary.is_empty
+			put_data_has_body: attached a_put_data.body
 		do
 			send_request (http_method_PUT, a_request_uri, a_put_data)
 		end
@@ -194,14 +194,14 @@ feature -- Requests
 			-- Tip 2: `post_data_content_type_recognized' is usually true if
 			-- you sent data to an HTTP server.
 		require
-			a_request_uri_not_empty: a_request_uri /= Void and then not a_request_uri.is_empty
-			post_data_has_content_type: a_post_data /= Void implies a_post_data.header.content_type /= Void
+			a_request_uri_not_empty: attached a_request_uri and then not a_request_uri.is_empty
+			post_data_has_content_type: attached a_post_data as pd implies attached pd.header.content_type
 			post_data_content_type_has_boundary_if_multipart:
-				a_post_data /= Void implies
-					(a_post_data.header.content_type.value.is_equal (mime_type_multipart_form_data) implies
-						a_post_data.header.content_type.boundary /= Void and then
-						not a_post_data.header.content_type.boundary.is_empty)
-			post_data_has_body: a_post_data /= Void implies a_post_data.body /= Void
+				attached a_post_data as pd implies
+					(attached pd.header.content_type as ct and then ct.value.is_equal (mime_type_multipart_form_data) implies
+						attached ct.boundary as a_boundary and then
+						not a_boundary.is_empty)
+			post_data_has_body: attached a_post_data as pd implies attached pd.body
 		do
 			send_request (http_method_POST, a_request_uri, a_post_data)
 		end
@@ -222,7 +222,9 @@ feature -- Requests
 			create msg.make_empty
 			msg.create_singlepart_body
 			msg.header.set_content_type ("text", "xml", charset_utf8)
-			msg.text_body.append_string (utf8.to_utf8 (a_post_data))
+			if attached msg.text_body as b then
+				b.append_string (utf8.to_utf8 (a_post_data))
+			end
 			send_request (http_method_POST, a_request_uri, msg)
 		end
 
@@ -244,9 +246,9 @@ feature -- Requests
 			end
 			if not is_open then
 				open
-				if is_open and then tcp_socket /= Void then
-					tcp_socket.set_throughput
-					tcp_socket.set_nodelay
+				if is_open and then attached tcp_socket as a_tcp_socket then
+					a_tcp_socket.set_throughput
+					a_tcp_socket.set_nodelay
 				end
 			end
 			last_uri := escape_spaces (a_request_uri)
@@ -260,10 +262,12 @@ feature -- Requests
 				request.append_string (client_version)
 				request.append_string (once_new_line)
 				-- Add required field Host
-				request.append_string (field_name_host)
-				request.append_string (once_colon_space)
-				request.append_string (host.name)
-				request.append_string (once_new_line)
+				if attached host as a_host then
+					request.append_string (field_name_host)
+					request.append_string (once_colon_space)
+					request.append_string (a_host.name)
+					request.append_string (once_new_line)
+				end
 				append_other_fields (a_verb, a_request_uri, a_request_data, request)
 				if not reuse_connection then
 					request.append_string (once_connection_close)
@@ -273,7 +277,7 @@ feature -- Requests
 				else
 					-- If body isn't multi-part, assume it is already form
 					-- urlencoded
-					if a_request_data.header.content_type /= Void and then a_request_data.header.content_type.value.is_equal (mime_type_application_x_www_form_urlencoded) and then a_request_data.body.is_multipart then
+					if attached a_request_data.header.content_type as ct and then ct.value.is_equal (mime_type_application_x_www_form_urlencoded) and then a_request_data.body.is_multipart then
 						a_request_data.append_urlencoded_to_string (request)
 					else
 						a_request_data.append_to_string (request)
@@ -283,7 +287,9 @@ feature -- Requests
 					print (request)
 					print (once_new_line)
 				end
-				http.put_string (request)
+				if attached http as a_http then
+					a_http.put_string (request)
+				end
 				last_verb := a_verb
 				last_data := a_request_data
 			else
@@ -303,14 +309,14 @@ feature -- Authentication response
 			-- Set if response from server indicates that proper
 			-- authentication is required
 
-	authentication_realm: STRING
-			-- Realm of authentication if defined; but according to the
-			-- spec all schemes should have one.
-		require
-			authentication_required: is_authentication_required
-		do
-			Result := www_authenticate.realm
-		end
+	-- authentication_realm: STRING
+	-- 		-- Realm of authentication if defined; but according to the
+	-- 		-- spec all schemes should have one.
+	-- 	require
+	-- 		authentication_required: is_authentication_required
+	-- 	do
+	-- 		Result := www_authenticate.realm
+	-- 	end
 
 	authentication_scheme: STRING
 
@@ -441,8 +447,8 @@ feature -- Fields that are send with a request if set
 			accept := value
 		ensure
 			accept_set:
-				(value = Void implies accept = Void) or else
-				(accept.is_equal (value))
+				(not attached value implies not attached accept) or else
+				(attached value as v and then attached accept as a and then a ~ v)
 		end
 
 	set_user_agent (value: STRING)
@@ -453,8 +459,8 @@ feature -- Fields that are send with a request if set
 			user_agent := value
 		ensure
 			user_agent_set:
-				(value = Void implies user_agent = Void) or else
-				(user_agent.is_equal (value))
+				(not attached value implies not attached user_agent) or else
+				(attached value as v and then attached user_agent as ua and then ua ~ v)
 		end
 
 
@@ -480,10 +486,15 @@ feature -- Response
 
 	fields: DS_HASH_TABLE [EPX_MIME_FIELD, STRING]
 			-- Header fields of response
+		require
+			response_attached: attached response
 		do
-			Result := response.header.fields
+			if attached response as a_response then
+				Result := a_response.header.fields
+			end
+				check attached Result end
 		ensure
-			fields_not_void: fields /= Void
+			fields_not_void: attached Result
 		end
 
 	is_response_ok: BOOLEAN
@@ -503,13 +514,15 @@ feature -- Response
 			-- `response_code' is set to 500.
 		do
 			debug ("http_client_dump_response")
-				from
-					http.read_character
-				until
-					http.end_of_input
-				loop
-					print (http.last_character)
-					http.read_character
+				if attached http as a_http then
+					from
+						a_http.read_character
+					until
+						a_http.end_of_input
+					loop
+						print (a_http.last_character)
+						a_http.read_character
+					end
 				end
 			end
 			do_read_response (True)
@@ -673,7 +686,7 @@ feature {NONE} -- Implementation
 					not is_authentication_required or else
 					user_name = Void or else
 					password = Void or else
-					(attached www_authenticate.stale as stale and then STRING_.same_string (stale, once "false")) or else
+					(attached www_authenticate as a_www_authenticate and then attached a_www_authenticate.stale as stale and then STRING_.same_string (stale, once "false")) or else
 					retries >= max_authentication_retries
 				if not stop then
 					-- Authentication scheme should now be set, so simply retry once
@@ -688,57 +701,62 @@ feature {NONE} -- Implementation
 	do_do_read_response (including_body: BOOLEAN)
 		require
 			http_attached: attached http
+		local
+			my_parser: like parser
 		do
 			if attached http as stream then
-				create parser.make_from_stream (stream)
+				create my_parser.make_from_stream (stream)
+				parser := my_parser
 				-- First line contains status code and HTTP version.
 				read_and_parse_status_line
 				-- Parse while reading.
 				if including_body then
 					if reuse_connection then
-						parser.parse_header
-						parser.parse_body
+						my_parser.parse_header
+						my_parser.parse_body
 					else
-						parser.parse
+						my_parser.parse
 					end
 				else
-					parser.parse_header
+					my_parser.parse_header
 				end
-				if parser.syntax_error then
+				if my_parser.syntax_error then
 					response_code := 500
 					response_phrase := once "Syntax error parsing response."
 					response := Void
 					is_authentication_required := False
 				else
-					response := parser.part
-					debug ("http_client")
-						print (response_code.out)
-						print (" ")
-						print (response_phrase)
-						print ("%N")
-						print (response.as_string)
-						print ("%N")
-					end
-					if not including_body then
-						parser.read_first_body_part
-					end
-					if response.header.has (field_name_connection) and then STRING_.same_string (response.header.item (field_name_connection).value.as_lower, once "close") then
-						reuse_connection := False
-					end
-					is_authentication_required :=
-						response_code = reply_code_unauthorized and then
-						response.header.has (field_name_www_authenticate)
-					if is_authentication_required then
-						if attached {EPX_MIME_FIELD_WWW_AUTHENTICATE} response.header.item (field_name_www_authenticate) as my_www_authenticate then
-							www_authenticate := my_www_authenticate
-							authentication_scheme := www_authenticate.scheme
-							if www_authenticate.realm = Void then
+					if attached my_parser.part as a_response then
+						response := a_response
+						debug ("http_client")
+							print (response_code.out)
+							print (" ")
+							print (response_phrase)
+							print ("%N")
+							print (a_response.as_string)
+							print ("%N")
+						end
+						if not including_body then
+							my_parser.read_first_body_part
+						end
+						if a_response.header.has (field_name_connection) and then STRING_.same_string (a_response.header.item (field_name_connection).value.as_lower, once "close") then
+							reuse_connection := False
+						end
+						is_authentication_required :=
+							response_code = reply_code_unauthorized and then
+							a_response.header.has (field_name_www_authenticate)
+						if is_authentication_required then
+							if attached {EPX_MIME_FIELD_WWW_AUTHENTICATE} a_response.header.item (field_name_www_authenticate) as my_www_authenticate then
+								www_authenticate := my_www_authenticate
+								authentication_scheme := my_www_authenticate.scheme
+								if not attached my_www_authenticate.realm then
+									-- Bad response
+									is_authentication_required := False
+								end
+							else
 								-- Bad response
 								is_authentication_required := False
 							end
-						else
-							-- Bad response
-							is_authentication_required := False
 						end
 					end
 				end
@@ -756,14 +774,16 @@ feature {NONE} -- Implementation
 			status_line: STRING
 		do
 			create status_line.make (64)
-			from
-				parser.read_character
-			until
-				parser.last_character = '%N' or else
-				parser.end_of_input
-			loop
-				status_line.append_character (parser.last_character)
-				parser.read_character
+			if attached parser as a_parser then
+				from
+					a_parser.read_character
+				until
+					a_parser.last_character = '%N' or else
+					a_parser.end_of_input
+				loop
+					status_line.append_character (a_parser.last_character)
+					a_parser.read_character
+				end
 			end
 
 			-- Removing %R if part of CRLF
@@ -845,8 +865,8 @@ feature {NONE} -- Once strings
 invariant
 
 	have_www_authenticate_header_if_authentication_required:
-		is_authentication_required implies response.header.has (field_name_www_authenticate)
+		is_authentication_required implies attached response as r and then r.header.has (field_name_www_authenticate)
 	have_www_authenticate:
-		is_authentication_required implies www_authenticate /= Void
+		is_authentication_required implies attached www_authenticate
 
 end

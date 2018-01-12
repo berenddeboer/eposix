@@ -170,6 +170,7 @@ feature -- Change
 			found: BOOLEAN
 			current_suffix: STRING
 			my_suffix: STRING
+			my_directory: like directory
 		do
 			-- Find directory
 			from
@@ -183,14 +184,15 @@ feature -- Change
 			end
 			if  found then
 				slash_position := slash_position + 1
-				create directory.make_from_string (substring (1, slash_position - 1))
+				create my_directory.make_from_string (substring (1, slash_position - 1))
+				directory := my_directory
 				-- If more than 1 slash used in directory name, strip those
-				if not directory.is_empty then
+				if not my_directory.is_empty then
 					from
 					until
-						directory.item (directory.count) /= '/'
+						my_directory.item (my_directory.count) /= '/'
 					loop
-						directory.remove_tail (1)
+						my_directory.remove_tail (1)
 					end
 				end
 			else
@@ -207,7 +209,7 @@ feature -- Change
 					found or i > sl.upper
 				loop
 					my_suffix := sl.item (i)
-					suffix_position := count - suffix.count + 1
+					suffix_position := count - my_suffix.count + 1
 					if suffix_position >= 1 then
 						current_suffix := substring (suffix_position, count)
 						found := STRING_.same_case_insensitive (current_suffix, my_suffix)
@@ -222,9 +224,7 @@ feature -- Change
 			else
 				found := FALSE
 			end
-			if found then
-				suffix := suffix.twin
-			else
+			if not found then
 				suffix_position := count + 1
 				suffix := ""
 			end
@@ -234,10 +234,11 @@ feature -- Change
 		ensure
 			directory_set: attached directory
 			directory_does_not_end_in_slash:
-				not directory.is_empty implies
-					directory.item (directory.count) /= directory_separator
-			suffix_set: suffix /= Void
-			only_suffix_when_needed: suffix_list = Void implies suffix.is_empty
+				attached directory as d and then
+				not d.is_empty implies
+					d.item (d.count) /= directory_separator
+			suffix_set: attached suffix
+			only_suffix_when_needed: not attached suffix_list implies attached suffix as a_suffix and then a_suffix.is_empty
 		end
 
 	remove_trailing_slash
@@ -258,7 +259,7 @@ feature -- Change
 	set_basename (new_basename: STRING)
 			-- Set `basename' from path.
 		require
-			new_basename_not_empty: new_basename /= Void and then not new_basename.is_empty
+			new_basename_not_empty: attached new_basename as b and then not b.is_empty
 		do
 			basename := new_basename
 			rebuild_path
@@ -269,7 +270,7 @@ feature -- Change
 	set_directory (new_directory: detachable STRING)
 			-- Build new path from `new_directory', `basename' and `suffix'
 		require
-			basename_not_empty: basename /= Void and then not basename.is_empty
+			basename_not_empty: attached basename as b and then not b.is_empty
 		do
 			if new_directory = Void then
 				create directory.make_empty
@@ -285,7 +286,7 @@ feature -- Change
 			-- Build new path from current `directory', `basename' and
 			-- `new_suffix'
 		require
-			basename_not_empty: basename /= Void and then not basename.is_empty
+			basename_not_empty: attached basename as b and then not b.is_empty
 		do
 			suffix := new_suffix
 			rebuild_path
@@ -444,18 +445,18 @@ feature {NONE} -- Implementation
 			-- Rebuild path from components `directory', `basename' and
 			-- `suffix'.
 		require
-			basename_not_empty: basename /= Void and then not basename.is_empty
+			basename_not_empty: attached basename as bn and then not bn.is_empty
 		do
 			wipe_out
-			if directory /= Void and then not directory.is_empty then
-				append_string (directory)
-				if directory.item (directory.count) /= directory_separator then
+			if attached directory as d and then not d.is_empty then
+				append_string (d)
+				if d.item (d.count) /= directory_separator then
 					append_character (directory_separator)
 				end
 			end
 			append_string (basename)
-			if suffix /= Void then
-				append_string (suffix)
+			if attached suffix as s then
+				append_string (s)
 			end
 		ensure
 			not_empty: not is_empty

@@ -3,8 +3,7 @@ note
 	description: "Access to the sendmail (or compatible) program and use it to send email."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
+
 
 class
 
@@ -42,14 +41,17 @@ feature {NONE} -- Initialization
 			-- we don't use the PATH.
 			-- Raises an exception if sendmail is not found.
 		local
-			sendmail: STRING
+			sendmail: detachable STRING
 		do
+			create message.make
 			sendmail := fs.find_program_in_path ("sendmail", <<"/usr/sbin", "/usr/bin", "/usr/local/sbin", "/usr/local/bin", "/usr/lib", "/usr/local/lib">>)
-			if sendmail = Void then
+			if attached sendmail as sm then
+				make_capture_input (sm, sendmail_options)
+			else
+				-- Dummy call to silence void-safe compiler
+				make_capture_input ("/usr/sbin/sendmail", sendmail_options)
 				exceptions.raise ("sendmail not found")
 			end
-			make_capture_input (sendmail, sendmail_options)
-			create message.make
 		end
 
 

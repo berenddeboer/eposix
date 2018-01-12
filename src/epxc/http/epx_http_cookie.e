@@ -97,8 +97,8 @@ feature -- Change state
 
 invariant
 
-	domain_is_void_or_not_empty: domain = Void or else not domain.is_empty
-	expires_is_gmt_time_only: expires = Void or else expires.is_utc_time
-	path_is_void_or_not_empty: path = Void or else not path.is_empty
+	domain_is_void_or_not_empty: not attached domain as a_domain or else not a_domain.is_empty
+	expires_is_gmt_time_only: not attached expires as a_expires or else a_expires.is_utc_time
+	path_is_void_or_not_empty: not attached path as a_path or else not a_path.is_empty
 
 end

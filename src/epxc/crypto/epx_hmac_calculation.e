@@ -52,7 +52,12 @@ feature {NONE} -- Initialization
 			else
 				calculation.put_string (a_key)
 				calculation.finalize
-				padded_key := calculation.binary_checksum.substring (0, calculation.binary_checksum.capacity-1)
+				if attached calculation.binary_checksum as a_binary_checksum then
+					padded_key := a_binary_checksum.substring (0, a_binary_checksum.capacity-1)
+				else
+					-- Silence void-safe compiler
+					padded_key := ""
+				end
 				calculation.secure_wipe_out
 			end
 			from
@@ -128,14 +133,16 @@ feature -- Operations
 			first_hash: STDC_BUFFER
 		do
 			calculation.finalize
-			first_hash := calculation.binary_checksum.twin
-			calculation.wipe_out
-			calculation.put_string (key_xor_opad)
-			calculation.put_buffer (first_hash, 0, first_hash.capacity-1)
-			calculation.finalize
-			binary_checksum := calculation.binary_checksum
-			is_checksum_available := True
-			first_hash.deallocate
+			if attached calculation.binary_checksum as a_binary_checksum then
+				first_hash := a_binary_checksum.twin
+				calculation.wipe_out
+				calculation.put_string (key_xor_opad)
+				calculation.put_buffer (first_hash, 0, first_hash.capacity-1)
+				calculation.finalize
+				binary_checksum := calculation.binary_checksum
+				is_checksum_available := True
+				first_hash.deallocate
+			end
 		end
 
 	wipe_out

@@ -36,6 +36,7 @@ feature -- Initialization
 				raise_posix_error
 				create aliases.make_empty
 				name := a_name
+				create protocol.make_empty
 			else
 				set_members_from_struct (p, 0, a_protocol)
 			end
@@ -60,6 +61,7 @@ feature -- Initialization
 				protocol := a_protocol
 				guess_protocol_type
 				create aliases.make_empty
+				create protocol.make_empty
 			else
 				set_members_from_struct (p, 0, a_protocol)
 			end
@@ -103,7 +105,7 @@ feature -- Access
 	aliases: ARRAY [STRING]
 			-- alias list
 
-	protocol: detachable STRING
+	protocol: STRING
 			-- protocol to use (udp/tcp)
 
 	protocol_type: INTEGER
@@ -162,7 +164,11 @@ feature {NONE} -- Implementation
 				-- not found, guess?
 				port := a_port
 				name := "unknown"
-				protocol := a_protocol
+				if attached a_protocol then
+					protocol := a_protocol
+				else
+					create protocol.make_empty
+				end
 				create aliases.make_empty
 			else
 				port := abstract_api.posix_ntohs (abstract_api.posix_servent_s_port (p))
@@ -202,11 +208,11 @@ invariant
 	name_void_or_not_empty: name = Void or else not name.is_empty
 	valid_port: port >= 0 and port <= 65535
 	valid_protocol:
-		(protocol = Void or else protocol.is_empty) or else
-		(protocol.is_equal (once_tcp) or protocol.is_equal (once_udp))
+		protocol.is_empty or else
+		protocol ~ once_tcp or else protocol ~ once_udp
 	valid_protocol_type:
 		protocol_type = SOCK_STREAM or else
 		protocol_type = SOCK_DGRAM
-	valid_aliases: aliases /= Void
+	valid_aliases: attached aliases
 
 end

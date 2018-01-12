@@ -67,7 +67,7 @@ feature -- Status
 
 feature -- Change
 
-	set_timeout (a_timeout: EPX_TIME_VALUE)
+	set_timeout (a_timeout: like timeout)
 			-- Set `timeout'. Pass Void to wait infinitely.
 		do
 			timeout := a_timeout
@@ -146,8 +146,8 @@ feature -- Check for readiness
 			highest_fd: INTEGER
 			new_highest_fd: INTEGER
 		do
-			if timeout /= Void then
-				timeout_ptr := timeout.handle
+			if attached timeout as t then
+				timeout_ptr := t.handle
 			end
 			highest_fd := -1
 

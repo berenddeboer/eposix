@@ -4,7 +4,7 @@ note
 
 		"Short description of the class"
 
-	library: "Gobo Eiffel ???? Library"
+	library: "eposix library"
 	author: "Berend de Boer <berend@pobox.com>"
 	copyright: "Copyright (c) 2005, Berend de Boer and others"
 	license: "MIT License"
@@ -34,7 +34,7 @@ feature {NONE} -- Initialisation
 			remote_ip_address_not_void: an_ip4_address /= Void
 			remote_port_valid: a_port >= 1 and then a_port <= 65535
 		do
-			nick_name := a_nick_name
+			do_make (a_nick_name)
 			remote_ip_address := an_ip4_address
 			remote_port := a_port
 		end
@@ -78,9 +78,11 @@ feature -- Open
 			non_blocking_socket: is_open implies not socket.is_blocking_io
 		rescue
 			if exceptions.is_developer_exception then
-				socket := Void
+				if socket.is_open then
+					socket.close
+				end
 				retried := True
-				if client /= Void and then client.is_open then
+				if attached client and then client.is_open then
 					client.close
 				end
 				retry

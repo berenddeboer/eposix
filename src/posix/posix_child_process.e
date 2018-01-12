@@ -46,9 +46,6 @@ feature -- Actions that parent may execute
 			wait_pid: INTEGER
 			options: INTEGER
 		do
-			if stat_loc = Void then
-				create stat_loc.allocate_and_clear (4)
-			end
 			options := 0
 			if not suspend then
 				options := flip_bits (options, WNOHANG, True)
@@ -147,8 +144,13 @@ feature {NONE} -- Implementation
 
 	my_pid: INTEGER
 
-	stat_loc: detachable STDC_BUFFER
+	stat_loc: STDC_BUFFER
 			-- Termination info returned by `wait_for'
+		once
+			create Result.allocate_and_clear (4)
+		ensure
+			size_correct: Result.capacity >= 4
+		end
 
 	termination_info: INTEGER
 			-- also known as statloc

@@ -45,8 +45,8 @@ feature -- state change commands
 			-- Refresh the cached status information
 		do
 			precursor
-			if attached my_permissions then
-				my_permissions.update_from_status
+			if attached my_permissions as p then
+				p.update_from_status
 			end
 		end
 
@@ -65,4 +65,4 @@ feature {NONE} -- abstract API
 		end
 
 
-end -- class POSIX_STATUS_FILDES
+end

@@ -94,7 +94,7 @@ feature -- Access
 			optional_status: ABSTRACT_STATUS_PATH
 			found_new: BOOLEAN
 		do
-			if filter = Void then
+			if not attached filter as a_filter then
 				forth_recursive
 				found := not exhausted
 			else
@@ -104,7 +104,7 @@ feature -- Access
 				loop
 					forth_recursive
 					if not exhausted then
-						if filter.validate_directory then
+						if a_filter.validate_directory then
 							found := is_item_valid
 							found_new := found
 						else
@@ -123,7 +123,7 @@ feature -- Access
 			valid_entry_found: not exhausted = found
 			found_directory_entry_only_when_specified:
 				found implies
-					((filter /= Void and then not filter.validate_directory) implies
+					((attached filter as a_filter and then not a_filter.validate_directory) implies
 						not status.is_directory)
 		end
 
@@ -288,6 +288,7 @@ feature {NONE} -- directory browsing primitives
 			fn: STDC_PATH
 			subdirectory: EPX_DIRECTORY_HANDLE
 			new_entry_found: BOOLEAN
+			local_status: like my_status
 		do
 			from
 			until
@@ -302,10 +303,13 @@ feature {NONE} -- directory browsing primitives
 					-- Last entry might be a directory.
 					-- If so, we descend into that directory.
 					fn := full_name
-					if my_status = Void then
-						my_status := fs.status_may_fail (fn)
+					if not attached my_status as my_my_status then
+						local_status := fs.status_may_fail (fn)
+						my_status := local_status
+					else
+						local_status := my_my_status
 					end
-					if my_status.found and then my_status.is_directory then
+					if local_status.found and then local_status.is_directory then
 						create subdirectory.make (fn)
 						directory_entries.put_last (subdirectory)
 					end
@@ -338,13 +342,15 @@ feature {NONE} -- directory browsing primitives
 		local
 			optional_status: ABSTRACT_STATUS_PATH
 		do
-			if filter.require_status then
-				optional_status := status
-				if optional_status.found then
-					Result := filter.is_valid (optional_status, full_name)
+			if attached filter as a_filter then
+				if a_filter.require_status then
+					optional_status := status
+					if optional_status.found then
+						Result := a_filter.is_valid (optional_status, full_name)
+					end
+				else
+					Result := a_filter.is_valid (Void, full_name)
 				end
-			else
-				Result := filter.is_valid (Void, full_name)
 			end
 		end
 
@@ -374,7 +380,7 @@ feature {NONE} -- Implementation
 
 invariant
 
-	directory_name_not_empty: directory_name /= Void and then not directory_name.is_empty
-	my_status_tracks_item: my_status /= Void implies my_status.path.is_equal (full_name)
+	directory_name_not_empty: attached directory_name and then not directory_name.is_empty
+	my_status_tracks_item: attached my_status as my_my_status implies my_my_status.path.is_equal (full_name)
 
 end

@@ -110,25 +110,19 @@ feature -- Output
 			has_no_parts_with_multipart_bodies: body = Void or else not body.has_parts_with_multipart_bodies
 			every_part_has_a_form_content_disposition_field: body = Void or else body.has_every_part_a_form_content_disposition_field
 		local
-			body_text: STRING
-			cl: EPX_MIME_FIELD_CONTENT_LENGTH
+			body_text: detachable STRING
 		do
-			if multipart_body /= Void then
+			if attached multipart_body as mb then
 				create body_text.make_empty
-				multipart_body.append_urlencoded_to_string (body_text)
+				mb.append_urlencoded_to_string (body_text)
 				if auto_insert_content_length then
-					if not header.has (field_name_content_length) then
-						create cl.make (body_text.count)
-						header.add_field (cl)
-					else
-						header.content_length.set_length (body_text.count)
-					end
+					header.set_content_length (body_text.count)
 				end
 			end
 			header.append_fields_to_string (s)
 			s.append_string (once_crlf)
-			if body_text /= Void then
-				s.append_string (body_text)
+			if attached body_text as bt then
+				s.append_string (bt)
 			end
 		end
 
@@ -171,10 +165,10 @@ feature -- Status
 			-- If the body is multi-part, the boundary must be set.
 		do
 			Result :=
-				(body /= Void and then body.is_multipart) implies
-					(header.content_type /= Void implies
-						(header.content_type.boundary /= Void and then
-						 not header.content_type.boundary.is_empty))
+				(attached body and then body.is_multipart) implies
+					(attached header.content_type as ct implies
+						(attached ct.boundary as boundary and then
+						 not boundary.is_empty))
 		end
 
 
@@ -242,9 +236,11 @@ feature -- Body creation/removal
 			create cte.make_base64
 			header.add_field (cte)
 			create_singlepart_body
-			encoder := cte.new_encoder (text_body.output_stream)
-			if encoder /= Void then
-				text_body.set_encoder (encoder)
+			if attached text_body as tb then
+				encoder := cte.new_encoder (tb.output_stream)
+				if attached encoder as e then
+					tb.set_encoder (e)
+				end
 			end
 		end
 

@@ -91,7 +91,7 @@ feature {NONE} -- Initialisation
 				parameter := a_line.substring (param_start, a_line.count)
 				parameters.put_last (parameter)
 			else
-				parameters := Void
+				create { DS_LINKED_LIST [STRING] } parameters.make
 			end
 		end
 
@@ -129,7 +129,7 @@ feature -- Access
 	nick_name: STRING
 			-- Nick name if `msg_prefix' contains a host name
 
-	parameters: detachable DS_LIST [STRING]
+	parameters: DS_LIST [STRING]
 
 	reply_code: INTEGER
 			-- Return reply code if `command' is a numeric reply code.
@@ -177,6 +177,5 @@ invariant
 	host_name_void_or_not_empty: host_name = Void or else not host_name.is_empty
 	nick_name_void_or_not_empty: nick_name = Void or else not nick_name.is_empty
 
-	parameters_void_or_not_empty: parameters = Void or else not parameters.is_empty
 
 end

@@ -56,7 +56,7 @@ feature -- Initialization
 			add_parameter (p)
 		ensure
 			has_parameter_boundary: parameters.has (parameter_name_boundary)
-			have_boundary: boundary /= Void and then not boundary.is_empty
+			have_boundary: attached boundary as b and then not b.is_empty
 		end
 
 

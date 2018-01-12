@@ -20,7 +20,6 @@ inherit
 	EPX_SELECT
 		rename
 			make as make_select,
-			set_timeout as set_timeout_select,
 			ready_descriptors as number_of_fired_callbacks
 		export
 			{NONE}
@@ -31,8 +30,9 @@ inherit
 				exception_conditions,
 				ready_for_reading,
 				ready_for_writing,
-				set_timeout_select,
 				is_valid_descriptor_set
+		redefine
+			timeout
 		end
 
 
@@ -57,6 +57,13 @@ feature -- Initialize
 
 feature -- Options
 
+	timeout: EPX_TIME_VALUE
+			-- Time to wait in `execute' for any of the descriptors to be
+			-- ready; if Void, wait indefinitely; if 0, poll only.
+
+
+feature -- Options
+
 	idle_callback: BOOLEAN
 			-- should read and write sockets get a idle_callback when
 			-- no bytes can be read or written respectivily
@@ -67,16 +74,6 @@ feature -- Options
 			idle_callback := new_value
 		ensure
 			idle_callback_set: idle_callback = new_value
-		end
-
-	set_timeout (a_timeout: EPX_TIME_VALUE)
-			-- set the timeout
-		require
-			a_timeout_not_void: a_timeout /= Void
-		do
-			timeout := a_timeout
-		ensure
-			timeout_set: timeout = a_timeout
 		end
 
 

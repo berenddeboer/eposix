@@ -270,7 +270,9 @@ content_disposition_field
 	optional_parameters
 		{
 			$$ := my_content_disposition
-			my_content_disposition.cleanup_filename_parameter
+			if attached my_content_disposition as cd then
+				cd.cleanup_filename_parameter
+			end
 			current_parameter_field := Void
 		}
 	;
@@ -830,7 +832,9 @@ parameter
 		{
 			$1.to_lower
 			create $$.make ($1, $3)
-			current_parameter_field.parameters.put ($$, $1)
+			if attached current_parameter_field as f then
+				f.parameters.put ($$, $1)
+			end
 		}
 	;
 
@@ -1079,39 +1083,42 @@ feature -- Parsing
 			-- given by `a_content_length', given that the input buffer
 			-- is an EPX_MIME_BUFFER.
 		require
-			header_parsed: part /= Void
-			part_not_void: part /= Void
+			part_not_void: attached part
+			header_parsed: attached part as p and then attached p.header
 		local
 			is_multipart_body: BOOLEAN
 			save_part: EPX_MIME_PART
 			save_boundary: STRING
 			parse_headers_after_chunk: BOOLEAN
+			a_boundary: like boundary
 		do
 			-- Maximum size to parse is either determined by the
 			-- Transfer-Coding or Content-Length. Both are specific to
 			-- RFC 2616 MIME messages.
-			if attached part.header.transfer_encoding then
-				-- We only support chunked encoding.
-				if part.header.transfer_encoding.is_chunked_coding then
-					if attached {EPX_MIME_BUFFER} input_buffer as buf then
-						buf.set_index (yy_end)
-						buf.set_transfer_encoding_chunked
-						yy_end := buf.count + 1
-						parse_headers_after_chunk := True
+			if attached part.header as a_header then
+				if  attached a_header.transfer_encoding as transfer_encoding then
+					-- We only support chunked encoding.
+					if transfer_encoding.is_chunked_coding then
+						if attached {EPX_MIME_BUFFER} input_buffer as buf then
+							buf.set_index (yy_end)
+							buf.set_transfer_encoding_chunked
+							yy_end := buf.count + 1
+							parse_headers_after_chunk := True
+						end
 					end
-				end
-			elseif
-				attached part.header.content_length as content_length and then
-				content_length.length > 0
-			then
-				if level = 1 then
-					if attached {EPX_MIME_BUFFER} input_buffer as buf then
-						buf.set_index (yy_end)
-						buf.set_end_of_file_on_content_length (part.header.content_length.length)
-					end
-				else
-					debug ("mime")
-						stderr.put_string ("Content-Length field appears inside multipart body, ignored.%N")
+				elseif
+					attached a_header.content_length as content_length and then
+					content_length.length > 0
+				then
+					if level = 1 then
+						if attached {EPX_MIME_BUFFER} input_buffer as buf then
+							buf.set_index (yy_end)
+							buf.set_end_of_file_on_content_length (content_length.length)
+						end
+					else
+						debug ("mime")
+							stderr.put_string ("Content-Length field appears inside multipart body, ignored.%N")
+						end
 					end
 				end
 			end
@@ -1126,8 +1133,9 @@ feature -- Parsing
 				is_multipart_body := content_type.parameters.found
 				if is_multipart_body then
 					save_boundary := boundary
-					boundary := "--" + content_type.parameters.found_item.value
-					is_multipart_body := boundary.count <= Max_rfc_2046_boundary_length + 2
+					a_boundary := "--" + content_type.parameters.found_item.value
+					boundary := a_boundary
+					is_multipart_body := a_boundary.count <= Max_rfc_2046_boundary_length + 2
 				end
 			end
 
@@ -1345,40 +1353,42 @@ feature {NONE} -- Reading MIME bodies
 			-- Move input cursor to line that contains `boundary'.
 			-- Assume we start reading at beginning of a line.
 		require
-			boundary_not_empty: boundary /= Void and then not boundary.is_empty
+			boundary_not_empty: attached boundary as a_boundary and then not a_boundary.is_empty
 		local
 			boundary_read: BOOLEAN
 			matching_boundary: BOOLEAN
 			matched_index: INTEGER
 			match: BOOLEAN
 		do
-			from
-				matching_boundary := True
-				matched_index := 1
-				read_character
-			until
-				end_of_input or else
-				boundary_read
-			loop
-				if last_character = '%N' then
-					-- Start matching beginning of boundary
+			if attached boundary as a_boundary then
+				from
 					matching_boundary := True
 					matched_index := 1
-				else
-					if matching_boundary then
-						match := boundary.item (matched_index) = last_character
-						if match then
-							-- Match found, advance to next character.
-							matched_index := matched_index + 1
-							boundary_read := matched_index > boundary.count
-						else
-							-- Mismatch. As boundary has to match only at
-							-- beginning of line, we just have a data line.
-							matching_boundary := False
+					read_character
+				until
+					end_of_input or else
+					boundary_read
+				loop
+					if last_character = '%N' then
+						-- Start matching beginning of boundary
+						matching_boundary := True
+						matched_index := 1
+					else
+						if matching_boundary then
+							match := a_boundary.item (matched_index) = last_character
+							if match then
+								-- Match found, advance to next character.
+								matched_index := matched_index + 1
+								boundary_read := matched_index > a_boundary.count
+							else
+								-- Mismatch. As boundary has to match only at
+								-- beginning of line, we just have a data line.
+								matching_boundary := False
+							end
 						end
 					end
+					read_character
 				end
-				read_character
 			end
 
 			if boundary_read then
@@ -1446,8 +1456,8 @@ feature {NONE} -- Reading MIME bodies
 			-- parsed, and the cr+lf before the boundary is not part of
 			-- the file.
 		require
-			boundary_is_set: boundary /= Void
-			has_buffer: last_line /= Void
+			boundary_is_set: attached boundary
+			has_buffer: attached last_line
 			body_contains_text: is_text_body
 		local
 			boundary_read: BOOLEAN
@@ -1457,7 +1467,7 @@ feature {NONE} -- Reading MIME bodies
 			matching_boundary: BOOLEAN
 			add_cr: BOOLEAN
 		do
-			if attached {EPX_MIME_BODY_TEXT} part.body as body then
+			if attached {EPX_MIME_BODY_TEXT} part.body as body and then attached boundary as a_boundary then
 				-- This loop reads data character by character.
 				-- We have to stop when a boundary occurs after a CRLF.
 				from
@@ -1467,7 +1477,7 @@ feature {NONE} -- Reading MIME bodies
 					read_character
 				invariant
 					matched_index >= 1
-					not boundary_read implies matched_index <= boundary.count
+					not boundary_read implies matched_index <= a_boundary.count
 					matching_boundary implies matched_index <= last_line.count + 1
 				until
 					end_of_input or else
@@ -1506,12 +1516,12 @@ feature {NONE} -- Reading MIME bodies
 						matching_boundary := True
 					else
 						if matching_boundary then
-							match := boundary.item (matched_index) = c
+							match := a_boundary.item (matched_index) = c
 							if match then
 								-- Match found, advance to next character.
 								last_line.append_character (c)
 								matched_index := matched_index + 1
-								boundary_read := matched_index > boundary.count
+								boundary_read := matched_index > a_boundary.count
 							else
 								-- Mismatch. As boundary has to match only at
 								-- beginning of line, we just have a data line.
@@ -1561,15 +1571,15 @@ feature {NONE} -- Reading MIME bodies
 			c: CHARACTER
 		do
 			last_string.wipe_out
-			if yy_content_area /= Void then
+			if attached yy_content_area as content_area then
 				from
-					c := yy_content_area.item (yy_end)
+					c := content_area.item (yy_end)
 				until
 					yy_end > input_buffer.count
 				loop
 					last_string.append_character (c)
 					yy_end := yy_end + 1
-					c := yy_content_area.item (yy_end)
+					c := content_area.item (yy_end)
 				end
 			else
 				from
