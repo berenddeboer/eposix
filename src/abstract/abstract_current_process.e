@@ -140,7 +140,7 @@ feature -- Sleeping
 
 	sleep (seconds: INTEGER)
 			-- Delays process execution up to `seconds'. Can return early
-			-- if interrupted. Check `unslect_seconds'
+			-- if interrupted. Check `unslept_seconds'
 		require
 			max_portable_value: seconds >= 0 and seconds <= 65535
 		local
