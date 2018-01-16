@@ -3,8 +3,6 @@ note
 	description: "Class that covers Posix stat structure."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #4 $"
 
 
 deferred class
