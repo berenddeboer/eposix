@@ -209,11 +209,12 @@ feature -- Access
 			-- The status for this file descriptor. Cached value,
 			-- refreshed only when file reopened.
 		do
-			if not attached my_status then
-				make_status
+			if attached my_status as ms then
+				Result := ms
+			else
+				Result := new_status
+				my_status := Result
 			end
-			Result := my_status
-			check attached Result end
 		end
 
 	terminal: POSIX_TERMIOS

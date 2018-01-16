@@ -50,9 +50,9 @@ create
 
 feature {NONE} -- Implementation
 
-	make_status
+	new_status: like status
 		do
-			create {POSIX_STATUS_FILDES} my_status.make (Current)
+			create {POSIX_STATUS_FILDES} Result.make (Current)
 		end
 
 

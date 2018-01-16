@@ -279,11 +279,12 @@ feature -- Access
 		require
 			open: is_open
 		do
-			if my_status = Void then
-				make_status
+			if attached my_status as ms then
+				Result := ms
+			else
+				Result := new_status
+				my_status := Result
 			end
-			Result := my_status
-			check attached Result end
 		ensure
 			status_not_void: Result /= Void
 		end
@@ -294,13 +295,11 @@ feature {NONE} -- Implementation
 	my_status: detachable EPX_STATUS
 			-- Cached status object.
 
-	make_status
-			-- Give `my_status' a proper value.
+	new_status: like status
+			-- Create a new status object
 		require
 			open: is_open
 		deferred
-		ensure
-			status_is_set: my_status /= Void
 		end
 
 

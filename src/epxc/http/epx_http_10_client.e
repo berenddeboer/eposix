@@ -491,8 +491,9 @@ feature -- Response
 		do
 			if attached response as a_response then
 				Result := a_response.header.fields
+			else
+				create Result.make (0)
 			end
-				check attached Result end
 		ensure
 			fields_not_void: attached Result
 		end
