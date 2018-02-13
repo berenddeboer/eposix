@@ -214,7 +214,7 @@ feature -- General string utilities
 					Result.force ("", count)
 					count := count + 1
 				end
-				Result.conservative_resize_with_default ("", 0, count-1)
+				Result.keep_head (count)
 			else
 				create Result.make_empty
 			end
