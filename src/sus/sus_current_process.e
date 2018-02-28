@@ -50,8 +50,8 @@ feature -- Sleeping
 			end
 		ensure
 			unslept_less_than_nanoseconds:
-				unslept_nanoseconds /= Void implies
-					unslept_nanoseconds <= a_nanoseconds
+				attached unslept_nanoseconds as ns implies
+					ns <= a_nanoseconds
 		end
 
 	unslept_nanoseconds: detachable SUS_TIME
