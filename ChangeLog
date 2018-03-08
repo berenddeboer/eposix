@@ -1,3 +1,10 @@
+2018-03-08  Berend de Boer  <berend@pobox.com>
+
+	* !ABSTRACT_FILE_SYSTEM: `is_existing' and `is_regular_file' now
+	use the effective uid, just to annoying when running
+	setuid. Change only affects setuid programs who relied on this behaviour.
+
+
 2017-07-31  Berend de Boer  <berend@pobox.com>
 
 	* !EPX_OPENSSL: connected using ssl3, now will only use tls.

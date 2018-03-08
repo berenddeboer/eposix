@@ -252,6 +252,11 @@ feature -- Accessibility of files
 
 	is_accessible, access (a_path: READABLE_STRING_8; a_mode: INTEGER): BOOLEAN
 			-- Is `a_path' accessibility using `a_mode'?
+			-- Note that this check is done using the *real* user not the
+			-- effective (current) one. This only matters if your program is setuid.
+			-- If your binary is setuid, it does not check if you have
+			-- the permission currently, only if the user you were before
+			-- would have this permission.
 		do
 			set_portable_path (a_path)
 			last_access_result := abstract_access (sh.string_to_pointer (portable_path), a_mode)
@@ -261,19 +266,21 @@ feature -- Accessibility of files
 
 	is_directory (a_path: READABLE_STRING_8): BOOLEAN
 			-- Does `a_path' exists and is it a directory?
+		local
+			stat: like status_may_fail
 		do
+			stat := status_may_fail (a_path)
 			Result :=
-				is_existing (a_path) and then
-				status (a_path).is_directory
+				stat.found and then
+				stat.is_directory
 		end
 
 	is_existing (a_path: READABLE_STRING_8): BOOLEAN
 			-- Is `a_path' an existing file, directory, whatever?
-			-- Tests if file does exist, not if it is readable or writable by
-			-- this program!
-			-- Uses real user ID and real group ID instead of effective ones.
+			-- Tests if file exists not if it is readable or writable by
+			-- this program.
 		do
-			Result := is_accessible (a_path, abstract_F_OK)
+			Result := status_may_fail (a_path).found
 		end
 
 	is_empty (a_path: READABLE_STRING_8): BOOLEAN
@@ -286,21 +293,25 @@ feature -- Accessibility of files
 
 	is_executable (a_path: READABLE_STRING_8): BOOLEAN
 			-- tests if file is executable by this program
+			-- Uses real uid, not the effective one!
 		do
 			Result := is_accessible (a_path, abstract_X_OK)
 		end
 
 	is_regular_file (a_path: READABLE_STRING_8): BOOLEAN
 			-- Does `a_path' exists and is it a regular file?
+		local
+			stat: like status_may_fail
 		do
+			stat := status_may_fail (a_path)
 			Result :=
-				is_existing (a_path) and then
-				status (a_path).is_regular_file
+				stat.found and then
+				stat.is_regular_file
 		end
 
 	is_modifiable (a_path: READABLE_STRING_8): BOOLEAN
-			-- tests if file is readable and writable by this program
-			-- uses real user ID and real group ID instead of effective ones
+			-- Is file readable and writable by this program?
+			-- Uses real uid, not the effective one!
 		do
 			Result := is_accessible (a_path, abstract_R_OK + abstract_W_OK)
 		end
