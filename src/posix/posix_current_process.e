@@ -250,7 +250,7 @@ feature {POSIX_FORK_ROOT}  -- Forking
 				raise_posix_error
 			else
 				in_child := last_child_pid = 0
-				if in_child  then
+				if in_child then
 					root.start
 				else
 					if root /= Current then
