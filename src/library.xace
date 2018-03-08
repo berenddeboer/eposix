@@ -70,7 +70,8 @@
       <option name="abstract" value="true"/>
       <cluster name="${GOBO_EIFFEL}" prefix="spec_"/>
     </cluster>
-
+    <cluster name="systemd" if="${GOBO_OS}=unix">
+    </cluster>
     <option unless="${GOBO_OS}=windows">
       <option name="link" value="${EPOSIX}/lib/libeposixmt_${GOBO_EIFFEL}.a" if="${GOBO_MT}"/>
       <option name="link" value="${EPOSIX}/lib/libeposix_${GOBO_EIFFEL}.a" unless="${GOBO_MT}"/>
