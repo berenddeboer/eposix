@@ -265,6 +265,7 @@ feature {NONE} -- Raw read
 					ptr := buf + (offset + last_read)
 					nread := abstract_read (fd, ptr, nleft)
 					if nread = -1 then -- test if error occurred
+						-- Note that on Unix we assume EAGAIN and EWOULDBLOCK are the same value
 						if errno.value = abstract_EWOULDBLOCK then
 							-- Blocked
 							errno.clear -- this is not an error
@@ -512,9 +513,9 @@ feature -- Buffered input
 		local
 			was_blocking_io: BOOLEAN
 		do
-			-- Make sure last_string has at least `nb' capacity.
-			if last_string = Void then
-				create last_string.make (1024)
+			-- Make sure last_string has some initial capacity.
+			if last_string.capacity = 0 then
+				last_string.make (1024)
 			else
 				STRING_.wipe_out (last_string)
 			end
