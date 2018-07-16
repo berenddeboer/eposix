@@ -50,8 +50,8 @@ feature -- Access to body content
 		end
 
 	stream: EPX_STRING_INPUT_STREAM
-			-- Return a stream to the actual body.
-		once
+			-- New stream to the actual body
+		do
 			create Result.make (value)
 		end
 
