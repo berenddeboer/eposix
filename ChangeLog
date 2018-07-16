@@ -1,3 +1,8 @@
+2018-07-16  Berend de Boer  <berend@pobox.com>
+
+	* !EPX_MIME_BODY_STRING.stream: bug fix: always returned first value, even on second use.
+
+
 2018-03-08  Berend de Boer  <berend@pobox.com>
 
 	* !ABSTRACT_FILE_SYSTEM: `is_existing' and `is_regular_file' now
