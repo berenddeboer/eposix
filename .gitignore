@@ -48,3 +48,8 @@ test_suite/*/eposix_test
 test_suite/*/eposix_test.melted
 test_suite/*/*/eposix_test
 test_suite/*/*/eposix_test.melted
+test_suite/*/*/compile_ge.xace
+test_suite/*/*/eposix_test.h
+test_suite/*/*/eposix_test.make
+test_suite/*/*/eposix_test.sh
+test_suite/*/*/eposix_test*.c
