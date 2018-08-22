@@ -76,6 +76,7 @@ feature -- Access
 			directory_entries.wipe_out
 			create entry.make_default (directory_name)
 			entry.inherit_error_handling (Current)
+			entry.errno.clear
 			entry.open
 			if entry.errno.is_ok then
 				directory_entries.put_last (entry)
