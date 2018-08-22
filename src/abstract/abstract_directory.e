@@ -160,6 +160,7 @@ feature -- Influence browsing
 			-- Enable depth first directory browsing.
 			-- Recursion doesn't work well with hard or symbolic links. Use
 			-- SUS_DIRECTORY instead.
+			-- 2018-08-22: Eh, that class does not exist, so is this still an issue?
 
 	set_recursive (enable: BOOLEAN)
 			-- Enable recursive directory browsing.
