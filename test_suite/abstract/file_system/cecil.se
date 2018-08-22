@@ -1,5 +1,0 @@
--- The name of our include C file:
-cecil.h
--- The features called from C:
-stdc_signal_switch_switcher STDC_SIGNAL_SWITCH switcher
-stdc_exit_switch_at_exit STDC_EXIT_SWITCH at_exit
