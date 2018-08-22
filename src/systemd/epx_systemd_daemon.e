@@ -17,7 +17,7 @@ deferred class
 
 inherit
 
-	EPX_CURRENT_PROCESS
+	SUS_CURRENT_PROCESS
 
 
 feature {NONE} -- Initialisation
@@ -54,6 +54,7 @@ feature {NONE} -- Execution
 
 	watchdog_alive
 			-- Notify systemd we're still alive.
+			-- You will need to call this regularly.
 		do
 			if watchdog_microseconds > 0 then
 				sd_notify_watchdog
