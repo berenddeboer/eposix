@@ -395,6 +395,10 @@ feature -- Path names
 			-- Absolute pathname derived from `a_path' that names the
 			-- same file, whose resolution does not involve ".", "..", or
 			-- symbolic links
+			-- Note that this function works by using
+			-- `change_directory`. Returning to original directory might
+			-- not work, if you run as daemon under systemd. Use
+			-- SUS_FILE_SYSTEM instead of EPX_FILE_SYSTEM.
 		require
 			a_path_not_empty: a_path /= Void and then not a_path.is_empty
 			path_exists: is_existing (a_path)
