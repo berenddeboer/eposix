@@ -5,8 +5,6 @@ note
 		"Implementation of a directory handle for POSIX."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
