@@ -648,6 +648,14 @@ feature -- Time as string
 			end
 		end
 
+	as_iso_8601_without_formatting: STRING
+			-- Date in this ISO8601 format: YYYYMMDD'T'HHMMSS'Z'
+		require
+			utc: is_utc_time
+		do
+			Result := format (once_iso_8601_utc_basic_format)
+		end
+
 
 feature -- Date calculations
 
@@ -905,6 +913,7 @@ feature {NONE} -- ISO 8601 date internals
 
 	once_iso_8601_format_with_tz: STRING = "%%FT%%H:%%M:%%S%%z"
 	once_iso_8601_utc_format: STRING = "%%FT%%H:%%M:%%SZ"
+	once_iso_8601_utc_basic_format: STRING = "%%Y%%m%%dT%%H%%M%%SZ"
 
 	iso_8601_date_format: STRING = "(-?[0-9]{4})-([0-1][0-9])-([0-3][0-9])"
 	iso_8601_time_format: STRING = "([0-2][0-9]):([0-5][0-9]):([0-5][0-9])"
