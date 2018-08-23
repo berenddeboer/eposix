@@ -183,6 +183,7 @@ feature -- Access
 			opened: is_open
 		do
 			Result := my_full_name
+			Result.wipe_out
 			Result.append_string (directory_name)
 			Result.append_character (fs.path_separator)
 			from
