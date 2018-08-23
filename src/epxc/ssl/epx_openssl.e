@@ -39,7 +39,7 @@ feature {NONE} -- Initialization.
 		do
 			-- Need to redirect stderr to /dev/null perhaps?
 			-- Anyway, you will see connection errors/problems now
-			make_capture_io (openssl, <<"s_client", "-quiet", "-no_ssl2", "-no_ssl3", "-no_tls1", "-connect", a_host + ":" + a_port.out>>)
+			make_capture_io (openssl, <<"s_client", "-quiet", "-no_ssl3", "-no_tls1", "-no_tls1_1", "-connect", a_host + ":" + a_port.out>>)
 			host := a_host
 			port := a_port
 		end
