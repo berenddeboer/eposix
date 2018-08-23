@@ -1,4 +1,5 @@
 language: c
 dist: xenial
 before_install:
+  export EPOSIX=.
   ./bootstrap
