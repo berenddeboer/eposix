@@ -1,2 +1,4 @@
 language: c
 dist: xenial
+before_install:
+  ./bootstrap
