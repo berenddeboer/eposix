@@ -27,12 +27,6 @@ inherit
 			{ANY} mime_type_application_x_www_form_urlencoded, mime_type_multipart_form_data
 		end
 
-	EPX_MIME_FIELD_NAMES
-		export
-			{NONE} all;
-			{ANY} field_name_content_type
-		end
-
 	EPX_MIME_PARAMETER_NAMES
 		export
 			{NONE} all
@@ -52,6 +46,11 @@ inherit
 		export
 			{NONE} all
 		end
+
+
+inherit {NONE}
+
+	EPX_MIME_FIELD_NAMES
 
 
 create
@@ -239,11 +238,41 @@ feature -- Requests
 			verb_not_empty: attached a_verb and then not a_verb.is_empty
 			request_uri_not_empty: attached a_request_uri and then not a_request_uri.is_empty
 		local
-			request: STRING
+			l_request: STRING
 		do
 			if not reuse_connection then
 				assert_closed
 			end
+
+			-- Build request to send first
+			last_uri := escape_spaces (a_request_uri)
+			response_code := reply_code_ok
+			create l_request.make (512)
+			l_request.append_string (a_verb)
+			l_request.append_character (' ')
+			l_request.append_string (last_uri)
+			l_request.append_character (' ')
+			l_request.append_string (client_version)
+			l_request.append_string (once_new_line)
+			append_field (l_request, field_name_host, server_name)
+			append_other_fields (a_verb, a_request_uri, a_request_data, l_request)
+			if not reuse_connection then
+				l_request.append_string (once_connection_close)
+			end
+			if not attached a_request_data then
+				l_request.append_string (once_new_line)
+			else
+				-- If body isn't multi-part, assume it is already form
+				-- urlencoded
+				if attached a_request_data.header.content_type as ct and then ct.value.is_equal (mime_type_application_x_www_form_urlencoded) and then a_request_data.body.is_multipart then
+					a_request_data.append_urlencoded_to_string (l_request)
+				else
+					-- Append any custom headers fields and any body
+					a_request_data.append_to_string (l_request)
+				end
+			end
+
+			-- Open tcp connection if not open
 			if not is_open then
 				open
 				if is_open and then attached tcp_socket as a_tcp_socket then
@@ -251,44 +280,15 @@ feature -- Requests
 					a_tcp_socket.set_nodelay
 				end
 			end
-			last_uri := escape_spaces (a_request_uri)
+
+			-- Entire request available, send it all at once
 			if is_open then
-				response_code := reply_code_ok
-				create request.make (512)
-				request.append_string (a_verb)
-				request.append_character (' ')
-				request.append_string (last_uri)
-				request.append_character (' ')
-				request.append_string (client_version)
-				request.append_string (once_new_line)
-				-- Add required field Host
-				if attached host as a_host then
-					request.append_string (field_name_host)
-					request.append_string (once_colon_space)
-					request.append_string (a_host.name)
-					request.append_string (once_new_line)
-				end
-				append_other_fields (a_verb, a_request_uri, a_request_data, request)
-				if not reuse_connection then
-					request.append_string (once_connection_close)
-				end
-				if not attached a_request_data then
-					request.append_string (once_new_line)
-				else
-					-- If body isn't multi-part, assume it is already form
-					-- urlencoded
-					if attached a_request_data.header.content_type as ct and then ct.value.is_equal (mime_type_application_x_www_form_urlencoded) and then a_request_data.body.is_multipart then
-						a_request_data.append_urlencoded_to_string (request)
-					else
-						a_request_data.append_to_string (request)
-					end
-				end
 				debug ("http_client")
-					print (request)
+					print (l_request)
 					print (once_new_line)
 				end
 				if attached http as a_http then
-					a_http.put_string (request)
+					a_http.put_string (l_request)
 				end
 				last_verb := a_verb
 				last_data := a_request_data
@@ -389,24 +389,15 @@ feature {NONE} -- Request implementation
 			authorization: STRING
 		do
 			request.append_string (once_mime_version)
-			if attached accept then
-				request.append_string (field_name_accept)
-				request.append_string (once_colon_space)
-				request.append_string (accept)
-				request.append_string (once_new_line)
+			if attached accept as a then
+				append_field (request, field_name_accept, a)
 			end
-			if attached user_agent then
-				request.append_string (field_name_user_agent)
-				request.append_string (once_colon_space)
-				request.append_string (user_agent)
-				request.append_string (once_new_line)
+			if attached user_agent as ua then
+				append_field (request, field_name_user_agent, ua)
 			end
 			if not user_name.is_empty and then not password.is_empty and then attached authentication_scheme and then attached last_uri as lu then
 				authorization := authorization_value (a_verb, lu)
-				request.append_string (field_name_authorization)
-				request.append_string (once_colon_space)
-				request.append_string (authorization)
-				request.append_string (once_new_line)
+				append_field (request, field_name_authorization, authorization)
 			end
 			from
 				cookies.start
@@ -421,6 +412,14 @@ feature {NONE} -- Request implementation
 				request.append_string (once_new_line)
 				cookies.forth
 			end
+		end
+
+	append_field (a_request: STRING; a_field_name, a_value: READABLE_STRING_8)
+		do
+			a_request.append_string (a_field_name)
+			a_request.append_string (once_colon_space)
+			a_request.append_string (a_value)
+			a_request.append_string (once_new_line)
 		end
 
 
