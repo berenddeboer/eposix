@@ -290,13 +290,6 @@ feature {NONE} -- Implementation
 			CC := C
 			DD := D
 
-			debug ("md5")
-				print ("MD5Transform.begin A: " + to_hexadecimal_integer (A) + "%N")
-				print ("MD5Transform.begin B: " + to_hexadecimal_integer (B) + "%N")
-				print ("MD5Transform.begin C: " + to_hexadecimal_integer (C) + "%N")
-				print ("MD5Transform.begin D: " + to_hexadecimal_integer (D) + "%N")
-			end
-
 			block_0 := block.peek_uint32_little_endian (0)
 			block_1 := block.peek_uint32_little_endian (4)
 			block_2 := block.peek_uint32_little_endian (8)
@@ -313,25 +306,6 @@ feature {NONE} -- Implementation
 			block_13 := block.peek_uint32_little_endian (52)
 			block_14 := block.peek_uint32_little_endian (56)
 			block_15 := block.peek_uint32_little_endian (60)
-
-			debug ("md5")
-				print ("MD5Transform.block  0: " + to_hexadecimal_integer (block_0) + "%N")
-				print ("MD5Transform.block  1: " + to_hexadecimal_integer (block_1) + "%N")
-				print ("MD5Transform.block  2: " + to_hexadecimal_integer (block_2) + "%N")
-				print ("MD5Transform.block  3: " + to_hexadecimal_integer (block_3) + "%N")
-				print ("MD5Transform.block  4: " + to_hexadecimal_integer (block_4) + "%N")
-				print ("MD5Transform.block  5: " + to_hexadecimal_integer (block_5) + "%N")
-				print ("MD5Transform.block  6: " + to_hexadecimal_integer (block_6) + "%N")
-				print ("MD5Transform.block  7: " + to_hexadecimal_integer (block_7) + "%N")
-				print ("MD5Transform.block  8: " + to_hexadecimal_integer (block_8) + "%N")
-				print ("MD5Transform.block  9: " + to_hexadecimal_integer (block_9) + "%N")
-				print ("MD5Transform.block 10: " + to_hexadecimal_integer (block_10) + "%N")
-				print ("MD5Transform.block 11: " + to_hexadecimal_integer (block_11) + "%N")
-				print ("MD5Transform.block 12: " + to_hexadecimal_integer (block_12) + "%N")
-				print ("MD5Transform.block 13: " + to_hexadecimal_integer (block_13) + "%N")
-				print ("MD5Transform.block 14: " + to_hexadecimal_integer (block_14) + "%N")
-				print ("MD5Transform.block 15: " + to_hexadecimal_integer (block_15) + "%N")
-			end
 
 			-- Round 1
 			A := FF (A, B, C, D, block_0, 7, sin_01)
@@ -404,13 +378,6 @@ feature {NONE} -- Implementation
 			D := II (D, A, B, C, block_11, 10, sin_62)
 			C := II (C, D, A, B, block_2, 15, sin_63)
 			B := II (B, C, D, A, block_9, 21, sin_64)
-
-			debug ("md5")
-				print ("MD5Transform.new A: " + to_hexadecimal_integer (A) + "%N")
-				print ("MD5Transform.new B: " + to_hexadecimal_integer (B) + "%N")
-				print ("MD5Transform.new C: " + to_hexadecimal_integer (C) + "%N")
-				print ("MD5Transform.new D: " + to_hexadecimal_integer (D) + "%N")
-			end
 
 			-- Increment each of the four registers by the value it had
 			-- before this block was started.
