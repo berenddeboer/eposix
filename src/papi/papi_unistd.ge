@@ -316,12 +316,12 @@ feature -- user and group id's
 		external "C"
 		end
 
-	posix_setgid(gid: INTEGER): INTEGER
+	posix_setgid (a_gid: INTEGER): INTEGER
 			-- Sets group ID
 		external "C"
 		end
 
-	posix_setpgid(pid, pgid: INTEGER): INTEGER
+	posix_setpgid (a_pid, a_pgid: INTEGER): INTEGER
 			-- Sets process group ID for job control
 		external "C"
 		end
@@ -331,7 +331,7 @@ feature -- user and group id's
 		external "C"
 		end
 
-	posix_setuid(uid: INTEGER): INTEGER
+	posix_setuid (a_uid: INTEGER): INTEGER
 			-- Sets user ID
 		external "C"
 		end
