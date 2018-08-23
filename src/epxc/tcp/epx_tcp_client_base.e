@@ -159,7 +159,7 @@ feature -- Access
 			-- Optional password
 
 	server_name: STRING
-			-- Name of server that is being access
+			-- Name of server that is being accessed
 
 	user_name: STRING
 			-- Optional user name
