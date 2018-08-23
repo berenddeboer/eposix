@@ -1,5 +1,5 @@
 language: c
 dist: xenial
 before_install:
-  - export EPOSIX=.
+  - export EPOSIX=/home/travis/build/berenddeboer/eposix
   - ./bootstrap
