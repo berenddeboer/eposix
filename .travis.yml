@@ -15,10 +15,10 @@ before_install:
   - export GOBO=$PWD/gobo
   - export PATH=$PATH:$GOBO/bin
   - git clone --depth=1 https://github.com/gobo-eiffel/gobo.git
-  - travis_wait 60 $GOBO/bin/install.sh -t gcc
+  - travis_wait 120 $GOBO/bin/install.sh -t gcc
   - gec --version
   - ls $GOBO/bin
-  - cd $GOBO/tool/gepp; geant compile_ge; cp gepp $GOBO/bin/
+  - cd $GOBO/tool/gepp; geant compile_ge; cp -p gepp $GOBO/bin/
   - ls $GOBO/bin
   - echo `gepp --version`
 
