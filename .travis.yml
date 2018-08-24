@@ -27,3 +27,6 @@ before_install:
 
   - cd $EPOSIX
   - ./bootstrap
+
+script:
+  ./configure && make && make install
