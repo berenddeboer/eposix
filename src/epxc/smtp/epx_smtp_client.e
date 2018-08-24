@@ -333,8 +333,6 @@ feature {NONE} -- Lowest level SMTP server interaction
 			if p /= 0 then
 				from
 					i := p
-				variant
-					a_message.count - (i - 1)
 				until
 					i > a_message.count
 				loop
@@ -361,6 +359,8 @@ feature {NONE} -- Lowest level SMTP server interaction
 					else
 						i := i + 1
 					end
+				variant
+					a_message.count - (i - 1)
 				end
 			end
 		ensure

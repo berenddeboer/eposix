@@ -17,8 +17,6 @@ note
 		%I guess."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #11 $"
 
 
 class
@@ -489,7 +487,6 @@ feature {NONE} -- Recognized commands
 		local
 			resource_name: STDC_PATH
 			modification_time: STDC_TIME
-			if_modified_since: EPX_MIME_FIELD_IF_MODIFIED_SINCE
 		do
 			-- Make sure `path' is relative from `root'.
 			create resource_name.make_from_string (root + a_request_uri.path)
@@ -505,10 +502,7 @@ feature {NONE} -- Recognized commands
 			end
 
 			if is_readable (resource_name) then
-				if connection.request_fields.has (field_name_if_modified_since) then
-					if_modified_since ?= connection.request_fields.item (field_name_if_modified_since)
-				end
-				if if_modified_since /= Void then
+				if connection.request_fields.has (field_name_if_modified_since) and then attached {EPX_MIME_FIELD_IF_MODIFIED_SINCE} connection.request_fields.item (field_name_if_modified_since) as if_modified_since then
 					-- TODO: we also should check If-None-Match actually
 					create modification_time.make_from_unix_time (status (resource_name).modification_time)
 					-- Many clients send DOS times

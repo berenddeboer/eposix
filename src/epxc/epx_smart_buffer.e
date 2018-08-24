@@ -78,8 +78,6 @@ feature -- queries
 					i3 := i2 + 1
 				invariant
 					i3 = i2 - i1 + 1
-				variant
-					(count + 1) - i1
 				until
 					index >= 0
 				loop
@@ -90,8 +88,6 @@ feature -- queries
 							stop := False
 						invariant
 							i3 = i2 - i1 + 1
-						variant -- be carefull to keep it >= 0
-							(i3 + i2 + 3)
 						until
 							stop
 						loop
@@ -103,11 +99,15 @@ feature -- queries
 							end
 							i3 := i3 - 1
 							i2 := i2 - 1
+						variant -- be carefull to keep it >= 0
+							(i3 + i2 + 3)
 						end
 					end
 					i1 := i1 + 1
 					i3 := other.count
 					i2 := i1 + i3 - 1
+				variant
+					(count + 1) - i1
 				end
 				Result := index < count
 			else
