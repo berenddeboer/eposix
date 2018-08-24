@@ -8,8 +8,6 @@ note
 	author: "Colin Adams"
 	copyright: "Copyright (c) 2004, Colin Adams"
 	license: "MIT License"
-	date: "$Date: "
-	revision: "$Revision: "
 
 
 class
