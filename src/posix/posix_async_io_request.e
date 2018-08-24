@@ -8,8 +8,6 @@ note
 	%3. Garbage collection can take place while buffer is still in use."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #9 $"
 
 
 class
