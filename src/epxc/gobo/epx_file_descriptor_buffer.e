@@ -3,8 +3,6 @@ note
 	description: "Lexical analyzer input file buffers for ABSTRACT_FILE_DESCRIPTOR."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #5 $"
 
 
 class
