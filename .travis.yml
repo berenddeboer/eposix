@@ -12,8 +12,8 @@ before_install:
 
   # Install gobo
   - export GOBO=$PWD/gobo
-  - git clone https://github.com/gobo-eiffel/gobo.git
-  - bin/install.sh -t gcc
+  - git clone --depth=1 https://github.com/gobo-eiffel/gobo.git
+  - $GOBO/bin/install.sh -t gcc
   - export PATH=$PATH:$GOBO/bin
   - echo `gec --version`
 
