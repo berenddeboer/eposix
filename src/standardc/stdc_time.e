@@ -137,7 +137,7 @@ feature -- Initialization
 		do
 			make_from_unix_time (posix_time)
 		ensure
-			time_zone_not_set: not is_time_zone_known
+			time_zone_not_set: old my_time_zone = 0 implies not is_time_zone_known
 		end
 
 	make_from_unix_time (a_value: INTEGER)
@@ -149,10 +149,14 @@ feature -- Initialization
 		do
 			do_make
 			value := a_value
-			my_time_zone := 0
+			if is_local_time then
+				to_local
+			elseif is_utc_time then
+				to_utc
+			end
 		ensure
 			value_set: value = a_value
-			time_zone_not_set: not is_time_zone_known
+			time_zone_not_set: old my_time_zone = 0 implies not is_time_zone_known
 		end
 
 	make_time (an_hour, a_minute, a_second: INTEGER)
@@ -299,6 +303,7 @@ feature -- Make individual time fields valid
 			p := posix_localtime (value)
 			tm.memory_copy (p, 0, 0, posix_tm_size)
 			my_time_zone := local_time_zone
+			errno.clear
 		ensure
 			local_time: is_local_time
 			time_zone_known: is_time_zone_known
