@@ -646,6 +646,8 @@ feature -- Time as string
 			else
 				Result := format (once_iso_8601_format_with_tz)
 			end
+		ensure
+			valid_string: is_valid_iso_8601_date (Result)
 		end
 
 	as_iso_8601_without_formatting: STRING
@@ -884,10 +886,22 @@ feature {NONE} -- Implementation
 	local_time_zone: INTEGER = unique
 			-- Allowed values for `my_time_zone'
 
+	tm_impl: detachable STDC_BUFFER
+
 	tm: STDC_BUFFER
 			-- Buffer for struct tm
-		once
-			create Result.allocate_and_clear (posix_tm_size)
+		local
+			l_tm: like tm
+		do
+			if attached tm_impl as my_tm then
+				Result := my_tm
+			else
+				create l_tm.allocate_and_clear (posix_tm_size)
+				tm_impl := l_tm
+				Result := l_tm
+			end
+		ensure
+			fits_tm: Result.capacity >= posix_tm_size
 		end
 
 	do_make
