@@ -11,11 +11,15 @@ before_install:
   # - echo `ec -version`
 
   # Install gobo
+  - export MAKEFLAGS=-j2
   - export GOBO=$PWD/gobo
   - git clone --depth=1 https://github.com/gobo-eiffel/gobo.git
-  - $GOBO/bin/install.sh -t gcc
+  - travis_wait 60 $GOBO/bin/install.sh -t gcc
   - export PATH=$PATH:$GOBO/bin
+  - echo PATH $PATH
+  - ls $GOBO/bin
   - echo `gec --version`
+  - echo `gepp --version`
 
   - export EPOSIX=$PWD
   - ./bootstrap
