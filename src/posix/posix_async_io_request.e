@@ -231,8 +231,7 @@ feature -- other operations
 		local
 			list: ARRAY [POINTER]
 		do
-			create list.make (0, 1)
-			list.put (aiocb.ptr, 0)
+			create list.make_filled (aiocb.ptr, 0, 0)
 			safe_call (posix_aio_suspend (ah.pointer_array_to_pointer (list), 1, default_pointer))
 			ah.unfreeze_all
 		end
