@@ -18,7 +18,10 @@ before_install:
   - travis_wait 120 $GOBO/bin/install.sh -t gcc
   - gec --version
   - ls $GOBO/bin
-  - cd $GOBO/tool/gepp; geant compile_ge; cp -p gepp $GOBO/bin/
+  - cd $GOBO/tool/gepp; geant compile_ge
+  - ls $GOBO/tool/gepp
+  - ls $GOBO/bin
+  - cp -p $GOBO/tool/gepp/gepp $GOBO/bin/
   - ls $GOBO/bin
   - echo `gepp --version`
 
