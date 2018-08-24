@@ -3,8 +3,6 @@ note
 	description: "Deferred class that implements POSIX semaphores on top of ABSTRACT_SEMAPHORE."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 deferred class
