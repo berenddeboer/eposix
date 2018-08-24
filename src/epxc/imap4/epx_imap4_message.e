@@ -3,8 +3,6 @@ note
 	description: "IMAP4rev1 message data as retrieved by a client."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #3 $"
 
 
 class
