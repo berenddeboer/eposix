@@ -1002,36 +1002,6 @@ feature {NONE} -- Scanning literals
 			last_string_complete: last_string.count = nbytes or else end_of_input
 		end
 
--- 	read_literal (nbytes: INTEGER)
--- 			-- Literal is expected to follow in next lines.
--- 		require
--- 			nbytes_not_negative: nbytes >= 0
--- 		local
--- 			i: INTEGER
--- 		do
--- 			from
--- 				i := 1
--- 				--create last_string.make (nbytes)
--- 				create last_string.make_filled ('%U', nbytes)
--- 			until
--- 				end_of_input or else
--- 				i > nbytes
--- 			loop
--- 				read_character
--- 				--last_string.append_character (last_character)
--- 				last_string.put (last_character, i)
--- 				i := i + 1
--- 			end
--- -- 			debug ("imap4")
--- -- 				print ("@@@@@@@@read literal: %N")
--- -- 				print (last_string)
--- -- 				print ("%N")
--- -- 			end
--- 		ensure
--- 			last_string_not_void: last_string /= Void
--- 			last_string_complete: last_string.count = nbytes or else end_of_input
--- 		end
-
 
 invariant
 
