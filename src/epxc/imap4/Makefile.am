@@ -10,9 +10,9 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES)
 
 epx_imap4_response_scanner.e: epx_imap4_response_scanner.l
-	gelex -o temp.e epx_imap4_response_scanner.l
-	mv temp.e $@
+	gelex -o $@.tmp epx_imap4_response_scanner.l
+	mv $@.tmp $@
 
 epx_imap4_response_parser.e: epx_imap4_response_parser.y
-	geyacc -t EPX_IMAP4_RESPONSE_TOKENS -v verbose.txt -o temp.e epx_imap4_response_parser.y
-	mv temp.e $@
+	geyacc -t EPX_IMAP4_RESPONSE_TOKENS -v verbose.txt -o $@.tmp epx_imap4_response_parser.y
+	mv $@.tmp $@
