@@ -17,6 +17,9 @@ class
 inherit
 
 	YY_COMPRESSED_SCANNER_SKELETON
+		redefine
+			reset_start_condition
+		end
 
 	EPX_IMAP4_RESPONSE_TOKENS
 		export
@@ -307,7 +310,7 @@ feature -- Input
 	end_of_file_after_end_of_line: BOOLEAN
 			-- Avoid blocking knob.
 
-	new_imap4_response_buffer (a_stream: EPX_CHARACTER_INPUT_STREAM): EPX_IMAP4_RESPONSE_BUFFER is
+	new_imap4_response_buffer (a_stream: EPX_CHARACTER_INPUT_STREAM): EPX_IMAP4_RESPONSE_BUFFER
 			-- New input buffer for `a_stream'.
 		require
 			stream_not_void: a_stream /= Void
@@ -318,7 +321,7 @@ feature -- Input
 			new_buffer_not_void: Result /= Void
 		end
 
-	reset_end_of_file_after_end_of_line is
+	reset_end_of_file_after_end_of_line
 			-- Reset `end_of_file_after_end_of_line'. Set when tagged
 			-- response is received, or a fatal error.
 		do
@@ -333,7 +336,7 @@ feature {NONE} -- Last returned data helpers
 	last_string: STRING
 			-- Building quoted string.
 
-	set_last_integer (a_number: INTEGER) is
+	set_last_integer (a_number: INTEGER)
 			-- Set `last_integer', `last_token' is INT_NUMBER.
 		do
 			last_token := INT_NUMBER
@@ -346,24 +349,25 @@ feature {NONE} -- Last returned data helpers
 
 feature {NONE} -- Set start condition
 
-	expect_date_time is
+	expect_date_time
 		do
 			set_start_condition (SC_SCAN_DATE_TIME)
 		end
 
-	expect_resp_text is
+	expect_resp_text
 			-- Set start state to RESP_TEXT.
 		do
 			set_start_condition (SC_RESP_TEXT)
 		end
 
-	reset_start_condition is
+	reset_start_condition
 			-- Used in error recovery to return to start condition.
 		do
+			precursor
 			set_start_condition (INITIAL)
 		end
 
-	scan_resp_text is
+	scan_resp_text
 			-- Scan forward to see if a '[' follows or not by setting
 			-- state to SCAN_RESP_TEXT.
 		do
