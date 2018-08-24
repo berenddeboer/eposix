@@ -6,8 +6,8 @@ before_install:
   - export ISE_EIFFEL=$PWD/Eiffel_$TRAVIS_ISE_VERSION;
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export ISE_PLATFORM=linux-x86-64; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export ISE_PLATFORM=macosx-x86-64; fi
-  - echo curl -sSL https://ftp.eiffel.com/pub/download/$TRAVIS_ISE_VERSION/${ISE_EIFFEL}_gpl_101981-$ISE_PLATFORM.tar.bz2
-  - curl -sSL https://ftp.eiffel.com/pub/download/$TRAVIS_ISE_VERSION/${ISE_EIFFEL}_gpl_101981-$ISE_PLATFORM.tar.bz2 | tar -x --bzip2
+  - echo curl -sSL https://ftp.eiffel.com/pub/download/$TRAVIS_ISE_VERSION/Eiffel_${TRAVIS_ISE_VERSION}_gpl_101981-$ISE_PLATFORM.tar.bz2
+  - curl -sSL https://ftp.eiffel.com/pub/download/$TRAVIS_ISE_VERSION/Eiffel_${TRAVIS_ISE_VERSION}_gpl_101981-$ISE_PLATFORM.tar.bz2 | tar -x --bzip2
   - export PATH=$PATH:$ISE_EIFFEL/studio/spec/$ISE_PLATFORM/bin:$PATH:$ISE_EIFFEL/tools/spec/$ISE_PLATFORM/bin
   - echo `ec -version`
 
