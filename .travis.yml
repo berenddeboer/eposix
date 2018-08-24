@@ -20,7 +20,8 @@ before_install:
   - gec --version
   - ls $GOBO/bin
   - cd $GOBO/tool/gepp/src; geant compile_ge; cp -p gepp $GOBO/bin/
-  - ls $GOBO/tool/gepp/src
+  - cd $GOBO/tool/gelex/src; geant compile_ge; cp -p gelex $GOBO/bin/
+  - cd $GOBO/tool/geyacc/src; geant compile_ge; cp -p geyacc $GOBO/bin/
   - ls $GOBO/bin
   - echo `gepp --version`
 
