@@ -12,6 +12,7 @@ before_install:
 
   # Install gobo
   - export MAKEFLAGS=-j2
+  - export EPOSIX=$PWD
   - export GOBO=$PWD/gobo
   - export PATH=$PATH:$GOBO/bin
   - git clone --depth=1 https://github.com/gobo-eiffel/gobo.git
@@ -23,5 +24,5 @@ before_install:
   - ls $GOBO/bin
   - echo `gepp --version`
 
-  - export EPOSIX=$PWD
+  - cd $EPOSIX
   - ./bootstrap
