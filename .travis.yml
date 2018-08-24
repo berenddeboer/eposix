@@ -1,5 +1,13 @@
 language: c
 dist: xenial
 before_install:
-  - export EPOSIX=/home/travis/build/berenddeboer/eposix
+  # Install ISE Eiffel
+  - export ISE_EIFFEL=$PWD/Eiffel_18.07;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export ISE_PLATFORM=linux-x86-64; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export ISE_PLATFORM=macosx-x86-64; fi
+  - curl -sSL https://ftp.eiffel.com/pub/$TRAVIS_ISE_VERSION-$ISE_PLATFORM.tar.bz2 | tar -x --bzip2
+  - export PATH=$PATH:$ISE_EIFFEL/studio/spec/$ISE_PLATFORM/bin:$PATH:$ISE_EIFFEL/tools/spec/$ISE_PLATFORM/bin
+  - echo `ec -version`
+
+  - export EPOSIX=$PWD
   - ./bootstrap
