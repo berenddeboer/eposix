@@ -79,8 +79,6 @@ feature {NONE} -- Low level handle functions
 		do
 			r := posix_sem_destroy (handle)
 			Result := r /= -1
-			sem.deallocate
-			sem := Void
 			b := precursor
 		end
 
@@ -90,11 +88,9 @@ feature {NONE} -- Sempahore creation
 	make_sem
 			-- allocate `sem'.
 		do
-			if sem = Void then
-				create sem.allocate_and_clear (posix_sem_t_size)
-			end
+			create sem.allocate_and_clear (posix_sem_t_size)
 		ensure
-			sem_allocated: sem /= Void and then sem.capacity >= posix_sem_t_size
+			sem_allocated: attached sem and then sem.capacity >= posix_sem_t_size
 		end
 
 	sem: STDC_BUFFER
@@ -103,6 +99,6 @@ feature {NONE} -- Sempahore creation
 
 invariant
 
-	handle_in_sync_with_sem: sem /= Void implies (sem.ptr = handle)
+	handle_in_sync_with_sem: sem.ptr = handle
 
 end
