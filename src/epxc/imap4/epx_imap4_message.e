@@ -19,6 +19,10 @@ feature {NONE} -- Initialization
 
 	make
 		do
+			message := ""
+			body := ""
+			header := ""
+			create {DS_HASH_SET [STRING]} flags.make_equal (16)
 		end
 
 
@@ -26,7 +30,7 @@ feature -- Access
 
 	flags: DS_SET [STRING]
 			-- Retrieved message flags;
-			-- If Void, no flags have been retrieved, or no flags have
+			-- If empty, no flags have been retrieved, or no flags have
 			-- been set.
 
 	message: STRING
@@ -56,23 +60,14 @@ feature -- Status
 	is_seen: BOOLEAN
 			-- If flags have been retrieved, is "\Seen" among them?
 		do
-			if flags /= Void then
-				Result := flags.has (flag_seen)
-			end
+			Result := flags.has (flag_seen)
 		end
 
 
 feature -- Set message data
 
 	append_flag (a_flag: STRING)
-		local
-			tester: KL_EQUALITY_TESTER [STRING]
 		do
-			if flags = Void then
-				create {DS_HASH_SET [STRING]} flags.make (16)
-				create tester
-				flags.set_equality_tester (tester)
-			end
 			flags.force_last (a_flag)
 		ensure
 			has_flag: flags.has (a_flag)
@@ -81,11 +76,9 @@ feature -- Set message data
 	clear_flags
 			-- Make sure there are no items in `flags'.
 		do
-			if flags /= Void then
-				flags.wipe_out
-			end
+			flags.wipe_out
 		ensure
-			flags_reset: flags = Void or else flags.is_empty
+			flags_reset: flags.is_empty
 		end
 
 	set_message (a_message: STRING)

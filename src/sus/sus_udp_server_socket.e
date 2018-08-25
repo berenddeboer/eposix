@@ -72,11 +72,14 @@ feature {NONE} -- Socket specific open functions
 	bind
 		require
 			open: is_open
+			attached_sa: attached sa
 		local
 			r: INTEGER
 		do
-			r := posix_bind (socket, sa.socket_address.ptr, sa.socket_address.length)
-			is_bound := r /= -1
+			if attached sa as l_sa then
+				r := posix_bind (socket, l_sa.socket_address.ptr, l_sa.socket_address.length)
+				is_bound := r /= -1
+			end
 			if is_bound then
 				-- Optimize for streaming reads/writes.
 				set_streaming (True)
@@ -101,11 +104,14 @@ feature -- Socket options
 			-- See RFC 3678.
 		require
 			multicast_supported: is_multicast_supported
+			sa_attached: attached sa
 		local
 			imr: EPX_BUFFER
 		do
 			create imr.allocate_and_clear (posix_ip_mreq_size)
-			posix_set_ip_mreq_imr_multiaddr (imr.ptr, sa.host.addresses[0].ptr)
+			if attached sa as l_sa then
+				posix_set_ip_mreq_imr_multiaddr (imr.ptr, l_sa.host.addresses[0].ptr)
+			end
 			if a_local_interface_address /= Void then
 				posix_set_ip_mreq_imr_interface (imr.ptr, a_local_interface_address.ptr)
 			end

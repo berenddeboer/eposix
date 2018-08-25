@@ -22,6 +22,10 @@ feature {NONE} -- Initialization
 			create response_code.make_empty
 			create response_text_code.make_empty
 			create mailboxes.make (4096)
+			bye_response_text := ""
+			greeting_message := ""
+			delimiter := ""
+			response_text := ""
 		end
 
 
@@ -73,7 +77,7 @@ feature -- System responses
 
 feature -- Mail box responses
 
-	current_mailbox: EPX_IMAP4_MAILBOX
+	current_mailbox: detachable EPX_IMAP4_MAILBOX
 			-- Object where mailbox responses are stored into.
 
 
@@ -93,13 +97,9 @@ feature -- Set response data
 
 	set_bye_response_text (a_text: STRING)
 		do
-			if a_text = Void then
-				bye_response_text := Void
-			else
-				create bye_response_text.make_from_string (a_text)
-			end
+			create bye_response_text.make_from_string (a_text)
 		ensure
-			bye_response_text_set: a_text = bye_response_text or else bye_response_text.is_equal (a_text)
+			bye_response_text_set: a_text ~ bye_response_text
 		end
 
 	set_no
@@ -173,11 +173,14 @@ feature -- Set `current_mailbox'
 		require
 			a_mailbox_name_not_empty: a_mailbox_name /= Void and then not a_mailbox_name.is_empty
 			mailbox_unknown: not mailboxes.has (a_mailbox_name)
+		local
+			l_mailbox: like current_mailbox
 		do
-			create current_mailbox.make (a_mailbox_name)
-			mailboxes.put (current_mailbox, current_mailbox.name)
+			create l_mailbox.make (a_mailbox_name)
+			current_mailbox := l_mailbox
+			mailboxes.put (l_mailbox, l_mailbox.name)
 		ensure
-			current_mailbox_set: current_mailbox.name.is_equal (a_mailbox_name)
+			current_mailbox_set: attached current_mailbox as mailbox and then mailbox.name.is_equal (a_mailbox_name)
 		end
 
 
@@ -187,22 +190,24 @@ feature -- Set message data
 			-- Make sure `current_message' contains a new, empty message
 			-- if `a_sequence_number' is different from
 			-- `current_message'.`sequence_number'.
+		local
+			l_message: like current_message
 		do
-			if
-				current_message = Void or else
+			if not attached current_message as cm or else
 				a_sequence_number = 0 or else
-				current_message.sequence_number /= a_sequence_number
+				cm.sequence_number /= a_sequence_number
 			then
-				create current_message.make
-				current_message.set_sequence_number (a_sequence_number)
+				create l_message.make
+				l_message.set_sequence_number (a_sequence_number)
+				current_message := l_message
 			end
 		ensure
 			current_message_reset:
 				current_message /= old current_message or else
-				current_message.sequence_number = a_sequence_number
+				(attached current_message as message and then message.sequence_number = a_sequence_number)
 		end
 
-	current_message: EPX_IMAP4_MESSAGE
+	current_message: detachable EPX_IMAP4_MESSAGE
 			-- Object where message responses are stored into.
 
 
@@ -221,7 +226,7 @@ invariant
 
 	delimiter_void_or_one_character: delimiter = Void or else delimiter.count = 1
 	mailboxes_not_void: mailboxes /= Void
-	current_mailbox_known: current_mailbox /= Void implies mailboxes.has_item (current_mailbox)
+	current_mailbox_known: attached current_mailbox as cm implies mailboxes.has_item (cm)
 	response_code_not_void: response_code /= Void
 	response_text_code_not_void: response_text_code /= Void
 

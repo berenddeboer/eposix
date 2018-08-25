@@ -57,6 +57,7 @@ feature {NONE} -- Initialisation
 			motd_handler: EPX_IRC_MOTD
 			ctcp_handler: EPX_IRC_CTCP
 			tester: EPX_IRC_NICK_NAME_EQUALITY_TESTER
+			l_nickserv_handler: like nickserv_handler
 		do
 			precursor (a_server_name, a_port, a_user_name, a_password)
 			if is_valid_nick_name (a_user_name) and then a_user_name.count <= 9 then
@@ -67,19 +68,20 @@ feature {NONE} -- Initialisation
 			real_name := a_user_name
 			create message_of_the_day.make (256)
 			create { DS_LINKED_LIST [EPX_IRC_MESSAGE_HANDLER] } system_handlers.make
-			create pong_handler.make (Current)
-			system_handlers.put_last (pong_handler)
-			create motd_handler.make (Current)
-			system_handlers.put_last (motd_handler)
-			create nickserv_handler.make (Current)
-			system_handlers.put_last (nickserv_handler)
-			create ctcp_handler.make (Current)
-			system_handlers.put_last (ctcp_handler)
 			create { DS_LINKED_LIST [EPX_IRC_DCC_CHAT_ACCEPTOR] } dcc_chat_requests.make
 			create { DS_LINKED_LIST [EPX_IRC_MESSAGE_HANDLER] } message_handlers.make
 			create nickserv_passwords.make (1)
 			create tester
 			nickserv_passwords.set_key_equality_tester (tester)
+			create pong_handler.make (Current)
+			system_handlers.put_last (pong_handler)
+			create motd_handler.make (Current)
+			system_handlers.put_last (motd_handler)
+			create l_nickserv_handler.make (Current)
+			system_handlers.put_last (l_nickserv_handler)
+			nickserv_handler := l_nickserv_handler
+			create ctcp_handler.make (Current)
+			system_handlers.put_last (ctcp_handler)
 		end
 
 
@@ -115,7 +117,7 @@ feature -- Access
 			-- Nick name;
 			-- default is `user_name'.
 
-	nickserv_handler: EPX_IRC_NICKSERV
+	nickserv_handler: detachable EPX_IRC_NICKSERV
 			-- Communicates with NickServ to supply a password when the
 			-- nick name is set or is changed
 

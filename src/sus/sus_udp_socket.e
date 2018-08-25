@@ -57,18 +57,20 @@ feature {NONE} -- Abstract API binding
 			if sockaddr = Void then
 				create sockaddr.allocate_and_clear (posix_sockaddr_size)
 			end
-			my_flag := sockaddr.capacity
-			Result := posix_recvfrom (fildes, buf, nbyte, 0, sockaddr.ptr, $my_flag)
-			if Result /= -1 then
-				-- TODO: optimise so we don't create new sockaddr_in, but
-				-- psoix_recvfrom should simply write to the right sockaddr_in
-				-- structure.
-				-- Obviously sockaddr_in should support dynamically
-				-- updating its fields.
-				if posix_sockaddr_sa_family (sockaddr.ptr) = AF_INET then
-					create {EPX_SOCKET_ADDRESS_IN} last_sender.make_from_pointer (sockaddr.ptr, my_flag)
-				elseif posix_sockaddr_sa_family (sockaddr.ptr) = AF_INET6 then
-					create {EPX_SOCKET_ADDRESS_IN6} last_sender.make_from_pointer (sockaddr.ptr, my_flag)
+			if attached sockaddr as l_sockaddr then
+				my_flag := l_sockaddr.capacity
+				Result := posix_recvfrom (fildes, buf, nbyte, 0, l_sockaddr.ptr, $my_flag)
+				if Result /= -1 then
+					-- TODO: optimise so we don't create new sockaddr_in, but
+					-- `posix_recvfrom' should simply write to the right sockaddr_in
+					-- structure.
+					-- Obviously sockaddr_in should support dynamically
+					-- updating its fields.
+					if posix_sockaddr_sa_family (l_sockaddr.ptr) = AF_INET then
+						create {EPX_SOCKET_ADDRESS_IN} last_sender.make_from_pointer (l_sockaddr.ptr, my_flag)
+					elseif posix_sockaddr_sa_family (l_sockaddr.ptr) = AF_INET6 then
+						create {EPX_SOCKET_ADDRESS_IN6} last_sender.make_from_pointer (l_sockaddr.ptr, my_flag)
+					end
 				end
 			end
 		end

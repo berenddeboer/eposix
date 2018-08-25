@@ -52,7 +52,9 @@ feature -- Initialization
 		do
 			create path.make_from_string (Arguments.program_name)
 			path.parse (Void)
-			make (path.basename + "[" + pid.out + "]")
+			if attached path.basename as l_basename then
+				make (l_basename + "[" + pid.out + "]")
+			end
 		end
 
 	make (an_identification: STRING)

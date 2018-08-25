@@ -31,13 +31,15 @@ feature -- Socket specific open functions
 		local
 			r: INTEGER
 			a_fd: INTEGER
+			l_client_socket_address: like client_socket_address
 		do
 			do_make
-			create client_socket_address.allocate_and_clear (hp.socket_address.length)
+			create l_client_socket_address.allocate_and_clear (hp.socket_address.length)
+			client_socket_address := l_client_socket_address
 			-- BeOS doesn't set family. It doesn't reset it either, so
 			-- set it to AF_INET here. Any sensible implementation will
 			-- override the value.
-			abstract_api.posix_set_sockaddr_sa_family (client_socket_address.ptr, AF_INET)
+			abstract_api.posix_set_sockaddr_sa_family (l_client_socket_address.ptr, AF_INET)
 			a_fd := new_socket (hp)
 			if a_fd /= -1 then
 				capacity := 1
@@ -86,9 +88,10 @@ feature -- Accept
 		local
 			client_fd: INTEGER
 		do
-				check attached client_socket_address end
-			address_length := client_socket_address.capacity
-			client_fd := abstract_accept (socket, client_socket_address.ptr, $address_length)
+			if attached client_socket_address as l_client_socket_address then
+				address_length := l_client_socket_address.capacity
+				client_fd := abstract_accept (socket, l_client_socket_address.ptr, $address_length)
+			end
 			if client_fd = unassigned_value then
 				if errno.is_not_ok and then errno.value /= EAGAIN and then errno.value /= EWOULDBLOCK and then errno.value /= EINTR  then
 					raise_posix_error

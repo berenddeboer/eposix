@@ -99,7 +99,7 @@ create
 %type <STRING> flag_extension
 %type <STRING> flag_keyword
 %type <STRING> mailbox
-%type <STRING> mailbox_delimiter
+%type <detachable STRING> mailbox_delimiter
 %type <STRING> one_or_more_msg_att_item_flag_item
 %type <STRING> literal
 %type <STRING> nstring
@@ -501,14 +501,14 @@ mailbox_data
 	| IMAP4_LSUB mailbox_list
 	| number IMAP4_EXISTS
 		{
-			if response.current_mailbox /= Void then
-				response.current_mailbox.set_count ($1)
+			if attached response.current_mailbox as l_mailbox then
+				l_mailbox.set_count ($1)
 			end
 		}
 	| number IMAP4_RECENT
 		{
-			if response.current_mailbox /= Void then
-				response.current_mailbox.set_recent ($1)
+			if attached response.current_mailbox as l_mailbox then
+				l_mailbox.set_recent ($1)
 			end
 		}
 	;
@@ -523,8 +523,8 @@ mailbox_delimiter
 mailbox_list
 	: '(' mailbox_list_flag_zero_or_more ')' mailbox_delimiter mailbox
 		{
-			if $4 = Void or else $4.count = 1 then
-				response.set_delimiter ($4)
+			if attached $4 as l_delimiter and then l_delimiter.count = 1 then
+				response.set_delimiter (l_delimiter)
 			end
 			-- @@BdB: here add mailbox to response.mailboxes
 		}
@@ -592,34 +592,34 @@ msg_att_item
 	: IMAP4_ENVELOPE envelope
 	| IMAP4_FLAGS '('
 		{
-			if response.current_message /= Void then
-				response.current_message.clear_flags
+			if attached response.current_message as l_message then
+				l_message.clear_flags
 			end
 		}
 		zero_or_more_msg_att_item_flag ')'
 	| IMAP4_INTERNALDATE { expect_date_time } date_time
 	| IMAP4_RFC822 nstring
 		{
-			if response.current_message /= Void then
-				response.current_message.set_message ($2)
+			if attached response.current_message as l_message then
+				l_message.set_message ($2)
 			end
 		}
 	| IMAP4_RFC822_HEADER nstring
 		{
-			if response.current_message /= Void then
-				response.current_message.set_message_header ($2)
+			if attached response.current_message as l_message then
+				l_message.set_message_header ($2)
 			end
 		}
 	| IMAP4_RFC822_SIZE number
 		{
-			if response.current_message /= Void then
-				response.current_message.set_message_size ($2.item)
+			if attached response.current_message as l_message then
+				l_message.set_message_size ($2.item)
 			end
 		}
 	| IMAP4_RFC822_TEXT nstring
 		{
-			if response.current_message /= Void then
-				response.current_message.set_message_body ($2)
+			if attached response.current_message as l_message then
+				l_message.set_message_body ($2)
 			end
 		}
 	| IMAP4_BODY body
@@ -637,14 +637,14 @@ zero_or_more_msg_att_item_flag
 one_or_more_msg_att_item_flag
 	: one_or_more_msg_att_item_flag_item
 		{
-			if response.current_message /= Void then
-				response.current_message.append_flag ($1)
+			if attached response.current_message as l_message then
+				l_message.append_flag ($1)
 			end
 		}
 	| one_or_more_msg_att_item_flag one_or_more_msg_att_item_flag_item
 		{
-			if response.current_message /= Void then
-				response.current_message.append_flag ($2)
+			if attached response.current_message as l_message then
+				l_message.append_flag ($2)
 			end
 		}
 	;
@@ -668,6 +668,7 @@ nstring
 	: string
 		{ $$ := $1 }
 	| nil
+		{ $$ := "" }
 	;
 
 number
@@ -783,6 +784,7 @@ resp_text
 	| optional_resp_text_code text
 		{ $$ := $2 }
 	| optional_resp_text_code
+		{ $$ := "" }
 	;
 
 optional_resp_text_code
@@ -797,27 +799,27 @@ resp_text_code
 	| IMAP4_PERMANENTFLAGS '(' zero_or_more_flag_perm ')'
 	| IMAP4_READ_ONLY
 		{
-			if response.current_mailbox /= Void then
-				response.current_mailbox.set_is_writable (False)
+			if attached response.current_mailbox as l_mailbox then
+				l_mailbox.set_is_writable (False)
 			end
 		}
 	| IMAP4_READ_WRITE
 		{
-			if response.current_mailbox /= Void then
-				response.current_mailbox.set_is_writable (True)
+			if attached response.current_mailbox as l_mailbox then
+				l_mailbox.set_is_writable (True)
 			end
 		}
 	| IMAP4_UIDNEXT number
 	| IMAP4_UIDVALIDITY number
 		{
-			if response.current_mailbox /= Void then
-				response.current_mailbox.set_identifier ($2.item)
+			if attached response.current_mailbox as l_mailbox then
+				l_mailbox.set_identifier ($2.item)
 			end
 		}
 	| IMAP4_UNSEEN number
 		{
-			if response.current_mailbox /= Void then
-				response.current_mailbox.set_unseen ($2.item)
+			if attached response.current_mailbox as l_mailbox then
+				l_mailbox.set_unseen ($2.item)
 			end
 		}
 	| IMAP4_ATOM_WITHOUT_RIGHT_BRACKET optional_text_without_right_bracket

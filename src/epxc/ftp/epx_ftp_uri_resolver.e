@@ -14,9 +14,13 @@ class
 
 	EPX_FTP_URI_RESOLVER
 
+
 inherit
 
 	XM_URI_RESOLVER
+
+
+inherit {NONE}
 
 	KL_SHARED_EXECUTION_ENVIRONMENT
 
@@ -25,6 +29,10 @@ inherit
 	KL_SHARED_EXCEPTIONS
 
 	KL_SHARED_STANDARD_FILES
+
+
+feature {NONE} -- Initialisation
+
 
 feature -- Operation(s)
 
@@ -50,10 +58,10 @@ feature -- Operation(s)
 			if not a_uri.has_parsed_authority then
 				set_local_error ("Host name needed with ftp protocol")
 			end
-			if a_uri.has_user_info then
+			if a_uri.has_user_info and then attached a_uri.user_info as l_user_info then
 				create a_splitter.make
 				a_splitter.set_separators (":")
-				some_parts := a_splitter.split (a_uri.user_info)
+				some_parts := a_splitter.split (l_user_info)
 				if some_parts.count = 2 then
 					a_user_name := some_parts.item (1)
 					a_password := some_parts.item (2)
@@ -76,11 +84,13 @@ feature -- Operation(s)
 				end
 				create client.make_anonymous_with_port (a_uri.host, a_uri.port, a_password + "@")
 			end
-			client.open
-			if client.is_open then
-				parse_path (a_uri)
-			else
-				set_local_error ("Failed to connect to ftp server")
+			if attached client as l_client then
+				l_client.open
+				if l_client.is_open then
+					parse_path (l_client, a_uri)
+				else
+					set_local_error ("Failed to connect to ftp server")
+				end
 			end
 		end
 
@@ -89,7 +99,9 @@ feature -- Result
 	has_error: BOOLEAN
 			-- Did the last resolution attempt succeed?
 		do
-			Result := has_local_error or else is_retrieving and then client.last_reply_code /= 150
+			Result :=
+				has_local_error or else
+				is_retrieving and then attached client as l_client and then l_client.last_reply_code /= 150
 		end
 
 	is_retrieving: BOOLEAN
@@ -99,17 +111,23 @@ feature -- Result
 		local
 			a_message: STRING
 		do
-			if has_local_error then
-				Result := last_local_error
+			if has_local_error and then attached last_local_error as l_last_local_error then
+				Result := l_last_local_error
+			elseif attached client as l_client then
+				Result := "Ftp returned code " + l_client.last_reply_code.out
 			else
-				Result := "Ftp returned code " + client.last_reply_code.out
+				Result := "<no client>"
 			end
-			a_message := STRING_.concat ("URI ", last_uri.full_reference)
+			if attached last_uri as l_last_uri then
+				a_message := STRING_.concat ("URI ", l_last_uri.full_reference)
+			else
+				a_message := "<no last_uri>"
+			end
 			a_message := STRING_.appended_string (a_message, " ")
 			Result := STRING_.appended_string (a_message, Result)
 		end
 
-	last_stream: KI_CHARACTER_INPUT_STREAM
+	last_stream: detachable KI_CHARACTER_INPUT_STREAM
 			-- Matching stream
 
 	has_media_type: BOOLEAN
@@ -122,18 +140,19 @@ feature -- Result
 			-- Media type, if available.
 		do
 			-- pre-condition is never met
+			create Result.make ("not", "applicable")
 		end
 
 feature {NONE} -- Implementation
 
-	client: EPX_FTP_CLIENT
+	client: detachable EPX_FTP_CLIENT
 			-- Current client
 
 	has_local_error: BOOLEAN
 
-	last_local_error: like last_error
+	last_local_error: detachable like last_error
 
-	last_uri: UT_URI
+	last_uri: detachable UT_URI
 
 	set_local_error (an_error_string: STRING)
 			-- Set a local error.
@@ -143,21 +162,21 @@ feature {NONE} -- Implementation
 			has_local_error := True
 			last_local_error := an_error_string
 		ensure
-			error_set: has_local_error and then STRING_.same_string (an_error_string, last_local_error)
+			error_set: has_local_error and then attached last_local_error as l_last_local_error and then STRING_.same_string (an_error_string, l_last_local_error)
 		end
 
-	parse_path (a_uri: UT_URI)
+	parse_path (a_client: EPX_FTP_CLIENT; a_uri: UT_URI)
 			-- Parse path component
 		require
 			uri_not_void: a_uri /= Void
-			client_open: client /= Void and then client.is_open
+			client_open: a_client.is_open
 			no_errors_yet: not has_local_error
 		local
 			a_path, a_typecode: STRING
 			a_splitter: ST_SPLITTER
 			some_parts: DS_LIST [STRING]
 		do
-			if client.is_authenticated then
+			if a_client.is_authenticated then
 				debug ("XML ftp resolver")
 					std.error.put_string ("Path is: ")
 					std.error.put_string (a_uri.path)
@@ -179,6 +198,8 @@ feature {NONE} -- Implementation
 					a_typecode := ""
 				else
 					set_local_error ("Bad syntax for path component of ftp URI")
+					a_typecode := ""
+					a_path := ""
 				end
 				if a_uri.has_query then
 					set_local_error ("Query string is illegal in ftp URI")
@@ -188,6 +209,8 @@ feature {NONE} -- Implementation
 				--						end
 			else
 				set_local_error ("Server failed to authenticate client")
+				a_typecode := ""
+				a_path := ""
 			end
 			if not has_local_error and then a_typecode.count > 0 then
 				create a_splitter.make
@@ -206,10 +229,12 @@ feature {NONE} -- Implementation
 					end
 				end
 			end
-			if not has_local_error then prepare_retrieval (a_path, a_typecode) end
+			if not has_local_error then
+				prepare_retrieval (a_client, a_path, a_typecode)
+			end
 		end
 
-	prepare_retrieval (a_path, a_typecode: STRING)
+	prepare_retrieval (a_client: EPX_FTP_CLIENT; a_path, a_typecode: STRING)
 			-- Prepare to retrieve file.
 		require
 			path_not_void: a_path /= Void
@@ -219,7 +244,6 @@ feature {NONE} -- Implementation
 			a_splitter: ST_SPLITTER
 			some_parts: DS_LIST [STRING]
 			a_cursor: DS_LIST_CURSOR [STRING]
-			a_socket: EPX_TCP_CLIENT_SOCKET
 		do
 			debug ("XML ftp resolver")
 				std.error.put_string ("Preparing to retrieve file%N")
@@ -234,44 +258,42 @@ feature {NONE} -- Implementation
 			end
 			from
 				a_cursor := some_parts.new_cursor; a_cursor.start
-			variant
-				some_parts.count + 1 - a_cursor.index
 			until
 				has_error or else a_cursor.after
 			loop
 				if a_cursor.index	= some_parts.count and then
 					not (a_typecode.count = 1 and then as_lower(a_typecode.item (1)) = 'd') then
-					retrieve_file (a_cursor.item, a_typecode)
+					retrieve_file (a_client, a_cursor.item, a_typecode)
 				else
 					debug ("XML ftp resolver")
 						std.error.put_string ("Attempting to change directory to ")
 						std.error.put_string (a_cursor.item)
 						std.error.put_new_line
 					end
-					client.change_directory (a_cursor.item)
-					if client.last_reply_code = 550 then
+					a_client.change_directory (a_cursor.item)
+					if a_client.last_reply_code = 550 then
 						set_local_error ("Failed to change to the required directory")
-					elseif client.last_reply_code /= 250 then
-						set_local_error ("Unexpected reply code when trying to change to the required directory: " + client.last_reply_code.out)
+					elseif a_client.last_reply_code /= 250 then
+						set_local_error ("Unexpected reply code when trying to change to the required directory: " + a_client.last_reply_code.out)
 					end
 				end
 				a_cursor.forth
+			variant
+				some_parts.count + 1 - a_cursor.index
 			end
 			if a_typecode.count = 1 and then as_lower(a_typecode.item (1)) = 'd' then
 				debug ("XML ftp resolver")
 					std.error.put_string ("Attempting to list directory.%N")
 				end
-				client.name_list
+				a_client.name_list
 				is_retrieving := True
-				a_socket ?= client.data_connection
-				check
-					socket_not_void: a_socket /= Void
+				if attached {EPX_TCP_CLIENT_SOCKET} a_client.data_connection as l_socket then
+					create {EPX_FTP_RESOLVER_STREAM} last_stream.make (a_client, l_socket)
 				end
-				create {EPX_FTP_RESOLVER_STREAM} last_stream.make (client, a_socket)
 			end
 		end
 
-	retrieve_file (a_file_name, a_typecode: STRING)
+	retrieve_file (a_client: EPX_FTP_CLIENT; a_file_name, a_typecode: STRING)
 			-- Retrieve `a_file_name'.
 		require
 			file_not_empty: a_file_name /= Void and then a_file_name.count > 0
@@ -279,42 +301,44 @@ feature {NONE} -- Implementation
 			no_errors_yet: not has_error
 		local
 			retried: BOOLEAN
-			a_socket: EPX_TCP_CLIENT_SOCKET
 		do
 			if not retried then
 				debug ("XML ftp resolver")
 					std.error.put_string ("Attempting to retrieve file " + a_file_name)
 					std.error.put_new_line
 				end
+
 				if a_typecode.count = 1 then
 					if as_lower(a_typecode.item (1)) = 'i' then
-						client.type_binary
-						if client.last_reply_code /= 200 then
-							set_local_error ("Unexpected reply code when trying to change to binary transfer mode: " + client.last_reply_code.out)
+						a_client.type_binary
+						if a_client.last_reply_code /= 200 then
+							set_local_error ("Unexpected reply code when trying to change to binary transfer mode: " + a_client.last_reply_code.out)
 						end
 					elseif as_lower(a_typecode.item (1)) = 'a' then
-						client.type_ascii
-						if client.last_reply_code /= 200 then
-							set_local_error ("Unexpected reply code when trying to change to ASCII transfer mode: " + client.last_reply_code.out)
+						a_client.type_ascii
+						if a_client.last_reply_code /= 200 then
+							set_local_error ("Unexpected reply code when trying to change to ASCII transfer mode: " + a_client.last_reply_code.out)
 						end
 					else
 						set_local_error ("Illegal typecode in ftp: " + a_typecode)
 					end
 				end
 				if not has_error then
-					client.retrieve (a_file_name)
+					a_client.retrieve (a_file_name)
 					is_retrieving := True
-					a_socket ?= client.data_connection
-					check
-						socket_not_void: a_socket /= Void
+					if attached {EPX_TCP_CLIENT_SOCKET} a_client.data_connection as l_socket then
+						create {EPX_FTP_RESOLVER_STREAM} last_stream.make (a_client, l_socket)
 					end
-					create {EPX_FTP_RESOLVER_STREAM} last_stream.make (client, a_socket)
 				end
 			end
 		rescue
 			is_retrieving := False
 			if Exceptions.is_developer_exception then
-				set_local_error ("An attempt to retrieve a file by ftp resulted in the condition: " + Exceptions.developer_exception_name)
+				if attached Exceptions.developer_exception_name as l_name then
+					set_local_error ("An attempt to retrieve a file by ftp resulted in the condition: " + l_name)
+				else
+					set_local_error ("An attempt to retrieve a file by ftp resulted in the condition: <no name>")
+				end
 			else
 				set_local_error ("An attempt to retrieve a file by ftp resulted in exception code " + Exceptions.exception.out)
 			end

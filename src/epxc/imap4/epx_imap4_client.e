@@ -67,6 +67,9 @@ feature {NONE} -- Initialization
 			host_name := a_host
 			port := a_port
 			is_secure_connection := a_secure
+			tag := ""
+			command := ""
+			error_message := ""
 			open
 		ensure
 			unauthenticated: state.is_not_authenticated
@@ -115,7 +118,9 @@ feature -- Open/close
 			open: is_open
 		do
 			response.clear_current_mailbox
-			socket.close
+			if attached socket as l_socket then
+				l_socket.close
+			end
 			state.set_not_authenticated
 		ensure
 			closed: not is_open
@@ -141,12 +146,12 @@ feature {NONE} -- Open
 			create openssl.make_ssl3_client (host_name, port)
 			openssl.execute
 			socket := openssl
-			socket.read_line
-			if not socket.end_of_input then
-				create greeting_message.make_from_string (socket.last_string)
+			openssl.read_line
+			if not openssl.end_of_input then
+				create greeting_message.make_from_string (openssl.last_string)
 				response.set_greeting_message (greeting_message)
 			else
-				socket.close
+				openssl.close
 				socket := Void
 			end
 		end
@@ -161,7 +166,7 @@ feature {NONE} -- Open
 			greeting_message: STRING
 			tcp: EPX_TCP_CLIENT_SOCKET
 		do
-			if host_port = Void then
+			if not attached host_port then
 				create host.make_from_name (host_name)
 				if host.found then
 					if port = 0 then
@@ -174,14 +179,14 @@ feature {NONE} -- Open
 					error_message := "Host not found, error code is " + host.not_found_reason.out
 				end
 			end
-			if host_port /= Void then
+			if attached host_port as l_host_port then
 				create tcp.make
 				tcp.set_continue_on_error
-				tcp.open_by_address (host_port)
+				tcp.open_by_address (l_host_port)
 				if tcp.is_open then
 					socket := tcp
-					socket.read_line
-					create greeting_message.make_from_string (socket.last_string)
+					tcp.read_line
+					create greeting_message.make_from_string (tcp.last_string)
 					response.set_greeting_message (greeting_message)
 				else
 					error_message := tcp.errno.message
@@ -215,14 +220,14 @@ feature -- Status
 			-- Is client connected to IMAP server?
 		do
 			Result :=
-				socket /= Void and then
-				socket.is_open_read and then
-				socket.is_open_write
+				attached socket as l_socket and then
+				l_socket.is_open_read and then
+				l_socket.is_open_write
 		ensure
 			definition: is_open implies
-				socket /= Void and then
-				socket.is_open_read and then
-				socket.is_open_write
+				attached socket as l_socket and then
+				l_socket.is_open_read and then
+				l_socket.is_open_write
 		end
 
 	is_secure_connection: BOOLEAN
@@ -592,8 +597,9 @@ feature -- Selected state queries
 			mailbox_selected: state.is_selected
 		do
 			Result :=
-				a_number >= 1 and
-				a_number <= response.current_mailbox.count
+				a_number >= 1 and then
+				attached response.current_mailbox as l_mailbox and then
+				a_number <= l_mailbox.count
 		end
 
 	is_valid_mailbox_name (a_name: STRING): BOOLEAN
@@ -618,7 +624,7 @@ feature {NONE} -- Command construction and sending
 			-- Used to build an unique tag.
 			-- Incremented by `generate_new_tag'.
 
-	construct_command (a_command: STRING; a_arguments: ARRAY [STRING]; astring: BOOLEAN)
+	construct_command (a_command: STRING; a_arguments: detachable ARRAY [STRING]; astring: BOOLEAN)
 			-- Build a command-line for the IMAP command `a_command'
 			-- using arguments in `a_arguments'. If `astring' than the
 			-- arguments are enclosed within quotes.
@@ -692,16 +698,18 @@ feature {NONE} -- Command construction and sending
 				print (command)
 				print ("%N")
 			end
-			socket.put_string (command)
-			create parser.make (response)
-			parser.set_input_buffer (parser.new_imap4_response_buffer (socket))
-			parser.parse
-			if parser.syntax_error then
-				debug ("imap4")
-					print ("!!!! parsing failed!%N")
-					exit_with_failure
+			if attached socket as l_socket then
+				l_socket.put_string (command)
+				create parser.make (response)
+				parser.set_input_buffer (parser.new_imap4_response_buffer (l_socket))
+				parser.parse
+				if parser.syntax_error then
+					debug ("imap4")
+						print ("!!!! parsing failed!%N")
+						exit_with_failure
+					end
+					response.set_bad
 				end
-				response.set_bad
 			end
 		end
 
@@ -711,10 +719,10 @@ feature {NONE} -- Command construction and sending
 
 feature {NONE} -- Implementation
 
-	host_port: EPX_HOST_PORT
+	host_port: detachable EPX_HOST_PORT
 			-- Resolved host
 
-	socket: EPX_TEXT_IO_STREAM
+	socket: detachable EPX_TEXT_IO_STREAM
 			-- Connection to IMAP server
 
 	quoted (s: STRING): STRING
@@ -745,7 +753,7 @@ invariant
 	authenticated_implies_open: not state.is_not_authenticated implies is_open
 	response_not_void: response /= Void
 
-	selected_state_has_current_mailbox: state.is_selected implies response.current_mailbox /= Void
-	unselected_state_has_no_current_mailbox: not state.is_selected implies response.current_mailbox = Void
+	selected_state_has_current_mailbox: state.is_selected implies attached response.current_mailbox
+	unselected_state_has_no_current_mailbox: not state.is_selected implies not attached response.current_mailbox
 
 end

@@ -18,8 +18,12 @@ inherit
 
 	YY_COMPRESSED_SCANNER_SKELETON
 		redefine
+			make,
 			reset_start_condition
 		end
+
+
+inherit {NONE}
 
 	EPX_IMAP4_RESPONSE_TOKENS
 		export
@@ -30,6 +34,11 @@ inherit
 		export
 			{NONE} all
 		end
+
+
+create
+
+	make
 
 %}
 
@@ -303,6 +312,16 @@ inherit
 -------------------------------------------------------------------------------
 
 %%
+
+
+feature {NONE} -- Initialisation
+
+	make
+		do
+			precursor
+			last_string := ""
+			last_string_value := ""
+		end
 
 
 feature -- Input

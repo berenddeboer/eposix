@@ -75,6 +75,10 @@
 				<exclude>/wapi$</exclude>
 				<exclude>/wapi5$</exclude>
 				<exclude>/windows$</exclude>
+				<exclude>epx_http_servlet.e</exclude>
+				<exclude>epx_http_server.e</exclude>
+				<exclude>epx_http_dynamic_path.e</exclude>
+				<exclude>epx_http_connection.e</exclude>
 			</file_rule>
 			<visible class="STDC_SIGNAL_SWITCH" feature="switcher"/>
 			<visible class="STDC_EXIT_SWITCH" feature="at_exit"/>

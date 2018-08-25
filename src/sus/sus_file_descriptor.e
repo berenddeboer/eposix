@@ -17,4 +17,19 @@ inherit
 	POSIX_FILE_DESCRIPTOR
 
 
+create
+
+	open,
+	open_read,
+	open_write,
+	open_read_write,
+	open_truncate,
+	create_read_write,
+	create_write,
+	create_with_mode,
+	make_as_duplicate,
+	make_from_file,
+	attach_to_fd
+
+
 end

@@ -61,34 +61,34 @@ feature -- Access to well-known fields
 			-- Field `Last_Modified' if it exists, else Void.
 		do
 			fields.search (field_name_last_modified)
-			if fields.found then
-				Result ?= fields.found_item
+			if fields.found and then attached {EPX_MIME_FIELD_LAST_MODIFIED} fields.found_item as field then
+				Result := field
 			end
 		ensure
-			definition: fields.has (field_name_last_modified) = (Result /= Void)
+			definition: fields.has (field_name_last_modified) = (attached Result)
 		end
 
 	location_field: detachable EPX_MIME_UNSTRUCTURED_FIELD
 			-- Field `Location' if it exists, else Void.
 		do
 			fields.search (field_name_location)
-			if fields.found then
-				Result ?= fields.found_item
+			if fields.found and then attached {EPX_MIME_UNSTRUCTURED_FIELD} fields.found_item as field then
+				Result := field
 			end
 		ensure
-			definition: fields.has (field_name_location) = (Result /= Void)
+			definition: fields.has (field_name_location) = (attached Result)
 		end
 
 	status_field: detachable EPX_MIME_FIELD_STATUS
 			-- Field `Status' if it exists, else Void.
 		do
 			fields.search (field_name_status)
-			if fields.found then
+			if fields.found and then attached {EPX_MIME_FIELD_STATUS} fields.found_item as field then
 				-- Oops, this may fail if user tricks us...
-				Result ?= fields.found_item
+				Result := field
 			end
 		ensure
-			definition: fields.has (field_name_status) = (Result /= Void)
+			definition: fields.has (field_name_status) = (attached Result)
 		end
 
 
@@ -100,30 +100,13 @@ feature -- Change
 		do
 			set_content_type (mime_type_application, mime_subtype_xml, charset_utf8)
 		ensure
-			content_type_set: content_type /= Void
 			content_type_is_text_xml:
-				STRING_.same_string (content_type.type, mime_type_application) and then
-				STRING_.same_string (content_type.subtype, mime_subtype_xml)
+				attached content_type as l_content_type and then
+				STRING_.same_string (l_content_type.type, mime_type_application) and then
+				STRING_.same_string (l_content_type.subtype, mime_subtype_xml)
 			charset_is_utf8:
-				content_type.parameters.has (parameter_name_charset) and then
-				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
-		end
-
-	set_content_type_text_xml
-			-- Set Content-Type to text/xml. Character set is set to
-			-- UTF-8.
-		obsolete
-			"2010-03-20: please use `set_content_type_application_xml'"
-		do
-			set_content_type (mime_type_text, mime_subtype_xml, charset_utf8)
-		ensure
-			content_type_set: content_type /= Void
-			content_type_is_text_xml:
-				STRING_.same_string (content_type.type, mime_type_text) and then
-				STRING_.same_string (content_type.subtype, mime_subtype_xml)
-			charset_is_utf8:
-				content_type.parameters.has (parameter_name_charset) and then
-				STRING_.same_string (content_type.parameters.item (parameter_name_charset).value, charset_utf8)
+				l_content_type.parameters.has (parameter_name_charset) and then
+				STRING_.same_string (l_content_type.parameters.item (parameter_name_charset).value, charset_utf8)
 		end
 
 	set_last_modified (a_dt: STDC_TIME)
@@ -167,8 +150,7 @@ feature -- Change
 				field.set_value (a_url)
 			end
 		ensure
-			location_field_set: location_field /= Void
-			location_set: STRING_.same_string (location_field.value, a_url)
+			location_set: attached location_field as lf and then STRING_.same_string (lf.value, a_url)
 		end
 
 	set_status (a_status_code: INTEGER; a_reason: detachable STRING)
@@ -191,8 +173,7 @@ feature -- Change
 				field.set_status (a_status_code, a_reason)
 			end
 		ensure
-			status_field_set: status_field /= Void
-			status_set: status_field.status_code = a_status_code
+			status_set: attached status_field as sf and then sf.status_code = a_status_code
 		end
 
 

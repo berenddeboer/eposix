@@ -74,7 +74,7 @@ feature -- set request properties
 			valid_buffer: a_buffer /= Void
 		do
 			buffer := a_buffer
-			posix_set_aiocb_aio_buf (aiocb.ptr, buffer.ptr)
+			posix_set_aiocb_aio_buf (aiocb.ptr, a_buffer.ptr)
 		ensure
 			buffer_set: buffer = a_buffer
 			raw_pointer_set: raw_pointer = a_buffer.ptr
@@ -106,7 +106,7 @@ feature -- set request properties
 			posix_set_aiocb_aio_buf (aiocb.ptr, a_pointer)
 			create buffer.make_from_pointer (a_pointer, count, False)
 		ensure
-			buffer_set: buffer.ptr = a_pointer
+			buffer_set: attached buffer as l_buffer and then l_buffer.ptr = a_pointer
 			raw_pointer_set: raw_pointer = a_pointer
 		end
 
@@ -118,8 +118,8 @@ feature -- basic read/write requests
 		require
 			is_open: fd.is_open
 			nothing_pending: not is_pending
-			has_buffer: raw_pointer /= default_pointer and buffer /= Void
-			has_capacity: buffer.capacity >= count
+			has_buffer: raw_pointer /= default_pointer and attached buffer
+			has_capacity: attached buffer as l_buffer and then l_buffer.capacity >= count
 		do
 			status_retrieved := False
 			safe_call (posix_aio_read (aiocb.ptr))
@@ -130,8 +130,8 @@ feature -- basic read/write requests
 		require
 			is_open: fd.is_open
 			nothing_pending: not is_pending
-			has_buffer: raw_pointer /= default_pointer and buffer /= Void
-			has_capacity: buffer.capacity >= count
+			has_buffer: raw_pointer /= default_pointer and attached buffer
+			has_capacity: attached buffer as l_buffer and then l_buffer.capacity >= count
 		do
 			status_retrieved := False
 			safe_call (posix_aio_write (aiocb.ptr))
@@ -146,20 +146,26 @@ feature -- Eiffel friendly reads and writes
 		require
 			nothing_pending: not is_pending
 		do
-			Result := sh.pointer_to_string (buffer.ptr)
+			if attached buffer as l_buffer then
+				Result := sh.pointer_to_string (l_buffer.ptr)
+			else
+				Result := ""
+			end
 		end
 
 	read_string
 		require
 			is_open: fd.is_open
 			nothing_pending: not is_pending
+		local
+			l_buffer: like buffer
 		do
 			last_string.wipe_out
 			-- read from own buffer, just to be sure
 			-- also make sure there is a zero byte at the end
-			create buffer.allocate (count + 1)
-			buffer.poke_uint8 (count, 0)
-			set_buffer (buffer)
+			create l_buffer.allocate (count + 1)
+			l_buffer.poke_uint8 (count, 0)
+			set_buffer (l_buffer)
 			read
 		end
 
@@ -168,21 +174,20 @@ feature -- Eiffel friendly reads and writes
 			is_open: fd.is_open
 			nothing_pending: not is_pending
 		local
-			uc: UC_STRING
+			l_buffer: like buffer
 		do
 			if text /= Void and then not text.is_empty then
 				set_count (text.count)
 				-- Copy string to own buffer, just to be sure.
-				uc ?= text
-				if uc /= Void then
-					create buffer.allocate (uc.byte_count)
-					buffer.memory_copy (sh.uc_string_to_pointer (uc), 0, 0, uc.byte_count)
+				if attached {UC_STRING} text as uc then
+					create l_buffer.allocate (uc.byte_count)
+					l_buffer.memory_copy (sh.uc_string_to_pointer (uc), 0, 0, uc.byte_count)
 				else
-					create buffer.allocate (text.count)
-					buffer.memory_copy (sh.string_to_pointer (text), 0, 0, text.count)
+					create l_buffer.allocate (text.count)
+					l_buffer.memory_copy (sh.string_to_pointer (text), 0, 0, text.count)
 				end
 				sh.unfreeze_all
-				set_buffer (buffer)
+				set_buffer (l_buffer)
 				write
 			end
 		end
@@ -239,7 +244,7 @@ feature -- other operations
 
 feature -- Access
 
-	buffer: STDC_BUFFER
+	buffer: detachable STDC_BUFFER
 			-- Buffer where data that is being read/write comes from,
 			-- unless set_pointer has been called
 
@@ -278,7 +283,7 @@ feature {NONE} -- private state
 invariant
 
 	valid_aiocb: aiocb /= Void
-	synced_buffer_and_raw_pointer: buffer /= Void implies buffer.ptr = raw_pointer
+	synced_buffer_and_raw_pointer: attached buffer as l_buffer implies l_buffer.ptr = raw_pointer
 
 
 end

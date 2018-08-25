@@ -87,10 +87,11 @@ feature {NONE} -- Initialization
 						-- Content-Length if it has not been set, but we do
 						-- that only if Content-Type has been set.
 						if
-							header.content_type /= Void and then
-							header.content_length = Void
+							attached header as l_header and then
+							l_header.content_type /= Void and then
+							l_header.content_length = Void
 						then
-							header.set_content_length (as_uc_string.byte_count)
+							l_header.set_content_length (as_uc_string.byte_count)
 						end
 						finish_header
 					end
@@ -133,8 +134,8 @@ feature -- Error handling
 			-- `is_authorized', for example when the parameters are
 			-- needed to check authorization. So only set 401 if no
 			-- previous status code has been set.
-			if header.status_code = 0 then
-				header.set_status (401, Void)
+			if attached header as l_header and then l_header.status_code = 0 then
+				l_header.set_status (401, Void)
 			end
 			finish_header
 			stdout.put_string (as_uc_string)
@@ -161,7 +162,7 @@ feature {NONE} -- When script fails
 			is_exception: exceptions.exception /= 0
 		do
 			if not is_http_header_written then
-				if header.status_code = 0 then
+				if attached header as l_header and then l_header.status_code = 0 then
 					stdout.put_string (once "Status: 500%N")
 				else
 					status (500, "Fatal error")
@@ -663,10 +664,12 @@ feature -- CGI headers
 			cookie: EPX_HTTP_COOKIE
 			s: STRING
 		do
-			if not header.all_fields.is_empty then
-				create s.make (256)
-				header.append_fields_to_string (s)
-				stdout.put_string (s)
+			if attached header as l_header then
+				if not l_header.all_fields.is_empty then
+					create s.make (256)
+					l_header.append_fields_to_string (s)
+					stdout.put_string (s)
+				end
 			end
 			from
 				cookies.start
@@ -689,9 +692,9 @@ feature -- CGI headers
 				if cookie.secure then
 					stdout.put_string ("; secure")
 				end
-				if cookie.expires /= Void then
+				if attached cookie.expires as l_expires then
 					stdout.put_string ("; expires=")
-					stdout.put_string (cookie.expires.format ("%%a, %%d-%%b-%%Y %%H:%%M:%%S GMT"))
+					stdout.put_string (l_expires.format ("%%a, %%d-%%b-%%Y %%H:%%M:%%S GMT"))
 				end
 				stdout.write_character ('%N')
 				cookies.forth
@@ -742,7 +745,9 @@ feature -- CGI headers
 		require
 			valid_status_code: is_three_digit_response (a_status_code)
 		do
-			header.set_status (a_status_code, a_reason)
+			if attached header as l_header then
+				l_header.set_status (a_status_code, a_reason)
+			end
 		end
 
 
@@ -835,9 +840,11 @@ feature -- Form input
 			key_valid: is_valid_key (a_key)
 		do
 			assert_key_value_pairs_created
-			Result := cgi_data.has (a_key)
+			if attached cgi_data as d then
+				Result := d.has (a_key)
+			end
 		ensure
-			definition: Result = cgi_data.has (a_key)
+			definition: attached cgi_data as d and then Result = d.has (a_key)
 		end
 
 	is_meta_char (c: CHARACTER): BOOLEAN
@@ -865,10 +872,16 @@ feature -- Form input
 			-- to iterate over the keys for that table.
 		require
 			match_found_callback: an_on_match_found /= Void
+		local
+			l_cgi_data: like cgi_data
 		do
 			assert_key_value_pairs_created
 			if attached cgi_data as d then
-				create {EPX_CGI_KEY_VALUE_CURSOR} Result.make (d, a_key_re, a_value_re, an_on_match_found)
+				create Result.make (d, a_key_re, a_value_re, an_on_match_found)
+			else
+				-- Silence compiler
+				create l_cgi_data.make (0)
+				create Result.make (l_cgi_data, a_key_re, a_value_re, an_on_match_found)
 			end
 				check attached Result end
 		ensure
@@ -882,8 +895,8 @@ feature -- Form input
 			key_valid: is_valid_key (a_key)
 		do
 			search_key (a_key)
-			if found_key then
-				create Result.make_from_string (found_key_item.value)
+			if found_key and then attached found_key_item as l_item then
+				create Result.make_from_string (l_item.value)
 			else
 				Result := ""
 			end
@@ -939,13 +952,13 @@ feature {NONE} -- Cached key/value
 			given_cookies: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 			kv: EPX_KEY_VALUE
 		do
-			if cgi_data = Void then
+			if not attached cgi_data then
 				if has_input then
 					fill_key_value_pairs
 				else
 					create cgi_data.make_default
 				end
-				if not http_cookie.is_empty then
+				if not http_cookie.is_empty and then attached cgi_data as l_cgi_data then
 					given_cookies := url_encoder.do_url_encoded_to_field_name_value_pair (http_cookie, ';')
 					from
 						given_cookies.start
@@ -953,8 +966,8 @@ feature {NONE} -- Cached key/value
 						given_cookies.after
 					loop
 						kv := given_cookies.item_for_iteration
-						if not cgi_data.has (kv.key) then
-							cgi_data.force (kv, kv.key)
+						if not l_cgi_data.has (kv.key) then
+							l_cgi_data.force (kv, kv.key)
 						end
 						given_cookies.forth
 					end
@@ -1007,15 +1020,18 @@ feature {NONE} -- Cached key/value
 			-- Sets `found_key' if found.
 		require
 			valid_key: key /= Void and then not key.is_empty
+			cgi_data_attached: attached cgi_data
 		do
 			assert_key_value_pairs_created
-			cgi_data.search (key)
-			if cgi_data.found then
-				found_key := True
-				found_key_item := cgi_data.found_item
-			else
-				found_key := False
-				found_key_item := Void
+			if attached cgi_data as d then
+				d.search (key)
+				if d.found then
+					found_key := True
+					found_key_item := d.found_item
+				else
+					found_key := False
+					found_key_item := Void
+				end
 			end
 		ensure
 			found_implies_item: found_key = (found_key_item /= Void)
@@ -1028,6 +1044,7 @@ feature {NONE} -- Cached key/value
 			len: INTEGER
 			i: INTEGER
 			input: KI_CHARACTER_INPUT_STREAM
+			l_cgi_input: like cgi_input
 		do
 			if is_request_body_in_stdin then
 				-- Loop over input. Using content length would be enough,
@@ -1036,12 +1053,12 @@ feature {NONE} -- Cached key/value
 				from
 					len := content_length
 					i := 0
-					create cgi_input.make (query_string.count + 1 + len)
+					create l_cgi_input.make (query_string.count + 1 + len)
 					if not query_string.is_empty then
 						-- Start with query string, data in body can
 						-- override the key/value pairs from the query.
-						cgi_input.append_string (query_string)
-						cgi_input.append_character ('&')
+						l_cgi_input.append_string (query_string)
+						l_cgi_input.append_character ('&')
 					end
 					input := stdin
 					--create {STDC_TEXT_FILE} input.open_read ("test.form")
@@ -1050,10 +1067,11 @@ feature {NONE} -- Cached key/value
 					input.end_of_input or else
 					i = len
 				loop
-					cgi_input.append_character (input.last_character)
+					l_cgi_input.append_character (input.last_character)
 					i := i + 1
 					input.read_character
 				end
+				cgi_input := l_cgi_input
 			else
 				cgi_input := query_string
 			end
@@ -1117,15 +1135,17 @@ feature {NONE} -- Standard or multipart key/value filling
 			additional: DS_HASH_TABLE [EPX_KEY_VALUE, STRING]
 		do
 			additional := url_encoder.url_encoded_to_field_name_value_pair (query_string)
-			from
-				additional.start
-			until
-				additional.after
-			loop
-				if not cgi_data.has (additional.key_for_iteration) then
-					cgi_data.force (additional.item_for_iteration, additional.key_for_iteration)
+			if attached cgi_data as d then
+				from
+					additional.start
+				until
+					additional.after
+				loop
+					if not d.has (additional.key_for_iteration) then
+						d.force (additional.item_for_iteration, additional.key_for_iteration)
+					end
+					additional.forth
 				end
-				additional.forth
 			end
 		end
 

@@ -81,11 +81,9 @@ feature -- PID writing
 
 	pid_file_name: STDC_PATH
 			-- Name of file where pid is stored
-		require
-			pid_file_name_flag_not_void: pid_file_name_flag /= Void
 		once
-			if pid_file_name_flag.was_found then
-				create Result.make_from_string (pid_file_name_flag.parameter)
+			if pid_file_name_flag.was_found and then attached pid_file_name_flag.parameter as parameter then
+				create Result.make_from_string (parameter)
 			else
 				create Result.make_from_string (default_pid_file_name)
 			end
@@ -138,9 +136,14 @@ feature -- Argument parsing
 		once
 			create path.make_from_string (Arguments.program_name)
 			path.parse (Void)
-			Result := "/var/run/" + path.basename + ".pid"
+			if attached path.basename as l_basename then
+				Result := "/var/run/" + l_basename + ".pid"
+			else
+				-- silence compiler
+				Result := ""
+			end
 		ensure
-			not_empty: Result /= Void and then not Result.is_empty
+			not_empty: not Result.is_empty
 		end
 
 	set_arguments (a_parser: AP_PARSER)

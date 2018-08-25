@@ -36,6 +36,8 @@ feature -- Initialization
 		do
 			create file.open_read (a_filename)
 			line_number := 0
+			key := ""
+			value := ""
 		end
 
 
@@ -89,8 +91,6 @@ feature -- Reading
 			-- Read the next non-comment line.
 			-- Parse into `key'/`value' by calling `split_on_equal_sign'.
 		do
-			key := Void
-			value := Void
 			from
 				do_read_line
 			until

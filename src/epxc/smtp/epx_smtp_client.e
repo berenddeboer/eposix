@@ -208,16 +208,18 @@ feature -- Commands
 			if last_reply_code = 354 then
 				message:= an_email.message.as_string
 				correct_line_breaks (message)
-				smtp.put_string (message)
-				if
-					message.count < 2 or else
-					message.item (message.count) /= '%N' or else
-					message.item (message.count - 1) /= '%R'
-				then
-					smtp.put_string (once "%R%N")
+				if attached smtp as l_smtp then
+					l_smtp.put_string (message)
+					if
+						message.count < 2 or else
+						message.item (message.count) /= '%N' or else
+						message.item (message.count - 1) /= '%R'
+					then
+						l_smtp.put_string (once "%R%N")
+					end
+					l_smtp.put_string (once ".%R%N")
+					read_reply
 				end
-				smtp.put_string (once ".%R%N")
-				read_reply
 			end
 		end
 
@@ -262,33 +264,35 @@ feature {NONE} -- Special reading
 			line: STRING
 			capability: STRING
 		do
-			from
-				last_reply_code := 0
-			until
-				smtp.end_of_input or else
-				no_more_lines
-			loop
-				smtp.read_line
-				if not smtp.end_of_input then
-					line := smtp.last_string
-					if is_line_with_reply_code (line) then
-						no_more_lines := line.item (4) = ' '
-						if no_more_lines then
-							last_reply_code := line.substring (1, 3).to_integer
-							last_reply := line
-						end
-						if line.count >= 5 then
-							capability := line.substring (5, line.count)
-							capability.to_upper
-							if
-								capability.count > 5 and then
-								capability.substring (1, 5).is_equal (once_size_space) and then
-								capability.substring (6, capability.count).is_integer
-							then
-								max_message_size := capability.substring (6, capability.count).to_integer
-								capabilities.force_last (once_size)
-							else
-								capabilities.force_last (capability)
+			if attached smtp as l_smtp then
+				from
+					last_reply_code := 0
+				until
+					l_smtp.end_of_input or else
+					no_more_lines
+				loop
+					l_smtp.read_line
+					if not l_smtp.end_of_input then
+						line := l_smtp.last_string
+						if is_line_with_reply_code (line) then
+							no_more_lines := line.item (4) = ' '
+							if no_more_lines then
+								last_reply_code := line.substring (1, 3).to_integer
+								last_reply := line
+							end
+							if line.count >= 5 then
+								capability := line.substring (5, line.count)
+								capability.to_upper
+								if
+									capability.count > 5 and then
+									capability.substring (1, 5).is_equal (once_size_space) and then
+									capability.substring (6, capability.count).is_integer
+								then
+									max_message_size := capability.substring (6, capability.count).to_integer
+									capabilities.force_last (once_size)
+								else
+									capabilities.force_last (capability)
+								end
 							end
 						end
 					end

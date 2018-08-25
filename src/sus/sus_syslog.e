@@ -35,7 +35,8 @@ feature {SUS_SYSLOG_ACCESSOR}
 
 	make
 		do
-			-- do nothing
+			identification := ""
+			create identification_buffer.allocate_and_clear (identification.count + 1)
 		end
 
 
@@ -50,7 +51,6 @@ feature -- open and close
 			closed: not is_open
 		do
 			identification := an_identification
-			create identification_buffer.allocate_and_clear (identification.count + 1)
 			identification_buffer.put_string (an_identification, 0, an_identification.count - 1)
 			format := a_format
 			facility := a_facility
@@ -143,7 +143,7 @@ feature -- Write log messages, will auto-open if not is_open
 
 feature -- Access
 
-	identification: detachable STRING
+	identification: STRING
 
 	format,
 	facility: INTEGER
@@ -153,7 +153,7 @@ feature -- Access
 
 feature {NONE} -- Implementation
 
-	identification_buffer: detachable STDC_BUFFER
+	identification_buffer: STDC_BUFFER
 
 	frozen singleton: EPX_SINGLETON
 		once
@@ -162,6 +162,6 @@ feature {NONE} -- Implementation
 
 invariant
 
-	have_identification: is_open implies identification /= Void and then not identification.is_empty
+	have_identification: is_open implies not identification.is_empty
 
 end

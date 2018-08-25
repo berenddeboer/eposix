@@ -98,9 +98,9 @@ feature -- Output
 			terminated: is_terminated
 		do
 			execute
-			if not is_terminated then
-				fd_stdin.put_string (message.as_string)
-				fd_stdin.close
+			if not is_terminated and then attached fd_stdin as l_fd_stdin then
+				l_fd_stdin.put_string (message.as_string)
+				l_fd_stdin.close
 				wait_for (True)
 			end
 		ensure

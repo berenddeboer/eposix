@@ -24,11 +24,7 @@ feature {NONE} -- Initialization
 			has_value: a_value /= Void
 		do
 			key := a_key
-			if a_value = Void then
-				value := ""
-			else
-				value := a_value
-			end
+			value := a_value
 		end
 
 
