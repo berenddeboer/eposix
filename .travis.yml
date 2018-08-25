@@ -29,5 +29,5 @@ before_install:
   - ./bootstrap
 
 script:
-  ./configure --with-compiler=ge --prefix=$EPOSIX && make && make install
-  ec -config eposix.ecf
+  - ./configure --with-compiler=ge --prefix=$EPOSIX && make && make install
+  - ec -config eposix.ecf
