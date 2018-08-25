@@ -39,8 +39,6 @@ feature -- Element change
 			if filled then
 				from
 					i := position
-				variant
-					(count + 2) - i
 				until
 					i >= count
 				loop
@@ -60,6 +58,8 @@ feature -- Element change
 						end
 					end
 					i := i + 1
+				variant
+					(count + 2) - i
 				end
 			end
 		end

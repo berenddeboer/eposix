@@ -944,7 +944,6 @@ feature {NONE} -- Scanning literals
 			nbytes_not_negative: nbytes >= 0
 		local
 			i: INTEGER
-			epx_input_buffer: EPX_STREAM_BUFFER
 			file: EPX_CHARACTER_INPUT_STREAM
 			buffer: STDC_BUFFER
 			remaining: INTEGER
@@ -968,8 +967,7 @@ feature {NONE} -- Scanning literals
 			-- Branch depending if we have an EPX_STREAM_BUFFER or not.
 			remaining := (nbytes - i) + 1
 			if remaining > 0 then
-				epx_input_buffer ?= input_buffer
-				if epx_input_buffer = Void then
+				if not attached {EPX_STREAM_BUFFER} input_buffer as epx_input_buffer then
 					from
 					until
 						end_of_input or else

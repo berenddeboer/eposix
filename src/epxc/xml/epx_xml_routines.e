@@ -66,8 +66,6 @@ feature -- Conversions
 				i := 2
 			invariant
 				Result = Void or else Result.count = a_tag_name.count
-			variant
-				(a_tag_name.count + 1) - i
 			until
 				i > a_tag_name.count
 			loop
@@ -78,6 +76,8 @@ feature -- Conversions
 					Result.put ('-', i)
 				end
 				i := i + 1
+			variant
+				(a_tag_name.count + 1) - i
 			end
 			if Result = Void then
 				Result := a_tag_name

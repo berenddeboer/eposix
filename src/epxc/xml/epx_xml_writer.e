@@ -339,7 +339,6 @@ feature -- Commands that expand `xml'
 			valid_point_for_data: is_fragment or else is_tag_started
 			valid_data: a_data = Void or else is_string (a_data)
 		local
-			uc: UC_STRING
 			s: STRING
 		do
 			if a_data /= Void and then not a_data.is_empty then
@@ -350,8 +349,7 @@ feature -- Commands that expand `xml'
 				-- when it might be faster.
 				-- When there are no meta characters, the first method
 				-- should be faster.
-				uc ?= a_data
-				if uc = Void and then a_data.count < 256 then
+				if not attached {UC_STRING} a_data and then a_data.count < 256 then
 					s := a_data.twin
 					replace_content_meta_characters (s)
 					extend (s)
@@ -824,8 +822,6 @@ feature -- Quote unsafe characters
 		do
 			from
 				i := 1
-			variant
-				2 + (s.count - i)
 			until
 				i > s.count
 			loop
@@ -858,6 +854,8 @@ feature -- Quote unsafe characters
 				else
 					i := i + 1
 				end
+			variant
+				2 + (s.count - i)
 			end
 		end
 

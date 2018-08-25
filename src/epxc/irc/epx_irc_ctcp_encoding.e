@@ -204,8 +204,6 @@ feature -- Extract
 			create { DS_LINKED_LIST [EPX_IRC_CTCP_MESSAGE] } Result.make
 			from
 				i := 1
-			variant
-				(s.count - i) + 1
 			until
 				i > s.count
 			loop
@@ -240,6 +238,8 @@ feature -- Extract
 				else
 					i := i + 1
 				end
+			variant
+				(s.count - i) + 1
 			end
 		end
 
