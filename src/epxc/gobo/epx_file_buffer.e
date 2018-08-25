@@ -18,7 +18,8 @@ inherit
 			file,
 			fill,
 			name,
-			new_default_buffer
+			new_default_buffer,
+			null_input_stream
 		end
 
 
@@ -41,6 +42,12 @@ feature -- Access
 
 	file: STDC_TEXT_FILE
 			-- Input file. Should have buffering disabled.
+
+	null_input_stream: STDC_TEXT_FILE
+			-- Null input stream
+		once
+			create Result.open_read ("/dev/null")
+		end
 
 
 feature -- Element change

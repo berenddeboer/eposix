@@ -18,7 +18,8 @@ inherit
 			file,
 			fill,
 			name,
-			new_default_buffer
+			new_default_buffer,
+			null_input_stream
 		end
 
 
@@ -41,6 +42,12 @@ feature -- Access
 
 	file: ABSTRACT_FILE_DESCRIPTOR
 			-- Input file.
+
+	null_input_stream: ABSTRACT_FILE_DESCRIPTOR
+			-- Null input stream
+		once
+			create {EPX_FILE_DESCRIPTOR} Result.open_read ("/dev/null")
+		end
 
 
 feature -- Element change
