@@ -33,4 +33,4 @@ The manual is in [doc/eposix-manual.pdf](doc/eposix-manual.pdf).
 
 # Development status #
 
-[![Build Status](https://api.travis-ci.org/eiffelhub/iron.svg?branch=master)](https://travis-ci.org/eiffelhub/iron/)
+[![Build Status](https://api.travis-ci.org/berenddeboer/eposix.svg?branch=master)](https://travis-ci.org/berenddeboer/eposix/)
