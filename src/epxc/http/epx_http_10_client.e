@@ -553,6 +553,7 @@ feature -- Response
 			-- Note then when a redirect is followed, the `server_name'
 			-- and `port' will change to the redirected server.
 		require
+			open: is_open
 			last_verb_set: attached last_verb
 		local
 			redirected_counter: INTEGER
