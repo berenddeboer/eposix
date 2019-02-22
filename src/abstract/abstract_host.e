@@ -292,7 +292,6 @@ invariant
 			((name /= Void) = (canonical_name /= Void))
 	has_at_least_one_ip_address: found = (addresses /= Void and then addresses.count > 0)
 	only_non_void_addresses: found implies is_every_address_not_void
-	has_aliases: found = (aliases /= Void)
 	valid_length: found implies address_length > 0
 	consistent: addresses /= Void and then addresses.count > 0 implies found
 	my_not_found_reason_valid: found = (my_not_found_reason = 0)
