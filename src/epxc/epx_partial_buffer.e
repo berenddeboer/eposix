@@ -3,8 +3,6 @@ note
 	description: "Extension to STDC_BUFFER that has the ability to set the `count'. Only up to `count' bytes can be read."
 
 	author: "Berend de Boer"
-	date: "$Date: 2007/11/22 $"
-	revision: "$Revision: #2 $"
 
 
 class
