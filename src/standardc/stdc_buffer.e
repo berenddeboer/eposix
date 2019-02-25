@@ -339,6 +339,14 @@ feature -- Access
 
 feature -- Set/get bytes (8-bit data)
 
+	peek_byte (index: INTEGER): NATURAL_8
+			-- Read character at position `index'.
+		require
+			valid_index: is_valid_index (index)
+		do
+			Result := posix_peek_byte (ptr, index)
+		end
+
 	peek_uint8 alias "@" (index: INTEGER): INTEGER
 			-- consider memory an array of 8 bit values.
 		require
@@ -1162,73 +1170,83 @@ feature {NONE} -- Counting of allocated resource
 
 feature {NONE} -- POSIX C interface
 
-	posix_peek_character (p: POINTER; index: INTEGER): CHARACTER
-			-- Read character at position `index'.
+	posix_peek_byte (p: POINTER; an_index: INTEGER): NATURAL_8
+			-- Read byte at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C inline"
 		alias "[
-*((EIF_CHARACTER*)(((char*)$p) + $index))
+*((EIF_NATURAL_8 *)(((char*)$p) + $an_index))
 ]"
 		end
 
-	posix_peek_int16_native (p: POINTER; index: INTEGER): INTEGER
-			-- Read word at position `index'.
-		require
-			valid_memory: p /= default_pointer
-		external "C"
-		end
-
-	posix_peek_int32_native (p: POINTER; index: INTEGER): INTEGER
-			-- Read integer at position `index'.
+	posix_peek_character (p: POINTER; an_index: INTEGER): CHARACTER
+			-- Read character at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C inline"
 		alias "[
-*((EIF_INTEGER*)(((char*)$p) + $index))
+*((EIF_CHARACTER*)(((char*)$p) + $an_index))
 ]"
 		end
 
-	posix_peek_int64_native (p: POINTER; index: INTEGER): INTEGER_64
-			-- Read integer at position `index'.
+	posix_peek_int16_native (p: POINTER; an_index: INTEGER): INTEGER
+			-- Read word at position `an_index'.
+		require
+			valid_memory: p /= default_pointer
+		external "C"
+		end
+
+	posix_peek_int32_native (p: POINTER; an_index: INTEGER): INTEGER
+			-- Read integer at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C inline"
 		alias "[
-*((EIF_INTEGER_64*)(((char*)$p) + $index))
+*((EIF_INTEGER*)(((char*)$p) + $an_index))
 ]"
 		end
 
-	posix_peek_uint8 (p: POINTER; index: INTEGER): INTEGER
-			-- Read unsigned 8 bit value at position `index'.
+	posix_peek_int64_native (p: POINTER; an_index: INTEGER): INTEGER_64
+			-- Read integer at position `an_index'.
+		require
+			valid_memory: p /= default_pointer
+		external "C inline"
+		alias "[
+*((EIF_INTEGER_64*)(((char*)$p) + $an_index))
+]"
+		end
+
+	posix_peek_uint8 (p: POINTER; an_index: INTEGER): INTEGER
+			-- Read unsigned 8 bit value at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_peek_uint16_native (p: POINTER; index: INTEGER): INTEGER
-			-- Read unsigned 16 bit value at position `index'.
+	posix_peek_uint16_native (p: POINTER; an_index: INTEGER): INTEGER
+			-- Read unsigned 16 bit value at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_peek_uint32_native (p: POINTER; index: INTEGER): INTEGER
-			-- Read unsigned 32 bit value at position `index'.
+	posix_peek_uint32_native (p: POINTER; an_index: INTEGER): INTEGER
+			-- Read unsigned 32 bit value at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
-	posix_poke_uint8 (p: POINTER; index: INTEGER; value: INTEGER)
-			-- Set byte at position `index'.
+	posix_poke_uint8 (p: POINTER; an_index: INTEGER; value: INTEGER)
+			-- Set byte at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
 		end
 
 	posix_poke_character (p: POINTER; offset: INTEGER; value: CHARACTER)
-			-- Set character at position `index'.
+			-- Set character at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C inline"
@@ -1244,8 +1262,8 @@ feature {NONE} -- POSIX C interface
 		external "C"
 		end
 
-	posix_poke_uint16_native (p: POINTER; index: INTEGER; value: INTEGER)
-			-- Set byte at position `index'.
+	posix_poke_uint16_native (p: POINTER; an_index: INTEGER; value: INTEGER)
+			-- Set byte at position `an_index'.
 		require
 			valid_memory: p /= default_pointer
 		external "C"
