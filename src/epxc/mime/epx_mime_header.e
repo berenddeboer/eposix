@@ -224,7 +224,7 @@ feature -- Change
 			field_is_last: all_fields.last = a_field
 		end
 
-	add_new_field (a_name, a_value: STRING)
+	add_new_field (a_name, a_value: READABLE_STRING_8)
 			-- Add new unstructured field.
 		require
 			valid_name: is_valid_mime_name (a_name)
