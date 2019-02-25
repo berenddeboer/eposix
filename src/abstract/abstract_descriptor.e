@@ -339,7 +339,7 @@ feature -- Eiffel like output
 	put (a: ANY)
 			-- Write any Eiffel object as string using its `out' value.
 		do
-			if a /= Void then
+			if attached a then
 				put_string (a.out)
 			end
 		end
