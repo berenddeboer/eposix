@@ -89,12 +89,14 @@ feature -- Output
 					create cl.make (body_size)
 					header.add_field (cl)
 				end
-			else
-				body_size := header.item (field_name_content_length).value.to_integer
-				-- check body size for client
-					check
-						content_length_correct: body_size = body_text.count
-					end
+			-- This check makes no sense, because body data can be written after this request,
+			-- for example with put_buffer calls (think file uploads).
+			-- else
+			-- 	body_size := header.item (field_name_content_length).value.to_integer
+			-- 	-- check body size for client
+			-- 		check
+			-- 			content_length_correct: body_size = body_text.count
+			-- 		end
 			end
 			header.append_fields_to_string (s)
 			s.append_string (once_crlf)
