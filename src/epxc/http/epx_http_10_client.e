@@ -284,8 +284,12 @@ feature -- Requests
 			-- Entire request available, send it all at once
 			if is_open then
 				debug ("http_client")
+					print ("============= HTTP REQUEST =============%N")
 					print (l_request)
-					print (once_new_line)
+					if l_request.item (l_request.count - 1) /= '%N' then
+						print (once_new_line)
+					end
+					print ("============= END HTTP REQUEST =============%N")
 				end
 				if attached http as a_http then
 					a_http.put_string (l_request)
@@ -730,12 +734,14 @@ feature {NONE} -- Implementation
 					if attached my_parser.part as a_response then
 						response := a_response
 						debug ("http_client")
+							print ("============= HTTP RESPONSE =============%N")
 							print (response_code.out)
 							print (" ")
 							print (response_phrase)
 							print ("%N")
 							print (a_response.as_string)
 							print ("%N")
+							print ("============= END HTTP RESPONSE =============%N")
 						end
 						if not including_body then
 							my_parser.read_first_body_part
