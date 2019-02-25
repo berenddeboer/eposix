@@ -236,7 +236,7 @@ feature {NONE} -- Implementation
 -- 	socket: ABSTRACT_TCP_CLIENT_SOCKET
 	socket: detachable EPX_TEXT_IO_STREAM
 			-- Connection to server;
-			-- Because of use of `sslcient', tunneling through ssl, this
+			-- Because of use of `openssl s_client', tunneling through ssl, this
 			-- cannot be a ABSTRACT_TCP_CLIENT_SOCKET, which it would be
 			-- if ssl was natively supported.
 
