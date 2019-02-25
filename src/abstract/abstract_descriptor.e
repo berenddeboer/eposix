@@ -353,6 +353,7 @@ feature -- Eiffel like output
 
 	write_character (c: CHARACTER)
 			-- Write a character.
+		obsolete "Use `put_character` instead."
 		require
 			is_open_write: is_open_write
 		do
@@ -361,6 +362,7 @@ feature -- Eiffel like output
 
 	write_string, puts (a_string: STRING)
 			-- Write `a_string' to output stream.
+		obsolete "Use `put_string` instead."
 		require
 			is_open_write: is_open_write
 			a_string_not_void: a_string /= Void
@@ -370,6 +372,7 @@ feature -- Eiffel like output
 
 	put_string (a_string: STRING)
 			-- Write `a_string' to output stream.
+			-- `a_string' may contain null ('%U') characters.
 		local
 			p: POINTER
 		do
