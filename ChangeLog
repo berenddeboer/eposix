@@ -1,3 +1,10 @@
+2019-02-25  Berend de Boer  <berend@pobox.com>
+
+	* !STDC_BUFFER: add new method peek_byte which returns a NATURAL_8.
+
+	* !EPX_MIME_PART: Fix bad assertion about Content-Length
+
+
 2018-07-16  Berend de Boer  <berend@pobox.com>
 
 	* !EPX_MIME_BODY_STRING.stream: bug fix: always returned first value, even on second use.
