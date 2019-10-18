@@ -1289,7 +1289,6 @@ feature -- Access
 			-- way.
 		require
 			not_end_of_input: not end_of_input
-			no_body: part.body = Void
 		do
 			part.clear_body
 			part.create_singlepart_body
