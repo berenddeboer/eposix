@@ -370,7 +370,7 @@ feature -- Eiffel like output
 			put_string (a_string)
 		end
 
-	put_string (a_string: STRING)
+	put_string (a_string: READABLE_STRING_8)
 			-- Write `a_string' to output stream.
 			-- `a_string' may contain null ('%U') characters.
 		local

@@ -792,7 +792,7 @@ feature -- write, Eiffel like
 			need_flush_set: need_flush
 		end
 
-	put_string (a_string: STRING)
+	put_string (a_string: READABLE_STRING_8)
 			-- Write `a_string' to stream.
 			-- Because the way this feature is written (it supports
 			-- writing the NULL byte), it is probably a very good idea to
