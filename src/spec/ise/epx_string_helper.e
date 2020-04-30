@@ -12,9 +12,6 @@ class
 inherit
 
 	ABSTRACT_STRING_HELPER
-		redefine
-			unfreeze_all
-		end
 
 	EPX_ISE_GC_HELPER
 
