@@ -206,7 +206,7 @@ feature {NONE} -- Record reading
 		end
 
 	read_record_body (a_content_length: INTEGER)
-			-- Reads data, if there's an error setes `is_connection_terminated'.
+			-- Reads data, if there's an error sets `is_connection_terminated'.
 		require
 			content_length_not_negative: a_content_length >= 0
 			content_fits: body_buf.capacity >= a_content_length
@@ -284,8 +284,24 @@ feature {EPX_FAST_CGI} -- Record handlers
 		do
 		end
 
+	param_index: INTEGER
+			-- Index in buffer where to read a single name and value
+
 	fcgi_params_handler (a_content_length: INTEGER; a_content: EPX_BUFFER)
+		do
+			from
+				param_index := 0
+			until
+				param_index >= a_content_length
+			loop
+				fcgi_read_one_param (a_content_length, a_content, param_index)
+			end
+		end
+
+	fcgi_read_one_param (a_content_length: INTEGER; a_content: EPX_BUFFER; a_param_index: INTEGER)
 			-- Read params.
+		require
+			valid_index: a_content.is_valid_index (a_param_index)
 		local
 			name_start,
 			value_start: INTEGER
@@ -294,31 +310,49 @@ feature {EPX_FAST_CGI} -- Record handlers
 			value_length: INTEGER
 			name,
 			value: STRING
+			index_ok: BOOLEAN
 		do
-			name_length := a_content.peek_uint8 (0)
+			name_length := a_content.peek_uint8 (a_param_index + 0)
 			if name_length >= 128 then
 				-- Eh, we really have names with over 65536 in length??
-				name_length := a_content.peek_uint16_big_endian (2)
-				value_length_start := 4
+				name_length := a_content.peek_uint16_big_endian (a_param_index + 2)
+				value_length_start := a_param_index + 4
 			else
-				value_length_start := 1
+				value_length_start := a_param_index + 1
 			end
-			value_length := a_content.peek_uint8 (value_length_start)
-			if value_length >= 128 then
-				-- Eh, we really have values with over 65536 in length??
-				value_length := a_content.peek_uint16_big_endian (value_length_start + 2)
-				name_start := value_length_start + 4
-			else
-				name_start := value_length_start + 1
+			index_ok := a_content.is_valid_index (value_length_start)
+			if index_ok then
+				value_length := a_content.peek_uint8 (value_length_start)
+				if value_length >= 128 then
+					-- Eh, we really have values with over 65536 in length??
+					value_length := a_content.peek_uint16_big_endian (value_length_start + 2)
+					name_start := value_length_start + 4
+				else
+					name_start := value_length_start + 1
+				end
+				value_start := name_start + name_length
+				index_ok :=
+					a_content.is_valid_range (name_start, name_start + name_length - 1) and then
+					a_content.is_valid_range (value_start, value_start + value_length)
+				if index_ok then
+					name := a_content.substring (name_start, name_start + name_length - 1)
+					if value_length > 0 then
+						value := a_content.substring (value_start, value_start + value_length - 1)
+					else
+						create value.make_empty
+					end
+					param_index := value_start + value_length
+					parameters.force (value, name)
+				end
 			end
-			value_start := name_start + name_length
-			name := a_content.substring (name_start, name_start + name_length - 1)
-			if value_length > 0 then
-				value := a_content.substring (value_start, value_start + value_length - 1)
-			else
-				create value.make_empty
+
+			if not index_ok then
+				-- Invalid input, skip reading more parameters
+				param_index := a_content_length
 			end
-			parameters.force (value, name)
+		ensure
+			param_index_updated: param_index > a_param_index
+			param_index_not_too_large: param_index <= a_content_length
 		end
 
 	fcgi_stdin_handler (a_content_length: INTEGER; a_content: EPX_BUFFER)
@@ -490,5 +524,6 @@ invariant
 	output_header_buf_large_enough: output_header_buf.capacity = Fcgi_header_len
 	last_string_not_void: last_string /= Void
 	never_read_too_much_from_stdin: bytes_read <= content_length
+	param_index_not_negative: param_index >= 0
 
 end
