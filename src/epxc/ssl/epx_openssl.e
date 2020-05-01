@@ -104,7 +104,7 @@ feature -- Reading/writing commands
 			end
 		end
 
-	put_string (a_string: STRING)
+	put_string (a_string: READABLE_STRING_8)
 		do
 			if attached fd_stdin as a_fd_stdin then
 				a_fd_stdin.put_string (a_string)

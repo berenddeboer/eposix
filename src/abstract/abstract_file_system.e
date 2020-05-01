@@ -21,16 +21,16 @@ inherit
 
 feature -- Directory access
 
-	chdir (a_directory: STRING)
+	chdir (a_directory: READABLE_STRING_8)
 		obsolete "Use change_directory instead."
 		do
 			change_directory (a_directory)
 		end
 
-	change_directory (a_directory: STRING)
+	change_directory (a_directory: READABLE_STRING_8)
 			-- Changes the current working directory.
 		require
-			directory_not_empty: a_directory /= Void and then not a_directory.is_empty
+			directory_not_empty: not a_directory.is_empty
 		do
 			set_portable_path (a_directory)
 			safe_call (abstract_chdir (sh.string_to_pointer (portable_path)))
